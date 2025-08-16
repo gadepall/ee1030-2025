@@ -1,5 +1,17 @@
+%\newcounter{MYtempeqncnt}
+\DeclareMathOperator*{\Res}{Res}
+%\renewcommand{\baselinestretch}{2}
+\iffalse
+\renewcommand\thesection{\arabic{section}}
+\renewcommand\thesubsection{\thesection.\arabic{subsection}}
+\renewcommand\thesubsubsection{\thesubsection.\arabic{subsubsection}}
+
+\renewcommand\thesectiondis{\arabic{section}}
+\renewcommand\thesubsectiondis{\thesectiondis.\arabic{subsection}}
+\renewcommand\thesubsubsectiondis{\thesubsectiondis.\arabic{subsubsection}}
+\fi
+
 % correct bad hyphenation here
-\usepackage{xparse}
 \hyphenation{op-tical net-works semi-conduc-tor}
 \def\inputGnumericTable{}                                 %%
 
@@ -16,8 +28,8 @@ columns=fullflexible
 %}
 
 
-
 \providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\prt}[2]{\ensuremath{p_{#1}^{\left(#2\right)} }}        % own macro for this question
 \providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
 \providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
 \providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
@@ -28,42 +40,30 @@ columns=fullflexible
 \providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
 \providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
 \providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
-\theoremstyle{remark}
-\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
 \providecommand{\abs}[1]{\left\vert#1\right\vert}
 \providecommand{\res}[1]{\Res\displaylimits_{#1}} 
 \providecommand{\norm}[1]{\left\lVert#1\right\rVert}
+%\providecommand{\norm}[1]{\lVert#1\rVert}
 \providecommand{\mtx}[1]{\mathbf{#1}}
 \providecommand{\mean}[1]{E\left[ #1 \right]}
-\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
-%\numberwithin{equation}{subsection}
-\providecommand{\prt}[2]{\ensuremath{p_{#1}^{\left(#2\right)} }}        % own macro for this question
-\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
 \providecommand{\cond}[2]{#1\middle|#2}
-
-\let\vec\mathbf
-%\newcounter{MYtempeqncnt}
-\DeclareMathOperator*{\Res}{Res}
-%\renewcommand{\baselinestretch}{2}
-
-% correct bad hyphenation here
-\hyphenation{op-tical net-works semi-conduc-tor}
-\def\inputGnumericTable{}                                 %%
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+\providecommand{\ztransform}{\overset{\mathcal{Z}}{ \rightleftharpoons}}
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right)
+}
+%\providecommand{\hilbert}{\overset{\mathcal{H}}{ \rightleftharpoons}}
+%\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+	%\newcommand{\solution}[2]{\textbf{Solution:}{#1}}
 \newcommand{\solution}{\noindent \textbf{Solution: }}
 \newcommand{\cosec}{\,\text{cosec}\,}
 \providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
-\newcommand{\myvecf}[2][0pt]{%
-    \ensuremath{%
-        \begin{pmatrix}%
-            \renewcommand{\arraystretch}{1.5}% Adjust default row spacing
-            \def\myvec@rowspacing{#1}% Set row spacing
-            #2%
-        \end{pmatrix}%
-    }%
-}
 \newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
-	\newcommand{\augvec}[3]{\ensuremath{\begin{amatrix}{#1|#2}#3\end{amatrix}}}
 \newcommand{\mydet}[1]{\ensuremath{\begin{vmatrix}#1\end{vmatrix}}}
+\newcommand{\myaugvec}[2]{\ensuremath{\begin{amatrix}{#1}#2\end{amatrix}}}
 \providecommand{\rank}{\text{rank}}
 \providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
 \providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
@@ -75,34 +75,24 @@ columns=fullflexible
 \providecommand{\diff}[2]{\ensuremath{\frac{d{#1}}{d{#2}}}}
 \providecommand{\myceil}[1]{\left \lceil #1 \right \rceil }
 \newcommand\figref{Fig.~\ref}
-\newcommand\appref{Appendix~\ref}
-\newcommand\probref{Problem~\ref}
 \newcommand\tabref{Table~\ref}
 \newcommand{\sinc}{\,\text{sinc}\,}
 \newcommand{\rect}{\,\text{rect}\,}
 %%
+%	%\newcommand{\solution}[2]{\textbf{Solution:}{#1}}
+%\newcommand{\solution}{\noindent \textbf{Solution: }}
+%\newcommand{\cosec}{\,\text{cosec}\,}
+%\numberwithin{equation}{section}
+%\numberwithin{equation}{subsection}
+%\numberwithin{problem}{section}
+%\numberwithin{definition}{section}
+%\makeatletter
+%\@addtoreset{figure}{problem}
+%\makeatother
 
 %\let\StandardTheFigure\thefigure
 \let\vec\mathbf
-\let\define\triangleq
 
-
-\lstset{
-%language=C,
-frame=single, 
-breaklines=true,
-columns=fullflexible
-}
-
-
-\NewDocumentEnvironment{amatrix}{>{\SplitArgument{1}{|}}m}
- {\left(\makeamatrix#1}
- {\end{array}\right)}
-\NewDocumentCommand{\makeamatrix}{mm}{%
-  \IfNoValueTF{#2}
-    {\begin{array}{@{}*{#1}{c}@{}}}
-    {\begin{array}{@{}*{#1}{c}|*{#2}{c}@{}}}%
-}
 \NewDocumentCommand{\system}{gg}{%
   \IfNoValueTF{#1}
     {%
@@ -118,11 +108,29 @@ columns=fullflexible
       }
     }%
 }
+%\numberwithin{equation}{section}
+%\numberwithin{equation}{subsection}
+%\numberwithin{problem}{section}
+%\numberwithin{definition}{section}
+%\makeatletter
+%\@addtoreset{figure}{problem}
+%\makeatother
 
 %\let\StandardTheFigure\thefigure
 \let\vec\mathbf
+%\renewcommand{\thefigure}{\theproblem.\arabic{figure}}
+%\renewcommand{\thefigure}{\theproblem}
+%\setlist[enumerate,1]{before=\renewcommand\theequation{\theenumi.\arabic{equation}}
+%\counterwithin{equation}{enumi}
 
 
+%\renewcommand{\theequation}{\arabic{subsection}.\arabic{equation}}
+
+%\def\putbox#1#2#3{\makebox[0in][l]{\makebox[#1][l]{}\raisebox{\baselineskip}[0in][0in]{\raisebox{#2}[0in][0in]{#3}}}}
+%     \def\rightbox#1{\makebox[0in][r]{#1}}
+%     \def\centbox#1{\makebox[0in]{#1}}
+%     \def\topbox#1{\raisebox{-\baselineskip}[0in][0in]{#1}}
+%     \def\midbox#1{\raisebox{-0.5\baselineskip}[0in][0in]{#1}}
 \newcounter{matchleft}\newcounter{matchright}
 
 \newenvironment{matchtabular}{%
@@ -133,10 +141,3 @@ columns=fullflexible
     >{\leavevmode\hbox to 1.5em{\stepcounter{matchright}\alph{matchright})}}X%
     }%
 }{\endtabularx}
-%\makeatletter
-%\renewcommand{\subsection}{\@startsection{subsection}{2}{0pt}%
-%  {-2\parskip}%
-%  {0.1\baselineskip}%
-%  {\normalfont\large\bfseries}}
-%\makeatother
-
