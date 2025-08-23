@@ -580,7 +580,7 @@
      Which of the following queries are equivalent to this query in English? \\ “Find the distinct names of all students who score more than 90\% in the course numbered 107”
      \begin{enumerate}[label=(\Roman*)]
          \item SELECT DISTINCT S.sname\\ FROM Students as S, Registration as R \\ WHERE R.rollno=S.rollno AND R.courseno=107 AND R.percent >90 
-         \item $\Pi_{sname} (\sigma_{courseno=107 \land percent} > 90 (Registration ⋈ Students)) $
+         \item $\Pi_{sname} (\sigma_{courseno=107 \land percent} > 90 (Registration \bowtie Students)) $
          \item $\{T | \exists S \epsilon Students, \exists R \epsilon Registration ( S.rollno=R.rollno \land R.courseno=107 \land R.percent>90 \land T.sname=S.sname)\}$
          \item $\{<SN> | \exists S_R \exists R_P ( <SR, SN> \epsilon Students \land <S_R, 107, R_P> \epsilon Registration \land R_P>90)\}$ 
      \end{enumerate}
