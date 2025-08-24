@@ -1,5 +1,9 @@
 #include <stdio.h>
+<<<<<<< HEAD
+#include <math.h>
+=======
 #include<math.h>
+>>>>>>> d734831 (Assignment)
 int main() {
 
 float c= 31.4;
