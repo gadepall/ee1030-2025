@@ -1,12 +1,14 @@
-import subprocess
+import ctypes
 
-try:
-    subprocess.run(["gcc", "mid.c", "-o", "mid","-lm"], check=True)
-
-    result = subprocess.run(["./mid"], capture_output=True, text=True, check=True)
+def get_point_from_c():
+    lib = ctypes.CDLL('./mid.so')
     
-    print(result.stdout)
-
-except (subprocess.CalledProcessError, FileNotFoundError) as e:
-    # If anything goes wrong, print a simple error message.
-    print(f"An error occurred: {e}")
+    # Define C variable types for the output
+    xc_c = ctypes.c_double()
+    yc_c = ctypes.c_double()
+    
+    # Call the C function
+    lib.calculate_section_point(ctypes.byref(xc_c), ctypes.byref(yc_c))
+    
+    # Return the values
+    return xc_c.value, yc_c.value

@@ -74,8 +74,8 @@ columns=fullflexible
   showstringspaces=false
 }
 
-\title{Problem 1.5.11}
-\author{Venkata Sai}
+\title{Problem 2.4.18}
+\author{ee25btech11023-Venkata Sai}
 
 \date{\today} 
 \begin{document}
@@ -92,8 +92,7 @@ columns=fullflexible
 \begin{frame}
 \frametitle{Problem Statement}
 %
- The point \textbf{R} divides the line segment AB, where \textbf{A}$\brak{-4,0}$ and \textbf{B}$\brak{0,6}$ such that
-AR = $\frac{3}{4}$AB. Find the coordinates of \textbf{R}. 
+Find the values of $p$ so that the lines $\frac{1-x}{3} = \frac{7y-14}{2p} = \frac{z-3}{2}$ and $\frac{7-7x}{3p} = \frac{y-5}{1} = \frac{6-z}{5}$ are at right angles. 
  \begin{table}[h!]    
   \centering
   \input{table/table}
@@ -104,49 +103,57 @@ AR = $\frac{3}{4}$AB. Find the coordinates of \textbf{R}.
 
 %\subsection{Literature}
 \section{Solution}
-\subsection{Section Formula}
+\subsection{Requirement}
 \begin{frame}
-\frametitle{Section Formula}
+\frametitle{Requirement}
 %\framesubtitle{Literature}
-Formula:
+To show that two lines are at right angles
 \begin{align}
-\vec{P}=\frac{k(\vec{B})+(\vec{A})}{k+1}=\myvec{x\\y}
+ \myvec{\vec{m_1}}^\top\myvec{\vec{m_2}} = 0 
 \end{align}
-Where: 
-
-\centering{'k' is the ratio in which the point divides the line segment}
-
-\begin{align}
-\vec{A}=\myvec{-4\\0} \hspace{1cm} \vec{B}=\myvec{0\\6} 
-\end{align}
-
 
 \end{frame}
-\subsection{Obtaining $k$ Value}
+\subsection{Transformation of given lines}
 \begin{frame}
-\frametitle{Obtaining $k$ Value}
+\frametitle{Transformation of given lines}
+Line 1:
 \begin{align}
-	AR&=\frac{3}{4}AB \\
-    AR&=\frac{3}{4}(AR+RB) \\
-    4AR&=3AR+3RB \\
-    AR&=3RB\\
-\frac{AR}{RB}&=3
+\frac{1-x}{3} = \frac{7y-14}{2p} = \frac{z-3}{2} \implies \frac{x-1}{-3} = \frac{y-2}{\frac{2p}{7}} = \frac{z-3}{2}
 \end{align}
-Hence k=3
+Line 2:
+\begin{align}
+\frac{7-7x}{3p} = \frac{y-5}{1} = \frac{6-z}{5} \implies \frac{x-1}{-\frac{3p}{7}} = \frac{y-5}{1} = \frac{z-6}{-5}
+\end{align}
 \end{frame}
-\subsection{Obtaining Point}
+\subsection{Direction Vectors}
 \begin{frame}
-\frametitle{Obtaining Point}
-
+\frametitle{Direction Vectors}
+Direction vector for line 1:
 \begin{align}
-P=\frac{3B+A}{4}&=\frac{3\myvec{0\\6}+\myvec{-4\\0}}{4}=\frac{\myvec{-4\\18}}{4} \\
-P&=\myvec{-1\\\frac{9}{2}}
+\vec{m_1} = \myvec{-3 \\ \frac{2p}{7} \\ 2}
 \end{align}
+Direction vector for line 2:
+\begin{align}
+\vec{m_2} = \myvec{-\frac{3p}{7} \\ 1 \\ -5}
+\end{align}
+\end{frame}
 
-Hence the coordinates of $\vec{P}$ are $\brak{-1,\frac{9}{2}}$
-
-
-
+\subsection{Answer}
+\begin{frame}
+\frametitle{Answer}
+\begin{align}
+\myvec{\vec{m_1}}^\top\myvec{\vec{m_2}} = 0 
+\end{align}
+\begin{align}
+\myvec{-3 \ \frac{2p}{7} \ 2}\myvec{-\frac{3p}{7} \\ 1 \\ -5}=0  
+\end{align}
+\begin{align}
+\brak{-3}\brak{-\frac{3p}{7}} + \brak{\frac{2p}{7}}\brak{1} + \brak{2}\brak{-5} = 0
+\end{align}
+\begin{align}
+p = \frac{70}{11}
+\end{align}
+Hence the value of $p$ is $\frac{70}{11}$
 \end{frame}
 
 \subsection{Plot}
@@ -155,7 +162,7 @@ Hence the coordinates of $\vec{P}$ are $\brak{-1,\frac{9}{2}}$
 
 \begin{figure}[h!]
    \centering
-   \includegraphics[width=0.9\linewidth]{figs/fig1.png}
+   \includegraphics[width=0.8\linewidth]{figs/fig1.png}
 	\caption{}
    \label{stemplot}
 \end{figure}
@@ -163,69 +170,72 @@ Hence the coordinates of $\vec{P}$ are $\brak{-1,\frac{9}{2}}$
 
 \section{C Code}
 \begin{frame}[fragile]
-\frametitle{C Code for generating points on line}
+\frametitle{C Code for Finding $p$ value}
 \begin{lstlisting}[language=C]
-#include <math.h>
+include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-
-#include "libs/matfun.h"
-#include "libs/geofun.h"
 
 int main() {
-    double **k, **M, **C;
-    int x1 = -4, x2 = 0, y1 = 0, y2 = 6;
 
-    // Create matrices
-    M = createMat(2, 2);
- 
+    double p;
+    double m1_p_coeffs[3] = {0.0, 2.0/7.0, 0.0};
+    double m1_consts[3] = {-3.0, 0.0, 2.0};
+
+    double m2_p_coeffs[3] = {-3.0/7.0, 0.0, 0.0};
+    double m2_consts[3] = {0.0, 1.0, -5.0};
+    
+    // Calculate A (the total coefficient for 'p') from the dot product expansion.
+    double p_coefficient = (m1_consts[0] * m2_p_coeffs[0]) + (m1_p_coeffs[0] * m2_consts[0]) +(m1_consts[1] * m2_p_coeffs[1]) + (m1_p_coeffs[1] * m2_consts[1]) + (m1_consts[2] * m2_p_coeffs[2]) + (m1_p_coeffs[2] * 
     \end{lstlisting}
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{C Code for generating points on line}
+\frametitle{C Code for Finding $p$ value}
 \begin{lstlisting}[language=C]
-   k = createMat(2, 1);
-    C = createMat(2, 1);
+  m2_consts[2]);
+// Calculate B (the total constant term) from the dot product expansion.
+    double constant_term = (m1_consts[0] * m2_consts[0]) +
+                         (m1_consts[1] * m2_consts[1]) +
+                         (m1_consts[2] * m2_consts[2]);
 
-    M[0][1] = x1;  // x1 = -4
-    M[1][1] = y1;  // y1 = 0
 
-    M[0][0] = x2;  // x2 = 0
-    M[1][0] = y2;  // y2 = 6
-    
-    k[0][0] = 3.0 / 4;  // weight for B (column 0)
-    k[1][0] = 1.0 / 4;  // weight for A (column 1)
+    p = -constant_term / p_coefficient;
 
-    C = Matmul(M, k, 2, 2, 1);
+    double m1_final[3];
+    double m2_final[3];
 
-    // Write result to file
-    FILE *file = fopen("values.dat", "w");
-    if (file == NULL) {
- 
+    m1_final[0] = m1_consts[0] + m1_p_coeffs[0] * p;
+    m1_final[1] = m1_consts[1] + m1_p_coeffs[1] * p;
 \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{C Code for generating points on line}
+\frametitle{C Code for Finding $p$ value}
 \begin{lstlisting}[language=C]
-       printf("Error opening file!\n");
+     m1_final[2] = m1_consts[2] + m1_p_coeffs[2] * p;
+    m2_final[0] = m2_consts[0] + m2_p_coeffs[0] * p;
+    m2_final[1] = m2_consts[1] + m2_p_coeffs[1] * p;
+    m2_final[2] = m2_consts[2] + m2_p_coeffs[2] * p;
+
+
+    FILE *file = fopen("values.dat", "w");
+    if (file == NULL) {
+        printf("Error opening file!\n");
         return 1;
     }
 
-    fprintf(file, "x\ty\t of C\n");
-    fprintf(file, "%.02lf\t%.02lf\n", C[0][0], C[1][0]);  // x and y of C
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code for Finding $p$ value}
+\begin{lstlisting}[language=C]
+    fprintf(file, "%.4f %.4f %.4f\n", m1_final[0], m1_final[1], m1_final[2]);
+    fprintf(file, "%.4f %.4f %.4f\n", m2_final[0], m2_final[1], m2_final[2]);
 
     fclose(file);
-    printf("Results have been written to values.dat\n");
-
-    // Free memory
-    freeMat(M, 2);
-    freeMat(k, 2);
-    freeMat(C, 2);
+    printf("Direction vectors calculated and written to values.dat\n");
+    printf("(The calculated value of p was: %.4f)\n", p);
 
     return 0;
 }
@@ -265,16 +275,15 @@ xc = data[0]  # Extract x-coordinate (e.g., -1)
 yc = data[1]  # Extract y-coordinate (e.g., 4.5)
 
 # Given points
-A = np.array([-4, 0]).reshape(-1, 1)
-B = np.array([0, 6]).reshape(-1, 1)
-R = np.array([xc, yc]).reshape(-1, 1)
+A = np.array([-6, 7]).reshape(-1, 1)
+B = np.array([-1, -5]).reshape(-1, 1)
+P = np.array([xc, yc]).reshape(-1, 1)
 
 # Generating line AB
 x_AB = line_gen(A, B)
 
 # Plotting
 plt.plot(x_AB[0, :], x_AB[1, :], label='$AB$')
-
 
 \end{lstlisting}
 \end{frame}
@@ -283,32 +292,29 @@ plt.plot(x_AB[0, :], x_AB[1, :], label='$AB$')
 \frametitle{Python Code for Plotting}
 \begin{lstlisting}[language=Python]
 # Labeling the coordinates
-tri_coords = np.block([[A, B, R]])
+tri_coords = np.block([[A, B, P]])
 plt.scatter(tri_coords[0, :], tri_coords[1, :])
 
-vert_labels = ['A', 'B', 'R']
+vert_labels = ['A', 'B', 'P']
 
 # Helper function: format number with decimal only if needed
 def fmt(val):
     return f"{val:.1f}" if abs(val - round(val)) > 1e-6 else f"{int(val)}"
 
 for i, txt in enumerate(vert_labels):
-    x = tri_coords[0, i]
-    y = tri_coords[1, i]
+    x = tri_coords[0, i].item()
+    y = tri_coords[1, i].item()
     plt.annotate(f'{txt}\n({fmt(x)}, {fmt(y)})',
                  (x, y),
                  textcoords="offset points",
-
+                 xytext=(20, -10),
+                 ha='center')
 \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Python Code for Plotting}
 \begin{lstlisting}[language=Python]
-                 xytext=(20, -10),
-                 ha='center')
-
-# Styling
 ax = plt.gca()
 ax.spines['left'].set_visible(False)
 ax.spines['right'].set_visible(False)
@@ -317,10 +323,14 @@ ax.spines['bottom'].set_visible(False)
 
 plt.legend(loc='best')
 plt.grid()
-plt.axis('equal')
 
-plt.savefig('../figs/fig1.png')
+# Increase y-axis from -8 to 8 to show full range
+plt.ylim(-7, 8)
+plt.xlim(-7,7)
+
+# Save and open
 plt.show()
+plt.savefig('../figs/fig1.png')
 \end{lstlisting}
 \end{frame}
 

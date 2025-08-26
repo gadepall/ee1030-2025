@@ -4,22 +4,16 @@
 #released under GNU GPL
 #Point Vectors
 
-
 import sys                                          #for path to external scripts
-sys.path.insert(0, '/home/kedar/Documents/matgeo/codes/CoordGeo')        #path to my scripts /home/kedar/EE1030/1-1.6-22/codes/assignment1-1-6-22.c
+sys.path.insert(0, '/workspaces/urban-potato/matgeo/codes/CoordGeo/')        #path to my scripts
+
 import numpy as np
-import numpy.linalg as LA
 import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
 from mpl_toolkits.mplot3d import Axes3D
 
-# Read the two lines from the file
-with open("values.dat", 'r') as f:
-    lines = f.readlines()
-
-# Convert each line of text into a list of floats
-m1 = [float(val) for val in lines[0].strip().split()]
-m2 = [float(val) for val in lines[1].strip().split()]
+# Import the interface and get vectors directly from the C library
+from call import get_vectors_from_c
+m1, m2 = get_vectors_from_c()
 
 # Create the plot
 fig = plt.figure(figsize=(9, 9))
@@ -44,5 +38,5 @@ ax.legend()
 plt.grid(True)
 
 # Save the plot
-plt.savefig('../figs/fig1.png')
+plt.savefig('fig1.png')
 plt.show()
