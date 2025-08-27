@@ -7,23 +7,25 @@
 import sys
 sys.path.insert(0, '/workspaces/urban-potato/matgeo/codes/CoordGeo/')  # path to my scripts
 import numpy as np
+import numpy.linalg as LA
 import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
+
 # Local imports
 from line.funcs import *
 from triangle.funcs import *
 from conics.funcs import circ_gen
 
-# Read data
-data = np.loadtxt("values.dat", skiprows=1)
-
-xc = data[0]  # Extract x-coordinate (e.g., -1)
-yc = data[1]  # Extract y-coordinate (e.g., 4.5)
+# Import the C interface and get the coordinates
+from call import get_point_from_c
+xc, yc = get_point_from_c()
 
 # Given points
 A = np.array([-6, 7]).reshape(-1, 1)
 B = np.array([-1, -5]).reshape(-1, 1)
 P = np.array([xc, yc]).reshape(-1, 1)
+
+d1= LA.norm(A-B)
+print(d1)
 
 # Generating line AB
 x_AB = line_gen(A, B)
@@ -66,4 +68,4 @@ plt.xlim(-7,7)
 
 # Save and open
 plt.show()
-plt.savefig('../figs/fig1.png')
+plt.savefig('../figs/fig1.png')	
