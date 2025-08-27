@@ -5,22 +5,23 @@
 # Section Formula
 
 import sys
-sys.path.insert(0, '/workspaces/urban-potato/matgeo/codes/CoordGeo/')  # path to my scripts
+import subprocess
+import shlex
+sys.path.insert(0, '/sdcard/Matrix/matgeo/codes/CoordGeo')  # path to my scripts
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
+
+print('Using termux? (y/n)')
+termux = input()
+
 # Local imports
 from line.funcs import *
 from triangle.funcs import *
 from conics.funcs import circ_gen
 
-# Read data
-data = np.loadtxt("values.dat", skiprows=1)
+from call import get_point_from_c
+xc, yc = get_point_from_c()
 
-xc = data[0]  # Extract x-coordinate (e.g., -1)
-yc = data[1]  # Extract y-coordinate (e.g., 4.5)
-
-# Given points
 A = np.array([-4, 0]).reshape(-1, 1)
 B = np.array([0, 6]).reshape(-1, 1)
 R = np.array([xc, yc]).reshape(-1, 1)
@@ -63,3 +64,6 @@ plt.axis('equal')
 
 plt.savefig('../figs/fig1.png')
 plt.show()
+
+if(termux == 'y'):
+    subprocess.run(shlex.split('termux-open ../figs/fig1.png'))
