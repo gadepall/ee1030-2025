@@ -1,0 +1,123 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm} % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{2.10.62}
+\author{EE25BTECH11033 - Kavin}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+\textbf{Question}:\\
+Find all values of $\lambda$ such that $x,y,z\neq\brak{0,0,0}$ and $$\brak{\hat{i}+\hat{j}+3\hat{k}}x+\brak{3\hat{i}-3\hat{j}+\hat{k}}y+\brak{-4\hat{i}+5\hat{j}}z=\lambda\brak{x\hat{i}+y\hat{j}+z\hat{k}}$$ where $\hat{i}, \hat{j}, \hat{k}$ are unit vectors along the coordinate axes.\\
+\bigskip
+
+\textbf{Solution}:\\
+The given vector equation is:
+\begin{align}
+(\hat{i} + \hat{j} + 3\hat{k})x + (3\hat{i} - 3\hat{j} + \hat{k})y + (-4\hat{i} + 5\hat{j})z = \lambda(x\hat{i} + y\hat{j} + z\hat{k})
+\end{align}\\
+which can be expressed as,
+\begin{align}
+x\myvec{1\\1\\3} + y\myvec{3\\-3\\1} + z\myvec{-4\\5\\0} = \lambda\myvec{x\\y\\z}
+\end{align}
+\begin{align}
+\implies\begin{myvec}{1 & 3 & -4 \\ 1 & -3 & 5 \\ 3 & 1 & 0}\end{myvec}\begin{myvec}{x \\ y \\ z}\end{myvec} = \lambda\begin{myvec}{x \\ y \\ z}\end{myvec}
+\end{align}
+\begin{align}
+\implies A\vec{v} = \lambda\vec{v}
+\end{align}
+This is a homogeneous system of linear equations. It can be expressed in matrix form as $(A - \lambda I)\vec{v} = 0$, where:
+\begin{align}
+A = \begin{myvec}{1 & 3 & -4 \\ 1 & -3 & 5 \\ 3 & 1 & 0}\end{myvec},  I = \begin{myvec}{1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1}\end{myvec},  \vec{v} = \begin{myvec}{x \\ y \\ z}\end{myvec}
+\end{align}
+
+The problem states that $(x, y, z) \neq (0, 0, 0)$, which means we are looking for a \textbf{non-trivial solution} for the vector $\vec{v}$. This is a \textbf{eigenvalue problem}. The values of $\lambda$ for which non-trivial solutions exist are the eigenvalues of the matrix $A$.\\
+A non-trivial solution exists if and only if the determinant of the coefficient matrix is zero. This gives us the characteristic equation:
+\begin{align}
+\mydet{A - \lambda I} = 0
+\end{align}
+\begin{align}
+\mydet{
+1-\lambda & 3 & -4 \\
+1 & -3-\lambda & 5 \\
+3 & 1 & -\lambda
+}= 0
+\end{align}
+
+Now, we calculate the determinant by expanding along the first row:
+\begin{align}
+(1-\lambda) \mydet{-3-\lambda & 5 \\ 1 & -\lambda} - 3 \mydet{ 1 & 5 \\ 3 & -\lambda } + (-4) \mydet{ 1 & -3-\lambda \\ 3 & 1 } &=0 \\
+(1-\lambda)((-3-\lambda)(-\lambda) - 5) - 3(-\lambda - 15) - 4(1 - 3(-3-\lambda)) &= 0\\
+(1-\lambda)(\lambda^2 + 3\lambda - 5) + 3(\lambda + 15) - 4(10 + 3\lambda) &= 0\\
+(\lambda^2 + 3\lambda - 5 - \lambda^3 - 3\lambda^2 + 5\lambda) + (3\lambda + 45) - (40 + 12\lambda) &= 0\\
+-\lambda^3 - 2\lambda^2 + 8\lambda - 5 + 3\lambda + 45 - 40 - 12\lambda &= 0
+\end{align}
+
+Combine like terms to get the characteristic polynomial:
+\begin{align}
+-\lambda^3 - 2\lambda^2 - \lambda &= 0 \\
+\lambda^3 + 2\lambda^2 + \lambda &= 0
+\end{align}
+
+Factoring out $\lambda$:
+\begin{align}
+\lambda(\lambda^2 + 2\lambda + 1) = 0
+\end{align}
+The quadratic term is a perfect square:
+\begin{align}
+\lambda(\lambda + 1)^2 = 0
+\end{align}
+
+The solutions for $\lambda$ are:
+\begin{align}
+\lambda = 0 \quad \text{or} \quad \lambda = -1
+\end{align}
+
+Thus, the required values of $\lambda$ are 0 and -1.
+
+\
+\end{document}

@@ -1,0 +1,251 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx} % <-- needed for images
+\def\UrlBreaks{\do\/\do-}
+
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\lstset{
+  frame=single,
+  breaklines=true,
+  columns=fullflexible,
+  basicstyle=\ttfamily\tiny   % tiny font so code fits
+}
+
+\numberwithin{equation}{section}
+
+% ---- your macros ----
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}}
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}}
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\let\vec\mathbf
+
+\title{Matgeo Presentation - Problem 2.9.14}
+\author{ee25btech11063 - Vejith}
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+The two adjacent sides of a parallelogram are represented by $2\hat{i} + 4\hat{j} + -5\hat{k}$\hspace{0.3cm}and\hspace{0.3cm}$\hat{i} + 2\hat{j} + 3\hat{k}$.find the unit vectors parallel  to its diagonals.using diagonal vectors find the area of parallelogram
+\end{frame}
+
+\begin{frame}{Description}
+\textbf{Solution: }\\
+\begin{table}[h!]    
+  \centering
+  \input{tables/table4.tex}
+  \caption{Variables Used}
+  \label{}
+\end{table}
+\end{frame}
+
+\begin{frame}{Solution}
+The diagonals of the parallelogram are given by \\
+\begin{align}
+    \Vec{a}+\Vec{b}=\myvec{3\\6\\-2} \hspace{1.5cm} \text{and}\hspace{1.5cm} \Vec{a}-\Vec{b}=\myvec{1\\2\\-8}\\
+    \notag
+    \end{align}
+ The corresponding unit vectors parallel to diagonals are\\
+ \begin{align}
+ \frac{\Vec{a}+\Vec{b}}{\norm{\Vec{a}+\Vec{b}}}=\myvec{\frac{3}{7}\\ \frac{6}{7}\\\frac{-2}{7}}\hspace{1.5cm} \text{and}\hspace{1.5cm} \frac{\Vec{a}-\Vec{b}}{\norm{\Vec{a}-\Vec{b}}}=\myvec{\frac{1}{\sqrt{69}}\\ \frac{2}{\sqrt{69}}\\\frac{-8}{\sqrt{69}}}\\
+ \notag
+ \end{align}
+ If $\Vec{d1}$ and $\Vec{d}2$ are the diagonals of a parallelogram then area of parallelogram is =$\frac{1}{2}$$\norm{\Vec{d1}\times\Vec{d2}}$\\
+ \end{frame}
+ \begin{frame}{Conclusion}
+ \begin{align}
+ \rightarrow \text{area of parallelogram}=\frac{1}{2}\norm{(\Vec{a}+\Vec{b})\times(\Vec{a}-\Vec{b})}
+\implies \text{area}=\frac{1}{2}\norm{\myvec{-44\\22\\0}}\\=\norm{\myvec{-22\\11\\0}}
+= \sqrt{605}=24.59\end{align}
+\end{frame}
+
+\begin{frame}{Plot}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\columnwidth]{figs/01.png}
+    \label{fig-1}
+\end{figure}  
+\end{frame}
+
+% --------- CODE APPENDIX ---------
+\section*{Appendix: Code}
+
+% C program
+\begin{frame}[fragile]{C Code: code.c}
+\begin{lstlisting}[language=C]
+#include <stdio.h>
+#include <math.h>
+
+/* magnitude of a 3D vector */
+double magnitude(const double v[3]) {
+    return sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2]);}
+/* normalize a 3D vector into unit; if zero vector, sets unit to 0,0,0 */
+void normalize(const double v[3], double unit[3]) {
+    double mag = magnitude(v);
+    if (mag == 0.0) {
+        unit[0] = unit[1] = unit[2] = 0.0;
+        return;}
+    unit[0] = v[0] / mag;
+    unit[1] = v[1] / mag;
+    unit[2] = v[2] / mag;}
+int main(void) {
+    FILE *fp = fopen("plgm.dat", "w");
+    if (fp == NULL) {
+        perror("fopen");
+        return 1;
+    }
+/* Given adjacent sides */
+    double a[3] = {2.0, 4.0, -5.0};
+    double b[3] = {1.0, 2.0, 3.0};
+
+    /* Diagonals */
+    double d1[3], d2[3];
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{C Code: code.c}
+\begin{lstlisting}[language=C]
+    for (int i = 0; i < 3; ++i) {
+        d1[i] = a[i] + b[i]; /* first diagonal */
+        d2[i] = a[i] - b[i]; /* second diagonal */
+    }
+
+    /* Unit vectors parallel to diagonals */
+    double u1[3], u2[3];
+    normalize(d1, u1);
+    normalize(d2, u2);
+  /* Cross product of diagonals and area = 0.5 * |d1 x d2| */
+    double cross[3];
+    cross[0] = d1[1]*d2[2] - d1[2]*d2[1];
+    cross[1] = d1[2]*d2[0] - d1[0]*d2[2];
+    cross[2] = d1[0]*d2[1] - d1[1]*d2[0];
+    double area = 0.5 * magnitude(cross);
+
+    /* Write results to plgm.dat */
+    fprintf(fp, "Adjacent sides:\n");
+    fprintf(fp, "a = (%.2f, %.2f, %.2f)\n", a[0], a[1], a[2]);
+    fprintf(fp, "b = (%.2f, %.2f, %.2f)\n\n", b[0], b[1], b[2]);
+
+    fprintf(fp, "Diagonals:\n");
+    fprintf(fp, "d1 = (%.2f, %.2f, %.2f)\n", d1[0], d1[1], d1[2]);
+    fprintf(fp, "d2 = (%.2f, %.2f, %.2f)\n\n", d2[0], d2[1], d2[2]);
+
+    fprintf(fp, "Unit vectors parallel to diagonals:\n");
+    fprintf(fp, "u1 = (%.6f, %.6f, %.6f)\n", u1[0], u1[1], u1[2]);
+    fprintf(fp, "u2 = (%.6f, %.6f, %.6f)\n\n", u2[0], u2[1], u2[2]);
+    fprintf(fp, "Area of parallelogram = %.6f\n", area);
+    fclose(fp);
+    printf("plgm.dat written successfully.\n");
+    return 0;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Python: plot.py}
+\begin{lstlisting}[language=Python]
+   import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+
+# Given adjacent sides
+a = np.array([2, 4, -5])
+b = np.array([1, 2, 3])
+
+# Diagonals
+d1 = a + b
+d2 = a - b
+
+# Define parallelogram vertices
+O = np.array([0, 0, 0])  # Origin
+A = a
+B = b
+C = a + b  # Opposite vertex
+
+# Setup 3D plot
+fig = plt.figure(figsize=(8, 6))
+ax = fig.add_subplot(111, projection="3d")
+
+# Draw the parallelogram surface
+verts = [[O, A, C, B]]
+ax.add_collection3d(Poly3DCollection(verts, alpha=0.3, facecolor="cyan"))
+
+# Plot vectors for sides
+ax.quiver(0, 0, 0, a[0], a[1], a[2], color="r", label="a (side)", linewidth=2)
+ax.quiver(0, 0, 0, b[0], b[1], b[2], color="g", label="b (side)", linewidth=2)
+
+# Plot diagonals
+ax.quiver(0, 0, 0, d1[0], d1[1], d1[2], color="b", linestyle="dashed", label="d1 = a+b")
+ax.quiver(0, 0, 0, d2[0], d2[1], d2[2], color="m", linestyle="dashed", label="d2 = a-b")
+\end{lstlisting}
+\end{frame}   
+
+\begin{frame}[fragile]{Python: plot.py}
+\begin{lstlisting}[language=Python]
+# Set labels
+ax.set_xlabel("X")
+ax.set_ylabel("Y")
+ax.set_zlabel("Z")
+ax.set_title("Parallelogram with Sides and Diagonals")
+
+# Auto scale
+max_range = np.array([a, b, d1, d2]).max() - np.array([a, b, d1, d2]).min()
+Xb = np.array([O[0], A[0], B[0], C[0], d1[0], d2[0]])
+Yb = np.array([O[1], A[1], B[1], C[1], d1[1], d2[1]])
+Zb = np.array([O[2], A[2], B[2], C[2], d1[2], d2[2]])
+
+ax.set_xlim([Xb.min()-1, Xb.max()+1])
+ax.set_ylim([Yb.min()-1, Yb.max()+1])
+ax.set_zlim([Zb.min()-1, Zb.max()+1])
+
+ax.legend()
+
+# Save figure
+plt.savefig("parallelogram.png", dpi=300)
+plt.show()
+ \end{lstlisting}
+\end{frame}   
+\end{document}

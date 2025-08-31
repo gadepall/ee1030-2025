@@ -1,90 +1,93 @@
-\documentclass[journal,onecolumn]{IEEEtran}
-\usepackage[a5paper,margin=10mm]{geometry}
+\documentclass[12pt]{article}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{array}
+\usepackage{titlesec}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{amsmath}     % For math equations
+\usepackage{amssymb}     % For advanced math symbols
+\usepackage{amsfonts} % For math fonts
+\usepackage{gvv}
+\usepackage{esint}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\titleformat{\section}{\bfseries\large}{\thesection.}{1em}{}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{caption}
 
-% Essential math and formatting packages
-\usepackage{amsmath,amssymb,amsthm}
-\usepackage{mathtools}
-\usepackage{gensymb}
-\usepackage{booktabs}
-\usepackage{tikz}
-\usetikzlibrary{arrows.meta,angles,quotes}
 
-% For better referencing and citing
-\usepackage{cite}
-\usepackage[breaklinks=true]{hyperref}
 
-% For vectors
-\newcommand{\myvec}[1]{\begin{bmatrix}#1\end{bmatrix}}
 
-% Set spacing and counters
-\setlength{\headheight}{1cm}
-\setlength{\headsep}{0mm}
-\setlength{\intextsep}{10pt}
-
-% Commented out as they cause errors without enumerate environment
-%\numberwithin{equation}{enumi}
-%\numberwithin{figure}{enumi}
-%\numberwithin{table}{enumi}
-
-% Title and author
-\title{Coordinate Calculation for Point Dividing a Line Segment}
-\author{AI25BTECH11034 - Sujal Chauhan}
 
 \begin{document}
+\begin{center}
+    \textbf{\Large AI25BTECH11034-SUJAL CHAUHAN}
+\end{center}
+\textbf{Problem 1.4.4 .}  
+Find the coordinate of the point which divides the line segment joining the point $\vec{P}(4,3) $and $\vec{Q}(8,5)$ in the ratio 3:1 internally.
 
-\maketitle
+\textbf{Solution.}  
 
-\textbf{Question:}\\
-Find the coordinate of the point which divides the line segment joining points \(A(4,-3)\) and \(B(8,5)\) in the ratio \(3:1\) internally.\\[1cm]
-
-\textbf{Solution:}\\
-Let \(O\) be the origin. Then the position vectors 
-\[
-\overrightarrow{OA} = \myvec{4 \\ -3}, \quad \overrightarrow{OB} = \myvec{8 \\ 5}.
-\]
-
-The point \(C\), dividing the segment \(AB\) in the ratio \(3:1\) internally, has the position vector
-\[
-\overrightarrow{OC} = \frac{3 \overrightarrow{OB} + 1 \overrightarrow{OA}}{3 + 1} = \frac{3 \myvec{8 \\ 5} + \myvec{4 \\ -3}}{4} = \frac{\myvec{24 \\ 15} + \myvec{4 \\ -3}}{4} = \frac{\myvec{28 \\ 12}}{4} = \myvec{7 \\ 3}.
-\]
-
-Therefore, the coordinate of point \(C\) is \(\boxed{(7,3)}\).
-
-\begin{figure}[htbp]
+\begin{table}[H]
 \centering
-% \input{codes/vectordiagram} % Removed as file likely missing
+\begin{tabular}[12pt]{ |c| c|}
+    \hline
+    \textbf{Input variable} & \textbf{Value}\\ 
+    \hline
+    $\vec{P}$ & \myvec{4 \\3 } \\
+    \hline 
+    $\vec{Q}$ & \myvec{8 \\ 5}\\
+    \hline
+    $\vec{PR}:\vec{RP}$ & $3:1$\\
+    \hline
+    \end{tabular}
+    \caption{
+    \label{}
+    }
+ \end{table}
+Let the position vectors be
 
-% TikZ diagram inserted inline instead:
-\begin{tikzpicture}[>=Stealth, scale=1.0]
+$$
+\vec{P} = \myvec{4\\ 3}, \qquad
+\vec{Q} = \myvec{8 \\ 5}.
+$$
+\hfill{(0)} \\
 
-    % Define points
-    \coordinate (O) at (0,0);
-    \coordinate (A) at (4,-3);
-    \coordinate (B) at (8,5);
-    \coordinate (C) at (7,3);
+If \(\vec{R}\) is the position vector of \(R\), then
+\begin{align}
+\vec{R}=\frac{3\vec{Q}+\vec{R}}{3+1}
+\end{align}
+So,
 
-    % Draw axes
-    \draw[->] (-1,0) -- (10,0) node[right] {\(x\)};
-    \draw[->] (0,-5) -- (0,7) node[above] {\(y\)};
+    
 
-    % Draw vectors
-    \draw[->, thick, blue] (O) -- (A) node[midway, below left] {\(\overrightarrow{OA}\)};
-    \draw[->, thick, red] (O) -- (B) node[midway, above right] {\(\overrightarrow{OB}\)};
-    \draw[->, thick, green!70!black] (O) -- (C) node[midway, right] {\(\overrightarrow{OC}\)};
 
-    % Mark points
-    \filldraw[black] (O) circle (2pt) node[below left] {\(O(0,0)\)};
-    \filldraw[black] (A) circle (2pt) node[below right] {\(A(4,-3)\)};
-    \filldraw[black] (B) circle (2pt) node[above right] {\(B(8,5)\)};
-    \filldraw[black] (C) circle (2pt) node[right] {\(C(7,3)\)};
+$$    \vec{R}
+= \frac{3 \myvec{8 \\ 5} + \myvec{ 4 \\3}}{4}$$
 
-    % Dashed segment AB
-    \draw[dashed, gray] (A) -- (B);
 
-\end{tikzpicture}
 
-\caption{}
-\label{1.4.4}
+Therefore, the required point is
+$$
+\boxed{\vec{R}=\myvec{7 \\ \frac{9}{2}}}
+$$
+which indeed satisfies \begin{align}
+    \vec{R} - \vec{P} = 3(\vec{Q} - \vec{P})
+\end{align}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\columnwidth]{figures/plot.png}j
+    \caption{}
+    \label{fig:placeholder}
 \end{figure}
-
 \end{document}

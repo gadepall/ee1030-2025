@@ -1,0 +1,109 @@
+\documentclass{beamer}
+\let\vec\mathbf
+\mode<presentation>
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{advdate}
+\usepackage{adjustbox}
+%\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{url}
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}} % nCr
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}} % nPr
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{{}\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+
+\providecommand{\res}[1]{\Res\displaylimits_{#1}} 
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+%\providecommand{\hilbert}{\overset{\mathcal{H}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+	%\newcommand{\solution}[2]{\textbf{Solution:}{#1}}
+%\newcommand{\solution}{\noindent \textbf{Solution: }}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+
+\title{Matrices in Geometry - 1.5.23}
+\author{EE25BTECH11035  Kushal B N}
+\date{Aug, 2025}
+
+\begin{document}
+
+\maketitle
+
+
+\begin{frame}
+\tableofcontents
+\end{frame}
+\section{Problem Statement}
+\begin{frame}
+\frametitle{Problem Statement}
+Show that the points $\vec{A}\brak{-2\hat{i}+3\hat{j}+5\hat{k}}$, $\vec{B}\brak{\hat{i}+2\hat{j}+3\hat{k}}$ and $\vec{C}\brak{7\hat{i}-\hat{k}}$ are collinear.
+\end{frame}
+
+\section{Solution}
+\begin{frame}{Solution}
+   Given $\vec{A}=\myvec{-2\\3\\5}$, $\vec{B}=\myvec{1\\2\\3}$ and $\vec{C}=\myvec{7\\0\\-1}$ are three points.\\
+   They are defined to be collinear if rank of the collinearity matrix is 1.
+   \begin{align*}
+    \text{Collinearity matrix is }\myvec{\vec{A}- \vec{C} & \vec{B}-\vec{C}}^{\top}\\
+   \end{align*}
+\begin{align}
+\vec{A}-\vec{C}=\myvec{-9\\3\\6}
+\end{align}
+\begin{align}
+\vec{B}-\vec{C}=\myvec{-6\\2\\4}
+\end{align}
+    
+\end{frame}
+
+
+
+\begin{frame}{Solution}
+\begin{align}
+\implies \text{rank}\myvec{-9&3&6 \\ -6&2&4} = 1
+\end{align}
+\begin{align}
+ \myvec{-9&3&6\\ -6&2&4}\overset{R_2 \rightarrow R_2 - \frac{2}{3}R_1}{\longrightarrow} \myvec{-9&3&6\\0&0&0}
+ \end{align}
+
+We know that for the rank of a matrix to be equal to 1, all the elements in the lower row of the matrix must be zero.\\
+So it is proved that the given points are collinear
+\end{frame}
+
+\section{Conclusion}
+\begin{frame}{Conclusion}
+Hence, as the rank of the collinearity matrix is 1, it is proved that the given three points are collinear.
+
+\end{frame}
+\end{document}
