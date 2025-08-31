@@ -1,0 +1,19 @@
+\frametitle{Pure Python: Compute \& Plot}
+\begin{lstlisting}[style=PyStyle]
+a = np.array([1,0]).reshape(-1,1)
+b = np.array([0,1]).reshape(-1,1)
+P = 2*a + b
+Q = a - 3*b
+R = section_point(P, Q, 1, 2, external=True)
+
+x_PQ = line_gen_num(P, Q, 20)
+x_PR = line_gen_num(P, R, 20)
+x_QR = line_gen_num(Q, R, 20)
+
+plt.plot(x_PQ[0,:], x_PQ[1,:], "g--", label="Line PQ")
+plt.plot(x_PR[0,:], x_PR[1,:], "r--", label="Line PR")
+plt.plot(x_QR[0,:], x_QR[1,:], "b--", label="Line QR")
+tri_coords = np.hstack((P,Q,R))
+plt.scatter(tri_coords[0,:], tri_coords[1,:])
+plt.show()
+\end{lstlisting}
