@@ -1,19 +1,21 @@
 \documentclass{beamer}
-\mode<presentation>
-\usepackage{amsmath}
-\usepackage{amssymb}
-%\usepackage{advdate}
-\usepackage{adjustbox}
-\usepackage{subcaption}
-\usepackage{enumitem}
-\usepackage{multicol}
-\usepackage{mathtools}
-\usepackage{listings}
-\usepackage{physics}
-\usepackage{url}
-\def\UrlBreaks{\do\/\do-}
+\usepackage[utf8]{inputenc}
+
 \usetheme{Boadilla}
 \usecolortheme{lily}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
 \setbeamertemplate{footline}
 {
   \leavevmode%
@@ -23,6 +25,12 @@
   \end{beamercolorbox}}%
   \vskip0pt%
 }
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
 
 \providecommand{\nCr}[2]{\,^{#1}C_{#2}} % nCr
 \providecommand{\nPr}[2]{\,^{#1}P_{#2}} % nPr
@@ -89,83 +97,68 @@ columns=fullflexible
 \begin{frame}
 \tableofcontents
 \end{frame}
+
 \section{Problem}
+
 \begin{frame}
-\frametitle{Problem Statement}
-%
+\frametitle{Problem}
 Let $\vec{a} = \hat{\vec{i}} + 2\hat{\vec{j}} + \hat{\vec{k}}$, $\vec{b} = \hat{\vec{i}} - \hat{\vec{j}} + \hat{\vec{k}}$ and $\vec{c} = \hat{\vec{i}} + \hat{\vec{j}} - \hat{\vec{k}}$. A vector in the plane of $\vec{a}$ and $\vec{b}$ whose projection on $\vec{c}$ is $\frac{1}{\sqrt{3}}$, is 
+\begin{enumerate}
+\item 4$\hat{\vec{i}} - \hat{\vec{j}} + 4\hat{\vec{k}}$
+\item 3$\hat{\vec{i}} + \hat{\vec{j}} - 3\hat{\vec{k}}$
+\item $2\hat{\vec{i}} + \hat{\vec{j}} - 2\hat{\vec{k}}$
+\item $4\hat{\vec{i}} + \hat{\vec{j}} - 4\hat{\vec{k}}$
+\end{enumerate}
 \end{frame}
 %\subsection{Literature}
 \section{Solution}
-\subsection{Formula}
+ 
+\subsection{Coplanarity}
 \begin{frame}
-\frametitle{Formula}
 \setcounter{section}{1}
-%\framesubtitle{Literature}
-Let $\vec{v}$ be the vector in the plane of $\vec{a}$ and $\vec{b}$
+\frametitle{Coplanarity}
+Let $\vec{r}$ be coplanar to $\vec{a}$ and $\vec{b}$
 \begin{align}
- [\vec{v} \quad \vec{a} \quad \vec{b}]=0 \implies \vec{v}=\alpha\vec {a}+\beta\vec {b} 
+ \vec{r}&=\vec{a}+t\vec{b} \\
+ &=\myvec{1 \\ 2 \\ 1} + t\myvec{1 \\ -1 \\ 1} = \myvec{1+t \\ 2-t \\1+t}
  \end{align}
- where
- \begin{align}
- \vec{a}=\myvec{1\\2\\1},\vec{b}=\myvec{1\\-1\\1}
- \end{align}
- Then
- \begin{align}
-  \vec{v}=\alpha\myvec{1\\2\\1}+\beta\myvec{1\\-1\\1}
-=\myvec{\alpha+\beta\\2\alpha-\beta\\\alpha+\beta}.
- \end{align}
-\end{frame}
-\subsection{Method of finding the projection}
-\begin{frame}
-\frametitle{Method of finding the projection}
-Mathematically, the projection of $\vec{v}$ on $\vec{c}$ is defined as 
-\begin{align}
-\vec{d}=k\vec{c},\text{such that} \brak{\vec{v}-\vec{d}}^{\top}\vec{d}=0 
-\end{align}
-yielding
-\begin{align}
-\brak{\vec{v}-k\vec{c}}^{\top}\vec{d}=0 
-\end{align}
-\begin{align}
-\text{or},
-k=\frac{\vec{v}^{\top}\vec{c}}{\|\vec{c\|^{2}}}, \implies
-\vec{d}=\frac{\vec v^{\top}\vec{c}}{\|\vec{c}\|^{2}}\;\vec{c}.  
-\end{align}
 \end{frame}
 \subsection{Finding projection}
 \begin{frame}
 \frametitle{Finding projection}
+Given the projection of $\vec{r}$ on $\vec{c}$ is $\frac{1}{\sqrt{3}}$
+\begin{align}
+\frac{\vec{r}\cdot\vec{c}}{\norm{\vec{c}}} = \frac{1}{\sqrt{3}} 
+\end{align}
+\begin{align}
+\vec{r}\cdot\vec{c}=\vec{r}^\top\vec{c}&=\myvec{1+t & 2-t & 1+t}\myvec{1\\1\\-1} \\
+&=1+t+2-t-1-t=2-t 
+\end{align}
 \begin{align}
 \norm{\vec{c}}^2=\vec{c}^\top\vec{c}&=\myvec{1&1&-1}\myvec{1\\1\\-1} \\
-&=1+1+1=3  \implies \norm{\vec{c}}=\sqrt{3}
+&=1+1+1=3  
 \end{align}
 \begin{align}
-\vec{v}^{\top}\vec{c}&=\myvec{\alpha+\beta & 2\alpha-\beta & \alpha+\beta}\myvec{1\\1\\-1} \\
-&=\alpha+\beta + 2\alpha-\beta - \alpha-\beta=2\alpha-\beta
-\end{align}
-\begin{align}
-\vec{d}=\frac{2\alpha-\beta}{3}\vec{c}
+\frac{|2-t|}{\sqrt{3}} = \frac{1}{\sqrt{3}}
 \end{align}
 \end{frame}
-
 \subsection{Conclusion}
 \begin{frame}
 \frametitle{Conclusion}
-Given $\norm{\vec{d}}=\frac{1}{\sqrt{3}}$ , Then 
+ yielding
 \begin{align}
-\frac{|2\alpha-\beta|}{3}\norm{\vec{c}}=\frac{|2\alpha-\beta|}{3}\sqrt{3}=\frac{1}{\sqrt{3}}  \implies |2\alpha - \beta| = 1 
+ \brak{2-t}=\pm 1 \\
+ \implies t=1\ \text{or}\ 3
 \end{align}
-From equation(3) we know that that $x$ and $z$ coordinates in our required vector must be equal. \\
-If $2\alpha - \beta $ = -1,from the most reliable option i.e option(1) which has the same $x$ and $z$ coordinates, we get 
+When t=1, we have
 \begin{align}
-    \alpha+\beta=4\ \text{and}\ 2\alpha-\beta=-1 
+ \vec{r}=\myvec{2 \\ 1 \\2}
 \end{align}
+When t=3, we have
 \begin{align}
-    3\alpha=3 \implies \alpha =1\ \text{and}\ \beta=3 \implies \vec{v}=\myvec{4 \\ -1\\ 4}
-    \end{align}
-If $2\alpha -\beta $ =1,from the options $x$ and $z$ coordinates are
-not equal,No option satisfy.
+\vec{r}=\myvec{4 \\ -1 \\4}
+\end{align}
+Hence Option(1) is the correct answer
 \end{frame}
 
 \subsection{Plot}
@@ -176,7 +169,7 @@ not equal,No option satisfy.
    \centering
    \includegraphics[width=0.7\columnwidth]{figs/fig1.png}
 	\caption{}
-   \label{stemplot}
+   \label{}
 \end{figure}
 \end{frame}
 

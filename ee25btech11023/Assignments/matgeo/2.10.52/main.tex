@@ -15,7 +15,6 @@
 \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
-\usepackage{physics}
 \usepackage{xcolor}
 \usepackage{txfonts}
 \usepackage{listings}
@@ -60,7 +59,15 @@
 
 \textbf{Question}:\newline
 Let $\vec{a} = \hat{\vec{i}} + 2\hat{\vec{j}} + \hat{\vec{k}}$, $\vec{b} = \hat{\vec{i}} - \hat{\vec{j}} + \hat{\vec{k}}$ and $\vec{c} = \hat{\vec{i}} + \hat{\vec{j}} - \hat{\vec{k}}$. A vector in the plane of $\vec{a}$ and $\vec{b}$ whose projection on $\vec{c}$ is $\frac{1}{\sqrt{3}}$, is
-\\
+\begin{multicols}{4}
+\begin{enumerate}
+\item 4$\hat{\vec{i}} - \hat{\vec{j}} + 4\hat{\vec{k}}$
+\item 3$\hat{\vec{i}} + \hat{\vec{j}} - 3\hat{\vec{k}}$
+\item $2\hat{\vec{i}} + \hat{\vec{j}} - 2\hat{\vec{k}}$
+\item $4\hat{\vec{i}} + \hat{\vec{j}} - 4\hat{\vec{k}}$
+\end{enumerate}
+\end{multicols}
+
 \textbf{Solution: }
 
 Given
@@ -68,59 +75,45 @@ Given
 \vec{a}=\myvec{1\\2\\1},\vec{b}=\myvec{1\\-1\\1},\vec{c}=\myvec{1\\1\\-1}.
 \end{align}
 
-Let $\vec{v}$ be the vector in the plane of $\vec{a}$ and $\vec{b}$
+Let $\vec{r}$ be coplanar to $\vec{a}$ and $\vec{b}$
 \begin{align}
- [\vec{v} \quad \vec{a} \quad \vec{b}]=0 \implies \vec{v}=\alpha\vec {a}+\beta\vec {b} \\
- \vec{v}=\alpha\myvec{1\\2\\1}+\beta\myvec{1\\-1\\1}
-=\myvec{\alpha+\beta\\2\alpha-\beta\\\alpha+\beta}.
+ \vec{r}&=\vec{a}+t\vec{b} \\
+ &=\myvec{1 \\ 2 \\ 1} + t\myvec{1 \\ -1 \\ 1} = \myvec{1+t \\ 2-t \\1+t}
  \end{align}
-Mathematically, the projection of $\vec{v}$ on $\vec{c}$ is defined as 
+Given the projection of $\vec{r}$ on $\vec{c}$ is $\frac{1}{\sqrt{3}}$
 \begin{align}
-\vec{d}=k\vec{c},\text{such that} \brak{\vec{v}-\vec{d}}^{\top}\vec{d}=0 
-\end{align}
-yielding
-\begin{align}
-\brak{\vec{v}-k\vec{c}}^{\top}\vec{d}=0 
+\frac{\vec{r}\cdot\vec{c}}{\norm{\vec{c}}} = \frac{1}{\sqrt{3}} 
 \end{align}
 \begin{align}
-\text{or},
-k=\frac{\vec{v}^{\top}\vec{c}}{\|\vec{c\|^{2}}}, \implies
-\vec{d}=\frac{\vec v^{\top}\vec{c}}{\|\vec{c}\|^{2}}\;\vec{c}.  
+\vec{r}\cdot\vec{c}=\vec{r}^\top\vec{c}&=\myvec{1+t & 2-t & 1+t}\myvec{1\\1\\-1} \\
+&=1+t+2-t-1-t=2-t 
 \end{align}
 \begin{align}
 \norm{\vec{c}}^2=\vec{c}^\top\vec{c}&=\myvec{1&1&-1}\myvec{1\\1\\-1} \\
-&=1+1+1=3  \implies \norm{\vec{c}}=\sqrt{3}
+&=1+1+1=3  
 \end{align}
 \begin{align}
-\vec{v}^{\top}\vec{c}&=\myvec{\alpha+\beta & 2\alpha-\beta & \alpha+\beta}\myvec{1\\1\\-1} \\
-&=\alpha+\beta + 2\alpha-\beta - \alpha-\beta=2\alpha-\beta
+\frac{|2-t|}{\sqrt{3}} = \frac{1}{\sqrt{3}}
 \end{align}
+yielding
 \begin{align}
-\vec{d}=\frac{2\alpha-\beta}{3}\vec{c}
+ \brak{2-t}=\pm 1 \\
+ \implies t=1\ \text{or}\ 3
 \end{align}
-Given $\norm{\vec{d}}=\frac{1}{\sqrt{3}}$ , Then 
+When t=1, we have
 \begin{align}
-\frac{|2\alpha-\beta|}{3}\norm{\vec{c}}=\frac{|2\alpha-\beta|}{3}\sqrt{3}=\frac{1}{\sqrt{3}}  \implies |2\alpha - \beta| = 1 
+ \vec{r}=\myvec{2 \\ 1 \\2}
 \end{align}
-From equation(3) we know that that $x$ and $z$ coordinates in our required vector must be equal. \\
-If $2\alpha - \beta $ = -1,from the most reliable option i.e option(1) which has the same $x$ and $z$ coordinates, we get 
+When t=3, we have
 \begin{align}
-    \alpha+\beta=4\ \text{and}\ 2\alpha-\beta=-1 
+ \vec{r}=\myvec{4 \\ -1 \\4}
 \end{align}
-On adding gives 
-\begin{align}
-    3\alpha=3 \implies \alpha =1\ \text{and}\ \beta=3 
-    \end{align}
-    \begin{align}
-    \vec{v}=\myvec{4 \\ -1\\ 4}
-    \end{align}
-If $2\alpha -\beta $ =1,from the options $x$ and $z$ coordinates are
-not equal,No option satisfy.
+Hence Option(1) is the correct answer
 
 \begin{figure}[h!]
    \centering
    \includegraphics[width=0.7\columnwidth]{figs/fig1.png}
    \caption{}
-   \label{}
+   \label{Figure}
 \end{figure}
 \end{document}  
