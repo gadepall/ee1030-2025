@@ -1,0 +1,180 @@
+\documentclass{beamer}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{amsmath}
+
+\title{Matrices in Geometry - 1.4.24}
+\author{EE25BTECH11008-Anirudh M Abhilash}
+\date{\today}
+
+\begin{document}
+
+%-------------------------------
+\begin{frame}
+\titlepage
+\end{frame}
+
+%-------------------------------
+\begin{frame}{Problem Statement}
+If $P(9a-2, -b)$ divides line segment joining $A(3a+1, -3)$ and $B(8a, 5)$ in the ratio 3:1, find a and b.
+
+\end{frame}
+
+%-------------------------------
+\begin{frame}{Solution}
+\textbf{Section Formula:}  
+If $P$ divides $AB$ in $m:n$, then
+\[
+P = \left(\frac{mx_2 + nx_1}{m+n}, \; \frac{my_2 + ny_1}{m+n}\right).
+\]
+By applying the section formula:
+\[
+9a - 2 = \frac{27a+1}{4}, \qquad -b = 3.
+\]
+\[
+\Rightarrow \; a = 1, \quad b = -3.
+\]
+
+We will now compute $(a,b)$ in Python and verify them using C.
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{Python Code (Computation + Plot)}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\scriptsize]
+
+import numpy as np
+import numpy.linalg as la
+import matplotlib.pyplot as plt
+
+# Solving eqns
+coeff = np.array([[9-27/4, 0], [0, -1]])
+rhs = np.array([2+1/4, 3])
+soln = la.solve(coeff, rhs)
+a = soln[0]
+b = soln[1]
+
+# Coordinates
+A = (3*a + 1, -3)
+B = (8*a, 5)
+P = (9*a - 2, -b)
+
+# Plotting points
+plt.figure(figsize=(6,6))
+plt.plot([A[0], B[0]], [A[1], B[1]], 'k--', label='Line AB')  
+# Line AB
+plt.scatter(*A, color='blue', s=100, label='A (3a+1, -3)')
+plt.scatter(*B, color='green', s=100, label='B (8a, 5)')
+plt.scatter(*P, color='red', s=100, label='P (9a-2, -b)')
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Python Code (Cont..)}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\scriptsize]
+
+# Annotating points
+plt.text(A[0]+0.2, A[1], 'A', fontsize=12)
+plt.text(B[0]+0.2, B[1], 'B', fontsize=12)
+plt.text(P[0]+0.2, P[1], 'P', fontsize=12)
+
+
+
+# Axis labels and grid
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Plot of Points A, B and P dividing AB in 3:1')
+plt.grid(True)
+plt.legend()
+plt.axis('equal')
+plt.show()
+\end{lstlisting}
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{C Code for verification}
+\begin{lstlisting}[language=C, basicstyle=\ttfamily\scriptsize]
+#include<stdio.h>
+
+int solve(float a, float b) {
+    float A[2] = {3*a + 1, -3};
+    float B[2] = {8*a, 5};
+    float P[2] = {9*a - 2, -b};
+    int ratio = 3;
+
+    if (((A[0]+ratio*B[0])/(ratio+1) == P[0]) && ((A[1]+ratio*B[1])/(ratio+1) == P[1])) {
+        return 1;
+    }
+    return 0;
+}
+\end{lstlisting}
+
+This function is compiled as a shared library
+and called from Python using \texttt{ctypes}.
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{Using the C code in Python}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\scriptsize]
+
+import ctypes
+import numpy as np
+import numpy.linalg as la
+import matplotlib.pyplot as plt
+
+check = ctypes.CDLL("./verify.so")
+check.solve.argtypes = [ctypes.c_float, ctypes.c_float]
+check.solve.restype = ctypes.c_int
+
+coeff = np.array([[9-27/4, 0], [0, -1]])
+rhs = np.array([2+1/4, 3])
+soln = la.solve(coeff, rhs)
+a = soln[0]
+b = soln[1]
+
+correct = check.solve(a,b)
+A = (3*a + 1, -3)
+B = (8*a, 5)
+P = (9*a - 2, -b)
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Using the C code in Python (Cont..)}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\scriptsize]
+
+if correct:
+    # Plotting points
+    plt.figure(figsize=(6,6))
+    plt.plot([A[0], B[0]], [A[1], B[1]], 'k--', label='Line AB')  
+    plt.scatter(*A, color='blue', s=100, label='A (3a+1, -3)')
+    plt.scatter(*B, color='green', s=100, label='B (8a, 5)')
+    plt.scatter(*P, color='red', s=100, label='P (9a-2, -b)')
+
+    # Annotating points
+    plt.text(A[0]+0.2, A[1], 'A', fontsize=12)
+    plt.text(B[0]+0.2, B[1], 'B', fontsize=12)
+    plt.text(P[0]+0.2, P[1], 'P', fontsize=12)
+
+    # Axis labels and grid
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.title('Plot of Points A, B and P dividing AB in 3:1')
+    plt.grid(True)
+    plt.legend()
+    plt.axis('equal')
+    plt.show()
+    
+\end{lstlisting}
+\end{frame}
+
+%-------------------------------
+\begin{frame}{Resulting Plot}
+\begin{figure}
+\centering
+\includegraphics[width=0.75\columnwidth]{figs/plt.png}
+\caption{Plot}
+\label{fig:plot}
+\end{figure}
+\end{frame}
+
+\end{document}

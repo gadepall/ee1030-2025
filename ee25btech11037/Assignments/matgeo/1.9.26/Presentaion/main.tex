@@ -1,0 +1,105 @@
+\documentclass{beamer}
+\let\vec\mathbf
+\mode<presentation>
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{advdate}
+\usepackage{adjustbox}
+%\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{url}
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}} % nCr
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}} % nPr
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{{}\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+
+\providecommand{\res}[1]{\Res\displaylimits_{#1}} 
+\providecommand{\norm}[1]{\left\lVert#1\right\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+%\providecommand{\hilbert}{\overset{\mathcal{H}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+	%\newcommand{\solution}[2]{\textbf{Solution:}{#1}}
+%\newcommand{\solution}{\noindent \textbf{Solution: }}align
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+
+\title{Matrices in Geometry - 1.9.26}
+\author{EE25BTECH11037  Divyansh}
+\date{Aug, 2025}
+
+\begin{document}
+
+\maketitle
+
+
+\section{Problem}
+\begin{frame}
+\frametitle{Problem Statement}
+Find the value of k, if the point $\vec{P}\brak{2,4}$ is equidistant from point $\vec{A}\brak{5,k}$ and $\vec{B}\brak{k,7}$
+\end{frame}
+
+\section{Solution}
+\begin{frame}{Solution}
+   \textbf{Given: } 
+$\vec{P}\myvec{2\\4}$, $\vec{A}\myvec{5\\k}$ and a point $\vec{B} \myvec{k \\ 7}$ such that $\vec{P}$ is equidistant from $\vec{A}$ and $\vec{B}$. 
+\begin{align}
+     \therefore \norm{\vec{P}-\vec{A}}=\norm{\vec{P}-\vec{B}}\\
+    \text{On squaring both the sides, we get }\\
+    \norm{\vec{P}-\vec{A}}^2=\norm{\vec{P}-\vec{A}}^2\\
+    \myvec{\vec{P}-\vec{A}}^{\top}\myvec{\vec{P}-\vec{A}}=\myvec{\vec{P}-\vec{B}}^{\top}\myvec{\vec{P}-\vec{B}}
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+\begin{align}
+    \vec{P}^{\top}\vec{P} - 2\vec{P}^{\top}\vec{A} + \vec{A}^{\top}\vec{A} =\vec{P}^{\top}\vec{P} - 2\vec{P}^{\top}\vec{B} + \vec{B}^{\top}\vec{B}\\
+    \norm{\vec{A}}^2 - \norm{\vec{B}}^2=2\vec{P}^{\top}\myvec{\vec{A}-\vec{B}}\\
+    \norm{\myvec{5\\k}} - \norm{\myvec{k\\7}}=2\myvec{2 & 4}\myvec{5-k \\ k-7}\\
+    25+k^2 - 49 -k^2=2\brak{10-2k + 4k-28}\\
+    -24=2\brak{2k-18} \implies -12=2k-18 \implies 2k=6 \implies k=3
+\end{align}
+\end{frame}
+
+
+
+\section{Final Answer}
+\begin{frame}{Final Answer}
+\begin{align}
+    \text{Hence, the final answer is }\fbox{k = 3} 
+\end{align}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\columnwidth]{figs/1.png}
+\end{figure}
+\end{frame}
+\end{document}

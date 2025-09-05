@@ -1,0 +1,162 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframumber]
+
+\title{2.3.16}
+
+\author{EE25BTECH11013 - Bhargav}
+\date{September 1, 2025}
+
+\begin{document}
+
+\frame{\titlepage}
+
+
+\begin{frame}{Question}
+    If $\vec{p}$ is a unit vector and $(\vec{x}-\vec{p})\cdot(\vec{x}+\vec{p})=80$, then find $\norm{\vec{x}}$.
+\end{frame}
+
+
+\begin{frame}{Solution}
+    We are given the equation:
+    \begin{align}
+        (\vec{x}-\vec{p})^\top \cdot(\vec{x}+\vec{p}) = 80
+    \end{align}
+    
+    \vfill
+    
+    Expand the product:
+    \begin{align}
+        \vec{x}^\top \vec{x} + \vec{x}^\top \vec{p} - \vec{p}^\top \vec{x} - \vec{p}^\top \vec{p}&= 80
+    \end{align}
+    
+    \vfill
+    
+    Since the product is commutative ($\vec{x}^\top \cdot\vec{p} = \vec{p}^\top \cdot\vec{x}$), the middle terms cancel out:
+    \begin{align}
+         \vec{x}^\top \cdot\vec{x} - \vec{p}^\top \cdot\vec{p} &= 80
+    \end{align}
+\end{frame}
+
+
+\begin{frame}{Final Calculation}
+    Since $\vec{v}^\top \cdot\vec{v} = \norm{\vec{v}}^2$.
+    \begin{align}
+        \norm{\vec{x}}^2 - \norm{\vec{p}}^2 = 80
+    \end{align}
+    
+    \vfill
+    
+    We are given that $\vec{p}$ is a \textbf{unit vector}, so its magnitude is 1.
+    \begin{align}
+        \norm{\vec{p}} = 1 \implies \norm{\vec{p}}^2 = 1
+    \end{align}
+    
+    \vfill
+    
+    Substituting this value into the equation:
+    \begin{align}
+        \norm{\vec{x}}^2 - 1 &= 80 \\
+        \norm{\vec{x}}^2 &= 81 \\
+        \norm{\vec{x}} &= 9
+    \end{align}
+    
+    \vfill
+    
+    \textbf{Therefore, the magnitude of vector $\vec{x}$ is 9.}
+\end{frame}
+
+
+\begin{frame}{Verification Example}
+    The theoretical solution can be verified by example.
+    
+    \vfill
+    
+    Assume that $\vec{p}$ is the unit vector $\myvec{1 \\ 0}$.
+    
+    \vfill
+
+    Then from the code we get a possible vector $\vec{x}$ would be $\myvec{9 \\ 0}$.
+    
+    \vfill
+    
+    The magnitude of the $\vec{x}$ is verified to be $9$.
+    
+    
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+#include <stdio.h>
+#include <math.h>
+void find_magnitude(double *x, double *x_norm) {
+    double p[2] = {1.0, 0.0};
+    double given_value = 80.0;
+    double p_norm_sq = p[0]*p[0] + p[1]*p[1];
+    double x_norm_sq = given_value + p_norm_sq;
+    *x_norm = sqrt(x_norm_sq);
+    x[0] = *x_norm;
+    x[1] = 0.0;
+}
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python + C Code}
+    \begin{lstlisting}
+import ctypes
+import numpy as np
+lib = ctypes.CDLL("./libmagnitude.so")
+lib.find_magnitude.argtypes = [np.ctypeslib.ndpointer(dtype=np.float64, ndim=1, flags="C"), ctypes.POINTER(ctypes.c_double)]
+lib.find_magnitude.restype = None
+x = np.zeros(2, dtype=np.float64)
+x_norm = ctypes.c_double()
+lib.find_magnitude(x, ctypes.byref(x_norm))
+print("Result from C:")
+print("x =", x)
+print("||x|| =", x_norm.value)
+p = np.array([1.0, 0.0])
+lhs = np.dot(x - p, x + p)
+print("(x - p)^T (x + p) =", lhs)
+print("||x|| =", np.linalg.norm(x))
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import numpy as np
+p = np.array([1, 0])
+given_value = 80
+p_norm_sq = np.dot(p, p)
+x_norm_sq = given_value + p_norm_sq
+x_norm = np.sqrt(x_norm_sq)
+x = np.array([x_norm, 0])
+lhs = np.dot(x - p, x + p)
+print("||p||^2 =", p_norm_sq)
+print("||x|| =", x_norm)
+print("Example x =", x)
+print("Verification (x - p)^T (x + p) =", lhs)
+
+    \end{lstlisting}
+\end{frame}
+
+\end{document}

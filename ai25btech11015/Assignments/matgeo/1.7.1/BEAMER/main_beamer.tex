@@ -1,0 +1,103 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\usepackage{gvv}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+
+\title{1.7.1 -- Matgeo Assignment}
+\author{ai25btech11015 -- M Sai Rithik}
+\date{}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}{Question}
+Show that the points \((0,0)\), \((2m,-4)\), and \((3,6)\) are collinear, and hence find \(m\), using the rank method.
+\end{frame}
+
+\begin{frame}{Step 1: Form vectors}
+\[
+A = (0,0), \quad B = (2m,-4), \quad C = (3,6)
+\]
+\[
+\Vec{AB} = \myvec{2m \\ -4}, 
+\quad \Vec{AC} = \myvec{3 \\ 6}
+\]
+\end{frame}
+
+\begin{frame}{Step 2: Matrix form}
+Form the matrix with \(\Vec{AB}\) and \(\Vec{AC}\) as columns:
+\[
+M = \myvec{2m & 3 \\ -4 & 6}
+\]
+
+For collinearity, \(\operatorname{rank}(M) = 1\), i.e. \(\det(M) = 0\).
+\end{frame}
+
+\begin{frame}{Step 3: Using RREF}
+\[
+M=\myvec{2m & 3\\ -4 & 6}.
+\]
+
+We use RREF of \(M\) and look for when its rank drops below \(2\).
+
+\[
+\begin{aligned}
+\myvec{2m & 3\\ -4 & 6}
+&\xrightarrow{\;R_1 \leftrightarrow R_2\;}
+\myvec{-4 & 6\\ 2m & 3}
+\xrightarrow{\;R_1\gets -\tfrac14 R_1\;}
+\myvec{1 & -\tfrac{3}{2}\\ 2m & 3}\\[6pt]
+&\xrightarrow{\;R_2\gets R_2-2m\,R_1\;}
+\myvec{1 & -\tfrac{3}{2}\\ 0 & 3(m+1)}.
+\end{aligned}
+\]
+
+If \(m\neq -1\), the second row has a pivot, so the RREF is \(I_2\) and \(\operatorname{rank}(M)=2\).  
+For the rank to drop we need
+\[
+3(m+1)=0 \;\;\Rightarrow\;\; m=-1.
+\]
+
+When \(m=-1\),
+\[
+\myvec{1 & -\tfrac{3}{2}\\ 0 & 0}
+\]
+is the reduced row-echelon form (rank \(=1\)).
+\end{frame}
+
+\begin{frame}{Conclusion}
+The given points are collinear when
+\[
+\boxed{m = -1}
+\]
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.65\linewidth]{figs/fig.png}
+    \caption{Graph}
+\end{figure}
+\end{frame}
+
+\end{document}

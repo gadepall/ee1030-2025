@@ -1,0 +1,278 @@
+% Preamble templated from Dhawal24112006/EE1030
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{advdate}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}} % nCr
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}} % nPr
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{{}\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+%\providecommand{\hilbert}{\overset{\mathcal{H}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+	%\newcommand{\solution}[2]{\textbf{Solution:}{#1}}
+%\newcommand{\solution}{\noindent \textbf{Solution: }}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\let\vec\mathbf
+
+\lstset{
+%language=C,
+frame=single,
+breaklines=true,
+columns=fullflexible
+}
+
+\numberwithin{equation}{section}
+
+\title{MATGEO Presentation: 1.6.5}
+\author{Subhodeep Chakraborty \\ ee25btech11055,\\IIT Hyderabad.}
+
+\date{\today}
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section*{Outline}
+\begin{frame}
+\tableofcontents
+\end{frame}
+
+\section{Problem}
+\begin{frame}
+\frametitle{Problem Statement}
+
+ Show that the points \brak{2, 3, 4}, \brak{-1, -2, 1}, \brak{5, 8, 7} are collinear.
+
+\end{frame}
+
+\section{Solution}
+\subsection{Theory}
+\begin{frame}
+ \frametitle{Theory}
+ For three points $\vec{A}$, $\vec{B}$ and $\vec{C}$ to be collinear:
+\begin{align}
+    \label{eq:theory}
+    \text{rank}\myvec{\vec{B-A} & \vec{C-A}} = \text{rank}\myvec{\vec{B-A} & \vec{C-A}}^\top = 1
+\end{align}
+Given:
+\begin{align}
+ \vec{A} &\equiv \brak{2, 3, 4} \\
+ \vec{B} &\equiv \brak{-1, -2, 1} \\
+ \vec{C} &\equiv \brak{5, 8, 7}
+\end{align}
+\end{frame}
+
+\subsection{Calculations}
+\begin{frame}{Calculations}
+The transpose of the collinearity matrix can be expressed as:
+\begin{align*}
+ \myvec{\vec{B-A} & \vec{C-A}}^\top = \myvec{-3 & -5 & -3 \\ 3 & 5 & 3} \\
+ \xleftrightarrow[]{R_2 = R_2 + R_1}
+ \myvec{-3 & -5 & -3 \\ 0 & 0 & 0}
+\end{align*}
+which has rank 1. Using \ref{eq:theory}, we conclude that the given points are collinear.
+\end{frame}
+
+\subsection{Plot}
+\begin{frame}{Plot}
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=\columnwidth]{../figs/plot.png}
+    \caption*{}
+    \label{fig:plot}
+\end{figure}
+\end{frame}
+
+\section{C Code}
+\begin{frame}[fragile]{C code for generating points on line}
+\begin{lstlisting}[language=C]
+void point_gen(const double* P1, const double* P2, double t, double* result_point) {
+    result_point[0] = P1[0] + t * (P2[0] - P1[0]);
+    result_point[1] = P1[1] + t * (P2[1] - P1[1]);
+    result_point[2] = P1[2] + t * (P2[2] - P1[2]);
+}
+\end{lstlisting}
+\end{frame}
+\section{Python Code}
+\subsection{Using C shared objects}
+\begin{frame}[fragile]{Python code for plotting using C}
+\begin{lstlisting}[language=Python]
+import ctypes
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+lib = ctypes.CDLL("./line.so")
+
+get_point = lib.point_gen
+get_point.argtypes = [
+    ctypes.POINTER(ctypes.c_double),  # P1
+    ctypes.POINTER(ctypes.c_double),  # P2
+    ctypes.c_double,  # t
+    ctypes.POINTER(ctypes.c_double),  # result_point
+]
+get_point.restype = None
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Python code for plotting using C}
+\begin{lstlisting}[language=Python]
+DoubleArray3 = ctypes.c_double * 3
+P1_arr = DoubleArray3(-1, -2, 1)
+P2_arr = DoubleArray3(5, 8, 7)
+
+t_values = np.linspace(0, 1, 100)
+line_points_x, line_points_y, line_points_z = [], [], []
+
+for t in t_values:
+    result_arr = DoubleArray3()
+
+    get_point(P1_arr, P2_arr, t, result_arr)
+
+    line_points_x.append(result_arr[0])
+    line_points_y.append(result_arr[1])
+    line_points_z.append(result_arr[2])
+
+original_points = np.array([[-1, -2, 1], [2, 3, 4], [5, 8, 7]])
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Python code for plotting using C}
+\begin{lstlisting}[language=Python]
+fig = plt.figure(figsize=(8, 6))
+ax = fig.add_subplot(111, projection="3d")
+
+ax.scatter(
+    original_points[:, 0],
+    original_points[:, 1],
+    original_points[:, 2],
+    color="red",
+    s=50,
+    label="Given Points",
+)
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Python code for plotting using C}
+\begin{lstlisting}[language=Python]
+ax.plot(
+    line_points_x,
+    line_points_y,
+    line_points_z,
+    color="blue",
+    label="Line Segment",
+)
+
+ax.set_xlabel("X Axis")
+ax.set_ylabel("Y Axis")
+ax.set_zlabel("Z Axis")
+ax.set_title("1.6.5")
+ax.legend()
+ax.grid(True)
+
+plt.savefig("../figs/plot.png")
+plt.show()
+\end{lstlisting}
+\end{frame}
+
+\subsection{Plot}
+\begin{frame}{Plot}
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=\columnwidth]{../figs/plot.png}
+    \caption*{}
+    \label{fig:plot_c}
+\end{figure}
+\end{frame}
+\subsection{In Pure Python}
+\begin{frame}[fragile]{Pure Python Code for Plotting}
+\begin{lstlisting}[language=Python]
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+points = np.array([[-1, -2, 1], [2, 3, 4], [5, 8, 7]])
+
+x_coords = points[:, 0]
+y_coords = points[:, 1]
+z_coords = points[:, 2]
+
+fig = plt.figure(figsize=(8, 6))
+ax = fig.add_subplot(111, projection="3d")
+
+ax.scatter(x_coords, y_coords, z_coords, color="red", s=50, label="Given Points")
+ax.plot(x_coords, y_coords, z_coords, color="blue", label="Line Segment")
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Pure Python Code for Plotting}
+\begin{lstlisting}[language=Python]
+
+ax.set_xlabel("X Axis")
+ax.set_ylabel("Y Axis")
+ax.set_zlabel("Z Axis")
+ax.set_title("1.6.5")
+ax.legend()
+ax.grid(True)
+
+plt.savefig("../figs/python.png")
+plt.show()
+\end{lstlisting}
+\end{frame}
+
+\subsection{Plot}
+\begin{frame}{Pure Python Plot}
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=\columnwidth]{../figs/python.png}
+    \caption*{}
+    \label{fig:plot_p}
+\end{figure}
+\end{frame}
+\end{document}
