@@ -21,10 +21,17 @@ def line_gen(A,B,n=50):
     return x_AB
 
 
+data = np.loadtxt("values.dat", skiprows=1)  
+
+xc = data[0]
+yc = data[1]
+
+
+
 A = np.array([6,1])
 B = np.array([8,2])
 C = np.array([9,4])
-D = np.array([7,3])
+D = np.array(([xc,yc]))
 
 # Generate line segments of parallelogram
 xAB = line_gen(A,B)

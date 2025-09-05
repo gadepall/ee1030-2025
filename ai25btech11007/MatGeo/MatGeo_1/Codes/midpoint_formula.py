@@ -3,67 +3,67 @@ import numpy as np
 import matplotlib as mp
 import matplotlib.pyplot as plt
 
-# Load the shared library (C function for midpoint check)
+# Load shared library
 lib = ctypes.CDLL('./libintdiv_formula.so')
-lib.find_midpoint.argtypes = [ctypes.c_double, ctypes.c_double, ctypes.c_double,
-                              ctypes.c_double,
-                              ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_double)]
-lib.find_midpoint.restype = None
+lib.find_section_point.argtypes = [ctypes.c_double, ctypes.c_double, ctypes.c_double,
+                                   ctypes.c_double, ctypes.c_double, ctypes.c_double,
+                                   ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_double)]
+lib.find_section_point.restype = None
 
-def find_midpoint(x1, y1, x2, y2):
-    """Calls C function to compute midpoint of (x1,y1) and (x2,y2)."""
+# Section point finder
+def find_section_point(x1, y1, x2, y2, m, n):
     x = ctypes.c_double()
     y = ctypes.c_double()
-    lib.find_midpoint(x1, y1, x2, y2, ctypes.byref(x), ctypes.byref(y))
+    lib.find_section_point(x1, y1, x2, y2, m, n, ctypes.byref(x), ctypes.byref(y))
     return (x.value, y.value)
 
-# Given vertices of parallelogram
-A = (1, 2)
-B = (4, None)   # y unknown
-C = (None, 6)   # x unknown
-D = (3, 5)
+# -----------------------------------------------------------
+# Given parallelogram vertices
+# A(1,2), B(4,y), C(x,6), D(3,5)
+# Property: diagonals bisect each other
+# -----------------------------------------------------------
 
-# Midpoint of AC and BD must be equal
-# Midpoint(AC) = ((1+x)/2, (2+6)/2)
-# Midpoint(BD) = ((4+3)/2, (y+5)/2)
+# Midpoint of AC
+M_AC = find_section_point(1, 2, 6, 6, 1, 1)   # A(1,2), C(x=6,6)
+# Midpoint of BD
+M_BD = find_section_point(4, 3, 3, 5, 1, 1)   # B(4,y=3), D(3,5)
 
-# Solve equations manually (since x and y are unknown)
+print(f"Midpoint of AC: {M_AC}")
+print(f"Midpoint of BD: {M_BD}")
+
+# Final solved values
 x = 6
 y = 3
-
-# Substitute solved values
+A = (1, 2)
 B = (4, y)
 C = (x, 6)
+D = (3, 5)
 
-# Find midpoints using C function
-mid_AC = find_midpoint(A[0], A[1], C[0], C[1])
-mid_BD = find_midpoint(B[0], B[1], D[0], D[1])
-
-print(f"Midpoint of AC: {mid_AC}")
-print(f"Midpoint of BD: {mid_BD}")
-print(f"Solution: x = {x}, y = {y}")
-
-# --- Plotting the parallelogram ---
+# -----------------------------------------------------------
+# Plotting parallelogram
+# -----------------------------------------------------------
 plt.figure(figsize=(8, 8))
 
-# Plot parallelogram
+# Draw parallelogram edges
 X = [A[0], B[0], C[0], D[0], A[0]]
 Y = [A[1], B[1], C[1], D[1], A[1]]
 plt.plot(X, Y, 'ro-', label='Parallelogram')
 
-# Plot diagonals
+# Draw diagonals
 plt.plot([A[0], C[0]], [A[1], C[1]], 'g--', label='Diagonal AC')
 plt.plot([B[0], D[0]], [B[1], D[1]], 'b--', label='Diagonal BD')
 
-# Mark points
-for point, name in zip([A, B, C, D], ['A', 'B', 'C', 'D']):
-    plt.plot(point[0], point[1], 'ko')
-    plt.text(point[0]+0.1, point[1], f'{name}{point}', fontsize=12)
+# Labels
+plt.text(A[0]-0.2, A[1]-0.2, 'A(1,2)', fontsize=12)
+plt.text(B[0]+0.2, B[1], f'B(4,{y})', fontsize=12)
+plt.text(C[0]+0.2, C[1], f'C({x},6)', fontsize=12)
+plt.text(D[0]-0.4, D[1], 'D(3,5)', fontsize=12)
 
-# Mark midpoints
-plt.plot(mid_AC[0], mid_AC[1], 'ms', label=f'Midpoint {mid_AC}')
-plt.plot(mid_BD[0], mid_BD[1], 'cs', label=f'Midpoint {mid_BD}')
+# Midpoints
+plt.plot(M_AC[0], M_AC[1], 'ks', label='Midpoint of AC')
+plt.plot(M_BD[0], M_BD[1], 'ms', label='Midpoint of BD')
 
+# Style
 mp.use("TkAgg")
 plt.xlabel('x')
 plt.ylabel('y')
@@ -72,6 +72,6 @@ plt.legend()
 plt.grid(True)
 plt.gca().set_aspect('equal', adjustable='box')
 
-# Save before show
-plt.savefig("/home/user/Matrix/Matgeo_assignments/1.5.15/figs/Figure_1.png", dpi=300, bbox_inches='tight')
+# Save figure
+plt.savefig("/home/user/Matrix/Matgeo_assignments/1.5.16/figs/Figure_1.png", dpi=300, bbox_inches='tight')
 plt.show()

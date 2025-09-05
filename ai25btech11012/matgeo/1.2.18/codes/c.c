@@ -31,7 +31,22 @@ int main()
    M[0][3] = M[0][2] - ABx;
 
 
-    printf("The value of p is: %d\n", M[0][3]);
-    return 0;
+   FILE *file;
+	file = fopen("values.dat", "w");
+
+	if (file == NULL) {
+		printf("Error opening file!\n");
+		return 1;
+	}
+	fprintf(file, "x\ty\n");
+	fprintf(file, "%d\t", M[0][3]);
+	fprintf(file, "%d\t", M[1][3]);
+	
+
+	fclose(file);
+	printf("Results have been written to values.dat\n");
+
+	
+	return 0; 
 
 }

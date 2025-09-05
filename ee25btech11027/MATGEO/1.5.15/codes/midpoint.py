@@ -49,6 +49,5 @@ plt.title("Midpoint using C + Python")
 plt.xlabel("X-axis")
 plt.ylabel("Y-axis")
 
-# give an absolute path
 plt.savefig("/media/indhiresh-s/New Volume1/matgeo/figs/figure1.png")
 plt.show()

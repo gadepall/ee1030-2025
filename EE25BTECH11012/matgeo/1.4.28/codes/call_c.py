@@ -1,0 +1,10 @@
+import subprocess
+
+# 1. Compile the C program
+subprocess.run(["gcc", "vector_division.c", "-o", "vector_division"])
+
+# 2. Run the compiled C program
+result = subprocess.run(["./vector_division"], capture_output=True, text=True)
+
+# 3. Print the output from the C program
+print(result.stdout)
