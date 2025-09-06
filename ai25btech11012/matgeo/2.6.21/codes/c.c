@@ -33,8 +33,25 @@ int main() {
     // Area of triangle
     area = 0.5 * magnitude;
 
-    printf("Area of the triangle = %.4lf\n", area);
+    FILE *file;
+	file = fopen("values.dat", "w");
 
-    return 0;
+	if (file == NULL) {
+		printf("Error opening file!\n");
+		return 1;
+	}
+	fprintf(file, "area\n");
+	fprintf(file, "%lf\t", area);
+	
+	
+
+	fclose(file);
+	printf("Results have been written to values.dat\n");
+
+	
+	return 0; 
+
+
+    
 }
 

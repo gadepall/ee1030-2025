@@ -30,12 +30,19 @@ int main()
     cross[1] = AB[2]*BC[0] - AB[0]*BC[2];
     cross[2] = AB[0]*BC[1] - AB[1]*BC[0];
 
-    if(cross[0] == 0 && cross[1] == 0 && cross[2] == 0)
-        printf("The points are collinear.\n");
-    else
-        printf("The points are not collinear.\n");
 
-    return 0;
+     FILE *file;
+	file = fopen("values.dat", "w");
+
+    if(cross[0] == 0 && cross[1] == 0 && cross[2] == 0)
+        fprintf(file, "Points are collienear");
+
+    
+	fclose(file);
+	printf("Results have been written to values.dat\n");
+
+	
+	return 0; 
 
 
 }

@@ -36,9 +36,25 @@ int main() {
     for (int i = 0; i < 3; i++)
     { unit[i] = c[i] / magnitude;}
 
-    // Output
-    printf("Unit vector along (a+b) = (%.4lf, %.4lf, %.4lf)\n", unit[0], unit[1], unit[2]);
+    FILE *file;
+	file = fopen("values.dat", "w");
 
-    return 0;
+	if (file == NULL) {
+		printf("Error opening file!\n");
+		return 1;
+	}
+	fprintf(file, "x\ty\tz\n");
+	fprintf(file, "%lf\t", unit[0]);
+	fprintf(file, "%lf\t", unit[1]);
+	fprintf(file, "%lf\t", unit[2]);
+	
+
+	fclose(file);
+	printf("Results have been written to values.dat\n");
+
+	
+	return 0;
+
+
 }
 

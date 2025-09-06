@@ -24,7 +24,7 @@ plt.figure(figsize=(6,6))
 # Line between points
 plt.plot([x1, x2], [y1, y2], "b-", label=f"Distance = {dist:.2f}")
 
-# Points
+# Point  
 plt.scatter(x1, y1, color="red", s=100, label=f"A({x1}, {y1})")
 plt.scatter(x2, y2, color="green", s=100, label=f"B({x2}, {y2})")
 

@@ -1,19 +1,19 @@
 #include <stdio.h>
+#include <math.h>
 
-void division_point(double *A, double *B, double *P, double *k) {
-    *k = -A[1] / B[1];
-    P[0] = ((*k) * B[0] + A[0]) / ((*k) + 1);
-    P[1] = 0;
+// Fills k and both point arrays.
+void find_k_and_points(double *k, double pt1[2], double pt2[2]) {
+    *k = 3 + sqrt(84);
+    pt1[0] = *k;  pt1[1] = -2;
+    pt2[0] = 3;   pt2[1] = -6;
 }
 
 int main() {
-    double A[2] = {1, -5};
-    double B[2] = {-4, 5};
-    double P[2];
-    double k;
-    division_point(A, B, P, &k);
-    printf("Ratio: %f : 1\n", k);
-    printf("Division Point: (%f, %f)\n", P[0], P[1]);
+    double k, pt1[2], pt2[2];
+    find_k_and_points(&k, pt1, pt2);
+    printf("Positive value of k: %.6f\n", k);
+    printf("First point: (%.6f, %.6f)\n", pt1[0], pt1[1]);
+    printf("Second point: (%.6f, %.6f)\n", pt2[0], pt2[1]);
     return 0;
 }
 
