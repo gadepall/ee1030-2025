@@ -1,0 +1,365 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{2.3.17}
+\date{August  2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{Bhoomika L - EE25BTECH11014}
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}Find the properties of the triangle with vertices \brak{−4, 0},\brak{0, 3} and \brak{4, 0}.
+
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+Given the points,
+\begin{table}[H]    
+  \centering
+  \input{../Tables/table}
+  \caption{Variables used.}
+  \label{tab:2.3.17}
+\end{table}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+We can calculate the magnitude of sides of the triangle using norms:
+\begin{align}
+    \brak{\vec{A}-\vec{B}}=\myvec{-4\\0}-\myvec{0\\3}=\myvec{-4\\3}
+\end{align}
+\begin{align}
+ \brak{\vec{B}-\vec{C}}=\myvec{0\\3}-\myvec{4\\0}=\myvec{-4\\3}
+ \end{align}
+ \begin{align}
+ \brak{\vec{A}-\vec{C}}=\myvec{-4\\0}-\myvec{4\\0}=\myvec{-8\\0}
+ \end{align}
+\end{frame}
+
+\begin{frame}{Formulae}
+\begin{align}
+\left|\vec{A}-\vec{B} \right| &= \sqrt{ \brak{{\vec{A}-\vec{B}}}^T \cdot \brak{\vec{A}-\vec{B}}}\\
+ \left|\vec{B}-\vec{C} \right| &= \sqrt{ \brak{{\vec{B}-\vec{C}}}^T \cdot \brak{\vec{B}-\vec{C}}}\\
+ \left|\vec{A}-\vec{C} \right| &= \sqrt{ \brak{{\vec{A}-\vec{C}}}^T \cdot\brak{ \vec{A}-\vec{C}}}
+\end{align}
+\end{frame}
+
+\begin{frame}{Calculation}
+\begin{align}
+  \brak{{\vec{A}-\vec{B}}}^T\cdot\brak{ \vec{A}-\vec{B}}= \myvec{-4 & -3}\myvec{-4\\-3}\\
+\left|\vec{A}-\vec{B} \right| &= \sqrt{ \brak{-4}^2+\brak{-3}^2}\\
+\left|\vec{A}-\vec{B} \right| &= 5\\
+\brak{{\vec{B}-\vec{C}}}^T\cdot\brak{ \vec{B}-\vec{C}}= \myvec{-4 & 3}\myvec{-4\\3}\\
+  \left|\vec{B}-\vec{C} \right| &=\sqrt{ \brak{-4}^2+\brak{3}^2}\\
+\left|\vec{B}-\vec{C} \right| &= 5\\
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoritical solution}
+\begin{align}
+  \brak{{\vec{A}-\vec{C}}}^T\cdot\brak{ \vec{A}-\vec{C}}= \myvec{-8 & 0}\myvec{-8\\0}\\
+ \left|\vec{A}-\vec{C} \right| &=\sqrt{ \brak{-8}^2+\brak{0}^2}\\
+\left|\vec{A}-\vec{C} \right| &= 8\\
+ As \left|\vec{A}-\vec{B}\right|^2+ \left|\vec{B}-\vec{C}\right|^2=25+25=50\\
+ and \left|\vec{A}-\vec{C}\right|^2=64
+ \end{align}
+ \begin{center}
+      Hence, the triangle is \textbf{not RIGHT} angled.
+ \end{center}
+\end{frame}
+
+\begin{frame}{Formulae}
+Angles at the vertices \vec{A},\vec{B} and \vec{C}. 
+\begin{align}
+    \cos\brak{\angle A}=\frac{\brak{\vec{A}-\vec{B}}^T \cdot \brak{ \vec{A}-\vec{C}}}{\left|\vec{A}-\vec{B} \right|\left|\vec{A}-\vec{C} \right|}
+\end{align}    
+\begin{align}
+   \cos\brak{\angle B}=\frac{\brak{\vec{B}-\vec{A}}^T \cdot \brak{ \vec{B}-\vec{C}}}{\left|\vec{B}-\vec{A} \right|\left|\vec{B}-\vec{C} \right|}
+\end{align}
+\begin{align}
+    \cos\brak{\angle C}=\frac{\brak{\vec{C}-\vec{A}}^T \cdot \brak{ \vec{C}-\vec{B}}}{\left|\vec{C}-\vec{A} \right|\left|\vec{C}-\vec{B} \right|}
+\end{align}    
+\end{frame}
+
+\begin{frame}{Calculation}
+\begin{align}
+\brak{\vec{A}-\vec{B}}^T \cdot \brak{\vec{A}-\vec{C}}= 
+\myvec{-4 & 3}
+\myvec{-8 \\ 0}= 32\\
+\cos(\angle A) = \frac{32}{5 \cdot 8} = 0.8\\
+\Rightarrow \angle A = \cos^{-1}(0.8) \approx 36.87^\circ\\
+\brak{\vec{B}-\vec{A}}^T \cdot \brak{\vec{B}-\vec{C}} = 
+\myvec{-4 & -3}
+\myvec{4 \\
+-3}
+= -16 + 9 = -7\\
+\cos(\angle B) = \frac{-7}{5 \cdot 5 } = -0.28\\
+\Rightarrow \angle B = \cos^{-1}(-0.28) \approx 106.26^\circ
+\end{align}
+\end{frame}
+
+\begin{align}
+    \brak{\vec{C}-\vec{A}}^T \cdot \brak{\vec{C}-\vec{B}} = 
+\myvec{-8 & 0}
+\myvec{-4 \\
+3}= 32\\
+\cos(\angle C) = \frac{32}{8 \cdot 5} = 0.8\\
+\Rightarrow \angle C = \cos^{-1}(0.8) \approx 36.87^\circ
+\end{align}
+\begin{align}
+\therefore \angle A \approx 36.87^\circ, \quad 
+\angle B \approx 106.26^\circ, \quad 
+\angle C \approx 36.87^\circ
+\end{align}
+\begin{center}
+$ \therefore$ We can conclude that triangle \textbf{ABC} is an \textbf{ISOSCELES} triangle.
+\end{center}
+
+\begin{frame}[fragile]
+    \frametitle{C Code }
+\begin{lstlisting}
+#include <math.h>
+#include <stdio.h>
+
+// Function to compute side lengths and angles using matrix (vector dot product) method
+void triangle_properties(double *sides, double *angles) {
+    // Vertices: A(-4,0), B(0,3), C(4,0)
+    double A[2] = {-4, 0};
+    double B[2] = {0, 3};
+    double C[2] = {4, 0};
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code }
+\begin{lstlisting}
+  // --- Compute side vectors ---
+    double AB[2] = {B[0] - A[0], B[1] - A[1]};
+    double BC[2] = {C[0] - B[0], C[1] - B[1]};
+    double CA[2] = {A[0] - C[0], A[1] - C[1]};
+
+    // --- Compute side lengths using dot product (matrix method) ---
+    sides[0] = sqrt(AB[0]*AB[0] + AB[1]*AB[1]); // AB
+    sides[1] = sqrt(BC[0]*BC[0] + BC[1]*BC[1]); // BC
+    sides[2] = sqrt(CA[0]*CA[0] + CA[1]*CA[1]); // CA
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code }
+\begin{lstlisting}
+   // --- Compute angles using dot product ---
+    // ∠A = angle between AB and AC
+    double AC[2] = {C[0] - A[0], C[1] - A[1]};
+    double dot_A = AB[0]*AC[0] + AB[1]*AC[1];
+    double norm_AB = sqrt(AB[0]*AB[0] + AB[1]*AB[1]);
+    double norm_AC = sqrt(AC[0]*AC[0] + AC[1]*AC[1]);
+    angles[0] = acos(dot_A / (norm_AB * norm_AC)) * 180.0 / M_PI;
+
+    // ∠B = angle between BA and BC
+    double BA[2] = {A[0] - B[0], A[1] - B[1]};
+    double dot_B = BA[0]*BC[0] + BA[1]*BC[1];
+    double norm_BA = sqrt(BA[0]*BA[0] + BA[1]*BA[1]);
+    double norm_BC = sqrt(BC[0]*BC[0] + BC[1]*BC[1]);
+    angles[1] = acos(dot_B / (norm_BA * norm_BC)) * 180.0 / M_PI;
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code }
+\begin{lstlisting}
+// ∠C = angle between CA and CB
+    double CB[2] = {B[0] - C[0], B[1] - C[1]};
+    double dot_C = CA[0]*CB[0] + CA[1]*CB[1];
+    double norm_CA = sqrt(CA[0]*CA[0] + CA[1]*CA[1]);
+    double norm_CB = sqrt(CB[0]*CB[0] + CB[1]*CB[1]);
+    angles[2] = acos(dot_C / (norm_CA * norm_CB)) * 180.0 / M_PI;
+}
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code }
+\begin{lstlisting}
+import matplotlib.pyplot as plt
+import numpy as np
+import math
+
+# Define points
+A = np.array([4, 0])
+B = np.array([-4, 0])
+C = np.array([0, 3])
+
+# Function to compute angle at vertex 'v' between points 'a' and 'b'
+def compute_angle(a, v, b):
+    va = a - v
+    vb = b - v
+   
+
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code }
+\begin{lstlisting}
+ cos_theta = np.dot(va, vb) / (np.linalg.norm(va) * np.linalg.norm(vb))
+    cos_theta = np.clip(cos_theta, -1.0, 1.0)
+    angle_rad = math.acos(cos_theta)
+    return math.degrees(angle_rad)
+
+# Compute angles
+angle_A = compute_angle(B, A, C)
+angle_B = compute_angle(A, B, C)
+angle_C = compute_angle(A, C, B)
+
+# Create triangle path
+x_vals = [A[0], B[0], C[0], A[0]]
+y_vals = [A[1], B[1], C[1], A[1]]
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code }
+\begin{lstlisting}
+    # Plot triangle
+plt.figure(figsize=(6, 6))
+plt.plot(x_vals, y_vals, 'b-', linewidth=2)
+
+# Plot points
+plt.plot(A[0], A[1], 'ro')
+plt.plot(B[0], B[1], 'go')
+plt.plot(C[0], C[1], 'bo')
+
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+  # Annotate points
+plt.text(A[0]+0.2, A[1]-0.3, f"A ({A[0]}, {A[1]})\n∠A ≈ {angle_A:.2f}°", color='red')
+plt.text(B[0]-2, B[1]-0.3, f"B ({B[0]}, {B[1]})\n∠B ≈ {angle_B:.2f}°", color='green')
+plt.text(C[0]-0.8, C[1]+0.2, f"C ({C[0]}, {C[1]})\n∠C ≈ {angle_C:.2f}°", color='blue')
+
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+
+# Axis settings
+plt.axis('equal')
+plt.grid(True)
+plt.title("Triangle ABC with Angles")
+plt.xlabel("X")
+plt.ylabel("Y")
+
+plt.savefig("../Figs/fig_3.png")
+plt.show()
+  \end{lstlisting}
+\end{frame}
+
+ \begin{frame}{Plot}
+    \centering
+    \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{../Figs/fig_3.png}     
+\end{frame}
+
+\end{document}
