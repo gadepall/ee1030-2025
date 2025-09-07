@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import ctypes
 
 # Load shared library
-lib = ctypes.CDLL("./libcrsproduct_mag.so")   # <-- change name if your .so file is different
+lib = ctypes.CDLL("./libcrsproduct_mag.so")  
 
 # Define argument and return types for the C functions
 lib.find_cross_product.argtypes = [
