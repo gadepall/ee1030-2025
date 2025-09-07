@@ -1,0 +1,97 @@
+\documentclass[journal,12pt,onecolumn]{IEEEtran}
+\usepackage{cite}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\usepackage{gvv}
+%\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc} 
+\usetikzlibrary{arrows.meta, positioning}
+\usepackage{xparse}
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{float}
+
+\usepackage{float}
+%\newcommand{\define}{\stackrel{\triangle}{=}}
+\theoremstyle{remark}
+\usepackage{circuitikz}
+\captionsetup{justification=centering}
+\usepackage{tikz}
+
+\title{Matrices in Geometry 2.10.66}
+\author{EE25BTECH11037 - Divyansh}
+\begin{document}
+\vspace{3cm}
+\maketitle
+{\let\newpage\relax\maketitle}
+\textbf{Question: }
+If vectors $\vec{a},\ \vec{b}, \ \vec{c}$ are coplanar, show that
+\begin{align*}
+\abs{\myvec{
+\vec{a} & \vec{b} & \vec{c}\\
+\vec{a}\cdot \vec{a} & \vec{a}\cdot \vec{b} & \vec{a}\cdot \vec{c} \\
+\vec{b}\cdot \vec{a} & \vec{b}\cdot \vec{b} & \vec{b}\cdot \vec{c} 
+}} = 0
+\end{align*}
+\vspace{2mm}
+
+\textbf{Solution:}
+ \vspace{1mm}
+We have to show that 
+\begin{align}
+\Delta=\abs{\vec{A}} = \abs{\myvec{
+\vec{a} & \vec{b} & \vec{c}\\
+\vec{a}\cdot \vec{a} & \vec{a}\cdot \vec{b} & \vec{a}\cdot \vec{c} \\
+\vec{b}\cdot \vec{a} & \vec{b}\cdot \vec{b} & \vec{b}\cdot \vec{c} 
+}} = 0
+\end{align}
+
+Since $\vec{a}, \ \vec{b}, \ \vec{c}$ are coplanar, $\vec{a}, \ \vec{b}, \ \vec{c}$ are linearly dependent. Therefore, we can express $\vec{c}$ in terms of $\vec{a}$ and $\vec{b}$ as:
+\begin{align}
+    \vec{c}=m\vec{a}+n\vec{b}, \text{where m, n are scalars.}\\
+    \text{Since, }\abs{\vec{A}}=\abs{\vec{A}^{\top}} \implies \Delta=\abs{\vec{A}^{\top}}\\
+    \abs{\vec{A}^{\top}}=\abs{\myvec{
+                        \vec{a} & \vec{a}\cdot \vec{a} & \vec{b}\cdot \vec{a}\\
+                        \vec{b}& \vec{a}\cdot \vec{b} & \vec{b}\cdot \vec{b}\\
+                        \vec{c}& \vec{a}\cdot \vec{c} & \vec{b}\cdot \vec{c} 
+                  }} \overset{R_3 \rightarrow R_3 - m R_1 - n R_2}{\longrightarrow}
+    \abs{\myvec{
+                \vec{a} & \vec{a}\cdot \vec{a} & \vec{b}\cdot \vec{a}\\
+                \vec{b}& \vec{a}\cdot \vec{b} & \vec{b}\cdot \vec{b}\\
+                \vec{c}-m\vec{a}-n\vec{b}& \vec{a}\cdot \brak{\vec{c}-m\vec{a}-n\vec{b}} & \vec{b}\cdot \brak{\vec{c}-m\vec{a}-n\vec{b}}
+            }}
+\end{align}
+\text{Since, $\vec{c}=m\vec{a}+n\vec{b}$, $\vec{A}$ becomes }
+\begin{align}
+    \abs{\vec{A}^{\top}}=\abs{\myvec{
+                        \vec{a} & \vec{a}\cdot \vec{a} & \vec{b}\cdot \vec{a}\\
+                        \vec{b}& \vec{a}\cdot \vec{b} & \vec{b}\cdot \vec{b}\\
+                        0& 0& 0 
+                  }}\\
+    \implies \Delta = \abs{\vec{A}^{\top}}=0 \text{, as one of the rows is zero}
+\end{align} 
+Hence, Proved.
+\end{document}
