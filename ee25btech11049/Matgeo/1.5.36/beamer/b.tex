@@ -1,0 +1,412 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{1.5.36}
+\date{}
+%\subtitle{A short story}
+
+\author % (optional)
+{Sai Krishna Bakki - EE25BTECH11049}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}Point P\brak{x,4} lies on the line segment joining the points $\vec{A}$\brak{-5, 8} and $\vec{B}$\brak{4,-10}. Find the ratio in which point P divides the line segment AB. Also, find the value of x.
+\end{frame}
+\begin{frame}{Theoretical Solution}
+Let 
+\begin{align}
+\vec{A}= \myvec{-5 \\ 8}, \vec{B}= \myvec{4 \\ -10} , \vec{P} = \myvec{x \\ 4}
+\end{align}    
+
+Since $\vec{P}$ lies on $\vec{A}$ and $\vec{B}$, they must be collinear
+\begin{align}
+\therefore \text{rank}\myvec{\vec{B} - \vec{A} & &\vec{P} - \vec{A}} = 1
+\end{align}
+\begin{align}
+    \text{rank}\myvec{9 & x+5 \\ -18 & -4} = 1
+\end{align}
+By transformation $R_2 \rightarrow R_2 + 2R_1$
+\begin{align}
+    \text{rank}\myvec{9 & x+5 \\ 0 & 2x+6} = 1
+\end{align}
+\end{frame}
+\begin{frame}{Theoretical Solution}
+The number of non zero rows in the row reduced matrix (also known as {\em echelon form}) is defined as the rank. For above matrix to be of rank 1,
+ \begin{align}
+    2x+6 = 0
+\end{align}
+\begin{align}
+\therefore x = -3
+\end{align}
+Thus $\vec{P}$ is :
+\begin{align}
+    \vec{P} = \myvec{-3 \\ 4}
+\end{align}
+let $\vec{P}$ divide the line joining points $\vec{A}$ and $\vec{B}$ in the ratio $k:1$.
+
+\begin{align}
+    \vec{P}=\frac{k\vec{B+\vec{A}}}{k+1}
+\end{align}
+
+\end{frame}
+\begin{frame}{Theoretical Solution}
+\begin{align}
+    k\brak{\vec{P}- \vec{B}} = \vec{A}-\vec{P}
+k=\frac{\brak{\vec{P}-\vec{B}}^T\brak{\vec{A}-\vec{P}}}{||\brak{\vec{P}-\vec{B}}||^2}    
+\end{align}
+\begin{align}
+    k=\frac{\myvec{x-4 \\ -14} \cdot \myvec{-5-x\\4}}{{\norm{\myvec{x-4 \\ -14}}}^2}
+\end{align}
+
+substituting the value of $x$ as , we get the value of $k$ as
+
+\begin{align}
+    k=2/7
+\end{align}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}
+#include <stdio.h>
+
+/*
+ * Compute AP and PB (vertical distances) and x-coordinate of P (using section formula).
+ *
+ * Inputs:
+ *   Ax, Ay, Bx, By, yP
+ *
+ * Outputs (via pointers):
+ *   *ratio_AP : AP (vertical distance Ay - yP)
+ *   *ratio_PB : PB (vertical distance yP - By)
+ *   *xP       : x-coordinate of P computed by section formula
+ */
+void section_point(double Ax, double Ay, double Bx, double By, double yP,
+                   double *ratio_AP, double *ratio_PB, double *xP) {
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}
+    double m = Ay - yP;  /* vertical distance AP */
+    double n = yP - By;  /* vertical distance PB */
+
+    if (m + n == 0.0) {
+        /* degenerate: cannot determine location */
+        fprintf(stderr, "Error: m + n == 0, cannot compute section.\n");
+        if (ratio_AP) *ratio_AP = 0.0;
+        if (ratio_PB) *ratio_PB = 0.0;
+        if (xP) *xP = 0.0;
+        return;
+    }
+
+    if (ratio_AP) *ratio_AP = m;
+    if (ratio_PB) *ratio_PB = n;
+
+    /* Section formula for internal division:
+       x = (n*Ax + m*Bx) / (m + n)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}
+       (because AP:PB = m:n, weight on A is n, on B is m)
+    */
+    if (xP) *xP = (n*Ax + m*Bx) / (m + n);
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Python Code through shared output}
+	\begin{lstlisting}
+#!/usr/bin/env python3
+import os
+import subprocess
+import ctypes
+import math
+import matplotlib.pyplot as plt
+
+C_FILE = "section.c"
+SO_FILE = "./libsection.so"
+
+# Auto-compile if shared lib not present
+if not os.path.exists(SO_FILE):
+    print("libsection.so not found — compiling section.c ...")
+    cmd = ["gcc", "-shared", "-o", "libsection.so", "-fPIC", C_FILE]
+    try:
+        subprocess.run(cmd, check=True)
+        print("Compiled libsection.so")
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Python Code through shared output}
+	\begin{lstlisting}
+    except subprocess.CalledProcessError as e:
+        print("Compilation failed:", e)
+        raise SystemExit(1)
+
+# Load shared library
+lib = ctypes.CDLL(SO_FILE)
+
+# Set function signature:
+# void section_point(double, double, double, double, double,
+#                    double*, double*, double*)
+lib.section_point.argtypes = [ctypes.c_double, ctypes.c_double,
+                              ctypes.c_double, ctypes.c_double,
+                              ctypes.c_double,
+                              ctypes.POINTER(ctypes.c_double),
+                              ctypes.POINTER(ctypes.c_double),
+                              ctypes.POINTER(ctypes.c_double)]
+lib.section_point.restype = None
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Python Code through shared output}
+	\begin{lstlisting}
+# Input points
+Ax, Ay = -5.0, 8.0
+Bx, By =  4.0, -10.0
+yP = 4.0
+
+# Prepare output holders
+ratio_AP = ctypes.c_double()
+ratio_PB = ctypes.c_double()
+xP = ctypes.c_double()
+
+# Call C function
+lib.section_point(Ax, Ay, Bx, By, yP,
+                  ctypes.byref(ratio_AP),
+                  ctypes.byref(ratio_PB),
+                  ctypes.byref(xP))
+
+# Read outputs
+m = ratio_AP.value  # AP vertical distance (Ay - yP)
+n = ratio_PB.value  # PB vertical distance (yP - By)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Python Code through shared output}
+	\begin{lstlisting}
+x_val = xP.value
+
+# Convert ratio to smallest integer ratio (if sensible)
+# We'll round to nearest integer then reduce by gcd if both nonzero
+def reduced_ratio(a, b):
+    ia = int(round(a))
+    ib = int(round(b))
+    if ia == 0 and ib == 0:
+        return (0, 0)
+    if ia < 0: ia = -ia
+    if ib < 0: ib = -ib
+    g = math.gcd(ia, ib) if (ia != 0 and ib != 0) else (ia or ib)
+    if g == 0:
+        return (ia, ib)
+    return (ia // g, ib // g)
+
+ratA_int, ratB_int = reduced_ratio(m, n)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Python Code through shared output}
+	\begin{lstlisting}
+print(f" Raw m (AP) = {m}, n (PB) = {n}")
+print(f" AP:PB (reduced) = {ratA_int}:{ratB_int}")
+print(f" x = {x_val}")
+
+# ---- Plot ----
+A = (Ax, Ay)
+B = (Bx, By)
+P = (x_val, yP)
+
+plt.plot([A[0], B[0]], [A[1], B[1]], linestyle='--', label="Line AB")
+plt.scatter(*A, marker='o', label=f"A{A}", zorder=5)
+plt.scatter(*B, marker='o', label=f"B{B}", zorder=5)
+plt.scatter(*P, marker='o', label=f"P({x_val:.3g},{yP})", zorder=5)
+
+plt.text(A[0]-0.6, A[1]+0.4, f"A{A}", color="red")
+plt.text(B[0]+0.4, B[1]-0.6, f"B{B}", color="blue")
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Python Code through shared output}
+	\begin{lstlisting}
+plt.text(P[0]+0.4, P[1]+0.4, f"P({x_val:.3g},{yP})", color="green")
+
+plt.axhline(0, color="gray", lw=0.5)
+plt.axvline(0, color="gray", lw=0.5)
+plt.grid(True, linestyle="--", alpha=0.5)
+plt.xlabel("x")
+plt.ylabel("y")
+plt.title(f"P divides AB in ratio {ratA_int}:{ratB_int}")
+plt.legend()
+plt.gca().set_aspect('equal', adjustable='box')
+plt.show()
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import sys 
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Local imports (your setup)
+from libs.line.funcs import *
+
+# Section formula
+def section_point(A, B, m, n):
+    return (m*B + n*A) / (m+n)
+
+# Given points
+A = np.array([-5, 8]).reshape(-1, 1)
+B = np.array([4, -10]).reshape(-1, 1)
+
+# Given y of P
+yP = 4
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# Solve for ratio m:n using y-coordinate
+# 4(m+n) = m*yB + n*yA
+# => 4m + 4n = m*(-10) + n*8
+# => 14m = 4n  => m/n = 2/7
+m, n = 2, 7
+
+# Compute P using section formula
+P = section_point(A, B, m, n).reshape(-1, 1)
+
+print(f"Ratio AP:PB = {m}:{n}")
+print(f"Value of x = {P[0,0]}")
+
+# Plot
+x_AB = line_gen_num(A, B, 20)
+plt.plot(x_AB[0,:], x_AB[1,:], 'g--', label="Line Segment AB")
+
+plot_coords = np.block([[A, B, P]])
+plt.scatter(plot_coords[0,:], plot_coords[1,:], color='blue')
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+vert_labels = [
+    f'A({A[0,0]}, {A[1,0]})',
+    f'B({B[0,0]}, {B[1,0]})',
+    f'P({P[0,0]}, {P[1,0]})'
+]
+
+for i, txt in enumerate(vert_labels):
+    plt.annotate(txt,
+            (plot_coords[0,i], plot_coords[1,i]),
+            textcoords="offset points",
+            xytext=(0,10),
+            ha='center')
+
+plt.xlabel('$x$')
+plt.ylabel('$y$')
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+plt.title("Division of Line Segment AB by Point P")
+plt.legend(loc='best')
+plt.grid()
+plt.axis('equal')
+
+plt.savefig("../figs/section_formula_plot.jpg")
+plt.show()
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}{Plot by python using shared output from c}
+	\begin{center}
+		\includegraphics[width=0.9\columnwidth]{figs/Figure.png}
+	\end{center}
+\end{frame}
+\begin{frame}{Plot by using Python only}
+	\begin{center}
+		\includegraphics[width=0.9\columnwidth]{figs/Figure_1.png}
+	\end{center}
+\end{frame}
+\end{document}

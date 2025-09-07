@@ -1,0 +1,322 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+%------------------------------------------------------------
+\title{1.8.28}
+\date{September 2,2025}
+\author{EE25BTECH11011 - Navya Banavathu}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Question}
+Find the equation of the set of the points $P$ such that its distances 
+from the points $A(3,4,-5)$ and $B(-2,1,4)$ are equal.\\
+\end{frame}
+
+\begin{frame}{Solution}
+Let the required point be denoted by the vector $\Vec{X}\in\mathbb{R}^3$.  
+The condition that $\Vec{X}$ is equidistant from $\Vec{A}$ and $\Vec{B}$ can be written using the norm (distance) as
+\begin{align}
+\lVert \Vec{X} - \Vec{A} \rVert = \lVert \Vec{X} - \Vec{B} \rVert.
+\end{align}
+
+Squaring both sides (to remove the square root) gives
+\begin{align}
+\lVert \Vec{X} - \Vec{A} \rVert^2 = \lVert \Vec{X} - \Vec{B} \rVert^2.
+\end{align}
+
+Using $\lVert \Vec{u}\rVert^2 = \Vec{u}^T\Vec{u}$, expand both sides:
+\begin{align}
+(\Vec{X}-\Vec{A})^T(\Vec{X}-\Vec{A}) &= (\Vec{X}-\Vec{B})^T(\Vec{X}-\Vec{B}).
+\end{align}
+
+Expanding the products yields
+\begin{align}
+\Vec{X}^T\Vec{X} - 2\Vec{A}^T\Vec{X} + \Vec{A}^T\Vec{A}
+&= \Vec{X}^T\Vec{X} - 2\Vec{B}^T\Vec{X} + \Vec{B}^T\Vec{B}.
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Solution}
+The $\Vec{X}^T\Vec{X}$ terms cancel, leaving a linear equation in $\Vec{X}$:
+\begin{align}
+-2\Vec{A}^T\Vec{X} + \Vec{A}^T\Vec{A} &= -2\Vec{B}^T\Vec{X} + \Vec{B}^T\Vec{B}.
+\end{align}
+
+Rearrange to isolate the inner product with $\Vec{X}$:
+\begin{align}
+2(\Vec{B}-\Vec{A})^T \Vec{X} &= \Vec{B}^T\Vec{B} - \Vec{A}^T\Vec{A}.
+\end{align}
+
+Now compute the two vector/scalar pieces on the right:
+\begin{align}
+\Vec{B}-\Vec{A} &= \myvec{-2\\1\\4} - \myvec{3\\4\\-5} = \myvec{-5\\-3\\9}, \\[6pt]
+\Vec{B}^T\Vec{B} &= (-2)^2 + 1^2 + 4^2 = 21, \\[2pt]
+\Vec{A}^T\Vec{A} &= 3^2 + 4^2 + (-5)^2 = 50.
+\end{align}
+
+
+\end{frame}
+
+\begin{frame}{Solution}
+Substitute these values into the linear equation:
+\begin{align}
+2\myvec{-5 & -3 & 9}\,\Vec{X} &= 21 - 50 = -29.
+\end{align}
+
+Simplify the left-hand side:
+\begin{align}
+\myvec{-10 & -6 & 18}\,\Vec{X} &= -29.
+\end{align}
+
+Hence the equation of the plane is given by:
+$\boxed{\;\myvec{-10 & -6 & 18}\,\Vec{X} = -29\;}$
+\end{frame}
+
+
+\begin{frame}[fragile]{ Code (C)}
+\begin{block}{Part 1}
+\begin{lstlisting}[language=C, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+#include <stdio.h>
+//dimension 
+#define D 3
+//compute C = U - V  (vector subtraction) 
+void vec_sub(const int U[D], const int V[D], int C[D]) {
+    for (int i = 0; i < D; ++i) C[i] = U[i] - V[i];
+}
+// compute dot = U^T * V  (inner product) 
+int dot(const int U[D], const int V[D]) {
+    int s = 0;
+    for (int i = 0; i < D; ++i) s += U[i] * V[i];
+    return s;
+}
+// multiply vector by scalar: R = k * V 
+void scalar_mul(int k, const int V[D], int R[D]) {
+    for (int i = 0; i < D; ++i) R[i] = k * V[i];
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{ Code (C)}
+\begin{block}{Part 2}
+\begin{lstlisting}[language=C, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+//print row-vector like [a b c] 
+void print_rowvec(const int V[D]) {
+    printf("[");
+    for (int i = 0; i < D; ++i) {
+        printf("%d", V[i]);
+        if (i < D-1) printf("  ");
+    }
+    printf("]");
+}
+int main(void) {
+    // Given points (column vectors) A and B 
+    int A[D] = {3, 4, -5};
+    int B[D] = {-2, 1, 4};
+    // Step 1: compute B - A 
+    int BminusA[D];
+    vec_sub(B, A, BminusA);
+    // Step 2: compute left-hand row vector = 2 (B - A)^T  (we store as a row) 
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{ Code (C)}
+\begin{block}{Part 3}
+\begin{lstlisting}[language=C, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+    int left_row[D];
+    scalar_mul(2, BminusA, left_row);
+    
+ // Step 3: compute RHS scalar = B^T B - A^T A  (dot products) 
+    int BB = dot(B, B);
+    int AA = dot(A, A);
+    int rhs = BB - AA;
+    
+// Output (matrix-theory style) 
+ printf("Using matrix theory:  2(B - A)^T X = B^T B - A^T A\n\n");
+    printf("B - A (column vector) = ");
+    print_rowvec(BminusA);   // prints as row for compactness 
+    printf("  (i.e. column vector with these entries)\n");
+
+    printf("Left row vector 2(B - A)^T = ");
+    print_rowvec(left_row);
+    printf("\n");
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{ Code (C)}
+\begin{block}{Part 4}
+\begin{lstlisting}[language=C, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+ printf("RHS scalar B^T B - A^T A = %d - %d = %d\n\n", BB, AA, rhs);
+
+ // Print final plane equation in standard algebraic form 
+ // left_row corresponds to coefficients [a b c] so equation is a x + b y + c z = rhs 
+ printf("Hence the equation of the plane (matrix form) is:\n");
+ printf("  ");
+ print_rowvec(left_row);
+ printf("  X = %d\n\n", rhs);
+
+ // also print conventional algebraic equation 
+ printf("Or in coordinate form:\n");
+ printf("  %dx + %dy + %dz = %d\n", left_row[0], left_row[1], left_row[2], rhs);
+ return 0;
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Python Code:Import and Define points}
+\begin{block}{Part 1}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+import ctypes
+import numpy as np
+
+# Load compiled shared library
+lib = ctypes.CDLL("./plane.so")   # use "plane.dll" on Windows
+
+D = 3
+IntArray3 = ctypes.c_int * D
+
+# Bind functions
+lib.vec_sub.argtypes = [IntArray3, IntArray3, IntArray3]
+lib.dot.argtypes = [IntArray3, IntArray3]
+lib.dot.restype = ctypes.c_int
+lib.scalar_mul.argtypes = [ctypes.c_int, IntArray3, IntArray3]
+
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Python Code}
+\begin{block}{Part 2}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+def vec_sub(U, V):
+    U_arr, V_arr, C_arr = IntArray3(*U), IntArray3(*V), IntArray3()
+    lib.vec_sub(U_arr, V_arr, C_arr)
+    return list(C_arr)
+    
+  def dot(U, V):
+    return lib.dot(IntArray3(*U), IntArray3(*V))
+
+def scalar_mul(k, V):
+    V_arr, R_arr = IntArray3(*V), IntArray3()
+    lib.scalar_mul(k, V_arr, R_arr)
+    return list(R_arr)
+
+if __name__ == "__main__":
+    A = [3, 4, -5]
+    B = [-2, 1, 4]
+
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Python Code}
+\begin{block}{Part 3}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+  BminusA = vec_sub(B, A)
+    left_row = scalar_mul(2, BminusA)
+    rhs = dot(B, B) - dot(A, A)
+    
+ print("Using C library through ctypes:")
+    print("B - A =", BminusA)
+    print("Left row vector 2(B - A)^T =", left_row)
+    print("RHS scalar =", rhs)
+    print(f"Equation of plane: {left_row[0]}x + {left_row[1]}y + {left_row[2]}z = {rhs}")
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Python Code: Plotting}
+\begin{block}{Part 4}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+ fig = plt.figure()
+ax = fig.add_subplot(111, projection="3d")
+
+# Define grid for plane
+x_vals = np.linspace(-6, 6, 20)
+y_vals = np.linspace(-6, 6, 20)
+X, Y = np.meshgrid(x_vals, y_vals)
+Z = (rhs - coeff[0]*X - coeff[1]*Y) / coeff[2]
+
+# Plot the plane
+ax.plot_surface(X, Y, Z, alpha=0.5, color="cyan")
+ # Plot points A, B, and midpoint M
+ax.scatter(*A, color="red", s=50, label="A(3,4,-5)")
+ax.scatter(*B, color="blue", s=50, label="B(-2,1,4)")
+ax.scatter(*M, color="black", s=50, label="Midpoint M")
+
+
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Python Code: Plotting}
+\begin{block}{Part 5}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+# Plot AB line
+ax.plot([A[0], B[0]], [A[1], B[1]], [A[2], B[2]], "k--", label="AB")
+
+# Labels
+ax.set_xlabel("X axis")
+ax.set_ylabel("Y axis")
+ax.set_zlabel("Z axis")
+ax.legend()
+
+plt.title("Perpendicular Bisector Plane of A and B (Matrix Theory)")
+plt.savefig("fig2.png", dpi=300, bbox_inches="tight")  # Save the figure
+plt.show()
+
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}{Graphical Representation}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.55\columnwidth]{figs/fig2.png}
+        \caption{locus of point P}
+    \end{figure}
+\end{frame}
+
+\end{document}

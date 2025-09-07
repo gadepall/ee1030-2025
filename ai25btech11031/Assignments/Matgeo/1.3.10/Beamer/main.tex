@@ -1,0 +1,241 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{1.3.10}
+\date{August  2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{Shivam Sawarkar \\ AI25BTECH11031}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question (1.3.10)}
+Find the ratio in which the point $P = (8, y)$ divides the line segment joining
+$A = (1, 2)$ and $B = (2, 3)$. Also, find the value of $y$.
+\end{frame}
+
+
+\begin{frame}{Collinearity Condition}
+Points \textbf{A}, \textbf{B}, and \textbf{P} are collinear:
+$
+\implies \text{rank} \myvec {\vec{B} - \vec{A} & \vec{P} - \vec{A}}^T  = 1
+$
+
+Calculate vectors:
+\begin{align*}
+\textbf{B} - \textbf{A} &= \myvec{2 - 1 \\ 3 - 2} = \myvec{1 \\ 1} \\
+\textbf{P} - \textbf{A} &= \myvec{8 - 1 \\ y - 2} = \myvec{7 \\ y - 2}
+\end{align*}
+\end{frame}
+
+\begin{frame}{Matrix Setup and Rank Reduction}
+Matrix:
+$
+\myvec{
+1 & 1 \\
+7 & y - 2}
+$
+
+Row reduce:
+$
+R_2 \rightarrow R_2 - 7R_1 \implies
+\myvec{
+1 & 1 \\
+0 & y - 9}
+$
+
+For rank 1:
+$
+y - 9 = 0 \implies y = 9
+$
+
+$
+P = \myvec{8 \\ 9}
+$
+\end{frame}
+
+\begin{frame}{Ratio of Division}
+Using the section formula,
+$
+\textbf{P} = \frac{k \textbf{B} + \textbf{A}}{k+1}
+$
+
+The vector formula for ratio \(k:1\):
+$
+k = \frac{(\myvec{A} - \myvec{P})^T (\myvec{P} - \myvec{B})}{\|\myvec{P} - \myvec{B}\|^2}
+$
+\end{frame}
+
+\begin{frame}{Substitute}
+Substituting the values of $\vec{A}$, $\vec{B}$ and $\vec{P}$,
+\begin{align}
+k=\frac{\myvec{-7 & -7}\myvec{6 \\ 6}}{\norm{\myvec{6 \\ 6}}^2}=\frac{-7}{6}
+\end{align}
+\end{frame}
+
+\begin{frame}{Result}
+$
+P = \myvec{8 \\ 9}
+$
+
+Thus, the ratio in which the point $P$ divides the line segment $AB$ is
+$
+\boxed{-7 : 6}
+$
+
+\end{frame}
+
+\begin{frame}{Plot}
+\centering
+\includegraphics[width=0.7\linewidth]{figs/fig1.jpg}
+\end{frame}
+
+\begin{frame}[fragile]{C Code}
+\begin{verbatim}
+#include <stdio.h>
+
+int main() {
+// Given points A and B
+double Ax = 1, Ay = 2;
+double Bx = 2, By = 3;
+
+// Given x-coordinate of P
+double Px = 8;
+double Py;
+
+// Solve for Py using rank condition:
+// For matrix [[1, Px - Ax], [1, Py - Ay]] to have rank 1,
+// second column must be proportional:
+// => (Px - Ax) - (Py - Ay) = 0 => Py = Px - Ax + Ay
+Py = Px - Ax + Ay;
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]{C Code}
+\begin{verbatim}
+printf("Calculated y-coordinate of P: %lf\n", Py);
+
+// Calculate ratio k using section formula rearrangement
+double numerator = (Ax - Px)*(Px - Bx) + (Ay - Py)*(Py - By);
+double denominator = (Px - Bx)*(Px - Bx) + (Py - By)*(Py - By);
+
+double k = numerator / denominator;
+
+printf("Ratio k in which P divides AB: %lf\n", k);
+
+return 0;
+}
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Python code}
+    \begin{verbatim}
+import numpy as np
+
+# Given points A and B
+A = np.array([1, 2])
+B = np.array([2, 3])
+
+# Given x-coordinate of P
+Px = 8
+
+# Solve for Py using collinearity rank condition:
+# (Px - Ax) - (Py - Ay) = 0 => Py = Px - Ax + Ay
+Py = Px - A[0] + A[1]
+P = np.array([Px, Py])
+
+print(f"Calculated y-coordinate of P: {Py}")
+    \end{verbatim}
+\end{frame}
+\begin{frame}[fragile]{Python code}
+    \begin{verbatim}
+# Calculate ratio k using vector formula
+numerator = np.dot(A - P, P - B)
+denominator = np.linalg.norm(P - B) ** 2
+k = numerator / denominator
+
+print(f"Ratio k in which P divides AB: {k}")
+
+    \end{verbatim}
+\end{frame}
+
+
+\end{document}

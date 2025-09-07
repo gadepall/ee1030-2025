@@ -2,7 +2,9 @@ import ctypes
 import os
 
 # Load the shared library
+
 lib = ctypes.CDLL('./mat.so')
+
 # Define the argument types for the C function
 lib.is_perpendicular.argtypes = [ctypes.c_double, ctypes.c_double, ctypes.c_double, ctypes.c_double]
 # Define the return type for the C function

@@ -1,0 +1,90 @@
+\documentclass[journal,onecolumn]{IEEEtran}
+\usepackage[a5paper,margin=10mm]{geometry}
+
+% Essential math and formatting packages
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,angles,quotes}
+
+% For better referencing and citing
+\usepackage{cite}
+\usepackage[breaklinks=true]{hyperref}
+
+% For vectors
+\newcommand{\myvec}[1]{\begin{bmatrix}#1\end{bmatrix}}
+
+% Set spacing and counters
+\setlength{\headheight}{1cm}
+\setlength{\headsep}{0mm}
+\setlength{\intextsep}{10pt}
+
+% Commented out as they cause errors without enumerate environment
+%\numberwithin{equation}{enumi}
+%\numberwithin{figure}{enumi}
+%\numberwithin{table}{enumi}
+
+% Title and author
+\title{Coordinate Calculation for Point Dividing a Line Segment}
+\author{AI25BTECH11034 - Sujal Chauhan}
+
+\begin{document}
+
+\maketitle
+
+\textbf{Question:}\\
+Find the coordinate of the point which divides the line segment joining points \(A(4,-3)\) and \(B(8,5)\) in the ratio \(3:1\) internally.\\[1cm]
+
+\textbf{Solution:}\\
+Let \(O\) be the origin. Then the position vectors 
+\[
+\overrightarrow{OA} = \myvec{4 \\ -3}, \quad \overrightarrow{OB} = \myvec{8 \\ 5}.
+\]
+
+The point \(C\), dividing the segment \(AB\) in the ratio \(3:1\) internally, has the position vector
+\[
+\overrightarrow{OC} = \frac{3 \overrightarrow{OB} + 1 \overrightarrow{OA}}{3 + 1} = \frac{3 \myvec{8 \\ 5} + \myvec{4 \\ -3}}{4} = \frac{\myvec{24 \\ 15} + \myvec{4 \\ -3}}{4} = \frac{\myvec{28 \\ 12}}{4} = \myvec{7 \\ 3}.
+\]
+
+Therefore, the coordinate of point \(C\) is \(\boxed{(7,3)}\).
+
+\begin{figure}[htbp]
+\centering
+% \input{codes/vectordiagram} % Removed as file likely missing
+
+% TikZ diagram inserted inline instead:
+\begin{tikzpicture}[>=Stealth, scale=1.0]
+
+    % Define points
+    \coordinate (O) at (0,0);
+    \coordinate (A) at (4,-3);
+    \coordinate (B) at (8,5);
+    \coordinate (C) at (7,3);
+
+    % Draw axes
+    \draw[->] (-1,0) -- (10,0) node[right] {\(x\)};
+    \draw[->] (0,-5) -- (0,7) node[above] {\(y\)};
+
+    % Draw vectors
+    \draw[->, thick, blue] (O) -- (A) node[midway, below left] {\(\overrightarrow{OA}\)};
+    \draw[->, thick, red] (O) -- (B) node[midway, above right] {\(\overrightarrow{OB}\)};
+    \draw[->, thick, green!70!black] (O) -- (C) node[midway, right] {\(\overrightarrow{OC}\)};
+
+    % Mark points
+    \filldraw[black] (O) circle (2pt) node[below left] {\(O(0,0)\)};
+    \filldraw[black] (A) circle (2pt) node[below right] {\(A(4,-3)\)};
+    \filldraw[black] (B) circle (2pt) node[above right] {\(B(8,5)\)};
+    \filldraw[black] (C) circle (2pt) node[right] {\(C(7,3)\)};
+
+    % Dashed segment AB
+    \draw[dashed, gray] (A) -- (B);
+
+\end{tikzpicture}
+
+\caption{}
+\label{1.4.4}
+\end{figure}
+
+\end{document}

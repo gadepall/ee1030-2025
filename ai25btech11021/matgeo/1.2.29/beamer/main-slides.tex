@@ -1,0 +1,224 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+
+\title 
+{1.2.29}
+\date{August 28,2025}
+
+
+\author 
+{Abhiram Reddy-AI25BTECH11021}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+In a harbour, wind is blowing at the speed of $72\ \mathrm{km/h}$ and the flag on the mast of a boat anchored in the harbour flutters along the N--E direction. If the boat starts moving at a speed of $51\ \mathrm{km/h}$ to the north, what is the direction of the flag on the mast of the boat?
+\end{frame}
+
+
+
+\begin{frame}{Represent given velocities as vectors}
+
+The wind velocity (ground frame) is along the NE direction with speed $72 \,\text{km/h}$:
+\[
+W = \begin{bmatrix} 72 \cos 45^\circ \\ 72 \sin 45^\circ \end{bmatrix}
+= \begin{bmatrix} 50.91 \\ 50.91 \end{bmatrix} \ \text{km/h}.
+\]
+
+The boat velocity (ground frame) is northward with speed $51 \,\text{km/h}$:
+\[
+V = \begin{bmatrix} 0 \\ 51 \end{bmatrix} \ \text{km/h}.
+\]\\
+
+\end{frame}
+
+\begin{frame}{Relative wind (wind as seen from the boat)}
+\[
+R = W - V
+= \begin{bmatrix} 50.91 \\ 50.91 \end{bmatrix} -
+\begin{bmatrix} 0 \\ 51 \end{bmatrix}
+= \begin{bmatrix} 50.91 \\ -0.09 \end{bmatrix}.
+\]
+\end{frame}
+\begin{frame}{Direction of the relative wind}
+\[
+\theta = \tan^{-1}\left(\frac{-0.09}{50.91}\right) \approx -0.1^\circ
+\]
+
+Thus, the relative wind is almost exactly eastward, slightly south of east.
+
+\[
+\boxed{\text{The flag on the mast points nearly East, slightly tilted South.}}
+\]
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{C Code }
+
+    \begin{lstlisting}
+
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    double Rx = 50.91;
+    double Ry = -0.09;
+
+    double dot_product = Rx * 1 + Ry * 0;  // dot with East vector [1, 0]
+    double mag_R = sqrt(Rx * Rx + Ry * Ry);
+
+    double cos_theta = dot_product / mag_R;
+    double theta_rad = acos(cos_theta);
+    double theta_deg = theta_rad * (180.0 / M_PI);
+
+    printf("Angle from East = %.4f degrees\n", theta_deg);
+    return 0;
+}
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import matplotlib.pyplot as plt
+import numpy as np
+
+W = np.array([50.91, 50.91])
+V = np.array([0, 51])
+R = W - V
+
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+
+origin = np.array([[0, 0], [0, 0]])
+
+plt.figure(figsize=(8, 8))
+plt.quiver(*origin, 
+           [W[0], V[0], R[0]], 
+           [W[1], V[1], R[1]],
+           angles='xy', scale_units='xy', scale=1,
+           color=['blue', 'green', 'red'],
+           label=['Wind Vector ($\\vec{W}$)', 'Boat Vector ($\\vec{V}$)', 'Relative Wind ($\\vec{R}$)'])
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+
+plt.xlim(-10, 80)
+plt.ylim(-10, 80)
+plt.axhline(0, color='gray', linestyle='--')
+plt.axvline(0, color='gray', linestyle='--')
+plt.gca().set_aspect('equal', adjustable='box')
+plt.grid(True)
+plt.legend()
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+
+plt.title("Vector Plot: Wind, Boat, and Relative Wind")
+plt.xlabel("East-West Direction")
+plt.ylabel("North-South Direction")
+
+plt.savefig("pythonimage.png", dpi=300)
+plt.show()
+
+
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}{Plot}
+    \centering
+    \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{figs/python image.png}     
+\end{frame}
+
+
+\end{document}

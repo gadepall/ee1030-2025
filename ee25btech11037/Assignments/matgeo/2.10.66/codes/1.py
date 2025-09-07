@@ -1,7 +1,9 @@
 import ctypes
 
 # Load the shared library
+
 lib = ctypes.CDLL("./mat.so")   # use "gram.dll" on Windows
+
 
 # Define argument and return types
 lib.check_coplanar.argtypes = [ctypes.POINTER(ctypes.c_int),

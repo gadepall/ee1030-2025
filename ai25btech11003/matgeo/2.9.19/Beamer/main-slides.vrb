@@ -1,0 +1,19 @@
+\frametitle{Python + C Code}
+    \begin{lstlisting}
+      except Exception as e:
+        print(f"Error calling C function: {e}")
+
+def main():
+    print("Loading vectors from vectors.dat...")
+    vectors = load_vectors_from_file("vectors.dat")
+    if vectors is None:
+        print("Please ensure you have run the C program first to generate vectors.dat")
+        return
+
+    lib = load_shared_library()
+    verify_calculations_with_library(vectors, lib)
+    create_vector_visualization(vectors)
+
+if __name__ == "__main__":
+    main()
+    \end{lstlisting}

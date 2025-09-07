@@ -1,0 +1,36 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,decorations.pathreplacing}
+
+\begin{document}
+
+\begin{tikzpicture}[>=Stealth, scale=1.0]
+
+    % Define points
+    \coordinate (O) at (0,0);
+    \coordinate (A) at (4,-3);
+    \coordinate (B) at (8,5);
+    % Calculate C = (3B + A)/4
+    \coordinate (C) at (7,3);
+
+    % Draw axes
+    \draw[->] (-1,0) -- (10,0) node[right] {\(x\)};
+    \draw[->] (0,-5) -- (0,7) node[above] {\(y\)};
+
+    % Draw vectors
+    \draw[->, thick, blue] (O) -- (A) node[midway, below left] {\(\overrightarrow{OA}\)};
+    \draw[->, thick, red] (O) -- (B) node[midway, above right] {\(\overrightarrow{OB}\)};
+    \draw[->, thick, green!70!black] (O) -- (C) node[midway, right] {\(\overrightarrow{OC}\)};
+
+    % Mark points
+    \filldraw[black] (O) circle (2pt) node[below left] {\(O(0,0)\)};
+    \filldraw[black] (A) circle (2pt) node[below right] {\(A(4,-3)\)};
+    \filldraw[black] (B) circle (2pt) node[above right] {\(B(8,5)\)};
+    \filldraw[black] (C) circle (2pt) node[right] {\(C(7,3)\)};
+
+    % Optional: Draw segment AB with dashed line
+    \draw[dashed, gray] (A) -- (B);
+
+\end{tikzpicture}
+
+\end{document}

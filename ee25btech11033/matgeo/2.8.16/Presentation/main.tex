@@ -1,0 +1,229 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\begin{document}
+
+\title 
+{2.8.16}
+\date{August 27,2025}
+
+
+\author 
+{Kavin B-EE25BTECH11033}
+
+
+
+
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Prove that the lines $x=py+q , z=ry+s \text{ and } x=p^{\prime}y+q^{\prime}, z=r^{\prime}y+s^{\prime} $ are perpendicular if $pp^{\prime}+rr^{\prime}+1=0$..
+\end{frame}
+
+
+
+\begin{frame}{Theoretical Solution}
+
+Let line $L_1$ be the intersection of the planes,
+\begin{center}
+    $x-py-q=0\ ,\ z-ry-s=0$
+\end{center}
+Let line $L_2$ be the intersection of the planes,
+\begin{center}
+    $x-p^{\prime}y-q^{\prime}=0\ ,\ z-r^{\prime}y-s^{\prime}=0$
+\end{center}
+\bigskip
+
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+Let $\vec{n_1}$, $\vec{n_2}$ be the normals for the planes $x-py-q=0\ \text{and}\ z-ry-s=0$ respectively.
+
+\begin{align}
+    direction\ vector\ of\ \vec{n_1}\ = \myvec{1\\-p\\0}
+\end{align}
+\begin{align}
+    direction\ vector\ of\ \vec{n_2}\ = \myvec{0\\-r\\1}
+\end{align}
+Let $\vec{n_3}$, $\vec{n_4}$ be the normals for the planes $x-p^{\prime}y-q^{\prime}=0\ \text{and}\ z-r^{\prime}y-s^{\prime}=0$ respectively.
+
+\begin{align}
+    direction\ vector\ of\ \vec{n_3}\ = \myvec{1\\-p^{\prime}\\0}
+\end{align}
+\end{frame}
+
+
+\begin{frame}{Theoretical Solution}
+To find the direction vectors, the equations of the lines can be expressed as,
+\begin{align}
+	\vec{x} = \myvec{x_1 \\ y_1 \\ z_1} + \kappa \myvec{a \\ b \\ c}
+\end{align}
+where $\myvec{a\\b\\c}$ is the direction vector.\\
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+
+The equations for the line $L_1$ are:
+\begin{align}
+    x &= py + q \\
+    z &= ry + s
+\end{align}
+We can rearrange these to isolate $y$:
+\begin{align}
+    x - q = py \implies y = \frac{x-q}{p} \\
+    z - s = ry \implies y = \frac{z-s}{r}
+\end{align}
+By equating these expressions for $y$, and including the term for $y$ itself, the line equation of $L_1$ to be:
+\begin{align}
+	\vec{x} = \myvec{q \\ 0 \\ s} + \kappa_1 \myvec{p \\ 1 \\ r}
+\end{align}
+\end{frame}
+\begin{frame}{Theoretical Solution}
+From this, the direction vectors of the line $L_1$ are $\myvec{p\\1\\r}$.\\
+The equations for the line $L_2$ are:
+\begin{align}
+    x &= p^{\prime}y + q^{\prime} \\
+    z &= r^{\prime}y + s^{\prime}
+\end{align}
+Similarly, we rearrange to isolate $y$:
+\begin{align}
+    x - q^{\prime} = p^{\prime}y \implies y = \frac{x-q^{\prime}}{p^{\prime}} \\
+    z - s^{\prime} = r^{\prime}y \implies y = \frac{z-s^{\prime}}{r^{\prime}}
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+By equating these expressions for $y$, and including the term for $y$ itself, the line equation of $L_2$ to be:
+\begin{align}
+	\vec{x} = \myvec{q^{\prime}\\ 0 \\ s^{\prime}} + \kappa_2 \myvec{p^{\prime} \\ 1 \\ r^{\prime}}
+\end{align}\
+From this, the direction vectors of the line $L_2$ are $\myvec{p^{\prime}\\1\\r^{\prime}}$.
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+If the lines are perpendicular, then their dot product of direction vectors must be zero.
+\begin{align}
+    \implies \brak{direction\ vector\ of\ L_1}^\top\brak{direction\ vector\ of\ L_2} = 0
+\end{align}
+\begin{align}
+\implies \myvec{p & 1 & r} \myvec{p^{\prime}\\1\\r^{\prime}} = 0
+\end{align}
+\begin{align}
+\implies pp^{\prime}+rr^{\prime}+1=0
+\end{align}\\
+\bigskip
+$\therefore$ The lines $x=py+q , z=ry+s \text{ and } x=p^{\prime}y+q^{\prime}, z=r^{\prime}y+s^{\prime} $ are perpendicular if $pp^{\prime}+rr^{\prime}+1=0$\\
+\\
+Hence proved.
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{C Code - A function to check whether they are perpendicular}
+
+    \begin{lstlisting}
+
+#include <stdio.h>
+
+int is_perpendicular(double p, double r, double p_prime, double r_prime) {
+    if ((p * p_prime) + (r * r_prime) + 1 == 0) {
+        return 1; // True, the lines are perpendicular
+    }
+    return 0; // False, the lines are not perpendicular
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import ctypes
+import os
+
+# Load the shared library
+lib = ctypes.CDLL('./code.so')
+# Define the argument types for the C function
+lib.is_perpendicular.argtypes = [ctypes.c_double, ctypes.c_double, ctypes.c_double, ctypes.c_double]
+# Define the return type for the C function
+lib.is_perpendicular.restype = ctypes.c_int
+
+def check_perpendicular(p, r, p_prime, r_prime):
+    result = lib.is_perpendicular(p, r, p_prime, r_prime)
+    return bool(result)
+
+    \end{lstlisting}
+\end{frame}
+
+
+\end{document}

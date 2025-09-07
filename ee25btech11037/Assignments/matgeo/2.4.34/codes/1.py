@@ -2,8 +2,9 @@ import ctypes
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Load the shared library (update path if needed)
+
 lib = ctypes.CDLL("./mat.so")   # <-- replace with your actual .so filename
+
 
 # Define the Point struct in Python (matching C struct)
 class Point(ctypes.Structure):
