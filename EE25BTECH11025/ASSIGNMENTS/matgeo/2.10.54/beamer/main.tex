@@ -95,31 +95,43 @@ Given:
 \begin{align}
     \vec{a}+\vec{b}+\vec{c}=0\\
     \vec{c}= \myvec{\vec{a}&\vec{b}}\myvec{-1\\-1}\\
-    \brak{\myvec{\vec{a}&\vec{b}}=A}
 \end{align}
 \end{frame}
 
-\begin{frame}{Proof}
-Proving that $A$ is non-singular (assuming 2D space):\\
+\begin{frame}{Assuming 2D space}
+This $\vec{c}$ lies in span of $\vec{a}, \vec{b}$.\\
 
-For the matrix to be singular, the vectors in the matrix should be linearly dependent, i.e., collinear. The determinant of the matrix should be zero.\\
-Multiplying (1) $\vec{a}^\top, \vec{b}^\top, \vec{c}^\top$. We get
+Since $\vec{a}, \vec{b}, \vec{c}$ are all in 2D space, if all three are non-zero unit vectors satisfying this relation, they must be linearly dependent.\\
+
+Therefore, the $2\times2$ matrix $\myvec{\vec{a}&\vec{b}}$ cannot be invertible.
 \begin{align}
-    \vec{a}^\top\vec{b}=\vec{b}^\top\vec{c}=\vec{c}^\top\vec{a}=\frac{-1}{2}\\
+    \mdet{\myvec{\vec{a}&\vec{b}}}=0
 \end{align}
-The angle between the vectors taken pairwise is $120\degree$. 
+\end{frame}
+
+\begin{frame}{Singular matrix}
+So the matrix is singular.
+
+In 2D, norm is defined by the determinant:
+\begin{align}
+    ||\vec{a}\times\vec{b}||=\mdet{\myvec{\vec{a}&\vec{b}}}
+\end{align}
+
+So if $\mdet{\myvec{\vec{a}&\vec{b}}}=0$, then
+\begin{align}
+    \vec{a}\times\vec{b}=0
+\end{align}
 \end{frame}
 
 \begin{frame}{conclusion}
-Hence, the cross-product between the vectors is given by:
-\begin{align}
-    \mdet{A}=\mdet{\myvec{\vec{a}&\vec{b}}}=||\vec{a}||||\vec{b}||\sin\theta=1.1.\sin120\degree=\frac{1}{2}\neq0
-\end{align}
-Hence, the given matrix $A$ is non-singular.\\
+Similarly, we can show the same for the vectors $\vec{a}$ and $\vec{b}$.
 
-Similarly, we can show the same for vectors \vec{a} and \vec{b}.\\
-Hence, the correct option is (3) $\vec{a}\times \vec{b}=\vec{b}\times \vec{c}=\vec{c}\times \vec{a}\neq \vec{0}$
+Thus, the correct option is (1):
+\begin{align}
+    \vec{a}\times \vec{b}=\vec{b}\times \vec{c}=\vec{c}\times \vec{a}=\vec{0}
+\end{align}
 \end{frame}
+
 
 \begin{frame}[fragile]
     \frametitle{C Code}
@@ -266,7 +278,7 @@ plt.show()
     \begin{figure}
         \centering
         \includegraphics[width=0.5\columnwidth]{../figs/plot.png}
-	    \caption{Plot of vectors $\vec{a}$, $\vec{b}$ and $\vec{c}$.}
+        \caption{Plot of vectors $\vec{a}, \vec{b}$ and $\vec{c}$}
         \label{fig:fig}
     \end{figure}
 \end{frame}
