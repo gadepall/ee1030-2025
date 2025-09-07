@@ -1,0 +1,115 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+\usepackage{comment}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=4em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{5.8.24}
+\author{EE25BTECH11026-Harsha}
+ \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question}:\\
+The ages of two friends Ani and Bijoya differ by 3 years. Ani's father Dharam is
+twice as old as Ani and Bijoya is twice as old as sister Kanta. The ages of Kanta and Dharam differ by 30 years. Find the ages of Ani and Bijoya.\\
+\solution \\
+Let us solve the given question theoretically and then verify the solution computationally.\\
+\\
+Let the ages of Ani,Bijoya,Dharam and Kanta form a age vector $\vec{A}$ of the form,
+\begin{align}
+    \vec{A}=\myvec{\vec{a}&&\vec{b}&&\vec{c}&&\vec{d}}^{\top}
+\end{align}
+According to the data given,
+\begin{align}
+    \vec{a}-\vec{b}=3\\
+    \vec{c}=2\vec{a}\\
+    \vec{b}=2\vec{d}\\
+    \vec{c}-\vec{d}=30
+\end{align}
+
+\begin{align}
+    \therefore \myvec{1&&-1&&0&&0\\-2&&0&&1&&0\\0&&1&&0&&-2\\0&&0&&1&&-1}\vec{A}=\myvec{3\\0\\0\\30}
+\end{align}
+We can find the solution of the matrix by doing Gaussian elimination,
+\begin{align}
+    \augvec{4}{1}{1 & -1 & 0 & 0 & 3\\ -2 & 0 & 1 & 0 & 0\\ 0 & 1 & 0 & -2 & 0\\ 0 & 0 & 1 & -1 & 30}
+    \xleftrightarrow{\,R_2 \gets R_2+ 2 \times R_1}
+    \augvec{4}{1}{1 & -1 & 0 & 0 & 3\\ 0 & -2 & 1 & 0 & 6\\ 0 & 1 & 0 & -2 & 0\\ 0 & 0 & 1 & -1 & 30}
+    \xleftrightarrow{\,R_2 \leftrightarrow R_3}
+\end{align}
+\begin{align}
+    \augvec{4}{1}{1 & -1 & 0 & 0 & 3\\  0 & 1 & 0 & -2 & 0\\ 0 & -2 & 1 & 0 & 6\\ 0 & 0 & 1 & -1 & 30}
+    \xleftrightarrow{\, R_3 \gets 2 \times R_2 + R_3} 
+    \augvec{4}{1}{1 & -1 & 0 & 0 & 3\\  0 & 1 & 0 & -2 & 0\\ 0 & 0 & 1 & -4 & 6\\ 0 & 0 & 1 & -1 & 30}
+    \xleftrightarrow{\, R_4 \gets R_4-R_3} 
+\end{align}
+\begin{align}
+    \augvec{4}{1}{1 & -1 & 0 & 0 & 3\\  0 & 1 & 0 & -2 & 0\\ 0 & 0 & 1 & -4 & 6\\ 0 & 0 & 0 & 3 & 24}
+    \xleftrightarrow[\,R_3 \gets R_3 + 4 \times R_4]{\,R_4 \gets \frac{R_4}{3}}
+    \augvec{4}{1}{1 & -1 & 0 & 0 & 3\\  0 & 1 & 0 & -2 & 0\\ 0 & 0 & 1 & 0 & 38\\ 0 & 0 & 0 & 1 & 8}
+    \xleftrightarrow[\,R_1 \gets R_1+R_2]{\,R_2 \gets R_2+2 \times R_4}
+\end{align}
+\newpage
+\vspace*{0.25cm}
+\begin{align}
+    \augvec{4}{1}{1 & 0 & 0 & 0 & 19\\  0 & 1 & 0 & 0 & 16\\ 0 & 0 & 1 & 0 & 38\\ 0 & 0 & 0 & 1 & 8}
+\end{align}
+$\therefore$ Ages of Ani and Bijoya is 19 and 16 respectively. 
+
+\end{document}
