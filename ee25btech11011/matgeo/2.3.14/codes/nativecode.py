@@ -1,47 +1,62 @@
-import numpy as np
-import matplotlib.pyplot as plt
+import ctypes
+import math
 import os
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
-# Create output directory if not present
-os.makedirs("figs", exist_ok=True)
+# Load compiled C shared library
+if os.name == "nt":
+    lib = ctypes.CDLL("./direction.dll")  # Windows
+else:
+    lib = ctypes.CDLL("./direction.so")   # Linux/macOS
 
-# Given angles
-alpha = np.deg2rad(30)   # with X-axis
-beta  = np.deg2rad(120)  # with Y-axis
+# Define Vector3 struct (same layout as in C)
+class Vector3(ctypes.Structure):
+    _fields_ = [("x", ctypes.c_double),
+                ("y", ctypes.c_double),
+                ("z", ctypes.c_double)]
 
-# Direction cosines
-cos_alpha = np.cos(alpha)
-cos_beta  = np.cos(beta)
+# Function signatures
+lib.fromDirectionCosines.argtypes = [ctypes.c_double, ctypes.c_double]
+lib.fromDirectionCosines.restype = Vector3
 
-# Find cos(gamma) from unit vector condition
-cos_gamma_sq = 1 - (cos_alpha**2 + cos_beta**2)
-cos_gamma_sq = max(cos_gamma_sq, 0)  # prevent negatives due to rounding
-cos_gamma = np.sqrt(cos_gamma_sq)
+lib.dotProduct.argtypes = [Vector3, Vector3]
+lib.dotProduct.restype = ctypes.c_double
 
-# Print numerical values (the "answer")
-print("Direction Cosines:")
-print(f"cos(alpha) = {cos_alpha:.4f}")
-print(f"cos(beta)  = {cos_beta:.4f}")
-print(f"cos(gamma) = {cos_gamma:.4f}")
+# Input angles
+angle_x = 30.0
+angle_y = 120.0
 
-# Angle with Z-axis
-gamma = np.rad2deg(np.arccos(cos_gamma))
-print(f"\nThe line makes an angle of {gamma:.2f}° with the positive Z-axis.\n")
+# Call C function to compute direction vector
+direction = lib.fromDirectionCosines(angle_x, angle_y)
 
-# Direction vector
-d = np.array([cos_alpha, cos_beta, cos_gamma])
+print("Unit direction vector (from C):")
+print(f"x = {direction.x:.6f}")
+print(f"y = {direction.y:.6f}")
+print(f"z = {direction.z:.6f}")
 
-# Line parameter t
-t = np.linspace(-3, 3, 100)
-x = d[0] * t
-y = d[1] * t
-z = d[2] * t
+# Compute angle with z-axis
+e_z = Vector3(0.0, 0.0, 1.0)
+cos_gamma = lib.dotProduct(direction, e_z)
+gamma_deg = math.degrees(math.acos(cos_gamma))
+print(f"Angle with z-axis = {gamma_deg:.2f} degrees")
 
-# Plot
+# Example values for the direction cosines
+cos_alpha = 0.866025
+cos_beta = -0.5
+cos_gamma = 0.0
+
+# Generate points along the line (both directions)
+t = np.linspace(-3, 3, 100)   # allows negative and positive values
+x = cos_alpha * t
+y = cos_beta * t
+z = cos_gamma * t
+
+# Create the plot
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 
-# Plot the line
+# Plot the direction line
 ax.plot(x, y, z, color="blue", label=r"$L : (\cos\alpha, \cos\beta, \cos\gamma)t$")
 
 # Draw X, Y, Z axes with arrows
@@ -54,12 +69,11 @@ ax.text(0, 3.2, 0, "Y", color="green")
 ax.quiver(0, 0, 0, 0, 0, 3, color="black", arrow_length_ratio=0.05)
 ax.text(0, 0, 3.2, "Z", color="black")
 
-# Axis labels
+# Axis labels and title
 ax.set_xlabel("X-axis")
 ax.set_ylabel("Y-axis")
 ax.set_zlabel("Z-axis")
 ax.set_title("Line with Direction Cosines")
-
 ax.legend()
 
 # Set view limits
@@ -67,7 +81,8 @@ ax.set_xlim([-3, 3])
 ax.set_ylim([-3, 3])
 ax.set_zlim([-3, 3])
 
-# Save figure
-plt.title("Line with Direction Cosines")
-plt.savefig("fig3.png", dpi=300, bbox_inches="tight")  # Save the figure
+# Save the figure
+plt.savefig("direction_line_full.png", dpi=300, bbox_inches="tight")
+
 plt.show()
+
