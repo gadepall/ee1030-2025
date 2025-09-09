@@ -1,0 +1,133 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+
+
+
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,angles,quotes}
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{2.3.17}
+\author{EE25BTECH11014 - Bhoomika Lokesh}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question:} Find the properties of the triangle with vertices \brak{-4,0},\brak{0,3} and \brak{4,0}. 
+
+\textbf{Solution:}
+\begin{table}[H]    
+  \centering
+  \input{Tables/table}
+  \caption{Variables Used}
+  \label{tab:2.3.17}
+\end{table}
+
+Vectors of sides of the triangle are,
+
+\begin{align}
+    \brak{\vec{A}-\vec{B}}=\myvec{-4\\0}-\myvec{0\\3}=\myvec{-4\\-3}
+\end{align}
+
+ \begin{align}
+\brak{ \vec{B}-\vec{C}}=\myvec{0\\3}-\myvec{4\\0}=\myvec{-4\\3}
+ \end{align}
+
+ \begin{align}
+ \brak{\vec{A}-\vec{C}}=\myvec{-4\\0}-\myvec{4\\0}=\myvec{-8\\0}
+ \end{align}
+
+To check for orthogonality, the dot product of the vectors of the sides of the triangle should be equal to zero.
+\begin{align}
+     \brak{\vec{A}-\vec{B}}^T \cdot \brak{ \vec{B}-\vec{C}}=\myvec{-4&-3}\cdot \myvec{-4\\3}=16-9=7\neq 0\\
+     \brak{ \vec{B}-\vec{C}}^T \cdot  \brak{\vec{A}-\vec{C}}= \myvec{-4&3} \cdot \myvec{-8\\0}=32+0=32 \neq 0\\
+      \brak{\vec{A}-\vec{C}}^T \cdot \brak{\vec{A}-\vec{B}}=\myvec{-8&0} \cdot \myvec{-4\\-3}=32-0=32 \neq 0
+     \end{align}
+
+\begin{center}
+Hence, the given triangle is \textbf{NOT RIGHT ANGLED}.
+\end{center}
+
+To check if the given triangle is isosceles,a median should be perpendicular to a side of the triangle.\\
+Let the midpoints of the sides \textbf{AB},\textbf{BC},\textbf be $\vec{x},\vec{y}$and $\vec{z}$.
+\begin{align}
+\vec{x}=\frac{\vec{A}+\vec{B}}{2}=\myvec{-4\\0}+\myvec{0\\3}=\myvec{-2\\\frac{3}{2}}\\ \vec{y}=\frac{\vec{B}+\vec{C}}{2}=\myvec{0\\3}+\myvec{4\\0}=\myvec{2\\\frac{3}{2}}\\
+\vec{z}=\frac{\vec{A}+\vec{C}}{2}=\myvec{-4\\0}+\myvec{4\\0}=\myvec{0\\0} 
+\end{align}
+The vectors of medians of the triangle are:
+\begin{align}
+    \vec{x}-\vec{C}=\myvec{-2\\\frac{3}{2}}-\myvec{4\\0}=\myvec{-6\\\frac{3}{2}}\\
+    \vec{y}-\vec{A}=\myvec{2\\\frac{3}{2}}-\myvec{-4\\0}=\myvec{6\\\frac{3}{2}}\\
+    \vec{z}-\vec{B}=\myvec{0\\0}-\myvec{0\\3}=\myvec{0\\\frac{3}{2}}
+\end{align}
+\begin{align}
+     \brak{\vec{x}-\vec{C}}^T \cdot \brak{\vec{A}-\vec{B}}=\myvec{-6&\frac{3}{2}} \cdot \myvec{-4\\-3}=24-\frac{9}{2}=\frac{39}{2} \neq 0\\
+     \brak{ \vec{y}-\vec{A}}^T \cdot \brak{\vec{B}-\vec{C}}= \myvec{6&\frac{3}{2}} \cdot \myvec{-4\\3}=-24+\frac{9}{2}=\frac{-39}{2} \neq 0\\
+     \brak{ \vec{z}-\vec{B}}^T \cdot \brak{\vec{A}-\vec{C}}= \myvec{0&\frac{3}{2}} \cdot \myvec{-8\\0}=0
+\end{align}
+ $\therefore$ We can conclude that triangle \textbf{ABC} is an \textbf{ISOSCELES} triangle.\\
+ 
+ 
+See Fig. 0.1
+ 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.7\columnwidth]{Figs/fig_3.png}
+\end{center}
+\caption{Graph}
+\label{Triangle ABC witn Medians}
+\end{figure}
+
+
+\end{document}

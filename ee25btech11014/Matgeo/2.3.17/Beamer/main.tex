@@ -1,0 +1,357 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{2.3.17}
+\date{August  2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{Bhoomika L - EE25BTECH11014}
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}Find the properties of the triangle with vertices \brak{−4, 0},\brak{0, 3} and \brak{4, 0}.
+
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+Given the points,
+\begin{table}[H]    
+  \centering
+  \input{../Tables/table}
+  \caption{Variables used.}
+  \label{tab:2.3.17}
+\end{table}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+We can calculate the magnitude of sides of the triangle using norms:
+\begin{align}
+    \brak{\vec{A}-\vec{B}}=\myvec{-4\\0}-\myvec{0\\3}=\myvec{-4\\3}
+\end{align}
+\begin{align}
+ \brak{\vec{B}-\vec{C}}=\myvec{0\\3}-\myvec{4\\0}=\myvec{-4\\3}
+ \end{align}
+ \begin{align}
+ \brak{\vec{A}-\vec{C}}=\myvec{-4\\0}-\myvec{4\\0}=\myvec{-8\\0}
+ \end{align}
+\end{frame}
+
+\begin{frame}{Checking for orthogonality}
+\begin{align}
+ \brak{\vec{A}-\vec{B}}^T \cdot \brak{ \vec{B}-\vec{C}}=\myvec{-4&-3}\cdot \myvec{-4\\3}=16-9=7\neq 0\\
+     \brak{ \vec{B}-\vec{C}}^T \cdot  \brak{\vec{A}-\vec{C}}= \myvec{-4&3} \cdot \myvec{-8\\0}=32+0=32 \neq 0\\
+      \brak{\vec{A}-\vec{C}}^T \cdot \brak{\vec{A}-\vec{B}}=\myvec{-8&0} \cdot \myvec{-4\\-3}=32-0=32 \neq 0\\
+\end{align}
+ Hence the triangle is \textbf{not RIGHT} angled.
+\end{frame}
+
+\begin{frame}{To Check if the triangle is ISOSCELES}
+If the triangle is ISOSCELES,a median should be perpendicular to a side of the triangle.\\
+	Let the midpoints of the sides \textbf{AB}, \textbf{BC}, \textbf{AC} be $\vec{x}, \vec{y}$ and $\vec{z}$.
+\begin{align}
+\vec{x}=\frac{\vec{A}+\vec{B}}{2}=\myvec{-4\\0}+\myvec{0\\3}=\myvec{-2\\\frac{3}{2}}\\ \vec{y}=\frac{\vec{B}+\vec{C}}{2}=\myvec{0\\3}+\myvec{4\\0}=\myvec{2\\\frac{3}{2}}\\
+\vec{z}=\frac{\vec{A}+\vec{C}}{2}=\myvec{-4\\0}+\myvec{4\\0}=\myvec{0\\0} 
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+The vectors of medians of the triangle are:
+\begin{align}
+    \vec{x}-\vec{C}=\myvec{-2\\\frac{3}{2}}-\myvec{4\\0}=\myvec{-6\\\frac{3}{2}}\\
+    \vec{y}-\vec{A}=\myvec{2\\\frac{3}{2}}-\myvec{-4\\0}=\myvec{6\\\frac{3}{2}}\\
+    \vec{z}-\vec{B}=\myvec{0\\0}-\myvec{0\\3}=\myvec{0\\\frac{3}{2}}
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+Then,
+\begin{align}
+  \brak{\vec{x}-\vec{C}}^T \cdot \brak{\vec{A}-\vec{B}}=\myvec{-6&\frac{3}{2}} \cdot \myvec{-4\\-3}=24-\frac{9}{2}=\frac{39}{2} \neq 0\\
+     \brak{ \vec{y}-\vec{A}}^T \cdot \brak{\vec{B}-\vec{C}}= \myvec{6&\frac{3}{2}} \cdot \myvec{-4\\3}=-24+\frac{9}{2}=\frac{-39}{2} \neq 0\\
+     \brak{ \vec{z}-\vec{B}}^T \cdot \brak{\vec{A}-\vec{C}}= \myvec{0&\frac{3}{2}} \cdot \myvec{-8\\0}=0
+\end{align}
+$ \therefore$ We can conclude that triangle \textbf{ABC} is an \textbf{ISOSCELES} triangle.
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code }
+\begin{lstlisting}
+#include <stdio.h>
+
+// Function to check if triangle is right-angled
+// Returns 1 if right-angled, 0 otherwise
+int is_right_triangle() {
+    // Vertices
+    float Ax = -4, Ay = 0;
+    float Bx = 0,  By = 3;
+    float Cx = 4,  Cy = 0;
+
+    // Side vectors
+    float AB[2] = {Ax - Bx, Ay - By};
+    float BC[2] = {Bx - Cx, By - Cy};
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code }
+\begin{lstlisting}
+   float AC[2] = {Ax - Cx, Ay - Cy};
+
+    // Dot products
+    float dot1 = AB[0]*BC[0] + AB[1]*BC[1];
+    float dot2 = BC[0]*AC[0] + BC[1]*AC[1];
+    float dot3 = AC[0]*AB[0] + AC[1]*AB[1];
+
+    if (dot1 == 0 || dot2 == 0 || dot3 == 0)
+        return 1;   // Right-angled
+    else
+        return 0;   // Not right-angled
+}
+// Function to check if triangle is isosceles
+     // Returns 1 if isosceles, 0 otherwise
+int is_isosceles() {
+   
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code }
+\begin{lstlisting}
+    // Vertices
+    float Ax = -4, Ay = 0;
+    float Bx = 0,  By = 3;
+    float Cx = 4,  Cy = 0;
+    
+    // Midpoints of sides
+    float x_mid[2] = {(Ax + Bx) / 2, (Ay + By) / 2};
+    float y_mid[2] = {(Bx + Cx) / 2, (By + Cy) / 2};
+    float z_mid[2] = {(Ax + Cx) / 2, (Ay + Cy) / 2};
+
+    
+   // Medians
+    float median1[2] = {x_mid[0] - Cx, x_mid[1] - Cy};
+    float median2[2] = {y_mid[0] - Ax, y_mid[1] - Ay};
+    float median3[2] = {z_mid[0] - Bx, z_mid[1] - By};
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code }
+\begin{lstlisting}
+
+ // Side vectors
+    float AB[2] = {Ax - Bx, Ay - By};
+    float BC[2] = {Bx - Cx, By - Cy};
+    float AC[2] = {Ax - Cx, Ay - Cy};
+
+ // Dot products (median $\perp$ opposite side ?)
+    float dot1 = median1[0]*AB[0] + median1[1]*AB[1];
+    float dot2 = median2[0]*BC[0] + median2[1]*BC[1];
+    float dot3 = median3[0]*AC[0] + median3[1]*AC[1];
+
+    if (dot1 == 0 || dot2 == 0 || dot3 == 0)
+        return 1;  // Isosceles
+    else
+        return 0;  // Not isosceles}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code }
+\begin{lstlisting}
+import ctypes
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load C library
+c_lib = ctypes.CDLL('./triangle.so')
+
+# Function signature
+triangle_properties = c_lib.triangle_properties
+triangle_properties.argtypes = [
+    ctypes.POINTER(ctypes.c_double),  # sides[3]
+    ctypes.POINTER(ctypes.c_double)   # angles[3]
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Python Code }
+\begin{lstlisting}
+]
+triangle_properties.restype = None
+
+# Prepare arrays
+sides = (ctypes.c_double * 3)()
+angles = (ctypes.c_double * 3)()
+
+# Call the C function
+triangle_properties(sides, angles)
+
+# Convert to Python lists
+sides_py = [sides[i] for i in range(3)]
+angles_py = [angles[i] for i in range(3)]
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code }
+\begin{lstlisting}
+ 
+print(f"Sides (AB, BC, CA): {sides_py}")
+print(f"Angles (A, B, C): {angles_py} (degrees)")
+
+# --- Plotting ---
+A = np.array([-4, 0])
+B = np.array([0, 3])
+C = np.array([4, 0])
+
+plt.figure(figsize=(8,6))
+x_coords = [A[0], B[0], C[0], A[0]]
+y_coords = [A[1], B[1], C[1], A[1]]
+
+plt.plot(x_coords, y_coords, 'b-', linewidth=2, label="Triangle ABC")
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+ # Mark vertices
+plt.scatter([A[0], B[0], C[0]], [A[1], B[1], C[1]], color="red")
+plt.text(A[0]-1, A[1]-0.3, f"A(-4,0)\n∠A≈{angles_py[0]:.2f}°", color="red")
+plt.text(B[0]+0.2, B[1]+0.3, f"B(0,3)\n∠B≈{angles_py[1]:.2f}°", color="green")
+plt.text(C[0]+0.4, C[1]-0.3, f"C(4,0)\n∠C≈{angles_py[2]:.2f}°", color="blue")
+
+# Annotate side lengths at midpoints
+midpoints = [
+    ((A[0]+B[0])/2, (A[1]+B[1])/2, sides_py[0]),
+    ((B[0]+C[0])/2, (B[1]+C[1])/2, sides_py[1]),
+    ((C[0]+A[0])/2, (C[1]+A[1])/2, sides_py[2])
+]
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+for (mx, my, d) in midpoints:
+    plt.text(mx+0.2, my+0.2, f"{d:.2f}", fontsize=10, color="purple")
+
+# Axis
+plt.axhline(0, color="black", linewidth=0.5)
+plt.axvline(0, color="black", linewidth=0.5)
+plt.axis('equal')
+plt.grid(True)
+plt.title("Triangle ABC with Sides and Angles (from C)")
+plt.legend()
+plt.savefig("fig_3.png")
+plt.show()
+  \end{lstlisting}
+\end{frame}
+
+ \begin{frame}{Plot}
+    \centering
+    \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{../Figs/fig_3.png}     
+\end{frame}
+
+\end{document}
+
+
+
+
+
