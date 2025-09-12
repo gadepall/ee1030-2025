@@ -1,0 +1,230 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{2.2.7}
+
+%\subtitle{A short story}
+
+\author % (optional)
+{BALU-ai25btech11017}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+The angles between two vectors $\mathbf{a}, \mathbf{b}$ with magnitude $\sqrt{3}, 4$ respectively, and $\mathbf{a} \cdot \mathbf{b} = 2\sqrt{3}$ is \_\_\_\_\_
+\\ 
+\end{frame}
+
+
+
+\begin{frame}{Theoretical Solution}
+
+From the given information,
+\begin{align}
+   \|\vec{a}\|=\sqrt{3},\|\vec{b}\|=4,\vec{a}^T\vec{b}=2\sqrt{3}
+   \end{align}
+   \begin{align}
+ \cos\theta=\frac{\vec{a}^T\vec{b}}{\|\vec{a}\|\|\vec{b}\|}
+\end{align}
+\begin{align}
+  \cos\theta=\frac{1}{2}\\
+  \theta=60^{\circ}\\
+\end{align}
+Angle between two vectors is $60^{\circ}$
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{C Code}
+
+    \begin{lstlisting}
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    // Given values
+    double mag_a = sqrt(3.0);   // |a|
+    double mag_b = 4.0;         // |b|
+    double dot_ab = 2 * sqrt(3.0); // a·b
+
+    // Formula: cosθ = (a·b) / (|a||b|)
+    double cos_theta = dot_ab / (mag_a * mag_b);
+
+    // Find angle in radians
+    double theta_rad = acos(cos_theta);
+
+    // Convert to degrees
+    double theta_deg = theta_rad * 180.0 / M_PI;
+
+   
+
+     \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{C Code - Resultant velocity}
+
+    \begin{lstlisting}
+   printf("The angle between the two vectors is: %.2f degrees\n", theta_deg);
+
+    return 0;
+}
+    \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+# Define vectors
+a = np.array([np.sqrt(3), 0, 0])  # vector a, magnitude √3
+b = np.array([2*np.sqrt(3)/4, np.sqrt(3), 0])  # vector b, magnitude 4, dot = 2√3
+
+# Verify magnitudes and dot product
+mag_a = np.linalg.norm(a)
+mag_b = np.linalg.norm(b)
+dot_ab = np.dot(a, b)
+theta = np.degrees(np.arccos(dot_ab / (mag_a * mag_b)))
+
+# Create 3D plot
+fig = plt.figure(figsize=(6,6))
+ax = fig.add_subplot(111, projection='3d')
+
+# Plot origin
+origin = np.array([0, 0, 0])
+
+
+
+
+
+
+
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# Plot vectors
+ax.quiver(*origin, *a, color='r', label='a (|a|=√3)', arrow_length_ratio=0.1)
+ax.quiver(*origin, *b, color='b', label='b (|b|=4)', arrow_length_ratio=0.1)
+
+# Annotate vectors
+ax.text(*a, 'a', color='r')
+ax.text(*b, 'b', color='b')
+
+# Set axes limits
+ax.set_xlim([0, 4])
+ax.set_ylim([0, 4])
+ax.set_zlim([0, 4])
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# Labels and title
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+ax.set_title(f"Angle between a and b = {theta:.0f}°")
+
+ax.legend()
+plt.tight_layout()
+
+# Save and show figure
+plt.savefig("vectors_angle.png")
+plt.show()
+
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Plot}
+    \centering
+    \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{figs/fig3.png}     
+\end{frame}
+
+
+
+
+\end{document}

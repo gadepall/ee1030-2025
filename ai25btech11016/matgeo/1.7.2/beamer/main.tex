@@ -1,0 +1,287 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{1.7.2-Beamer}
+
+%\subtitle{A short story}
+
+\author % (optional)
+{Varun-ai25btech11016}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+If A(1, 2), O(0, 0), and C(a, 6) are collinear, then the value of a is
+
+\end{frame}
+
+
+
+\begin{frame}{Theoretical Solution }
+
+ The given points are
+\begin{align}
+A = (1,2) \quad O = (0,0) \quad C = (a,6)
+\end{align}
+
+\begin{align}    
+\Vec{A}-\Vec{O}& = \myvec{1 \\ 2}\\ 
+ \Vec{C}-\Vec{O}& = \myvec{a \\ 6}
+\end{align}
+\end{frame}
+\begin{frame}{Theoretical Solution }
+Construct the matrix
+\begin{align} 
+M = \myvec{1 & a \\ 2 & 6}
+\end{align}
+
+For the points to be collinear, the two vectors $\Vec{OA}$ and $\vec{OC}$ must be linearly dependent
+
+
+
+This means
+\begin{align}
+\operatorname{rank}(M) = 1 \quad \Leftrightarrow \quad \det(M) = 0 \
+\end{align}
+
+
+
+\begin{align}
+\myvec{1 & a \\ 2 & 6}
+&\xrightarrow{\;R_2 \gets R_2 - 2R_1\;}
+\myvec{1 & a \\ 0 & 6 - 2a}
+\end{align}
+\end{frame}
+\begin{frame}{Theoretical Solution }
+For the rank to drop,
+\begin{align}
+6 - 2a &= 0 \\
+a &= 3
+\end{align}
+
+When $a=3$,
+\[
+\myvec{1 & 3 \\ 0 & 0}
+\]
+is the reduced row-echelon form (rank $=1$)
+
+
+
+
+The given points are collinear when
+
+\begin{align}
+a &= 3
+\end{align}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+
+#include <stdbool.h>
+
+bool is_collinear(int a) {
+    int det = 6 - 2*a;  // determinant
+    return (det == 0);
+}
+
+
+
+
+\end{lstlisting}
+ 
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{C plus Python code}
+    \begin{lstlisting}
+
+import ctypes
+import matplotlib.pyplot as plt
+
+# Load the shared library
+lib = ctypes.CDLL("./collinear.so")
+lib.is_collinear.argtypes = [ctypes.c_int]
+lib.is_collinear.restype = ctypes.c_bool
+
+# Points
+O = (0, 0)
+A = (1, 2)
+a = 3   # try changing this value
+C = (a, 6)
+
+# Check collinearity using C function
+print("Collinear?", lib.is_collinear(a))
+\end{lstlisting}
+ 
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{C plus Python code}
+    \begin{lstlisting}
+
+# Plot points
+plt.figure(figsize=(6,6))
+plt.scatter(*O, color='black', label="O(0,0)")
+plt.scatter(*A, color='red', label="A(1,2)")
+plt.scatter(*C, color='blue', label=f"C({a},6)")
+
+# If collinear, draw line through O, A, C
+if lib.is_collinear(a):
+    plt.plot([O[0], A[0], C[0]], [O[1], A[1], C[1]], 'g--', label="Collinear line")
+else:
+    # If not collinear, just connect O-A and O-C separately
+    plt.plot([O[0], A[0]], [O[1], A[1]], 'r--')
+    plt.plot([O[0], C[0]], [O[1], C[1]], 'b--')
+\end{lstlisting}
+ 
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{C plus Python code}
+    \begin{lstlisting}
+
+# Formatting
+plt.axhline(0, color='black', linewidth=0.5)
+plt.axvline(0, color='black', linewidth=0.5)
+plt.grid(True, linestyle="--", alpha=0.6)
+plt.legend()
+plt.xlabel("x-axis")
+plt.ylabel("y-axis")
+plt.title("Collinearity Check of A, O, and C")
+pltsave.fig("/sdcard/Matrix/ee1030-2025/ai25btech11016/Matgeo/1.2.24/figs/1.7.2.png")
+plt.show()
+\end{lstlisting}
+ 
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python plot code}
+    \begin{lstlisting}
+
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Points
+O = np.array([0, 0])
+A = np.array([1, 2])
+C = np.array([3, 6])  # since a = 3
+
+# Plot the points
+plt.figure(figsize=(6,6))
+plt.scatter(*O, color='black', label='O(0,0)')
+plt.scatter(*A, color='red', label='A(1,2)')
+plt.scatter(*C, color='blue', label='C(3,6)')
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python plot code}
+    \begin{lstlisting}
+
+# Draw lines between them
+plt.plot([O[0], A[0], C[0]], [O[1], A[1], C[1]], 'g--', label='Collinear line')
+
+# Labels and formatting
+plt.axhline(0, color='black', linewidth=0.5)
+plt.axvline(0, color='black', linewidth=0.5)
+plt.grid(True, linestyle='--', alpha=0.6)
+plt.legend()
+plt.xlabel("x-axis")
+plt.ylabel("y-axis")
+
+plt.savefig("/sdcard/Matrix/ee1030-2025/ai25btech11016/Matgeo/1.2.24/figs/1.7.2.png"")
+plt.show()
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Plot}
+    
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{figs/1.7.2.jpg}
+    \caption{}
+    \label{fig:1}
+\end{figure}
+    
+
+ \end{frame}
+\end{document}

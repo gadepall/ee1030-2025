@@ -1,0 +1,139 @@
+
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\graphicspath{{./figs/}}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+text width=4em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+
+
+
+\begin{document}
+	
+	\bibliographystyle{IEEEtran}
+	\vspace{3cm}
+	
+	\title{1.5.24}
+	\author{EE25BTECH11036 - M Chanakya Srinivas}
+	\maketitle
+	% \newpage
+	% \bigskip
+	{\let\newpage\relax\maketitle}
+	
+	\renewcommand{\thefigure}{\theenumi}
+	\renewcommand{\thetable}{\theenumi}
+	\setlength{\intextsep}{10pt} % Space between text and floats
+	
+	
+\renewcommand\theequation{\arabic{equation}}
+\renewcommand\thefigure{\arabic{figure}}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{1.5.24}\quad
+A line intersects the $Y$-axis and $X$-axis at the points
+$P=(0,b)$ and $Q=(c,0)$ respectively. If $(2,-5)$ is the midpoint of
+$\overline{PQ}$, then find the coordinates of $P$ and $Q$.
+
+% Solution for 1.5.24 (matrix method: rank + midpoint)
+\providecommand{\myvec}[1]{\begin{pmatrix}#1\end{pmatrix}}
+
+\begin{align}
+\vec P&=\myvec{0\\ b},
+\end{align}
+\begin{align}
+    \vec Q=\myvec{c\\ 0},
+\end{align} 
+
+\begin{align}
+\vec M=\myvec{2\\ -5}.
+\end{align}
+
+\textbf{(i) Rank/collinearity: } 
+\begin{align}
+\text{Since } \vec P,\vec Q,\vec M \text{ are collinear, } 
+\operatorname{rank}\myvec{\vec P-\vec M & \vec Q-\vec M}^{\top}=1.
+\end{align}
+\begin{align}
+\myvec{\vec P-\vec M & \vec Q-\vec M}^{\top}
+&=\myvec{-2 & c-2\\[2pt] b+5 & 5}
+\xrightarrow{\,R_2\leftarrow -2R_2-(b+5)R_1\,}
+\myvec{-2 & c-2\\[2pt] 0 & -10-(b+5)(c-2)}.
+\end{align}
+For rank \(=1\), the last entry must be \(0\):
+\begin{align}
+\label{eq:theory}
+-10-(b+5)(c-2)=0
+\;\;\Longrightarrow\;\;
+(b+5)(c-2)=-10.
+\end{align}
+
+\textbf{(ii) Midpoint: }
+\begin{align}
+\vec M=\frac{\vec P+\vec Q}{2}
+\;\Longrightarrow\;
+\myvec{2\\ -5}
+=\frac{1}{2}\myvec{0\\ b}+\frac{1}{2}\myvec{c\\ 0}
+=\frac{1}{2}\myvec{c\\ b}
+\;\Longrightarrow\;
+\myvec{c\\ b}=\myvec{4\\ -10}.
+\end{align}
+Thus \(c=4,\; b=-10\), and these satisfy \ref{eq:theory}.
+
+\textbf{Answer: }
+\[
+\vec P=\myvec{0\\ -10},\qquad
+\vec Q=\myvec{4\\ 0}.
+\]
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\columnwidth]{figs/Figure_1.png}
+    \caption{Plot using Shared output}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\columnwidth]{figs/fig.png}
+    \caption{Plot using Python}
+\end{figure}
+
+\end{document}
+
+

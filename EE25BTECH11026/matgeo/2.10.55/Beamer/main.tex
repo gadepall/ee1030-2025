@@ -1,0 +1,510 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{2.10.55}
+\date{August 26,2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{Harsha-EE25BTECH11026}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+The edges of a parallelopiped are of unit length and are parallel to non-coplanar unit vectors $\hat{a},\hat{b},\hat{c}$ such that $\hat{a}.\hat{b}=\hat{b}.\hat{c}=\hat{c}.\hat{a}=\frac{1}{2}$ . Then, the volume of the parallelopiped is
+
+\begin{enumerate}
+    \item $\frac{1}{\sqrt{2}}$
+    \item $\frac{1}{2\sqrt{2}}$
+    \item $\frac{\sqrt{3}}{2}$
+    \item $\frac{1}{\sqrt{3}}$
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}{Theoretical Solution}
+According to the question,the edges of the parallelopiped are parallel to the unit vectors $\hat{a},\hat{b},\hat{c}$ and\\
+\begin{align*}
+    \hat{a}^T\hat{b}=\hat{b}^T\hat{c}=\hat{c}^T\hat{a}=\frac{1}{2}
+\end{align*}
+\end{frame}
+
+\begin{frame}{Equation}
+
+As we know that the volume of parallelopiped is given by
+\begin{align*}
+    V=[\vec{a}\;\vec{b}\;\vec{c}]
+\end{align*}
+and
+\begin{align*}
+    [\vec{a}\;\vec{b}\;\vec{c}][\vec{a}\;\vec{b}\;\vec{c}]^T=\vec{G}
+\end{align*}
+where $\vec{G}$ is the Gram Matrix.
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+\begin{align*}
+    \therefore \vec{G}=\myvec{\hat{a}^T\hat{a}&&\hat{a}^T\hat{b}&&\hat{a}^T\hat{c} \\ \hat{b}^T\hat{a}&& \hat{b}^T\hat{b}&& \hat{b}^T\hat{c} \\ \hat{c}^T\hat{a}&& \hat{c}^T\hat{b}&& \hat{c}^T\hat{c}}=\myvec{1&&\frac{1}{2}&&\frac{1}{2}\\ \frac{1}{2}&&1&&\frac{1}{2}\\ \frac{1}{2}&&\frac{1}{2}&&1}
+\end{align*}
+For calculating the det($\vec{G}$), we can use the concept of eigen values.
+\end{frame}
+
+\begin{frame}{Definition}
+
+Eigen values are those scalars which satisfies the following condition,
+For any non-zero eigen-vector $\vec{v}$ and coefficient matrix $\vec{M}$,
+\begin{align*}
+    \vec{M}\vec{v}=\lambda \vec{v} \; , where \; \lambda \;is\; an \;eigen\; value.
+\end{align*}
+\end{frame}
+
+\begin{frame}{Theoretical solution}
+\begin{align*}
+     \vec{G}=(1-\rho)\vec{I}\;+\rho\;\vec{1}\vec{1}^T, \; where\, \rho=\frac{1}{2}\;and\;\vec{1}=\myvec{1&&1&&1}
+\end{align*}
+Let $\vec{1}\vec{1}^T=\vec{J}$. As we could see that the eigen-vector of $\vec{J}$ is $\vec{1}$ and by the rule,
+\begin{align*}
+    \myvec{1&&1&&1\\1&&1&&1\\1&&1&&1}\myvec{1\\1\\1}=\myvec{3\\3\\3}=3\vec{1}
+\end{align*}
+
+
+\end{frame}
+
+
+\begin{frame}{Theoretical solution}
+
+So, 3 is a eigen value of $\vec{J}$. Also, we know that the sum of eigen values is equal to trace of a matrix,we can say that the sum of the other eigen values would be 0. Also, we know that any orthogonal vector to $\vec{1}$ ,say $\myvec{-1&&1&&0}^T$ ,
+\begin{align*}
+    \myvec{1&&1&&1\\1&&1&&1\\1&&1&&1}\myvec{-1\\1\\0}=\vec{0}
+\end{align*}
+yields 0.Thus we can say that 0 is also one of the eigen value of J. As sum of the other eigen values other than 3 is zero, the other eigen value must be zero.
+\begin{align*}
+    \therefore eigen\;values\;of\;\vec{J}\;are\;\{3,0,0\}
+\end{align*}
+\end{frame}
+
+
+\begin{frame}{Theoretical Solution}
+Modifying the above equation on $\vec{G}$,
+\begin{align*}
+    \therefore \vec{G}\vec{v}=\frac{1}{2}\vec{I}\vec{v}+\frac{1}{2}\vec{J}\vec{v}
+\end{align*}
+\begin{align*}
+    \implies G\vec{v}=\frac{(1+\mu)}{2}\vec{v}
+\end{align*}
+where $\mu$ is the eigen value of $\vec{J}$. Here the eigen value of $\vec{G}$ is $\frac{1+\mu}{2}$ and substituting the obtained eigen values of $\vec{J}$ in this equation, we get the eigen values of $\vec{G}$ to be $\{2,\frac{1}{2},\frac{1}{2}\}$
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+As we know that for eigen values of $\vec{G}$ being $\{\mu_1,\mu_2,\mu_3\}$
+\begin{align*}
+    det(\vec{G})=\mu_1\mu_2\mu_3
+\end{align*}
+\begin{align*}
+    \therefore det(\vec{G})=2\times\frac{1}{2}\times\frac{1}{2}=\frac{1}{2}
+\end{align*}
+\begin{align*}
+    \implies V=\sqrt{det(\vec{G})}=\frac{1}{\sqrt{2}} \; units
+\end{align*}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code - Volume of parallelopiped}
+
+    \begin{lstlisting}
+#include <stdio.h>
+#include <math.h>
+
+// Jacobi eigenvalue algorithm for 3x3 symmetric matrix
+// Finds eigenvalues of G
+void jacobi_eigenvalues(double G[3][3], double eigenvalues[3]) {
+    double A[3][3];
+    for(int i=0;i<3;i++) {
+        for(int j=0;j<3;j++) A[i][j] = G[i][j];
+    }
+
+
+        
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code - Volume of parallelopiped}
+
+    \begin{lstlisting}
+
+    double eps = 1e-12;
+    for(int iter=0; iter<100; iter++) {
+        // find largest off-diagonal element
+        int p=0,q=1;
+        double max = fabs(A[0][1]);
+        for(int i=0;i<3;i++) {
+            for(int j=i+1;j<3;j++) {
+                if(fabs(A[i][j]) > max) { max=fabs(A[i][j]); p=i; q=j; }
+            }
+        }
+        
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code - Volume of parallelopiped}
+
+    \begin{lstlisting}
+
+        if(max < eps) break;
+
+        double theta = 0.5 * atan2(2*A[p][q], A[q][q]-A[p][p]);
+        double c = cos(theta), s = sin(theta);
+
+        // rotate
+        double app = c*c*A[p][p] - 2*s*c*A[p][q] + s*s*A[q][q];
+        double aqq = s*s*A[p][p] + 2*s*c*A[p][q] + c*c*A[q][q];
+        A[p][q] = A[q][p] = 0.0;
+        A[p][p] = app;
+        A[q][q] = aqq;
+
+    \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{C Code - Volume of parallelopiped}
+
+    \begin{lstlisting}
+        for(int k=0;k<3;k++) {
+            if(k!=p && k!=q) {
+                double akp = c*A[k][p] - s*A[k][q];
+                double akq = s*A[k][p] + c*A[k][q];
+                A[k][p] = A[p][k] = akp;
+                A[k][q] = A[q][k] = akq;
+            }
+        }
+    }
+
+    // diagonal entries are eigenvalues
+    for(int i=0;i<3;i++) eigenvalues[i] = A[i][i];
+}
+
+
+    \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{C Code - Volume of parallelopiped}
+
+    \begin{lstlisting}
+
+// Volume from eigenvalues
+double parallelepiped_volume(double G[3][3]) {
+    double eigenvalues[3];
+    jacobi_eigenvalues(G, eigenvalues);
+
+    double det = eigenvalues[0] * eigenvalues[1] * eigenvalues[2];
+    if(det < 0) det = -det;
+    return sqrt(det);
+}
+
+    \end{lstlisting}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+    \frametitle{Python+C Code}
+    \begin{lstlisting}
+import ctypes
+import matplotlib as mp
+mp.use('TkAgg')
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+import numpy as np
+import matplotlib.pyplot as plt
+
+lib = ctypes.CDLL("./libvolume.so")
+lib.parallelepiped_volume.restype = ctypes.c_double
+lib.parallelepiped_volume.argtypes = [ctypes.c_double * 3 * 3]
+
+G = np.array([[1,0.5,0.5],
+              [0.5,1,0.5],
+              [0.5,0.5,1]], dtype=np.float64)
+
+G_ctypes = (ctypes.c_double * 3 * 3)(*[(ctypes.c_double * 3)(*row) for row in G])
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python+C Code}
+    \begin{lstlisting}
+volume = lib.parallelepiped_volume(G_ctypes)
+print("Volume =", round(volume,4),"units")
+
+# Define three unit vectors with given dot products = 0.5
+a = np.array([1, 0, 0])
+b = np.array([0.5, np.sqrt(3)/2, 0])                 
+c = np.array([0.5, 1/2*np.sqrt(3), np.sqrt(2/3)])   
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python+C Code}
+    \begin{lstlisting}
+# Vertices
+O = np.array([0,0,0])
+A = a
+B = b
+C = c
+AB = a+b
+AC = a+c
+BC = b+c
+ABC = a+b+c
+
+vertices = [O, A, B, C, AB, AC, BC, ABC]
+labels = ["O","A","B","C","A+B","A+C","B+C","A+B+C"]
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python+C Code}
+    \begin{lstlisting}
+# Define faces
+faces = [
+    [O, A, AB, B],
+    [O, A, AC, C],
+    [O, B, BC, C],
+    [A, AB, ABC, AC],
+    [B, AB, ABC, BC],
+    [C, AC, ABC, BC]
+]
+
+# Plot
+fig = plt.figure(figsize=(9,7))
+ax = fig.add_subplot(111, projection='3d')
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python+C Code}
+    \begin{lstlisting}
+# Draw faces
+poly3d = [[list(v) for v in face] for face in faces]
+ax.add_collection3d(Poly3DCollection(poly3d, alpha=0.3, facecolor='cyan'))
+
+# Draw vectors
+ax.quiver(0,0,0, a[0],a[1],a[2], color='r', linewidth=2, label='a')
+ax.quiver(0,0,0, b[0],b[1],b[2], color='g', linewidth=2, label='b')
+ax.quiver(0,0,0, c[0],c[1],c[2], color='b', linewidth=2, label='c')
+
+# Label vertices
+for i, v in enumerate(vertices):
+    ax.text(v[0], v[1], v[2], labels[i], fontsize=10, color='black')
+
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python+C Code}
+    \begin{lstlisting}
+# Labels
+ax.set_xlabel("X-axis")
+ax.set_ylabel("Y-axis")
+ax.set_zlabel("Z-axis")
+ax.set_title("Parallelepiped formed by unit vectors a, b, c")
+
+ax.set_box_aspect([1,1,1])  # equal aspect
+ax.legend()
+plt.savefig("/home/user/Matrix/Matgeo_assignments/2.10.55/figs/Figure-1.png")
+plt.show()
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib as mp
+mp.use('TkAgg')
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+
+# Define three unit vectors with given dot products = 0.5
+a = np.array([1, 0, 0])
+b = np.array([0.5, np.sqrt(3)/2, 0])                 
+c = np.array([0.5, 1/2*np.sqrt(3), np.sqrt(2/3)])   
+# Gram matrix
+G = np.array([[np.dot(a,a), np.dot(a,b), np.dot(a,c)],
+              [np.dot(b,a), np.dot(b,b), np.dot(b,c)],
+              [np.dot(c,a), np.dot(c,b), np.dot(c,c)]])
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# Volume of parallelepiped
+volume = np.sqrt(np.linalg.det(G))
+print("Volume of parallelepiped =", round(volume,4))
+
+# Vertices
+O = np.array([0,0,0])
+A = a
+B = b
+C = c
+AB = a+b
+AC = a+c
+BC = b+c
+ABC = a+b+c
+
+vertices = [O, A, B, C, AB, AC, BC, ABC]
+labels = ["O","A","B","C","A+B","A+C","B+C","A+B+C"]
+
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# Define faces
+faces = [
+    [O, A, AB, B],
+    [O, A, AC, C],
+    [O, B, BC, C],
+    [A, AB, ABC, AC],
+    [B, AB, ABC, BC],
+    [C, AC, ABC, BC]
+]
+
+# Plot
+fig = plt.figure(figsize=(9,7))
+ax = fig.add_subplot(111, projection='3d')
+
+# Draw faces
+poly3d = [[list(v) for v in face] for face in faces]
+ax.add_collection3d(Poly3DCollection(poly3d, alpha=0.3, facecolor='cyan'))
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# Draw vectors
+ax.quiver(0,0,0, a[0],a[1],a[2], color='r', linewidth=2, label='a')
+ax.quiver(0,0,0, b[0],b[1],b[2], color='g', linewidth=2, label='b')
+ax.quiver(0,0,0, c[0],c[1],c[2], color='b', linewidth=2, label='c')
+
+# Label vertices
+for i, v in enumerate(vertices):
+    ax.text(v[0], v[1], v[2], labels[i], fontsize=10, color='black')
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# Labels
+ax.set_xlabel("X-axis")
+ax.set_ylabel("Y-axis")
+ax.set_zlabel("Z-axis")
+ax.set_title("Parallelepiped formed by unit vectors a, b, c")
+
+ax.set_box_aspect([1,1,1])  # equal aspect
+ax.legend()
+plt.savefig("/home/user/Matrix/Matgeo_assignments/2.10.55/figs/Figure-1.png")
+plt.show()
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Plot}
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\columnwidth]{figs/Figure-1.png}
+    \label{fig:1}
+\end{figure}
+\end{frame}
+
+
+\end{document}

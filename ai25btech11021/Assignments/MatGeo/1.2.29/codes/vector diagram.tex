@@ -1,0 +1,41 @@
+
+\centering
+\begin{tikzpicture}[>=Stealth,scale=0.9]
+  % scaling factor (so vectors fit nicely)
+  \def\sc{0.09}
+
+  % numerical components
+  \def\Wx{50.9117}
+  \def\Wy{50.9117}
+  \def\Vx{0}
+  \def\Vy{51}
+  \def\Rx{50.9117}
+  \def\Ry{-0.0883}
+
+  % --- Axes ---
+  \draw[->] (-0.5,0) -- (7.5,0) node[right] {East ($+\mathbf{i}$)};
+  \draw[->] (0,-1) -- (0,6.5) node[above] {North ($+\mathbf{j}$)};
+
+  % origin
+  \coordinate (O) at (0,0);
+
+  % scaled coordinates
+  \coordinate (W) at ({\sc*\Wx},{\sc*\Wy});
+  \coordinate (V) at ({\sc*\Vx},{\sc*\Vy});
+  \coordinate (R) at ({\sc*\Rx},{\sc*\Ry});
+  \coordinate (E) at (6.5,0); % point on East axis
+
+  % --- Vectors ---
+  \draw[->,very thick,blue] (O) -- (W)
+    node[midway, above left] {$\mathbf{W}$ (wind)};
+  \draw[->,very thick,green!50!black] (O) -- (V)
+    node[midway,left] {$\mathbf{V}$ (boat)};
+  \draw[->,very thick,red] (O) -- (R)
+    node[midway,below right] {$\mathbf{R}$ (relative wind)};
+
+  % --- Small angle mark (fixed syntax) ---
+  \pic [draw, <->, "$0.0994^\circ$", angle eccentricity=1.2, angle radius=1cm]
+    {angle = E--O--R};
+
+\end{tikzpicture}
+

@@ -1,0 +1,24 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Vectors
+A = np.array([2, 6, 27])
+p = 27/2
+B = np.array([1, 3, p])
+
+# Plot
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+ax.quiver(0, 0, 0, A[0], A[1], A[2], color='r', label=f'A = {A}')
+ax.quiver(0, 0, 0, B[0], B[1], B[2], color='b', label=f'B = {B}')
+
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+ax.legend()
+
+plt.title("Vectors A and B (parallel)")
+plt.savefig("vectors.png")
+plt.show()
+

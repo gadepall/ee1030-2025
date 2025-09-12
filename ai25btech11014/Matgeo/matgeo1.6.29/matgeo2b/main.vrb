@@ -1,0 +1,13 @@
+\frametitle{Python Code - Shared Output}
+\begin{lstlisting}
+import ctypes
+
+lib = ctypes.CDLL("./libcollinear.so")
+lib.check_collinear.restype = ctypes.c_int
+
+result = lib.check_collinear()
+if result == 1:
+    print("Points A, B, C are collinear")
+else:
+    print("Points are not collinear")
+\end{lstlisting}

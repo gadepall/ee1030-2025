@@ -1,0 +1,208 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+ \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+
+
+\title{2.10.50}
+\author{EE25BTECH11021 - Dhanush Sagar
+}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+
+\textbf{Question} \\
+A variable plane at a distance of one unit from the origin cuts the coordinate axes at $A, B$ and $C$.  
+
+
+If the centroid $D(x,y,z)$ of triangle $ABC$ satisfies the relation  
+\begin{align*}
+\frac{1}{x^{2}} + \frac{1}{y^{2}} + \frac{1}{z^{2}} = k,
+\end{align*}
+then the value of $k$ is :  
+
+\begin{multicols}{2}
+\begin{enumerate}
+   \item $3$
+    \item $1$
+    \item $\tfrac{1}{3}$
+    \item $9$
+\end{enumerate}
+\end{multicols}
+
+\textbf{Solution} \\
+We write the plane in vector form as
+\begin{align}
+\vec{n}^{\top}\vec{x} &= 1,
+\end{align}
+and introduce the axis intercepts
+\begin{align}
+\vec{A} &= \myvec{a\\[4pt]0\\[4pt]0}, & 
+\vec{B} &= \myvec{0\\[4pt]b\\[4pt]0}, &
+\vec{C} &= \myvec{0\\[4pt]0\\[4pt]c}.
+\end{align}
+
+Define
+\begin{align}
+\vec{e} &= \myvec{1\\[4pt]1\\[4pt]1}, &
+\mathbf{M} &= \myvec{a&0&0\\[4pt]0&b&0\\[4pt]0&0&c}.
+\end{align}
+(Thus the columns of $\mathbf{M}$ are $\vec{A},\vec{B},\vec{C}$.)
+
+Since $\vec{A},\vec{B},\vec{C}$ lie on the plane we have
+\begin{align}
+\vec{n}^{\top}\vec{A} &= 1, & 
+\vec{n}^{\top}\vec{B} &= 1, & 
+\vec{n}^{\top}\vec{C} &= 1.
+\end{align}
+These three equations combine into the single matrix relation
+\begin{align}
+\vec{n}^{\top}\mathbf{M} &= \vec{e}^{\top}.
+\end{align}
+Transposing yields
+\begin{align}
+\mathbf{M}^{\top}\vec{n} &= \vec{e}.
+\end{align}
+Because $\mathbf{M}$ is diagonal (hence $\mathbf{M}=\mathbf{M}^{\top}$) and invertible,
+\begin{align}
+\vec{n} &= \mathbf{M}^{-1}\vec{e}.
+\end{align}
+
+The centroid $\vec{D}$ of triangle $ABC$ is
+\begin{align}
+\vec{D} &= \frac{\vec{A}+\vec{B}+\vec{C}}{3}
+= \tfrac{1}{3}\mathbf{M}\vec{e}.
+\end{align}
+Introduce the diagonal matrix of centroid coordinates
+\begin{align}
+\mathbf{X} &= \operatorname{diag}(x,y,z),
+\end{align}
+and substitute the given relation
+\begin{align}
+\vec{D} &= \mathbf{X}\vec{e}.
+\end{align}
+Comparing with $\vec{D}=\tfrac{1}{3}\mathbf{M}\vec{e}$ we obtain the matrix identity
+\begin{align}
+\mathbf{M} &= 3\mathbf{X}.
+\end{align}
+
+Using $\vec{n}=\mathbf{M}^{-1}\vec{e}$ and $\mathbf{M}=3\mathbf{X}$ we get
+\begin{align}
+\vec{n} &= (3\mathbf{X})^{-1}\vec{e}
+      = \tfrac{1}{3}\mathbf{X}^{-1}\vec{e}.
+\end{align}
+
+The perpendicular distance \(d\) from the origin to the plane $\vec{n}^{\top}\vec{x}=1$ is
+\begin{align}
+d &= \frac{1}{\|\vec{n}\|}
+   = \frac{1}{\sqrt{\vec{n}^{\top}\vec{n}}}.
+\end{align}
+Compute $\vec{n}^{\top}\vec{n}$ in purely matrix form:
+\begin{align}
+\vec{n}^{\top}\vec{n}
+&= \Big(\tfrac{1}{3}\mathbf{X}^{-1}\vec{e}\Big)^{\top}
+   \Big(\tfrac{1}{3}\mathbf{X}^{-1}\vec{e}\Big) \\
+&= \tfrac{1}{9}\,\vec{e}^{\top}\mathbf{X}^{-2}\vec{e}.
+\end{align}
+Hence
+\begin{align}
+\frac{1}{d^2} = \vec{n}^{\top}\vec{n} = \tfrac{1}{9}\,\vec{e}^{\top}\mathbf{X}^{-2}\vec{e}.
+\end{align}
+
+\subsection*{Proof of expansion}
+
+Since $\mathbf{X}=\operatorname{diag}(x,y,z)$, we have
+\begin{align}
+\mathbf{X}^{-2} &= \operatorname{diag}\!\left(\tfrac{1}{x^2},\tfrac{1}{y^2},\tfrac{1}{z^2}\right).
+\end{align}
+Thus
+\begin{align}
+\vec{e}^{\top}\mathbf{X}^{-2}\vec{e}
+&= \myvec{1&1&1}
+   \myvec{
+     \tfrac{1}{x^2} & 0 & 0 \\
+     0 & \tfrac{1}{y^2} & 0 \\
+     0 & 0 & \tfrac{1}{z^2}
+   }
+   \myvec{1\\1\\1} \\
+&= \tfrac{1}{x^2}+\tfrac{1}{y^2}+\tfrac{1}{z^2}.
+\end{align}
+
+\subsection*{Final result}
+
+Therefore,
+\begin{align}
+\frac{1}{x^2}+\frac{1}{y^2}+\frac{1}{z^2} &= \frac{9}{d^2}.
+\end{align}
+For the given problem $d=1$,
+\begin{align}
+\frac{1}{x^2}+\frac{1}{y^2}+\frac{1}{z^2} &= 9,
+\end{align}
+so the required constant is
+\[
+\boxed{k=9}.
+\]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figs/fig1.png}
+    \caption{}
+    \label{fig:fig1}
+\end{figure}
+
+
+\end{document}
+
+
+
+
+
+

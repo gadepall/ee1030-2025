@@ -1,0 +1,242 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{newunicodechar}
+
+\newunicodechar{✅}{\checkmark}
+\newunicodechar{❌}{\texttimes}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx} % <-- needed for images
+\def\UrlBreaks{\do\/\do-}
+
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\lstset{
+  frame=single,
+  breaklines=true,
+  columns=fullflexible,
+  basicstyle=\ttfamily\tiny   % tiny font so code fits
+}
+
+\numberwithin{equation}{section}
+
+% ---- your macros ----
+\providecommand{\nCr}[2]{\,^{#1}{#2}}
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}}
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\let\vec\mathbf
+% ---------------------
+
+\title{Matgeo Presentation - Problem 2.7.33}
+\author{ee25btech11021 - Dhanush sagar}
+
+\begin{document}
+	
+
+		
+
+
+
+
+%---------------- Title Page ----------------
+\begin{frame}
+  \titlepage
+\end{frame}
+
+%---------------- Problem Statement ----------------
+\begin{frame}{Problem Statement}
+   Find the value of $p$ if
+\[
+(2\hat{i} + 6\hat{j} + 27\hat{k}) \times (\hat{i} + 3\hat{j} + p\hat{k}) = 0.
+\]
+\end{frame}
+
+%---------------- Mathematical Formula ----------------
+\begin{frame}{solution}
+\textbf{Solution:} \\
+The given vectors are
+\begin{align}
+\vec{A} &= \myvec{2 \\ 6 \\ 27}, 
+& \vec{B} &= \myvec{1 \\ 3 \\ p}.
+\end{align}
+
+Form the $2\times 3$ matrix with these rows:
+\begin{align}
+M &= \myvec{2 & 6 & 27 \\[4pt] 1 & 3 & p }.
+\end{align}
+
+If \(\vec{A}\times\vec{B}=\mathbf{0}\), then \(\vec{A}\) and \(\vec{B}\) are linearly dependent, so \(\operatorname{rank}(M)<2\). We perform row-reduction to find the rank and the condition on \(p\).
+
+Begin with \(M\):
+\begin{align}
+M &= \myvec{2 & 6 & 27 \\[4pt] 1 & 3 & p }.
+\end{align}
+\end{frame}
+\begin{frame}{solution}
+Eliminate the leading entry of the second row by replacing \(R_2\) with \(R_2 - \tfrac{1}{2}R_1\):
+\begin{align}
+\begin{aligned}
+R_2 &\leftarrow R_2 - \tfrac{1}{2}R_1 \\
+\myvec{2 & 6 & 27 \\[4pt] 1 & 3 & p }
+&\xrightarrow{\;R_2 - \tfrac{1}{2}R_1\;}
+\myvec{2 & 6 & 27 \\[4pt] 0 & 0 & p - \tfrac{27}{2} }.
+\end{aligned}
+\end{align}
+
+Now scale the first row to make a leading 1: \(R_1 \leftarrow \tfrac{1}{2}R_1\):
+\begin{align}
+\myvec{2 & 6 & 27 \\[4pt] 0 & 0 & p - \tfrac{27}{2} }
+\xrightarrow{\;R_1 \div 2\;}
+\myvec{1 & 3 & \tfrac{27}{2} \\[4pt] 0 & 0 & p - \tfrac{27}{2} }.
+\end{align}
+
+This is the RREF form (up to the final optional normalization of the second row). The rank is the number of nonzero rows in RREF. Thus
+\[
+\operatorname{rank}(M)=
+\begin{cases}
+2, & \text{if } p - \tfrac{27}{2} \neq 0,\\[4pt]
+1, & \text{if } p - \tfrac{27}{2} = 0.
+\end{cases}
+\]
+\end{frame}
+\begin{frame}{solution}
+For \(\vec{A}\times\vec{B}=\mathbf0\) we need \(\operatorname{rank}(M)<2\), hence
+\begin{align}
+p - \tfrac{27}{2} &= 0 \quad\Rightarrow\quad p = \tfrac{27}{2}.
+\end{align}
+
+\textbf{Final answer:}
+\begin{align}
+\boxed{\,p = \dfrac{27}{2}\,}
+\end{align}
+
+
+
+\end{frame}
+
+%---------------- C Source Code ----------------
+\begin{frame}[fragile]{C Source Code: cross.c}
+\begin{verbatim}
+#include <stdio.h>
+void cross_product(double a[3], double b[3], double result[3]) {
+    result[0] = a[1]*b[2] - a[2]*b[1];
+    result[1] = a[2]*b[0] - a[0]*b[2];
+    result[2] = a[0]*b[1] - a[1]*b[0];
+}
+double find_p() {
+    double a[3] = {2, 6, 27};
+    double p = 27.0 / 2.0;
+    double b[3] = {1, 3, p};
+    double res[3];
+    cross_product(a, b, res);
+   if(res[0] == 0 && res[1] == 0 && res[2] == 0) {
+        return p;
+    }
+    return -1;
+}
+
+\end{verbatim}
+\end{frame}
+
+%---------------- Python solve.py ----------------
+\begin{frame}[fragile]{Python Script: vector solve.py}
+\begin{verbatim}
+import ctypes
+import numpy as np
+# Load shared library
+lib = ctypes.CDLL("./cross.so")
+lib.find_p.restype = ctypes.c_double
+# Call C function
+p = lib.find_p()
+print("Computed value of p:", p)
+# Verify using numpy
+A = np.array([2, 6, 27])
+B = np.array([1, 3, p])
+cross_prod = np.cross(A, B)
+print("Cross product A × B =", cross_prod)
+if np.allclose(cross_prod, [0, 0, 0]):
+    print("✅ A and B are parallel. Solution verified.")
+else:
+    print("❌ Something went wrong.")
+\end{verbatim}
+\end{frame}
+
+%---------------- Python plot.py ----------------
+
+\begin{frame}[fragile]{Python Script: plot vector.py}
+\begin{verbatim}
+import numpy as np
+import matplotlib.pyplot as plt
+# Vectors
+A = np.array([2, 6, 27])
+p = 27/2
+B = np.array([1, 3, p])
+# Plot
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.quiver(0, 0, 0, A[0], A[1], A[2], color='r', label=f'A = {A}')
+ax.quiver(0, 0, 0, B[0], B[1], B[2], color='b', label=f'B = {B}')
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+ax.legend()
+plt.title("Vectors A and B (parallel)")
+plt.savefig("vectors.png")              plt.show()
+
+\end{verbatim}
+\end{frame}
+
+%---------------- Result Plot ----------------
+\begin{frame}{Result Plot}
+ \begin{figure}[H]
+     \centering
+     \includegraphics[width=0.5\columnwidth]{figs/fig1.png}
+     \caption*{}
+     \label{fig:fig1}
+ \end{figure}
+ 
+\end{frame}
+
+\end{document}

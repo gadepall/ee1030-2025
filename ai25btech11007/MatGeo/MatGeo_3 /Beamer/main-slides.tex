@@ -1,0 +1,179 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\title 
+{MatGeo Assignment 1.11.9}
+
+\author
+{AI25BTECH11007}
+\begin{document}
+
+\frame{\titlepage}
+\begin{frame}{Question}
+If
+\[
+\vec{a} = \hat{i} - 7\hat{j} + 7\hat{k}
+\quad \text{and} \quad
+\vec{b} = 3\hat{i} - 2\hat{j} + 2\hat{k},
+\]
+find a unit vector perpendicular to both the vectors $\vec{a}$ and $\vec{b}$.\\
+\end{frame}
+\begin{frame}{Solution}
+We want $\vec{n} = \begin{pmatrix}x\\y\\z\end{pmatrix}$ such that
+\begin{align}
+\vec{a}^T \vec{n} &= 0, \label{eq:orth1}\\
+\vec{b}^T \vec{n} &= 0. \label{eq:orth2}
+\end{align}
+
+This gives the linear system
+\begin{align}
+\begin{bmatrix}
+1 & -7 & 7\\
+3 & -2 & 2
+\end{bmatrix}
+\begin{pmatrix}x\\y\\z\end{pmatrix}
+= \begin{pmatrix}0\\0\end{pmatrix}. \label{eq:system}
+\end{align}
+
+Step 1: Augmented matrix\\
+\begin{align}
+\left[\begin{array}{ccc|c}
+1 & -7 & 7 & 0\\
+3 & -2 & 2 & 0
+\end{array}\right]. \label{eq:aug}
+\end{align}
+\end{frame}
+\begin{frame}
+    
+
+Step 2: Row operations\\
+\begin{align}
+R_2 &\to R_2 - 3R_1: 
+\left[\begin{array}{ccc|c}
+1 & -7 & 7 & 0\\
+0 & 19 & -19 & 0
+\end{array}\right], \label{eq:row1}\\[6pt]
+R_2 &\to \tfrac{1}{19}R_2: 
+\left[\begin{array}{ccc|c}
+1 & -7 & 7 & 0\\
+0 & 1 & -1 & 0
+\end{array}\right], \label{eq:row2}\\[6pt]
+R_1 &\to R_1 + 7R_2: 
+\left[\begin{array}{ccc|c}
+1 & 0 & 0 & 0\\
+0 & 1 & -1 & 0
+\end{array}\right]. \label{eq:row3}
+\end{align}
+
+Step 3: Solution\\
+From RREF:
+\begin{align}
+x &= 0, \label{eq:x0}\\
+y - z &= 0 \;\;\Rightarrow\;\; y=z. \label{eq:yz}
+\end{align}
+\end{frame}
+\begin{frame}
+Thus the general solution is
+\begin{align}
+\vec{n} &= t\begin{pmatrix}0\\1\\1\end{pmatrix}, \quad t\in\mathbb{R}. \label{eq:gensol}
+\end{align}
+
+Step 4: Unit vector\\
+Since 
+\begin{align}
+\|(0,1,1)\| &= \sqrt{2}, \label{eq:norm}
+\end{align}
+the unit vectors are
+\begin{align}
+\hat{n} &= \pm \frac{1}{\sqrt{2}}\begin{pmatrix}0\\1\\1\end{pmatrix} \label{eq:unit1}\\
+&= \pm \frac{1}{\sqrt{2}}(\hat{j}+\hat{k}). \label{eq:unit2}
+\end{align}
+
+
+\end{frame}
+\begin{frame}{Plot}
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\columnwidth]{figs/image.png}
+    \caption{Image Visual}
+    \label{fig:figs/image.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Conclusion}
+    Therefore, a unit vector perpendicular to both $\vec{a}$ and $\vec{b}$ is
+\[
+\hat{n} = \frac{1}{\sqrt{2}}(\hat{j} + \hat{k}),
+\]
+or its negative.
+\end{frame}
+\end{document}

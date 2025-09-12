@@ -1,0 +1,411 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+%\usepackage{enumerate}
+%\usepackage{multicols}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{2.10.61}
+\date{September 5, 2025}
+
+
+\author 
+{Kartik Lahoti - EE25BTECH11032}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+If $\vec{a}$ and $\vec{b}$ are vectors such that $\mydet{\vec{a} + \vec{b}} = \sqrt{29}$ and
+\begin{align*}
+    \vec{a} \times \brak{2\hat{i} + 3\hat{j} + 4\hat{k}} = \brak{2\hat{i} + 3\hat{j} + 4\hat{k}} \times \vec{b}
+\end{align*}
+then a possible value of $\brak{\vec{a}+\vec{b}}\cdot\brak{-7\hat{i} + 2\hat{j} + 3\hat{k}}$ is 
+
+
+  $\brak{1}$ 0 \hspace{2cm} $\brak{2}$ 3 \hspace{2cm} $\brak{3}$ 4 \hspace{2cm} $\brak{4}$ 8
+\end{frame}
+
+
+
+\begin{frame}{Theoretical Solution}
+Given :
+\begin{table}[H]
+    \centering
+    \input{tables/table.tex}
+    \caption{2.10.61}
+    \label{tab:placeholder_1}
+\end{table}
+\end{frame}
+
+\begin{frame}{Theory}
+\begin{align}
+    \vec{a} \times \vec{c} &= \vec{c} \times \vec{b}\\
+    \vec{a} \times \vec{c} &= - \brak{\vec{b} \times \vec{c}} \\
+    \brak{\vec{a} + \vec{b}} \times \vec{c} &= \vec{0}  
+\end{align}
+\end{frame}
+\begin{frame}{Theoretical Solution}
+
+If cross product of 2 vectors is zero ,  this implies both the vectors are parallel. 
+Thus , 
+\begin{align}
+    \brak{\vec{a} + \vec{b}} \parallel \vec{c} 
+\end{align}
+
+\begin{align}
+   \therefore\brak{\vec{a} + \vec{b}} = \lambda\vec{c}  \text{, where } \lambda \in \mathbb{R}
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+Equating the magnitudes , we get 
+\begin{align}
+  \norm{\brak{\vec{a} + \vec{b}}}^2 &= \lambda^2 \norm{\vec{c}}^2 \\
+    29 &= \lambda^2 29 \\ 
+    \lambda &= \pm 1 
+ \end{align}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+Thus, 
+\begin{align}
+    \brak{\vec{a} + \vec{b}} = \myvec{2 \\ 3 \\ 4} \text{ or } \brak{\vec{a} + \vec{b}} = \myvec{-2 \\ -3 \\ -4}
+\end{align}
+Hence, 
+\begin{align}
+    \brak{\vec{a} + \vec{b}}^{\top}\vec{d} = 4 \text{ or } -4
+\end{align}
+
+Answer : Option $\brak{3}$
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{C Code (1) }
+
+    \begin{lstlisting}
+#include <math.h>
+double norm_vec_sq(double *A , int m )
+{
+    double sum = 0.0; 
+    for ( int i = 0 ; i < m ; i++ )
+    {
+        sum += pow(A[i] , 2 );
+    }
+    return sum; 
+}
+    \end{lstlisting}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+    \frametitle{C Code (2) - Function to Generate Points on Line}
+    \begin{lstlisting}
+
+void linegen(double *X, double *Y , double *Z , double *A , double *B , int n , int m )
+{
+    double temp[m] ; 
+    for (int i = 0 ; i < m ; i++)
+    {
+        temp [ i ] = (B[i]- A[i]) /(double) n ; 
+    }
+    for (int i = 0 ; i <= n ; i++ )
+    {
+        X[i] = A[0] + temp[0] * i ; 
+        Y[i] = A[1] + temp[1] * i ;
+        Z[i] = A[2] + temp[2] * i ; 
+    }
+}
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting}
+import ctypes
+import numpy as np
+import matplotlib.pyplot as plt
+handc1 = ctypes.CDLL("./func.so")
+
+handc1.norm_vec_sq.argtypes = [
+    ctypes.POINTER(ctypes.c_double),
+    ctypes.c_int]
+
+handc1.norm_vec_sq.restype = ctypes.c_double
+C = np.array([[2],[3],[4]], dtype= np.float64).reshape(-1,1)
+ab_sq = 29
+m = 3
+c_sq = handc1.norm_vec_sq(
+    C.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),m)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting}
+l = ab_sq / c_sq
+ab1 = np.sqrt(l) * C
+ab2 = -np.sqrt(l) * C
+
+def line_cre(P: np.ndarray , Q: np.ndarray, str):
+    handc2 = ctypes.CDLL("./line_gen.so")
+
+    handc2.linegen.argtypes = [
+        ctypes.POINTER(ctypes.c_double),
+        ctypes.POINTER(ctypes.c_double),
+        ctypes.POINTER(ctypes.c_double),
+        ctypes.POINTER(ctypes.c_double),
+        ctypes.POINTER(ctypes.c_double),
+        ctypes.c_int , ctypes.c_int
+    ]
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting}
+ handc2.linegen.restype = None
+    n = 200
+    X_l = np.zeros(n,dtype=np.float64)
+    Y_l = np.zeros(n,dtype=np.float64)
+    Z_l = np.zeros(n,dtype=np.float64)
+    handc2.linegen (
+        X_l.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+        Y_l.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+        Z_l.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+        P.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+        Q.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+        n,3
+    )
+    ax.plot([X_l[0],X_l[-1]],[Y_l[0],Y_l[-1]],[Z_l[0],Z_l[-1]],str)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting}
+O = np.array([[0],[0],[0]]).reshape(-1,1)
+fig = plt.figure()
+ax = fig.add_subplot(111,projection="3d")
+
+line_cre(ab1,O,"g-")
+line_cre(ab2,O,"r-")
+
+coords = np.block([[ab1,ab2,O]])
+ax.scatter(coords[0,:],coords[1,:],coords[2,:])
+vert_labels = [r'$(a+b)_1$',r'$(a+b)_2$','O']
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting}
+for i, txt in enumerate(vert_labels):
+    if (coords[0,i] == 0 ) :
+        ax.text(coords[0,i], coords[1,i] , coords[2,i],txt , ha='center', va = 'bottom')
+    else :
+        ax.text(coords[0,i], coords[1,i] , coords[2,i],f'{txt}\n({coords[0,i]:.1f}, {coords[1,i]:.1f}, {coords[2,i]:.1f})',ha='center', va = 'bottom')
+ax.scatter(coords[0,2], coords[1,2], coords[2,2], color="b", label="O : ORIGIN")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting}
+ax.legend(loc = "best")
+ax.set_xlabel('$x$')
+ax.set_ylabel('$y$')
+ax.set_zlabel('$z$')
+ax.grid()
+plt.title("Fig:2.10.61")
+ax.set_box_aspect([1,1,1])
+
+fig.savefig("../figs/vector1.png")
+fig.show()
+
+#plt.savefig('figs/triangle/ang-bisect.pdf')
+#subprocess.run(shlex.split("termux-open figs/triangle/ang-bisect.pdf"))
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import math
+import sys 
+sys.path.insert(0, '/home/kartik-lahoti/matgeo/codes/CoordGeo')
+import numpy as np
+import numpy.linalg as LA
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+
+from line.funcs import *
+#from triangle.funcs import *
+#from conics.funcs import circ_gen
+
+
+#if using termux
+#import subprocess
+#import shlex
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code }
+    \begin{lstlisting}
+
+C = np.array([[2],[3],[4]], dtype = np.float64 ).reshape(-1,1)
+ab_sq= 29
+
+c_sq = LA.norm(C)**2
+
+l = ab_sq / c_sq
+
+ab1 = np.sqrt(l) * C
+ab2 = - np.sqrt(l) * C
+O = np.array([0,0,0]).reshape(-1,1)
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code }
+    \begin{lstlisting}
+def plot_it(P,Q,str):
+    x_l = line_gen_num(P,Q,20)
+    ax.plot(x_l[0,:],x_l[1,:],x_l[2,:] , str )
+
+fig = plt.figure()
+ax = fig.add_subplot(111,projection = "3d")
+
+plot_it(ab1,O,"g-")
+plot_it(ab2,O,"r-")
+
+coords = np.block([[ab1,ab2,O]])
+plt.scatter(coords[0,:],coords[1,:],coords[2,:])
+vert_labels = [r'$(a+b)_1$',r'$(a+b)_2$','O']
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code }
+    \begin{lstlisting}
+
+for i, txt in enumerate(vert_labels):
+    if (coords[0,i] == 0 ) :
+        ax.text(coords[0,i], coords[1,i] , coords[2,i],txt , ha='center', va = 'bottom')
+    else :
+        ax.text(coords[0,i], coords[1,i] , coords[2,i],f'{txt}\n({coords[0,i]:.1f}, {coords[1,i]:.1f}, {coords[2,i]:.1f})',ha='center', va = 'bottom')
+
+ax.scatter(coords[0,2], coords[1,2], coords[2,2], color="b", label="O : ORIGIN")
+ax.legend(loc = "best")
+
+
+    \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code }
+    \begin{lstlisting}
+
+    
+ax.set_xlabel('$x$')
+ax.set_ylabel('$y$')
+ax.set_zlabel('$z$')
+
+ax.grid()
+plt.title("Fig:2.8.15")
+ax.set_box_aspect([1,1,1])
+
+fig.savefig("../figs/vector2.png")
+fig.show()
+#plt.savefig('figs/triangle/ang-bisect.pdf')
+#subprocess.run(shlex.split("termux-open figs/triangle/ang-bisect.pdf"))
+
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}{Plot}
+    \centering
+    \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{figs/vector1.png}   
+\end{frame}
+
+
+\end{document}

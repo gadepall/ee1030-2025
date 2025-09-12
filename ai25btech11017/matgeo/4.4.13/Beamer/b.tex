@@ -1,0 +1,203 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{4.4.13}
+
+%\subtitle{A short story}
+
+\author % (optional)
+{BALU-ai25btech11017}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+A line passes through the point with position vector 
+\begin{align}
+2\hat{i} - \hat{j} + 4\hat{k}
+\end{align}
+and is in the direction of the vector 
+\begin{align}
+\hat{i} + \hat{j} - 2\hat{k}.
+\end{align}
+Find the equation of the line.\\ 
+\end{frame}
+\begin{frame}{Theoretical Solution}
+Let us solve the given equation theoretically and then verify the solution computationally \\
+According to the question, \\
+Given\\
+\begin{align}
+\vec{P}=\begin{myvec}{2\\-1\\4}\end{myvec}\
+\vec{D}=\begin{myvec}{1\\1\\-2}\end{myvec}\
+\end{align}
+The equation of line is
+   \begin{align}
+ \vec{r}=\begin{myvec}{2\\-1\\4}\end{myvec}+\lambda\begin{myvec}{1\\1\\-2}
+ \end{myvec}
+\end{align}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{C Code}
+
+    \begin{lstlisting}
+#include <stdio.h>
+
+int main() {
+    // Point on line
+    int x0 = 2, y0 = -1, z0 = 4;
+    // Direction vector
+    int a = 1, b = 1, c = -2;
+
+    printf("Equation of the line passing through (2, -1, 4)\n");
+    printf("and parallel to vector (1, 1, -2):\n\n");
+
+    // Vector form
+    printf("Vector form:\n");
+    printf("r = (2, -1, 4) + t(1, 1, -2)\n\n");
+
+    // Parametric form
+    printf("Parametric form:\n");
+    printf("x = %d + t\n", x0);
+     \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{C Code }
+    \begin{lstlisting}
+     printf("y = %d + t\n", y0);
+    printf("z = %d - 2t\n\n");
+
+    // Symmetric form
+    printf("Symmetric form:\n");
+    printf("(x - %d)/%d = (y - %d)/%d = (z - %d)/%d\n",
+           x0, a, y0, b, z0, c);
+
+    return 0;
+}
+    \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+# Point and direction vector
+P = np.array([2, -1, 4])
+d = np.array([1, 1, -2])
+
+# Parameter range for t
+t = np.linspace(-5, 5, 100)
+
+# Line points
+x = P[0] + d[0]*t
+y = P[1] + d[1]*t
+z = P[2] + d[2]*t
+
+# Plotting
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+ax.plot(x, y, z, label="Line")
+ax.scatter(P[0], P[1], P[2], color='red', s=50, label="Point (2,-1,4)")
+
+# Labels
+ax.set_xlabel('X axis')
+ax.set_ylabel('Y axis')
+ax.set_zlabel('Z axis')
+ax.set_title('3D Line through (2,-1,4) in direction (1,1,-2)')
+ax.legend()
+
+# Save as picture
+plt.savefig("line_3d.png", dpi=300)
+plt.show()
+    \end{lstlisting}
+\end{frame}
+\begin{frame}{Plot}
+    \centering
+    \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{figs/linefig.png}     
+\end{frame}
+\end{document}

@@ -1,0 +1,152 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} 
+\usepackage{tfrupee} 
+
+\setlength{\headheight}{1cm} 
+\setlength{\headsep}{0mm}     
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{2.10.20}
+\author{AI25BTECH11030 -Sarvesh Tamgade}
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} 
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+
+\textbf{Question}:  Which of the following expressions are meaningful?
+\begin{multicols}{2}
+\begin{enumerate}[label=(\alph*)]
+     
+\item $\vec{u} \cdot (\vec{v} \times \vec{w})$
+\item $(\vec{u} \cdot \vec{v}) \cdot \vec{w}$
+\item $(\vec{u} \cdot \vec{v})\ \vec{w}$
+\item $\vec{u} \times (\vec{v} \cdot \vec{w})$
+
+\end{enumerate}
+\end{multicols}
+
+\textbf{Solution:}\\
+Let \begin{align}
+    \mathbf{u} &= \begin{bmatrix} 2 \\ 3 \end{bmatrix}, \quad
+  \mathbf{v} = \begin{bmatrix} 4 \\ 1 \end{bmatrix}, \quad
+  \mathbf{w} = \begin{bmatrix} 0 \\ 5 \end{bmatrix}.
+  \\
+\end{align}
+\begin{enumerate}[label=\alph*)]
+  \item \( \mathbf{u}^\top (\mathbf{v} \times \mathbf{w}) \)
+
+\[
+\mathbf{v} \times \mathbf{w} =
+\begin{pmatrix}
+v_{23} & w_{23} \\
+v_{31} & w_{31} \\
+v_{12} & w_{12}
+\end{pmatrix}
+=
+\begin{pmatrix}
+v_2 w_3 - v_3 w_2 \\
+v_3 w_1 - v_1 w_3 \\
+v_1 w_2 - v_2 w_1
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 \times 0 - 0 \times 5 \\
+0 \times 0 - 4 \times 0 \\
+4 \times 5 - 1 \times 0
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 \\
+0 \\
+20
+\end{pmatrix}
+\]
+
+\[
+\mathbf{u}^\top (\mathbf{v} \times \mathbf{w}) =
+\begin{bmatrix} 2 & 3 & 0 \end{bmatrix}
+\begin{bmatrix}
+0 \\
+0 \\
+20
+\end{bmatrix} = 0
+\]
+Since the scalar (dot) product of two vectors is defined, the expression  \(\mathbf{u} ^\top(\mathbf{v} \times \mathbf{w})\) is meaningful.
+  \item \( (\mathbf{u}^\top \mathbf{v})^\top \mathbf{w} \)
+
+  \begin{align*}
+  \mathbf{u}^\top \mathbf{v} &= \begin{bmatrix} 2 & 3 \end{bmatrix} \begin{bmatrix} 4 \\ 1 \end{bmatrix} = 2 \times 4 + 3 \times 1 = 11,
+  \\
+  (\mathbf{u}^\top \mathbf{v})^\top \mathbf{w} &= 11^\top \mathbf{w} \quad \text{(scalar dot vector)} \quad \text{undefined}.
+  \end{align*}
+
+  \item \( (\mathbf{u}^\top \mathbf{v}) \mathbf{w} \)
+
+  \begin{align*}
+  (\mathbf{u}^\top \mathbf{v}) \mathbf{w} &= 11 \times \begin{bmatrix} 0 \\ 5 \end{bmatrix} = \begin{bmatrix} 0 \\ 55 \end{bmatrix}.
+  \end{align*}
+
+  This is meaningful scalar multiplication.
+
+  \item \( \mathbf{u} \times (\mathbf{v}^\top \mathbf{w}) \)
+
+  \begin{align*}
+  \mathbf{v}^\top \mathbf{w} &= \begin{bmatrix} 4 & 1 \end{bmatrix} \begin{bmatrix} 0 \\ 5 \end{bmatrix} = 0 + 5 = 5,
+  \\
+  \mathbf{u} \times 5 &= \text{cross product of vector and scalar -- undefined}.
+  \end{align*}
+  
+\end{enumerate}
+
+\textbf{Answer:}
+\boxed{\text{Only (a) and (c) are meaningful }}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.65\linewidth]{FIG/fig1.png}
+    \caption{Vector Representation}
+    \label{fig:FIG/fig1.png}
+    \end{figure}
+
+\end{document}  

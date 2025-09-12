@@ -1,0 +1,350 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx} % <-- needed for images
+\def\UrlBreaks{\do\/\do-}
+
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\lstset{
+  frame=single,
+  breaklines=true,
+  columns=fullflexible,
+  basicstyle=\ttfamily\tiny   % tiny font so code fits
+}
+
+\numberwithin{equation}{section}
+
+% ---- your macros ----
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}}
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}}
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\newcommand{\mydet}[1]{\ensuremath{\begin{vmatrix}#1\end{vmatrix}}}
+\let\vec\mathbf
+% ---------------------
+
+\title{Matgeo Presentation - Problem 4.3.46}
+\author{ee25btech11056 - Suraj.N}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Problem Statement}
+
+Find the coordinates of the point where the line through $(3,-4,-5)$ and $(2,-3,1)$ crosses the plane $2x+y+z=7$.
+
+\end{frame}
+
+\begin{frame}{Data}
+
+\begin{table}[h!]
+  \centering
+  \input{tables/table.tex}
+  \caption*{Table : Line and Plane}
+  \label{4.3.46}
+\end{table}
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+Let the point of intersection be $\vec{P}$.  
+
+The line is written as
+\begin{align}
+\vec{x} &= \vec{h} + k\,\vec{m} \\
+\vec{h} &= \myvec{2\\-3\\1} \quad
+\vec{m} = \myvec{-1\\1\\6}
+\end{align}
+
+So,
+\begin{align}
+\vec{P} &= \vec{h} + k\,\vec{m}
+\end{align}
+
+\end{frame}
+
+\begin{frame}
+
+The point also lies on the plane , so
+
+\begin{align}
+  \vec{n}^\top\vec{P} &= c\\
+  \vec{n}^\top(\vec{h} + k\vec{m}) &= c\\
+  \vec{n}^\top\vec{h} + k\vec{n}^\top\vec{m} &= c\\
+  k = \frac{c -\vec{n}^\top\vec{h}}{\vec{n}^\top\vec{m}}
+\end{align}
+
+here c = 7 , by substituting the vectors for $\vec{n},\vec{h}$ and $\vec{m}$
+
+\begin{align}
+k &= \frac{7 - \myvec{2 & 1 & 1}\myvec{2\\-3\\1}}{\myvec{2 & 1 &1}\myvec{-1\\1\\6}}\\
+k &= \frac{7 - 2}{5} = 1 
+\end{align}
+
+\end{frame}
+
+\begin{frame}
+
+Substitute $k=1$ in the line equation to obtain the point of intersection $\vec{P}$
+\begin{align}
+\vec{P} &= \vec{h}  +\vec{m} \\
+\vec{P} &= \myvec{2\\-3\\1} + \myvec{-1\\1\\6} = \myvec{2-1\\-3+1\\1+6} = \myvec{1\\-2\\7}.
+\end{align}
+
+\textbf{Answer:}
+\begin{align}
+\vec{P} = \myvec{1\\-2\\7}
+\end{align}
+  
+\end{frame} 
+
+\begin{frame}{Plot}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.8\columnwidth]{figs/intersection.png} 
+   \caption*{Fig : Line and Plane}
+  \label{Fig1}
+\end{figure}
+
+\end{frame}
+
+\section*{Appendix: Code}
+
+% C program
+\begin{frame}[fragile]{C Code: points.c}
+\begin{lstlisting}[language=C]
+
+#include <stdio.h>
+
+double intersection() {
+
+  double k, final = -1;
+
+  double a[3] = {2, 1, 1};
+
+  double dot;
+
+  for (k = -100; k <= 100; k++) {
+
+    double x[3] = {2 - k, -3 + k, 1 + 6 * k};
+
+    dot = a[0] * x[0] + a[1] * x[1] + a[2] * x[2];
+
+    if (dot == 7) {
+      final = k;
+      break;
+    }
+  }
+
+  return final;
+}
+
+\end{lstlisting}
+\end{frame}
+
+% Python calling C
+\begin{frame}[fragile]{Python: call\_c.py}
+\begin{lstlisting}[language=Python]
+
+import sys
+import ctypes
+import numpy as np
+import matplotlib.pyplot as plt
+import os
+
+#for generating figure in figs folder
+figs_folder= os.path.join("..","figs")
+
+
+#loading shared object , load the file into lib which is an objedt
+
+lib = ctypes.CDLL("./points.so")              #ctypes constructor to load a shared c library
+lib.intersection.restype = ctypes.c_double    #to tell the return type is a c double
+lib.intersection.argtypes=[]                  # to tell that function takes no arguments
+
+#call the c function , by using attributes for lib
+k_val = lib.intersection()
+
+if (k_val == -1) :
+    print("no solution found")
+    sys.exit(0)
+
+print(f"solution found k = {k_val}")
+
+#writing points in the form of array for line
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Python: call\_c.py}
+\begin{lstlisting}[language=Python]
+
+#parametric form of the given line
+t = np.linspace(-5,5,200)
+
+p = 2 + (-1)*t
+q = (-3) + t
+r = 1 + 6*t
+
+#for plane
+
+#coefficients for plane equation
+a,b,c,d=2,1,1,7
+
+
+l = np.linspace(-10,10,100)
+m = np.linspace(-10,10,100)
+l,m = np.meshgrid(l,m)
+
+n = (d - a*l -b*m)/c
+
+#plot
+
+fig = plt.figure(figsize=(8,6))
+
+ax = fig.add_subplot(111,projection="3d")
+
+#line 
+ax.plot(p,q,r,label='line',color='red',linewidth=2)
+
+ax.scatter(1,-2,7,color='black',s=5,label='I(1,-2,7)')
+ax.scatter(3,-4,-5,color='green',s=5,label='A(3,-4,-5)')
+ax.scatter(2,-3,1,color='yellow',s=5,label='B(2,-3,1)')
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Python: call\_c.py}
+\begin{lstlisting}[language=Python]
+
+#plane 
+ax.plot_surface(l,m,n,alpha=0.5,color='blue',edgecolor='none')  #edgecolor='none' means edges are not drawn for the mesh and hence surface appears smooth without grid lines.
+
+ax.set_xlabel("X Axis")
+ax.set_ylabel("Y Axis")
+ax.set_zlabel("Z Axis")
+ax.set_title("Line and Plane")
+ax.grid(True)
+ax.legend()
+
+plt.tight_layout()
+fig.savefig(os.path.join(figs_folder,"intersection.png"))    #savingfig using figure object
+plt.show()
+
+\end{lstlisting}
+\end{frame}
+
+%Only Python
+\begin{frame}[fragile]{Python: plot.py}
+\begin{lstlisting}[language=Python]
+
+import numpy as np
+import matplotlib.pyplot as plt
+import os 
+
+#for generating figure in figs folder
+figs_folder= os.path.join("..","figs")
+
+# fixed value of k
+k_val = 1
+
+# line points
+#parametric form of the given line
+t = np.linspace(-5,5,200)
+
+p = 2 + (-1)*t
+q = (-3) + t
+r = 1 + 6*t
+
+# plane coefficients: 2x + y + z = 7
+a, b, c, d = 2, 1, 1, 7
+
+l = np.linspace(-10, 10, 100)
+m = np.linspace(-10, 10, 100)
+l, m = np.meshgrid(l, m)
+
+n = (d - a * l - b * m) / c
+
+# plot
+fig = plt.figure(figsize=(8, 6))
+ax = fig.add_subplot(111, projection="3d")
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Python: plot.py}
+\begin{lstlisting}[language=Python]
+
+# line
+ax.plot(p, q, r, label="line", color="red",linewidth=2)
+
+# points
+ax.scatter(1, -2, 7, color="black", s=5, label="I(1,-2,7)")
+ax.scatter(3, -4, -5, color="green", s=5, label="A(3,-4,-5)")
+ax.scatter(2, -3, 1, color="yellow", s=5, label="B(2,-3,1)")
+
+# plane
+ax.plot_surface(l, m, n, alpha=0.5, color="blue", edgecolor="none")
+
+ax.set_xlabel("X Axis")
+ax.set_ylabel("Y Axis")
+ax.set_zlabel("Z Axis")
+ax.set_title("Line and Plane")
+ax.grid(True)
+ax.legend()
+
+plt.tight_layout()
+fig.savefig(os.path.join(figs_folder,"intersection.png"))
+plt.show()
+
+\end{lstlisting}
+\end{frame}
+
+\end{document}
+

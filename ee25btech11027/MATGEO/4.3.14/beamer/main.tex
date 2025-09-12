@@ -1,0 +1,273 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{4.3.14}
+\date{9 September, 2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{INDHIRESH S - EE25BTECH11027}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+ A line intersects the Y axis and X axis at the points $\Vec{P}$ and $\vec{Q}$, respectively. If $(2, 5)$ is the mid-point of PQ, then the coordinates of $\Vec{P}$ and $\Vec{Q}$ are
+    
+\end{frame}
+\begin{frame}{allowframebreaks}
+\frametitle{Equation}
+
+    \centering
+    
+    \label{tab:parameters}
+Let,
+\begin{align}
+     \Vec{P}=\myvec{0\\a}\;\;and\;\;\Vec{Q}=\myvec{b\\0}
+\end{align}
+   
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Theoretical Solution}
+Let
+\begin{align}
+    \Vec{C}=\myvec{2\\5}
+\end{align}
+Given that $\Vec{C}$ is the midpoint of $\Vec{P}$ and $\Vec{Q}$. So,
+\begin{align}
+    \Vec{C}=\frac{\Vec{P}+\Vec{Q}}{2}
+\end{align}
+Now,
+\begin{align}
+\myvec{2\\5}=\frac{\myvec{0\\a}+\myvec{b\\0}}{2}
+\end{align}
+
+
+
+\end{frame}
+\begin{frame}
+\frametitle{Theoretical solution}
+\begin{align}
+    \myvec{2\\5}=\myvec{\frac{b}{2}\\\frac{a}{2}}
+\end{align}
+
+\begin{align}
+    a=10\;\;and\;\;b=4
+\end{align}
+Subtituting the value of a and b in Eq.1, we get:
+\begin{align}
+    \Vec{P}=\myvec{0\\10}\;\;and\;\;\Vec{Q}=\myvec{4\\0}
+\end{align}
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}[fragile]
+    \frametitle{C Code  }
+
+    \begin{lstlisting}
+#include <stdio.h>
+
+// Function to fill coordinates of P and Q
+void get_points(int *Px, int *Py, int *Qx, int *Qy) {
+    int mx = 2, my = 5;   // midpoint given
+
+    *Px = 0;
+    *Py = 2 * my;   // y1 = 10
+    *Qx = 2 * mx;   // x1 = 4
+    *Qy = 0;
+}
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import ctypes
+import matplotlib.pyplot as plt
+
+# Load compiled C library
+lib = ctypes.CDLL("./midpoint.so")
+
+# Define return type and argument types
+lib.get_points.argtypes = [ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int),
+                           ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
+
+# Prepare variables
+Px, Py, Qx, Qy = ctypes.c_int(), ctypes.c_int(), ctypes.c_int(), ctypes.c_int()
+
+
+
+
+
+
+
+
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# Call C function
+lib.get_points(ctypes.byref(Px), ctypes.byref(Py), ctypes.byref(Qx), ctypes.byref(Qy))
+
+# Extract results
+P = (Px.value, Py.value)
+Q = (Qx.value, Qy.value)
+M = (2, 5)  # midpoint given
+
+# --- Plotting ---
+plt.plot([P[0], Q[0]], [P[1], Q[1]], 'b-', label="Line PQ")
+
+# Plot P, Q, M
+plt.scatter(*P, color="red", s=100, label=f"P{P}")
+plt.scatter(*Q, color="green", s=100, label=f"Q{Q}")
+plt.scatter(*M, color="purple", s=150, marker="*", label=f"M{M}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+
+    \begin{lstlisting}
+# Annotate
+plt.text(P[0]+0.2, P[1], f"P{P}", fontsize=10)
+plt.text(Q[0]+0.2, Q[1], f"Q{Q}", fontsize=10)
+plt.text(M[0]+0.2, M[1], f"M{M}", fontsize=10, color="purple")
+
+# Axes
+plt.axhline(0, color='black')
+plt.axvline(0, color='black')
+
+plt.title("Figure")
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+plt.legend()
+plt.grid(True)
+plt.savefig("/media/indhiresh-s/New Volume/Matrix/ee1030-2025/ee25btech11027/MATGEO/4.3.14/figs/figure1.png")
+plt.show()
+
+
+
+
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+
+
+\begin{frame}{Plot}
+    \begin{center}
+        \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{figs/figure1.png}
+    \end{center}
+\end{frame}
+
+
+
+
+\end{document}

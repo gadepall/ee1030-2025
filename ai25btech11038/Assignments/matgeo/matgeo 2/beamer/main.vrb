@@ -1,0 +1,24 @@
+\frametitle{Code - C}
+\begin{lstlisting}
+#include <math.h>
+#include <stdio.h>
+
+void find_x_axis_points(double x0, double y0, double d, double *x1, double *x2) {
+    double rhs = d*d - y0*y0;
+    if (rhs < 0) {
+        *x1 = NAN;
+        *x2 = NAN;
+        return;
+    }
+    double root = sqrt(rhs);
+    *x1 = x0 + root;
+    *x2 = x0 - root;
+}
+
+int main() {
+    double x1, x2;
+    find_x_axis_points(7.0, -4.0, 2.0*sqrt(5.0), &x1, &x2);
+    printf("X-axis points: (%.2f, 0) and (%.2f, 0)\n", x1, x2);
+    return 0;
+}
+\end{lstlisting}

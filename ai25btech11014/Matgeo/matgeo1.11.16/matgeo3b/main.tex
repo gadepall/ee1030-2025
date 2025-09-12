@@ -1,0 +1,219 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\title{1.11.16}
+\author{AI25BTECH11014 - Suhas}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Question}
+The Cartesian equation of a line AB is  
+\[
+\frac{x - 1}{2} = \frac{y + 2}{2} = \frac{z - 3}{3}
+\]  
+Find the direction cosines of a line parallel to line AB.
+\end{frame}
+
+\begin{frame}{Solution}
+Extract the direction vector from the denominators:
+\begin{equation}
+\mathbf{D} = \myvec{2\\2\\3}
+\end{equation}
+
+Compute the magnitude of \(\mathbf{D}\):
+\begin{equation}
+\|\mathbf{D}\| = \sqrt{2^2 + 2^2 + 3^2} = \sqrt{17}
+\end{equation}
+
+Normalize the direction vector:
+\begin{equation}
+\mathbf{L} = \frac{1}{\sqrt{17}} \cdot \mathbf{D} = \frac{1}{\sqrt{17}} \cdot \myvec{2\\2\\3}
+\end{equation}
+\end{frame}
+
+\begin{frame}{Matrix Form}
+Let the point vector be:
+\begin{equation}
+\mathbf{P} = \myvec{1\\-2\\3}
+\end{equation}
+
+Then the line can be expressed in matrix form as:
+\begin{equation}
+\mathbf{R} = \mathbf{P} + \lambda \cdot \mathbf{D}
+\end{equation}
+
+Where \(\lambda \in \mathbb{R}\) is a scalar parameter.
+\end{frame}
+
+
+\begin{frame}{Conclusion}
+The direction cosines of a line parallel to AB are:
+\[
+\mathbf{L} = \frac{1}{\sqrt{17}} \cdot \myvec{2\\2\\3}
+\]
+The line can be expressed in matrix form as:
+\[
+\mathbf{R} = \myvec{1\\-2\\3} + \lambda \cdot \myvec{2\\2\\3}
+\]
+\end{frame}
+
+\begin{frame}[fragile]{C Code: Solve Direction Cosines}
+\begin{lstlisting}[language=C]
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    double D[3] = {2.0, 1.0, 3.0};
+    double mag = sqrt(D[0]*D[0] +
+                      D[1]*D[1] +
+                      D[2]*D[2]);
+    printf("Magnitude: %f\n", mag);
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{C Code: Solve Direction Cosines (2/2)}
+\begin{lstlisting}[language=C]
+    printf("Direction Cosines:\n");
+    for (int i = 0; i < 3; i++) {
+        printf("%.5f\n", D[i]/mag);
+    }
+    return 0;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{C Code: Formula Library (1/2)}
+\begin{lstlisting}[language=C]
+#include <math.h>
+
+void direction_cosines(double* D,
+                       double* L) {
+    double mag = sqrt(D[0]*D[0] +
+                      D[1]*D[1] +
+                      D[2]*D[2]);
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{C Code: Formula Library (2/2)}
+\begin{lstlisting}[language=C]
+    for (int i = 0; i < 3; i++) {
+        L[i] = D[i] / mag;
+    }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Python Code: Using .so (1/2)}
+\begin{lstlisting}[language=Python]
+import ctypes
+import numpy as np
+from sympy import Matrix, sqrt
+
+lib = ctypes.CDLL('./libdircos.so')
+dir_cos = lib.direction_cosines
+dir_cos.argtypes = [
+    ctypes.POINTER(ctypes.c_double),
+    ctypes.POINTER(ctypes.c_double)
+]
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Python Code: Using .so (2/2)}
+\begin{lstlisting}[language=Python]
+D = np.array([2.0, 2.0, 3.0])
+L = np.zeros(3)
+
+dir_cos(D.ctypes.data_as(ctypes.POINTER(
+        ctypes.c_double)),
+        L.ctypes.data_as(ctypes.POINTER(
+        ctypes.c_double)))
+
+print("Direction Cosines:", L)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Plot}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Figs/Fig1.png}
+    \caption{Line AB}
+    \label{fig:fig1}
+\end{figure}
+\end{frame}
+
+\end{document}
+

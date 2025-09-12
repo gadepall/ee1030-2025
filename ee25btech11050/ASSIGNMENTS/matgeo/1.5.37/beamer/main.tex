@@ -1,0 +1,274 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+	breakable=true,
+	listing engine=minted,
+	listing only,
+	minted language=#2,
+	minted style=default,
+	minted options={%
+		linenos,
+		gobble=0,
+		breaklines=true,
+		breakafter=,,
+		fontsize=\small,
+		numbersep=8pt,
+		#1},
+	boxsep=0pt,
+	left skip=0pt,
+	right skip=0pt,
+	left=25pt,
+	right=0pt,
+	top=3pt,
+	bottom=3pt,
+	arc=5pt,
+	leftrule=0pt,
+	rightrule=0pt,
+	bottomrule=2pt,
+	toprule=2pt,
+	colback=bg,
+	colframe=orange!70,
+	enhanced,
+	overlay={%
+		\begin{tcbclipinterior}
+			\fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+	\end{tcbclipinterior}},
+	#3,
+}
+\lstset{
+	language=C,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{orange},
+	commentstyle=\color{green!60!black},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{1.5.37}
+%\subtitle{A short story}
+
+\author % (optional)
+{Hema Havil - EE25BTECH11050}
+
+
+
+\begin{document}
+	
+	\frame{\titlepage}
+	\begin{frame}{Question}
+		The centre of a circle whose end points of a diameter are (−6, 3) and (6, 4) is \underline{\hspace{3cm}}
+	\end{frame}
+
+	
+\begin{frame}{Theoretical Solution}
+	Let the given end points of the diameter of the circle be A and B, then\\
+         \begin{align}
+             \vec{A} = \myvec{-6 \\ 3}, \vec{B} = \myvec{6 \\ 4}
+         \end{align}
+         The midpoint of the two points is the center of the circle,\\
+         let the center be C, then
+         \begin{align}
+             \vec{C}=\frac{1}{2} \brak{\vec{A}+\vec{B}}
+         \end{align}
+         by substituting A and B
+         \begin{align}
+             \vec{C}=\frac{1}{2}\brak{\myvec{-6 \\ 3} + \myvec{6 \\ 4}}
+         \end{align}
+         \begin{align}
+             \vec{C}=\frac{1}{2}\myvec{-6+6 \\ 3+4}
+         \end{align}
+\end{frame}
+\begin{frame}{Theoretical Solution}
+\begin{align}
+             \vec{C}=\frac{1}{2}\myvec{0 \\ 7}
+         \end{align}
+         \begin{align}
+             \vec{C}=\myvec{0 \\ 3.5}
+         \end{align}
+         Therefore the center of the circle is \\
+         \begin{align*}
+             \vec{C}=\myvec{0 , 3.5}
+         \end{align*}
+	\end{frame}
+	
+	\begin{frame}[fragile]
+	\frametitle{C Code- equidistant check function }
+	
+	\begin{lstlisting}
+// circle.c
+#include <math.h>
+
+#ifdef _WIN32
+#define API __declspec(dllexport)
+#else
+#define API
+#endif
+
+// Given endpoints (x1,y1), (x2,y2), returns center (cx,cy) and radius r
+API void compute_circle(double x1, double y1,
+                        double x2, double y2,
+                        double *cx, double *cy, double *r) {
+    *cx = 0.5 * (x1 + x2);
+    *cy = 0.5 * (y1 + y2);
+    double dx = x2 - x1, dy = y2 - y1;
+    *r = 0.5 * sqrt(dx*dx + dy*dy);
+}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Python Code using shared output}
+	\begin{lstlisting}
+		import ctypes, os, numpy as np, matplotlib.pyplot as plt
+
+# load the shared library (adjust name for macOS: libcircle.dylib, Windows: circle.dll)
+lib = ctypes.CDLL(os.path.abspath("./libcircle.so"))
+
+lib.compute_circle.argtypes = [ctypes.c_double, ctypes.c_double,
+                               ctypes.c_double, ctypes.c_double,
+                               ctypes.POINTER(ctypes.c_double),
+                               ctypes.POINTER(ctypes.c_double),
+                               ctypes.POINTER(ctypes.c_double)]
+
+def compute_circle(x1, y1, x2, y2):
+    cx = ctypes.c_double()
+    cy = ctypes.c_double()
+    r  = ctypes.c_double()
+	\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Python Code using shared output}
+	\begin{lstlisting}	
+     lib.compute_circle(x1, y1, x2, y2, ctypes.byref(cx), ctypes.byref(cy), ctypes.byref(r))
+     return cx.value, cy.value, r.value
+
+# given endpoints
+x1, y1 = -6.0, 3.0
+x2, y2 =  6.0, 4.0
+cx, cy, r = compute_circle(x1, y1, x2, y2)
+print("Center:", (cx, cy), "Radius:", r)
+
+# make a circle for plotting
+t = np.linspace(0, 2*np.pi, 400)
+xc = cx + r*np.cos(t)
+yc = cy + r*np.sin(t)
+
+	\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Python Code using shared output}
+	\begin{lstlisting}
+fig, ax = plt.subplots()
+ax.plot(xc, yc, label="Circle")
+ax.plot([x1, x2], [y1, y2], 'o-', label="Diameter endpoints")
+ax.plot(cx, cy, 'o', label="Center")
+
+ax.set_aspect('equal', adjustable='box')
+ax.grid(True, linestyle="--", alpha=0.5)
+ax.legend()
+ax.set_title(f"Circle with diameter [({x1},{y1}) ↔ ({x2},{y2})]\nCenter=({cx:.2f},{cy:.2f}), r={r:.4f}")
+plt.show()
+	\end{lstlisting}
+\end{frame}
+\begin{frame}{Plot by python using shared output from c}
+	\begin{center}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width = 0.6\columnwidth]{figs/fig1.png}
+		\caption{Plot of the center and ends of the diameter}
+		\label{fig1}
+	\end{figure}
+	\end{center}
+\end{frame}
+\begin{frame}[fragile]
+     \frametitle{Python code for the plot}
+\begin{lstlisting}
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+# Endpoints of diameter
+x1, y1 = -6, 3
+x2, y2 =  6, 4
+
+# Compute center (midpoint)
+cx = 0.5 * (x1 + x2)
+cy = 0.5 * (y1 + y2)
+
+# Compute radius
+dx, dy = x2 - x1, y2 - y1
+r = 0.5 * np.sqrt(dx**2 + dy**2)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+   \frametitle{Python code for the plot}
+    \begin{lstlisting}
+print("Center:", (cx, cy))
+print("Radius:", r)
+
+# Parametric circle
+theta = np.linspace(0, 2*np.pi, 400)
+xc = cx + r*np.cos(theta)
+yc = cy + r*np.sin(theta)
+
+# Plot
+fig, ax = plt.subplots()
+
+# Circle (blue)
+ax.plot(xc, yc, color="blue", label="Circle")
+
+# Diameter endpoints + line (green)
+ax.plot([x1, x2], [y1, y2], 'o-', color="green", label="Diameter")
+ \end{lstlisting}
+\end{frame}
+ \begin{frame}[fragile]
+       \frametitle{python code for plot}
+       \begin{lstlisting}
+       # Center (red point)
+ax.plot(cx, cy, 'ro', label="Center")
+
+# Formatting
+ax.set_aspect('equal', adjustable='box')
+ax.grid(True, linestyle="--", alpha=0.5)
+ax.legend()
+ax.set_title(f"Circle with diameter endpoints ({x1},{y1}) and ({x2},{y2})")
+
+plt.show()
+    \end{lstlisting}
+ \end{frame}
+ \begin{figure}
+     \centering
+     \includegraphics[width=0.5\linewidth]{figs/fig2.png}
+     \caption{Plot for the center of the circle}
+     \label{fig2}
+ \end{figure}
+\end{document}

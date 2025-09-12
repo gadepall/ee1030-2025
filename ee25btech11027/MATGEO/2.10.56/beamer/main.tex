@@ -1,0 +1,442 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{2.10.56}
+\date{8 September, 2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{INDHIRESH S - EE25BTECH11027}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Let two non-collinear unit vectors $\hat{a}$ and $\hat{b}$ form an acute angle. A point $\vec{P}$ moves so that at any time $t$ the position vector $\Vec{P}$ (where $\vec{O}$ is the origin) is given by $\Vec{a}\cos{t} + \vec{b}\sin{t}$. When $\vec{P}$ is farthest from origin $\vec{O}$, let $M$ be the length of $\Vec{P}$ and $\hat{\vec{u}}$ be the unit vector along $\Vec{P}$. Then,
+
+    \begin{enumerate}
+	    \item $\hat{\vec{u}} = \frac{\Vec{a}+\vec{b}}{|\Vec{a}+\vec{b}|} \text{ and } M = (1+\Vec{a} \cdot \vec{b})^{\frac{1}{2}}$
+    	\item $\hat{\vec{u}} = \frac{\Vec{a}-\vec{b}}{|\Vec{a}-\vec{b}|} \text{ and } M = (1+\Vec{a} \cdot \vec{b})^{\frac{1}{2}}$
+    	\item $\hat{\vec{u}} = \frac{\Vec{a}+\vec{b}}{|\Vec{a}+\vec{b}|} \text{ and } M = (1+2\Vec{a} \cdot \vec{b})^{\frac{1}{2}}$
+    	\item $\hat{\vec{u}} = \frac{\Vec{a}-\vec{b}}{|\Vec{a}-\vec{b}|} \text{ and } M = (1+2\Vec{a} \cdot \vec{b})^{\frac{1}{2}}$
+    \end{enumerate}
+    
+\end{frame}
+\begin{frame}{allowframebreaks}
+\frametitle{Equation}
+
+    \centering
+    
+    \label{tab:parameters}
+Given equation:
+\begin{align}
+     \Vec{P}=\vec{a}\cos{t} + \vec{b}\sin{t}
+\end{align}
+Which can be written as :
+\begin{align}
+    \Vec{P}=\myvec{\vec{a}&\vec{b}}\myvec{\cos{t}\\\sin{t}}
+\end{align}
+\begin{align}
+    \Vec{P}=\myvec{\Vec{a}&\Vec{b}}\Vec{x}
+\end{align}
+Let
+\begin{align}
+    \Vec{x}= \myvec{\cos{t} \\ \sin{t}} \;\;and\;\;\vec{G}=\myvec{1&(\Vec{a})^T(\Vec{b})\\(\Vec{a})^T(\Vec{b})&1}
+\end{align}
+
+   
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Theoretical Solution}
+From given if \textbf{P} is farthest from origin , then length of $\vec{P}$ is given as M.From this we can say  that
+\begin{align}
+   M=\text{max}\norm{\Vec{P}}
+\end{align}
+Now,
+\begin{align}
+    \norm{\Vec{P}}=\sqrt{(\Vec{P})^T(\Vec{P})}
+\end{align}
+\begin{align}
+    \norm{\Vec{P}}=\sqrt{\brak{\myvec{\Vec{a}&\Vec{b}}\Vec{x}}^T\brak{\myvec{\Vec{a}&\Vec{b}}\Vec{x}}}
+\end{align}
+\begin{align}
+    \norm{\Vec{P}}=\sqrt{\Vec{x}^T\myvec{\Vec{a}&\Vec{b}}^T\myvec{\Vec{a}&\Vec{b}}\Vec{x}}
+\end{align}
+
+
+
+
+
+
+\end{frame}
+\begin{frame}
+\frametitle{Theoretical solution}
+Let $\Vec{G}$ be a gram matrix:
+\begin{align}
+    \Vec{G}=\myvec{\Vec{a}&\Vec{b}}^T\myvec{\Vec{a}&\Vec{b}}=\myvec{1&(\Vec{a})^T(\Vec{b})\\(\Vec{a})^T(\Vec{b})&1}
+\end{align}
+\begin{align}
+       \norm{\Vec{P}}^2=\Vec{x}^T\myvec{1&(\Vec{a})^T(\Vec{b})\\(\Vec{a})^T(\Vec{b})&1}\Vec{x}
+\end{align}
+
+\begin{align}
+\norm{\Vec{P}}^2=\Vec{x}^T\vec{G}\Vec{x}
+  \end{align}
+Now we should find the maximum value of \textbf{$x^TGx$} such that $\norm{x}=1$\\\\
+By \textbf{Rayleigh-Ritz theorem}, the maximum value of the quadratic form if \textbf{x} is a unit vector will be the largest eigenvalue $(\lambda_{max})$ of the matrix G.\\
+So,
+\begin{align}
+    max\norm{\Vec{P}}=\sqrt{\lambda_{max}}
+\end{align}
+
+
+\end{frame}
+\begin{frame}
+\frametitle{Theoretical Solution}
+   Now we will calculate the Eigen value for the matrix G:
+\begin{align}
+    \mydet{\Vec{G}-\lambda \Vec{I}}=0
+\end{align}
+\begin{align}
+    \mydet{\myvec{1-\lambda&(\Vec{a})^T(\Vec{b})\\(\Vec{a})^T(\Vec{b})&1-\lambda}}=0
+\end{align}
+\begin{align}
+    (1-\lambda)^2-((\Vec{a})^T(\Vec{b}))^2=0
+\end{align}
+\begin{align}
+    1-\lambda=(\Vec{a})^T(\Vec{b})\;\;or\;\;1-\lambda=-(\Vec{a})^T(\Vec{b})
+\end{align}
+\begin{align}
+    \lambda=1+(\Vec{a})^T(\Vec{b})\;\;or \;\;\lambda=1-(\Vec{a})^T(\Vec{b})
+\end{align}
+It is already given that $(\Vec{a})^T(\Vec{b})>0 $($\Vec{a}$ and $\Vec{b}$ form an acute angle) . so,
+\begin{align}
+ \lambda_{max}=1+  (\Vec{a})^T(\Vec{b}) 
+\end{align}
+
+
+\end{frame}
+\begin{frame}
+\frametitle{Theoretical Solution}
+  From Eq.12
+\begin{align}
+    max\norm{\Vec{P}}=\sqrt{1+  (\Vec{a})^T(\Vec{b}) }
+\end{align}
+The above equation can be written as
+\begin{align}
+   max \norm{\Vec{P}}=\sqrt{1+\Vec{a}.\Vec{b}}
+\end{align}
+From Eq.5:
+\begin{align}
+    M=\sqrt{1+\Vec{a}.\Vec{b}}
+\end{align}
+Now let us find the value of t for which $\norm{\Vec{P}}$ is max\\
+With eigenvalue equation,We'll use matrix G and largest eigenvalue $\lambda_{max}$ such that,
+\begin{align}
+    \myvec{\Vec{G}-\lambda \Vec{I}}\Vec{x}=0
+\end{align}
+\begin{align}
+    \brak{\myvec{1&(\Vec{a})^T(\Vec{b})\\(\Vec{a})^T(\Vec{b})&1}-\myvec{\lambda&0\\0&\lambda}}\Vec{x}=\myvec{0\\0}
+\end{align}
+
+\end{frame}
+\begin{frame}
+\frametitle{Theoretical Solution}
+\begin{align}
+    \myvec{1-\lambda&(a)^T(b)\\(a)^T(b)&1-\lambda}\Vec{x}=\myvec{0\\0}
+\end{align}
+By substituting  $\lambda = 1+  (\Vec{a})^T(\Vec{b}) $ . We get:
+
+\begin{align}
+    \myvec{-(\Vec{a})^T(\Vec{b})&(\Vec{a})^T(\Vec{b})\\(\Vec{a})^T(\Vec{b})&-(\Vec{a})^T(\Vec{b})}\Vec{x}=\myvec{0\\0}
+\end{align}
+\begin{align}
+    \myvec{-(\Vec{a})^T(\Vec{b})&(\Vec{a})^T(\Vec{b})\\(\Vec{a})^T(\Vec{b})&-(\Vec{a})^T(\Vec{b})}\myvec{\cos{t}\\\sin{t}}=\myvec{0\\0}
+\end{align}
+\begin{align}
+    \myvec{-(\Vec{a})^T(\Vec{b})\cos{t}+(\Vec{a})^T(\Vec{b})\sin{t}\\(\Vec{a})^T(\Vec{b})\cos{t}-(\Vec{a})^T(\Vec{b})\sin{t}}=\myvec{0\\0}
+\end{align}
+\begin{align}
+    -(\Vec{a})^T(\Vec{b})\cos{t}+(\Vec{a})^T(\Vec{b})\sin{t}=0
+\end{align}
+
+
+
+
+\end{frame}
+\begin{frame}
+\frametitle{Theoretical Solution}
+   \begin{align}
+    (\Vec{a})^T(\Vec{b})\cos{t}=(\Vec{a})^T(\Vec{b})\sin{t}
+\end{align}
+\begin{align}
+    \cos{t}=\sin{t}
+\end{align}
+We already know that:
+\begin{align}
+    \sin^2{t}+\cos^2{t}=1
+\end{align}
+So,
+\begin{align}
+    \sin{t}=\frac{1}{\sqrt{2}}\;\;and\;\; \cos{t}=\frac{1}{\sqrt{2}}
+\end{align}
+From above result
+\begin{align}
+    t=\frac{\pi}{4}
+\end{align}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Theoretical Solution}
+    Now unit vector $\Vec{u}$ along $\Vec{P}$ is given by:
+\begin{align}
+    \Vec{{\Vec{u}}}=\frac{\Vec{P}}{\norm{\Vec{P}}}
+\end{align}
+\begin{align}
+\Vec{\Vec{u}}=\frac{\vec{a}\cos{t} + \vec{b}\sin{t}}{\norm{\vec{a}\cos{t} + \vec{b}\sin{t}}}
+\end{align}
+Now subtituiting the value of $t$ in above equation:
+\begin{align}
+    \Vec{u}=\frac{\Vec{a}\frac{1}{\sqrt{2}} + \Vec{b}\frac{1}{\sqrt{2}}}{\norm{\Vec{a}\frac{1}{\sqrt{2}} + \Vec{b}\frac{1}{\sqrt{2}}}}
+\end{align}
+\begin{align}
+    \Vec{u}=\frac{\Vec{a} + \Vec{b}}{\norm{\Vec{a} + \Vec{b}}}
+\end{align}
+From Eq.21 and Eq.37 (a) is correct
+
+    
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+    \frametitle{C Code  }
+
+    \begin{lstlisting}
+#include <stdio.h>
+#include <math.h>
+
+// Dot product of two 2D vectors
+double dot(double a[], double b[]) {
+    return a[0]*b[0] + a[1]*b[1];
+}
+
+// Magnitude of a 2D vector
+double magnitude(double a[]) {
+    return sqrt(dot(a, a));
+}
+
+// Compute max length M and unit vector u using matrix method
+void compute(double a[], double b[], double *M, double u[]) {
+    double c = dot(a, b);        // a · b
+    *M = sqrt(1 + c);            // largest eigenvalue's sqrt
+
+   
+}
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code  }
+
+    \begin{lstlisting}
+
+
+    // Direction = a + b
+    double temp[2] = {a[0] + b[0], a[1] + b[1]};
+    double norm = magnitude(temp);
+    u[0] = temp[0] / norm;
+    u[1] = temp[1] / norm;
+}
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import ctypes
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load shared library
+lib = ctypes.CDLL("./vec.so")   # use "vec.dll" on Windows
+
+# Define argument & return types
+lib.compute.argtypes = [
+    np.ctypeslib.ndpointer(dtype=np.double, ndim=1, flags="C_CONTIGUOUS"),
+    np.ctypeslib.ndpointer(dtype=np.double, ndim=1, flags="C_CONTIGUOUS"),
+    ctypes.POINTER(ctypes.c_double),
+    np.ctypeslib.ndpointer(dtype=np.double, ndim=1, flags="C_CONTIGUOUS")
+]
+
+
+
+
+
+
+
+
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# Example vectors
+a = np.array([1.0, 0.0], dtype=np.double)
+b = np.array([0.6, 0.8], dtype=np.double)
+
+M = ctypes.c_double()
+u = np.zeros(2, dtype=np.double)
+
+# Call C function
+lib.compute(a, b, ctypes.byref(M), u)
+
+print("From C library:")
+print("M =", M.value)
+print("u =", u)
+
+# Plot in same style as attachment
+O = np.array([0.0, 0.0])
+P = u * M.value
+
+
+
+
+
+
+
+
+
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+
+    \begin{lstlisting}
+plt.plot([O[0], P[0]], [O[1], P[1]], 'b-', label="Vector OP")
+plt.scatter(*O, color="red", s=100, label="O(0,0)")
+plt.scatter(*P, color="green", s=100, label=f"P({P[0]:.2f},{P[1]:.2f})")
+plt.scatter(u, color="purple", marker="", s=200, label=f"u({u[0]:.2f},{u[1]:.2f})")
+plt.axhline(0, color='black')
+plt.axvline(0, color='black')
+plt.legend()
+plt.title("Figure")
+plt.savefig("/media/indhiresh-s/New Volume/Matrix/ee1030-2025/ee25btech11027/MATGEO/2.10.56/figs/figure1.png")
+plt.show()
+
+
+
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+
+
+\begin{frame}{Plot}
+    \begin{center}
+        \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{figs/figure1.png}
+    \end{center}
+\end{frame}
+
+
+
+
+\end{document}
