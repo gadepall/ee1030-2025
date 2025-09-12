@@ -1,0 +1,472 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{advdate}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}} % nCr
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}} % nPr
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{{}\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newcommand{\mydet}[1]{\ensuremath{\begin{vmatrix}#1\end{vmatrix}}}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}} 
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+%\providecommand{\hilbert}{\overset{\mathcal{H}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+	%\newcommand{\solution}[2]{\textbf{Solution:}{#1}}
+%\newcommand{\solution}{\noindent \textbf{Solution: }}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\let\vec\mathbf
+
+\lstset{
+%language=C,
+frame=single, 
+breaklines=true,
+columns=fullflexible
+}
+
+\numberwithin{equation}{section}
+
+\title{2.10.85}
+\author{Rushil Shanmukha Srinivas \\EE25BTECH11057 \\ Electrical Enggineering ,\\IIT Hyderabad.}
+
+\date{\today} 
+\begin{document} 
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section*{Outline}
+\begin{frame}
+\tableofcontents
+\end{frame}
+\section{Problem}
+\begin{frame}
+\frametitle{Problem Statement}
+\textbf{Question} : Let P be the plane 3x+2y+3z=16 and let S: $\alpha\hat{i} + \beta\hat{j} + \gamma\hat{k} $ ,where $\alpha+\beta+\gamma=7$ and the distance of $(\alpha,\beta,\gamma)$ from the plane is $2/{\sqrt{22}}$ .Let $\vec{u},\vec{v},\vec{w}$ be three distinct vectors in S such that $|\vec{u}-\vec{v}|=|\vec{v}-\vec{w}|=|\vec{w}-\vec{u}|$. Let V be the volume of the parallelopiped determined by vectors $\vec{u},\vec{v},\vec{w}$. Then the value of (80/3)V is 
+
+\end{frame}
+\section{Solution}
+\subsection{Distance between point and plane}
+\begin{frame}
+\frametitle{Distance between point and plane}
+%\framesubtitle{Literature}
+\textbf{Solution} :
+\begin{align}
+P:\; \vec{n}^\top \vec{x} = c,\qquad \vec{n}=\myvec {3\\2\\3}\;c=16.
+\end{align}
+
+The distance of point $\vec{P_0}=\myvec{\alpha\\ \beta\\ \gamma}$ from the plane is
+\begin{align}
+\operatorname{dist}(\vec{P_0},P)=\frac{|\vec{n}^\top \vec{P_0} - c|}{\norm{\vec{n}}}
+\end{align}
+Given $\alpha+\beta+\gamma=7$ and $\operatorname{dist}(\vec{P_0},P)=\tfrac{2}{\sqrt{22}}$, we have
+\begin{align}
+\frac{|3\alpha+2\beta+3\gamma-16|}{\sqrt{22}}=\frac{2}{\sqrt{22}}
+\;\;\Longrightarrow\;\; \vec{n}^\top \vec{P_0}=18 \;\;\text{or}\;\; \vec{n}^\top \vec{P_0}=14.
+\end{align}
+
+Thus $S$ lies on the intersections
+\end{frame}
+\begin{frame}
+\begin{align}
+\Pi:\; \vec{m}^\top \vec{x}=7,\qquad \vec{m}=\myvec{1\\1\\1},
+\end{align}
+with
+\begin{align}
+P_+: \vec{n}^\top \vec{x}=18,\qquad P_-:\vec{n}^\top \vec{x}=14.
+\end{align}
+
+Each intersection is a line.  
+The direction vector of the line is
+\begin{align}
+\vec{d} = \vec{m}\times \vec{n} =
+\myvec{
+\mydet
+{m_{23} & n_{23}} \\
+ \mydet
+ {m_{31} & n_{31}} \\
+\mydet
+{m_{12} & n_{12}}
+}
+=
+\myvec{1\\0\\-1}.
+\end{align}
+
+\end{frame}
+\subsection{Equation of line and finding u,v,w}
+\begin{frame}
+\frametitle{Equation of line and finding u,v,w}
+Pick points:  
+For $\Pi\cap P_+$, solve
+\begin{align}
+\begin{cases}
+\vec{m}^\top \vec{x} = 7,\\
+\vec{n}^\top \vec{x} = 18
+\end{cases}
+\quad\Longrightarrow\quad  \vec{p} = \myvec{0\\3\\4}
+\end{align}
+So
+\begin{align}
+L_+:\; \vec{r}=\vec{p} + t\vec{d}.
+\end{align}
+
+For $\Pi\cap P_-$, solve
+\begin{align}
+\begin{cases}
+\vec{m}^\top \vec{x}= 7,\\
+\vec{n}^\top \vec{x}= 14
+\end{cases}
+\quad\Longrightarrow\quad  \vec{q} = \myvec{0\\7\\0}
+\end{align}
+So
+\begin{align}
+L_-:\; \vec{r}=\vec{q} +t\vec{d}.
+\end{align}
+
+\textbf{Construct equilateral triangle:}
+\end{frame}
+\begin{frame}
+Take
+\begin{align}
+\vec{u}=\vec{p}+s\vec{d},\quad \vec{v}=\vec{p}-s\vec{d},\quad \vec{w}=\vec{q}+t\vec{d}.
+\end{align}
+
+\begin{align}
+{\norm{\vec{u}-\vec{v}}}^2={\norm{\vec{u}-\vec{w}}}^2={\norm{\vec{v}-\vec{w}}}^2.
+\end{align}
+
+\begin{align}
+\vec{u}-\vec{v}=2s\vec{d} \;\;\Rightarrow\;\; {\norm{\vec{u}-\vec{v}}}^2=4s^2{\norm{\vec{d}}}^2.
+\end{align}
+
+\begin{align}
+{\norm{\vec{d}}}^2=\vec{d}^\top\vec{d}=1^2+0^2+(-1)^2=2,
+{\norm{\vec{u}-\vec{v}}}^2=8s^2.
+\end{align}
+
+\begin{align}
+\vec{r}=\vec{p}-\vec{q}=\myvec{0\\-4\\4},\quad
+\vec{u}-\vec{w}=\vec{r}+(s-t)\vec{d}.
+\end{align}
+
+\begin{align}
+{\norm{\vec{u}-\vec{w}}}^2={\norm{\vec{r}}}^2+2(s-t)(\vec{r}^\top\vec{d})
++(s-t)^2{\norm{\vec{d}}}^2.
+\end{align}
+\end{frame}
+\begin{frame}
+\begin{align}
+{\norm{\vec{r}}}^2=32,\quad \vec{r}^\top\vec{d}=-4,\quad {\norm{\vec{d}}}^2=2.
+\end{align}
+
+\begin{align}
+{\norm{\vec{u}-\vec{w}}}^2=32-8(s-t)+2(s-t)^2.
+\end{align}
+
+\begin{align}
+\vec{v}-\vec{w}=\vec{r}+(-s-t)\vec{d} \;\;\Rightarrow\;\;
+{\norm{\vec{v}-\vec{w}}}^2=32+8(s+t)+2(s+t)^2.
+\end{align}
+Equating
+\begin{align}
+32-8(s-t)+2(s-t)^2=8s^2, \quad
+32+8(s+t)+2(s+t)^2=8s^2.
+\end{align}
+\begin{align}
+16s+8st=0 \quad\Rightarrow\quad t=-2,\; s^2=4.
+\end{align}
+Take $ s=2,t=-2:$
+\begin{align}
+\vec{u}=\vec{p}+2\vec{d}=\myvec {2\\3\\2},\quad
+\vec{v}=\vec{p}-2\vec{d}=\myvec {-2\\3\\6},\quad
+\vec{w}=\vec{q}-2\vec{d}=\myvec{-2\\7\\2}.
+\end{align}
+
+\end{frame}
+\subsection{Gram matrix and Volume}
+\begin{frame}
+\frametitle{Gram matrix and Volume}
+
+\textbf{Volume of parallelepiped:}
+
+\textbf{Gram matrix }\(G\) (matrix of pairwise inner products):
+\begin{align}
+G=\myvec
+{{\norm{\vec{u}}}^2 & \vec{u}^\top\vec{v} & \vec{u}^\top\vec{w}\\[6pt]
+\vec{v}^\top\vec{u} & {\norm{\vec{v}}}^2 & \vec{v}^\top\vec{w}\\[6pt]
+\vec{w}^\top\vec{u} & \vec{w}^\top\vec{v} & {\norm{\vec{w}}}^2}
+=
+\myvec
+{17 & 17 & 21\\[4pt]
+17 & 49 & 37\\[4pt]
+21 & 37 & 57},
+\end{align}
+\textbf{Determinant of the Gram matrix (gives the squared volume):}
+\begin{align}
+\det G =det \myvec
+{17 & 17 & 21\\[4pt]
+17 & 49 & 37\\[4pt]
+21 & 37 & 57} = 12544
+\end{align}
+Hence the volume itself is
+\begin{align}
+V=\sqrt{\det G}=\sqrt{12544}=112.
+\end{align}
+
+\begin{align}
+\frac{80V}{3}= \frac{80x112}{3} = \frac{8960}{3}.
+\end{align}
+
+\end{frame}
+\subsection{Plots}
+\begin{frame}
+\frametitle{Plots}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\columnwidth]{figs/fig5.png}
+\caption{fig : Representation of Planes and vectors}
+\label{Fig5}
+\end{figure}
+\end{frame}
+\section{C Code}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+#include <stdio.h>
+#include <math.h>
+
+// Function to compute determinant of 3x3 matrix
+double determinant(double a[3][3]) {
+    return a[0][0]*(a[1][1]*a[2][2] - a[1][2]*a[2][1])
+         - a[0][1]*(a[1][0]*a[2][2] - a[1][2]*a[2][0])
+         + a[0][2]*(a[1][0]*a[2][1] - a[1][1]*a[2][0]);}
+int main() {
+    // Two planes:
+    // Plane P: 3x+2y+3z=16
+    // Plane S: x+y+z=7
+    // Solve intersection line between P and S
+    // Choose basis for S: let
+    // a = (1,-1,0), b = (1,0,-1) → both satisfy x+y+z=0
+    \end{lstlisting}
+    \end{frame}
+    \begin{frame}[fragile]
+    \begin{lstlisting}
+    // So general point on S: (7,0,0) + s*a + t*b
+    // Constraint from P: 3x+2y+3z = 14 or 18 (distance condition)
+    
+    // Pick "14" first.
+    // Solve quickly: Intersection point
+    double u[3] = {2,3,2};
+    double v[3] = {-2,3,6};
+    double w[3] = {-2,7,2};
+    
+    // Put in matrix
+    double M[3][3] = {
+        {u[0], v[0], w[0]},
+        {u[1], v[1], w[1]},
+        {u[2], v[2], w[2]}};
+    // Determinant
+    double det = determinant(M);
+    double V = fabs(det);
+    double result = (80.0/3.0) * V;
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+    printf("Chosen vectors:\n");
+    printf("u = (%.2lf, %.2lf, %.2lf)\n", u[0], u[1], u[2]);
+    printf("v = (%.2lf, %.2lf, %.2lf)\n", v[0], v[1], v[2]);
+    printf("w = (%.2lf, %.2lf, %.2lf)\n", w[0], w[1], w[2]);
+    printf("Determinant = %.2lf\n", det);
+    printf("Volume V = %.2lf\n", V);
+    printf("Final (80/3)*V = %.2lf\n", result);
+
+    return 0;
+}
+
+\end{lstlisting}
+\end{frame}
+
+\section{Python Code}
+\begin{frame}[fragile]
+\frametitle{Python : call\_c.py}
+\begin{lstlisting}
+import ctypes
+import os
+
+# Load shared library
+lib = ctypes.CDLL(os.path.abspath("./libvolume.so"))
+
+# Set return types
+lib.get_determinant.restype = ctypes.c_double
+lib.get_volume.restype = ctypes.c_double
+lib.compute_volume.restype = ctypes.c_double
+lib.get_u.restype = ctypes.c_double
+lib.get_v.restype = ctypes.c_double
+lib.get_w.restype = ctypes.c_double
+
+# Fetch vectors u, v, w
+u = [lib.get_u(i) for i in range(3)]
+v = [lib.get_v(i) for i in range(3)]
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+w = [lib.get_w(i) for i in range(3)]
+
+# Fetch determinant, volume, and final result
+det = lib.get_determinant()
+V = lib.get_volume()
+result = lib.compute_volume()
+
+# Print everything
+print("Vector u =", u)
+print("Vector v =", v)
+print("Vector w =", w)
+print("Determinant =", det)
+print("Volume V =", V)
+print("Final (80/3)*V =", result)
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code for Plotting}
+\begin{lstlisting}[language=Python] 
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+
+# Define vectors
+u = np.array([2, 3, 2])
+v = np.array([-2, 3, 6])
+w = np.array([-2, 7, 2])
+# Origin
+O = np.array([0, 0, 0])
+# Create 3D plot
+fig = plt.figure(figsize=(10, 8))
+ax = fig.add_subplot(111, projection='3d')
+# ---- Plot Vectors u, v, w ----
+def plot_vector(vec, color, label, offset):
+    ax.quiver(O[0], O[1], O[2],
+              vec[0], vec[1], vec[2],
+ \end{lstlisting}
+ \end{frame}
+ \begin{frame}[fragile]
+ \begin{lstlisting}
+              color=color, arrow_length_ratio=0.1, linewidth=2)
+    ax.text(vec[0]+offset[0], vec[1]+offset[1], vec[2]+offset[2],
+            label, fontsize=12, color=color, weight="bold")
+
+plot_vector(u, "red", "u(2,3,2)", offset=(0.5, 0.5, 0.5))
+plot_vector(v, "green", "v(-2,3,6)", offset=(-1, 0.5, 0.5))
+plot_vector(w, "blue", "w(-2,7,2)", offset=(-1, 0.5, -0.5))
+
+# ---- Plot parallelepiped ----
+vertices = np.array([
+    O, u, v, w,
+    u+v, v+w, w+u, u+v+w
+])
+faces = [
+    [O, u, u+v, v],
+    [O, v, v+w, w],
+    [O, u, u+w, w],
+    [u, u+v, u+v+w, u+w],
+    [v, u+v, u+v+w, v+w],
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+    [w, v+w, u+v+w, u+w]]
+ax.add_collection3d(Poly3DCollection(faces, alpha=0.25, facecolor="cyan"))
+
+# ---- Planes ----
+xx, yy = np.meshgrid(range(-3, 6), range(-3, 9))
+
+# Plane 1: 3x+2y+3z = 18
+zz1 = (18 - 3*xx - 2*yy) / 3
+ax.plot_surface(xx, yy, zz1, alpha=0.25, color="orange")
+ax.text(4, -3, (18 - 3*4 - 2*(-3)) / 3,
+        "Plane: 3x+2y+3z=18", color="orange", fontsize=12, weight="bold")
+# Plane 2: 3x+2y+3z = 14 (label at bottom of plane)
+zz2 = (14 - 3*xx - 2*yy) / 3
+ax.plot_surface(xx, yy, zz2, alpha=0.25, color="red")
+ax.text(0, -5, (14 - 3*0 - 2*(-5)) / 3,
+        "Plane: 3x+2y+3z=14", color="red", fontsize=12, weight="bold")
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+# Plane 3: x+y+z = 7 (plane yellow, label dark green)
+zz3 = 7 - xx - yy
+ax.plot_surface(xx, yy, zz3, alpha=0.25, color="yellow")
+ax.text(3, 6, 7 - 3 - 6,
+        "Plane: x+y+z=7", color="darkgreen", fontsize=12, weight="bold")
+
+# Plane 4: 3x+2y+3z = 16 (mid-plane)
+zz4 = (16 - 3*xx - 2*yy) / 3
+ax.plot_surface(xx, yy, zz4, alpha=0.25, color="purple")
+ax.text(-4, -3, (16 - 3*(-4) - 2*(-3)) / 3,
+        "Plane: 3x+2y+3z=16", color="purple", fontsize=12, weight="bold")
+
+# ---- Axes settings ----
+ax.set_xlim(-5, 5)
+ax.set_ylim(-5, 10)
+ax.set_zlim(-5, 10)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+ax.set_xlabel("X-axis")
+ax.set_ylabel("Y-axis")
+ax.set_zlabel("Z-axis")
+ax.set_title("Vectors u,v,w and Planes")
+
+plt.show()
+
+\end{lstlisting}
+\end{frame}
+
+
+\end{document}
+  

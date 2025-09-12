@@ -1,0 +1,231 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+
+
+
+\title{2.10.85}
+\author{EE25BTECH11057 - Rushil Shanmukha Srinivas
+}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+
+
+\textbf{Problem:} Let P be the plane 3x+2y+3z=16 and let S: $\alpha\hat{i} + \beta\hat{j} + \gamma\hat{k} $ ,where $\alpha+\beta+\gamma=7$ and the distance of $(\alpha,\beta,\gamma)$ from the plane is $2/{\sqrt{22}}$ .Let $\vec{u},\vec{v},\vec{w}$ be three distinct vectors in S such that $|\vec{u}-\vec{v}|=|\vec{v}-\vec{w}|=|\vec{w}-\vec{u}|$. Let V be the volume of the parallelopiped determined by vectors $\vec{u},\vec{v},\vec{w}$. Then the value of (80/3)V is 
+
+\textbf{Solution:}
+
+\begin{align}
+P:\; \vec{n}^\top \vec{x} = c,\qquad \vec{n}=\myvec {3\\2\\3}\;c=16.
+\end{align}
+
+The distance of point $\vec{P_0}=\myvec{\alpha\\ \beta\\ \gamma}$ from the plane is
+\begin{align}
+\operatorname{dist}(\vec{P_0},P)=\frac{|\vec{n}^\top \vec{P_0} - c|}{\norm{\vec{n}}}
+\end{align}
+Given $\alpha+\beta+\gamma=7$ and $\operatorname{dist}(\vec{P_0},P)=\tfrac{2}{\sqrt{22}}$, we have
+\begin{align}
+\frac{|3\alpha+2\beta+3\gamma-16|}{\sqrt{22}}=\frac{2}{\sqrt{22}}
+\;\;\Longrightarrow\;\; \vec{n}^\top \vec{P_0}=18 \;\;\text{or}\;\; \vec{n}^\top \vec{P_0}=14.
+\end{align}
+
+Thus $S$ lies on the intersections
+\begin{align}
+\Pi:\; \vec{m}^\top \vec{x}=7,\qquad \vec{m}=\myvec{1\\1\\1},
+\end{align}
+with
+\begin{align}
+P_+: \vec{n}^\top \vec{x}=18,\qquad P_-:\vec{n}^\top \vec{x}=14.
+\end{align}
+
+Each intersection is a line.  
+The direction vector of the line is
+\begin{align}
+\vec{d} = \vec{m}\times \vec{n} =
+\myvec{
+\mydet
+{m_{23} & n_{23}} \\
+ \mydet
+ {m_{31} & n_{31}} \\
+\mydet
+{m_{12} & n_{12}}
+}
+=
+\myvec{1\\0\\-1}.
+\end{align}
+
+Pick points:  
+For $\Pi\cap P_+$, solve
+\begin{align}
+\begin{cases}
+\vec{m}^\top \vec{x} = 7,\\
+\vec{n}^\top \vec{x} = 18
+\end{cases}
+\quad\Longrightarrow\quad  \vec{p} = \myvec{0\\3\\4}
+\end{align}
+So
+\begin{align}
+L_+:\; \vec{r}=\vec{p} + t\vec{d}.
+\end{align}
+
+For $\Pi\cap P_-$, solve
+\begin{align}
+\begin{cases}
+\vec{m}^\top \vec{x}= 7,\\
+\vec{n}^\top \vec{x}= 14
+\end{cases}
+\quad\Longrightarrow\quad  \vec{q} = \myvec{0\\7\\0}
+\end{align}
+So
+\begin{align}
+L_-:\; \vec{r}=\vec{q} +t\vec{d}.
+\end{align}
+
+\textbf{Construct equilateral triangle:}
+
+Take
+\begin{align}
+\vec{u}=\vec{p}+s\vec{d},\quad \vec{v}=\vec{p}-s\vec{d},\quad \vec{w}=\vec{q}+t\vec{d}.
+\end{align}
+
+\begin{align}
+{\norm{\vec{u}-\vec{v}}}^2={\norm{\vec{u}-\vec{w}}}^2={\norm{\vec{v}-\vec{w}}}^2.
+\end{align}
+
+\begin{align}
+\vec{u}-\vec{v}=2s\vec{d} \;\;\Rightarrow\;\; {\norm{\vec{u}-\vec{v}}}^2=4s^2{\norm{\vec{d}}}^2.
+\end{align}
+
+\begin{align}
+{\norm{\vec{d}}}^2=\vec{d}^\top\vec{d}=1^2+0^2+(-1)^2=2,
+{\norm{\vec{u}-\vec{v}}}^2=8s^2.
+\end{align}
+
+\begin{align}
+\vec{r}=\vec{p}-\vec{q}=\myvec{0\\-4\\4},\quad
+\vec{u}-\vec{w}=\vec{r}+(s-t)\vec{d}.
+\end{align}
+
+\begin{align}
+{\norm{\vec{u}-\vec{w}}}^2={\norm{\vec{r}}}^2+2(s-t)(\vec{r}^\top\vec{d})
++(s-t)^2{\norm{\vec{d}}}^2.
+\end{align}
+
+\begin{align}
+{\norm{\vec{r}}}^2=32,\quad \vec{r}^\top\vec{d}=-4,\quad {\norm{\vec{d}}}^2=2.
+\end{align}
+
+\begin{align}
+{\norm{\vec{u}-\vec{w}}}^2=32-8(s-t)+2(s-t)^2.
+\end{align}
+
+\begin{align}
+\vec{v}-\vec{w}=\vec{r}+(-s-t)\vec{d} \;\;\Rightarrow\;\;
+{\norm{\vec{v}-\vec{w}}}^2=32+8(s+t)+2(s+t)^2.
+\end{align}
+
+Equating
+\begin{align}
+32-8(s-t)+2(s-t)^2=8s^2, \quad
+32+8(s+t)+2(s+t)^2=8s^2.
+\end{align}
+Subtracting,
+\begin{align}
+16s+8st=0 \quad\Rightarrow\quad t=-2,\; s^2=4.
+\end{align}
+
+Take $ s=2,t=-2:$
+\begin{align}
+\vec{u}=\vec{p}+2\vec{d}=\myvec {2\\3\\2},\quad
+\vec{v}=\vec{p}-2\vec{d}=\myvec {-2\\3\\6},\quad
+\vec{w}=\vec{q}-2\vec{d}=\myvec{-2\\7\\2}.
+\end{align}
+
+\textbf{Volume of parallelepiped:}
+
+\textbf{Gram matrix }\(G\) (matrix of pairwise inner products):
+\begin{align}
+G=\myvec
+{{\norm{\vec{u}}}^2 & \vec{u}^\top\vec{v} & \vec{u}^\top\vec{w}\\[6pt]
+\vec{v}^\top\vec{u} & {\norm{\vec{v}}}^2 & \vec{v}^\top\vec{w}\\[6pt]
+\vec{w}^\top\vec{u} & \vec{w}^\top\vec{v} & {\norm{\vec{w}}}^2}
+=
+\myvec
+{17 & 17 & 21\\[4pt]
+17 & 49 & 37\\[4pt]
+21 & 37 & 57},
+\end{align}
+
+
+\textbf{Determinant of the Gram matrix (gives the squared volume):}
+\begin{align}
+\det G =det \myvec
+{17 & 17 & 21\\[4pt]
+17 & 49 & 37\\[4pt]
+21 & 37 & 57} = 12544
+\end{align}
+Hence the volume itself is
+\begin{align}
+V=\sqrt{\det G}=\sqrt{12544}=112.
+\end{align}
+now 
+\begin{align}
+\frac{80V}{3}= \frac{80*112}{3} = \frac{8960}{3}.
+\end{align}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.9\columnwidth]{figs/fig5.png} 
+   \caption*{Fig: Representation of Planes and vectors}
+  \label{Fig5}
+\end{figure}
+
+\end{document}
