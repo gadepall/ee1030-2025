@@ -1,0 +1,231 @@
+\documentclass{beamer}
+\usetheme{Madrid}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{gensymb}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{gvv}
+\usepackage{tikz}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{orange},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  showstringspaces=false
+}
+\usetikzlibrary{decorations.pathmorphing}
+
+\title{Question-2.8.1}
+\author{EE25BTECH11022 - sankeerthan}
+\date{}
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Question}
+If \brak{-4,3} and \brak{4,3} are two vertices of an equilateral triangle. Find the coordinates of the third vertex, given that the origin lies in the interior of the triangle.
+\end{frame}
+\begin{frame}
+\frametitle{Solution}
+Let 
+\begin{align}
+ \Vec{A} = \myvec{-4 \\ 3},\Vec{B} = \myvec{4 \\ 3} and  \Vec{C} = \myvec{x \\ y}
+ \end{align}be the vertices of eqilateral triangle.\\
+ The direction vector of the segment joining A and B is given by:
+\begin{align}
+\vec{B} - \vec{A} = \myvec{4 - (-4) \\ 3 - 3)} = \myvec{8 \\ 0} 
+\end{align}
+The side length of equilateral triangle is 
+\begin{align} 
+\|\vec{B-A}\| &= \sqrt{\brak{\vec{B}-\vec{A}}^\top \brak{\vec{B}-\vec{A}}}  \\
+&=\sqrt{\myvec{8 \ 0}\myvec{8 \\ 0}} \\
+&=\sqrt{8(8)+0(0)} \\
+&=8
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Solution}
+Let $\vec{M}$ be the midpoint of $\vec{A}$ and $\vec{B}$
+\begin{align}
+\vec{M} &=\frac{\vec{A} + \vec{B}}{2} \\
+&= \frac{\myvec{-4 \\ 3} + \myvec{4 \\ 3}}{2} \\
+&= \frac{\myvec{0 \\ 6}}{2} \\
+&= \myvec{0 \\ 3}
+\end{align}
+Height of equilateral triangle 
+\begin{align} 
+h = \frac{\sqrt{3}}{2} \cdot (8) = 4\sqrt{3}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Solution}
+The perpendicular line drawn from $\vec{C}$ meets the line joining the points $\vec{A}$ and $\vec{B}$ at the  midpoint $\vec{M}$.Thus,the possible values of $\vec{C}$ are 
+\begin{align}
+    \vec{C} = \myvec{0 \\ 3+4\sqrt{3}} (or) \myvec{0 \\ 3-4\sqrt{3}} 
+\end{align}
+Since the origin is inside the triangle, choose the lower vertex:
+\begin{align}
+\vec{C} = \myvec{0 \\ 3-4\sqrt{3}}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{graph}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\columnwidth]{figs/points.png}
+    \caption{}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C-Code}
+\begin{lstlisting}[language=C]
+// code.c
+#include <stdio.h>
+#include <math.h>
+
+void find_third_vertex(double *x, double *y) {
+    // Given two vertices
+    double Ax = -4, Ay = 3;
+    double Bx = 4,  By = 3;
+
+    // Side length AB
+    double AB = sqrt((Bx - Ax)*(Bx - Ax) + (By - Ay)*(By - Ay));
+
+    // Midpoint M
+    double Mx = (Ax + Bx) / 2.0;
+    double My = (Ay + By) / 2.0;
+
+    // Height for equilateral triangle
+    double h = (sqrt(3) / 2.0) * AB;
+ \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C-Code}
+\begin{lstlisting}[language=C]
+
+    // Two possible third vertices (perpendicular from midpoint)
+    double C1x = Mx;
+    double C1y = My + h;
+
+    double C2x = Mx;
+    double C2y = My - h;
+
+    // Choose the third vertex such that origin lies inside triangle
+    // Since origin is inside, pick vertex with y < 0
+    if (C1y < 0) {
+        *x = C1x;
+        *y = C1y;
+    } else {
+        *x = C2x;
+        *y = C2y;
+    }
+}
+}}
+
+ \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python-Code}
+\begin{lstlisting}
+# Code by GVV Sharma
+# Modified for Problem Solution
+# Released under GNU GPL
+# Calculating area enclosed between curves
+# call.py
+from ctypes import CDLL, c_double, POINTER
+
+# Load the shared library
+lib = CDLL('./libtriangle.so')
+
+# Setup argument types
+lib.find_third_vertex.argtypes = [POINTER(c_double), POINTER(c_double)]
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python-Code}
+\begin{lstlisting}
+def find_third_vertex():
+    x = c_double()
+    y = c_double()
+    lib.find_third_vertex(x, y)
+    return x.value, y.value
+
+if __name__ == "__main__":
+    cx, cy = find_third_vertex()
+    print(f"Third vertex coordinates from C code: ({cx}, {cy})")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python-Code}
+\begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+from ctypes import CDLL, c_double, POINTER
+
+# Load the shared library
+lib = CDLL('./libtriangle.so')
+
+# Setup argument types for C function
+lib.find_third_vertex.argtypes = [POINTER(c_double), POINTER(c_double)]
+
+def get_third_vertex():
+    x = c_double()
+    y = c_double()
+    lib.find_third_vertex(x, y)
+    return x.value, y.value
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python-Code}
+\begin{lstlisting}
+# Given vertices
+A = np.array([-4, 3])
+B = np.array([4, 3])
+C = np.array(get_third_vertex())
+Origin = np.array([0, 0])
+
+# Plot the triangle edges
+plt.figure(figsize=(7, 7))
+plt.plot([A[0], B[0]], [A[1], B[1]], 'b-', label='AB')
+plt.plot([B[0], C[0]], [B[1], C[1]], 'g-', label='BC')
+plt.plot([C[0], A[0]], [C[1], A[1]], 'r-', label='CA')
+
+# Mark and label points
+plt.scatter(*A, color='blue')
+plt.text(A[0], A[1]+0.3, "A (-4,3)", color='blue')
+
+plt.scatter(*B, color='green')
+plt.text(B[0], B[1]+0.3, "B (4,3)", color='green')
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python-Code}
+\begin{lstlisting}
+plt.scatter(*C, color='red')
+plt.text(C[0], C[1]-0.5, f"C ({C[0]:.2f}, {C[1]:.2f})", color='red')
+plt.scatter(*Origin, color='black', marker='x')
+plt.text(Origin[0]+0.2, Origin[1], 'Origin (0,0)', color='black')
+
+plt.title("Equilateral Triangle with Origin Inside")
+plt.legend()
+plt.grid(True)
+plt.axis('equal')
+plt.tight_layout()
+plt.show()
+\end{lstlisting}
+\end{frame}
+\end{document}

@@ -11,6 +11,7 @@
 \usepackage{gvv-book}
 \usepackage{gvv}
 \usepackage{cite}
+\usepackage{physics}
 \usepackage{amsmath,amssymb,amsfonts,amsthm}
 \usepackage{algorithmic}
 \usepackage{graphicx}
@@ -40,7 +41,7 @@
 
 \bibliographystyle{IEEEtran}
 
-\title{1.9.11}
+\title{2.8.1}
 \author{EE25BTECH11022 - sankeerthan}
 % \maketitle
 % \newpage
@@ -49,48 +50,53 @@
 
 \renewcommand{\thefigure}{\theenumi}
 \renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
 
-\numberwithin{equation}{enumi}
+
+\numberwithin{align}{enumi}
 \numberwithin{figure}{enumi}
 \renewcommand{\thetable}{\theenumi}
 
-\textbf{Question}: if the distance between the points $\brak{k,-2}$ and $\brak{3,-6}$ is $10$ units, find the positive value of k.
+\textbf{Question}: If \brak{-4,3} and \brak{4,3} are two vertices of an equilateral triangle. Find the coordinates of the third vertex, given that the origin lies in the interior of the triangle.
 
-\textbf{solution}:
-Let the given points be
- \begin{align}
- \vec{A} = \myvec{k \\ -2}, \vec{B} = \myvec{3 \\ -6} 
- \end{align}
-The direction vector of the segment joining A and B is given by:
+\textbf{solution}: Let 
 \begin{align}
-\vec{B} - \vec{A} = \myvec{3 - k \\ -6 -(-2)} = \myvec{3-k \\ -4} 
-\end{align}
-The length of the segment is the magnitude of the direction vector:
- \begin{align}
-\vec{B} - \vec{A} = \myvec{3 - k \\ -6 -(-2)} = \myvec{3-k \\ -4} 
-\end{align}
-The distance between points $\vec{A}$ and $\vec{B}$ is given as,
-d = $\|\vec{B-A}\|$ = 10
+ \Vec{A} = \myvec{-4 \\ 3},\Vec{B} = \myvec{4 \\ 3} and  \Vec{C} = \myvec{x \\ y}
+ \end{align}be the vertices of eqilateral triangle.\\
+ The direction vector of the segment joining A and B is given by:
 \begin{align}
-\|\vec{B-A}\| = \sqrt{\brak{\vec{B}-\vec{A}}^\top \brak{\vec{B}-\vec{A}}}  \\
-\brak{\vec{B}-\vec{A}}^\top \brak{\vec{B}-\vec{A}} = \|\vec{B-A}\|^2\\
-\brak{\vec{B}-\vec{A}}^\top \brak{\vec{B}-\vec{A}} = (10)^2
+\vec{B} - \vec{A} = \myvec{4 - (-4) \\ 3 - 3)} = \myvec{8 \\ 0} 
 \end{align}
+The side length of equilateral triangle is 
+\begin{align} 
+\|\vec{B-A}\| &= \sqrt{\brak{\vec{B}-\vec{A}}^\top \brak{\vec{B}-\vec{A}}}  \\
+&=\sqrt{\myvec{8 \ 0}\myvec{8 \\ 0}} \\
+&=\sqrt{8(8)+0(0)} \\
+&=8
+\end{align}
+Let $\vec{M}$ be the midpoint of $\vec{A}$ and $\vec{B}$
 \begin{align}
-100 &=\myvec{3-k  \ -4}\myvec{3-k \\ -4}\\
-100 &=(3-k)\times(3-k)+(-4)\times(-4) \\
-100 &=(3-k)^2 + 16 \\
-(3-k)^2 &= 84 \\
-3-k &=\pm \sqrt{84} \\
-k &= 3+\sqrt{84} ,3-\sqrt{84}
+\vec{M} &=\frac{\vec{A} + \vec{B}}{2} \\
+&= \frac{\myvec{-4 \\ 3} + \myvec{4 \\ 3}}{2} \\
+&= \frac{\myvec{0 \\ 6}}{2} \\
+&= \myvec{0 \\ 3}
+\end{align}
+Height of equilateral triangle 
+\begin{align} 
+h = \frac{\sqrt{3}}{2} \cdot (8) = 4\sqrt{3}
+\end{align}
+The perpendicular line drawn from $\vec{C}$ meets the line joining the points $\vec{A}$ and $\vec{B}$ at the  midpoint $\vec{M}$.Thus,the possible values of $\vec{C}$ are 
+\begin{align}
+    \vec{C} = \myvec{0 \\ 3+4\sqrt{3}} (or) \myvec{0 \\ 3-4\sqrt{3}} 
+\end{align}
+Since the origin is inside the triangle, choose the lower vertex:
+\begin{align}
+\vec{C} = \myvec{0 \\ 3-4\sqrt{3}}
 \end{align}
 
-Therefore, the positive value of k is $3+\sqrt{84} \approx 12.17$
-
-\begin{figure}
-   \centering
-   \includegraphics[width=1\columnwidth]{figs/points.png}
-   \caption{Plot of line segment \textbf{AB}}
-   \label{}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\linewidth]{figs/points.png}
+    \caption{}
 \end{figure}
 \end{document}
