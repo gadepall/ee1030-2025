@@ -1,0 +1,279 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+%------------------------------------------------------------
+\title{2.7.23}
+\date{September 2,2025}
+\author{EE25BTECH11011 - Navya Banavathu}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Question}
+For what value of $k$ $(k>0)$ is the area of the triangle with vertices $(-2,6)$, $(2k,4)$ and $(2k+1,10)$ equal to $52$ sq. units?
+\end{frame}
+
+\begin{frame}{Solution}
+Vertices of triangle are
+\begin{align}
+A
+\begin{pmatrix}
+x_1 \\[4pt] y_1
+\end{pmatrix}
+=
+\begin{pmatrix}
+-2 \\[4pt] 6
+\end{pmatrix}
+\end{align}
+
+\begin{align}
+B
+\begin{pmatrix}
+x_2 \\[4pt] y_2
+\end{pmatrix}
+=
+\begin{pmatrix}
+2k \\[4pt] 4
+\end{pmatrix}
+\end{align}
+
+\begin{align}
+C 
+\begin{pmatrix}
+x_3 \\[4pt] y_3
+\end{pmatrix}
+=
+\begin{pmatrix}
+2k+1 \\[4pt] 10
+\end{pmatrix}
+\end{align}
+
+
+\end{frame}
+
+\begin{frame}{Solution}
+\begin{align}
+\text{Area} &= \frac{1}{2}
+\left|
+\begin{vmatrix}
+x_1 & y_1 & 1 \\
+x_2 & y_2 & 1 \\
+x_3 & y_3 & 1
+\end{vmatrix}
+\right| \\[6pt]
+&= \frac{1}{2}
+\left|
+\begin{vmatrix}
+-2 & 6 & 1 \\
+2k & 4 & 1 \\
+2k+1 & 10 & 1
+\end{vmatrix}
+\right| \\[6pt]
+&= \frac{1}{2}
+\left|
+-2\begin{vmatrix}4 & 1 \\ 10 & 1\end{vmatrix}
+-6\begin{vmatrix}2k & 1 \\ 2k+1 & 1\end{vmatrix}
++\begin{vmatrix}2k & 4 \\ 2k+1 & 10\end{vmatrix}
+\right| \\[6pt]
+&= \frac{1}{2}
+\Big[(-2)(4-10) -6(2k-(2k+1)) + (20k-8k-4)\Big] \\[6pt]
+&= \frac{1}{2}|12k+14|
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+\text{Given area of triangle} = 52 sq.units, 
+\begin{align}
+\frac{1}{2}|12k+14| &= 52 \\[6pt]
+|12k+14| &= 104.
+\end{align}
+
+Now consider the two cases from the absolute value,
+
+\textbf{Case 1:}
+\begin{align}
+12k+14 &= 104 \\
+12k &= 90 \\
+k &= \frac{90}{12} = \frac{15}{2}.
+\end{align}
+
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+\textbf{Case 2:}
+\begin{align}
+12k+14 &= -104 \\
+12k &= -118 \\
+k &= -\frac{118}{12} = -\frac{59}{6}.
+\end{align}
+
+Because the problem requires \(k>0\), we discard the negative solution.
+\begin{center}
+\begin{align}
+\boxed{k = \dfrac{15}{2}}
+\end{align}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{ Code (C)}
+\begin{block}{Part 1}
+\begin{lstlisting}[language=C, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+#include <stdio.h>
+
+#ifdef _WIN32
+#define EXPORT __declspec(dllexport)
+#else
+#define EXPORT
+#endif
+
+// Function to compute the positive value of k
+EXPORT double solve_k_positive() {
+    double k1 = (104.0 - 14.0) / 12.0;   // 7.5
+    double k2 = (-104.0 - 14.0) / 12.0;  // -9.8333
+
+    return (k1 > 0) ? k1 : k2;
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{ Code (C)}
+\begin{block}{Part 2}
+\begin{lstlisting}[language=C, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+int main() {
+    double k = solve_k_positive();
+    printf("Positive value of k: %.2lf\n", k);
+    return 0;
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Python Code:Import and Define points}
+\begin{block}{Part 1}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+import ctypes
+import os
+import matplotlib.pyplot as plt
+
+# Load compiled shared library from code4.c
+if os.name == "nt":   # Windows
+    lib = ctypes.CDLL("./code4.dll")
+else:                 # Linux/macOS
+    lib = ctypes.CDLL("./code4.so")
+
+# Define C function signature
+lib.solve_k.argtypes = [ctypes.POINTER(ctypes.c_double)]
+lib.solve_k.restype = None
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Python Code}
+\begin{block}{Part 2}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+# Prepare array for results
+results = (ctypes.c_double * 2)()
+lib.solve_k(results)
+
+# Extract values of k
+k1, k2 = results[0], results[1]
+print(f"Possible values of k: {k1:.2f}, {k2:.2f}")
+
+# Pick valid solution (k > 0)
+k = k1 if k1 > 0 else k2
+print(f"Chosen k = {k:.2f}")
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Python Code: Plotting}
+\begin{block}{Part 4}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+ # Define triangle vertices
+A = (-2, 6)
+B = (2 * k, 4)
+C = (2 * k + 1, 10)
+
+# Plot triangle
+plt.figure(figsize=(7,7))
+plt.plot([A[0], B[0], C[0], A[0]],
+         [A[1], B[1], C[1], A[1]],
+         'b-', linewidth=2)
+
+# Plot vertices as red points
+plt.scatter([A[0], B[0], C[0]], [A[1], B[1], C[1]],
+            color='red', s=80, zorder=5)
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Python Code: Plotting}
+\begin{block}{Part 5}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+# Annotate vertices with coordinates
+plt.text(A[0]+0.2, A[1]+0.2, f"A{A}", fontsize=12)
+plt.text(B[0]+0.2, B[1]-0.4, f"B{B}", fontsize=12)
+plt.text(C[0]+0.2, C[1]+0.2, f"C{C}", fontsize=12)
+
+plt.title(f"Triangle with k = {k:.2f}")
+plt.grid(True)
+plt.axis("equal")
+
+# Save as fig4.png
+filename = "fig4.png"
+plt.savefig(filename, dpi=200)
+print(f"Figure saved as {filename}")
+
+# Show the figure
+plt.show()
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}{Graphical Representation}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.55\columnwidth]{../beamer/figs/fig4.png}
+        \caption{Area of triangle}
+    \end{figure}
+\end{frame}
+
+\end{document}
