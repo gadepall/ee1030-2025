@@ -1,0 +1,276 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+%------------------------------------------------------------
+\title{4.2.14}
+\date{September 14,2025}
+\author{EE25BTECH11011 - Navya}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Question}
+Find the direction and normal vector for the line 
+\begin{align}
+x + y = 0
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+The equation of line is :
+\begin{align}
+x + y = 0
+\end{align}
+
+This equation can be expressed in terms of matrices\\
+Let
+\begin{align}
+\vec{x} = \myvec{x \\ y}
+\end{align}
+\begin{align}
+\vec{n^T} = \myvec{1 & 1}
+\end{align}
+\begin{align}
+c = 0
+\end{align}
+
+The line equation can be written as:
+\begin{align}
+\vec{n^T}  \vec{x} = c
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Solution}
+Where $\vec{n}$ is the normal vector of the given line
+
+The direction vector of the line can be found by observing the normal vector.
+\begin{align}
+\vec{m} = \myvec{-1 \\ 1}
+\end{align}
+
+
+This is true because if the director vector is represented as 
+\begin{align}
+\vec{m}  = \myvec{1 \\ m}    
+\end{align}
+then the normal vector can be represented as 
+\begin{align}
+\vec{n} = \myvec{-m \\ 1}
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+This can be verified by the following equation:
+\begin{align}
+\vec{n^T}\vec{m} = 0
+\end{align}
+
+\begin{align}
+\myvec{1 & 1}\myvec{-1 \\ 1} = 0
+\end{align}\\
+
+
+
+The normal vector of the line is $\vec{n} = \myvec{1 \\ 1}$\\
+The director vector of the line is $\vec{m} = \myvec{-1 \\ 1}$\\
+
+From the figure, it is clearly verified that the theoretical solution matches with the computational solution.\\
+\end{frame}
+
+
+\begin{frame}[fragile]{ Code (C)}
+\begin{block}{Part 1}
+\begin{lstlisting}[language=C, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+#include <stdio.h>
+
+/* Dot product of 2D vectors */
+int dot_product(int a[2], int b[2]) {
+    return a[0]*b[0] + a[1]*b[1];
+}
+
+/* Check if two vectors are orthogonal */
+int is_orthogonal(int a[2], int b[2]) {
+    return dot_product(a, b) == 0;
+}
+
+/* Equation of the line: x + y = 0  -> y = -x */
+double line_equation(double x) {
+    return -x;
+}
+
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{ Code (C)}
+\begin{block}{Part 2}
+\begin{lstlisting}[language=C, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+/* Example test */
+int main(void) {
+    int n[2] = {1, 1};    // normal vector
+    int m[2] = {-1, 1};   // direction vector
+
+    printf("Dot product of n and m = %d\n", dot_product(n, m));
+    printf("Are n and m orthogonal? %s\n", is_orthogonal(n, m) ? "Yes" : "No");
+
+    for (double X = -5; X <= 5; X += 2.5) {
+        printf("For x = %.2f, y = %.2f (on line x+y=0)\n", X, line_equation(X));
+    }
+    return 0;
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Python Code}
+\begin{block}{Part 1}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+import ctypes
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load compiled shared library
+lib = ctypes.CDLL("./code5.dll")
+
+# Define signatures
+lib.dot_product.argtypes = [ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
+lib.dot_product.restype = ctypes.c_int
+
+lib.is_orthogonal.argtypes = [ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
+lib.is_orthogonal.restype = ctypes.c_int
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Python Code}
+\begin{block}{Part 2}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, 
+frame=single]
+lib.line_equation.argtypes = [ctypes.c_double]
+lib.line_equation.restype = ctypes.c_double
+
+# --- Line: x + y = 0 ---
+normal_vector = (ctypes.c_int * 2)(1, 1)     # n = (1, 1)
+direction_vector = (ctypes.c_int * 2)(-1, 1) # m = (-1, 1)
+vector_origin = np.array([0, 0])
+
+# Dot product + orthogonality check
+dp = lib.dot_product(normal_vector, direction_vector)
+print(f"Dot product of n and m: {dp}")
+
+if lib.is_orthogonal(normal_vector, direction_vector):
+    print("The vectors are orthogonal (as expected).")
+else:
+    print("The vectors are NOT orthogonal.")
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Python Code}
+\begin{block}{Part 3}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+# Compute points on line y = -x
+x_vals = np.linspace(-5, 5, 200)
+y_vals = [lib.line_equation(float(x)) for x in x_vals]
+
+# --- Plotting ---
+plt.style.use('seaborn-v0_8-whitegrid')
+plt.figure(figsize=(8, 8))
+
+# Line
+plt.plot(x_vals, y_vals, label='Line: x + y = 0', color='blue', zorder=1)
+
+# Direction vector
+plt.quiver(vector_origin[0], vector_origin[1],
+           direction_vector[0], direction_vector[1],
+           angles='xy', scale_units='xy', scale=1,
+           color='green', label='Direction Vector', zorder=2)
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Python Code: Plotting}
+\begin{block}{Part 4}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+# Normal vector
+plt.quiver(vector_origin[0], vector_origin[1],
+           normal_vector[0], normal_vector[1],
+           angles='xy', scale_units='xy', scale=1,
+           color='red', label='Normal Vector', zorder=2)
+
+# Origin point
+plt.plot(vector_origin[0], vector_origin[1], 'o', color='purple', markersize=8,
+         label='Origin (0, 0)')
+
+plt.title('Line x + y = 0 with Direction and Normal Vectors')
+plt.xlabel('x-axis')
+plt.ylabel('y-axis')
+
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Python Code: Plotting}
+\begin{block}{Part 5}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+plt.axis('equal')
+plt.legend()
+plt.grid(True)
+
+plt.xlim(-5, 5)
+plt.ylim(-5, 5)
+
+# Save figure
+plt.savefig("fig5.png")
+plt.show()
+
+
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}{Graphical Representation}
+    \begin{figure}
+        \centering
+        \includegraphics[width=1\columnwidth]{../beamer/figs/fig5.png}
+        \caption{line x+y=0}
+    \end{figure}
+\end{frame}
+
+\end{document}
