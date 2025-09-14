@@ -2,15 +2,14 @@
 \let\negthickspace\undefined
 \documentclass[journal]{IEEEtran}
 \usepackage[a5paper, margin=10mm, onecolumn]{geometry}
-\usepackage{tfrupee} % for rupee symbol
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
 
-\setlength{\headheight}{1cm}
-\setlength{\headsep}{0mm}
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
 
-% If these style files are not uploaded, comment them
-% \usepackage{gvv-book}
-% \usepackage{gvv}
-
+\usepackage{gvv-book}
+\usepackage{gvv}
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts,amsthm}
 \usepackage{algorithmic}
@@ -25,9 +24,11 @@
 \usepackage{comment}
 \usepackage[breaklinks=true]{hyperref}
 \usepackage{tkz-euclide} 
-
+\usepackage{listings}
+% \usepackage{gvv}                                        
 \def\inputGnumericTable{}                                 
 \usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
 \usepackage{array}                                            
 \usepackage{longtable}                                       
 \usepackage{calc}                                             
@@ -35,6 +36,13 @@
 \usepackage{hhline}                                           
 \usepackage{ifthen}                                           
 \usepackage{lscape}
+\usepackage{circuitikz}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=4em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+
 
 \begin{document}
 
@@ -42,86 +50,61 @@
 \vspace{3cm}
 
 \title{2.7.23}
-\author{EE25BTECH11011 - Navya}
-
+\author{EE25BTECH11011 - Navya }
+\maketitle
+% \newpage
+% \bigskip
 {\let\newpage\relax\maketitle}
 
 \renewcommand{\thefigure}{\theenumi}
 \renewcommand{\thetable}{\theenumi}
-\setlength{\intextsep}{10pt} 
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
 
 \textbf{Question}:\\
 For what value of $k$ $(k>0)$ is the area of the triangle with vertices $(-2,6)$, $(2k,4)$ and $(2k+1,10)$ equal to $52$ sq. units?
 
 \textbf{Solution}:\\
 Vertices of triangle are
+
 \begin{align}
-A
-\begin{pmatrix}
-x_1 \\[4pt] y_1
-\end{pmatrix}
-=
-\begin{pmatrix}
--2 \\[4pt] 6
-\end{pmatrix}
+\vec{A} = \myvec{-2 \\ 6}
+\end{align}
+\begin{align}
+\vec{B} = \myvec{2k \\ 4}
+\end{align}
+\begin{align}
+\vec{C} = \myvec{2k+1 \\ 10}
 \end{align}
 
 \begin{align}
-B
-\begin{pmatrix}
-x_2 \\[4pt] y_2
-\end{pmatrix}
-=
-\begin{pmatrix}
-2k \\[4pt] 4
-\end{pmatrix}
+\vec{A}-\vec{B} 
+= \myvec{-2-2k \\ 6-4} = \myvec{-2-2k \\ 2}
+\end{align}
+
+
+\begin{align}
+\vec{A} - \vec{C} = \myvec{-2-(2k+1) \\ 6-10} = \myvec{-2k-3 \\-4 }
+\end{align}
+
+
+
+\begin{align}
+(\triangle ABC)=\frac{1}{2}\norm{(\vec{A}-\vec{B}) \times (\vec{A}-\vec{C})}
 \end{align}
 
 \begin{align}
-C 
-\begin{pmatrix}
-x_3 \\[4pt] y_3
-\end{pmatrix}
-=
-\begin{pmatrix}
-2k+1 \\[4pt] 10
-\end{pmatrix}
+(\triangle ABC)=\frac{1}{2}\norm{\myvec{-2-2k \\ 2} \times \myvec{-2k-3 \\ -4}}=\frac{1}{2} |12k + 14|
 \end{align}
-
-\begin{align}
-\text{Area} &= \frac{1}{2}
-\left|
-\begin{vmatrix}
-x_1 & y_1 & 1 \\
-x_2 & y_2 & 1 \\
-x_3 & y_3 & 1
-\end{vmatrix}
-\right| \\[6pt]
-&= \frac{1}{2}
-\left|
-\begin{vmatrix}
--2 & 6 & 1 \\
-2k & 4 & 1 \\
-2k+1 & 10 & 1
-\end{vmatrix}
-\right| \\[6pt]
-&= \frac{1}{2}
-\Bigg[
--2\begin{vmatrix}4 & 1 \\ 10 & 1\end{vmatrix}
--6\begin{vmatrix}2k & 1 \\ 2k+1 & 1\end{vmatrix}
-+\begin{vmatrix}2k & 4 \\ 2k+1 & 10\end{vmatrix}
-\Bigg] \\[6pt]
-&= \frac{1}{2}
-\Big[(-2)(4-10) -6(2k-(2k+1)) + (20k-8k-4)\Big] \\[6pt]
-&= \frac{1}{2}|12k+14|.
-\end{align}
-
-\text{Given area of triangle} = 52 sq.units, 
+Given area of triangle = 52 sq.units, \\
 \begin{align}
 \frac{1}{2}|12k+14| &= 52 \\[6pt]
 |12k+14| &= 104.
 \end{align}
-
 Now consider the two cases from the absolute value,
 
 \textbf{Case 1:}
@@ -142,9 +125,15 @@ Because the problem requires \(k>0\), we discard the negative solution.
 \begin{center}
 $\boxed{k = \dfrac{15}{2}}$
 \end{center}
-\begin{figure}[h]
+
+
+
+\begin{figure}[h!]
     \centering
     \includegraphics[height=0.5\textheight, keepaspectratio]{figs/fig4.png}
     \label{figure_1}
 \end{figure}
+
+
+
 \end{document}
