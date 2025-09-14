@@ -1,0 +1,138 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+
+
+
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,angles,quotes}
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{1.5.2}
+\author{EE25BTECH11014 - Bhoomika Lokesh}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question:}  Find the ratio in which the \textit{Y} axis divides the line segment joining the points $\brak{6,-4}$ and $\brak{-2,-7}$. Also find the point of intersection.\\
+
+\textbf{Solution:}
+Given the points,
+\begin{align}
+    \vec{A}=\begin{myvec}{6\\-4}\end{myvec}
+    \vec{B}=\begin{myvec}{-2\\-7}\end{myvec}
+\end{align}
+
+Let the vector $\vec{P}$ be 
+\begin{align}
+    \vec{P}=\begin{myvec}{0\\y}\end{myvec} \;, 
+\end{align}
+WKT points \textbf{A},\textbf{P},\textbf{B} are collinear.\\
+The points to be collinear,
+\begin{align}
+	\label{eq:line-rank-2}
+	\rank{\myvec{\vec{P}-\vec{A}& \vec{B}-\vec{A}}} = 1\\
+        \vec{P}-\vec{A} = \myvec{-6\\y+4}\\
+         \vec{B}-\vec{A} = \myvec{-8\\-3}\\
+        \myvec{\vec{P}-\vec{A}& \vec{B}-\vec{A}} = \myvec{-6 & -8\\ y+4&-3 }
+      \end{align}
+ \begin{center}
+ Conversion to Row Echelon form,
+ $R_2 \rightarrow R_2 + \frac{y+4}{6}R_1 :$\\
+\end{center}
+\begin{align}
+\myvec{ -6 & -8\\0 & -3+ \frac{y+4}{6}(-8)}\implies
+\myvec {-6 & -8\\0 & \frac{-4y-25}{3}}\\
+\end{align}
+ \begin{align}
+  \frac{-4y-25}{3}=0\implies y=-\frac{25}{4}
+ \end{align}
+ \begin{center}
+      $\therefore \vec{P}=\begin{myvec}{0\\-\frac{25}{4}}\end{myvec}$
+ \end{center}
+Vector \textbf{P} divides the line joining vectors \textbf{A} and \textbf{B} in the ratio k:1
+\begin{align}
+    by\ using \ section\ formula,
+    \textbf{P}=\frac{k\textbf{B}+\textbf{A}}{k+1}
+\end{align}
+ \begin{align}
+			k\brak{\vec{P}-\vec{B}}&= \vec{A}-\vec{P}
+\end{align}
+\begin{align}
+    \implies k &=
+		\frac{\brak{\vec{A}-\vec{P}}^{\top}\brak{\vec{P}-\vec{B}}}{\norm{\vec{P}-\vec{B}}^2}
+			\label{eq:section_formula-k}
+\end{align}
+\begin{align}
+\brak{\vec{A}-\vec{P}}^{\top}\brak{\vec{P}-\vec{B}} = \myvec{6 & \frac{9}{4}}\myvec{2\\ \frac{3}{4}
+}=\frac{219}{16}\\
+{\norm{\vec{P}-\vec{B}}^2} = \brak{\sqrt{2^2 + {\brak{\frac{3}{4}}}^2}}^2 = \frac{73}{16}\\
+k=\frac{\frac{219}{16}}{\frac{73}{16}}
+\end{align}
+
+\begin{align}
+\implies k &= 3
+\end{align}
+ Therefore the ratio in which point \textbf{P} divides the line segment joining \textbf{A} and \textbf{B} is 3:1
+
+See Fig.0.1,
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.7\columnwidth]{Figs/graph3d.png}
+\end{center}
+\caption{}
+\label{fig:fig.py}
+\end{figure}
+
+
+\end{document}
