@@ -40,8 +40,6 @@
 
 \bibliographystyle{IEEEtran}
 
-
-
 \title{2.10.85}
 \author{EE25BTECH11057 - Rushil Shanmukha Srinivas
 }
@@ -65,7 +63,7 @@
 \textbf{Solution:}
 
 \begin{align}
-P:\; \vec{n}^\top \vec{x} = c,\qquad \vec{n}=\myvec {3\\2\\3}\;c=16.
+P:\; \vec{n}^\top \vec{x} = c,\qquad \vec{n}=\myvec {3\\2\\3}\;c=16, \vec{O}=\myvec{0\\0\\0}
 \end{align}
 
 The distance of point $\vec{P_0}=\myvec{\alpha\\ \beta\\ \gamma}$ from the plane is
@@ -87,143 +85,91 @@ with
 P_+: \vec{n}^\top \vec{x}=18,\qquad P_-:\vec{n}^\top \vec{x}=14.
 \end{align}
 
-Each intersection is a line.  
-The direction vector of the line is
+\textbf{(i) Intersection of $\vec{m}^\top \vec{x}=7$ and $\vec{n}^\top \vec{x}=18$.}\\
+Write the augmented system in matrix form:
 \begin{align}
-\vec{d} = \vec{m}\times \vec{n} =
-\myvec{
-\mydet
-{m_{23} & n_{23}} \\
- \mydet
- {m_{31} & n_{31}} \\
-\mydet
-{m_{12} & n_{12}}
-}
-=
-\myvec{1\\0\\-1}.
-\end{align}
-
-Pick points:  
-For $\Pi\cap P_+$, solve
-\begin{align}
-\begin{cases}
-\vec{m}^\top \vec{x} = 7,\\
-\vec{n}^\top \vec{x} = 18
-\end{cases}
-\quad\Longrightarrow\quad  \vec{p} = \myvec{0\\3\\4}
-\end{align}
-So
-\begin{align}
-L_+:\; \vec{r}=\vec{p} + t\vec{d}.
-\end{align}
-
-For $\Pi\cap P_-$, solve
-\begin{align}
-\begin{cases}
-\vec{m}^\top \vec{x}= 7,\\
-\vec{n}^\top \vec{x}= 14
-\end{cases}
-\quad\Longrightarrow\quad  \vec{q} = \myvec{0\\7\\0}
-\end{align}
-So
-\begin{align}
-L_-:\; \vec{r}=\vec{q} +t\vec{d}.
-\end{align}
-
-\textbf{Construct equilateral triangle:}
-
-Take
-\begin{align}
-\vec{u}=\vec{p}+s\vec{d},\quad \vec{v}=\vec{p}-s\vec{d},\quad \vec{w}=\vec{q}+t\vec{d}.
-\end{align}
-
-\begin{align}
-{\norm{\vec{u}-\vec{v}}}^2={\norm{\vec{u}-\vec{w}}}^2={\norm{\vec{v}-\vec{w}}}^2.
-\end{align}
-
-\begin{align}
-\vec{u}-\vec{v}=2s\vec{d} \;\;\Rightarrow\;\; {\norm{\vec{u}-\vec{v}}}^2=4s^2{\norm{\vec{d}}}^2.
-\end{align}
-
-\begin{align}
-{\norm{\vec{d}}}^2=\vec{d}^\top\vec{d}=1^2+0^2+(-1)^2=2,
-{\norm{\vec{u}-\vec{v}}}^2=8s^2.
-\end{align}
-
-\begin{align}
-\vec{r}=\vec{p}-\vec{q}=\myvec{0\\-4\\4},\quad
-\vec{u}-\vec{w}=\vec{r}+(s-t)\vec{d}.
-\end{align}
-
-\begin{align}
-{\norm{\vec{u}-\vec{w}}}^2={\norm{\vec{r}}}^2+2(s-t)(\vec{r}^\top\vec{d})
-+(s-t)^2{\norm{\vec{d}}}^2.
-\end{align}
-
-\begin{align}
-{\norm{\vec{r}}}^2=32,\quad \vec{r}^\top\vec{d}=-4,\quad {\norm{\vec{d}}}^2=2.
-\end{align}
-
-\begin{align}
-{\norm{\vec{u}-\vec{w}}}^2=32-8(s-t)+2(s-t)^2.
-\end{align}
-
-\begin{align}
-\vec{v}-\vec{w}=\vec{r}+(-s-t)\vec{d} \;\;\Rightarrow\;\;
-{\norm{\vec{v}-\vec{w}}}^2=32+8(s+t)+2(s+t)^2.
-\end{align}
-
-Equating
-\begin{align}
-32-8(s-t)+2(s-t)^2=8s^2, \quad
-32+8(s+t)+2(s+t)^2=8s^2.
-\end{align}
-Subtracting,
-\begin{align}
-16s+8st=0 \quad\Rightarrow\quad t=-2,\; s^2=4.
-\end{align}
-
-Take $ s=2,t=-2:$
-\begin{align}
-\vec{u}=\vec{p}+2\vec{d}=\myvec {2\\3\\2},\quad
-\vec{v}=\vec{p}-2\vec{d}=\myvec {-2\\3\\6},\quad
-\vec{w}=\vec{q}-2\vec{d}=\myvec{-2\\7\\2}.
-\end{align}
-
-\textbf{Volume of parallelepiped:}
-
-\textbf{Gram matrix }\(G\) (matrix of pairwise inner products):
-\begin{align}
-G=\myvec
-{{\norm{\vec{u}}}^2 & \vec{u}^\top\vec{v} & \vec{u}^\top\vec{w}\\[6pt]
-\vec{v}^\top\vec{u} & {\norm{\vec{v}}}^2 & \vec{v}^\top\vec{w}\\[6pt]
-\vec{w}^\top\vec{u} & \vec{w}^\top\vec{v} & {\norm{\vec{w}}}^2}
-=
 \myvec
-{17 & 17 & 21\\[4pt]
-17 & 49 & 37\\[4pt]
-21 & 37 & 57},
+{1 & 1 & 1 &\vrule& 7\\[4pt]
+3 & 2 & 3 &\vrule& 18} \xrightarrow{R_2 \longrightarrow R_2-3R_1}
+\myvec{
+1 & 1 & 1 &\vrule& 7\\[4pt]
+0 & -1 & 0 &\vrule& -3}.
+\end{align}
+From the second row we get  $y=3$. Substitute into $x+y+z=7$:
+\begin{align}
+x+3+z=7 \quad\Longrightarrow\quad z=4-x.
+\end{align}
+So the line is
+\begin{align}
+\vec{L_1} = \myvec{0\\3\\4} + k_1\myvec{1\\0\\-1} = \vec{a} + k_1 \vec{d} 
+\end{align}
+
+\textbf{(ii) Intersection of $\vec{m}^\top \vec{x}=7$ and $\vec{n}^\top \vec{x}=14$.}\\
+The augmented matrix is
+\begin{align}
+\myvec
+{1 & 1 & 1 &\vrule& 7\\[4pt]
+3 & 2 & 3 &\vrule& 14} \xrightarrow{R_2 \longrightarrow R_2-3R_1}
+\myvec
+{1 & 1 & 1 &\vrule& 7\\[4pt]
+0 & -1 & 0 &\vrule& -7}.
+\end{align}
+So  $y=7$. From $x+y+z=7$ we get
+\begin{align}
+x+7+z=7 \quad\Longrightarrow\quad z=-x.
+\end{align}
+\begin{align}
+\vec{L_2} = \myvec{0\\7\\0} + k_2\myvec{1\\0\\-1} = \vec{b} + k_2 \vec{d}
+\end{align}
+ hence the two lines are parallel.
+ 
+ \textbf{(iii) Perpendicular distance between the two parallel lines}:
+ $\vec{P}=\vec{a}+p_1 \vec{d} \ and\ \vec{Q}=\vec{b}+p_2 \vec{d} \ be \ 2 points\ on\ \vec{L_1},\vec{L_2}. $
+\begin{align} 
+perpendicular\ distance = \operatorname{dist}(\vec{P},\vec{Q}) ,\vec{M}=\myvec{\vec{d} & \vec{d}} 
+\end{align}
+ \begin{align}
+ \vec{M}^\top(a-b) + \vec{M}^\top\vec{M}\myvec{p_1\\-p_2} = 0 , 
+ \end{align}
+ \begin{align}
+ \myvec{\vec{d}\\\vec{d}}(a-b) + \myvec{\vec{d}\\\vec{d}}\myvec{\vec{d} & \vec{d}}\myvec{p_1\\-p_2} = 0
+ \end{align}
+On solving we get , 
+\begin{align}
+p_1 - p_2 = 2 \ take \ p_1=2 \ and \ p_2=0
+\end{align}
+ Points are $\vec{P}=\myvec{2\\3\\2} , \vec{Q}=\myvec{0\\7\\0},\vec{P}-\vec{Q}=\myvec{2\\-4\\2}$
+ \begin{align}
+Distance = D= {\norm{\vec{P}-\vec{Q}}} = \sqrt{24} 
+\end{align}
+\textbf{(iv) Area of the equilateral triangle formed by $\vec{u},\vec{v},\vec{w}$}:
+As the two lines are parallel and let s = length of side of triangle
+\begin{align}
+D = \frac{\sqrt{3}s}{2} \Longrightarrow s = 4\sqrt{2}
+\end{align}
+\begin{align}
+\text Area \ of\ the\ equilateral\ triangle = A = \frac{\sqrt{3}s^2}{4} = 8\sqrt{3} 
+\end{align}
+\textbf{(v) Volume of the parallelepiped determined by three vectors $\vec{u},\vec{v},\vec{w}$}:
+$Volume\ of\ Parallelepiped = 6(Volume\ of\ Tetrahedron) = 2\times base\ area\times height$
+Height=h=Perpendicular distance from origin to plane containing $\vec{u},\vec{v},\vec{w}$  
+\begin{align}
+h=\frac{|\vec{m}^\top\vec{O}-c|}{\norm{\vec{m}}}=\frac{|0-7|}{\sqrt{3}}=\frac{7}{\sqrt{3}}
+\end{align}
+\begin{align}
+Volume = 2\times8\sqrt{3}\times\frac{7}{\sqrt{3}} = 112
+\end{align}
+
+\begin{align}
+\frac{80}{3}V = \frac{80}{3}\times 112 = \frac{8960}{3}.
 \end{align}
 
 
-\textbf{Determinant of the Gram matrix (gives the squared volume):}
-\begin{align}
-\det G =det \myvec
-{17 & 17 & 21\\[4pt]
-17 & 49 & 37\\[4pt]
-21 & 37 & 57} = 12544
-\end{align}
-Hence the volume itself is
-\begin{align}
-V=\sqrt{\det G}=\sqrt{12544}=112.
-\end{align}
-now 
-\begin{align}
-\frac{80V}{3}= \frac{80*112}{3} = \frac{8960}{3}.
-\end{align}
+
+
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.9\columnwidth]{figs/fig5.png} 
+  \includegraphics[width=0.9\columnwidth]{figs/fig5_.png} 
    \caption*{Fig: Representation of Planes and vectors}
   \label{Fig5}
 \end{figure}

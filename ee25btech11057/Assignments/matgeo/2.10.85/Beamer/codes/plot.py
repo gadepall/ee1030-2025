@@ -1,82 +1,113 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+from mpl_toolkits.mplot3d import art3d
 
-# Define vectors
-u = np.array([2, 3, 2])
-v = np.array([-2, 3, 6])
-w = np.array([-2, 7, 2])
-
-# Origin
-O = np.array([0, 0, 0])
-
-# Create 3D plot
-fig = plt.figure(figsize=(10, 8))
+# --- Create the Figure ---
+fig = plt.figure(figsize=(16, 14))
 ax = fig.add_subplot(111, projection='3d')
 
-# ---- Plot Vectors u, v, w ----
-def plot_vector(vec, color, label, offset):
-    ax.quiver(O[0], O[1], O[2],
-              vec[0], vec[1], vec[2],
-              color=color, arrow_length_ratio=0.1, linewidth=2)
-    ax.text(vec[0]+offset[0], vec[1]+offset[1], vec[2]+offset[2],
-            label, fontsize=12, color=color, weight="bold")
+# --- Generate Grid and Define Boundaries ---
+lim = 10
+x_range = np.linspace(-lim, lim, 50)
+y_range = np.linspace(-lim, lim, 50)
+X, Y = np.meshgrid(x_range, y_range)
 
-plot_vector(u, "red", "u(2,3,2)", offset=(0.5, 0.5, 0.5))
-plot_vector(v, "green", "v(-2,3,6)", offset=(-1, 0.5, 0.5))
-plot_vector(w, "blue", "w(-2,7,2)", offset=(-1, 0.5, -0.5))
+# --- AESTHETIC AND COLOR DEFINITIONS ---
+# Define surface colors and darker corresponding outline colors
+colors = {
+    'P+':  {'surface': '#E57373', 'outline': '#C62828'}, # Light Red / Dark Red
+    'P-':  {'surface': '#64B5F6', 'outline': '#1565C0'}, # Light Blue / Dark Blue
+    'Π':   {'surface': '#81C784', 'outline': '#2E7D32'}, # Light Green / Dark Green
+    'P':   {'surface': '#BDBDBD', 'outline': '#424242'}  # Light Grey / Dark Grey
+}
 
-# ---- Plot parallelepiped ----
-vertices = np.array([
-    O, u, v, w,
-    u+v, v+w, w+u, u+v+w
-])
-faces = [
-    [O, u, u+v, v],
-    [O, v, v+w, w],
-    [O, u, u+w, w],
-    [u, u+v, u+v+w, u+w],
-    [v, u+v, u+v+w, v+w],
-    [w, v+w, u+v+w, u+w]
-]
-ax.add_collection3d(Poly3DCollection(faces, alpha=0.25, facecolor="cyan"))
+# --- PLOTTING PLANES WITH SURFACES AND OUTLINES ---
 
-# ---- Planes ----
-xx, yy = np.meshgrid(range(-3, 6), range(-3, 9))
+# Function to plot a plane with its surface and a dark outline
+def plot_complete_plane(Z, color_pair):
+    # Plot the highly transparent surface
+    ax.plot_surface(X, Y, Z, alpha=0.15, color=color_pair['surface'], rstride=5, cstride=5, edgecolor='none')
+    
+    # Plot a crisp, dark wireframe outline
+    ax.plot_wireframe(X, Y, Z, color=color_pair['outline'], linewidth=1.2, rstride=100, cstride=100)
 
-# Plane 1: 3x+2y+3z = 18
-zz1 = (18 - 3*xx - 2*yy) / 3
-ax.plot_surface(xx, yy, zz1, alpha=0.25, color="orange")
-ax.text(4, -3, (18 - 3*4 - 2*(-3)) / 3,
-        "Plane: 3x+2y+3z=18", color="orange", fontsize=12, weight="bold")
+# 1. Plane Π: x + y + z = 7
+Z_Pi = 7 - X - Y
+plot_complete_plane(Z_Pi, colors['Π'])
 
-# Plane 2: 3x+2y+3z = 14 (label at bottom of plane)
-zz2 = (14 - 3*xx - 2*yy) / 3
-ax.plot_surface(xx, yy, zz2, alpha=0.25, color="red")
-ax.text(0, -5, (14 - 3*0 - 2*(-5)) / 3,
-        "Plane: 3x+2y+3z=14", color="red", fontsize=12, weight="bold")
+# 2. Plane P+: 3x+2y+3z=18
+Z_P_plus = (18 - 3*X - 2*Y) / 3
+plot_complete_plane(Z_P_plus, colors['P+'])
 
-# Plane 3: x+y+z = 7 (plane yellow, label dark green)
-zz3 = 7 - xx - yy
-ax.plot_surface(xx, yy, zz3, alpha=0.25, color="yellow")
-ax.text(3, 6, 7 - 3 - 6,
-        "Plane: x+y+z=7", color="darkgreen", fontsize=12, weight="bold")
+# 3. Plane P-: 3x+2y+3z=14
+Z_P_minus = (14 - 3*X - 2*Y) / 3
+plot_complete_plane(Z_P_minus, colors['P-'])
 
-# Plane 4: 3x+2y+3z = 16 (mid-plane)
-zz4 = (16 - 3*xx - 2*yy) / 3
-ax.plot_surface(xx, yy, zz4, alpha=0.25, color="purple")
-ax.text(-4, -3, (16 - 3*(-4) - 2*(-3)) / 3,
-        "Plane: 3x+2y+3z=16", color="purple", fontsize=12, weight="bold")
+# 4. Original Plane P: 3x+2y+3z=16
+Z_P = (16 - 3*X - 2*Y) / 3
+plot_complete_plane(Z_P, colors['P'])
 
-# ---- Axes settings ----
-ax.set_xlim(-5, 5)
-ax.set_ylim(-5, 10)
-ax.set_zlim(-5, 10)
-ax.set_xlabel("X-axis")
-ax.set_ylabel("Y-axis")
-ax.set_zlabel("Z-axis")
-ax.set_title("Vectors u,v,w and Planes")
 
-plt.savefig("../figs/fig5.png")
+# --- EMPHASIZE AND LABEL LINES/POINTS ---
+FOREGROUND_ZORDER = 10
+t_start, t_end = -15, 15
+t_lines = np.linspace(t_start, t_end, 100)
+d = np.array([1, 0, -1])  # Direction vector
+
+# Line L1
+a = np.array([0, 3, 4])
+L1 = a + t_lines[:, np.newaxis] * d
+ax.plot(L1[:, 0], L1[:, 1], L1[:, 2], color='#BF360C', lw=5, zorder=FOREGROUND_ZORDER) # Deep Orange
+
+# Line L2
+b = np.array([0, 7, 0])
+L2 = b + t_lines[:, np.newaxis] * d
+ax.plot(L2[:, 0], L2[:, 1], L2[:, 2], color='#0D47A1', lw=5, zorder=FOREGROUND_ZORDER) # Deep Blue
+
+# Points u, v, w
+point_size = 250
+u, s = b, 4 * np.sqrt(2)
+t_proj = np.dot(u - a, d) / np.dot(d, d)
+M = a + t_proj * d
+dist_M_v = s/2
+v = M + (dist_M_v / np.linalg.norm(d)) * d
+w = M - (dist_M_v / np.linalg.norm(d)) * d
+
+ax.scatter([u[0],v[0],w[0]], [u[1],v[1],w[1]], [u[2],v[2],w[2]],
+           color=['cyan','magenta','yellow'], s=point_size, ec='black', lw=1.5, zorder=FOREGROUND_ZORDER + 1)
+
+# --- ADDING ALL LABELS (PLANES, LINES, AND POINTS) ---
+# Plane Labels
+plane_label_props = {'ha':'center', 'va':'center', 'fontsize':10, 'bbox':dict(facecolor='white', alpha=0.7, ec='none', pad=0.2)}
+ax.text(-8,-8, 7-(-8)-(-8), " Π: x+y+z=7 ", color=colors['Π']['outline'], **plane_label_props)
+ax.text(8, 8, (18-3*8-2*8)/3, " P+: 3x+2y+3z=18 ", color=colors['P+']['outline'], **plane_label_props)
+ax.text(8,-8, (14-3*8-2*(-8))/3, " P-: 3x+2y+3z=14 ", color=colors['P-']['outline'], **plane_label_props)
+ax.text(-8, 8, (16-3*(-8)-2*8)/3, " P: 3x+2y+3z=16 ", color=colors['P']['outline'], **plane_label_props)
+
+# Line Endpoint Labels
+line_label_props = {'ha':'center', 'va':'center', 'fontsize':14, 'fontweight':'bold'}
+l1_start_pos = a + t_start * d
+l2_start_pos = b + t_start * d
+ax.text(l1_start_pos[0], l1_start_pos[1], l1_start_pos[2] + 1.5, "L1", color='#BF360C', **line_label_props)
+ax.text(l2_start_pos[0] + 2, l2_start_pos[1], l2_start_pos[2] , "L2", color='#0D47A1', **line_label_props)
+
+# Point Labels (u, v, w)
+point_label_props = {'ha':'center', 'va':'bottom', 'fontsize':14, 'fontweight':'bold'}
+ax.text(u[0], u[1], u[2] + 0.5, 'u', color='black', **point_label_props)
+ax.text(v[0], v[1], v[2] + 0.5, 'v', color='black', **point_label_props)
+ax.text(w[0], w[1], w[2] - 1.5, 'w', color='black', **point_label_props) # slight offset for w
+
+
+# --- FINAL PLOT SETUP ---
+ax.view_init(elev=28, azim=-55)
+ax.set_xlim(-15, 15); ax.set_ylim(-15, 15); ax.set_zlim(-15, 15)
+ax.set_xlabel('X-axis', fontsize=12); ax.set_ylabel('Y-axis', fontsize=12); ax.set_zlabel('Z-axis', fontsize=12)
+ax.set_title('Final Geometric Construction with Full Labeling', fontsize=20, pad=20)
+
+# Clean background
+ax.xaxis.pane.fill=False; ax.yaxis.pane.fill=False; ax.zaxis.pane.fill=False
+ax.grid(True, linestyle=':', alpha=0.5)
+
+plt.tight_layout()
+plt.savefig("../figs/fig5_.png")
 plt.show()
-

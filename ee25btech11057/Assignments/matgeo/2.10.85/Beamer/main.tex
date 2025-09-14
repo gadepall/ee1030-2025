@@ -1,6 +1,6 @@
 \documentclass{beamer}
-\mode<presentation>
 \usepackage{amsmath}
+\mode<presentation>
 \usepackage{amssymb}
 %\usepackage{advdate}
 \usepackage{adjustbox}
@@ -39,7 +39,6 @@
 \providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
 \providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
 \theoremstyle{remark}
-\newcommand{\mydet}[1]{\ensuremath{\begin{vmatrix}#1\end{vmatrix}}}
 \newtheorem{rem}{Remark}
 \newcommand{\sgn}{\mathop{\mathrm{sgn}}}
 \providecommand{\abs}[1]{\left\vert#1\right\vert}
@@ -54,6 +53,7 @@
 %\newcommand{\solution}{\noindent \textbf{Solution: }}
 \providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
 \newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\newcommand{\mydet}[1]{\ensuremath{\begin{vmatrix}#1\end{vmatrix}}}
 \let\vec\mathbf
 
 \lstset{
@@ -86,9 +86,9 @@ columns=fullflexible
 
 \end{frame}
 \section{Solution}
-\subsection{Distance between point and plane}
+\subsection{Distance between point and plane,Line Equation}
 \begin{frame}
-\frametitle{Distance between point and plane}
+\frametitle{Distance between point and plane,Line Equation}
 %\framesubtitle{Literature}
 \textbf{Solution} :
 \begin{align}
@@ -115,155 +115,101 @@ with
 \begin{align}
 P_+: \vec{n}^\top \vec{x}=18,\qquad P_-:\vec{n}^\top \vec{x}=14.
 \end{align}
-
-Each intersection is a line.  
-The direction vector of the line is
+textbf{(i) Intersection of $\vec{m}^\top \vec{x}=7$ and $\vec{n}^\top \vec{x}=18$.}\\
+Write the augmented system in matrix form:
 \begin{align}
-\vec{d} = \vec{m}\times \vec{n} =
-\myvec{
-\mydet
-{m_{23} & n_{23}} \\
- \mydet
- {m_{31} & n_{31}} \\
-\mydet
-{m_{12} & n_{12}}
-}
-=
-\myvec{1\\0\\-1}.
-\end{align}
-
-\end{frame}
-\subsection{Equation of line and finding u,v,w}
-\begin{frame}
-\frametitle{Equation of line and finding u,v,w}
-Pick points:  
-For $\Pi\cap P_+$, solve
-\begin{align}
-\begin{cases}
-\vec{m}^\top \vec{x} = 7,\\
-\vec{n}^\top \vec{x} = 18
-\end{cases}
-\quad\Longrightarrow\quad  \vec{p} = \myvec{0\\3\\4}
-\end{align}
-So
-\begin{align}
-L_+:\; \vec{r}=\vec{p} + t\vec{d}.
-\end{align}
-
-For $\Pi\cap P_-$, solve
-\begin{align}
-\begin{cases}
-\vec{m}^\top \vec{x}= 7,\\
-\vec{n}^\top \vec{x}= 14
-\end{cases}
-\quad\Longrightarrow\quad  \vec{q} = \myvec{0\\7\\0}
-\end{align}
-So
-\begin{align}
-L_-:\; \vec{r}=\vec{q} +t\vec{d}.
-\end{align}
-
-\textbf{Construct equilateral triangle:}
-\end{frame}
-\begin{frame}
-Take
-\begin{align}
-\vec{u}=\vec{p}+s\vec{d},\quad \vec{v}=\vec{p}-s\vec{d},\quad \vec{w}=\vec{q}+t\vec{d}.
-\end{align}
-
-\begin{align}
-{\norm{\vec{u}-\vec{v}}}^2={\norm{\vec{u}-\vec{w}}}^2={\norm{\vec{v}-\vec{w}}}^2.
-\end{align}
-
-\begin{align}
-\vec{u}-\vec{v}=2s\vec{d} \;\;\Rightarrow\;\; {\norm{\vec{u}-\vec{v}}}^2=4s^2{\norm{\vec{d}}}^2.
-\end{align}
-
-\begin{align}
-{\norm{\vec{d}}}^2=\vec{d}^\top\vec{d}=1^2+0^2+(-1)^2=2,
-{\norm{\vec{u}-\vec{v}}}^2=8s^2.
-\end{align}
-
-\begin{align}
-\vec{r}=\vec{p}-\vec{q}=\myvec{0\\-4\\4},\quad
-\vec{u}-\vec{w}=\vec{r}+(s-t)\vec{d}.
-\end{align}
-
-\begin{align}
-{\norm{\vec{u}-\vec{w}}}^2={\norm{\vec{r}}}^2+2(s-t)(\vec{r}^\top\vec{d})
-+(s-t)^2{\norm{\vec{d}}}^2.
-\end{align}
-\end{frame}
-\begin{frame}
-\begin{align}
-{\norm{\vec{r}}}^2=32,\quad \vec{r}^\top\vec{d}=-4,\quad {\norm{\vec{d}}}^2=2.
-\end{align}
-
-\begin{align}
-{\norm{\vec{u}-\vec{w}}}^2=32-8(s-t)+2(s-t)^2.
-\end{align}
-
-\begin{align}
-\vec{v}-\vec{w}=\vec{r}+(-s-t)\vec{d} \;\;\Rightarrow\;\;
-{\norm{\vec{v}-\vec{w}}}^2=32+8(s+t)+2(s+t)^2.
-\end{align}
-Equating
-\begin{align}
-32-8(s-t)+2(s-t)^2=8s^2, \quad
-32+8(s+t)+2(s+t)^2=8s^2.
-\end{align}
-\begin{align}
-16s+8st=0 \quad\Rightarrow\quad t=-2,\; s^2=4.
-\end{align}
-Take $ s=2,t=-2:$
-\begin{align}
-\vec{u}=\vec{p}+2\vec{d}=\myvec {2\\3\\2},\quad
-\vec{v}=\vec{p}-2\vec{d}=\myvec {-2\\3\\6},\quad
-\vec{w}=\vec{q}-2\vec{d}=\myvec{-2\\7\\2}.
-\end{align}
-
-\end{frame}
-\subsection{Gram matrix and Volume}
-\begin{frame}
-\frametitle{Gram matrix and Volume}
-
-\textbf{Volume of parallelepiped:}
-
-\textbf{Gram matrix }\(G\) (matrix of pairwise inner products):
-\begin{align}
-G=\myvec
-{{\norm{\vec{u}}}^2 & \vec{u}^\top\vec{v} & \vec{u}^\top\vec{w}\\[6pt]
-\vec{v}^\top\vec{u} & {\norm{\vec{v}}}^2 & \vec{v}^\top\vec{w}\\[6pt]
-\vec{w}^\top\vec{u} & \vec{w}^\top\vec{v} & {\norm{\vec{w}}}^2}
-=
 \myvec
-{17 & 17 & 21\\[4pt]
-17 & 49 & 37\\[4pt]
-21 & 37 & 57},
+{1 & 1 & 1 &\vrule& 7\\[4pt]
+3 & 2 & 3 &\vrule& 18} \xrightarrow{R_2 \longrightarrow R_2-3R_1}
+\myvec{
+1 & 1 & 1 &\vrule& 7\\[4pt]
+0 & -1 & 0 &\vrule& -3}.
 \end{align}
-\textbf{Determinant of the Gram matrix (gives the squared volume):}
+From the second row we get  $y=3$. Substitute into $x+y+z=7$:
 \begin{align}
-\det G =det \myvec
-{17 & 17 & 21\\[4pt]
-17 & 49 & 37\\[4pt]
-21 & 37 & 57} = 12544
+x+3+z=7 \quad\Longrightarrow\quad z=4-x.
 \end{align}
-Hence the volume itself is
+So the line is
 \begin{align}
-V=\sqrt{\det G}=\sqrt{12544}=112.
+\vec{L_1} = \myvec{0\\3\\4} + k_1\myvec{1\\0\\-1} = \vec{a} + k_1 \vec{d} 
 \end{align}
+\end{frame}
+\begin{frame}
+\textbf{(ii) Intersection of $\vec{m}^\top \vec{x}=7$ and $\vec{n}^\top \vec{x}=14$.}\\
+The augmented matrix is
+\begin{align}
+\myvec
+{1 & 1 & 1 &\vrule& 7\\[4pt]
+3 & 2 & 3 &\vrule& 14} \xrightarrow{R_2 \longrightarrow R_2-3R_1}
+\myvec
+{1 & 1 & 1 &\vrule& 7\\[4pt]
+0 & -1 & 0 &\vrule& -7}.
+\end{align}
+So  $y=7$. From $x+y+z=7$ we get
+\begin{align}
+x+7+z=7 \quad\Longrightarrow\quad z=-x.
+\end{align}
+\begin{align}
+\vec{L_2} = \myvec{0\\7\\0} + k_2\myvec{1\\0\\-1} = \vec{b} + k_2 \vec{d}
+\end{align}
+ hence the two lines are parallel.
+ 
 
-\begin{align}
-\frac{80V}{3}= \frac{80x112}{3} = \frac{8960}{3}.
-\end{align}
+\end{frame}
+\subsection{Least Squares Solution }
+\begin{frame}
+\frametitle{Least Squares Solution}
 
+ \textbf{(iii) Perpendicular distance between the two parallel lines}:
+ $\vec{P}=\vec{a}+p_1 \vec{d} \ and\ \vec{Q}=\vec{b}+p_2 \vec{d} \ be \ 2 points\ on\ \vec{L_1},\vec{L_2}. $
+\begin{align} 
+perpendicular\ distance = \operatorname{dist}(\vec{P},\vec{Q}) ,\vec{M}=\myvec{\vec{d} & \vec{d}} 
+\end{align}
+ \begin{align}
+ \vec{M}^\top(a-b) + \vec{M}^\top\vec{M}\myvec{p_1\\-p_2} = 0 , 
+ \end{align}
+ \begin{align}
+ \myvec{\vec{d}\\\vec{d}}(a-b) + \myvec{\vec{d}\\\vec{d}}\myvec{\vec{d}&\vec{d}}\myvec{p_1\\-p_2} = 0
+ \end{align}
+On solving we get , 
+\begin{align}
+p_1 - p_2 = 2 \ take \ p_1=2 \ and \ p_2=0
+\end{align}
+ Points are $\vec{P}=\myvec{2\\3\\2} , \vec{Q}=\myvec{0\\7\\0},\vec{P}-\vec{Q}=\myvec{2\\-4\\2}$
+ \begin{align}
+Distance = D= {\norm{\vec{P}-\vec{Q}}} = \sqrt{24} 
+\end{align}
+\end{frame}
+
+\subsection{Area and Volume}
+\begin{frame}
+\frametitle{Area and Volume}
+\textbf{(iv) Area of the equilateral triangle formed by $\vec{u},\vec{v},\vec{w}$}:
+As the two lines are parallel and let s = length of side of triangle
+\begin{align}
+D = \frac{\sqrt{3}s}{2} \Longrightarrow s = 4\sqrt{2}
+\end{align}
+\begin{align}
+\text Area \ of\ the\ equilateral\ triangle = A = \frac{\sqrt{3}s^2}{4} = 8\sqrt{3} 
+\end{align}
+\textbf{(v) Volume of the parallelepiped determined by three vectors $\vec{u},\vec{v},\vec{w}$}:
+$Volume\ of\ Parallelepiped = 6(Volume\ of\ Tetrahedron) = 2\times base\ area\times height$
+\begin{align}
+height=h=\frac{|\vec{m}^\top\vec{O}-c|}{\norm{\vec{m}}}=\frac{|0-7|}{\sqrt{3}}=\frac{7}{\sqrt{3}}
+\end{align}
+\begin{align}
+Volume = 2\times8\sqrt{3}\times\frac{7}{\sqrt{3}} = 112
+\end{align}
+\begin{align}
+\frac{80}{3}V = \frac{80}{3}\times 112 = \frac{8960}{3}.
+\end{align}
 \end{frame}
 \subsection{Plots}
 \begin{frame}
 \frametitle{Plots}
 \begin{figure}
 \centering
-\includegraphics[width=0.9\columnwidth]{figs/fig5.png}
+\includegraphics[width=0.8\columnwidth]{figs/fig5_.png}
 \caption{fig : Representation of Planes and vectors}
 \label{Fig5}
 \end{figure}
@@ -373,97 +319,128 @@ print("Final (80/3)*V =", result)
 \begin{frame}[fragile]
 \frametitle{Python Code for Plotting}
 \begin{lstlisting}[language=Python] 
+
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+from mpl_toolkits.mplot3d import art3d
 
-# Define vectors
-u = np.array([2, 3, 2])
-v = np.array([-2, 3, 6])
-w = np.array([-2, 7, 2])
-# Origin
-O = np.array([0, 0, 0])
-# Create 3D plot
-fig = plt.figure(figsize=(10, 8))
+# --- Create the Figure ---
+fig = plt.figure(figsize=(16, 14))
 ax = fig.add_subplot(111, projection='3d')
-# ---- Plot Vectors u, v, w ----
-def plot_vector(vec, color, label, offset):
-    ax.quiver(O[0], O[1], O[2],
-              vec[0], vec[1], vec[2],
- \end{lstlisting}
- \end{frame}
- \begin{frame}[fragile]
- \begin{lstlisting}
-              color=color, arrow_length_ratio=0.1, linewidth=2)
-    ax.text(vec[0]+offset[0], vec[1]+offset[1], vec[2]+offset[2],
-            label, fontsize=12, color=color, weight="bold")
 
-plot_vector(u, "red", "u(2,3,2)", offset=(0.5, 0.5, 0.5))
-plot_vector(v, "green", "v(-2,3,6)", offset=(-1, 0.5, 0.5))
-plot_vector(w, "blue", "w(-2,7,2)", offset=(-1, 0.5, -0.5))
+# --- Generate Grid and Define Boundaries ---
+lim = 10
+x_range = np.linspace(-lim, lim, 50)
+y_range = np.linspace(-lim, lim, 50)
+X, Y = np.meshgrid(x_range, y_range)
 
-# ---- Plot parallelepiped ----
-vertices = np.array([
-    O, u, v, w,
-    u+v, v+w, w+u, u+v+w
-])
-faces = [
-    [O, u, u+v, v],
-    [O, v, v+w, w],
-    [O, u, u+w, w],
-    [u, u+v, u+v+w, u+w],
-    [v, u+v, u+v+w, v+w],
+# --- AESTHETIC AND COLOR DEFINITIONS ---
+# Define surface colors and darker corresponding outline colors
 \end{lstlisting}
 \end{frame}
 \begin{frame}[fragile]
 \begin{lstlisting}
-    [w, v+w, u+v+w, u+w]]
-ax.add_collection3d(Poly3DCollection(faces, alpha=0.25, facecolor="cyan"))
-
-# ---- Planes ----
-xx, yy = np.meshgrid(range(-3, 6), range(-3, 9))
-
-# Plane 1: 3x+2y+3z = 18
-zz1 = (18 - 3*xx - 2*yy) / 3
-ax.plot_surface(xx, yy, zz1, alpha=0.25, color="orange")
-ax.text(4, -3, (18 - 3*4 - 2*(-3)) / 3,
-        "Plane: 3x+2y+3z=18", color="orange", fontsize=12, weight="bold")
-# Plane 2: 3x+2y+3z = 14 (label at bottom of plane)
-zz2 = (14 - 3*xx - 2*yy) / 3
-ax.plot_surface(xx, yy, zz2, alpha=0.25, color="red")
-ax.text(0, -5, (14 - 3*0 - 2*(-5)) / 3,
-        "Plane: 3x+2y+3z=14", color="red", fontsize=12, weight="bold")
+colors = {
+    'P+':  {'surface': '#E57373', 'outline': '#C62828'}, # Light Red / Dark Red
+    'P-':  {'surface': '#64B5F6', 'outline': '#1565C0'}, # Light Blue / Dark Blue
+    'Π':   {'surface': '#81C784', 'outline': '#2E7D32'}, # Light Green / Dark Green
+    'P':   {'surface': '#BDBDBD', 'outline': '#424242'}  # Light Grey / Dark Grey}
+# --- PLOTTING PLANES WITH SURFACES AND OUTLINES ---
+# Function to plot a plane with its surface and a dark outline
+def plot_complete_plane(Z, color_pair):
+    # Plot the highly transparent surface
+    ax.plot_surface(X, Y, Z, alpha=0.15, color=color_pair['surface'], rstride=5, cstride=5, edgecolor='none')
+    # Plot a crisp, dark wireframe outline
+    ax.plot_wireframe(X, Y, Z, color=color_pair['outline'], linewidth=1.2, rstride=100, cstride=100)
 \end{lstlisting}
 \end{frame}
 \begin{frame}[fragile]
 \begin{lstlisting}
-# Plane 3: x+y+z = 7 (plane yellow, label dark green)
-zz3 = 7 - xx - yy
-ax.plot_surface(xx, yy, zz3, alpha=0.25, color="yellow")
-ax.text(3, 6, 7 - 3 - 6,
-        "Plane: x+y+z=7", color="darkgreen", fontsize=12, weight="bold")
+# 1. Plane Π: x + y + z = 7
+Z_Pi = 7 - X - Y
+plot_complete_plane(Z_Pi, colors['Π'])
+# 2. Plane P+: 3x+2y+3z=18
+Z_P_plus = (18 - 3*X - 2*Y) / 3
+plot_complete_plane(Z_P_plus, colors['P+'])
+# 3. Plane P-: 3x+2y+3z=14
+Z_P_minus = (14 - 3*X - 2*Y) / 3
+plot_complete_plane(Z_P_minus, colors['P-'])
+# 4. Original Plane P: 3x+2y+3z=16
+Z_P = (16 - 3*X - 2*Y) / 3
+plot_complete_plane(Z_P, colors['P'])
 
-# Plane 4: 3x+2y+3z = 16 (mid-plane)
-zz4 = (16 - 3*xx - 2*yy) / 3
-ax.plot_surface(xx, yy, zz4, alpha=0.25, color="purple")
-ax.text(-4, -3, (16 - 3*(-4) - 2*(-3)) / 3,
-        "Plane: 3x+2y+3z=16", color="purple", fontsize=12, weight="bold")
-
-# ---- Axes settings ----
-ax.set_xlim(-5, 5)
-ax.set_ylim(-5, 10)
-ax.set_zlim(-5, 10)
+# --- EMPHASIZE AND LABEL LINES/POINTS ---
+FOREGROUND_ZORDER = 10
+t_start, t_end = -15, 15
+t_lines = np.linspace(t_start, t_end, 100)
+d = np.array([1, 0, -1])  # Direction vector
 \end{lstlisting}
 \end{frame}
 \begin{frame}[fragile]
 \begin{lstlisting}
-ax.set_xlabel("X-axis")
-ax.set_ylabel("Y-axis")
-ax.set_zlabel("Z-axis")
-ax.set_title("Vectors u,v,w and Planes")
+# Line L1
+a = np.array([0, 3, 4])
+L1 = a + t_lines[:, np.newaxis] * d
+ax.plot(L1[:, 0], L1[:, 1], L1[:, 2], color='#BF360C', lw=5, zorder=FOREGROUND_ZORDER) # Deep Orange
+# Line L2
+b = np.array([0, 7, 0])
+L2 = b + t_lines[:, np.newaxis] * d
+ax.plot(L2[:, 0], L2[:, 1], L2[:, 2], color='#0D47A1', lw=5, zorder=FOREGROUND_ZORDER) # Deep Blue
+# Points u, v, w
+point_size = 250
+u, s = b, 4 * np.sqrt(2)
+t_proj = np.dot(u - a, d) / np.dot(d, d)
+M = a + t_proj * d
+dist_M_v = s/2
+v = M + (dist_M_v / np.linalg.norm(d)) * d
+w = M - (dist_M_v / np.linalg.norm(d)) * d
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+ax.scatter([u[0],v[0],w[0]], [u[1],v[1],w[1]], [u[2],v[2],w[2]],
+           color=['cyan','magenta','yellow'], s=point_size, ec='black', lw=1.5, zorder=FOREGROUND_ZORDER + 1)
 
+# --- ADDING ALL LABELS (PLANES, LINES, AND POINTS) ---
+# Plane Labels
+plane_label_props = {'ha':'center', 'va':'center', 'fontsize':10, 'bbox':dict(facecolor='white', alpha=0.7, ec='none', pad=0.2)}
+ax.text(-8,-8, 7-(-8)-(-8), " Π: x+y+z=7 ", color=colors['Π']['outline'], **plane_label_props)
+ax.text(8, 8, (18-3*8-2*8)/3, " P+: 3x+2y+3z=18 ", color=colors['P+']['outline'], **plane_label_props)
+ax.text(8,-8, (14-3*8-2*(-8))/3, " P-: 3x+2y+3z=14 ", color=colors['P-']['outline'], **plane_label_props)
+ax.text(-8, 8, (16-3*(-8)-2*8)/3, " P: 3x+2y+3z=16 ", color=colors['P']['outline'], **plane_label_props)
+# Line Endpoint Labels
+line_label_props = {'ha':'center', 'va':'center', 'fontsize':14, 'fontweight':'bold'}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+l1_start_pos = a + t_start * d
+l2_start_pos = b + t_start * d
+ax.text(l1_start_pos[0], l1_start_pos[1], l1_start_pos[2] + 1.5, "L1", color='#BF360C', **line_label_props)
+ax.text(l2_start_pos[0] + 2, l2_start_pos[1], l2_start_pos[2] , "L2", color='#0D47A1', **line_label_props)
+# Point Labels (u, v, w)
+point_label_props = {'ha':'center', 'va':'bottom', 'fontsize':14, 'fontweight':'bold'}
+ax.text(u[0], u[1], u[2] + 0.5, 'u', color='black', **point_label_props)
+ax.text(v[0], v[1], v[2] + 0.5, 'v', color='black', **point_label_props)
+ax.text(w[0], w[1], w[2] - 1.5, 'w', color='black', **point_label_props) # slight offset for w
+
+# --- FINAL PLOT SETUP ---
+ax.view_init(elev=28, azim=-55)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+ax.set_xlim(-15, 15); ax.set_ylim(-15, 15); ax.set_zlim(-15, 15)
+ax.set_xlabel('X-axis', fontsize=12); ax.set_ylabel('Y-axis', fontsize=12); ax.set_zlabel('Z-axis', fontsize=12)
+ax.set_title('Final Geometric Construction with Full Labeling', fontsize=20, pad=20)
+
+# Clean background
+ax.xaxis.pane.fill=False; ax.yaxis.pane.fill=False; ax.zaxis.pane.fill=False
+ax.grid(True, linestyle=':', alpha=0.5)
+
+plt.tight_layout()
+plt.savefig("../figs/fig5_.png")
 plt.show()
-
 \end{lstlisting}
 \end{frame}
 
