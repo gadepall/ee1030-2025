@@ -8,7 +8,7 @@ c_lib=ctypes.CDLL('./code.so')
 
 # --- Define the C function signature for Python ---
 # Get a handle to the function
-find_points_func = solver_lib.find_points
+find_points_func = c_lib.find_points
 
 # Specify the argument types: four pointers to C doubles
 find_points_func.argtypes = [
