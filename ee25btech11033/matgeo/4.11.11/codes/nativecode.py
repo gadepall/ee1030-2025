@@ -1,8 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Define the coordinates for the endpoints A and B, and the dividing point P
-# Changed points as per the request
 A = np.array([-2, -5])
 B = np.array([6, 3])
 P_dividing = np.array([9/2, 3/2]) # This is equivalent to (4.5, 1.5)
