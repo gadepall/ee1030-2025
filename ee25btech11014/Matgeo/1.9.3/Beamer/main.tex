@@ -1,0 +1,242 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{1.9.3}
+\date{August  2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{Bhoomika L - EE25BTECH11014}
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}\textit{AOBC} is a rectangle whose three vertices are $\brak{0,-3}$ $\brak{0,0}$ $\brak{4,0}$.The length of its diagonal is\rule{2cm}{0.4pt}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+
+ Given the points $\vec{A},\vec{O}$ and $\vec{B}:$\\
+\begin{table}[H]    
+  \centering
+  \input{../Table/table.tex}
+  \caption{Position Vectors of the points on rectangle.}
+  \label{tab:1.9.3}
+\end{table}
+
+\end{frame}
+
+
+\begin{frame}{Theoretical Solution}
+Determining the Coordinates of Point C:
+\begin{align}
+ \vec{A} = \myvec {4\\0 }
+ \vec{B} = \myvec {0\\-3}
+\end{align}
+ Since $\vec{C}$ is opposite to $\vec{O}$ in the rectangle,
+\end{frame}
+
+\begin{frame}{Formulae}
+\begin{align}
+\vec{C} = \vec{A} + \vec{B}
+\\
+\implies \myvec{4\\0}+ \myvec{0\\-3}=\myvec{4\\-3}\\
+\therefore \vec{C}=\myvec{4\\-3}
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical solution}
+
+We know that the length of the diagonal vector is magnitude of the vector $\vec{C}$.\\
+Let $\vec{P}=\vec{C}$
+\begin{align}
+\vec{P}= \myvec{4 \\ -3} 
+\end{align}
+
+
+\begin{align}
+\left|\vec{C} \right| &= \sqrt{ \vec{C}^T \cdot \vec{C}}
+ \end{align}
+    
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+\begin{align}
+      \vec{C}^T \cdot \vec{C}=\myvec{4 & -3}\myvec{4 \\ -3} = 4^2 + (-3)^2 = 16 + 9 = 25
+\end{align}
+\begin{align}  
+      \left|\vec{C}\right| &= \sqrt{25} = 5 
+ \end{align}
+ \begin{center}
+Therefore the lenght of the diagonal is $5$.
+ \end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code }
+
+\begin{lstlisting}
+#include <stdio.h>
+
+// Function to calculate point C of rectangle
+// A=(Ax,Ay), B=(Bx,By), D=(Dx,Dy)
+// Returns Cx and Cy via pointers
+void findC(float Ax, float Ay, float Bx, float By, float Dx, float Dy, float *Cx, float *Cy) {
+    *Cx = Bx + Dx - Ax;
+    *Cy = By + Dy - Ay;
+}
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import matplotlib.pyplot as plt
+
+# Define rectangle vertices
+A = (0, 0)
+B = (4, 0)
+C = (4, -3)
+O = (0, -3)
+
+# Rectangle points in order for plotting closed shape
+rectangle_x = [A[0], B[0], C[0], O[0], A[0]]
+rectangle_y = [A[1], B[1], C[1], O[1], A[1]]
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# Plot rectangle
+plt.plot(rectangle_x, rectangle_y, 'g--', label="Rectangle")
+
+# Plot diagonal AC
+plt.plot([A[0], C[0]], [A[1], C[1]], 'b-', label="Diagonal")
+
+# Mark all points
+points = [A, B, C, O]
+for point in points:
+    plt.scatter(point[0], point[1], color='red')
+    plt.text(point[0], point[1], f'{point}', fontsize=10, ha='left', va='bottom')
+
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# Axis labels and grid
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+plt.title("Rectangle AOBC with Diagonal")
+plt.legend()
+plt.grid(True)
+plt.axis("equal")
+
+# Save and show
+plt.savefig("../Figs/fig2.png")
+plt.show()
+
+\end{lstlisting}
+\end{frame}
+
+ \begin{frame}{Plot}
+    \centering
+    \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{../Figs/fig2.png}     
+\end{frame}
+
+
+\end{document}
