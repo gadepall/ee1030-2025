@@ -1,0 +1,251 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx} % <-- needed for images
+\def\UrlBreaks{\do\/\do-}
+
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\lstset{
+  frame=single,
+  breaklines=true,
+  columns=fullflexible,
+  basicstyle=\ttfamily\tiny   % tiny font so code fits
+}
+
+\numberwithin{equation}{section}
+
+% ---- your macros ----
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}}
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}}
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\let\vec\mathbf
+
+\title{Matgeo Presentation - Problem 4.11.40}
+\author{ee25btech11063 - Vejith}
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Find the area of the region bounded by line y=3x+2, the X axis and the ordinates x=-2 and x=1.
+\end{frame}
+
+\begin{frame}{Solution}
+   let
+\begin{align}
+    \vec{A}=\myvec{-2\\0}\\
+    \vec{C}=\myvec{1\\0}\\
+    \end{align}
+let $\vec{D}$ \text{ and } $\vec{E}$ be the vectors on the line corresponding to x= -2 and x=1\\
+
+Given line equation is 
+\begin{align}
+    -3x+y=2
+\end{align}
+ which can be expressed as
+ \begin{align}
+     \Vec{n}^T\Vec{x}=c\\
+     \implies \brak{-3\hspace{0.5cm}1}\myvec{x\\y}=2\\
+     \Vec{n}=\myvec{-3\\1} \text{ and } \Vec{x}=\myvec{x\\y} \text{ and c}=2
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+    let us find the vector $\Vec{D}$
+\begin{align}
+    \brak{-3\hspace{0.5cm}1}\myvec{-2\\y}=2 \hspace{0.5cm} \implies y=-4\\
+    \implies \Vec{D}= \myvec{-2\\-4}
+\end{align}
+as y$<$0 we should find the $\Vec{B}$ where the line meets the x axis 
+\begin{align}
+    \brak{-3\hspace{0.5cm}1}\myvec{x\\0}=2 \hspace{0.5cm} \implies3x=-2\\
+    \implies \Vec{B}= \myvec{\frac{-2}{3}\\0}
+    \end{align}
+    let us find the vector $\Vec{E}$
+    \begin{align}
+    \brak{-3\hspace{0.5cm}1}\myvec{1\\y}=2 \hspace{0.5cm} \implies y=5\\
+    \implies \Vec{E}= \myvec{1\\5}
+\end{align}
+\end{frame}
+
+\begin{frame}{Conclusion}
+    The area to be computed is area of $\triangle$EBC+area of $\triangle$ABD
+\begin{align}
+    ar(\triangle ABD)=\frac{1}{2}\norm{(A-B)\times(A-D)}\\
+    =\frac{1}{2}\norm{\myvec{\frac{4}{3}}\times\myvec{0\\4}}=\frac{8}{3}\\
+     ar(\triangle EBC)=\frac{1}{2}\norm{(E-c)\times(B-c)}\\
+    =\frac{1}{2}\norm{\myvec{0\\5}\times\myvec{-5/3\\0}}=\frac{25}{6}\\
+    \implies \text{area of the region is }=\frac{8}{3}+\frac{25}{6}=\frac{41}{6}
+\end{align} 
+\end{frame}
+
+\begin{frame}{Plot}
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\columnwidth]{figs/01.png}
+    \label{fig-1}
+\end{figure}
+\end{frame}
+
+% --------- CODE APPENDIX ---------
+\section*{Appendix: Code}
+
+% C program
+\begin{frame}[fragile]{C Code: area.c}
+\begin{lstlisting}[language=C]
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>   // for fabs()
+
+int main() {
+    FILE *fp;
+    double area;
+
+    // Compute area = ∫ from -2 to 1 |3x+2| dx
+    // Split into two parts: [-2, -2/3] and [-2/3, 1]
+
+    double x0 = -2.0/3.0;
+
+    // Antiderivative F(x) = (3/2)x^2 + 2x
+    double F_at_x0 = (1.5 * x0 * x0) + (2.0 * x0);
+    double F_at_neg2 = (1.5 * (-2) * (-2)) + (2.0 * (-2));
+    double F_at_1 = (1.5 * 1 * 1) + (2.0 * 1);
+
+    // Left interval [-2, -2/3] -> integrand is negative
+    double left = -(F_at_x0 - F_at_neg2);
+
+    // Right interval [-2/3, 1] -> integrand is positive
+    double right = (F_at_1 - F_at_x0);
+
+    area = left + right; // total geometric area
+
+    // Open file area.dat
+    fp = fopen("area.dat", "w");
+    if (fp == NULL) {
+        printf("Error opening file!\n");
+        return 1;
+    }
+\end{lstlisting}
+\end{frame}
+
+% --------- CODE APPENDIX ---------
+\section*{Appendix: Code}
+
+% C program
+\begin{frame}[fragile]{C Code: area.c}
+\begin{lstlisting}[language=C]
+    // Write output
+    fprintf(fp, "Line equation in matrix form: [3  -1] [x y]^T = -2\n");
+    fprintf(fp, "Area of the region = %.6f (exact = 41/6)\n", area);
+
+    fclose(fp);
+
+    printf("Area successfully written to area.dat\n");
+    return 0;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Python: plot.py}
+\begin{lstlisting}[language=Python]
+ import matplotlib.pyplot as plt
+import numpy as np
+
+# Define line
+x = np.linspace(-2, 1, 400)
+y = 3*x + 2
+
+# Vertices
+A = (-2, 0)
+B = (-2/3, 0)   # x-intercept
+C = (1, 0)
+D = (-2, -4)
+E = (1, 5)
+
+# Plot line
+plt.plot(x, y, 'b-', label="y = 3x + 2")
+
+# Plot x-axis
+plt.axhline(0, color='black', linewidth=1)
+
+# Shade the bounded area (polygon A-B-C-E-D-A)
+polygon_x = [A[0], B[0], C[0], E[0], D[0], A[0]]
+polygon_y = [A[1], B[1], C[1], E[1], D[1], A[1]]
+plt.fill(polygon_x, polygon_y, color='orange', alpha=0.6, label="Bounded Area")
+
+# Mark and label vertices (B shown symbolically)
+vertices = {
+    "A(-2,0)": A,
+    "B(-2/3,0)": B,   # keep symbolic form
+    "C(1,0)": C,
+    "D(-2,-4)": D,
+    "E(1,5)": E
+}
+\end{lstlisting}
+\end{frame} 
+
+\begin{frame}[fragile]{Python: plot.py}
+\begin{lstlisting}[language=Python]
+for name, (px, py) in vertices.items():
+    plt.plot(px, py, 'ro')
+    plt.text(px+0.05, py+0.2, name, fontsize=9)
+
+# Annotate area
+plt.text(-0.5, 1.5, "Area = 41/6", fontsize=12, color="red", weight="bold")
+
+# Labels and formatting
+plt.xlabel("x-axis")
+plt.ylabel("y-axis")
+plt.title("Bounded Region between y=3x+2 and x-axis (x∈[-2,1])")
+plt.legend()
+plt.grid(True)
+
+# Save figure
+plt.savefig("bounded_area_vertices.png", dpi=300)
+plt.show()
+\end{lstlisting}
+\end{frame} 
+\end{document}

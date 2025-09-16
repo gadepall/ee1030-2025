@@ -1,0 +1,21 @@
+import numpy as np
+
+p = np.array([1, 0])
+
+given_value = 80
+
+p_norm_sq = np.dot(p, p)
+
+
+x_norm_sq = given_value + p_norm_sq
+x_norm = np.sqrt(x_norm_sq)
+
+x = np.array([x_norm, 0])
+
+
+lhs = np.dot(x - p, x + p)
+
+print("||p||^2 =", p_norm_sq)
+print("||x|| =", x_norm)
+print("Example x =", x)
+print("Verification (x - p)^T (x + p) =", lhs)

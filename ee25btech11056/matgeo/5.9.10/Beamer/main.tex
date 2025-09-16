@@ -1,0 +1,182 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx} % <-- needed for images
+\def\UrlBreaks{\do\/\do-}
+
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\lstset{
+  frame=single,
+  breaklines=true,
+  columns=fullflexible,
+  basicstyle=\ttfamily\tiny   % tiny font so code fits
+}
+
+\numberwithin{equation}{section}
+
+% ---- your macros ----
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}}
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}}
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\newcommand{\mydet}[1]{\ensuremath{\begin{vmatrix}#1\end{vmatrix}}}
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|*{#1}{c}@{}}
+}{%
+  \end{array}\right)
+}
+
+\newcommand{\myaugvec}[2]{\ensuremath{\begin{amatrix}{#1}#2\end{amatrix}}}
+\let\vec\mathbf
+% ---------------------
+
+\title{Matgeo Presentation - Problem 5.9.10}
+\author{ee25btech11056 - Suraj.N}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Problem Statement}
+
+A fraction becomes $\tfrac{1}{3}$ when $2$ is subtracted from the numerator and it becomes $\tfrac{1}{2}$ when $1$ is subtracted from the denominator. Find the fraction.
+
+\end{frame}
+
+\begin{frame}{Data}
+
+\begin{table}[h!]
+  \centering
+  \input{tables/table.tex}
+  \caption*{Table : Equations}
+  \label{5.9.10}
+\end{table}
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+Let the fraction be $\dfrac{x}{y}$ , using the given conditions we get ,
+
+\begin{align}
+  \dfrac{x-2}{y} &= \dfrac{1}{3}\\
+  3x - y &= 6\\
+  \dfrac{x}{y-1} &= \dfrac{1}{2}\\
+  2x - y &= -1
+\end{align}
+
+The system of equations formed is :
+
+\begin{align}
+3x - y &= 6\\
+2x - y &= -1
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+Writing it in the matrix form,
+
+\begin{align}
+  \myvec{3 & -1\\2 & -1}\myvec{x\\y} &= \myvec{6\\-1}
+\end{align}
+
+Forming the augmented matrix to solve the system of equations,
+
+\begin{align}
+  \myaugvec{2}{3 & -1 & 6\\2 & -1 & -1}
+\end{align}
+
+Using Gaussian Elimination,
+
+\begin{align}
+ \myaugvec{2}{3 & -1 & 6\\2 & -1 & -1} 
+ \xleftrightarrow{\;R_2 \to R_2 -\tfrac{2}{3}R_1}
+ \myaugvec{2}{3 & -1 & 6\\0 & -\tfrac{1}{3} & -5} 
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+Using back substitution we get,
+
+\begin{align}
+  -\tfrac{y}{3} &= -5\\
+  y &= 15\\
+3x-y &= 6\\
+  3x &= 6 + 15\\
+  x &= 7
+\end{align}
+
+The solution for the system of equations is :
+
+\begin{align}
+  \myvec{x\\y} &= \myvec{7\\15}
+\end{align}
+
+Therefore the fraction is 
+
+\begin{align}
+  \dfrac{x}{y} &= \dfrac{7}{15}
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Plot}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.7\columnwidth]{figs/solution.png} 
+   \caption*{Fig : Lines}
+  \label{Fig1}
+\end{figure}
+
+\end{frame}
+
+\end{document}

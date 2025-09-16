@@ -1,0 +1,140 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+%\numberwithin{equation}{section}
+
+\title{Matgeo-q.2.10.25}
+\author{AI25BTECH11036-SNEHAMRUDULA}
+
+\date{\today} 
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section*{Outline}
+\begin{frame}
+\frametitle{Question}
+% Q1 (2.10.25)
+\textbf{Q 2.10.25.} In $\triangle PQR$, let $\vec a=\overrightarrow{QR}$, $\vec b=\overrightarrow{RP}$ and $\vec c=\overrightarrow{PQ}$. 
+If $\lVert\vec a\rVert=12$, $\lVert\vec b\rVert=4\sqrt{3}$, and $\vec b\cdot\vec c=24$, then which of the following is/are true?
+\begin{enumerate}
+\item $\frac{\|\vec c\rVert^{2}}{2}-\|\vec a\|=12$
+\item $\frac{\lVert\vec c\rVert^{2}}{2}+\lVert\vec a\rVert=30$
+\item $\bigl\lVert\,\vec a\times\vec b+\vec c\times\vec a\,\bigr\rVert=48\sqrt{3}$
+\item $\vec a\cdot\vec b=-72$
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{solution}
+\begin{align}
+&\text{Given } \norm{\vec a}=12,\quad \norm{\vec b}=4\sqrt{3},\quad \vec b\cdot\vec c=24,\\
+&\vec a+\vec b+\vec c=\vec 0 \ \Rightarrow\ \vec c=-(\vec a+\vec b).\\[2pt]
+&\textbf{(d)}\quad 
+\vec b\cdot\vec c=\vec b\cdot(-\vec a-\vec b)=-\vec a\cdot\vec b-\norm{\vec b}^{2}=24\\
+&\Rightarrow\ \vec a\cdot\vec b=-(24+\norm{\vec b}^{2})=-(24+48)=-72.\\[2pt]
+&\textbf{(a),(b)}\quad 
+\norm{\vec c}^{2}=\norm{\vec a+\vec b}^{2}
+=\norm{\vec a}^{2}+\norm{\vec b}^{2}+2\,\vec a\cdot\vec b
+=48.\\
+&\frac{\norm{\vec c}^{2}}{2}-\norm{\vec a}=12\ \ (\text{true}),\quad
+\frac{\norm{\vec c}^{2}}{2}+\norm{\vec a}=36\ \ (\text{false}).\\[2pt]
+&\textbf{(c)}\quad 
+\vec a\times\vec b+\vec c\times\vec a
+=\vec a\times\vec b+(-\vec a-\vec b)\times\vec a
+=\vec a\times\vec b-\vec a\times\vec a-\vec b\times\vec a\\
+&\hspace{1.3cm}= \vec a\times\vec b+ \vec a\times\vec b
+=2\,(\vec a\times\vec b).\\
+\end{align}
+\end{frame}
+\begin{frame}
+\begin{align}
+&\cos\theta=\frac{\vec a\cdot\vec b}{\norm{\vec a}\norm{\vec b}}
+=\dfrac{-72}{12\cdot 4\sqrt3}=-\frac{\sqrt3}{2}
+\Rightarrow \sin\theta=\frac12.\\
+&\therefore\ 
+\bigl\lVert \vec a\times\vec b+\vec c\times\vec a \bigr\rVert
+=2\,\norm{\vec a\times\vec b}
+=2\,\norm{\vec a}\,\norm{\vec b}\sin\theta
+=48\sqrt3\ \ (\text{true}).
+\end{align}
+\end{frame}
+
+    \begin{frame}{Graphical Representation}
+   \begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\linewidth]{figs/fig.2.10.25.png}
+\end{figure}
+\end{frame}
+\end{document}
+

@@ -1,0 +1,11 @@
+#include<stdio.h>
+// 1.2.34
+int main()
+{
+	int a,b,c;
+	a=13;
+	b=-2;
+	c=1;
+	printf("%d", a/(b+c));
+	return 0;
+}

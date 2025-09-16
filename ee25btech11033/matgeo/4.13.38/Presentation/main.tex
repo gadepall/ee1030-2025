@@ -1,0 +1,164 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\begin{document}
+
+\title 
+{4.13.38}
+\date{September 08,2025}
+
+
+\author 
+{Kavin B-EE25BTECH11033}
+
+
+
+
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Let $PS$ be the median of the triangle with vertices $\vec{P}\brak{2, 2}$, $\vec{Q}\brak{6, -1}$ and $\vec{R}\brak{7,3}$. The equation of the line passing through $\brak{1, -1}$ and parallel to $PS$ is 
+\begin{multicols}{2}
+\begin{enumerate}
+\item $4x+7y+3=0$
+\item $2x-9y-11=0$
+\item $4x-7y-11=0$
+\item $2x+9y+7=0$
+\end{enumerate}
+\end{multicols}
+\end{frame}
+
+
+
+\begin{frame}{Theoretical Solution}
+
+Given the points,\\
+\begin{align}
+\vec{P}=\myvec{2\\2}\ \ \vec{Q}=\myvec{6\\-1}\ \ \vec{R}=\myvec{7\\3}
+\end{align}
+$\vec{S}$ is the midpoint of the line segment joining points $\vec{Q}$ and $\vec{R}$.\\
+If $\vec{S}$ divides $QR$ in the ratio $k : 1$,
+\end{frame}
+
+\begin{frame}{Formulae}
+\textbf{Section formula for a vector $\vec{S}$ which divides the line formed by vectors $\vec{Q}$ and $\vec{R}$ in the ratio $k:1$ is given by}
+\begin{align}
+    \vec{S}=\frac{k\vec{R}+\vec{Q}}{k+1}
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+where,
+\begin{align}
+    k=1
+\end{align}
+\begin{align}
+    \vec{S}= \frac{\vec{R}+\vec{Q}}{2}
+\end{align}
+\begin{align}
+    \implies\vec{S}= \myvec{13/2\\1}
+\end{align}
+The direction vector of line $PS$ is given by,
+\begin{align}
+\vec{m}=\vec{S}-\vec{P} \equiv \myvec{9/2\\-1}
+\end{align}\\
+Therefore, the normal vector of the desired line is given by,
+\begin{align}
+    \vec{n}=\myvec{1\\9/2}
+\end{align}
+\end{frame}
+
+
+\begin{frame}{Theoretical Solution}
+$\therefore$ The equation of the line passing through $\myvec{1\\-1}$ and parallel to $PS$ is given by
+\begin{align}
+    \vec{n}^{\top}\brak{\vec{x}-\myvec{1\\-1}}=0
+\end{align}
+\begin{align}
+    \myvec{1 & 9/2}\myvec{x-1\\y+1}=0
+\end{align}
+\begin{align}
+    \implies x-1 + \frac{9}{2}\brak{y+1}=0
+\end{align}
+\begin{align}
+    \implies 2x+9y+7=0
+\end{align}
+\end{frame}
+
+\begin{frame}{Plot}
+    \centering
+    \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{figs/fig.png}
+\end{frame}
+
+
+\end{document}

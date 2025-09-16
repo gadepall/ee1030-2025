@@ -1,0 +1,296 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{2.3.15}
+\date{September  2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{BEERAM MADHURI - EE25BTECH11012}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+The scalar product of the vector $\hat{i}+\hat{j}+\hat{k}$ with the unit vector along the sum of vectors $2\hat{i} + 4\hat{j} - 5\hat{k}$ and $\lambda \hat{i} + 2\hat{j} + 3\hat{k}$ is equal to one. Find the value of $\lambda$.
+ 
+\end{frame}
+ 
+\begin{frame}{given data}
+ 
+\text let $\mathbf{A}$, $\mathbf{B}$ and $\mathbf{C}$ be the vectors, such that:
+\begin{table}[h!]
+    \centering
+    \input{tables/table}
+    \caption{Variables used}
+    \label{table 2.3.15}
+\end{table}
+\end{frame}
+ 
+\begin{frame}{solution}
+\frametitle{finding Scalar product of $\mathbf{A}$ with unit vector along \vec{B}+ \vec{C}:}
+\text given,
+\begin{align}
+ \frac{\vec{A^\top} (\vec{B}+\vec{C})}{\|\vec{B}+\vec{C}\|} = 1\\
+\vec{A^\top} (\vec{B}+\vec{C}) = \|\vec{B}+\vec{C}\|
+\end{align}
+\text squaring on both sides:
+\begin{align}
+(\vec{A^\top} (\vec{B}+\vec{C}))^2 = \|\vec{B}+\vec{C}\|^2\\
+(\vec{A^\top} \vec{B} + \vec{A^\top} \vec{C})^2 = (\vec{B}+\vec{C})^\top(\vec{B}+\vec{C})
+\end{align}
+\end{frame}
+
+\begin{frame}
+ Substituting the values of \textbf{A},\textbf{B} and \textbf{C}: 
+\begin{align}
+\left(\begin{pmatrix}1 & 1 & 1\end{pmatrix}  \begin{pmatrix}2 \\4 \\-5\end{pmatrix}+\begin{pmatrix}1 & 1 & 1\end{pmatrix} \begin{pmatrix}\lambda \\2 \\3\end{pmatrix}\right)^2=
+\quad\begin{pmatrix}2+\lambda & 6 & -2\end{pmatrix}\begin{pmatrix}2+\lambda \\6 \\-2\end{pmatrix}
+\end{align}
+\begin{align}
+(\lambda+6)^2 = \lambda^2 
++ 4\lambda+44\\
+\lambda^2 + 36 + 12\lambda = \lambda^2 + 4\lambda + 44  
+\end{align}
+\begin{align}8\lambda &= 8 \\\lambda &= 1\end{align}\\
+    
+Hence value of $\lambda$ is 1.
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+ import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+# --- 1. Define vectors with the calculated lambda = 1 ---
+lambda_val = 1
+A = np.array([1, 1, 1])
+B = np.array([2, 4, -5])
+C = np.array([lambda_val, 2, 3])
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+
+    \begin{lstlisting}
+# Calculate the resultant vectors ---
+# Sum vector S = B + C
+S = B + C
+# Unit vector s_hat along S
+s_hat = S / np.linalg.norm(S)
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+
+    \begin{lstlisting}
+# Set up the 3D plot ---
+fig = plt.figure(figsize=(10, 8))
+ax = fig.add_subplot(111, projection='3d')
+origin = [0, 0, 0]
+
+#  Plot all vectors from the origin ---
+ax.quiver(*origin, *A, color='red', label=r'$\vec{A}$')
+ax.quiver(*origin, *B, color='blue', label=r'$\vec{B}$')
+ax.quiver(*origin, *C, color='green', label=r'$\vec{C}$ (with $\lambda=1$)')
+ax.quiver(*origin, *S, color='purple', label=r'Sum Vector $\vec{S} = \vec{B} + \vec{C}$')
+ax.quiver(*origin, *s_hat, color='orange', label=r'Unit Vector $\hat{s}$')
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+
+    \begin{lstlisting}
+# Add text labels near the vector tips for clarity ---
+ax.text(A[0], A[1], A[2], 'A', color='red', fontsize=12)
+ax.text(B[0], B[1], B[2], 'B', color='blue', fontsize=12)
+ax.text(C[0], C[1], C[2], 'C', color='green', fontsize=12)
+ax.text(S[0], S[1], S[2], 'S', color='purple', fontsize=12)
+ax.text(s_hat[0]*1.5, s_hat[1]*1.5, s_hat[2]*1.5, 'ŝ', color='orange', fontsize=14)
+\end{lstlisting}
+\end{frame}
+
+ 
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+
+    \begin{lstlisting}
+# Customize and display the plot ---
+ax.set_title('Visualization of Vectors', fontsize=16)
+ax.set_xlabel('X-axis')
+ax.set_ylabel('Y-axis')
+ax.set_zlabel('Z-axis')
+ax.set_xlim([-6, 6])
+ax.set_ylim([-6, 6])
+ax.set_zlim([-6, 6])
+ax.legend()
+ax.grid(True)
+plt.show()
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+  #include <stdio.h>
+
+int main() {
+    // The problem statement is:
+    // The scalar product of vector 'a' with the unit vector along the sum of vectors 'b' and 'c' is equal to one.
+    // Vector a = i + j + k
+   // Vector b = 2i + 4j - 5k
+   // Vector c = λi + 2j + 3k
+
+    // Step 1: Find the sum vector, s = b + c
+    // s = (2+λ)i + (4+2)j + (-5+3)k
+    // s = (2+λ)i + 6j - 2k
+   //  The given condition is a · (s / |s|) = 1, which simplifies to a · s = |s|.
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+    //  Calculate the dot product a · s
+    // a · s = (1 * (2+λ)) + (1 * 6) + (1 * -2) = 2 + λ + 6 - 2 = λ + 6
+
+    // Find the magnitude squared, |s|^2
+    // |s|^2 = (2+λ)^2 + 6^2 + (-2)^2 = (2+λ)^2 + 36 + 4 = (2+λ)^2 + 40
+    // Set up the equation (a · s)^2 = |s|^2
+    // (λ + 6)^2 = (2+λ)^2 + 40
+    // Step 6: Expand and simplify the equation
+    // λ^2 + 12λ + 36 = (λ^2 + 4λ + 4) + 40
+    // λ^2 + 12λ + 36 = λ^2 + 4λ + 44
+    // 12λ - 4λ = 44 - 36
+    // 8λ = 8
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+
+    // Solve for λ
+    float coefficient_of_lambda = 8.0;
+    float constant = 8.0;
+    float lambda = constant / coefficient_of_lambda;
+    // Display the final result
+    printf("The problem simplifies to the linear equation: 8 * lambda = 8\n");
+    printf("Solving for lambda...\n");
+    printf("The value of lambda is: %.0f\n", lambda);
+
+   return 0;}
+\end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+
+\begin{lstlisting}
+import subprocess
+
+# 1. Compile the C program
+subprocess.run(["gcc", "code.c", "-o", "code"])
+
+# 2. Run the compiled C program
+result = subprocess.run(["./code"], capture_output=True, text=True)
+
+# 3. Print the output from the C program
+print(result.stdout)
+\end{lstlisting}
+
+\end{frame}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\columnwidth]{Fig.png}
+    \caption{Plot}
+    \label{fig:placeholder}
+\end{figure}
+
+
+\end{document}

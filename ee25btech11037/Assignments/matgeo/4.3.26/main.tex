@@ -1,0 +1,82 @@
+\documentclass[journal,12pt,onecolumn]{IEEEtran}
+\usepackage{cite}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\usepackage{gvv}
+%\def\inputGnumericTable{}
+\usepackage[latin1]{inputenc} 
+\usetikzlibrary{arrows.meta, positioning}
+\usepackage{xparse}
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{float}
+
+\usepackage{float}
+%\newcommand{\define}{\stackrel{\triangle}{=}}
+\theoremstyle{remark}
+\usepackage{circuitikz}
+\captionsetup{justification=centering}
+\usepackage{tikz}
+
+\title{Matrices in Geometry 4.3.26}
+\author{EE25BTECH11037 - Divyansh}
+\begin{document}
+\vspace{3cm}
+\maketitle
+{\let\newpage\relax\maketitle}
+\textbf{Question: }
+Find the ratio in which the line segment joining the points $\vec{A}=\brak{4,8,10}$ and $\vec{B}=\brak{6, 10, -8}$ is divided bv the YZ plane.
+\vspace{2mm}
+
+\textbf{Solution:}
+ \vspace{1mm}
+We have two points $\vec{A}=\myvec{4\\ 8 \\  10}$ and $\vec{B}=\myvec{6\\  10\\ -8}$\\
+Let $\vec{P}$ be the point on the Y-Z plane. Since it is collinear to $\vec{A}$ and $\vec{B}$, \\
+Since $\vec{P}$ lies on Y-Z plane, $\vec{P}=\myvec{0 \\ P_y \\ P_z }$.\\ 
+From $\brak{4.1.2.5}$
+\begin{align}
+    \myvec{\vec{B} & \vec{A} & \vec{P}}^{\top} \vec{n}=\myvec{1 \\ 1 \\1}\\
+    \myvec{6 &10&-8 \\ 4 & 8& 10 \\ 0& P_y & P_z}\vec{n}=\myvec{1 \\ 1 \\1} \implies \myvec{6&10&-8&\vrule&1\\4&8&10&\vrule&1\\0&P_y&P_z&\vrule&1}
+    \overset{R_1 \rightarrow \frac{\brak{R_1 - R_2}}{2}}{\longrightarrow} \myvec{1&1&-9&\vrule&0\\4&8&10&\vrule&1\\0&P_y&P_z&\vrule&1}\\
+    \overset{R_2 \rightarrow R_2 - 4R_1}{\longrightarrow} \myvec{1&1&-9&\vrule&0\\0&4&46&\vrule&1\\0&P_y&P_z&\vrule&1}\overset{R_3 \rightarrow R_3 - R_2}{\longrightarrow} \myvec{1&1&-9&\vrule&0\\0&4&46&\vrule&1\\0&P_y-4&P_z-46&\vrule&0}
+\end{align}
+Since $\vec{P}$, $\vec{A}$ and $\vec{B}$ are collinear, the rank of this matrix must be less than or equal to 2. Therefore, the third row should be a zero row, and therefore, $\vec{P}=\myvec{0 \\ 4 \\ 46}$\\
+Let $\vec{P}$ divide $\vec{A}$ and $\vec{B}$ in the ratio $k:1$\\
+Using the formula \brak{1.1.5.2}
+\begin{align}
+    k=\dfrac{\brak{\vec{A}-\vec{P}}^{\top} \brak{\vec{P}-\vec{B}}}{\norm{\vec{P}-\vec{B}}^2}\\
+    \implies k=\dfrac{\myvec{4 & 4 & -36} \myvec{-6 \\ -6 \\ 54}}{\norm{\myvec{-6 \\ -6 \\ 54}}}\\
+    \implies k= \dfrac{-24 -24 -1944}{36 + 36 + 2916} = \dfrac{-1992}{2988}\\
+    \implies k= \frac{-2}{3}
+\end{align}
+Hence, the Y-Z plane divides the line segment that joins the points $\vec{A}$ and $\vec{B}$ in the external ratio $2:3$.
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=1\columnwidth]{figs/1.png}
+        \caption{Graph for 4.3.26}
+        \label{fig:placeholder}
+    \end{figure}
+\end{document}

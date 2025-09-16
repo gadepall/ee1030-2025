@@ -1,0 +1,321 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{advdate}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}} % nCr
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}} % nPr
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{{}\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\vert#1\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}} 
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E[ #1 ]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+%\providecommand{\hilbert}{\overset{\mathcal{H}}{ \rightleftharpoons}}
+\providecommand{\system}[1]{\overset{\mathcal{#1}}{ \longleftrightarrow}}
+%\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+	%\newcommand{\solution}[2]{\vec{Solution:}{#1}}
+%\newcommand{\solution}{\noindent \vec{Solution: }}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+
+
+\lstset{
+%language=C,
+frame=single, 
+breaklines=true,
+columns=fullflexible
+}
+\lstset{
+  language=C,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{gray}\itshape,
+  stringstyle=\color{orange},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  frame=single,
+  showstringspaces=false,
+  tabsize=4,
+  captionpos=b
+}
+\numberwithin{equation}{section}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{orange},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  showstringspaces=false
+}
+
+
+
+\title{Problem 2.10.20.}
+\author{Sarvesh Tamgade}
+
+\date{\today} 
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+\section{Question}
+\begin{frame}{Question}
+\textbf{Question}:
+ Which of the following expressions are meaningful?
+\begin{multicols}{2}
+\begin{enumerate}[label=(\alph*)]
+     
+\item $\mathbf{u} \cdot (\mathbf{v} \times \mathbf{w})$
+\item $(\mathbf{u} \cdot \mathbf{v}) \cdot \mathbf{w}$
+\item $(\mathbf{u} \cdot \mathbf{v})\ \mathbf{w}$
+\item $\mathbf{u} \times (\mathbf{v} \cdot \mathbf{w})$
+
+\end{enumerate}
+\end{multicols}
+\end{frame}
+
+\section{Solution}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+Let $\mathbf{u}$, $\mathbf{v}$, $\mathbf{w}$ be vectors in $\mathbb{R}^3$.
+
+   Let \begin{align}
+    \mathbf{u} &= \begin{bmatrix} 2 \\ 3 \end{bmatrix}, \quad
+  \mathbf{v} = \begin{bmatrix} 4 \\ 1 \end{bmatrix}, \quad
+  \mathbf{w} = \begin{bmatrix} 0 \\ 5 \end{bmatrix}.
+  \\
+\end{align}
+\begin{enumerate}[label=\alph*)]
+  \item \( \mathbf{u}^\top (\mathbf{v} \times \mathbf{w}) \)
+
+\[
+\mathbf{v} \times \mathbf{w} =
+\begin{pmatrix}
+v_{23} & w_{23} \\
+v_{31} & w_{31} \\
+v_{12} & w_{12}
+\end{pmatrix}
+=
+\begin{pmatrix}
+v_2 w_3 - v_3 w_2 \\
+v_3 w_1 - v_1 w_3 \\
+v_1 w_2 - v_2 w_1
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 \times 0 - 0 \times 5 \\
+0 \times 0 - 4 \times 0 \\
+4 \times 5 - 1 \times 0
+\end{pmatrix}
+\]
+\[
+=
+\begin{pmatrix}
+0 \\
+0 \\
+20
+\end{pmatrix}
+\]
+
+\end{enumerate}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+\begin{enumerate}[label=\alph*) ]
+\setcounter{enumi}{1} 
+    \[
+\mathbf{u}^\top (\mathbf{v} \times \mathbf{w}) =
+\begin{bmatrix} 2 & 3 & 0 \end{bmatrix}
+\begin{bmatrix}
+0 \\
+0 \\
+20
+\end{bmatrix} = 0
+\]
+Since the scalar (dot) product of two vectors is defined, the expression  \(\mathbf{u} ^\top(\mathbf{v} \times \mathbf{w})\) is meaningful.
+  \item \( (\mathbf{u}^\top \mathbf{v})^\top \mathbf{w} \)
+
+  \begin{align*}
+  \mathbf{u}^\top \mathbf{v} &= \begin{bmatrix} 2 & 3 \end{bmatrix} \begin{bmatrix} 4 \\ 1 \end{bmatrix} = 2 \times 4 + 3 \times 1 = 11,
+  \\
+  (\mathbf{u}^\top \mathbf{v})^\top \mathbf{w} &= 11^\top \mathbf{w} \quad \text{(scalar dot vector)} \quad \text{undefined}.
+  \end{align*}
+
+  \item \( (\mathbf{u}^\top \mathbf{v}) \mathbf{w} \)
+
+  \begin{align*}
+  (\mathbf{u}^\top \mathbf{v}) \mathbf{w} &= 11 \times \begin{bmatrix} 0 \\ 5 \end{bmatrix} = \begin{bmatrix} 0 \\ 55 \end{bmatrix}.
+  \end{align*}
+\end{enumerate}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+\begin{enumerate}[label=\alph*) ]
+\setcounter{enumi}{3} 
+ 
+
+  This is meaningful scalar multiplication.
+
+  \item \( \mathbf{u} \times (\mathbf{v}^\top \mathbf{w}) \)
+
+  \begin{align*}
+  \mathbf{v}^\top \mathbf{w} &= \begin{bmatrix} 4 & 1 \end{bmatrix} \begin{bmatrix} 0 \\ 5 \end{bmatrix} = 0 + 5 = 5,
+  \\
+  \mathbf{u} \times 5 &= \text{cross product of vector and scalar -- undefined}.
+  \end{align*}
+  
+\end{enumerate}
+
+\textbf{Answer:}
+\boxed{\text{Only (a) and (c) are meaningful }}
+
+
+\end{frame}
+\section{Graph}
+\begin{frame}
+    \frametitle{Graph}
+    \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.65\linewidth]{FIG/fig1.png}
+    \caption{Vector Representation}
+    \label{fig:FIG/fig1.png}
+\end{figure}
+\end{frame}
+\section{ C Code}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+#include <stdio.h>
+#include "matfun.h"
+
+void print_vector(const char* name, const double v[3]) {
+    printf("%s = (%.2f, %.2f, %.2f)\n", name, v[0], v[1], v[2]);
+}
+
+int main() {
+    double u[3] = {1, 2, 3};
+    double v[3] = {4, 5, 6};
+    double w[3] = {7, 8, 9};
+
+    double cross_vw[3];
+    cross_product(v, w, cross_vw);
+
+    double dot_u_crossvw = dot_product(u, cross_vw);
+    printf("u · (v × w) = %.2f\n", dot_u_crossvw);
+
+
+   
+    
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+ double dot_uv = dot_product(u, v);
+    printf("(u · v) = %.2f\n", dot_uv);
+
+    printf("(u · v) · w is NOT meaningful as dot product of scalar and vector.\n");
+
+    printf("(u · v) * w (scalar multiplication) = (%.2f, %.2f, %.2f)\n",
+           dot_uv * w[0], dot_uv * w[1], dot_uv * w[2]);
+
+    printf("v · w = %.2f\n", dot_product(v, w));
+    printf("u × (v · w) is NOT meaningful as cross product of vector and scalar.\n");
+
+    return 0;
+}
+
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code for Plotting}
+\begin{lstlisting}[language=Python]
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Vectors u, v, w in 2D (using first two components)
+u = np.array([2, 3])
+v = np.array([4, 1])
+w = np.array([0, 5])
+
+# Origin point
+origin = np.array([0, 0])
+
+# Plotting the vectors
+plt.figure(figsize=(7, 7))
+plt.quiver(*origin, *u, angles='xy', scale_units='xy', scale=1, color='red', label='u = [2, 3]')
+plt.quiver(*origin, *v, angles='xy', scale_units='xy', scale=1, color='green', label='v = [4, 1]')
+plt.quiver(*origin, *w, angles='xy', scale_units='xy', scale=1, color='blue', label='w = [0, 5]')
+
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python Code for Plotting}
+\begin{lstlisting}[language=Python]
+# Setting the limits
+plt.xlim(-1, 5)
+plt.ylim(-1, 6)
+
+# Adding labels and title
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.title('2D vectors: u, v, w')
+plt.grid()
+plt.legend()
+plt.gca().set_aspect('equal')
+
+# Save the figure as a PNG file
+plt.savefig('2D_vectors.png')
+plt.close()
+
+\end{lstlisting}
+
+\end{frame}
+
+\end{document}

@@ -1,0 +1,16 @@
+\frametitle{Python Code}
+\begin{verbatim}
+A = np.array([
+    [0, -a[2], a[1]],     # from a2*z - a3*y = b1
+    [a[2], 0, -a[0]],     # from a3*x - a1*z = b2
+    [-a[1], a[0], 0],     # from a1*y - a2*x = b3
+    [a[0], a[1], a[2]]    # dot product
+], dtype=float)
+
+rhs = np.array([b[0], b[1], b[2], dot_val], dtype=float)
+
+# Solve least squares (in case overdetermined)
+c, residuals, rank, s = np.linalg.lstsq(A, rhs, rcond=None)
+
+print("Vector c =", np.round(c, 4))
+    \end{verbatim}

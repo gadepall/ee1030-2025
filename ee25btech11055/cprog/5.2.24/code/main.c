@@ -5,7 +5,7 @@
 
 int main(void) {
 	float num = 2.0*pow(3,4)*pow(2,5);
-	float den = 9.0*pow(4.0,2);
+	float den = 9.0*pow(4,2);
 
 	printf("%f\n",num/den);
 	return 0;
