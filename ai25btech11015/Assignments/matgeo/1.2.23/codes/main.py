@@ -1,16 +1,18 @@
 import matplotlib.pyplot as plt
 import numpy as np 
 # Code by M SAI RITHIK
-
 # 1.2.23 Represent graphically a displacement
 # of 40 km, 30◦ west of south.
 # (−20, −20 √3)
 
+
+coords = np.loadtxt('var.dat', delimiter=' ')
+point = np.array(coords) * 40
+
+
 origin = np.array([0,0])
-point = np.array([-20, -20*np.sqrt(3)])
+
 vec = np.array([origin,point])
-# data = np.loadtxt('var.dat', delimiter=':', dtype=str, comments='%')
-# print(data)
 
 plt.plot(vec[:,0], vec[:,1], color="red",label="AB")
 plt.scatter(vec[:,0], vec[:,1],color = "red")
@@ -26,5 +28,4 @@ plt.ylabel("y")
 plt.grid(True)
 plt.axis("equal")
 plt.legend(loc="best")
-
 plt.savefig('../figs/fig.png', dpi=300)

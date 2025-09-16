@@ -1,0 +1,208 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{multicol}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\title 
+{2.10.18}
+\date{}
+
+\author
+{SAMYAK GONDANE - AI25BTECH11029}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Question}
+If $\vec{a} = \hat{i} + \hat{j} + \hat{k}, \vec{b} = 4\hat{i} + 3\hat{j} + 4\hat{k}$ and $\vec{c} = \hat{i} + \alpha\hat{j} + \beta\hat{k}$ are linearly dependant vectors and $\abs{c} = \sqrt{3}$, then
+\begin{multicols}{2}
+\begin{enumerate}
+    \item $\alpha = 1, \beta = -1$
+    \item $\alpha = 1, \beta = \pm1$
+    \item $\alpha = -1, \beta = -1$
+    \item $\alpha = \pm1, \beta = 1$
+\end{enumerate}
+\end{multicols}
+\end{frame}
+
+\begin{frame}{Solution}
+
+Given three vectors in $\mathbb{R}^3$:
+
+\begin{align}
+\vec{a} = \myvec{1 \\ 1 \\ 1}, \quad
+\vec{b} = \myvec{4 \\ 2 \\ 4}, \quad
+\vec{c} = \myvec{1 \\ \alpha \\ \beta}
+\end{align}
+
+We are told:
+\begin{itemize}
+    \item The vectors are linearly dependent.
+    \item The magnitude of $\vec{c}$ is $\sqrt{3}$.
+\end{itemize}
+
+\begin{align}
+\norm{\vec{c}}^2 = 1^2 + \alpha^2 + \beta^2 = 3 \quad \Rightarrow \quad \alpha^2 + \beta^2 = 2 \tag{1}
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+Place the vectors as rows of a matrix:
+
+\begin{align}
+A = \myvec{
+1 & 1 & 1 \\
+4 & 2 & 4 \\
+1 & \alpha & \beta
+}
+\end{align}
+
+Apply row operations:
+
+\begin{align}
+R_2 &\rightarrow R_2 - 4R_1 \
+\myvec{
+1 & 1 & 1 \\
+0 & -2 & 0 \\
+1 & \alpha & \beta
+}\\
+R_3 &\rightarrow R_3 - R_1 \
+\myvec{
+1 & 1 & 1 \\
+0 & -2 & 0 \\
+0 & \alpha - 1 & \beta - 1
+}
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+Normalize second row:
+
+\begin{align}
+R_2 \rightarrow \frac{1}{-2} R_2 \
+\myvec{
+1 & 1 & 1 \\
+0 & 1 & 0 \\
+0 & \alpha - 1 & \beta - 1
+}
+\end{align}
+
+Eliminate second column:
+\begin{align}
+R_1 &\rightarrow R_1 - R_2 \
+\myvec{
+1 & 0 & 1 \\
+0 & -2 & 0 \\
+0 & \alpha - 1 & \beta - 1
+}\\
+R_3 &\rightarrow R_3 - (\alpha - 1) R_2 \
+\myvec{
+1 & 1 & 1 \\
+0 & -2 & 0 \\
+0 & 0 & \beta - 1
+}
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+Final RREF matrix:
+\begin{align}
+\myvec{
+1 & 0 & 1 \\
+0 & 1 & 0 \\
+0 & 0 & \beta - 1
+}
+\end{align}
+\end{frame}
+
+
+\begin{frame}{Solution}
+\subsection*{Step 3: Linear Dependence Condition}
+For the rows to be linearly dependent, the third row must be zero:
+
+\begin{align}
+\beta - 1 = 0 \quad \Rightarrow \quad \beta = 1 \tag{2}
+\end{align}
+
+Substitute Equation (2) into Equation (1):
+
+\begin{align}
+\alpha^2 + 1 = 2 \quad \Rightarrow \quad \alpha^2 = 1 \quad \Rightarrow \quad \alpha = \pm 1
+\end{align}
+\subsection*{Final Answer}
+
+
+\begin{align}
+\boxed{\alpha = \pm 1, \quad \beta = 1}
+\end{align}
+\end{frame}
+
+\end{document}

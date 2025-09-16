@@ -1,0 +1,245 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\lstset{literate={·}{{$\cdot$}}1 {λ}{{$\lambda$}}1 {→}{{$\to$}}1}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{5.8.24}
+\date{September 6,2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{Harsha-EE25BTECH11026}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+
+\begin{frame}{Question}
+The ages of two friends Ani and Bijoya differ by 3 years. Ani's father Dharam is
+twice as old as Ani and Bijoya is twice as old as sister Kanta. The ages of Kanta and Dharam differ by 30 years. Find the ages of Ani and Bijoya.
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+Let the ages of Ani,Bijoya,Dharam and Kanta form a age vector $\vec{A}$ of the form,
+\begin{align}
+    \vec{A}=\myvec{\vec{a}&&\vec{b}&&\vec{c}&&\vec{d}}^{\top}
+\end{align}
+According to the data given,
+\begin{align}
+    \vec{a}-\vec{b}=3\\
+    \vec{c}=2\vec{a}\\
+    \vec{b}=2\vec{d}\\
+    \vec{c}-\vec{d}=30
+\end{align}
+\begin{align}
+    \therefore \myvec{1&&-1&&0&&0\\-2&&0&&1&&0\\0&&1&&0&&-2\\0&&0&&1&&-1}\vec{A}=\myvec{3\\0\\0\\30}
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+We can find the solution of the matrix by doing Gaussian elimination,
+\begin{align}
+    \augvec{4}{1}{1 & -1 & 0 & 0 & 3\\ -2 & 0 & 1 & 0 & 0\\ 0 & 1 & 0 & -2 & 0\\ 0 & 0 & 1 & -1 & 30}
+    \xleftrightarrow{\,R_2 \gets R_2+ 2 \times R_1}
+    \augvec{4}{1}{1 & -1 & 0 & 0 & 3\\ 0 & -2 & 1 & 0 & 6\\ 0 & 1 & 0 & -2 & 0\\ 0 & 0 & 1 & -1 & 30}
+    \xleftrightarrow{\,R_2 \leftrightarrow R_3}
+\end{align}
+\begin{align}
+    \augvec{4}{1}{1 & -1 & 0 & 0 & 3\\  0 & 1 & 0 & -2 & 0\\ 0 & -2 & 1 & 0 & 6\\ 0 & 0 & 1 & -1 & 30}
+    \xleftrightarrow{\, R_3 \gets 2 \times R_2 + R_3} 
+    \augvec{4}{1}{1 & -1 & 0 & 0 & 3\\  0 & 1 & 0 & -2 & 0\\ 0 & 0 & 1 & -4 & 6\\ 0 & 0 & 1 & -1 & 30}
+    \xleftrightarrow{\, R_4 \gets R_4-R_3} 
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+\begin{align}
+    \augvec{4}{1}{1 & -1 & 0 & 0 & 3\\  0 & 1 & 0 & -2 & 0\\ 0 & 0 & 1 & -4 & 6\\ 0 & 0 & 0 & 3 & 24}
+    \xleftrightarrow[\,R_3 \gets R_3 + 4 \times R_4]{\,R_4 \gets \frac{R_4}{3}}
+    \augvec{4}{1}{1 & -1 & 0 & 0 & 3\\  0 & 1 & 0 & -2 & 0\\ 0 & 0 & 1 & 0 & 38\\ 0 & 0 & 0 & 1 & 8}
+    \xleftrightarrow[\,R_1 \gets R_1+R_2]{\,R_2 \gets R_2+2 \times R_4}
+\end{align}
+\begin{align}
+    \augvec{4}{1}{1 & 0 & 0 & 0 & 19\\  0 & 1 & 0 & 0 & 16\\ 0 & 0 & 1 & 0 & 38\\ 0 & 0 & 0 & 1 & 8}
+\end{align}
+$\therefore$ Ages of Ani and Bijoya is 19 and 16 respectively.
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{C Code -Finding solution of the matrix}
+
+    \begin{lstlisting}[language=C]
+#include <stdio.h>
+#define N 4   // number of variables
+void gauss_solve(double A[N][N], double b[N], double x[N]) {
+    int i, j, k;
+    double ratio;
+    for (i = 0; i < N-1; i++) {
+        for (j = i+1; j < N; j++) {
+            if (A[i][i] == 0.0) {
+                printf("Mathematical Error: zero pivot\n");
+                return;
+            }
+            ratio = A[j][i] / A[i][i];
+            for (k = 0; k < N; k++) {
+                A[j][k] -= ratio * A[i][k];
+            }
+            b[j] -= ratio * b[i];
+        }
+    }
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code -Finding solution for the matrix}
+
+    \begin{lstlisting}[language=C]
+    x[N-1] = b[N-1] / A[N-1][N-1];
+    for (i = N-2; i >= 0; i--) {
+        x[i] = b[i];
+        for (j = i+1; j < N; j++) {
+            x[i] -= A[i][j] * x[j];
+        }
+        x[i] /= A[i][i];
+    }
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code -Finding Inverse of a Matrix}
+
+    \begin{lstlisting}[language=C]
+void solve_problem(double result[2]) {
+    double A[N][N] = {
+        { 1, -1, 0,  0},   
+        {-2,  0, 1,  0},   
+        { 0,  1, 0, -2},   
+        { 0,  0, 1, -1}   
+    };
+    double b[N] = {3, 0, 0, 30};  
+    double x[N];
+
+    gauss_solve(A, b, x);
+
+    result[0] = x[0];  // Ani
+    result[1] = x[1];  // Bijoya
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python+C code}
+
+    \begin{lstlisting}[language=Python]
+import ctypes
+# Load shared library
+lib = ctypes.CDLL("./libgauss_solver.so")
+# Define function signature
+lib.solve_problem.argtypes = [ctypes.POINTER(ctypes.c_double)]
+lib.solve_problem.restype = None
+
+result = (ctypes.c_double * 2)()
+lib.solve_problem(result)
+
+ani_age = result[0]
+bijoya_age = result[1]
+
+print(f"Ani's age = {ani_age:.0f}")
+print(f"bijoya's age = {bijoya_age:.0f}")
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python code}
+    \begin{lstlisting}[language=Python]
+import numpy as np
+A=np.array([[1,-1,0,0],[-2,0,1,0],[0,1,0,-2],[0,0,1,-1]])
+b=np.array([3,0,0,30])
+x=np.linalg.solve(A ,b)
+print(f"Ani's age:{x[0]:.0f} years")
+print(f"Bijoya's age:{x[1]:.0f} years") 
+    \end{lstlisting}   
+\end{frame}
+
+\end{document}

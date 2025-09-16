@@ -1,0 +1,402 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{extarrows}
+\usepackage{amsmath}
+\usepackage{extarrows}
+\usepackage{amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{amsmath} 
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\title %optional
+{4.3.21}
+\date{September 9 ,2025}
+
+
+\author 
+{Kartik Lahoti - EE25BTECH11032}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+In what ratio does the $X$-axis divide the line segment joining the points $\brak{-4,-6}$ and $\brak{-1,7}?$ Find the coordinates of the point of division.
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+Given :
+\begin{table}[H]
+    \centering
+    \input{tables/table.tex}
+    \caption{4.3.21}
+    \label{tab:placeholder_1}
+\end{table}
+
+Let , $\vec{P}$ be the point on $x$-axis dividing the  line $\vec{AB}$ in the ratio say $k\colon1$.
+\end{frame}
+\begin{frame}{Theoretical Solution}
+
+Now, $\vec{A}$ , $\vec{B}$ and $\vec{P}$ are collinear , 
+
+\begin{align}
+    \therefore rank\myvec{\vec{B} - \vec{A} & \vec{P} - \vec{B}} = 1
+\end{align}
+\begin{align}
+    \myvec{3 & x+1 \\ 13 & -7 } \xleftrightarrow[]{R_2 \rightarrow {\frac{-13}{3}R_1 + R_2}} \myvec{3 & x+1 \\ 0 & -\frac{13x}{3}-\frac{34}{3} } 
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+The number of nonzero rows in the echelon form is defined as the rank. For the above matrix to be of rank 1 ,
+\begin{align}
+    -\frac{13x}{3}-\frac{34}{3} &= 0  \\ 
+    x &= -\frac{34}{13}
+\end{align}
+
+$\therefore$ The coordinates of the point of intersection is 
+\begin{align}
+    \vec{P} = \myvec{-\frac{34}{13}  \\ 0}
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+Now, 
+\begin{align}
+    k = \frac{\brak{\vec{A} - \vec{P}}^{\top}\brak{\vec{P} - \vec{B}}}{\norm{\vec{P} - \vec{B}}^2}
+\end{align}
+
+Substituting the values of $\vec{A}$ , $\vec{B}$ and $\vec{P}$ , we get,
+\begin{align}
+    k = \frac{\myvec{-\frac{18}{13}& -6} \myvec{-\frac{21}{13} \\ -7 }}{\norm{\myvec{-\frac{21}{13} \\ -7}}^2}
+\end{align}
+\begin{align}
+    k = \frac{6}{7}
+\end{align}
+Thus,  the ratio in which the point $\vec{P}$ divides the line segment $\vec{AB}$ is $6\colon7$
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code (1)}
+
+    \begin{lstlisting}
+#include <math.h>
+double norm_sq (double *P , double *Q , int m )
+{
+	double sum = 0 ; 
+	for ( int i = 0 ; i  < m ; i++ )
+		sum += pow(P[i] - Q[i] , 2);
+	return sum ;
+}
+double ratio ( double *A , double *B , double *P , double norm  )
+{
+		double k = (A[0]-P[0]) * (P[0] - B[0]) + (A[1] - P[1]) * (P[1] - B[1]);
+		k = k / norm;
+		return k ; 
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code (2) - Function to Generate Points on Line}
+    \begin{lstlisting}
+#include <math.h>
+void line_cre(double *X , double *Y , double *A , double *B , int n , int m )
+{
+	double temp[m] ; 
+	for(int i = 0 ; i < m ; i++)
+	{
+		temp [i] = (B[i] - A[i])/(double)n ; 
+	}
+	for(int i = 0 ; i <= n ; i++)
+	{
+		X[i] = A[0] + temp[0] * i ; 
+		Y[i] = A[1] + temp[1] * i ;
+	}
+}
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting}
+import ctypes as ct
+import numpy as np
+import matplotlib.pyplot as plt
+
+handc1 = ct.CDLL("./func.so")
+handc1.norm_sq.argtypes = [
+    ct.POINTER(ct.c_double),
+    ct.POINTER(ct.c_double),
+    ct.c_int
+]
+handc1.norm_sq.restype = ct.c_double
+A = np.array([[-4],[-6]] , dtype = np.float64).reshape(-1,1)
+B = np.array([[-1],[7]] , dtype = np.float64).reshape(-1,1)
+P = np.array([[-34/13] ,[ 0 ]] , dtype = np.float64).reshape(-1,1)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting}
+
+norm = handc1.norm_sq(
+    B.ctypes.data_as(ct.POINTER(ct.c_double)),
+    P.ctypes.data_as(ct.POINTER(ct.c_double)),
+    2)
+handc1.ratio.argtypes = [
+    ct.POINTER(ct.c_double),
+    ct.POINTER(ct.c_double),
+    ct.POINTER(ct.c_double),
+    ct.c_double]
+    
+handc1.ratio.restype = ct.c_double
+k = handc1.ratio(
+    A.ctypes.data_as(ct.POINTER(ct.c_double)),
+    B.ctypes.data_as(ct.POINTER(ct.c_double)),
+    P.ctypes.data_as(ct.POINTER(ct.c_double)),norm)
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting}
+def line(P : np.ndarray , Q : np.ndarray , str ) :
+
+    handc2 = ct.CDLL("./line_gen.so")
+    handc2.line_cre.argtypes = [
+        ct.POINTER(ct.c_double),
+        ct.POINTER(ct.c_double),
+        ct.POINTER(ct.c_double),
+        ct.POINTER(ct.c_double),
+        ct.c_int,ct.c_int
+    ]
+    n = 200
+    X_l = np.zeros(n,dtype=np.float64)
+    Y_l = np.zeros(n,dtype=np.float64)
+
+    handc2.line_cre.restype = None
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting}
+handc2.line_cre(
+        X_l.ctypes.data_as(ct.POINTER(ct.c_double)),
+        Y_l.ctypes.data_as(ct.POINTER(ct.c_double)),
+        P.ctypes.data_as(ct.POINTER(ct.c_double)),
+        Q.ctypes.data_as(ct.POINTER(ct.c_double)),
+        n,2
+    )
+
+    plt.plot([X_l[0],X_l[-1]],[Y_l[0],Y_l[-1]], str , label = "Line Segment AB")
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting}
+plt.figure()
+
+line(A,B,"g--")
+
+coords = np.block([[A,B,P]])
+
+plt.scatter(coords[0,:] , coords[1,:])
+vert_label = ['A', 'B' , 'P' ]
+
+for i , txt in enumerate(vert_label) :
+    plt.annotate(f"{txt}\n({coords[0,i]:.1f},{coords[1,i]:.1f})",
+                 (coords[0,i], coords[1,i]),
+                 textcoords = "offset points" ,
+                 xytext = (10,20),ha = "center")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting}
+plt.xlabel("$x$")
+plt.ylabel("$y$")
+plt.grid()
+
+plt.legend(loc="best")
+
+plt.title("4.3.21")
+
+#plt.savefig("../figs/section1.png")
+#plt.show()
+plt.savefig('../figs/section1.png')
+subprocess.run(shlex.split("termux-open ../figs/section1.png"))
+
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import math
+import sys 
+sys.path.insert(0, '/home/kartik-lahoti/matgeo/codes/CoordGeo')
+import numpy as np
+import numpy.linalg as LA
+import matplotlib.pyplot as plt
+
+from line.funcs import *
+#from triangle.funcs import *
+#from conics.funcs import circ_gen
+
+#if using termux
+#import subprocess
+#import shlex
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code }
+    \begin{lstlisting}
+
+def norm_sq(P,Q) :
+    return pow(LA.norm(P-Q),2)
+
+def ratio(A,B,P,norm) :
+    k =  (A[0]-P[0]) * (P[0] - B[0]) + (A[1] - P[1]) * (P[1] - B[1])
+    return k /norm 
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code }
+    \begin{lstlisting}
+A = np.array([-4,-6]).reshape(-1,1)
+B = np.array([-1,7]).reshape(-1,1)
+P = np.array([-34/13 , 0 ]).reshape(-1,1)
+
+norm = norm_sq(P,B)
+
+k = ratio(A,B,P,norm) 
+k = np.squeeze(k) 
+print("Ratio = " , k )
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code }
+    \begin{lstlisting}
+
+def plot_it(P,Q,str):
+    x_l = line_gen_num(P,Q,20)
+    plt.plot(x_l[0,:],x_l[1,:] , str , label = "Line Segment AB" )
+
+plt.figure()
+
+plot_it(A,B,"g--")
+
+coords = np.block([[A,B,P]])
+plt.scatter(coords[0,:],coords[1,:])
+vert_labels = ['A','B','P']
+
+    \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code }
+    \begin{lstlisting}
+for i, txt in enumerate(vert_labels):
+    plt.annotate(f'{txt}\n({coords[0,i]:.1f}, {coords[1,i]:.1f})',
+                 (coords[0,i], coords[1,i]),
+                 textcoords="offset points",
+                 xytext=(20,15),
+                 ha='center')
+plt.xlabel('$x$')
+plt.ylabel('$y$')
+plt.grid()
+plt.legend(loc = "best")
+plt.title("Fig:4.3.21")
+#plt.savefig("../figs/section2.png")
+#plt.show()
+plt.savefig('../figs/section2.png')
+subprocess.run(shlex.split("termux-open ../figs/section2.png"))
+
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}{Plot}
+    \centering
+    \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{../figs/section1.png}   
+\end{frame}
+
+
+\end{document}

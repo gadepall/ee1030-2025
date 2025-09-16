@@ -1,0 +1,257 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\lstset{literate={·}{{$\cdot$}}1 {λ}{{$\lambda$}}1 {→}{{$\to$}}1}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{12.40}
+\date{September 12,2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{Harsha-EE25BTECH11026}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+
+\begin{frame}{Question}
+Given $\vec{M}=\myvec{2&&3&&7\\6&&4&&7\\4&&6&&14}$. Which of the following statements is/are correct:
+\begin{enumerate}
+    \item The rank of $\vec{M}$ is 2
+    \item The rank of $\vec{M}$ is 3
+    \item The rows of $\vec{M}$ are linearly independent 
+    \item The determinant of $\vec{M}$ is zero.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+Upon row reduction of matrix $\vec{M}$ to Row Echelon form (REF),
+\begin{align}
+    \myvec{2&&3&&7\\6&&4&&7\\4&&6&&14}
+    \xleftrightarrow[\,R_3 \gets R_3-2 \times R_1]{\,R_2 \gets R_2 - 3 \times R_1}
+    \myvec{2&&3&&7\\0&&-5&&-14\\0&&0&&0}
+\end{align}
+\begin{align*}
+    \implies \text{$\brak{a}$ The rank of $\vec{M}$ is 2}
+\end{align*}
+\begin{align*}
+    \text{$\brak{b}$ The determinant of $\vec{M}$ is 0}
+\end{align*}
+
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code -Finding REF of a matrix}
+
+    \begin{lstlisting}[language=C]
+#include <stdio.h>
+
+#define ROWS 3
+#define COLS 3
+
+void row_echelon_form(double A[ROWS][COLS]) {
+    int pivot_row = 0;
+
+    for (int pivot_col = 0; pivot_col < COLS; pivot_col++) {
+        int pivot = -1;
+        for (int r = pivot_row; r < ROWS; r++) {
+            if (A[r][pivot_col] != 0.0) {
+                pivot = r;
+                break;
+            }
+        }
+        if (pivot == -1) continue;
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code -Finding REF of a matrix}
+
+    \begin{lstlisting}[language=C]
+        if (pivot != pivot_row) {
+            for (int c = 0; c < COLS; c++) {
+                double tmp = A[pivot_row][c];
+                A[pivot_row][c] = A[pivot][c];
+                A[pivot][c] = tmp;
+            }
+        }
+        for (int r = pivot_row + 1; r < ROWS; r++) {
+            if (A[r][pivot_col] != 0.0) {
+                double factor = A[r][pivot_col] / A[pivot_row][pivot_col];
+                for (int c = pivot_col; c < COLS; c++) {
+                    A[r][c] -= factor * A[pivot_row][c];
+                }
+            }
+        }pivot_row++;
+        if (pivot_row == ROWS) break;
+    }
+}
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code -Finding REF of a matrix}
+
+    \begin{lstlisting}[language=C]
+int matrix_rank(double A[ROWS][COLS]) {
+    int rank = 0;
+    for (int i = 0; i < ROWS; i++) {
+        int nonzero = 0;
+        for (int j = 0; j < COLS; j++) {
+            if (A[i][j] != 0.0) {
+                nonzero = 1;
+                break;
+            }
+        }
+        if (nonzero) rank++;
+    }
+    return rank;
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code -Finding REF of a matrix}
+
+    \begin{lstlisting}[language=C]
+void solve_ref(double *out, int *rank_out) {
+    double A[ROWS][COLS] = {
+        {2, 3, 7},
+        {6, 4, 7},
+        {4, 6, 14}
+    };
+
+    row_echelon_form(A);
+    *rank_out = matrix_rank(A);
+
+    // Flatten into output buffer
+    int k = 0;
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            out[k++] = A[i][j];
+        }
+    }
+}
+    \end{lstlisting}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+    \frametitle{Python+C code}
+
+    \begin{lstlisting}[language=Python]
+import ctypes
+import sympy as sp
+
+lib = ctypes.CDLL("./libref_solver.so")
+lib.solve_ref.argtypes = [ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_int)]
+
+result = (ctypes.c_double * 9)()
+rank = ctypes.c_int()
+
+# Call C function
+lib.solve_ref(result, ctypes.byref(rank))
+
+ref = sp.Matrix(3, 3, result)
+print("Row Echelon Form (REF):")
+sp.pprint(ref)
+print("\nRank of matrix:", rank.value)
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python code}
+    \begin{lstlisting}[language=Python]
+import sympy as sp
+
+A=sp.Matrix([[2,3,7],[6,4,7],[4,6,14]])
+
+ref_A=A.echelon_form()
+print("Row Echelon Form:")
+sp.pprint(ref_A)
+rank=A.rank()
+print("Rank of the matrix=",rank)
+    \end{lstlisting}   
+\end{frame}
+
+\end{document}

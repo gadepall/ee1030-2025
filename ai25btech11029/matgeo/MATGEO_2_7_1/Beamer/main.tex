@@ -1,0 +1,154 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{multicol}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\title 
+{2.7.1}
+\date{}
+
+\author
+{SAMYAK GONDANE - AI25BTECH11029}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Question}
+The area of a triangle formed by vertices $\vec{O}, \vec{A}$ and $\vec{B}$, where $\vec{OA} = \hat{i} + 2\hat{j} + 3\hat{k}$ and $\vec{OB} = -3\hat{i} - 2\hat{j} + \hat{k}$ is
+\end{frame}
+
+\begin{frame}{Solution}
+Let \vec{O} be the origin
+
+Represent the vectors in matrix form:
+\begin{align}
+\vec{A} = \myvec{1 \\ 2 \\ 3}, \quad
+\vec{B} = \myvec{-3 \\ 1 \\ 1}
+\end{align}
+
+The area of triangle $OAB$ is given by:
+\begin{align}
+\text{Area} = \frac{1}{2} \norm{\vec{A} \times \vec{B}}
+\end{align}
+
+Compute the cross product using determinant:
+\begin{align}
+\vec{A} \times \vec{B} =
+\myvec{
+(2)(1) - (3)(1) \\
+(3)(-3) - (1)(1) \\
+(1)(1) - (2)(-3)
+}
+=
+\myvec{
+2 - 3 \\
+-9 - 1 \\
+1 + 6
+}
+=
+\myvec{
+-1 \\
+-10 \\
+7
+}
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+Simplifying:
+\begin{align}
+\Rightarrow \vec{A} \times \vec{B} = \myvec{-1 \\ -10 \\ 7}
+\end{align}
+
+Magnitude of the cross product:
+\begin{align}
+\norm{\vec{A} \times \vec{B}} = \sqrt{(-1)^2 + (-10)^2 + 7^2} = \sqrt{1 + 100 + 49} = \sqrt{150}
+\end{align}
+
+Final area:
+\begin{align}
+\text{Area} = \frac{1}{2} \sqrt{150}
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Plot}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.79\linewidth]{figs/Figure_1.png}
+        \caption{}
+        \label{fig:fig1}
+    \end{figure}
+\end{frame}
+
+\end{document}

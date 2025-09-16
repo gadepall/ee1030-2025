@@ -1,0 +1,225 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{3.2.32}
+
+%\subtitle{A short story}
+
+\author % (optional)
+{Varun-ai25btech11016}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Draw a right triangle ABC in which BC = 12 cm, AB = 5 cm and $\angle B$ = $90^\circ$.
+\end{frame}
+\begin{frame}{Solution}
+
+\textbf{Let's consider the triangle with vertices,}
+\begin{align} 
+\vec{A}=\myvec{0\\5}
+\vec{B}=\myvec{0\\0}
+\vec{C}=\myvec{12\\0}
+\end{align}
+
+\begin{figure}[h!]
+    \centering
+\includegraphics[width=0.6\textwidth]{figs/3.2.32.png}
+    \caption{}
+    \label{fig:1}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{C Code}
+\begin{lstlisting}
+#include <stdio.h>
+
+// Function to fill the coordinates of A, B, C
+// coords must be a double array of size 6
+// Format: [Ax, Ay, Bx, By, Cx, Cy]
+void get_triangle_coords(double *coords) {
+    // Right triangle with B at (0,0), C on x-axis, A on y-axis
+    coords[0] = 0.0;  // A.x
+    coords[1] = 5.0;  // A.y
+    coords[2] = 0.0;  // B.x
+    coords[3] = 0.0;  // B.y
+    coords[4] = 12.0; // C.x
+    coords[5] = 0.0;  // C.y
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{C plus Py Code}
+\begin{lstlisting}
+import ctypes
+import matplotlib.pyplot as plt
+
+# Load shared library
+lib = ctypes.CDLL('./libtriangle.so')
+
+# Create array for coordinates
+coords = (ctypes.c_double * 6)()
+
+# Call C function
+lib.get_triangle_coords(coords)
+
+# Extract points
+A = (coords[0], coords[1])
+B = (coords[2], coords[3])
+C = (coords[4], coords[5])
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{C plus Py Code}
+\begin{lstlisting}
+# Plot
+x_coords = [A[0], B[0], C[0], A[0]]
+y_coords = [A[1], B[1], C[1], A[1]]
+
+plt.figure(figsize=(6,6))
+plt.plot(x_coords, y_coords, 'b-', linewidth=2)
+plt.fill(x_coords, y_coords, 'lightblue', alpha=0.5)
+
+for point, name in zip([A, B, C], ['A', 'B', 'C']):
+    plt.text(point[0], point[1]+0.3, name, fontsize=12, ha='center')
+    plt.plot(point[0], point[1], 'ro')
+
+plt.plot([0, 0.5, 0.5, 0], [0, 0, 0.5, 0.5], 'k-')  # right angle marker
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{C plus Py Code}
+\begin{lstlisting}
+plt.gca().set_aspect('equal', adjustable='box')
+plt.xlim(-1, 13)
+plt.ylim(-1, 7)
+plt.title("Right Triangle ABC (from C function)")
+plt.savefig("/sdcard/matrix/ee1030-2025/ai25btech11016/matgeo/3.2.32/figs/3.2.32.png")
+plt.show()
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Py Code}
+\begin{lstlisting}
+
+import matplotlib.pyplot as plt
+
+# Coordinates of the vertices
+B = (0, 0)
+C = (12, 0)
+A = (0, 5)
+
+# Extract x and y coordinates
+x_coords = [A[0], B[0], C[0], A[0]]
+y_coords = [A[1], B[1], C[1], A[1]]
+
+# Plot triangle
+plt.figure(figsize=(6,6))
+plt.plot(x_coords, y_coords, 'b-', linewidth=2)
+plt.fill(x_coords, y_coords, 'lightblue', alpha=0.5)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Py Code}
+\begin{lstlisting}
+# Mark vertices
+for point, name in zip([A, B, C], ['A', 'B', 'C']):
+    plt.text(point[0], point[1]+0.3, name, fontsize=12, ha='center')
+    plt.plot(point[0], point[1], 'ro')
+
+# Right angle marker at B
+plt.plot([0, 0.5, 0.5, 0], [0, 0, 0.5, 0.5], 'k-')
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Py Code}
+\begin{lstlisting}
+# Axes setup
+plt.gca().set_aspect('equal', adjustable='box')
+plt.xlim(-1, 13)
+plt.ylim(-1, 7)
+plt.xlabel('x-axis (cm)')
+plt.ylabel('y-axis (cm)')
+plt.title('Right Triangle ABC')
+plt.grid(True)
+plt.savefig("/sdcard/matrix/ee1030-2025/ai25btech11016/matgeo/3.2.32/figs/3.2.32.png")
+plt.show()
+\end{lstlisting}
+\end{frame}
+\end{document}

@@ -2,7 +2,7 @@
 #include <math.h>
 double distance(double *a,double *b, int n)
 {
-	double d;
+	double d=0;
 	for(int i=0;i<n;i++)
 	{
 		d=d+pow(a[i]-b[i],2);

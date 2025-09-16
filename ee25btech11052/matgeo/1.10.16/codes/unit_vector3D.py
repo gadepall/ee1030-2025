@@ -42,5 +42,5 @@ ax.set_ylabel("Y")
 ax.set_zlabel("Z")
 ax.set_title("3D Unit Vector from C Function")
 
-plt.savefig("/home/shriyasnh/Desktop/matgeo/1.10.16/figs/unit_vector3d.png", dpi=300, bbox_inches="tight")
+
 plt.show()

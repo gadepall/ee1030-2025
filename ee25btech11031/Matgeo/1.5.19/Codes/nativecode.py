@@ -1,6 +1,6 @@
 import sys
 import math
-sys.path.insert(0, '/home/sai-sreevallabh/GVVsir/Matgeo/codes/CoordGeo')
+sys.path.insert(0, '/home/sai-sreevallabh/Matrix_Theory/Matgeo/codes/CoordGeo')
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg

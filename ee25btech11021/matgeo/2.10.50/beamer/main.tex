@@ -1,0 +1,362 @@
+\documentclass{beamer}
+
+\mode<presentation>
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{newunicodechar}
+\usepackage{enumitem}
+\setlist{nosep} % optional: removes vertical gaps
+\setlist[enumerate]{label=\arabic*)} % custom numbering if you want
+
+
+\newunicodechar{✅}{\checkmark}
+\newunicodechar{❌}{\texttimes}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx} % <-- needed for images
+\def\UrlBreaks{\do\/\do-}
+
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\lstset{
+  frame=single,
+  breaklines=true,
+  columns=fullflexible,
+  basicstyle=\ttfamily\tiny   % tiny font so code fits
+}
+
+\numberwithin{equation}{section}
+
+% ---- your macros ----
+\providecommand{\nCr}[2]{\,^{#1}{#2}}
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}}
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\let\vec\mathbf
+% ---------------------
+
+\title{Matgeo Presentation - Problem 2.7.33}
+\author{ee25btech11021 - Dhanush sagar}
+
+\begin{document}
+	
+
+		
+
+
+
+
+%---------------- Title Page ----------------
+\begin{frame}
+  \titlepage
+\end{frame}
+
+%---------------- Problem Statement ----------------
+\begin{frame}{Problem Statement}
+
+ A variable plane at a distance of one unit from the origin cuts the coordinate axes at $A, B$ and $C$.  
+
+
+If the centroid $D(x,y,z)$ of triangle $ABC$ satisfies the relation  
+\begin{align*}
+\frac{1}{x^{2}} + \frac{1}{y^{2}} + \frac{1}{z^{2}} = k,
+\end{align*}
+then the value of $k$ is :  
+
+\begin{multicols}{2}
+\begin{enumerate}
+   \item $3$
+    \item $1$
+    \item $\tfrac{1}{3}$
+    \item $9$
+\end{enumerate}
+\end{multicols}
+
+\end{frame}
+
+%---------------- Mathematical Formula ----------------
+\begin{frame}{solution}
+We write the plane in vector form as
+\begin{align}
+\vec{n}^{\top}\vec{x} &= 1,
+\end{align}
+and introduce the axis intercepts
+\begin{align}
+\vec{A} &= \myvec{a\\[4pt]0\\[4pt]0}, & 
+\vec{B} &= \myvec{0\\[4pt]b\\[4pt]0}, &
+\vec{C} &= \myvec{0\\[4pt]0\\[4pt]c}.
+\end{align}
+
+Define
+\begin{align}
+\vec{e} &= \myvec{1\\[4pt]1\\[4pt]1}, &
+\mathbf{M} &= \myvec{a&0&0\\[4pt]0&b&0\\[4pt]0&0&c}.
+\end{align}
+(Thus the columns of $\mathbf{M}$ are $\vec{A},\vec{B},\vec{C}$.)
+
+Since $\vec{A},\vec{B},\vec{C}$ lie on the plane we have
+\begin{align}
+\vec{n}^{\top}\vec{A} &= 1, & 
+\vec{n}^{\top}\vec{B} &= 1, & 
+\vec{n}^{\top}\vec{C} &= 1.
+\end{align}
+\end{frame}
+\begin{frame}{solution}
+These three equations combine into the single matrix relation
+\begin{align}
+\vec{n}^{\top}\mathbf{M} &= \vec{e}^{\top}.
+\end{align}
+Transposing yields
+\begin{align}
+\mathbf{M}^{\top}\vec{n} &= \vec{e}.
+\end{align}
+Because $\mathbf{M}$ is diagonal (hence $\mathbf{M}=\mathbf{M}^{\top}$) and invertible,
+\begin{align}
+\vec{n} &= \mathbf{M}^{-1}\vec{e}.
+\end{align}
+
+The centroid $\vec{D}$ of triangle $ABC$ is
+\begin{align}
+\vec{D} &= \frac{\vec{A}+\vec{B}+\vec{C}}{3}
+= \tfrac{1}{3}\mathbf{M}\vec{e}.
+\end{align}
+Introduce the diagonal matrix of centroid coordinates
+\begin{align}
+\mathbf{X} &= \operatorname{diag}(x,y,z),
+\end{align}
+and substitute the given relation
+\begin{align}
+\vec{D} &= \mathbf{X}\vec{e}.
+\end{align}
+\end{frame}
+\begin{frame}{solution}
+Comparing with $\vec{D}=\tfrac{1}{3}\mathbf{M}\vec{e}$ we obtain the matrix identity
+\begin{align}
+\mathbf{M} &= 3\mathbf{X}.
+\end{align}
+
+Using $\vec{n}=\mathbf{M}^{-1}\vec{e}$ and $\mathbf{M}=3\mathbf{X}$ we get
+\begin{align}
+\vec{n} &= (3\mathbf{X})^{-1}\vec{e}
+      = \tfrac{1}{3}\mathbf{X}^{-1}\vec{e}.
+\end{align}
+
+The perpendicular distance \(d\) from the origin to the plane $\vec{n}^{\top}\vec{x}=1$ is
+\begin{align}
+d &= \frac{1}{\|\vec{n}\|}
+   = \frac{1}{\sqrt{\vec{n}^{\top}\vec{n}}}.
+\end{align}
+Compute $\vec{n}^{\top}\vec{n}$ in purely matrix form:
+\begin{align}
+\vec{n}^{\top}\vec{n}
+&= \Big(\tfrac{1}{3}\mathbf{X}^{-1}\vec{e}\Big)^{\top}
+   \Big(\tfrac{1}{3}\mathbf{X}^{-1}\vec{e}\Big) \\
+&= \tfrac{1}{9}\,\vec{e}^{\top}\mathbf{X}^{-2}\vec{e}.
+\end{align}
+Hence
+\begin{align}
+\frac{1}{d^2} = \vec{n}^{\top}\vec{n} = \tfrac{1}{9}\,\vec{e}^{\top}\mathbf{X}^{-2}\vec{e}.
+\end{align}
+
+\end{frame}
+\begin{frame}{solution}
+
+Since $\mathbf{X}=\operatorname{diag}(x,y,z)$, we have
+\begin{align}
+\mathbf{X}^{-2} &= \operatorname{diag}\!\left(\tfrac{1}{x^2},\tfrac{1}{y^2},\tfrac{1}{z^2}\right).
+\end{align}
+Thus
+\begin{align}
+\vec{e}^{\top}\mathbf{X}^{-2}\vec{e}
+&= \myvec{1&1&1}
+   \myvec{
+     \tfrac{1}{x^2} & 0 & 0 \\
+     0 & \tfrac{1}{y^2} & 0 \\
+     0 & 0 & \tfrac{1}{z^2}
+   }
+   \myvec{1\\1\\1} \\
+&= \tfrac{1}{x^2}+\tfrac{1}{y^2}+\tfrac{1}{z^2}.
+\end{align}
+
+\subsection*{Final result}
+
+Therefore,
+\begin{align}
+\frac{1}{x^2}+\frac{1}{y^2}+\frac{1}{z^2} &= \frac{9}{d^2}.
+\end{align}
+For the given problem $d=1$,
+\begin{align}
+\frac{1}{x^2}+\frac{1}{y^2}+\frac{1}{z^2} &= 9,
+\end{align}
+so the required constant is
+\[
+\boxed{k=9}.
+\]
+
+\end{frame}
+
+%---------------- C Source Code ----------------
+\begin{frame}[fragile]{C Source Code:plane points.c}
+\begin{verbatim}
+#include <stdio.h>
+
+typedef struct {
+    double x, y, z;
+} Point;
+// Generate points array for A, B, C
+void generate_plane_points(double a, double b, double c, double *points_array) {
+    points_array[0] = a; points_array[1] = 0; points_array[2] = 0; // A
+    points_array[3] = 0; points_array[4] = b; points_array[5] = 0; // B
+    points_array[6] = 0; points_array[7] = 0; points_array[8] = c; // C
+}
+// Compute k
+double compute_plane_k(double a, double b, double c) {
+    double x = a/3.0, y = b/3.0, z = c/3.0;
+    return 1.0/(x*x) + 1.0/(y*y) + 1.0/(z*z);
+}
+
+
+\end{verbatim}
+\end{frame}
+
+%---------------- Python solve.py ----------------
+\begin{frame}[fragile]{Python Script:  solve plane.py}
+\begin{verbatim}
+import ctypes
+import sympy as sp
+import numpy as np
+# --- 1. Load C library ---
+lib = ctypes.CDLL("./plane_points.so")
+lib.generate_plane_points.argtypes = [ctypes.c_double, ctypes.c_double, ctypes.c_double, ctypes.POINTER(ctypes.c_double)]
+lib.generate_plane_points.restype = None
+# --- 2. Symbolic variables ---
+a, b, c = sp.symbols('a b c', positive=True)
+# --- 3. Compute centroid symbolically ---
+A = sp.Matrix([a, 0, 0])
+B = sp.Matrix([0, b, 0])
+C = sp.Matrix([0, 0, c])
+D = (A + B + C)/3
+# --- 4. Compute k symbolically ---
+k = 1/D[0]**2 + 1/D[1]**2 + 1/D[2]**2
+# --- 5. Apply plane condition: 1/a^2 + 1/b^2 + 1/c^2 = 1 ---
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]{Python Script:  solve plane.py}
+\begin{verbatim}
+plane_condition = 1/a**2 + 1/b**2 + 1/c**2
+k_final = k.subs(plane_condition, 1)
+print("Centroid D =", D)
+print("k in terms of a,b,c =", k)
+print("Using plane condition 1/a^2 + 1/b^2 + 1/c^2 = 1")
+print("Final k =", k_final)
+# --- 6. Optional: Call C program to generate points numerically ---
+# Here we must provide numeric values to C, just as placeholders
+points_array = (ctypes.c_double * 9)()
+lib.generate_plane_points(1.0, 1.0, 1.0, points_array)
+A_num = np.array(points_array[0:3])
+B_num = np.array(points_array[3:6])
+C_num = np.array(points_array[6:9])
+print("\nPoints from C code (numeric placeholders):")
+print("A =", A_num)
+print("B =", B_num)
+print("C =", C_num)
+\end{verbatim}
+\end{frame}
+
+%---------------- Python plot.py ----------------
+
+\begin{frame}[fragile]{Python Script: plot plane.py}
+\begin{verbatim}
+import matplotlib.pyplot as plt
+import numpy as np
+import ctypes
+# Load C library
+lib = ctypes.CDLL("./plane_points.so")
+lib.generate_plane_points.argtypes = [ctypes.c_double, ctypes.c_double, ctypes.c_double, ctypes.POINTER(ctypes.c_double)]
+lib.generate_plane_points.restype = None
+# --- Choose numeric a, b, c satisfying 1/a^2 + 1/b^2 + 1/c^2 = 1 ---
+a = b = c = np.sqrt(3)  # This ensures plane distance = 1
+# Generate points
+points_array = (ctypes.c_double * 9)()
+lib.generate_plane_points(a, b, c, points_array)
+A = np.array(points_array[0:3])
+B = np.array(points_array[3:6])
+C = np.array(points_array[6:9])
+D = (A + B + C)/3  # centroid
+# Plane distance from origin
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]{Python Script: plot plane.py}
+\begin{verbatim}
+distance = 1 / np.sqrt(1/a**2 + 1/b**2 + 1/c**2)
+# Plot triangle, centroid, and plane
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+for P, color, label in zip([A, B, C, D], ['red','green','blue','black'], ['A','B','C','Centroid D']):
+    ax.scatter(*P, color=color, label=label)
+# Triangle edges
+for P1, P2 in [(A, B), (B, C), (C, A)]:
+    ax.plot([P1[0], P2[0]], [P1[1], P2[1]], [P1[2], P2[2]], 'gray')
+# Plane surface
+xx, yy = np.meshgrid(np.linspace(0, a, 10), np.linspace(0, b, 10))
+zz = c*(1 - xx/a - yy/b)
+ax.plot_surface(xx, yy, zz, alpha=0.3, color='cyan')
+ax.set_xlabel('X'); ax.set_ylabel('Y'); ax.set_zlabel('Z')
+ax.set_title(f'Triangle ABC, Centroid D, Plane\nDistance from origin = {distance:.2f}')
+ax.legend()
+plt.savefig('triangle_centroid_plane_distance.png')  plt.show()
+
+\end{verbatim}
+\end{frame}
+
+%---------------- Result Plot ----------------
+\begin{frame}{Result Plot}
+ \begin{figure}[H]
+     \centering
+     \includegraphics[width=0.8\columnwidth]{figs/fig1.png}
+     \caption*{}
+     \label{fig:fig1}
+ \end{figure}
+ 
+\end{frame}
+
+\end{document}
