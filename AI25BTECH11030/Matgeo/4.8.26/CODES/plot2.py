@@ -19,6 +19,8 @@ Q = np.zeros(3, dtype=np.double)  # Output array
 
 # Call the C function to compute the foot of perpendicular
 matfun_lib.foot_of_perpendicular_to_Y_axis(P, Q)
+# Print the result as main.c does
+print(f"Foot of the perpendicular from P(2, -3, 4) to Y-axis is: ({Q[0]:.2f}, {Q[1]:.2f}, {Q[2]:.2f})")
 
 # Y-axis vector for plotting
 y_axis = np.array([[0, 0], [min(P[1], Q[1]) - 1, max(P[1], Q[1]) + 1], [0, 0]])
