@@ -1,0 +1,269 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+%------------------------------------------------------------
+\title{4.5.13}
+\date{September 16,2025}
+\author{EE25BTECH11011 - Navya Banavathu}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Question}
+Find the equations of the lines parallel to axes and passing through $(2, 3)$
+
+\end{frame}
+
+\begin{frame}{Solution}
+The given point is  
+\begin{align}
+A = \begin{pmatrix}2 \\ 3\end{pmatrix}.
+\end{align}
+
+
+\textbf{Case 1: Line parallel to the $x$-axis}
+
+ A line parallel to the $x$-axis has direction vector  
+\begin{align}
+\vec{d} = \begin{pmatrix}1 \\ 0\end{pmatrix}.
+\end{align}
+
+ A normal vector to this line is therefore  
+
+\begin{align}
+\vec{n} = \begin{pmatrix}0 \\ 1\end{pmatrix}.
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+Equation of a line in normal form is  
+\begin{align}
+\vec{n}^T(\vec{x} - A) = 0.
+\end{align}
+
+Substituting,
+\begin{align}
+\begin{pmatrix}0 & 1\end{pmatrix}
+\left(\vec{x} - \begin{pmatrix}2 \\ 3\end{pmatrix}\right) &= 0
+\end{align}
+\begin{align}
+\begin{pmatrix}0 & 1\end{pmatrix}\vec{x} &= 3
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Solution}
+\textbf{Case 2: Line parallel to the $y$-axis}
+
+ A line parallel to the $y$-axis has direction vector  
+\begin{align}
+\vec{d} = \begin{pmatrix}0 \\ 1\end{pmatrix}.
+\end{align}
+ A normal vector to this line is therefore  
+\begin{align}
+\vec{n} = \begin{pmatrix}1 \\ 0\end{pmatrix}.
+\end{align}
+
+Equation of the line:
+\begin{align}
+\begin{pmatrix}1 & 0\end{pmatrix}
+\left(\vec{x} - \begin{pmatrix}2 \\ 3\end{pmatrix}\right) &= 0 \\[6pt]
+\begin{pmatrix}1 & 0\end{pmatrix}\vec{x} &= 2
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+\textbf{Case 3: General line through $(2,3)$}
+
+Let the normal vector be  
+\begin{align}
+\vec{n} = \begin{pmatrix}a \\ b\end{pmatrix}, \quad (a,b)\neq (0,0).
+\end{align}
+
+Equation:
+
+\begin{align}
+\vec{n}^T(\vec{x} - A) &= 0 \\[6pt]
+\begin{pmatrix}a & b\end{pmatrix}
+\left(\vec{x} - \begin{pmatrix}2 \\ 3\end{pmatrix}\right) &= 0 \\[6pt]
+\begin{pmatrix}a & b\end{pmatrix}\vec{x} &= 2a+3b
+\end{align}
+\end{frame}
+
+
+\begin{frame}[fragile]{ Code (C)}
+\begin{block}{Part 1}
+\begin{lstlisting}[language=C, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+#include <stdio.h>
+
+int main(void) {
+    double Ax = 2.0, Ay = 3.0;
+    printf("A = (%.1f, %.1f)\n\n", Ax, Ay);
+
+    double a1 = 0.0, b1 = 1.0, rhs1 = 3.0;
+    printf("Case 1 (parallel to x-axis):\n");
+    printf("[%.0f %.0f] · x = %.0f\n\n", a1, b1, rhs1);
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{ Code (C)}
+\begin{block}{Part 2}
+\begin{lstlisting}[language=C, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+ double a2 = 1.0, b2 = 0.0, rhs2 = 2.0;
+    printf("Case 2 (parallel to y-axis):\n");
+    printf("[%.0f %.0f] · x = %.0f\n\n", a2, b2, rhs2);
+
+    double a = 4.0, b = -1.0;
+    double rhs = Ax * a + Ay * b;
+    printf("General case (a=%.0f, b=%.0f):\n", a, b);
+    printf("[%.0f %.0f] · x = %.0f\n", a, b, rhs);
+
+    return 0;
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Python Code:Import and Define points}
+\begin{block}{Part 1}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+import ctypes
+import matplotlib.pyplot as plt
+import numpy as np
+import platform
+
+# Load compiled C library
+if platform.system() == "Windows":
+    lib = ctypes.CDLL("./code6.dll")
+else:
+    lib = ctypes.CDLL("./libcode6.so")
+
+# Tell ctypes about function signatures
+lib.get_x_line.argtypes = [ctypes.c_double, ctypes.c_double]
+lib.get_x_line.restype = ctypes.c_double
+
+lib.get_y_line.argtypes = [ctypes.c_double, ctypes.c_double]
+lib.get_y_line.restype = ctypes.c_double
+
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Python Code}
+\begin{block}{Part 2}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+lib.get_general_line.argtypes=[ctypes.c_double, ctypes.c_double,
+                                 ctypes.c_double, ctypes.c_double]
+lib.get_general_line.restype = ctypes.c_double
+
+# Point A
+Ax, Ay = 2.0, 3.0
+
+# Case 1: Line parallel to x-axis (n = (0,1))
+y_const = lib.get_y_line(Ax, Ay)
+
+# Case 2: Line parallel to y-axis (n = (1,0))
+x_const = lib.get_x_line(Ax, Ay)
+
+# Case 3: General line (example n = (2,-1))
+n1, n2 = 2.0, -1.0
+rhs = lib.get_general_line(Ax, Ay, n1, n2)
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Python Code: Plotting}
+\begin{block}{Part 3}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+fig, ax = plt.subplots(figsize=(7,7))
+
+x_vals = np.linspace(-5, 10, 400)
+y_vals_range = np.linspace(-5, 10, 400)
+
+# Case 1: horizontal line
+ax.plot(x_vals, y_const * np.ones_like(x_vals), 'r--',
+        label=rf"$(0,1)\cdot x = {y_const:.1f}$  (Line parallel to x-axis)")
+
+# Case 2: vertical line
+ax.plot(x_const * np.ones_like(y_vals_range), y_vals_range,'b--',
+        label=rf"$(1,0)\cdot x = {x_const:.1f}$  (Line parallel to y-axis)")
+
+# Case 3: general line (n·x = rhs)
+y_vals = (rhs - n1*x_vals) / n2
+
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Python Code: Plotting}
+\begin{block}{Part 4}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+ax.plot(x_vals, y_vals, 'g-',
+        label=rf"$({n1:.0f},{n2:.0f})\cdot x = {rhs:.1f}$ (Equation of line passing through (2,3))")
+
+# Mark point A
+ax.scatter(Ax, Ay, color='black', zorder=5)
+ax.text(Ax+0.1, Ay+0.1, r"$A(2,3)$")
+
+ax.set_xlim(-5, 10)
+ax.set_ylim(-5, 10)
+ax.set_xlabel("x")
+ax.set_ylabel("y")
+ax.legend()
+ax.grid(True)
+ax.set_aspect('equal', adjustable='box')
+plt.savefig("fig6.png")
+plt.show()
+
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}{Graphical Representation}
+    \begin{figure}
+        \centering
+        \includegraphics[width=1.1\columnwidth]{../beamer/figs/fig6.png}
+        \caption{Equations of line parallel to x,y axes and passing through(2,3)}
+    \end{figure}
+\end{frame}
+
+\end{document}
+
