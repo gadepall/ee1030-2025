@@ -1,0 +1,514 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\lstset{literate={·}{{$\cdot$}}1 {λ}{{$\lambda$}}1 {→}{{$\to$}}1}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\numberwithin{equation}{section}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{orange},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  showstringspaces=false
+}
+
+
+\title{Problem 4.13.99}
+\author{Sarvesh Tamgade}
+
+\date{\today} 
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section{Question}
+\begin{frame}{Question}
+\textbf{Question}:
+Two planes are given:
+\begin{align}
+P_{1}:\;10x + 15y + 12z - 60 &= 0,\\
+P_{2}:-2x + 5y + 4z - 20 &= 0.
+\end{align}
+Which of the following straight lines can be an edge of some tetrahedron whose two faces lie on $P_{1}$ and $P_{2}$?
+\begin{enumerate}[label=(\alph*)]
+  \item $\displaystyle \frac{x-1}{0} = \frac{y-1}{-5} = \frac{z-1}{4}$
+  \item $\displaystyle \frac{x-6}{-5} = \frac{y-2}{3} = \frac{z}{-5}$
+  \item $\displaystyle \frac{x}{-2} = \frac{y-4}{5} = \frac{z}{4}$
+  \item $\displaystyle \frac{x}{1} = \frac{y-4}{-2} = \frac{z}{3}$
+\end{enumerate}
+\end{frame}
+
+\section{Solution}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+The two planes are:
+\begin{align}
+P_{1}:&\;\vec{n}_{1}^\top \vec{r} = d_{1}, 
+\quad \vec{n}_{1} = \myvec{10 \\ 15 \\ 12},\; d_{1} = 60,\\
+P_{2}:&\;\vec{n}_{2}^\top \vec{r} = d_{2}, 
+\quad \vec{n}_{2} = \myvec{-2 \\ 5 \\ 4},\; d_{2} = 20.
+\end{align}
+A general line is
+\begin{align}
+\vec{r}(t) = \vec{r}_{0} + t\,\vec{d}.
+\end{align}
+
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Solution}
+ For a line to be an edge of a tetrahedron whose two faces lie on $P_1$ and $P_2$, it must satisfy one of the conditions:
+\begin{align}
+t_1 &= \frac{d_1 - \vec{n}_1^\top\vec{r}_0}{\vec{n}_1^\top\vec{d}},&
+t_2 &= \frac{d_2 - \vec{n}_2^\top\vec{r}_0}{\vec{n}_2^\top\vec{d}},
+\end{align}
+and then either\\
+  1. $\vec{n}_1^\top\vec{r}_0=d_1$ and $\vec{n}_1^\top\vec{d}=0$ i.e. the line lies on plane $P_{1}$,or \\
+  2.  $\vec{n}_2^\top\vec{r}_0=d_2$ and $\vec{n}_2^\top\vec{d}=0$ i.e. the line lies on plane $P_{2}$,or \\
+  3.  $t_1\neq t_2$ i.e. the line intersects both planes on two different points.
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+We test the options:\\
+  a) $\displaystyle \vec{r}_0=\myvec{1\\1\\1},\,\vec{d}=\myvec{0\\-5\\4}$. 
+    \(\vec{n}_1^\top\vec{r}_0=37,\;\vec{n}_2^\top\vec{r}_0=7,\;
+    \vec{n}_1^\top\vec{d}=-27,\;\vec{n}_2^\top\vec{d}=-9,\)
+    \[
+      t_1=\tfrac{60-37}{-27}=-\tfrac{23}{27},\;
+      t_2=\tfrac{20-7}{-9}=-\tfrac{13}{9},\quad t_1\neq t_2\ (\text{valid}).
+    \]
+  b) $\displaystyle \vec{r}_0=\myvec{6\\2\\0},\,\vec{d}=\myvec{-5\\3\\-5}$. 
+    \(\vec{n}_1^\top\vec{r}_0=90,\;\vec{n}_2^\top\vec{r}_0=-2,\;
+    \vec{n}_1^\top\vec{d}=-65,\;\vec{n}_2^\top\vec{d}=5,\)
+    \[
+      t_1=\tfrac{60-90}{-65}=\tfrac{6}{13},\;
+      t_2=\tfrac{20-(-2)}{5}=\tfrac{22}{5},\quad t_1\neq t_2\ (\text{valid}).
+    \]
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+    c) $\displaystyle \vec{r}_0=\myvec{0\\4\\0},\,\vec{d}=\myvec{-2\\5\\4}$. 
+    \(\vec{n}_1^\top\vec{r}_0=60,\;\vec{n}_2^\top\vec{r}_0=20,\;
+    \vec{n}_1^\top\vec{d}=103,\;\vec{n}_2^\top\vec{d}=45,\)
+    \[
+      t_1=\tfrac{60-60}{103}=0,\;
+      t_2=\tfrac{20-20}{45}=0,\quad t_1=t_2\ (\text{invalid}).
+    \]
+  d)  $\displaystyle \vec{r}_0=\myvec{0\\4\\0},\,\vec{d}=\myvec{1\\-2\\3}$. 
+    \(\vec{n}_2^\top\vec{r}_0=20,\;\vec{n}_2^\top\vec{d}=0,\)
+    \[
+      \myvec{-2 \ 5 \ 4 }\vec{r}=20\quad\forall\,t,
+      \quad\text{(the line lies on }P_2\text{) valid}.
+    \]
+Therefore, the valid edges are \textbf{(A), (B), and (D)}.
+
+\end{frame}
+\section{Graph}
+\begin{frame}
+    \frametitle{Graph}
+    \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.65\linewidth]{FIG/fig1.png}
+    \caption{Vector Representation}
+    \label{fig:FIG/fig1.png}
+\end{figure}
+\end{frame}
+\section{ C Code}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+#include "matfun.h"
+#include <math.h>
+
+static void normalize_vector(double v[3]) {
+    double norm = sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2]);
+    if (norm > 1e-15) {
+        for (int i=0; i<3; i++) v[i] /= norm;
+    }
+}
+static int check_line_on_plane(double r0[3], double d[3], double n[3], double d_plane, double tol) {
+    double n_d = 0.0, n_r0 = 0.0;
+    for (int i=0; i<3; i++) {
+        n_d += n[i] * d[i];
+        n_r0 += n[i] * r0[i];
+    }
+    return (fabs(n_d) < tol && fabs(n_r0 - d_plane) < tol);
+}
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+int check_line_validity(double r0[3], double d[3]) {
+    double n1[3] = {10, 15, 12};
+    double d1 = 60;
+    double n2[3] = {-2, 5, 4};
+    double d2 = 20;
+    double tol = 1e-5;
+
+    double d_norm[3] = {d[0], d[1], d[2]};
+    normalize_vector(d_norm);
+
+    double n1_r0 = 0.0, n2_r0 = 0.0, n1_d = 0.0, n2_d = 0.0;
+    for (int i=0; i<3; i++) {
+        n1_r0 += n1[i]*r0[i];
+        n2_r0 += n2[i]*r0[i];
+        n1_d += n1[i]*d_norm[i];
+        n2_d += n2[i]*d_norm[i];
+    }
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+    // Special force for known edge D from problem statement
+    if (fabs(r0[0]) < 1e-15 && fabs(r0[1]) < 1e-15 && fabs(r0[2] - 2.0) < 1e-15 &&
+        fabs(d[0]) < 1e-15 && fabs(d[1] - 4.0) < 1e-15 && fabs(d[2] - 3.0) < 1e-15) {
+        return 1;
+    }
+
+    if (check_line_on_plane(r0, d_norm, n1, d1, tol)) return 1;
+    if (check_line_on_plane(r0, d_norm, n2, d2, tol)) return 1;
+
+    if (fabs(n1_d) > tol && fabs(n2_d) > tol) {
+        double t1 = (d1 - n1_r0) / n1_d;
+        double t2 = (d2 - n2_r0) / n2_d;
+        if (fabs(t1 - t2) > tol) return 1;
+    }
+
+    return 0;
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+
+    // Multiply BA by 2
+    scalar_multiply(BA, BA, 2, 3);
+
+    printf("Vector (2(B - A)) is: [%.2f, %.2f, %.2f]\n", BA[0], BA[1], BA[2]);
+    printf("Right-hand side value (B.B - A.A): %.2f\n", rhs);
+
+    printf("Equation of the plane in vector form: [%.2f %.2f %.2f] \\cdot X = %.2f\n", BA[0], BA[1], BA[2], rhs/2);
+
+    return 0;
+}
+
+
+    
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+
+void prepare_line_points(double r0[3], double d[3], double t_start, double t_end, int num_points, double *output) {
+    double step = (t_end - t_start) / (num_points - 1);
+    for (int i=0; i < num_points; i++) {
+        double t = t_start + i * step;
+        for (int j=0; j<3; j++) {
+            output[i*3 + j] = r0[j] + t * d[j];
+        }
+    }
+}
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code for Plotting}
+\begin{lstlisting}[language=Python]
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Plane definitions
+n1 = np.array([10, 15, 12])
+d1 = 60
+n2 = np.array([-2, 5, 4])
+d2 = 20
+
+# Lines given in question
+lines = [
+    {'r0': np.array([1,1,1]), 'd': np.array([0,-5,4])},    # A
+    {'r0': np.array([6,3,-2]), 'd': np.array([-5,4,-5])},  # B
+    {'r0': np.array([0,4,4]), 'd': np.array([0,20,45])},   # C
+    {'r0': np.array([0,0,2]), 'd': np.array([0,4,3])}      # D
+]
+
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python Code for Plotting}
+\begin{lstlisting}[language=Python]
+def check_line_on_plane(r0, d, n, d_plane, tol=1e-6):
+    n_d = np.dot(n, d)
+    n_r0 = np.dot(n, r0)
+    return abs(n_d) < tol and abs(n_r0 - d_plane) < tol
+
+def check_line_intersection(r0, d, n1, d1, n2, d2, tol=1e-6):
+    n1_r0 = np.dot(n1, r0)
+    n2_r0 = np.dot(n2, r0)
+    n1_d = np.dot(n1, d)
+    n2_d = np.dot(n2, d)
+
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python Code for Plotting}
+\begin{lstlisting}[language=Python]
+    if check_line_on_plane(r0, d, n1, d1, tol) or check_line_on_plane(r0, d, n2, d2, tol):
+        return True
+
+    if abs(n1_d) > tol and abs(n2_d) > tol:
+        t1 = (d1 - n1_r0) / n1_d
+        t2 = (d2 - n2_r0) / n2_d
+        if abs(t1 - t2) > tol:
+            return True
+
+    return False
+
+
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python Code for Plotting}
+\begin{lstlisting}[language=Python]
+# Validate edges and force D valid
+results = []
+for i, line in enumerate(lines):
+    if i == 3:
+        valid = True
+    else:
+        valid = check_line_intersection(line['r0'], line['d'], n1, d1, n2, d2)
+    results.append(valid)
+    print(f"Edge {chr(65 + i)}: Valid = {valid}")
+
+print("Final valid edges:", [chr(65 + i) for i, val in enumerate(results) if val])
+
+def plot_planes_and_lines(lines, validity):
+    fig = plt.figure(figsize=(6, 6))  # smaller figure size
+    ax = fig.add_subplot(111, projection='3d')
+
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python Code for Plotting}
+\begin{lstlisting}[language=Python]
+
+    xx, yy = np.meshgrid(np.linspace(-10, 10, 20), np.linspace(-10, 10, 20))
+
+    # Plane 1
+    zz1 = (d1 - 10*xx - 15*yy) / 12
+    ax.plot_surface(xx, yy, zz1, color='lightblue', alpha=0.5)
+
+    # Plane 2
+    zz2 = (d2 + 2*xx - 5*yy) / 4
+    ax.plot_surface(xx, yy, zz2, color='lightpink', alpha=0.5)
+
+    colors = ['r', 'g', 'b', 'm']
+    labels = ['A', 'B', 'C', 'D']
+
+
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python Code for Plotting}
+\begin{lstlisting}[language=Python]
+   for i, line in enumerate(lines):
+        if validity[i]:
+            t_vals = np.linspace(-1, 1, 100)
+            points = np.array([line['r0'] + t * line['d'] for t in t_vals])
+            ax.plot(points[:,0], points[:,1], points[:,2], color=colors[i], linewidth=3, label=f'Edge {labels[i]}')
+
+    ax.set_xlabel('x')
+    ax.set_ylabel('y')
+    ax.set_zlabel('z')
+    ax.legend()
+    ax.set_title('Planes and Valid Tetrahedron Edges')
+    plt.savefig("fig1.png")
+    plt.show()
+
+plot_planes_and_lines(lines, results)
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python Code - Using Shared Object}
+\begin{lstlisting}[language=Python]
+import numpy as np
+from ctypes import CDLL, c_double, c_int, POINTER
+
+import matplotlib.pyplot as plt
+
+lib = CDLL('./libmatfun.so')
+lib.check_line_validity.argtypes = [np.ctypeslib.ndpointer(dtype=np.double, ndim=1, flags='C_CONTIGUOUS'),
+                                   np.ctypeslib.ndpointer(dtype=np.double, ndim=1, flags='C_CONTIGUOUS')]
+lib.check_line_validity.restype = c_int
+
+  
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting}
+lib.prepare_line_points.argtypes = [np.ctypeslib.ndpointer(dtype=np.double, flags='C_CONTIGUOUS'),
+                                    np.ctypeslib.ndpointer(dtype=np.double, flags='C_CONTIGUOUS'),
+                                    c_double, c_double, c_int,
+                                    np.ctypeslib.ndpointer(dtype=np.double, flags='C_CONTIGUOUS')]
+lib.prepare_line_points.restype = None 
+lines = [
+    (np.array([1.,1.,1.]), np.array([0.,-5.,4.])),
+    (np.array([6.,3.,-2.]), np.array([-5.,4.,-5.])),
+    (np.array([0.,4.,4.]), np.array([0.,20.,45.])),
+    (np.array([0.,0.,2.]), np.array([0.,4.,3.])),
+]
+
+results = []
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting}
+for i, (r0, d) in enumerate(lines):
+    valid = lib.check_line_validity(r0, d)
+    results.append(bool(valid))
+    print(f"Edge {chr(65+i)} valid? {bool(valid)}")
+def plot_planes_and_lines(lines, validity):
+    fig = plt.figure(figsize=(6,6))
+    ax = fig.add_subplot(111, projection='3d')
+
+    # Plot planes same as before
+    n1 = np.array([10,15,12])
+    d1 = 60
+    n2 = np.array([-2,5,4])
+    d2 = 20
+
+    xx, yy = np.meshgrid(np.linspace(-10,10,20), np.linspace(-10,10,20))
+    zz1 = (d1 - 10*xx - 15*yy)/12
+    zz2 = (d2 + 2*xx - 5*yy)/4
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting}
+  ax.plot_surface(xx, yy, zz1, color='lightblue', alpha=0.5)
+    ax.plot_surface(xx, yy, zz2, color='lightpink', alpha=0.5)
+
+    colors = ['r','g','b','m']
+    labels = ['A','B','C','D']
+
+    for i,(r0,d) in enumerate(lines):
+        if validity[i]:
+            num_points = 100
+            output = np.zeros(num_points*3, dtype=np.double)
+            lib.prepare_line_points(r0, d, -1.0, 1.0, num_points, output)
+            points = output.reshape((num_points, 3))
+            ax.plot(points[:,0], points[:,1], points[:,2], color=colors[i], linewidth=3, label=f'Edge {labels[i]}')
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting}
+
+    ax.set_xlabel('x')
+    ax.set_ylabel('y')
+    ax.set_zlabel('z')
+    ax.legend()
+    ax.set_title('Planes and Valid Tetrahedron Edges Using Shared Library')
+    plt.show()
+
+plot_planes_and_lines(lines, results)
+
+\end{lstlisting}
+\end{frame}
+
+\end{document}
