@@ -56,73 +56,182 @@
 
 
 \textbf{Question}: Find the equation of the conic, that satisfies the given conditions.\\
-vertex (-3, 0), directrix x + 5 = 0.
+vertex (-3, 0), directrix x + 5 = 0.\\
 
 \textbf{Solution:}\\
-Given conditions:\\
-Vertex: $(-3, 0)$\\
-Directrix: $x + 5 = 0$\\
+Given:
+\begin{itemize}
+\item Vertex: $\vec{V} = \myvec{-3 \\ 0}$
+\item Directrix: $x + 5 = 0$, which gives us $\vec{n}^\top\vec{x} = c$ where $\vec{n} = \myvec{1 \\ 0}$ and $c = -5$
+\end{itemize}
 
-$\Rightarrow$ Since we have a vertex and directrix, this conic is a parabola with eccentricity $e = 1$.\\
-
-Using the formulation for a conic with directrix $\vec{n}^\top\vec{x} = c$, eccentricity $e$, and focus $\vec{F}$:\\
-
-Given Parameters:
-
-Normal vector: $\vec{n} = \myvec{1\\0}$
-
-Directrix constant: $c = -5$
-
-Eccentricity: $e = 1$
-
-Focus: $\vec{F} = \myvec{-1\\0}$ [derived from equidistance property]\\
-
-Calculating matrix $\vec{V}$
-\begin{equation}
-\vec{V} = \norm{\vec{n}}^2\vec{I} - e^2(\vec{n}\vec{n}^\top) = \vec{I} -\myvec{1\\0}\myvec{1 & 0} = \myvec{0 & 0\\0 & 1}
-\end{equation}
-
-Calculating $\vec{u}$
-\begin{equation}
-\vec{u} = ce^2\vec{n} - \norm{\vec{n}}^2\vec{F} = (-5)(1)\myvec{1\\0} - 1\myvec{-1\\0} = \myvec{-4\\0}
-\end{equation}
-
-Calculating f:
-\begin{equation}
-f = \norm{\vec{n}}^2\norm{\vec{F}}^2 - c^2e^2 = 1 - 25 = -24
-\end{equation}
-
-\newpage
-
-\begin{equation}
-\text{The eigenvalues of } \vec{V} \text{ is } \lambda_1 = 0
-\end{equation}
-
-Since the eigenvalue is zero, we confirm this is a parabola $(e = 1)$.
-
-
-The general conic equation is:
+The general matrix equation of a conic is:
 \begin{equation}
 \vec{x}^\top\vec{V}\vec{x} + 2\vec{u}^\top\vec{x} + f = 0
 \end{equation}
 
-Substituting our values in Equation 0.5:
+where the matrices are defined as:
 \begin{align}
-\myvec{x & y}\myvec{0 & 0\\0 & 1}\myvec{x\\y} + 2\myvec{-4 & 0}\myvec{x\\y} + (-24) &= 0\\
-y^2 - 8x - 24 &= 0
-\end{align}\\
+\vec{V} &= \norm{\vec{n}}^2\vec{I} - e^2(\vec{n}\vec{n}^\top) \\
+\vec{u} &= (ce^2)\vec{n} - \norm{\vec{n}}^2\vec{F} \\
+f &= \norm{\vec{n}}^2\norm{\vec{F}}^2 - c^2e^2
+\end{align}
 
-Therefore, the Equation of the Conic is:
+For a vertex at $(-3, 0)$ and using the vertex-focus-directrix geometry, the focus $\vec{F}$ is at:
+\begin{equation}
+\vec{F} = \myvec{-3 + 2e \\ 0}
+\end{equation}
+
+\newpage
+
+\textbf{Case 1: $e < 1$} (Ellipse)\\
+Let $e = \frac{1}{2}$
+
+\textbf{Parameters:}
+\begin{itemize}
+\item $\vec{n} = \myvec{1 \\ 0}$, $c = -5$, $e = \frac{1}{2}$
+\item $\vec{F} = \myvec{-2 \\ 0}$
+\item $||\vec{n}||^2 = 1$, $||\vec{F}||^2 = 4$
+\end{itemize}
+
+Matrix Calculation:\\
+\begin{align}
+\vec{V} &= \myvec{1 & 0 \\ 0 & 1} - \frac{1}{4}\myvec{1 & 0 \\ 0 & 0} = \myvec{3/4 & 0 \\ 0 & 1}
+\end{align}
+
+\begin{align}
+\vec{u} &= \frac{-5}{4}\myvec{1 \\ 0} - \myvec{-2 \\ 0} = \myvec{3/4 \\ 0}
+\end{align}
+
+\begin{align}
+f &= 4 - \frac{25}{4} = -\frac{9}{4}
+\end{align}
+
+Putting Values of $\vec{V}, \, \vec{u}$, f in Equation 0.1, we get
+\begin{equation}
+\frac{3}{4}x^2 + y^2 + \frac{3}{2}x - \frac{9}{4} = 0
+\end{equation}
+
+
+\begin{equation}
+\boxed{3x^2 + 4y^2 + 6x - 9 = 0}
+\end{equation}
+
+\begin{center}
+    OR
+\end{center}
+
+\begin{equation}
+    \boxed{\dfrac{(x+1)^2}{4} + \dfrac{y^2}{3} = 1}
+\end{equation}
+
+\newpage
+
+\textbf{Case 2: $e = 1$} (Parabola)\\
+\textbf{Parameters:}
+\begin{itemize}
+\item $\vec{n} = \myvec{1 \\ 0}$, $c = -5$, $e = 1$
+\item $\vec{F} = \myvec{-1 \\ 0}$
+\item $||\vec{F}||^2 = 1$
+\end{itemize}
+
+\bigskip
+
+Matrix Calculation:
+\begin{align}
+\vec{V} &= \myvec{1 & 0 \\ 0 & 1} - \myvec{1 & 0 \\ 0 & 0} = \myvec{0 & 0 \\ 0 & 1}
+\end{align}
+
+\begin{align}
+\vec{u} &= -5\myvec{1 \\ 0} - \myvec{-1 \\ 0} = \myvec{-4 \\ 0}
+\end{align}
+
+\begin{align}
+f &= 1 - 25 = -24
+\end{align}
+
+Putting Values of $\vec{V}, \, \vec{u}$, f in Equation 0.1, we get
+\begin{equation}
+y^2 - 8x - 24 = 0
+\end{equation}
+
+\begin{center}
+    OR
+\end{center}
+
 \begin{equation}
 \boxed{y^2 = 8(x + 3)}
 \end{equation}
+
+\newpage
+
+\textbf{Case 3: $e > 1$} (Hyperbola)\\
+Let $e = \frac{3}{2}$
+
+\textbf{Parameters:}
+\begin{itemize}
+\item $\vec{n} = \myvec{1 \\ 0}$, $c = -5$, $e = \frac{3}{2}$
+\item $\vec{F} = \myvec{0 \\ 0}$
+\item $||\vec{F}||^2 = 0$
+\end{itemize}
+
+\bigskip
+
+Matrix Calculation:
+\begin{align}
+\vec{V} &= \myvec{1 & 0 \\ 0 & 1} - \frac{9}{4}\myvec{1 & 0 \\ 0 & 0} = \myvec{-5/4 & 0 \\ 0 & 1}
+\end{align}
+
+\begin{align}
+\vec{u} &= \frac{-45}{4}\myvec{1 \\ 0} - \myvec{0 \\ 0} = \myvec{-45/4 \\ 0}
+\end{align}
+
+\begin{align}
+f &= 0 - \frac{225}{4} = -\frac{225}{4}
+\end{align}
+
+Putting Values of $\vec{V}, \, \vec{u}$, f in Equation 0.1, we get
+\begin{equation}
+-\frac{5}{4}x^2 + y^2 - \frac{45}{2}x - \frac{225}{4} = 0
+\end{equation}
+
+
+\begin{equation}
+5x^2 - 4y^2 + 90x + 225 = 0
+\end{equation}
+
+\begin{align}
+    \boxed{\dfrac{(x+9)^2}{36} - \dfrac{y^2}{45} = 1}
+\end{align}
+
+
+\bigskip
+
+Therefore, The Possible conics with the vertex at (-3,0) and Directrix as x+5=0 are\\
+$$\dfrac{(x+9)^2}{36} - \dfrac{y^2}{45} = 1$$
+$$y^2 = 8(x + 3)$$
+$$\dfrac{(x+1)^2}{4} + \dfrac{y^2}{3} = 1$$
 
 
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{figs/fig1.png}
-    \caption{Parabola}
+    \caption{Ellipse}
     \label{fig:figs/fig1.png}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{figs/fig2.png}
+    \caption{Parabola}
+    \label{fig:figs/fig2.png}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{figs/fig3.png}
+    \caption{Hyperbola}
+    \label{fig:figs/fig3.png}
 \end{figure}
 
 \end{document}  
