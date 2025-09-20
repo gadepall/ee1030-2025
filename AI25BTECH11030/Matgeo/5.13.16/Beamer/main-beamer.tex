@@ -1,0 +1,518 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{multicol}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\numberwithin{equation}{section}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{orange},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  showstringspaces=false
+}
+
+
+\title{Problem 5.13.16}
+\author{Sarvesh Tamgade}
+
+\date{\today} 
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section{Question}
+\begin{frame}{Question}
+\textbf{Question}:
+Let \( k \) be an integer such that the triangle with vertices 
+\[
+\vec{A} = \myvec{ k \\ -3k }, \quad 
+\vec{B} = \myvec{ 5 \\ k }, \quad 
+\vec{C} = \myvec{ -k \\ 2 }
+\]
+has area 28 sq. units. Find the orthocenter of the triangle.
+
+\end{frame}
+
+\section{Solution}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+\begin{align}
+\text{Area} &= \frac{1}{2} \left| \vec{M} \right| = 28
+\end{align}
+
+\begin{align}
+\text{where} \quad
+\vec{M} &= \myvec{
+\vec{B} - \vec{A} & \vec{C} - \vec{A}
+}
+= \myvec{
+5-k & -2k \\
+4k & 2 + 3k
+}
+\end{align}
+
+\begin{align}
+\det(\vec{M}) &= (5-k)(2+3k) - (-2k)(4k) = 10 + 13k + 5k^2
+\end{align}
+
+\begin{align}
+10 + 13k + 5k^2 &= \pm 56
+\end{align}
+After solving,
+\begin{align}
+k &= 2
+\end{align}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+\begin{align}
+\text{For } k=2, \quad \vec{A} &= \myvec{2 \\ -6}, \quad \vec{B} = \myvec{5 \\ 2}, \quad \vec{C} = \myvec{-2 \\ 2}
+\end{align}
+The equation of the altitude through \( \vec{A} \) is:
+\begin{align}
+\vec{x}^T \vec{n} = 1
+\end{align}
+
+This altitude passes through \( \vec{A} \), so
+\begin{align}
+\vec{A}^T \vec{n} = 1
+\end{align}
+\begin{align}
+\myvec{2 & -6} \vec{n} = 1
+\end{align}
+and is perpendicular to \( \vec{B}-\vec{C} \), so
+\begin{align}
+(\vec{B} - \vec{C})^T \vec{n} = 0
+\end{align}
+\begin{align}
+\myvec{7 & 0} \vec{n} = 0
+\end{align}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+The augmented matrix is:
+\begin{align}
+\myaugvec{2}{
+7 & 0 & 0 \\
+2 & -6 & 1
+}
+\end{align}
+
+Row reduction steps:
+
+First, \( R_2 \to R_2 - \frac{2}{7} R_1 \):
+\begin{align}
+\myaugvec{2}{
+7 & 0 & 0 \\
+0 & -6 & 1
+}
+\end{align}
+
+\begin{align}
+\vec{n} = \myvec{0 \\ -\frac{1}{6}}
+\end{align}
+
+
+The equation of the altitude through \( \vec{B} \) is:
+\begin{align}
+\vec{x}^T \vec{n} = 1
+\end{align}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Solution}
+This altitude passes through \( \vec{B} \), so
+\begin{align}
+\vec{B}^T \vec{n} = 1
+\end{align}
+\begin{align}
+\myvec{5 & 2} \vec{n} = 1
+\end{align}
+and is perpendicular to \( \vec{A}-\vec{C} \), so
+\begin{align}
+(\vec{A} - \vec{C})^T \vec{n} = 0
+\end{align}
+\begin{align}
+\myvec{4 & -8} \vec{n} = 0
+\end{align}
+The augmented matrix is:
+\begin{align}
+\myaugvec{2}{
+5 & 2 & 1 \\
+4 & -8 & 0
+}
+\end{align}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+Row reduction steps:
+First, \( R_2 \to R_2 - \frac{4}{5} R_1 \):
+\begin{align}
+\myaugvec{2}{
+5 & 2 & 1 \\
+0 & -\frac{48}{5} & -\frac{4}{5}
+}
+\end{align}
+Next, \( R_2 \to -\frac{5}{48} R_2 \):
+\begin{align}
+\myaugvec{2}{
+5 & 2 & 1 \\
+0 & 1 & \frac{1}{12}
+}
+\end{align}
+Back substitute: \( R_1 \to R_1 - 2 R_2 \)
+\begin{align}
+\myaugvec{2}{
+5 & 0 & \frac{5}{6} \\
+0 & 1 & \frac{1}{12}
+}
+\end{align}
+\begin{align}
+\vec{n} = \myvec{\frac{1}{6} \\ \frac{1}{12}}
+\end{align}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+First altitude:
+\begin{align}
+\myvec{0 & -\frac{1}{6}} \vec{x} = 1
+\end{align}
+
+Second altitude:
+\begin{align}
+\myvec{\frac{1}{6} & \frac{1}{12}} \vec{x} = 1
+\end{align}
+
+Combining both equations:
+\begin{align}
+\myvec{0 & -\frac{1}{6} \\ \frac{1}{6} & \frac{1}{12}} \vec{x} = \myvec{1 \\ 1}
+\end{align}
+
+Writing the augmented matrix:
+\begin{align}
+\myaugvec{2}{
+\frac{1}{6} & \frac{1}{12} & 1 \\
+0 & -\frac{1}{6}  & 1
+}
+\end{align}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Solution}
+
+Perform the row operation \( R_1 \to R_1 + \frac{1}{2} R_2 \):
+\begin{align}
+\myaugvec{2}{
+\frac{1}{6} & 0 & \frac{3}{2} \\
+0 & -\frac{1}{6} & 1
+}
+\end{align}
+
+Therefore, the solution vector is:
+\begin{align}
+\vec{x} = \myvec{9 \\ -6}
+\end{align}
+\textbf{Answer:} The orthocentre of the triangle is
+\[
+\boxed{
+\vec{x}=\myvec{9 \\ -6}
+}
+\]
+\end{frame}
+
+
+\section{Graph}
+\begin{frame}
+    \frametitle{Graph}
+    \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.65\linewidth]{FIG/fig1.png}
+    \caption{Vector Representation}
+    \label{fig:FIG/fig1.png}
+\end{figure}
+\end{frame}
+\section{ C Code}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+#include "matfun.h"
+
+void line_equation(const double P[2], const double Q[2], const double R[2], double *a, double *b, double *c) {
+    double dx = R[0] - Q[0];
+    double dy = R[1] - Q[1];
+    *a = -dy;
+    *b = dx;
+    *c = (*a)*P[0] + (*b)*P[1];
+}
+
+void solve_2x2(double a1, double b1, double c1, double a2, double b2, double c2, double sol[2]) {
+    double det = a1*b2 - a2*b1;
+    sol[0] = (b2*c1 - b1*c2) / det;
+    sol[1] = (a1*c2 - a2*c1) / det;
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+void compute_orthocentre(const double A[2], const double B[2], const double C[2], double O[2]) {
+    double a1, b1, c1, a2, b2, c2;
+    line_equation(A, B, C, &a1, &b1, &c1);
+    line_equation(B, A, C, &a2, &b2, &c2);
+    solve_2x2(a1, b1, c1, a2, b2, c2, O);
+}
+
+
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python + C Code }
+\begin{lstlisting}[language=Python]
+import ctypes
+import numpy as np
+import matplotlib.pyplot as plt
+
+lib = ctypes.CDLL('./matfun.so')
+
+arr_type = ctypes.c_double * 2
+A = arr_type(2, -6)
+B = arr_type(5, 2)
+C = arr_type(-2, 2)
+O = arr_type()
+
+lib.compute_orthocentre.argtypes = [arr_type, arr_type, arr_type, arr_type]
+lib.line_equation.argtypes = [arr_type, arr_type, arr_type, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_double)]
+
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python + C Code}
+    \begin{lstlisting}
+lib.solve_2x2.argtypes = [ctypes.c_double, ctypes.c_double, ctypes.c_double, ctypes.c_double, ctypes.c_double, ctypes.c_double, arr_type]
+
+# Call orthocentre computation
+lib.compute_orthocentre(A, B, C, O)
+print("Orthocentre:", list(O))
+
+# Arrays to hold line coefficients
+a1, b1, c1 = ctypes.c_double(), ctypes.c_double(), ctypes.c_double()
+a2, b2, c2 = ctypes.c_double(), ctypes.c_double(), ctypes.c_double()
+a3, b3, c3 = ctypes.c_double(), ctypes.c_double(), ctypes.c_double()
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python + C Code }
+    \begin{lstlisting}
+
+# Compute altitude lines via C functions for all three vertices
+lib.line_equation(A, B, C, ctypes.byref(a1), ctypes.byref(b1), ctypes.byref(c1)) # Altitude from A
+lib.line_equation(B, A, C, ctypes.byref(a2), ctypes.byref(b2), ctypes.byref(c2)) # Altitude from B
+lib.line_equation(C, A, B, ctypes.byref(a3), ctypes.byref(b3), ctypes.byref(c3)) # Altitude from C
+
+# Convert points to numpy for plotting
+A_np = np.array([2, -6])
+B_np = np.array([5, 2])
+C_np = np.array([-2, 2])
+O_np = np.array([O[0], O[1]])
+
+fig, ax = plt.subplots(figsize=(6,6))
+ax.plot([A_np[0], B_np[0], C_np[0], A_np[0]], [A_np[1], B_np[1], C_np[1], A_np[1]], 'bo-', label='Triangle')
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python + C Code }
+    \begin{lstlisting}
+def plot_line(a, b, c, ax, color, label):
+    if abs(b) > 1e-8:
+        x = np.linspace(-10, 20, 300)
+        y = (c - a*x)/b
+    else:
+        x = np.full(300, c/a)
+        y = np.linspace(-10, 20, 300)
+    ax.plot(x, y, color=color, linestyle='--', label=label)
+
+plot_line(a1.value, b1.value, c1.value, ax, 'r', 'Altitude from A')
+plot_line(a2.value, b2.value, c2.value, ax, 'g', 'Altitude from B')
+plot_line(a3.value, b3.value, c3.value, ax, 'b', 'Altitude from C')
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python + C Code }
+    \begin{lstlisting}
+
+ax.plot(O_np[0], O_np[1], 'ro', label='Orthocentre')
+
+ax.legend()
+ax.grid(True)
+ax.set_title('Triangle, Altitudes, and Orthocentre (using .so functions)')
+plt.show()
+
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python Code }
+\begin{lstlisting}[language=Python]
+import numpy as np
+import matplotlib.pyplot as plt
+
+A = np.array([2, -6])
+B = np.array([5, 2])
+C = np.array([-2, 2])
+
+def altitude_through_point(P, Q, R):
+    """
+    Returns coefficients a,b,c of the altitude through P
+    which is perpendicular to QR, i.e. a*x + b*y = c
+    """
+    # Direction vector of QR
+    d = Q - R
+    # Normal vector for the altitude (perpendicular)
+    n = np.array([-d[1], d[0]])
+    c = n[0]*P[0] + n[1]*P[1]
+    return n[0], n[1], c
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+def intersect_lines(a1, b1, c1, a2, b2, c2):
+    """
+    Finds the intersection point of two lines: a1*x+b1*y=c1 and a2*x+b2*y=c2
+    """
+    A = np.array([[a1, b1], [a2, b2]])
+    b = np.array([c1, c2])
+    return np.linalg.solve(A, b)
+
+a1, b1, c1 = altitude_through_point(A, B, C) # through A, perp to BC
+a2, b2, c2 = altitude_through_point(B, A, C) # through B, perp to AC
+
+O = intersect_lines(a1, b1, c1, a2, b2, c2)
+
+print("Orthocentre:", O)
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+
+# Plotting
+plt.figure(figsize=(6,6))
+plt.plot([A[0], B[0], C[0], A[0]], [A[1], B[1], C[1], A[1]], 'bo-', label='Triangle')
+
+# Plot altitudes
+def plot_altitude(P, n, c, label):
+    # Generate points along the altitude for plot
+    t = np.linspace(-10, 10, 100)
+    if n[1] != 0:
+        x = t
+        y = (c - n[0]*x)/n[1]
+    else:
+        x = np.ones_like(t)*(c/n[0])
+        y = t
+    plt.plot(x, y, '--', label=label)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+
+plot_altitude(A, np.array([a1, b1]), c1, 'Altitude from A')
+plot_altitude(B, np.array([a2, b2]), c2, 'Altitude from B')
+
+plt.plot(O[0], O[1], 'ro', label='Orthocentre')
+plt.legend()
+plt.grid(True)
+plt.title('Triangle and Orthocentre')
+plt.savefig("fig1.png")
+plt.show()
+
+\end{lstlisting}
+\end{frame}
+
+
+\end{document}
