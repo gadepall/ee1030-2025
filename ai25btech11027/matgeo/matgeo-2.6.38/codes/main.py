@@ -1,25 +1,37 @@
 import ctypes
 import numpy as np
+from numpy.ctypeslib import ndpointer
+from scipy.optimize import bisect  # For root-finding
 
-# Load shared library
+# Load C shared library
 lib = ctypes.CDLL('./main.so')
 
-# Define arg types for compute_vector_c: pointer to double
-lib.compute_vector_c.argtypes = [np.ctypeslib.ndpointer(dtype=np.float64, ndim=1, flags='C_CONTIGUOUS')]
+lib.scalar_triple_product.argtypes = [
+    ndpointer(ctypes.c_double, flags="C_CONTIGUOUS"),
+    ndpointer(ctypes.c_double, flags="C_CONTIGUOUS"),
+    ndpointer(ctypes.c_double, flags="C_CONTIGUOUS")
+]
+lib.scalar_triple_product.restype = ctypes.c_double
 
-# Output array to be filled by C function
-c = np.zeros(3, dtype=np.float64)
+# Given vectors
+a = np.array([1.0, 1.0, 1.0], dtype=np.double)
+b = np.array([0.0, 1.0, -1.0], dtype=np.double)
+c0 = np.array([3.0, 0.0, 0.0], dtype=np.double)
+d = np.array([-2.0, 1.0, 1.0], dtype=np.double)
 
-# Call the C function, passing pointer to array c
-lib.compute_vector_c(c)
+# Define function f(lambda) = scalar triple product - 2
+def f(lam):
+    c = c0 + lam * d
+    val = lib.scalar_triple_product(a, b, c)
+    return val - 2.0
 
-print("Computed vector c:", c)
+# Find lambda root where f(lambda) = 0
+# Use interval where lambda is expected (for example between 0 and 2)
+lambda_root = bisect(f, 0, 2)
 
-# Verification
-a = np.array([1, 1, 1])
-b = np.array([0, 1, -1])
+print(f"Found lambda = {lambda_root:.6f}")
 
-print("a · c =", np.dot(a, c))
-print("a × c =", np.cross(a, c))
-print("Expected b =", b)
+# Compute c using found lambda
+c_final = c0 + lambda_root * d
+print(f"Vector c = {c_final}")
 
