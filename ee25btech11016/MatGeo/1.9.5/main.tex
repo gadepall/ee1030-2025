@@ -1,5 +1,6 @@
 \let\negmedspace\undefined
 \let\negthickspace\undefined
+
 \documentclass[journal]{IEEEtran}
 \usepackage[a5paper, margin=10mm, onecolumn]{geometry}
 \usepackage{tfrupee}
@@ -8,7 +9,6 @@
 \setlength{\headsep}{0mm}
 
 \usepackage{gvv-book}
-\usepackage{gvv}
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts,amsthm}
 \usepackage{algorithmic}
@@ -22,70 +22,90 @@
 \usepackage{gensymb}
 \usepackage{comment}
 \usepackage[breaklinks=true]{hyperref}
-\usepackage{tkz-euclide} 
+\usepackage{tkz-euclide}
 \usepackage{listings}
-\def\inputGnumericTable{}                                
-\usepackage[latin1]{inputenc}                               
-\usepackage{color}                                           
-\usepackage{array}                                           
-\usepackage{longtable}                                       
-\usepackage{calc}                                            
-\usepackage{multirow}                                        
-\usepackage{hhline}                                          
-\usepackage{ifthen}                                          
+\usepackage{gvv}
+\usepackage{tikz}
+\def\inputGnumericTable{}
+\usepackage[latin1]{inputenc}
+\usepackage{color}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{calc}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{ifthen}
 \usepackage{lscape}
 
 \begin{document}
 
+\bibliographystyle{IEEEtran}
+
 \title{1.9.5}
-\author{EE25BTECH11018 - Darisy Sreetej}
-\maketitle
+\author{EE25BTECH11016 - Taraka Abhinav}
+{\let\newpage\relax\maketitle}
 
-\textbf{Question:}\\
-The distance between the points $\brak{0,2\sqrt{5}}$ and $\brak{-2\sqrt{5},0}$ is \underline{\hspace{2cm}}.
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt}
 
-\textbf{Solution:}\\
-The input parameters for this problem are available in Table~\ref{tab:1}.
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
 
-\begin{table}[h!]
-\centering
-\begin{tabular}{|c|c|c|}
-\hline
-\textbf{Symbol} & \textbf{Value} & \textbf{Description} \\ \hline
-$\vec{P}$ & $\myvec{0 \\ 2\sqrt{5}}$ & First point \\ \hline
-$\vec{Q}$ & $\myvec{-2\sqrt{5} \\ 0}$ & Second point \\ \hline
-$d$ & ? & Required distance \\ \hline
-\end{tabular}
-\caption{Input parameters}
-\label{tab:1}
+\textbf{Question}:\\
+Find the distance between the points $\brak{0,2\sqrt{5}}$ and $\brak{-2\sqrt{5},\,0}$. \hfill $\brak{10,2021}$
+\\
+
+\solution \\
+
+\begin{table}[h!]    
+  \centering
+  \begin{tabular}{|c|c|}
+  \hline
+  Symbol & Description \\
+  \hline
+  $\vec{A}$ & Point $\brak{0,2\sqrt{5}}$ \\
+  $\vec{B}$ & Point $\brak{-2\sqrt{5},0}$ \\
+  $d$ & Distance between $A$ and $B$ \\
+  \hline
+  \end{tabular}
+  \caption{Variables Used}
+  \label{tab:vars}
 \end{table}
 
-The distance between $\vec{P}$ and $\vec{Q}$ is given by
 \begin{align}
-    d &= \norm{\vec{P}-\vec{Q}} \label{eq:dist}
+\vec{A} &= \myvec{0\\2\sqrt{5}}, \quad 
+\vec{B} = \myvec{-2\sqrt{5}\\0}
 \end{align}
 
-\begin{align*}
-    \vec{P} - \vec{Q} &= \myvec{0 \\ 2\sqrt{5}} - \myvec{-2\sqrt{5} \\ 0} \\
-    &= \myvec{2\sqrt{5} \\ 2\sqrt{5}}
-\end{align*}
-
-Substituting in \eqref{eq:dist},
+The distance between two points is given by
 \begin{align}
-    d &= \sqrt{(2\sqrt{5})^2 + (2\sqrt{5})^2} \\
-      &= \sqrt{20 + 20} \\
-      &= \sqrt{40} \\
-      &= 2\sqrt{10}
+d &= \norm{\vec{A}-\vec{B}}
 \end{align}
 
-\begin{align*}
-    \therefore \text{The required distance is } \mathbf{2\sqrt{10}}
-\end{align*}
+Substituting values,
+\begin{align}
+d &= \norm{\myvec{0\\2\sqrt{5}}-\myvec{-2\sqrt{5}\\0}} \\ 
+  &= \norm{\myvec{2\sqrt{5}\\2\sqrt{5}}} \\ 
+  &= \sqrt{(2\sqrt{5})^2 + (2\sqrt{5})^2}
+\end{align}
 
-\begin{figure}
+Simplifying,
+\begin{align}
+d &= \sqrt{20 + 20} \\
+  &= \sqrt{40} \\
+  &= 2\sqrt{10}
+\end{align}
+
+\begin{align}
+\implies d = \boxed{2\sqrt{10}}
+\end{align}
+
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\linewidth]{figs/Figure_1.png}
-    \label{fig:placeholder}
+    \includegraphics[width=0.8\columnwidth]{figs/Figure_1.png}
+    \caption{Distance between two points}
+    \label{fig:distance}
 \end{figure}
 
 \end{document}
