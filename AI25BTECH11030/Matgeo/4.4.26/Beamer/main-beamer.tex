@@ -1,0 +1,276 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{advdate}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}} % nCr
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}} % nPr
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{{}\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\vert#1\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}} 
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E[ #1 ]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+%\providecommand{\hilbert}{\overset{\mathcal{H}}{ \rightleftharpoons}}
+\providecommand{\system}[1]{\overset{\mathcal{#1}}{ \longleftrightarrow}}
+%\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+	%\newcommand{\solution}[2]{\vec{Solution:}{#1}}
+%\newcommand{\solution}{\noindent \vec{Solution: }}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+
+
+\lstset{
+%language=C,
+frame=single, 
+breaklines=true,
+columns=fullflexible
+}
+\lstset{
+  language=C,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{gray}\itshape,
+  stringstyle=\color{orange},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  frame=single,
+  showstringspaces=false,
+  tabsize=4,
+  captionpos=b
+}
+\numberwithin{equation}{section}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{orange},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  showstringspaces=false
+}
+
+
+
+\title{Problem 4.4.26}
+\author{Sarvesh Tamgade}
+
+\date{\today} 
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section{Question}
+\begin{frame}{Question}
+\textbf{Question}:
+ Find the equation of the median through vertex \(\mathbf{A}\) of the triangle \(ABC\), having vertices
+\[
+\mathbf{A}(2,5), \quad \mathbf{B}(-4,9), \quad \mathbf{C}(-2,-1).
+\]
+
+\end{frame}
+
+\section{Solution}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+Using the section formula, the midpoint \(\mathbf{M}\) of the side \(BC\) is 
+\[
+\mathbf{M} = \frac{\mathbf{B} + \mathbf{C}}{2} = 
+\frac{1}{2} \begin{bmatrix} -4 \\ 9 \end{bmatrix} + 
+\frac{1}{2} \begin{bmatrix} -2 \\ -1 \end{bmatrix} = 
+\begin{bmatrix} -3 \\ 4 \end{bmatrix}.
+\]
+
+The median passes through points \(\mathbf{A}(2,5)\) and \(\mathbf{M}(-3,4)\). The direction vector is 
+\[
+\mathbf{d} = \mathbf{M} - \mathbf{A} = \begin{bmatrix} -3 - 2 \\ 4 - 5 \end{bmatrix} = \begin{bmatrix} -5 \\ -1 \end{bmatrix}.
+\]
+
+Following the matrix approach from Problem \textbf{4.3.10}:
+\[
+\left( \begin{array}{cc} -5 & -1 \end{array} \right) \mathbf{x} = c,
+\]
+where \(c\) is found by substituting point \(\mathbf{A}(2,5)\):
+\[
+-5 \times 2 - 1 \times 5 = -10 - 5 = -15.
+\]
+
+Thus, the equation of the median is
+\[
+-5 x - y = -15,
+\]
+
+
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+or equivalently,
+\[
+5x + y = 15.
+\]
+
+Therefore, equation of required line is  :\[
+\boxed{5x + y = 15}
+\]
+
+
+
+\end{frame}
+\section{Graph}
+\begin{frame}
+    \frametitle{Graph}
+    \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.65\linewidth]{FIG/fig1.png}
+    \caption{Vector Representation}
+    \label{fig:FIG/fig1.png}
+\end{figure}
+\end{frame}
+\section{ C Code}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+#include <stdio.h>
+#include "trianglefun.h"
+
+int main() {
+    // Vertices of triangle
+    int Ax = 2, Ay = 5;
+    int Bx = -4, By = 9;
+    int Cx = -2, Cy = -1;
+
+    char equation[50];
+
+    // Calculate the median equation and store as string
+    median_equation(Ax, Ay, Bx, By, Cx, Cy, equation);
+
+    // Print the equation
+    printf("Equation of the median from A: %s\n", equation);
+
+    return 0;
+}
+
+
+
+    
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Python Code for Plotting}
+\begin{lstlisting}[language=Python]
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Vertices of the triangle
+A = np.array([2, 5])
+B = np.array([-4, 9])
+C = np.array([-2, -1])
+
+# Calculate midpoint M of BC
+M = (B + C) / 2
+
+# Plot triangle
+plt.figure(figsize=(6,6))
+triangle_points = np.array([A, B, C, A])
+plt.plot(triangle_points[:,0], triangle_points[:,1], 'k-', label='Triangle ABC')
+
+# Plot vertices
+plt.plot(A[0], A[1], 'ro')
+
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python Code for Plotting}
+\begin{lstlisting}[language=Python]
+plt.plot(B[0], B[1], 'ro')
+plt.plot(C[0], C[1], 'ro')
+
+# Label vertices
+plt.text(A[0]+0.2, A[1], 'A(2,5)', fontsize=12, color='red')
+plt.text(B[0]+0.2, B[1], 'B(-4,9)', fontsize=12, color='red')
+plt.text(C[0]+0.2, C[1], 'C(-2,-1)', fontsize=12, color='red')
+
+# Plot median from A to midpoint M
+plt.plot([A[0], M[0]], [A[1], M[1]], 'b--', linewidth=2, label='Median AM')
+
+# Label midpoint M
+plt.plot(M[0], M[1], 'go')
+plt.text(M[0]+0.2, M[1], f'M({M[0]:.1f},{M[1]:.1f})', fontsize=12, color='green')
+
+# Position to place equation on the median line midpoint
+mid_x = (A[0] + M[0]) / 2
+
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python Code for Plotting}
+\begin{lstlisting}[language=Python]
+
+mid_y = (A[1] + M[1]) / 2
+
+# Settings
+plt.gca().set_aspect('equal', adjustable='box')
+plt.grid(True)
+plt.legend()
+plt.title('Triangle ABC with Median from A')
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+plt.xlim(-6, 4)
+plt.ylim(-3, 11)
+
+# Save the figure as PNG
+filename = 'triangle_median_eqonline.png'
+plt.savefig(filename)
+plt.close()
+\end{lstlisting}
+
+\end{frame}
+
+
+\end{document}

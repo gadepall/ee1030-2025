@@ -1,0 +1,288 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{caption}
+\captionsetup{labelformat=empty}  % removes "Figure:"
+
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+	breakable=true,
+	listing engine=minted,
+	listing only,
+	minted language=#2,
+	minted style=default,
+	minted options={%
+		linenos,
+		gobble=0,
+		breaklines=true,
+		breakafter=,,
+		fontsize=\small,
+		numbersep=8pt,
+		#1},
+	boxsep=0pt,
+	left skip=0pt,
+	right skip=0pt,
+	left=25pt,
+	right=0pt,
+	top=3pt,
+	bottom=3pt,
+	arc=5pt,
+	leftrule=0pt,
+	rightrule=0pt,
+	bottomrule=2pt,
+	toprule=2pt,
+	colback=bg,
+	colframe=orange!70,
+	enhanced,
+	overlay={%
+		\begin{tcbclipinterior}
+			\fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+	\end{tcbclipinterior}},
+	#3,
+}
+\lstset{
+	language=C,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{orange},
+	commentstyle=\color{green!60!black},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	showstringspaces=false,
+}
+\begin{document}
+
+\title 
+{2.4.42}
+\date{september 9,2025}
+
+\author 
+{Navya Priya - EE25BTECH11045}
+\graphicspath{./figs}
+
+\frame{\titlepage}
+\begin{frame}{Question}
+ Show that the points $\textbf{A}(1,2,3)$ , $\textbf{B}(-1,-2,-1)$ , $\textbf{C}(2,3,2)$ and $\textbf{D}(4,7,6)$ are the vertices of a parallelogram $ABCD$, but it is not a rectangle.
+\end{frame}
+
+\begin{frame}{Variables Taken}
+    \begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{0.5}
+\begin{tabular}{|m{2cm}|m{2cm}|}
+\hline
+  $\vec{A}$   &  $\myvec{1\\2\\3}$ \\ \hline 
+  $\vec{B}$   &  $\myvec{-1\\-2\\-1}$ \\ \hline
+  $\vec{C}$   &  $\myvec{2\\3\\2}$ \\ \hline
+  $\vec{D}$   &  $\myvec{4\\7\\6}$ \\ \hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}{Equations Used}
+For a quadrilateral $ABCD$ to be a parallelogram, it has to satisfy the following coditions:
+
+\begin{align*}
+  (\text{a}) & \quad\vec{B}\,-\,\vec{A}\,=\,\vec{C}\,-\,\vec{D}\\
+  (\text{b}) & \quad\myvec{\vec{B-A}}^\top\myvec{\vec{C-B}}\,\neq\,0\\
+  (\text{c}) & \quad\myvec{\vec{C-A}}^\top\myvec{\vec{D-B}}\,\neq\,0
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+Let us solve the given equation theoretically and then verify the solution computationally\\
+From the given points in the question,\\
+\hspace{1cm} From (a)\\
+\begin{align}
+   \myvec{-1\\-2\\-1}-\myvec{1\\2\\3}=\myvec{2\\3\\2}-\myvec{4\\7\\6}\equiv \, \myvec{2\\4\\4}
+\end{align}
+From (b)
+\begin{align}
+    \vec{B}-\vec{A}=\myvec{-2\\-4\\-4} \,\text{and}\, \vec{C} \vec{B}=\myvec{3\\5\\3}\\
+    \implies \myvec{\vec{B-A}}^\top\myvec{\vec{C-B}}\,=\,-38(\neq0)
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical solution}
+From (c)
+\begin{align}
+    \vec{C}-\vec{A}=\myvec{1\\1\\-1}\,\text{and}\, \vec{D}-\vec{B}=\myvec{5\\9\\7}\\
+    \implies \myvec{\vec{C-A}}^\top\myvec{\vec{D-B}}\,=\,7(\neq0)
+\end{align}
+From (1), it is clear that the opposite sides have the same slope, which means they are parallel.\\
+From (3) and (5) we can say that the sides are not perpendicular. Hence $ABCD$ is not a Rectangle.\\[4pt]
+As the quadrilateral $ABCD$ satisfies all the above conditions, it is a Parallelogram.\\
+\vspace{0.5cm}
+\begin{align*}
+    \therefore ABCD\; \text{is a Parallelogram.}
+\end{align*}
+\end{frame}
+
+\begin{frame}[fragile]{C code}
+\begin{lstlisting}
+    #include <stdio.h>
+int main() {
+    int A[3] = {1, 2, 3};
+    int B[3] = {-1, -2, -1};
+    int C[3] = {2, 3, 2};
+    int D[3] = {4, 7, 6};
+    int AB[3], DC[3], AD[3], BC[3];
+    // Calculate vectors
+    for (int i = 0; i < 3; i++) {
+        AB[i] = B[i] - A[i];
+        DC[i] = C[i] - D[i];
+        AD[i] = D[i] - A[i];
+        BC[i] = C[i] - B[i];
+    }
+    
+ // Check parallelogram
+    int isPara = 1;
+     \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{C code}
+\begin{lstlisting}
+    for (int i = 0; i < 3; i++) {
+        if (AB[i] != DC[i] || AD[i] != BC[i]) {
+            isPara = 0;
+            break;
+        }
+    }
+    if (isPara) {
+        printf("ABCD is a parallelogram.\n");
+        // Check rectangle (dot product AB·AD)
+        int dot = AB[0]*AD[0] + AB[1]*AD[1] + AB[2]*AD[2];
+        if (dot == 0)
+            printf("It is also a rectangle.\n");
+        else
+            printf("It is not a rectangle.\n");
+    } else {
+        printf("ABCD is not a parallelogram.\n");
+    }
+   return 0;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Call C.py}
+\begin{lstlisting}
+import ctypes
+import platform
+
+# Load shared library
+if platform.system() == "Windows":
+    quad_lib = ctypes.CDLL("./parallelogram.dll")
+else:
+    quad_lib = ctypes.CDLL("./parallelogram.so")
+
+# Declare function argument & return types
+quad_lib.check_quad.argtypes = [ctypes.c_double, ctypes.c_double, ctypes.c_double,
+                                ctypes.c_double, ctypes.c_double, ctypes.c_double,
+                                ctypes.c_double, ctypes.c_double, ctypes.c_double,
+                                ctypes.c_double, ctypes.c_double, ctypes.c_double]
+quad_lib.check_quad.restype = ctypes.c_int
+ \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Call C.py}
+\begin{lstlisting}
+
+# Points: A(1,2,3), B(-1,-2,-1), C(2,3,2), D(4,7,6)
+x1,y1,z1 = 1, 2, 3
+x2,y2,z2 = -1, -2, -1
+x3,y3,z3 = 2, 3, 2
+x4,y4,z4 = 4, 7, 6
+
+# Call C function
+result = quad_lib.check_quad(x1,y1,z1, x2,y2,z2, x3,y3,z3, x4,y4,z4)
+
+# Interpret result
+if result == 0:
+    print("ABCD is not a parallelogram.")
+elif result == 1:
+    print("ABCD is a parallelogram but not a rectangle.")
+elif result == 2:
+    print("ABCD is a rectangle.")
+
+ \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Plot.py}
+\begin{lstlisting}
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+
+# Points
+A = (1, 2, 3)
+B = (-1, -2, -1)
+C = (2, 3, 2)
+D = (4, 7, 6)
+
+# Plot setup
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+# Plot points
+ax.scatter(*A, color="r", label="A(1,2,3)")
+ax.scatter(*B, color="g", label="B(-1,-2,-1)")
+ax.scatter(*C, color="b", label="C(2,3,2)")
+ax.scatter(*D, color="orange", label="D(4,7,6)")
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Plot.py}
+\begin{lstlisting}
+
+# Draw parallelogram edges
+edges = [(A, B), (B, C), (C, D), (D, A)]
+for p1, p2 in edges:
+    ax.plot([p1[0], p2[0]], [p1[1], p2[1]], [p1[2], p2[2]], 'k-')
+
+# Fill parallelogram surface
+verts = [[A, B, C, D]]
+ax.add_collection3d(Poly3DCollection(verts, alpha=0.2, facecolor='cyan'))
+
+# Labels
+ax.set_xlabel("X-axis")
+ax.set_ylabel("Y-axis")
+ax.set_zlabel("Z-axis")
+ax.legend()
+
+plt.show()
+\end{lstlisting}
+\end{frame}
+\begin{frame}{Plot}
+From the graph, theoretical solution matches with the computational solution.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\columnwidth]{figs/graph.png}
+ \caption*{A Parallelogram with vertices $\vec{A}$,$\vec{B},\vec{C}$ and $\vec{D}$}
+\label{fig:graph.png}
+\end{figure}
+\end{frame}
+\end{document}

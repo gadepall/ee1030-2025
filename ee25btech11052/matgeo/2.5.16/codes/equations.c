@@ -1,11 +1,5 @@
 #include <stdio.h>
-// Solve for p such that m1 ⋅ m2 = 0
-// m1 = (-3, p, 2)
-// m2 = (-3p, 1, -5)
-//
-// dot = (-3)(-3p) + p*1 + 2*(-5) = 9p + p - 10 = 10p - 10
-// => p = 1
-//
+
 
 void solve_equations(double *p_out) {
     double p;

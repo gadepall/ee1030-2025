@@ -1,7 +1,7 @@
 import ctypes
 
 # Load the shared library
-lib = ctypes.CDLL("./libsection.so")
+lib = ctypes.CDLL("./section.so")
 
 # Declare return types and argument types
 lib.get_dividing_point.argtypes = [ctypes.POINTER(ctypes.c_float), ctypes.POINTER(ctypes.c_float)]
@@ -19,5 +19,5 @@ Py = ctypes.c_float()
 # Call get_dividing_point()
 lib.get_dividing_point(ctypes.byref(Px), ctypes.byref(Py))
 
-print(f"The dividing point is ({Px.value:.2f}, {Py.value:.2f})")
+print("The dividing point is ({Px.value:.2f}, {Py.value:.2f})")
 

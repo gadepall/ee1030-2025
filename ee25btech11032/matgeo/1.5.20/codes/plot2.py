@@ -30,7 +30,7 @@ A = func(P,B).reshape(-1,1)
 
 x_AB = line_gen_num(A,B,20)
 radius = func_radius(P,B)
-
+print(x_AB)
 x_circ = circ_gen(P,radius)
 plt.plot(x_circ[0,:],x_circ[1,:],"red",label="Circle")
 

@@ -1,0 +1,264 @@
+\documentclass{beamer}
+\usepackage[latin1]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath}
+\usepackage{amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{gensymb}
+\usepackage{physics}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\title{4.7.11}
+\date{13th september, 2025}
+\author{Vishwambhar - EE25BTECH11025}
+
+\begin{document}
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Show that the path of a moving point such that its distance from two lines  $3x-2y=5$ and $3x+2y=5$ are equal is a straight line.\\
+\end{frame}
+
+\begin{frame}{Given}
+Given line equations can be written as:
+\begin{align}
+    \vec{n}_1^\top\vec{x}=c_1\\
+    \vec{n}_1=\myvec{3\\-2};c_1=5\\
+    \vec{n}_2^\top\vec{x}=c_2\\
+    \vec{n}_2=\myvec{3\\2};c_2=5
+\end{align}
+
+let the point equidistant from the given lines be:
+\begin{align}
+    \vec{P}=\myvec{x\\y}
+\end{align}
+\end{frame}
+
+\begin{frame}{Proof}
+From distance formula:
+\begin{align}
+    d_1=\frac{|\vec{n}_1^\top\vec{P}-c_1|}{||\vec{n}_1||}\\
+    d_2=\frac{|\vec{n}_2^\top\vec{P}-c_2|}{||\vec{n}_2||}\\
+    \because d_1=d_2\\
+    \frac{|\vec{n}_1^\top\vec{P}-c_1|}{||\vec{n}_1||}=\frac{|\vec{n}_2^\top\vec{P}-c_2|}{||\vec{n}_2||}\\
+    \because ||\vec{n}_1||=||\vec{n}_2||=\sqrt{3^2+2^2}=\sqrt{13}\\
+    \vec{n}_1^\top\vec{P}-c_1=\pm\brak{\vec{n}_2^\top\vec{P}-c_2}
+\end{align}
+\end{frame}
+
+\begin{frame}{checking}
+First, by taking $+$:
+\begin{align}
+    \vec{n}_1^\top\vec{P}-c_1=+\brak{\vec{n}_2^\top\vec{P}-c_2}\\
+    \vec{n}_1^\top\vec{P}-\vec{n}_2^\top\vec{P}=c_1-c_2\\
+    \brak{\vec{n}_1-\vec{n}_2}^\top\vec{P}=c_1-c_2\\
+    \myvec{0&-4}\vec{P}=0
+\end{align}
+
+Now by taking $-$:
+\begin{align}
+    \vec{n}_1^\top\vec{P}-c_1=-\brak{\vec{n}_2^\top\vec{P}-c_2}\\
+    \vec{n}_1^\top\vec{P}+\vec{n}_2^\top\vec{P}=c_1+c_2\\
+    \brak{\vec{n}_1+\vec{n}_2}^\top\vec{P}=c_1+c_2\\
+    \myvec{6&0}\vec{P}=10
+\end{align}
+\end{frame}
+
+\begin{frame}{Conclusion}
+Since equations (15) and (19) are in the form of line equation $\vec{n}^\top\vec{x}=c$, the given path of the moving point is a line.
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+#include <stdio.h>
+
+int vector1[2]={3, -2};
+int constant1[1]={5};
+int vector2[2]={3, 2};
+int constant2[1]={5};
+
+int get_vector1(int index){
+    return vector1[index];
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+int get_vector2(int index){
+    return vector2[index];
+}
+
+int get_constant1(int index){
+    return constant1[index];
+}
+
+int get_constant2(int index){
+    return constant2[index];
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code 1}
+    \begin{lstlisting}
+import ctypes
+
+lib = ctypes.CDLL("./problem.so")
+
+finalvector1=[0, 0]
+finalvector2=[0, 0]
+
+lib.get_vector1.argtypes = [ctypes.c_int]
+lib.get_vector1.restype = ctypes.c_int
+
+lib.get_vector2.argtypes = [ctypes.c_int]
+lib.get_vector2.restype = ctypes.c_int
+
+lib.get_constant1.argtypes = [ctypes.c_int]
+lib.get_constant1.restype = ctypes.c_int
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code 1}
+    \begin{lstlisting}
+lib.get_constant2.argtypes = [ctypes.c_int]
+lib.get_constant2.restype = ctypes.c_int
+
+
+for i in range(0,2):
+    finalvector1[i]=lib.get_vector1(i)-lib.get_vector2(i)
+
+for i in range(0,2):
+    finalvector2[i]=lib.get_vector1(i)+lib.get_vector2(i)
+
+finalconstant=lib.get_constant1(0)+lib.get_constant2(0)
+
+print(f"The final line equations are y=0 and {finalvector2[0]}x={finalconstant}")
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code 2}
+    \begin{lstlisting}
+import matplotlib.pyplot as plt
+import numpy as np
+
+a = np.linspace(-10, 10, 100)
+b = (3*a)/2 - (5/2)
+
+A = np.linspace(-10, 10, 100)
+B = (-3*A)/2 + (5/2)
+
+x = [10/6, 10/6]
+y = [15, -15]
+
+X = [-15, 15]
+Y = [0, 0]
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code 2}
+    \begin{lstlisting}
+plt.plot(a, b, 'r-')
+plt.plot(A, B, 'r-')
+plt.plot(x, y, 'k-')
+plt.plot(X, Y, 'k-')
+
+plt.text(10, 12.3, "3x-2y=5", fontsize=10, color='black')
+plt.text(-8.3, 15, "3x+2y=5", fontsize=10, color='black')
+plt.text(15.2, -0.06, "y=0", fontsize=10, color='black')
+plt.text(1.6, 14.6, "x=10/6", fontsize=10, color='black')
+
+
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+plt.axis('equal')
+plt.grid(True)
+plt.savefig("../figs/plot.png")
+plt.show()    \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Plot}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.5\columnwidth]{../figs/plot.png}
+        \caption{Plot of given lines and path of the moving points}
+        \label{fig:fig}
+    \end{figure}
+\end{frame}
+
+
+
+
+\end{document}

@@ -1,0 +1,20 @@
+\frametitle{Pure Python (Part 2)}
+\begin{lstlisting}[language=Python]
+A = np.zeros((3,1))
+B = v
+line_points = line_gen(A, B)
+
+Y_end = np.array([0,2,0]).reshape(-1,1)
+yaxis_points = line_gen(A, Y_end)
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.plot(line_points[0,:], line_points[1,:], line_points[2,:], label="Line")
+ax.plot(yaxis_points[0,:], yaxis_points[1,:], yaxis_points[2,:], label="Y-axis")
+
+ax.scatter(0,0,0,color="red",s=50)
+ax.text(0,0,0,"O",fontsize=10)
+ax.set_xlabel("X"); ax.set_ylabel("Y"); ax.set_zlabel("Z")
+ax.legend(); plt.title("Line vs Y-axis")
+plt.savefig("../figs/line.png"); plt.show()
+\end{lstlisting}

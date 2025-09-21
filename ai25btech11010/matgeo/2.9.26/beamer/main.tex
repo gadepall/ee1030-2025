@@ -1,0 +1,266 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\title{2.9.26}
+\author{Dhanush Kumar A - AI25BTECH11010}
+\date{September 10, 2025}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Question}
+If $f(\alpha) = \myvec{\cos\alpha & -\sin\alpha & 0 \\ \sin\alpha & \cos\alpha & 0 \\ 0 & 0 & 1}$,  
+prove that $f(\alpha)f(-\beta) = f(\alpha-\beta)$.
+
+\end{frame}
+\begin{frame}{Solution}
+We have
+\begin{align}
+f(\theta) 
+&= \myvec{\cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0 & 0 & 1}, \\[1em]
+f(\alpha) 
+	&= \myvec{\cos\alpha & -\sin\alpha & 0 \\ \sin\alpha & \cos\alpha & 0 \\ 0 & 0 & 1}\\[1em]
+f(-\beta) 
+&= \myvec{\cos\beta & \sin\beta & 0 \\ -\sin\beta & \cos\beta & 0 \\ 0 & 0 & 1}, \\[1em]
+f(\alpha)f(-\beta) 
+&= \myvec{\cos\alpha & -\sin\alpha & 0 \\ \sin\alpha & \cos\alpha & 0 \\ 0 & 0 & 1}
+   \myvec{\cos\beta & \sin\beta & 0 \\ -\sin\beta & \cos\beta & 0 \\ 0 & 0 & 1}, \\[1em]
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+	\begin{align}
+&= \myvec{\cos\alpha\cos\beta + \sin\alpha\sin\beta & \cos\alpha\sin\beta - \sin\alpha\cos\beta & 0 \\[2mm]
+          \sin\alpha\cos\beta - \cos\alpha\sin\beta & \sin\alpha\sin\beta + \cos\alpha\cos\beta & 0 \\[1mm]
+          0 & 0 & 1}, \\[1em]
+&= \myvec{\cos(\alpha-\beta) & -\sin(\alpha-\beta) & 0 \\ \sin(\alpha-\beta) & \cos(\alpha-\beta) & 0 \\ 0 & 0 & 1}, \\[1em]
+&= f(\alpha-\beta).
+\end{align}
+
+Thus proved.
+\end{frame}
+\begin{frame}[fragile]                            
+\frametitle{Python code - Verify the result}                
+\begin{lstlisting}
+import numpy as np
+
+def f(theta):
+    return np.array([
+        [np.cos(theta), -np.sin(theta), 0],
+        [np.sin(theta),  np.cos(theta), 0],
+        [0, 0, 1]
+    ])
+
+# Take input
+alpha = float(input("Enter alpha (in radians): "))
+beta = float(input("Enter beta (in radians): "))
+
+# Compute both sides
+lhs = f(alpha) @ f(-beta)
+rhs = f(alpha - beta)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]    \frametitle{Python code - Verify the result}                
+\begin{lstlisting}
+
+   
+# Check equality (within tolerance, since floats may not be exact)
+if np.allclose(lhs, rhs, atol=1e-9):
+    print("Verified: f(alpha) f(-beta) = f(alpha - beta)")
+else:
+    print(" Not equal")
+    print("LHS =\n", lhs)
+    print("RHS =\n", rhs)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]                            
+\frametitle{Output of Python code}                
+\begin{lstlisting}
+Enter alpha (in radians): 4
+Enter beta (in radians): 5
+Verified: f(alpha) f(-beta) = f(alpha - beta)
+
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]                            
+\frametitle{C code - Verify the result}                
+\begin{lstlisting}
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include "/home/dhanush-kumar-a/ee1030-2025/ai25btech11010/matgeo/2.9.26/codes/libs/matfun.h"
+
+int main() {
+    double alpha, beta;
+    printf("Enter alpha (in radians): ");
+    scanf("%lf", &alpha);
+    printf("Enter beta (in radians): ");
+    scanf("%lf", &beta);
+
+    // Step 1: Create 3x3 rotation matrices
+    double **F_alpha = createMat(3,3);
+    double **F_minus_beta = createMat(3,3);
+    double **F_alpha_minus_beta = createMat(3,3);
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]                            
+\frametitle{C code - Verify the result}                
+\begin{lstlisting}
+
+    // Fill the matrices manually
+    F_alpha[0][0] = cos(alpha);  F_alpha[0][1] = -sin(alpha); F_alpha[0][2] = 0;
+    F_alpha[1][0] = sin(alpha);  F_alpha[1][1] =  cos(alpha); F_alpha[1][2] = 0;
+    F_alpha[2][0] = 0;           F_alpha[2][1] = 0;           F_alpha[2][2] = 1;
+
+    F_minus_beta[0][0] = cos(-beta);  F_minus_beta[0][1] = -sin(-beta); F_minus_beta[0][2] = 0;
+    F_minus_beta[1][0] = sin(-beta);  F_minus_beta[1][1] =  cos(-beta); F_minus_beta[1][2] = 0;
+    F_minus_beta[2][0] = 0;           F_minus_beta[2][1] = 0;           F_minus_beta[2][2] = 1;
+
+    F_alpha_minus_beta[0][0] = cos(alpha - beta);  F_alpha_minus_beta[0][1] = -sin(alpha - beta); F_alpha_minus_beta[0][2] = 0;
+    F_alpha_minus_beta[1][0] = sin(alpha - beta);  F_alpha_minus_beta[1][1] =  cos(alpha - beta); F_alpha_minus_beta[1][2] = 0;
+    F_alpha_minus_beta[2][0] = 0;                  F_alpha_minus_beta[2][1] = 0;                  F_alpha_minus_beta[2][2] = 1;
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]                            
+\frametitle{C code - Verify the result}                
+\begin{lstlisting}
+
+    // Step 2: Multiply f(alpha) * f(-beta)
+    double **lhs = Matmul(F_alpha, F_minus_beta, 3, 3, 3);
+
+    // Step 3: Compare lhs with f(alpha - beta)
+    int equal = 1;
+    for(int i=0;i<3;i++){
+        for(int j=0;j<3;j++){
+            if(fabs(lhs[i][j] - F_alpha_minus_beta[i][j]) > 1e-9){
+                equal = 0;
+                break;
+            }
+        }
+        if(!equal) break;
+    }
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]                            
+\frametitle{C code - Verify the result}                
+\begin{lstlisting}
+
+    // Step 4: Print results
+    if(equal){
+        printf("\nVerified: f(alpha) * f(-beta) = f(alpha - beta)\n");
+    } else {
+        printf("\nNot equal!\n\nLHS =\n");
+        printMat(lhs, 3, 3);
+        printf("\nRHS =\n");
+        printMat(F_alpha_minus_beta, 3, 3);
+    }
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]                            
+\frametitle{C code - Verify the result}                
+\begin{lstlisting}
+
+    // Step 5: Free memory
+    for(int i=0;i<3;i++){
+        free(F_alpha[i]); free(F_minus_beta[i]); free(F_alpha_minus_beta[i]);
+        free(lhs[i]);
+    }
+    free(F_alpha); free(F_minus_beta); free(F_alpha_minus_beta); free(lhs);
+
+    return 0;
+}
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]                            
+\frametitle{Output of C code}                
+\begin{lstlisting}
+Enter alpha (in radians): 2
+Enter beta (in radians): 1.23
+
+ Verified: f(alpha)*f(-beta) = f(alpha - beta)
+
+\end{lstlisting}
+\end{frame}
+
+\end{document}
+

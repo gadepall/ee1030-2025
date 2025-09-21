@@ -1,0 +1,194 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\lstset{literate={·}{{$\cdot$}}1 {λ}{{$\lambda$}}1 {→}{{$\to$}}1}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\title{5.4.8}
+\date{September 13, 2025}
+\author{Bhargav - EE25BTECH11013}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Question}
+Using elementary transformations, find the inverse of the following matrix
+\begin{align}
+\myvec{-1 & 5 \\ -3 & 2}
+\end{align}
+\end{frame}
+
+
+\begin{frame}{Inverse}
+We know that
+\begin{align}
+\vec{A}^{-1}\vec{A} = \vec{I}
+\end{align}
+where $\vec{I}$ is the $2 \times 2$ identity matrix.
+
+So we form the augmented matrix:
+\begin{align}
+\augvec{2}{2}{-1 & 5 & 1 & 0 \\ -3 & 2 & 0 & 1}
+\end{align}
+\end{frame}
+
+\begin{frame}{Row Transformations}
+Applying row operations:
+\begin{align}
+\augvec{2}{2}{-1 & 5 & 1 & 0 \\ -3 & 2 & 0 & 1}
+&\xleftrightarrow[R_2 \leftarrow R_2 + 3R_1]{R_1 \leftarrow -R_1}
+\augvec{2}{2}{1 & -5 & -1 & 0 \\ 0 & -13 & -3 & 1}
+\end{align}
+
+\begin{align}
+&\xleftrightarrow[R_1 \leftarrow R_1 + 5R_2]{R_2 \leftarrow -\frac{1}{13}R_2}
+\augvec{2}{2}{1 & 0 & \frac{2}{13} & -\frac{5}{13} \\ 0 & 1 & \frac{3}{13} & -\frac{1}{13}}
+\end{align}
+\end{frame}
+
+
+\begin{frame}{Final Inverse}
+Therefore, the inverse is
+\begin{align}
+\vec{A}^{-1} = \frac{1}{13}\myvec{2 & -5 \\ 3 & -1}
+\end{align}
+
+This can be verified in code by showing
+\begin{align}
+\vec{A}^{-1}\vec{A} = \vec{I}.
+\end{align}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+#include <stdio.h>
+
+void matmul(double* A, double* B, double* C) {
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            double sum = 0.0;
+            for (int k = 0; k < 2; k++) {
+                sum += A[i*2 + k] * B[k*2 + j];
+            }
+            C[i*2 + j] = sum;
+        }
+    }
+}
+
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python + C Code}
+    \begin{lstlisting}
+import ctypes
+import numpy as np
+lib = ctypes.CDLL("./libmatmul.so")
+lib.matmul.argtypes = [
+    np.ctypeslib.ndpointer(dtype=np.float64, flags="C_CONTIGUOUS"), 
+    np.ctypeslib.ndpointer(dtype=np.float64, flags="C_CONTIGUOUS"),
+    np.ctypeslib.ndpointer(dtype=np.float64, flags="C_CONTIGUOUS"), 
+]
+lib.matmul.restype = None
+A = np.array([[-1, 5],
+              [-3, 2]], dtype=np.float64)
+B = (1/13.0) * np.array([[2, -5],
+                         [3, -1]], dtype=np.float64)
+C = np.zeros((2, 2), dtype=np.float64)
+lib.matmul(A, B, C)
+print("C = A*B =\n", C) 
+
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import numpy as np
+
+
+a = np.array([[-1, 5],[-3, 2]])
+inverse_a = np.array([[2/13, -5/13], [3/13, -1/13]])
+
+b = a@inverse_a
+print(b)
+
+    \end{lstlisting}
+\end{frame}
+
+
+\end{document}

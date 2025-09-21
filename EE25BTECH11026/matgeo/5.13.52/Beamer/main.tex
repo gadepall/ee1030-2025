@@ -1,0 +1,188 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\lstset{literate={·}{{$\cdot$}}1 {λ}{{$\lambda$}}1 {→}{{$\to$}}1}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{5.13.52}
+\date{September 6,2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{Harsha-EE25BTECH11026}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+
+\begin{frame}{Question}
+If the system of equations $x + ay = 0$,$az + y = 0$ and $ax + z = 0$ has infinite solutions, then the value of a is
+\begin{enumerate}
+    \item -1
+    \item 1
+    \item 0
+    \item no real values
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+From the given,
+\begin{align}
+    \myvec{1&&a&&0}\vec{x}=0\\
+    \myvec{0&&1&&a}\vec{x}=0\\
+    \myvec{a&&0&&1}\vec{x}=0
+\end{align}
+\begin{align}
+    \therefore \myvec{1&&a&&0\\0&&1&&a\\a&&0&&1}\vec{x}=0
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+To solve for a, we can use the fact that of rank of coefficient matrix should be less than 3.
+\begin{align}
+    \myvec{1&&a&&0\\0&&1&&a\\a&&0&&1}
+    \xleftrightarrow[\,R_3 \gets R_3+ a^2 \times R_2]{\, R_3 \gets R_3- a \times R_1}
+    \myvec{1&&a&&0\\0&&1&&a\\0&&0&&a^3+1}
+\end{align}
+\\
+As the rank of the matrix should be less than 3, we require the last pivot to be zero.
+\begin{align}
+    \therefore a^3+1=0 \implies a=-1,-\omega,-\omega^2
+\end{align}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code -Finding the determinant of the matrix}
+
+    \begin{lstlisting}[language=C]
+#include <stdio.h>
+
+double det3x3(double a) {
+    double det = 1 + a*a*a;
+    return det;
+}
+    \end{lstlisting}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+    \frametitle{Python+C code}
+
+    \begin{lstlisting}[language=Python]
+import ctypes
+# Load the shared C library
+lib = ctypes.CDLL("./libmatrix_solver.so")
+lib.det3x3.argtypes = [ctypes.c_double]
+lib.det3x3.restype = ctypes.c_double
+# Real solution directly
+a = -1.0
+det_val = lib.det3x3(a)
+tol = 1e-6
+
+if abs(det_val) < tol:
+    solutions = [a]
+else:
+    solutions = []
+
+print("Real values of a for infinite solutions:")
+print(solutions)
+
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python code}
+    \begin{lstlisting}[language=Python]
+import sympy as sp
+a = sp.symbols('a')
+A = sp.Matrix([
+    [1, a, 0],
+    [0, 1, a],
+    [a, 0, 1]
+])
+# Solve det(A) = 0 for exact solution
+solutions = sp.solve(A.det(), a)
+print("Value(s) of a for infinite solutions:", solutions) 
+    \end{lstlisting}   
+\end{frame}
+
+\end{document}

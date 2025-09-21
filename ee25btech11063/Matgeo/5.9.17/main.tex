@@ -1,0 +1,130 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a4paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}  % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{5.9.17}
+\author{ee25btech11063-vejith}
+
+\maketitle
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+\textbf{Question}\\
+If   $\begin{pmatrix}
+    2a+b & a-2b\\
+    5c-d & 4c+3d
+\end{pmatrix}$=$\begin{pmatrix}
+    4 & -3\\
+    11 & 24
+\end{pmatrix}$, then the value of a+b-c+2d\\ \\
+\textbf{Solution}:\\
+From the matrix equation the first row gives
+\begin{align}
+    \begin{pmatrix}
+        2 & 1 & 0 & 0\\
+        1 & -2 & 0 & 0
+        \end{pmatrix} \myvec{a\\b\\c\\d}=\myvec{4\\-3}
+    \end{align}
+    From the matrix equation the second row gives
+    \begin{align}
+    \begin{pmatrix}
+        0 & 0 & 5 & -1\\
+        0 & 0 & 4 & 3
+        \end{pmatrix} \myvec{a\\b\\c\\d}=\myvec{11\\24}
+    \end{align}
+combine (1) and (2)
+\begin{align}
+    \begin{pmatrix}
+        2 & 1 & 0 & 0\\
+        1 & -2 & 0 & 0\\
+        0 & 0 & 5 & -1\\
+        0 & 0 & 4 & 3
+        \end{pmatrix} \myvec{a\\b\\c\\d}=\myvec{4\\-3\\11\\24}
+\end{align}
+Forming the augmented matrix\\
+\begin{align}
+    \left(\begin{array}{cccc|c}
+       2 & 1 & 0 & 0 & 4\\
+        1 & -2 & 0 & 0 & -3\\
+        0 & 0 & 5 & -1 & 11\\
+        0 & 0 & 4 & 3 & 24
+\end{array}\right) &\xrightarrow{R_2 \leftrightarrow R_2-\frac{1}{2}\times R_1}
+\left(\begin{array}{cccc|c}
+       2 & 1 & 0 & 0 & 4\\
+        0 & -\frac{5}{2} & 0 & 0 & -5\\
+        0 & 0 & 5 & -1 & 11\\
+        0 & 0 & 4 & 3 & 24
+        \end{array}\right)\\ &\xrightarrow{R_1 \leftrightarrow R_1+\frac{2}{5}\times R_2} \left(\begin{array}{cccc|c}
+       2 & 0 & 0 & 0 & 2\\
+        0 & -\frac{5}{2} & 0 & 0 & -5\\
+        0 & 0 & 5 & -1 & 11\\
+        0 & 0 & 4 & 3 & 24
+        \end{array}\right)\\ &\xrightarrow{R_4 \leftrightarrow R_4-\frac{4}{5}\times R_3} \left(\begin{array}{cccc|c}
+       2 & 0 & 0 & 0 & 2\\
+        0 & -\frac{5}{2} & 0 & 0 & -5\\
+        0 & 0 & 5 & -1 & 11\\
+        0 & 0 & 0 & \frac{19}{5} & \frac{76}{5}
+        \end{array}\right)\\
+         &\xrightarrow{R_3 \leftrightarrow R_3+\frac{5}{19}\times R_4} \left(\begin{array}{cccc|c}
+       2 & 0 & 0 & 0 & 2\\
+        0 & -\frac{5}{2} & 0 & 0 & -5\\
+        0 & 0 & 5 & 0 & 15\\
+        0 & 0 & 0 & \frac{19}{5} & \frac{76}{5}
+        \end{array}\right)
+        \end{align}
+        on back substitution we get
+        \begin{align}
+        \implies \myvec{a\\b\\c\\d}=\myvec{1\\2\\3\\4}
+\end{align}
+    value of 
+    \begin{align}
+    a+b-c+2d=    \brak{1\hspace{0.3cm}1\hspace{0.3cm}-1\hspace{0.3cm}2}\myvec{a\\b\\c\\d}\\=\brak{1\hspace{0.3cm}1\hspace{0.3cm}-1\hspace{0.3cm}2}\myvec{1\\2\\3\\4}=8
+    \end{align}
+\end{document}
