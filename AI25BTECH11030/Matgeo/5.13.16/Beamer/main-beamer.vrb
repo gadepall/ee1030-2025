@@ -1,14 +1,19 @@
 \frametitle{Python Code}
     \begin{lstlisting}
+a1, b1, c1 = line_params(A, footA)
+a2, b2, c2 = line_params(B, footB)
+A_mat = np.array([[a1, b1], [a2, b2]])
+b_vec = np.array([c1, c2])
 
-plot_altitude(A, np.array([a1, b1]), c1, 'Altitude from A')
-plot_altitude(B, np.array([a2, b2]), c2, 'Altitude from B')
+O = np.linalg.solve(A_mat, b_vec)
 
-plt.plot(O[0], O[1], 'ro', label='Orthocentre')
+# Plot orthocenter
+plt.plot(O[0], O[1], 'ro', label='Orthocenter')
+
+plt.axis('equal')
+plt.title('Triangle and Orthocenter with Altitudes')
 plt.legend()
-plt.grid(True)
-plt.title('Triangle and Orthocentre')
 plt.savefig("fig1.png")
+plt.grid(True)
 plt.show()
-
 \end{lstlisting}

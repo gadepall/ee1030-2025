@@ -1,61 +1,60 @@
-import ctypes
 import numpy as np
 import matplotlib.pyplot as plt
+import numpy.ctypeslib as npct
+from ctypes import CDLL
 
-# Load shared library
-lib = ctypes.CDLL('./matfun.so')
+# Load the shared library
+lib = CDLL('./libmatfun.so')
 
-arr_type = ctypes.c_double * 2
-A = arr_type(2, -6)
-B = arr_type(5, 2)
-C = arr_type(-2, 2)
-O = arr_type()
+array1d = npct.ndpointer(dtype=np.float64, ndim=1, shape=(2,))
 
-# Set arg types
-lib.compute_orthocentre.argtypes = [arr_type, arr_type, arr_type, arr_type]
-lib.line_equation.argtypes = [arr_type, arr_type, arr_type, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_double)]
-lib.solve_2x2.argtypes = [ctypes.c_double, ctypes.c_double, ctypes.c_double, ctypes.c_double, ctypes.c_double, ctypes.c_double, arr_type]
+lib.foot_of_perpendicular.restype = None
+lib.foot_of_perpendicular.argtypes = [array1d, array1d, array1d, array1d]
+lib.orthocenter.restype = None
+lib.orthocenter.argtypes = [array1d, array1d, array1d, array1d]
 
-# Call orthocentre computation
-lib.compute_orthocentre(A, B, C, O)
-print("Orthocentre:", list(O))
+A = np.array([2.0, -6.0])
+B = np.array([5.0, 2.0])
+C = np.array([-2.0, 2.0])
 
-# Arrays to hold line coefficients
-a1, b1, c1 = ctypes.c_double(), ctypes.c_double(), ctypes.c_double()
-a2, b2, c2 = ctypes.c_double(), ctypes.c_double(), ctypes.c_double()
-a3, b3, c3 = ctypes.c_double(), ctypes.c_double(), ctypes.c_double()
+def foot_of_perpendicular(P, Q, R):
+    foot = np.zeros(2, dtype=np.float64)
+    lib.foot_of_perpendicular(P, Q, R, foot)
+    return foot
 
-# Compute altitude lines via C functions for all three vertices
-lib.line_equation(A, B, C, ctypes.byref(a1), ctypes.byref(b1), ctypes.byref(c1)) # Altitude from A
-lib.line_equation(B, A, C, ctypes.byref(a2), ctypes.byref(b2), ctypes.byref(c2)) # Altitude from B
-lib.line_equation(C, A, B, ctypes.byref(a3), ctypes.byref(b3), ctypes.byref(c3)) # Altitude from C
+def calc_orthocenter(A, B, C):
+    O = np.zeros(2, dtype=np.float64)
+    lib.orthocenter(A, B, C, O)
+    return O
 
-# Convert points to numpy for plotting
-A_np = np.array([2, -6])
-B_np = np.array([5, 2])
-C_np = np.array([-2, 2])
-O_np = np.array([O[0], O[1]])
+def plot_altitude(vertex, foot, label):
+    plt.plot([vertex[0], foot[0]], [vertex[1], foot[1]], linestyle='--', label=label)
 
-fig, ax = plt.subplots(figsize=(6,6))
-ax.plot([A_np[0], B_np[0], C_np[0], A_np[0]], [A_np[1], B_np[1], C_np[1], A_np[1]], 'bo-', label='Triangle')
+footA = foot_of_perpendicular(A, B, C)
+footB = foot_of_perpendicular(B, A, C)
+footC = foot_of_perpendicular(C, A, B)
 
-def plot_line(a, b, c, ax, color, label):
-    if abs(b) > 1e-8:
-        x = np.linspace(-10, 20, 300)
-        y = (c - a*x)/b
-    else:
-        x = np.full(300, c/a)
-        y = np.linspace(-10, 20, 300)
-    ax.plot(x, y, color=color, linestyle='--', label=label)
+O = calc_orthocenter(A, B, C)
 
-plot_line(a1.value, b1.value, c1.value, ax, 'r', 'Altitude from A')
-plot_line(a2.value, b2.value, c2.value, ax, 'g', 'Altitude from B')
-plot_line(a3.value, b3.value, c3.value, ax, 'b', 'Altitude from C')
+# Print orthocenter
+print(f"Orthocenter: {O}")
 
-ax.plot(O_np[0], O_np[1], 'ro', label='Orthocentre')
+# Plot triangle
+triangle_x = [A[0], B[0], C[0], A[0]]
+triangle_y = [A[1], B[1], C[1], A[1]]
+plt.plot(triangle_x, triangle_y, 'bo-', label='Triangle')
 
-ax.legend()
-ax.grid(True)
-ax.set_title('Triangle, Altitudes, and Orthocentre (using .so functions)')
+# Plot the altitudes
+plot_altitude(A, footA, 'Altitude from A')
+plot_altitude(B, footB, 'Altitude from B')
+plot_altitude(C, footC, 'Altitude from C')
+
+# Plot orthocenter
+plt.plot(O[0], O[1], 'ro', label='Orthocenter')
+
+plt.axis('equal')
+plt.title('Triangle and Orthocenter with Altitudes')
+plt.legend()
+plt.grid(True)
 plt.show()
 
