@@ -1,0 +1,120 @@
+\documentclass[12pt]{article}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{array}
+\usepackage{titlesec}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{amsmath}     % For math equations
+\usepackage{amssymb}     % For advanced math symbols
+\usepackage{amsfonts} % For math fonts
+\usepackage{gvv}
+\usepackage{esint}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\titleformat{\section}{\bfseries\large}{\thesection.}{1em}{}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{caption}
+
+
+\begin{document}
+
+\section*{Problem 8.3.12}
+Find the equation of the set of all points the sum of whose distances 
+from the points $(3,0)$ and $(9,0)$ is $12$.
+
+\section*{Input Variables}
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Variable & Value \\
+\hline
+$\vec{F_1}$ & $\myvec{3\\0}$ \\
+\hline
+$\vec{F_2}$ & $\myvec{9\\0}$ \\
+\hline
+$2a$ & $12$ \\
+\hline
+\end{tabular}
+\caption{} \label{}
+\end{table}
+
+\section*{Solution}
+
+\subsection*{Step 1: Center and directions}
+\begin{align}
+\vec{c} &= \frac{\vec{F_1}+\vec{F_2}}{2} 
+= \myvec{6\\0} \\[6pt]
+\vec{p_1} &= \frac{\vec{F_2}-\vec{F_1}}{\|\vec{F_2}-\vec{F_1}\|}
+= \myvec{1\\0}, \quad 
+\vec{p_2} = \myvec{0\\1}, \quad 
+P = I
+\end{align}
+
+\subsection*{Step 2: Semi-minor axis}
+\begin{align}
+c_f &= \frac{\|\vec{F_2}-\vec{F_1}\|}{2} = 3 \\[6pt]
+a &= 6 \\[6pt]
+b^2 &= a^2 - c_f^2 = 36 - 9 = 27
+\end{align}
+
+\subsection*{Step 3: Standard ellipse form}
+\begin{align}
+(\vec{x}-\vec{c})^\top D (\vec{x}-\vec{c}) &= 1 \\[6pt]
+D &= \myvec{1/a^2 & 0 \\ 0 & 1/b^2} 
+= \myvec{1/36 & 0 \\ 0 & 1/27} \\[6pt]
+V &= P D P^\top = D
+\end{align}
+
+\subsection*{Step 4: Convert to general quadratic form}
+\begin{align}
+(\vec{x}-\vec{c})^\top V (\vec{x}-\vec{c}) &= 1 \\[6pt]
+\vec{x}^\top V \vec{x} - 2 \vec{c}^\top V \vec{x} + \vec{c}^\top V \vec{c} - 1 &= 0
+\end{align}
+
+Comparing with $\vec{x}^\top V \vec{x} + 2 \vec{u}^\top \vec{x} + f = 0$:
+\begin{align}
+\vec{u} &= -V\vec{c} \\[6pt]
+f &= \vec{c}^\top V \vec{c} - 1
+\end{align}
+
+Compute:
+\begin{align}
+\vec{u} &= -\myvec{1/36 & 0 \\ 0 & 1/27}\myvec{6\\0} 
+= \myvec{-1/6\\0} \\[6pt]
+f &= \myvec{6 & 0}\myvec{1/36 & 0 \\ 0 & 1/27}\myvec{6\\0} - 1 = 0
+\end{align}
+
+\subsection*{Step 5: Clear denominators}
+\begin{align}
+V &= \myvec{3 & 0 \\ 0 & 4} \\[6pt]
+\vec{u} &= \myvec{-18 \\ 0} \\[6pt]
+f &= 0
+\end{align}
+
+\subsection*{Final Matrix Equation}
+\begin{align}
+\boxed{ \; \vec{x}^\top V \vec{x} + 2 \vec{u}^\top \vec{x} + f = 0, \quad
+V = \myvec{3 & 0 \\ 0 & 4}, \;
+\vec{u} = \myvec{-18 \\ 0}, \;
+f = 0 \; }
+\end{align}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\columnwidth]{figs/ellipse.png}
+    \caption{}
+    \label{fig:placeholder}
+\end{figure}
+
+
+\end{document}

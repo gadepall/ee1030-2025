@@ -1,0 +1,536 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{advdate}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}} % nCr
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}} % nPr
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{{}\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}} 
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+%\providecommand{\hilbert}{\overset{\mathcal{H}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+	%\newcommand{\solution}[2]{\textbf{Solution:}{#1}}
+%\newcommand{\solution}{\noindent \textbf{Solution: }}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\let\vec\mathbf
+
+\lstset{
+language=C,
+frame=single, 
+breaklines=true,
+columns=fullflexible
+}
+
+\numberwithin{equation}{section}
+
+\title{Presentation - Matgeo}
+\author{Aryansingh Sonaye \\
+AI25BTECH11032 \\
+EE1030 - Matrix Theory}
+
+\date{\today} 
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section{Problem}
+\begin{frame}
+\frametitle{Problem Statement}
+\textbf{Problem 8.3.12}
+Find the equation of the set of all points the sum of whose distances 
+from the points $(3,0)$ and $(9,0)$ is $12$.
+
+\end{frame}
+
+\section{Solution}
+\subsection{Description of Variables used}
+\begin{frame}
+\frametitle{Description of Variables used}
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Variable & Value \\
+\hline
+$\vec{F_1}$ & $\myvec{3\\0}$ \\
+\hline
+$\vec{F_2}$ & $\myvec{9\\0}$ \\
+\hline
+$2a$ & $12$ \\
+\hline
+\end{tabular}
+\caption{} \label{}
+\end{table}
+
+
+\end{frame}
+
+\subsection{Theoretical Solution }
+\begin{frame}
+\frametitle{Theoretical Solution}
+\textbf{Step 1: Center and directions}
+\begin{align}
+\vec{c} &= \frac{\vec{F_1}+\vec{F_2}}{2} 
+= \myvec{6\\0} \\[6pt]
+\vec{p_1} &= \frac{\vec{F_2}-\vec{F_1}}{\|\vec{F_2}-\vec{F_1}\|}
+= \myvec{1\\0}, \quad 
+\vec{p_2} = \myvec{0\\1}, \quad 
+P = I
+\end{align}
+
+\textbf{Step 2: Semi-minor axis}
+\begin{align}
+c_f &= \frac{\|\vec{F_2}-\vec{F_1}\|}{2} = 3 \\[6pt]
+a &= 6 \\[6pt]
+b^2 &= a^2 - c_f^2 = 36 - 9 = 27
+\end{align}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Theoretical Solution}
+\textbf{Step 3: Standard ellipse form}
+\begin{align}
+(\vec{x}-\vec{c})^\top D (\vec{x}-\vec{c}) &= 1 \\[6pt]
+D &= \myvec{1/a^2 & 0 \\ 0 & 1/b^2} 
+= \myvec{1/36 & 0 \\ 0 & 1/27} \\[6pt]
+V &= P D P^\top = D
+\end{align}
+
+\textbf{Step 4: Convert to general quadratic form}
+\begin{align}
+(\vec{x}-\vec{c})^\top V (\vec{x}-\vec{c}) &= 1 \\[6pt]
+\vec{x}^\top V \vec{x} - 2 \vec{c}^\top V \vec{x} + \vec{c}^\top V \vec{c} - 1 &= 0
+\end{align}
+
+Comparing with $\vec{x}^\top V \vec{x} + 2 \vec{u}^\top \vec{x} + f = 0$:
+\begin{align}
+\vec{u} &= -V\vec{c} \\[6pt]
+f &= \vec{c}^\top V \vec{c} - 1
+\end{align}
+\end{frame}
+
+\begin{frame}
+\frametitle{Theoretical Solution}
+Compute:
+\begin{align}
+\vec{u} &= -\myvec{1/36 & 0 \\ 0 & 1/27}\myvec{6\\0} 
+= \myvec{-1/6\\0} \\[6pt]
+f &= \myvec{6 & 0}\myvec{1/36 & 0 \\ 0 & 1/27}\myvec{6\\0} - 1 = 0
+\end{align}
+
+\textbf{Step 5: Clear denominators}
+\begin{align}
+V &= \myvec{3 & 0 \\ 0 & 4} \\[6pt]
+\vec{u} &= \myvec{-18 \\ 0} \\[6pt]
+f &= 0
+\end{align}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Theoretical Solution}
+\textbf{Final Matrix Equation}
+\begin{align}
+\boxed{ \; \vec{x}^\top V \vec{x} + 2 \vec{u}^\top \vec{x} + f = 0, \quad
+V = \myvec{3 & 0 \\ 0 & 4}, \;
+\vec{u} = \myvec{-18 \\ 0}, \;
+f = 0 \; }
+\end{align}
+
+\end{frame}
+
+
+\subsection{Plot}
+\begin{frame}
+    \frametitle{Plot}
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.8\columnwidth]{figs/ellipse.png}
+   \caption{}
+   \label{}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Code - C}
+    \begin{lstlisting}
+#include <math.h>
+
+// Compute V (2x2, row-major), u (2), f from foci F1,F2 and sum (=2a).
+//   c = (F1+F2)/2
+//   a = sum/2
+//   c_f = ||F2-F1||/2,  b^2 = a^2 - c_f^2
+//   D = diag(1/a^2, 1/b^2)   [axis-aligned for this problem]
+//   V = D
+//   u = -V c
+//   f = c^T V c - 1
+void ellipse_vuf(const double *F1, const double *F2, double sum,
+                 double *V, double *u, double *f)
+{
+    // center
+    double cx = (F1[0] + F2[0]) / 2.0;
+    double cy = (F1[1] + F2[1]) / 2.0;
+
+
+    \end{lstlisting}
+    \end{frame}
+
+    \begin{frame}[fragile]
+    \frametitle{Code - C}
+    \begin{lstlisting}
+    // a, c_f, b
+    double a  = sum / 2.0;
+    double dx = F2[0] - F1[0];
+    double dy = F2[1] - F1[1];
+    double cf = sqrt(dx*dx + dy*dy) / 2.0;
+    double b2 = a*a - cf*cf;
+    double b  = sqrt(b2);
+
+    // D = diag(1/a^2, 1/b^2)
+    double D00 = 1.0/(a*a);
+    double D11 = 1.0/(b*b);
+
+    // V = D (axis-aligned for this question)
+    V[0] = D00; V[1] = 0.0;
+    V[2] = 0.0; V[3] = D11;
+
+    \end{lstlisting}
+    \end{frame}
+
+        \begin{frame}[fragile]
+    \frametitle{Code - C}
+    \begin{lstlisting}
+    // u = -V c
+    u[0] = -(V[0]*cx + V[1]*cy);
+    u[1] = -(V[2]*cx + V[3]*cy);
+
+    // f = c^T V c - 1
+    *f = cx*(V[0]*cx + V[1]*cy) + cy*(V[2]*cx + V[3]*cy) - 1.0;
+}
+
+
+    \end{lstlisting}
+    \end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Code - Python(with shared C code)}
+    The code to obtain the required plot is
+    \begin{lstlisting}
+import ctypes as ct
+import numpy as np
+import matplotlib.pyplot as plt
+
+# --- load shared lib ---
+lib = ct.CDLL("./libellipse.so")
+lib.ellipse_vuf.argtypes = [
+    ct.POINTER(ct.c_double),  # F1
+    ct.POINTER(ct.c_double),  # F2
+    ct.c_double,              # sum (2a)
+    ct.POINTER(ct.c_double),  # V (len 4, row-major)
+    ct.POINTER(ct.c_double),  # u (len 2)
+    ct.POINTER(ct.c_double),  # f (scalar)
+]
+lib.ellipse_vuf.restype = None
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Code - Python(with shared C code)}
+\begin{lstlisting}
+# --- problem data ---
+F1 = np.array([3.0, 0.0], dtype=np.float64)
+F2 = np.array([9.0, 0.0], dtype=np.float64)
+sum_dist = 12.0  # 2a
+# --- outputs ---
+V = np.zeros(4, dtype=np.float64)  # row-major 2x2
+u = np.zeros(2, dtype=np.float64)
+f = np.zeros(1, dtype=np.float64)
+# call C
+lib.ellipse_vuf(
+    F1.ctypes.data_as(ct.POINTER(ct.c_double)),
+    F2.ctypes.data_as(ct.POINTER(ct.c_double)),
+    ct.c_double(sum_dist),
+    V.ctypes.data_as(ct.POINTER(ct.c_double)),
+    u.ctypes.data_as(ct.POINTER(ct.c_double)),
+    f.ctypes.data_as(ct.POINTER(ct.c_double)),
+)
+
+
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Code - Python(with shared C code)}
+\begin{lstlisting}
+V2 = V.reshape(2,2)
+print("V =\n", V2)
+print("u =", u)
+print("f =", f[0])
+
+# --- derive c, f0, a, b from (V,u,f), exactly like theory ---
+# c = -V^{-1} u
+c = -np.linalg.solve(V2, u)
+
+# f0 = u^T V^{-1} u - f
+f0 = u @ np.linalg.solve(V2, u) - f[0]
+
+# eigendecomposition V = P diag(lam) P^T
+lam, P = np.linalg.eigh(V2)   # lam[0]<=lam[1]
+# axes: a^2 = f0/lam1, b^2 = f0/lam2
+a = np.sqrt(f0 / lam[0])
+b = np.sqrt(f0 / lam[1])
+
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Code - Python(with shared C code)}
+\begin{lstlisting}
+print("center c =", c)
+print("f0 =", f0)
+print("semi-axes a, b =", a, b)
+
+# --- plot from (V,u,f) ---
+t = np.linspace(0, 2*np.pi, 600)
+ellipse_local = np.vstack([a*np.cos(t), b*np.sin(t)])     # (2,N)
+ellipse_global = (P @ ellipse_local).T + c                # rotate+shift
+
+plt.plot(ellipse_global[:,0], ellipse_global[:,1], label="Ellipse")
+plt.scatter([F1[0], F2[0]], [F1[1], F2[1]], label="Foci")
+plt.scatter([c[0]], [c[1]], label="Center")
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Code - Python(with shared C code)}
+\begin{lstlisting}
+plt.gca().set_aspect("equal", adjustable="box")
+plt.legend(loc="upper left", bbox_to_anchor=(1.05, 1.0))
+plt.grid(True)
+plt.title("Matrix-form ellipse from C (.so) - Python")
+plt.tight_layout()
+plt.savefig("ellipse.png")
+plt.show()
+
+
+\end{lstlisting}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Code - Python only}
+\begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+def ellipse_vuf_from_foci(F1, F2, sum_dist):
+    """
+    Build (V, u, f) from foci and sum of distances (2a).
+    Assumes axis-aligned ellipse when foci are collinear on x- or y-axis.
+    """
+    F1 = np.asarray(F1, dtype=float)
+    F2 = np.asarray(F2, dtype=float)
+
+    # Center and axes lengths
+    c = (F1 + F2) / 2.0                   # center
+    a = sum_dist / 2.0                    # semi-major
+    cf = np.linalg.norm(F2 - F1) / 2.0    # half focal distance
+    b2 = a * a - cf * cf
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Code - Python only}
+\begin{lstlisting}
+    if b2 <= 0:
+        raise ValueError("Invalid inputs: b^2 <= 0 (no real ellipse).")
+    b = np.sqrt(b2)
+
+    # D = diag(1/a^2, 1/b^2), axis-aligned for this problem => V = D
+    V = np.diag([1.0 / (a * a), 1.0 / (b * b)])
+
+    # u = -V c,  f = c^T V c - 1
+    u = -V @ c
+    f = float(c @ (V @ c) - 1.0)
+
+    return V, u, f, c, a, b
+
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Code - Python only}
+\begin{lstlisting}
+def recover_from_Vuf(V, u, f):
+    """
+    From (V, u, f), recover:
+      c = -V^{-1} u
+      f0 = u^T V^{-1} u - f
+      eigendecomposition V = P diag(lam) P^T
+      semi-axes via theory: a^2 = f0 / lam_min, b^2 = f0 / lam_max
+    """
+    V = np.asarray(V, dtype=float)
+    u = np.asarray(u, dtype=float)
+
+    # center
+    c = -np.linalg.solve(V, u)
+
+    # f0
+    Vinv_u = np.linalg.solve(V, u)
+    f0 = float(u @ Vinv_u - f)
+
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Code - Python only}
+\begin{lstlisting}
+    # eigen
+    lam, P = np.linalg.eigh(V)  # lam sorted ascending, columns of P are eigenvectors
+
+    # semi-axes from theory
+    if np.any(lam <= 0):
+        raise ValueError("V must be positive definite for an ellipse.")
+    a = np.sqrt(f0 / lam[0])
+    b = np.sqrt(f0 / lam[1])
+
+    return c, f0, lam, P, a, b
+
+def sample_ellipse_points(c, P, a, b, num=600):
+    """
+    Parametric ellipse in principal coordinates, then rotate+shift:
+      z(t) = [a cos t; b sin t],  x(t) = P z(t) + c
+    """
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Code - Python only}
+\begin{lstlisting}
+    t = np.linspace(0.0, 2.0 * np.pi, num)
+    ellipse_local = np.vstack([a * np.cos(t), b * np.sin(t)])  # shape (2, N)
+    ellipse_global = (P @ ellipse_local).T + c                 # shape (N, 2)
+    return ellipse_global
+
+
+def main():
+    # ----- Problem data -----
+    F1 = np.array([3.0, 0.0])
+    F2 = np.array([9.0, 0.0])
+    sum_dist = 12.0  # 2a
+
+    # ----- Build V, u, f as per the align-derivation -----
+    V, u, f, c_direct, a_direct, b_direct = ellipse_vuf_from_foci(F1, F2, sum_dist)
+
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Code - Python only}
+\begin{lstlisting}
+    print("From direct construction (D, V=D, u=-Vc, f=c^T V c - 1):")
+    print("V =\n", V)
+    print("u =", u)
+    print("f =", f)
+    print("center c (from foci) =", c_direct)
+    print("a (from foci,sum) =", a_direct, "   b =", b_direct)
+    print()
+    # ----- Recover via theory from (V, u, f) -----
+    c, f0, lam, P, a, b = recover_from_Vuf(V, u, f)
+
+    print("Recovered from (V,u,f) via theory:")
+    print("c = -V^{-1}u =", c)
+    print("f0 = u^T V^{-1} u - f =", f0)
+    print("Eigenvalues lam =", lam)
+    print("Eigenvectors P =\n", P)
+    print("Semi-axes from f0/lam: a =", a, " b =", b)
+    print()
+
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Code - Python only}
+\begin{lstlisting}
+    # ----- Plot using principal-axis parametric form + transform -----
+    pts = sample_ellipse_points(c, P, a, b, num=600)
+
+    plt.plot(pts[:, 0], pts[:, 1], label="Ellipse")
+    plt.scatter([F1[0], F2[0]], [F1[1], F2[1]], label="Foci")
+    plt.scatter([c[0]], [c[1]], label="Center")
+    plt.gca().set_aspect("equal", adjustable="box")
+    plt.legend(loc="upper left", bbox_to_anchor=(1.05, 1.0))
+    plt.grid(True)
+    plt.title("Ellipse from (V,u,f) - theory-consistent build")
+    plt.tight_layout()
+    plt.savefig("newellipse.png")
+    plt.show()
+
+if __name__ == "__main__":
+    main()
+
+
+\end{lstlisting}
+\end{frame}
+
+
+\end{document}
