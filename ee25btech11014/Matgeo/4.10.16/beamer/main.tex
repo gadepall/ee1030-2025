@@ -1,0 +1,310 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{4.10.16}
+\date{September  2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{Bhoomika L - EE25BTECH11014}
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+The area of the region bounded by the curve y = x + 1 and the lines x = 2
+and x = 3 is:
+\begin{multicols}
+\begin{enumerate}
+    \item $\frac{7}{2} sq.units$
+    \item $\frac{9}{2} sq.units$
+    \item $\frac{11}{2} sq.units$
+    \item $\frac{13}{2} sq.units$
+\end{enumerate}
+\end{multicols}
+\end{frame}
+
+\begin{frame}{Solution}
+y = x + 1 can be expressed as
+\begin{align}
+ \vec{n^Tx}=c\\
+\vec{n^T}=\myvec{1\\-1} \& c=-1
+\end{align}
+
+where $\vec{n^T}$ is the normal vector of the line.\\
+Let the points of intersection of the curve $y = x + 1$ and the lines $x=2$ and $x=3$ be
+$\vec{A}$ and $\vec{B}.$
+\end{frame}
+
+\begin{frame}{Solution}
+For $\vec{A}$:
+\begin{align}
+\myvec{1 & 0 \\ 
+-1 & 1}
+\myvec{x\\y}=\myvec{2\\1}
+\end{align}
+The augmented matrix of the above is:
+\begin{align}
+\myvec{\begin{array}{cc|c}
+1 & 0 & 2 \\ 
+-1 & 1 & 1
+\end{array}}.
+\end{align}
+Then, 
+\begin{align}
+    \vec{R_1}\longrightarrow\vec{R_2}+\vec{R_1}\\
+  \myvec{\begin{array}{cc|c}
+1 & 0 & 2 \\ 
+0 & 1 & 3
+\end{array}}\\
+\therefore \myvec{x\\y}=\myvec{2\\3}.
+\end{align}    
+\end{frame}
+
+\begin{frame}{Solution}
+For $\vec{B}$:
+\begin{align}
+\myvec{1 & 0 \\ 
+-1 & 1}
+\myvec{x\\y}=\myvec{3\\1}
+\end{align}
+
+The augmented matrix of the above is:
+\begin{align}
+\myvec{\begin{array}{cc|c}
+1 & 0 & 3 \\ 
+-1 & 1 & 1
+\end{array}}.
+\end{align}
+
+Then, 
+\begin{align}
+    R_2 \longrightarrow R_2 + R_1 \\
+  \myvec{\begin{array}{cc|c}
+1 & 0 & 3 \\ 
+0 & 1 & 4
+\end{array}}\\
+\therefore  \myvec{x\\y}=\myvec{3\\4}.
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+Hence the points of the quadrilateral are $\brak{2,0},\brak{2,3},\brak{3,4}$ and $\brak{3,0}$ (which are $\vec{A},\vec{B},\vec{C}$ and $\vec{D}$ respectively.)
+
+ Area of the quadrilateral can be calculated by using the formula,
+ \begin{align}
+ Ar=\frac{1}{2}\left\|\brak{\vec{A}-\vec{C}}\times\brak{\vec{D}-\vec{B}}\right\|\\
+ \brak{\vec{A}-\vec{C}}=\myvec{-1\\-4}   \\\brak{\vec{B}-\vec{D}}=\myvec{1\\3}  \\
+ \brak{\vec{A}-\vec{C}}\times\brak{\vec{D}-\vec{B}}=\begin{vmatrix}-1&1 \\-4&3\end{vmatrix}=-3-4=-7\\
+ \therefore Ar=\frac{1}{2}\left|-7\right|=\frac{7}{2}.
+ \end{align}
+ Therefore (option 1) $\frac{7}{2} sq.units$ is the correct answer.
+\end{frame}
+
+\begin{frame}{Plot}
+    \centering
+    \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{../figs/fig_8.png}     
+\end{frame}
+
+ \begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}
+
+// area.c
+// Function to compute area under y = x + 1 from a to b
+
+double area_under_line(double a, double b) {
+    if (a > b) {  // swap if needed
+        double t = a;
+        a = b;
+        b = t;
+    }
+    return 0.5 * (b*b - a*a) + (b - a);
+}
+\end{lstlisting}
+\end{frame}
+
+ \begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+from ctypes import CDLL, c_double
+
+lib = CDLL("./area.so")
+
+# Set argument and return types
+lib.area_under_line.argtypes = (c_double, c_double)
+lib.area_under_line.restype = c_double
+
+# Example usage
+a, b = 2.0, 3.0
+area = lib.area_under_line(a, b)
+
+print(f"Area under y = x + 1 from {a} to {b} is {area:.6f}")
+
+\end{lstlisting}
+\end{frame}
+
+ \begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+# Define the function
+def f(x):
+    return x + 1
+
+# Range for the curve
+x_vals = np.linspace(1.5, 3.5, 200)
+y_vals = f(x_vals)
+
+# Intersection points
+points = {
+    "A": (2, f(2)),   # (2,3)
+    "B": (3, f(3)),   # (3,4)
+    "C": (3, 0),      # (3,0)
+    "D": (2, 0)       # (2,0)
+}
+\end{lstlisting}
+\end{frame}
+
+ \begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+# Plot the line y = x+1
+plt.plot(x_vals, y_vals, label=r"$y=x+1$", color="blue")
+
+# Plot vertical lines x=2 and x=3
+plt.axvline(2, color="black", linestyle="--", label=r"$x=2$")
+plt.axvline(3, color="black", linestyle="--", label=r"$x=3$")
+
+# Plot x-axis
+plt.axhline(0, color="black")
+
+\end{lstlisting}
+\end{frame}
+
+ \begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+# Shade the region (quadrilateral A-B-C-D)
+x_poly = [points["A"][0], points["B"][0], points["C"][0], points["D"][0]]
+y_poly = [points["A"][1], points["B"][1], points["C"][1], points["D"][1]]
+plt.fill(x_poly, y_poly, color="skyblue", alpha=0.5, label="Shaded Region")
+
+# Mark the intersection points
+for name, (x, y) in points.items():
+    plt.scatter(x, y, color="red")
+    plt.text(x+0.05, y+0.1, f"{name}({x},{y})")
+
+\end{lstlisting}
+\end{frame}
+
+ \begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+# Labels and legend
+plt.xlabel("x-axis")
+plt.ylabel("y-axis")
+plt.title("Region bounded by y=x+1, x=2, x=3 and x-axis")
+plt.legend()
+plt.grid(True)
+plt.axis("equal")
+
+# Save the figure
+plt.savefig("fig_8.png", dpi=300, bbox_inches="tight")
+
+# Show the plot
+plt.show()
+\end{lstlisting}
+\end{frame}
+
+\end{document}
