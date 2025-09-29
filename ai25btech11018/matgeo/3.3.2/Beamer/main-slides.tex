@@ -1,0 +1,263 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{3.3.2}
+\date{September 9,2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{Hemanth Reddy-AI25BTECH11018}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Construct a triangle with sides 5cm, 6cm and 7cm. 
+\end{frame}
+
+
+
+\begin{frame}{Theoretical Solution}
+\textbf{Solution:}\\
+Let triangle be $\triangle ABC $ \\
+Let AB=5cm BC=6cm CA=7cm \\Take\\
+
+$\vec{A}$ \myvec{0\\0}  ,$\vec{B}$ \myvec{5\\0} ,  $\vec{C}$\myvec{7\cos A\\7 \sin A}
+\begin{align}
+    cos \vec{A} =\frac{AB^{2}+AC^{2}-BC^{2}}{2\cdot AB\cdot AC}\\
+    cos \vec{A} =\frac{5^{2}+7^{2}-6^{2}}{ 2\cdot 5\cdot 7}=\frac{19}{35}\\
+           \sin A = \frac{12\sqrt{6}}{35}     
+\end{align}
+ Therefore
+\begin{align}
+    \vec{C}\myvec{7\cdot \frac{19}{35} & 7\cdot \frac{12\sqrt{6}}{35} }
+    \end{align}
+
+
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+\begin{align}
+    \vec{C}\myvec{\frac{19}{5} & ,\frac{12\sqrt{6}}{5} }
+\end{align}
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{C Code }
+    \begin{lstlisting}
+
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    // Side lengths
+    double AB = 5.0; // between A and B
+    double BC = 6.0; // between B and C
+    double CA = 7.0; // between C and A
+
+    // Coordinates of points
+    double Ax = 0.0, Ay = 0.0;
+    double Bx = AB, By = 0.0;
+
+    // Calculate cosA using the law of cosines
+    double cosA = (AB*AB + CA*CA - BC*BC) / (2 * AB * CA);
+
+    // Calculate sinA using identity sin^2 A + cos^2 A = 1
+    double sinA = sqrt(1 - cosA*cosA);
+
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+
+    // Coordinates of C
+    double Cx = CA * cosA;
+    double Cy = CA * sinA;
+
+    printf("Coordinates of A: (%.2f, %.2f)\n", Ax, Ay);
+    printf("Coordinates of B: (%.2f, %.2f)\n", Bx, By);
+    printf("Coordinates of C: (%.2f, %.2f)\n", Cx, Cy);
+
+    return 0;
+}
+
+    \end{lstlisting}
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Side lengths
+AB = 5
+BC = 6
+CA = 7
+
+# Place A at (0,0), B at (5,0)
+A = (0, 0)
+B = (AB, 0)
+
+# Calculate cosA using Law of Cosines
+cosA = (AB**2 + CA**2 - BC**2) / (2 * AB * CA)
+sinA = np.sqrt(1 - cosA**2)
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+
+# Coordinates of C
+Cx = CA * cosA
+Cy = CA * sinA
+C = (Cx, Cy)
+
+print('Coordinates of A:', A)
+print('Coordinates of B:', B)
+print('Coordinates of C:', (round(Cx, 2), round(Cy, 2)))
+
+# 2D graph
+plt.figure(figsize=(7,7))
+plt.plot([A[0], B[0]], [A[1], B[1]], 'bo-', label='AB (5 cm)')
+plt.plot([B[0], C[0]], [B[1], C[1]], 'go-', label='BC (6 cm)')
+plt.plot([C[0], A[0]], [C[1], A[1]], 'ro-', label='CA (7 cm)')
+
+for point, label in zip([A, B, C], ['A', 'B', 'C']):
+    plt.text(point[0], point[1], label, fontsize=14, fontweight='bold', ha='right', color='black')
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+
+plt.xlabel('X (cm)')
+plt.ylabel('Y (cm)')
+plt.title('Triangle with sides 5 cm, 6 cm, 7 cm')
+plt.legend()
+plt.grid(True)
+plt.axis('equal')
+plt.tight_layout()
+plt.savefig('triangle_5_6_7.png', dpi=200)
+plt.close()
+    \end{lstlisting}
+\end{frame}
+
+
+  
+\begin{frame}{Plot}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{Beamer/figs/triangle_5_6_7.png}
+    \caption{Caption}
+    \label{fig:placeholder}
+\end{figure}
+\end{frame}
+
+
+
+
+\end{document}

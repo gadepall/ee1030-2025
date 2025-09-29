@@ -1,0 +1,17 @@
+import numpy as np
+
+# Given matrices
+A = np.array([[5, 2],
+              [0, 9]])   # X + Y
+B = np.array([[3, 6],
+              [0, -1]])  # X - Y
+
+# Solve for X and Y
+X = (A + B) / 2
+Y = (A - B) / 2
+
+print("Matrix X:")
+print(X)
+print("\nMatrix Y:")
+print(Y)
+

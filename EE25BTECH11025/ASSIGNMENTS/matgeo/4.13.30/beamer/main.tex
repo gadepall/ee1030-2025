@@ -1,0 +1,242 @@
+\documentclass{beamer}
+\usepackage[latin1]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath}
+\usepackage{amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{gensymb}
+\usepackage{physics}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\title{4.13.30}
+\date{19th september, 2025}
+\author{Vishwambhar - EE25BTECH11025}
+
+\begin{document}
+
+\frame{\titlepage}
+\begin{frame}{Question}
+If $\vec{P}=(1,0)$, $\vec{Q} = (-1,0)$  and $\vec{R}=(2,0)$ are three given points, then the locus of point $\vec{S}$ satisfying the relation $(SQ)^2+(SR)^2=2(SP)^2$, is:\\
+\begin{enumerate}
+    \item a straight line parallel to $X$ axis
+    \item a circle passing through the origin
+    \item a circle with the center at the origin
+    \item a straight line parallel to $Y$ axis
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Given}
+Given
+\begin{align}
+    \vec{P}=\myvec{1\\0}; \vec{Q}=\myvec{-1\\0}; \vec{R}=\myvec{2\\0}\\
+    \vec{S}=\myvec{x\\y}
+\end{align}
+\end{frame}
+
+\begin{frame}{Solving}
+\begin{align}
+    ||\vec{Q}-\vec{S}||^2+||\vec{R}-\vec{S}||^2=2||\vec{P}-\vec{S}||^2\\
+    \myvec{\vec{Q}-\vec{S}}^\top\myvec{\vec{Q}-\vec{S}}+\myvec{\vec{R}-\vec{S}}^\top\myvec{\vec{R}-\vec{S}}=2\myvec{\vec{P}-\vec{S}}^\top\myvec{\vec{P}-\vec{S}}\\
+    ||\vec{Q}||^2+||\vec{R}||^2-2||\vec{P}||^2=\vec{S}^\top+\vec{Q}^\top\vec{S}+\vec{S}^\top\vec{R}+\vec{R}^\top\vec{S}-2\vec{S}^\top\vec{P}-2\vec{P}^\top\vec{S}\\
+    ||\vec{Q}||^2+||\vec{R}||^2-2||\vec{P}||^2=\vec{S}^\top\myvec{\vec{Q}+\vec{R}-2\vec{P}}+\vec{S}\myvec{\vec{Q}+\vec{R}-2\vec{P}}^\top\\
+    ||\vec{Q}||^2+||\vec{R}||^2-2||\vec{P}||^2=2\myvec{\vec{Q}+\vec{R}-2\vec{P}}^\top\vec{S}
+\end{align}
+\end{frame}
+
+\begin{frame}{Solving}
+Equation (7) is of the form:
+\begin{align}
+    \vec{n}^\top\vec{x}=c
+\end{align}
+\begin{align}
+    \myvec{\vec{Q}+\vec{R}-2\vec{P}}^\top\vec{S}= \frac{||\vec{Q}||^2+||\vec{R}||^2-2||\vec{P}||^2}{2}
+\end{align}
+\end{frame}
+
+\begin{frame}{Substituting}
+Substituting values:
+\begin{align}
+    \myvec{\myvec{-1\\0}+\myvec{2\\0}-2\myvec{1\\0}}^\top\vec{S}= \frac{\brak{\brak{-1}^2+0^2}+\brak{2^2+0^2}-2\brak{1^2+0^2}}{2}
+\end{align}
+\begin{align}
+    \myvec{-1\\0}^\top\vec{S}=\frac{3}{2}
+\end{align}
+
+Hence the locus of $\vec{s}$ is a line parallel to $Y$-axis.
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+#include<stdio.h>
+
+int arrP[2] = {1,0};
+int arrQ[2] = {-1,0};
+int arrR[2] = {2,0};
+
+int get_pointP(int index){
+    return arrP[index];
+}
+
+int get_pointQ(int index){
+    return arrQ[index];
+}
+
+int get_pointR(int index){
+    return arrR[index];
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code 1}
+    \begin{lstlisting}
+import ctypes
+import numpy as np
+
+
+lib = ctypes.CDLL("./problem.so")
+
+pointP = [0.00,0.00]
+pointQ = [0.00,0.00]
+pointR = [0.00,0.00]
+
+for i in range(0,2):
+    pointP[i] = lib.get_pointP(i)
+for i in range(0,2):
+    pointQ[i] = lib.get_pointQ(i)
+for i in range(0,2):
+    pointR[i] = lib.get_pointR(i)
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code 1}
+    \begin{lstlisting}
+normal = [0,0]
+print(pointP)
+print(pointQ)
+print(pointR)
+
+for i in range(0,2):
+    normal[i] = pointQ[i] + pointR[i] - (2*pointP[i])
+z = np.array(['x','y'])
+z_t = z.T
+k = 0.00
+for i in range(0,2):
+    k += ((pointQ[i]**2)+(pointR[i]**2)-(2*(pointP[i]**2)))/2
+print(normal,z_t,'=',k,"\nHence the locus of S is a line.")
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code 2}
+    \begin{lstlisting}
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = [-3/2, -3/2]
+y = [5, -5]
+
+X = [1, -1, 2]
+Y = [0, 0, 0]
+
+plt.plot(x, y, '-r')
+plt.plot(X, Y, 'ko')
+
+plt.text(0.6, 0.1, "(1,0)", fontsize=10, color="black")
+plt.text(-1.1, 0.1, "(-1,0)", fontsize=10, color="black")
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code 2}
+    \begin{lstlisting}
+plt.text(2.1, 0.1, "(2,0)", fontsize=10, color="black")
+plt.text(-1.51, 3.20, r"$x=\frac{3}{2}$", fontsize=13, color="black")
+
+plt.axvline(x=0, color='k', linewidth=1.5)
+plt.axhline(y=0, color='k', linewidth=1.5)
+
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+plt.grid(True)
+plt.axis("equal")
+plt.savefig("../figs/plot.png")
+plt.show()   \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Plot}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.5\columnwidth]{../figs/plot.png}
+        \caption{Plot of the given points and locus of $\vec{S}$}
+        \label{fig:fig}
+    \end{figure}
+\end{frame}
+\end{document}

@@ -1,0 +1,343 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+	breakable=true,
+	listing engine=minted,
+	listing only,
+	minted language=#2,
+	minted style=default,
+	minted options={%
+		linenos,
+		gobble=0,
+		breaklines=true,
+		breakafter=,,
+		fontsize=\small,
+		numbersep=8pt,
+		#1},
+	boxsep=0pt,
+	left skip=0pt,
+	right skip=0pt,
+	left=25pt,
+	right=0pt,
+	top=3pt,
+	bottom=3pt,
+	arc=5pt,
+	leftrule=0pt,
+	rightrule=0pt,
+	bottomrule=2pt,
+	toprule=2pt,
+	colback=bg,
+	colframe=orange!70,
+	enhanced,
+	overlay={%
+		\begin{tcbclipinterior}
+			\fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+	\end{tcbclipinterior}},
+	#3,
+}
+\lstset{
+	language=C,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{orange},
+	commentstyle=\color{green!60!black},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	showstringspaces=false,
+}
+\begin{document}
+
+\title 
+{4.11.18}
+\date{14 September,2025}
+
+\author 
+{Naman Kumar-EE25BTECH11041}
+\graphicspath{./figs}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Find the equation of the plane which contains the line of intersection of the planes $\vec{r}\cdot(\imath-2\jmath+3\hat{k})-4=0$ and  $\vec{r}\cdot(-2\imath+\jmath+\hat{k})+5=0$ and whose intercept on X axis is equal to that of on Y axis.
+\end{frame}
+\begin{frame}{Solution}
+Given Planes,
+\begin{align}
+    \vec{n_1}^T\vec{x}=c_1,\vec{n_2}^T\vec{x}=c_2
+\end{align}
+Where
+\begin{align}
+\vec{n_1}=\begin{pmatrix}1\\-2\\3\end{pmatrix},\vec{n_2}=\begin{pmatrix}-2\\1\\1\end{pmatrix},c_1=4,c_2=-5
+\end{align}
+Let Required equation of plane
+\begin{align}
+    \vec{n_3}^T\vec{x}=c_3
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Since we can write,
+\begin{align}
+P_3=P_1-\lambda P_2 \text{ (Where $P_1,P_2,P_3$ are equation of planes)}
+\end{align}
+Because All three planes intersect at same line,Therefore
+\begin{align}
+    (\vec{n_1}-\lambda \vec{n_2})^T\vec{x}=c_1-\lambda c_2\\
+\end{align}
+Given,
+\begin{align}
+    X-intercept=Y-intercept\\
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+for X-intercept
+\begin{align}
+    (\vec{n_1}-\lambda \vec{n_2})^T\begin{pmatrix}x\\0\\0\end{pmatrix}=c_1-\lambda c_2\\
+    (\vec{n_1}-\lambda \vec{n_2})^Tx\vec{e_1}=c_1-\lambda c_2
+\end{align}
+Therefore,
+\begin{align}
+    X-intercept= \frac{c_1-\lambda c_2}{(\vec{n_1}-\lambda \vec{n_2})^T\vec{e_1}}\label{1}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Similarly
+\begin{align}
+    Y-intercept=\frac{c_1-\lambda c_2}{(\vec{n_1}-\lambda \vec{n_2})^T\vec{e_2}} \label{2}
+\end{align}
+Comparing equations $\eqref{1}$ and $\eqref{2}$
+\begin{align}
+    \frac{c_1-\lambda c_2}{(\vec{n_1}-\lambda \vec{n_2})^T\vec{e_1}}=\frac{c_1-\lambda c_2}{(\vec{n_1}-\lambda \vec{n_2})^T\vec{e_2}}\\
+    (\vec{n_1}-\lambda \vec{n_2})^T\vec{e_1}=(\vec{n_1}-\lambda \vec{n_2})^T\vec{e_2}\\
+    \vec{n_1}^T\vec{e_1}-\lambda\vec{n_2}^T\vec{e_1}=\vec{n_1}^T\vec{e_2}-\lambda\vec{n_2}^T\vec{e_2}
+\end{align}
+    \end{frame}
+\begin{frame}{Solution}
+\begin{align}
+    \lambda\vec{n_2}^T\vec{e_2}-\lambda\vec{n_2}^T\vec{e_1}=\vec{n_1}^T\vec{e_2}-\vec{n_1}^T\vec{e_1}\\
+    \lambda=\frac{\vec{n_1}^T\vec{e_2}-\vec{n_1}^T\vec{e_1}}{\vec{n_2}^T\vec{e_2}-\lambda\vec{n_2}^T\vec{e_1}}\\
+    \lambda=\frac{\vec{n_1^T(\vec{e_2}-\vec{e_1})}}{n_2^T(\vec{e_2}-\vec{e_1})}
+\end{align}
+    \end{frame}
+\begin{frame}{Solution}
+Now Putting values
+\begin{align}
+    \lambda=\frac{\begin{pmatrix}1\\-2\\3\end{pmatrix}^T\begin{pmatrix}-1\\1\\0\end{pmatrix}}{\begin{pmatrix}-2\\1\\1\end{pmatrix}^T\begin{pmatrix}-1\\1\\0\end{pmatrix}}\\
+    \lambda=\frac{-1-2}{2+1}\\
+    \lambda=-1
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Therefore equation of required plane is
+\begin{align}
+    \begin{pmatrix}1+2(-1)\\-2-1(-1)\\3-1(-1)\end{pmatrix}^T\vec{x}=4+5(-1)\\
+    \begin{pmatrix}-1\\-1\\4\end{pmatrix}^Tx=-1
+\end{align}
+\end{frame}
+\begin{frame}{Figure}
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\columnwidth]{figs/Figure.png}
+    \caption{}
+    \label{fig:placeholder}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C code}
+\begin{lstlisting}
+#include <stdio.h>
+
+// Function to compute coefficients of required plane
+// Plane form: Ax + By + Cz + D = 0
+// Returns coefficients via array coeff[4]
+void find_plane(double coeff[4]) {
+    // Plane 1: x - 2y + 3z - 4 = 0
+    double A1 = 1, B1 = -2, C1 = 3, D1 = -4;
+
+    // Plane 2: -2x + y + z + 5 = 0
+    double A2 = -2, B2 = 1, C2 = 1, D2 = 5;
+
+    // Required plane = pi1 + λ*pi2
+    // (A1 + λA2)x + (B1 + λB2)y + (C1 + λC2)z + (D1 + λD2) = 0
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C code}
+\begin{lstlisting}
+    // Condition: intercept on X = intercept on Y → A = B
+    // So: A1 + λA2 = B1 + λB2
+    double lambda = (B1 - A1) / (A2 - B2);
+
+    double A = A1 + lambda * A2;
+    double B = B1 + lambda * B2;
+    double C = C1 + lambda * C2;
+    double D = D1 + lambda * D2;
+
+    coeff[0] = A;
+    coeff[1] = B;
+    coeff[2] = C;
+    coeff[3] = D;
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with SO file}
+\begin{lstlisting}
+import ctypes
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load shared C library
+lib = ctypes.CDLL('./libplane.so')
+
+# Define argument/return types
+lib.find_plane.argtypes = [np.ctypeslib.ndpointer(dtype=np.float64, ndim=1, flags="C")]
+
+# Prepare coeff array
+coeff = np.zeros(4, dtype=np.float64)
+lib.find_plane(coeff)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with SO file}
+\begin{lstlisting}
+A, B, C, D = coeff
+print("Required plane equation: {:.2f}x + {:.2f}y + {:.2f}z + {:.2f} = 0".format(A, B, C, D))
+
+# Define planes
+def plane1(x, y):
+    return (4 - x + 2*y) / 3
+
+def plane2(x, y):
+    return (-5 + 2*x - y)
+
+def plane3(x, y):
+    return (-D - A*x - B*y) / C
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with SO file}
+\begin{lstlisting}
+# Grid
+x = np.linspace(-5, 5, 20)
+y = np.linspace(-5, 5, 20)
+X, Y = np.meshgrid(x, y)
+
+Z1 = plane1(X, Y)
+Z2 = plane2(X, Y)
+Z3 = plane3(X, Y)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with SO file}
+\begin{lstlisting}
+# Plot
+fig = plt.figure(figsize=(12, 10))
+ax = fig.add_subplot(111, projection='3d')
+
+ax.plot_surface(X, Y, Z1, alpha=0.5, color='red', label="Plane 1")
+ax.plot_surface(X, Y, Z2, alpha=0.5, color='blue', label="Plane 2")
+ax.plot_surface(X, Y, Z3, alpha=0.7, color='green', label="Required Plane")
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with SO file}
+\begin{lstlisting}
+# Legend hack
+plane_proxy = [plt.Rectangle((0,0),1,1,fc=c) for c in ["red","blue","green"]]
+ax.legend(plane_proxy, ["Plane 1","Plane 2","Required Plane"])
+
+ax.set_xlabel("X-axis")
+ax.set_ylabel("Y-axis")
+ax.set_zlabel("Z-axis")
+ax.set_title("Intersection of Three Planes")
+plt.savefig("figure.png", dpi=200)
+plt.show()
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Direct python code}
+\begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+
+fig = plt.figure(figsize=(8,6))
+ax = fig.add_subplot(111, projection='3d')
+
+# Plane 1
+x1 = np.linspace(-5,5,100)
+y1 = np.linspace(-5,5,100)
+X1, Y1 = np.meshgrid(x1,y1)
+Z1 = (-X1 + 2*Y1 + 4) / 3
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Direct python code}
+\begin{lstlisting}
+# Plane 2
+x2 = np.linspace(-5,5,100)
+y2 = np.linspace(-5,5,100)
+X2, Y2 = np.meshgrid(x2,y2)
+Z2 = -Y2 + 2*X2 - 5
+
+# Plane 3 (required plane)
+x3 = np.linspace(-5,5,100)
+y3 = np.linspace(-5,5,100)
+X3, Y3 = np.meshgrid(x3,y3)
+Z3 = (X3 + Y3 - 1) / 4
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Direct python code}
+\begin{lstlisting}
+# Plot surfaces
+ax.plot_surface(X1, Y1, Z1, alpha=0.5, color='red')
+ax.plot_surface(X2, Y2, Z2, alpha=0.5, color='blue')
+ax.plot_surface(X3, Y3, Z3, alpha=0.5, color='green')
+
+# Legend proxies (like in main.py)
+plane_proxy = [plt.Rectangle((0,0),1,1,fc=c) for c in ["red","blue","green"]]
+ax.legend(plane_proxy, ["Plane 1", "Plane 2", "Required Plane"], loc="best")
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Direct python code}
+\begin{lstlisting}
+# Labels and title
+ax.set_xlabel("X-axis")
+ax.set_ylabel("Y-axis")
+ax.set_zlabel("Z-axis")
+ax.set_title("Three Planes")
+
+plt.savefig("Figure.png", dpi=200)
+plt.show()
+
+
+\end{lstlisting}
+\end{frame}
+
+\end{document}

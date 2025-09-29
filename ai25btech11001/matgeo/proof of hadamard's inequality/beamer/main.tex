@@ -1,0 +1,85 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{advdate}
+\usepackage{graphicx}
+\graphicspath{{../figs/}}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+\let\solution\relax
+\usepackage{gvv}
+\lstset{
+%language=C,
+frame=single, 
+breaklines=true,
+columns=fullflexible
+}
+
+\title{4.12.6}
+\author{AI25BTECH11001 - ABHISEK MOHAPATRA}
+% \maketitle
+% \newpage
+% \bigskip
+\begin{document}
+{\let\newpage\relax\maketitle}
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+
+
+
+	 \begin{align}
+	 \mydet{G} = \mydet{\norm{\vec{a}}^2 & \vec{a}^\top\vec{b}& \vec{a}^\top\vec{c} \\ \vec{b}^\top\vec{a}&\norm{\vec{b}}^2 & \vec{b}^\top\vec{c}\\\vec{c}^\top\vec{a} &\vec{c}^\top\vec{b}&\norm{\vec{c}}^2 }
+\end{align}
+	 \begin{align}
+		= \norm{\vec{a}}^2 \norm{\vec{b}}^2 \norm{\vec{c}}^2 \brak{ 1 - \brak{\cos{\alpha}}^2- \brak{\cos{\beta}}^2- \brak{\cos{\gamma}}^2 + 2\cos{\alpha}\cos{\beta}\cos{\gamma}}
+\end{align}
+	 \begin{align}
+			 = \norm{\vec{a}}^2 \norm{\vec{b}}^2 \norm{\vec{c}}^2 \myvec{ 1 - \brak{\cos{\alpha}}^2- \brak{\cos{\beta}}^2 +\brak{\cos{\alpha}}^2\brak{\cos{\beta}}^2 
+			 \\-\brak{\cos{\alpha}}^2\brak{\cos{\beta}}^2 + \brak{\cos{\gamma}}^2 - 2\cos{\alpha}\cos{\beta}\cos{\gamma}}
+	 \end{align}
+	 \begin{align}
+		= \norm{\vec{a}}^2 \norm{\vec{b}}^2 \norm{\vec{c}}^2 \myvec{ 1 - \brak{\cos{\alpha}}^2- \brak{\cos{\beta}}^2\brak{1 - \brak{\cos{\alpha}}^2}\\ \quad\quad- \brak{\cos{\alpha}\cos{\beta} - \cos{\gamma}}^2}
+		\\ \leq \norm{\vec{a}}^2 \norm{\vec{b}}^2 \norm{\vec{c}}^2
+\end{align}
+	 \begin{align}
+		\implies \brak{ 1 - \brak{\cos{\alpha}}^2- \brak{\cos{\beta}}^2\brak{1 - \brak{\cos{\alpha}}^2}-\brak{\cos{\alpha}\cos{\beta} - \cos{\gamma}}^2} \leq 1
+\end{align}
+	 \begin{align}
+		\implies \brak{ \brak{\cos{\alpha}}^2+ \brak{\cos{\beta}}^2\brak{1 - \brak{\cos{\alpha}}^2}+\brak{\cos{\alpha}\cos{\beta} - \cos{\gamma}}^2} \geq 0
+\end{align}
+		Equality holds when,
+	 \begin{align}
+\cos{\alpha} = 0, \cos{\beta} =0 , \cos{\alpha}\cos{\beta} - \cos{\gamma} = 0 
+\end{align}
+Or,
+\begin{align}
+\cos{\alpha} = \cos{\beta} = \cos{\gamma} = 0 
+\end{align}
+
+Hence $\vec{a}^\top\vec{b}=\vec{b}^\top\vec{c}=\vec{c}^\top\vec{a} = 0$ to hold equality.
+
+		
+
+\end{document}
+
+
+

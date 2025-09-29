@@ -1,0 +1,426 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{gensymb}
+\usepackage{gensymb}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{2.4.28}
+\date{August 26,2025}
+
+
+\author 
+{Kartik Lahoti - EE25BTECH11032}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Find the coordinates of the point $\vec{Q}$ on the $x$-axis which lies on the perpendicular bisector of the line segment joining the points $\vec{A} \brak{-5,-2} \text{ and } \vec{B} \brak{4,-2}$. Name the type of triangle formed by points $\vec{Q}, \vec{A} \text{ and } \vec{B}$.
+\end{frame}
+
+
+
+% \begin{frame}{Theoretical Solution}
+% \begin{table}[H]
+% \centering
+% \input{tables/table.tex}
+% \caption*{Table:2.4.28}
+% \label{Table:2.4.28}	
+% \end{table}
+% \end{frame}
+
+\begin{frame}{Theoretical Solution}
+ If $\vec{Q}$ lies on the  $x$-axis and on the perpendicular bisector of the points $\vec{A}$ and $\vec{B}$, i.e $\vec{Q}$ is equidistant from points $\vec{A}$ and $\vec{B}$
+\begin{align}
+ \norm{\vec{Q}-\vec{A}} &=
+\norm{\vec{Q}-\vec{B}} 
+\\
+ \implies \norm{\vec{Q}-\vec{A}}^2 &=
+\norm{\vec{Q}-\vec{B}}^2 
+\\
+ \implies \norm{\vec{Q}}^2-2{\vec{Q}}^{\top}\vec{A} + \norm{\vec{A}}^2
+	&= \norm{\vec{Q}}^2-2{\vec{Q}}^{\top}\vec{B} + \norm{\vec{B}}^2,
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+which can be simplified to obtain, 
+  \begin{align}
+	  \brak{\vec{A}-\vec{B}}^\top   \vec{Q}&=\frac{\norm{\vec{A}}^2 -\norm{\vec{B}}^2 }{2}.
+  \end{align}
+  \begin{align}
+  \because \vec{Q} &= x\vec{e}_1,
+  \end{align}
+  \begin{align}
+   x &=\frac{\norm{\vec{A}}^2 -\norm{\vec{B}}^2 }{2\brak{\vec{A}-\vec{B}}^{\top }\vec{e}_1.}
+  \end{align} 
+  
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+\begin{align}
+      \norm{\vec{A}}^2 = 29 , \norm{\vec{B}}^2 = 20   
+  \end{align}
+    \begin{align}
+        \brak{\vec{A}-\vec{B}}^{\top} = \myvec{-9 & 0 } , \vec{e}_1 = \myvec{1 \\ 0} 
+    \end{align}
+    Substituting from $\brak{0.7}$ and $\brak{0.8}$,
+ $x =  -0.5$.  Thus, 
+		\begin{align}
+        \vec{Q} = \myvec{-0.5 \\ 0}.
+		\end{align}
+		
+Since $\vec{Q}$ lies on perpendicular bisector of $\vec{AB}$ , it is equidistant from both $\vec{A}$ and $\vec{B}$
+\begin{align}
+    \norm{\vec{Q} - \vec{A}} = \norm{\vec{Q} - \vec{B}}
+\end{align}
+Hence $\triangle ABQ$ is an isosceles triangle.
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code (1) - Function to find norm square }
+    \begin{lstlisting}  
+#include <math.h>
+double norm_vec_sq(double *A , int m )
+{
+    double sum = 0.0; 
+    for ( int i = 0 ; i < m ; i++ )
+    {
+        sum += pow(A[i] , 2 );
+    }
+    return sum; 
+}
+    \end{lstlisting}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+    \frametitle{C Code (2) - Function to $x$}
+    \begin{lstlisting}
+
+double x_cal(double *A , double *B , double *E , double na , double nb  )
+{
+    double x , k ; 
+    k = (A[0]-B[0])*E[0] + (A[1]-B[1])*E[1];  
+    x = (na - nb) / (2*k);
+    return x; 
+}
+    \end{lstlisting}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+    \frametitle{C Code (3) - Function to generate points on Line }
+    \begin{lstlisting}
+void linegen(double *X, double *Y , double *A , double *B , int n , int m )
+{
+    double temp[m] ; 
+    for (int i = 0 ; i < m ; i++)
+    {
+        temp [ i ] = (B[i]- A[i]) /(double) n ; 
+    }
+    for (int i = 0 ; i <= n ; i++ )
+    {
+        X[i] = A[0] + temp[0] * i ; 
+        Y[i] = A[1] + temp[1] * i ;
+    }
+}
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting}
+import ctypes
+import numpy as np
+import matplotlib.pyplot as plt
+handc1 = ctypes.CDLL("./func.so")
+
+def norm_cal ( A: np.ndarray , m) :
+    handc1.norm_vec_sq.argtypes = [
+        ctypes.POINTER(ctypes.c_double),
+        ctypes.c_int
+    ]
+
+    handc1.norm_vec_sq.restype = ctypes.c_double
+
+    return handc1.norm_vec_sq (
+        A.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),m
+    )
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting} 
+A = np.array([[-5],[-2]], dtype=np.float64).reshape(-1,1)
+B = np.array([[4],[-2]], dtype=np.float64).reshape(-1,1)
+n1 = norm_cal(A,2)
+n2 = norm_cal(B,2)
+
+handc1.x_cal.argtypes = [
+    ctypes.POINTER(ctypes.c_double),
+    ctypes.POINTER(ctypes.c_double),
+    ctypes.POINTER(ctypes.c_double),
+    ctypes.c_double,
+    ctypes.c_double
+    ]
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting}
+e = np.array([[1],[0]],dtype=np.float64).reshape(-1,1)
+handc1.x_cal.restype = ctypes.c_double
+
+x = handc1.x_cal(
+    A.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+    B.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+    e.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+    n1,n2)
+Q = np.array([[x],[0]], dtype=np.float64).reshape(-1,1)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting}
+def line_cre(P: np.ndarray , Q: np.ndarray, str):
+    handc2 = ctypes.CDLL("./line_gen.so")
+
+    handc2.linegen.argtypes = [
+        ctypes.POINTER(ctypes.c_double),
+        ctypes.POINTER(ctypes.c_double),
+        ctypes.POINTER(ctypes.c_double),
+        ctypes.POINTER(ctypes.c_double),
+        ctypes.c_int , ctypes.c_int
+    ]
+
+    handc2.linegen.restype = None
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting}
+n = 200
+    X_l = np.zeros(n,dtype=np.float64)
+    Y_l = np.zeros(n,dtype=np.float64)
+
+    handc2.linegen (
+        X_l.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+        Y_l.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+        P.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+        Q.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+        n,2
+    )
+    plt.plot([X_l[0],X_l[-1]],[Y_l[0],Y_l[-1]],str)
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting}
+plt.figure()
+line_cre(A,B,"g-")
+line_cre(Q,(A+B)/2,"r-")
+
+coords = np.block([[A,B,Q]])
+plt.scatter(coords[0,:],coords[1,:])
+vert_labels = ['A','B','Q']
+#for i , txt in enumerate(vert_labels):
+#plt.annotate(txt,(coords[0,i],coords[1,i]),textcoords="offset points", xytext=(0,10),ha='center')
+
+for i, txt in enumerate(vert_labels):
+    plt.annotate(f'{txt}\n({coords[0,i]:.1f}, {coords[1,i]:.1f})',
+                 (coords[0,i], coords[1,i]),
+                 textcoords="offset points",
+                 xytext=(20,0),ha='center', va = 'bottom')
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code - Using Shared Object}
+    \begin{lstlisting}
+plt.xlabel('$x$')
+plt.ylabel('$y$')
+#plt.legend(loc='best')
+plt.grid()
+
+plt.title("Fig:2.4.28")
+plt.axis('equal')
+
+plt.savefig("../figs/perpbisector1.png")
+plt.show()
+
+#plt.savefig('figs/triangle/ang-bisect.pdf')
+#subprocess.run(shlex.split("termux-open figs/triangle/ang-bisect.pdf"))
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import math
+import sys 
+sys.path.insert(0, '/home/kartik-lahoti/matgeo/codes/CoordGeo')
+import numpy as np
+import numpy.linalg as LA
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+
+from line.funcs import *
+#from triangle.funcs import *
+#from conics.funcs import circ_gen
+
+#if using termux
+#import subprocess
+#import shlex
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code }
+    \begin{lstlisting}
+
+A = np.array([-5,-2]).reshape(-1,1)
+B = np.array([4,-2]).reshape(-1,1)
+e1 = np.array([1,0]).reshape(-1,1)
+
+x = (LA.norm(A)**2 - LA.norm(B)**2)/(2*np.dot((A-B).T,e1))
+#x = float(x)
+x = np.squeeze(x)
+Q = np.array([[x],[0]],dtype=np.float64).reshape(-1,1)
+
+def plot_it(P,Q,str):
+    x_l = line_gen_num(P,Q,20)
+    plt.plot(x_l[0,:],x_l[1,:] , str )
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code }
+    \begin{lstlisting}
+
+plt.figure()
+plot_it(A,B,"g-")
+plot_it((A+B)/2,Q,"r-")
+
+coords = np.block([[A,B,Q]])
+plt.scatter(coords[0,:],coords[1,:])
+vert_labels = ['A','B','Q']
+#for i , txt in enumerate(vert_labels):
+ #   plt.annotate(txt,(coords[0,i],coords[1,i]),textcoords="offset points", xytext=(0,10),ha='center')
+for i, txt in enumerate(vert_labels):
+    plt.annotate(f'{txt}\n({coords[0,i]:.1f}, {coords[1,i]:.1f})',
+                 (coords[0,i], coords[1,i]),
+                 textcoords="offset points",
+                 xytext=(20,0),
+                 ha='center',va ='bottom')
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code }
+    \begin{lstlisting}
+plt.xlabel('$x$')
+plt.ylabel('$y$')
+#plt.legend(loc='best')
+plt.grid()
+
+plt.title("Fig:2.4.28")
+plt.axis('equal')
+
+plt.savefig("../figs/perpbisector2.png")
+plt.show()
+
+#plt.savefig('figs/triangle/ang-bisect.pdf')
+#subprocess.run(shlex.split("termux-open figs/triangle/ang-bisect.pdf"))
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}{Plot}
+    \centering
+    \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{figs/perpbisector1.png}   
+\end{frame}
+\end{document}

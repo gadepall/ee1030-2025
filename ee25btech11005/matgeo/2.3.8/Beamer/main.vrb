@@ -1,0 +1,12 @@
+\frametitle{Python and C Code}
+
+    \begin{lstlisting}
+    CD_c = np.ascontiguousarray(CD, dtype=np.double).ctypes.data_as(ctypes.POINTER(ctypes.c_double))
+    angle = lib.angle_deg(AB_c, CD_c)
+    print("Angle between AB and CD (degrees):", angle)
+    lib.collinear.argtypes = [ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_double)]
+
+    lib.collinear.restype = ctypes.c_int
+    is_collinear = lib.collinear(AB_c, CD_c)
+    print("Are AB and CD collinear?", "Yes" if is_collinear else "No")
+    \end{lstlisting}

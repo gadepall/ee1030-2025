@@ -1,0 +1,34 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Define y range (limits from earlier analysis)
+y = np.linspace(0, 4, 400)
+
+# Curve 1: y^2 = 4x ⇒ x = y^2 / 4
+x1 = y**2 / 4
+
+# Curve 2: x^2 = 4y ⇒ x = 2 * sqrt(y)
+x2 = 2 * np.sqrt(y)
+
+# Create the plot
+plt.figure(figsize=(8, 6))
+
+# Plot the two curves
+plt.plot(x1, y, label=r'$y^2 = 4x$', color='blue')
+plt.plot(x2, y, label=r'$x^2 = 4y$', color='red')
+
+# Fill the region between the curves
+plt.fill_betweenx(y, x1, x2, where=(x2 > x1), color='green', alpha=0.3, label='Bounded Area')
+
+# Add labels, grid, legend
+plt.xlabel("x")
+plt.ylabel("y")
+plt.title("Region Bounded by $y^2 = 4x$ and $x^2 = 4y$")
+plt.legend()
+plt.grid(True)
+plt.axis('equal')
+
+# Save the figure
+plt.savefig("bounded_region.png", dpi=300, bbox_inches='tight')
+print("Plot saved as 'bounded_region.png'")
+

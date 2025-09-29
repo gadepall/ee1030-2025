@@ -1,0 +1,285 @@
+
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  literate={λ}{{$\lambda$}}1
+}
+
+
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\begin{document}
+
+\title 
+{1.9.4}
+\date{September 9,2025}
+
+
+\author 
+{Bhoomika V - EE25BTECH11015}
+
+
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+If $\lVert \vec{a} \rVert = 4$ and $-3 \le \lambda \le 2$, then $\lVert \lambda \vec{a} \rVert$ lies in
+\begin{enumerate}
+  \item $[0,12]$
+  \item $[2,3]$
+  \item $[8,12]$
+  \item $[-12,8]$
+\end{enumerate} 
+\end{frame}
+
+
+
+\begin{frame}{Theoretical Solution}
+\begin{equation}
+  \|\vec{a}\| = \sqrt{\vec{a}^T \vec{a}}, 
+  \qquad \text{hence} \qquad 
+  \vec{a}^T \vec{a} = \|\vec{a}\|^2 = 4^2 = 16.
+  \label{eq1}
+\end{equation}
+\end{frame}
+
+
+
+
+\begin{frame}{Theoretical Solution}
+  The squared norm of \(\lambda \vec{a}\) using matrix notation is:
+  \[
+    \|\lambda \vec{a}\|^2 = (\lambda \vec{a})^T(\lambda \vec{a}) 
+    = \lambda^2 (\vec{a}^T \vec{a}).
+  \]
+  Substituting from Equation~\eqref{eq1}:
+
+  \[
+    \|\lambda \vec{a}\|^2 = 16 \lambda^2.
+  \]
+
+  Taking square roots (norms are nonnegative) gives
+  \[
+    \|\lambda \vec{a}\| = \sqrt{16\lambda^2} = 4\,|\lambda|.
+  \]  
+
+
+\end{frame}
+
+\begin{frame}{Answer}
+ The range of \(|\lambda|\) given \(-3 \le \lambda \le 2\).
+  \[
+    0 \le |\lambda| \le \max\{|-3|,|2|\} = 3.
+  \]
+  Multiplying by \(4\) yields
+  \[
+    0 \le 4|\lambda| \le 12.
+  \]
+
+  Therefore
+  \[
+    \|\lambda \vec{a}\| = 4|\lambda| \in [0,12].
+  \]
+  \[
+    \boxed{\; \|\lambda \vec{a}\| \in [0,12]\; }
+  \]
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{C Code - A function to find the value of $\lVert \lambda \vec{a} \rVert$ }
+
+    \begin{lstlisting}
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    float norm_a = 4;           // ||a|| = 4
+    float lambda_min = -3, lambda_max = 2;
+
+    // Compute max |lambda|
+    float max_abs_lambda = fmax(fabs(lambda_min), fabs(lambda_max));
+    float min_abs_lambda = 0;   // since lambda can be 0 in [-3, 2]
+
+    
+     \end{lstlisting}
+\end{frame}
+
+
+    
+\begin{frame}[fragile]
+\frametitle{C Code - A function to find the value of $\lVert \lambda \vec{a} \rVert$ }
+
+\begin{lstlisting}
+
+ // Corresponding ||lambda * a|| values
+ float min_norm = norm_a * min_abs_lambda;
+ float max_norm = norm_a * max_abs_lambda;    
+ printf( "||lambda * a|| lies in [%.0f, %.0f]\n " , min_norm, max_norm);
+ return 0;
+\end{lstlisting}
+
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+    import numpy as np
+import matplotlib.pyplot as plt
+import ctypes
+import os
+
+# --- Load the C library ---
+try:
+    c_lib = ctypes.CDLL('./code.so')
+except OSError:
+    print("Error: 'code.so' not found.")
+    print("Please compile code.c using: gcc -shared -o code.so -fPIC code.c")
+    exit()
+
+# Define argument and return types for the C function
+c_lib.norm_lambda_a.argtypes = [ctypes.c_float, ctypes.c_float]
+c_lib.norm_lambda_a.restype = ctypes.c_float
+    \end{lstlisting}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+    # --- Given ---
+norm_a = 4.0
+lam_min, lam_max = -3.0, 2.0
+
+# --- Generate λ values and call C function ---
+lambdas = np.linspace(lam_min, lam_max, 200)
+y = np.array([c_lib.norm_lambda_a(ctypes.c_float(l), ctypes.c_float(norm_a)) for l in lambdas])
+
+# --- Range ---
+y_min, y_max = np.min(y), np.max(y)
+print(f" The values of ||λa|| lie in the interval [{y_min:.0f}, {y_max:.0f}]")
+
+# --- Plotting ---
+plt.plot(lambdas, y, label="||λa|| = 4|λ|", color="blue")
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+    # Mark endpoints
+plt.scatter([lam_min, lam_max],
+            [c_lib.norm_lambda_a(lam_min, norm_a), c_lib.norm_lambda_a(lam_max, norm_a)],
+            color=['red','green'], zorder=5)
+
+# Labels
+plt.text(lam_min, c_lib.norm_lambda_a(lam_min, norm_a)+0.5,
+         f"({lam_min:.0f},{c_lib.norm_lambda_a(lam_min, norm_a):.0f})")
+plt.text(lam_max, c_lib.norm_lambda_a(lam_max, norm_a)+0.5,
+         f"({lam_max:.0f},{c_lib.norm_lambda_a(lam_max, norm_a):.0f})")
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+    # Axes and grid
+plt.axhline(0, color='gray', linewidth=1)
+plt.axvline(0, color='gray', linewidth=1)
+plt.xlabel("lambda")
+plt.ylabel("||lambda a||")
+plt.title("Graph of ||lambda a|| = 4|lambda|")
+plt.legend(loc='best')
+plt.grid(True)
+plt.show()
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}{Plot}
+    \centering
+    \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{Figs/Fig1.png}     
+\end{frame}
+
+
+
+
+\end{document}

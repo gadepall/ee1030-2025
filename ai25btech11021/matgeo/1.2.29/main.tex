@@ -1,0 +1,170 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+
+
+
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,angles,quotes}
+
+
+
+
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{1.2.29}
+\author{AI25BTECH11021 - Abhiram Reddy N}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+
+\textbf{Question}:\\In a harbour, wind is blowing at the speed of $72\ \mathrm{km/h}$ and the flag on the mast of a boat anchored in the harbour flutters along the N--E direction. If the boat starts moving at a speed of $51\ \mathrm{km/h}$ to the north, what is the direction of the flag on the mast of the boat?
+
+
+\textbf{Solution}:\\
+
+\textbf{Step 1: Represent velocities as vectors}
+
+The wind velocity vector (in ground frame) is towards NE (45$^\circ$) with speed 72 km/h:
+
+\[
+\vec{W} = 
+\begin{bmatrix}
+72 \cos 45^\circ \\
+72 \sin 45^\circ
+\end{bmatrix}
+=
+\begin{bmatrix}
+50.91 \\
+50.91
+\end{bmatrix} \text{ km/h}
+\]
+
+The boat velocity vector (in ground frame) is towards North:
+
+\[
+\vec{V} =
+\begin{bmatrix}
+0 \\
+51
+\end{bmatrix} \text{ km/h}
+\]
+
+\textbf{Step 2: Compute relative wind (wind as seen from the boat)}
+
+\[
+\vec{R} = \vec{W} - \vec{V} =
+\begin{bmatrix}
+50.91 \\
+50.91
+\end{bmatrix}
+-
+\begin{bmatrix}
+0 \\
+51
+\end{bmatrix}
+=
+\begin{bmatrix}
+50.91 \\
+-0.09
+\end{bmatrix}
+\]
+
+\textbf{Step 3: Use cosine formula to find angle from East axis}
+
+Let $\theta$ be the angle between $\vec{R}$ and the East direction $\vec{E} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$
+
+\[
+\cos \theta = \frac{\vec{R} \cdot \vec{E}}{|\vec{R}||\vec{E}|}
+= \frac{50.91 \cdot 1 + (-0.09)\cdot 0}{\sqrt{50.91^2 + (-0.09)^2}} = \frac{50.91}{50.9118}
+\]
+
+\[
+\theta = \cos^{-1}\left( \frac{50.91}{50.9118} \right) \approx \cos^{-1}(0.9999646) \approx 0.1^\circ
+\]
+
+So, the flag points nearly \textbf{East}, slightly tilted \textbf{South}.
+
+
+
+\begin{table}[h!]    
+      \centering
+      \input{tables/table.tex}
+      \caption{variables and numerical values}
+    \end{table}
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\columnwidth]{figs/python image.png} 
+\caption{Relative wind vector $\mathbf{R}$ obtained as $\mathbf{W}-\mathbf{V}$}
+\label{fig:wind}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

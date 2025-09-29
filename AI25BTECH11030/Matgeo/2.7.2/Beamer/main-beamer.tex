@@ -1,0 +1,277 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{multicol}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+{
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}} % nCr
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}} % nPr
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{{}\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\vert#1\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}} 
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E[ #1 ]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+%\providecommand{\hilbert}{\overset{\mathcal{H}}{ \rightleftharpoons}}
+\providecommand{\system}[1]{\overset{\mathcal{#1}}{ \longleftrightarrow}}
+%\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+	%\newcommand{\solution}[2]{\vec{Solution:}{#1}}
+%\newcommand{\solution}{\noindent \vec{Solution: }}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+
+
+\lstset{
+%language=C,
+frame=single, 
+breaklines=true,
+columns=fullflexible
+}
+\lstset{
+  language=C,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{gray}\itshape,
+  stringstyle=\color{orange},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  frame=single,
+  showstringspaces=false,
+  tabsize=4,
+  captionpos=b
+}
+\numberwithin{equation}{section}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{orange},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  showstringspaces=false
+}
+
+\title{Problem 2.7.2}
+\author{Sarvesh Tamgade}
+
+\date{\today} 
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section*{Outline}
+\begin{frame}
+\tableofcontents
+\end{frame}
+\section{Question}
+\begin{frame}{Question}
+\textbf{Question}:
+\centering
+The area of a triangle with vertices A(-1,1), B(0,5) and C(3,2) is?
+\end{frame}
+
+\section{Solution}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+Given: $A(-1,1),\; B(0,5),\; C(3,2).$\\
+
+$
+\vec{B}-\vec{A}=\myvec{0-(-1)\\5-1}
+=\myvec{1\\4},\qquad
+\vec{C}-\vec{A}=\myvec{3-(-1)\\2-1} = \myvec{4\\1}.
+$\\
+
+$\norm{\vec{(B-A)} \times \vec{(C-A)}} = \norm{\,\myvec{|\vec{A_{23}} & \vec{B_{23}}| \\ |\vec{A_{31}} & \vec{B_{31}}| \\ |\vec{A_{12}} & \vec{B_{12}}|}\,} = 7.5 $\\\\
+
+
+$
+\text{Area}=\frac{1}{2}\norm{\vec{(B-A)} \times \vec{(C-A)}} = 7.5
+$
+\textbf{Answer:}
+
+
+\begin{align}
+    \centering
+    \boxed{Area \, of \, Triangle \, ABC \,= \,7.5\,sq.units}
+\end{align}
+
+\end{frame}
+\begin{frame}
+    \frametitle{Graph}
+    \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.65\linewidth]{FIG/fig1.png}
+    \caption{Vector Representation}
+    \label{fig:FIG/fig1.png}
+\end{figure}
+\end{frame}
+\section{ C Code}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+#include "matfun.h"
+
+int main(void) {
+    // Allocate 2x1 matrices for points
+    double **A = createMat(2,1);
+    double **B = createMat(2,1);
+    double **C = createMat(2,1);
+
+    // Set points: A(-1,1), B(0,5), C(3,2)
+    A[0][0] = -1.0; A[1][0] = 1.0;
+    B[0][0] = 0.0; B[1][0] = 5.0;
+    C[0][0] = 3.0; C[1][0] = 2.0;
+
+   
+    
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+ // Vectors B-A and C-A
+    double **BA = Matsub(B, A, 2, 1);
+    double **CA = Matsub(C, A, 2, 1);
+
+    // Extract components
+    double BAx = BA[0][0], BAy = BA[1][0];
+    double CAx = CA[0][0], CAy = CA[1][0];
+
+    // Cross product magnitude |(B-A) x (C-A)| = |BAx*CAy - BAy*CAx|
+    double cp = fabs(BAx*CAy - BAy*CAx);
+    double area = 0.5 * cp; // Triangle area
+
+    // Save to points.dat
+    FILE *fp = fopen("points.dat", "w");
+    if (!fp) {
+        perror("points.dat");
+        freeMat(BA, 2); freeMat(CA, 2);
+
+
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+        freeMat(A, 2); freeMat(B, 2); freeMat(C, 2);
+        return 1;
+    }
+    fprintf(fp, "# Point_Name X Y\n");
+    fprintf(fp, "A %.1f %.1f\n", A[0][0], A[1][0]);
+    fprintf(fp, "B %.1f %.1f\n", B[0][0], B[1][0]);
+    fprintf(fp, "C %.1f %.1f\n", C[0][0], C[1][0]);
+    fclose(fp);
+    printf("Wrote points.dat\n");
+    printf("Triangle area = %.2f\n", area);
+
+    // Clean-up
+    freeMat(BA, 2); freeMat(CA, 2);
+    freeMat(A, 2); freeMat(B, 2); freeMat(C, 2);
+    return 0;
+}
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python Code for Plotting}
+\begin{lstlisting}[language=Python]
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Define the three points
+points = np.array([[1, -1], [0, 5], [3, 2]])
+
+# Extract x and y coordinates
+x = points[:, 0]
+y = points[:, 1]
+
+# Plot the points
+plt.plot(x, y, 'ro')
+
+# Annotate the points
+for i, (xi, yi) in enumerate(points):
+    plt.text(xi + 0.1, yi, f'({xi},{yi})')
+
+
+
+\end{lstlisting}
+
+\end{frame}
+\s                                                                    ection{Python Code}
+\begin{frame}[fragile]
+\frametitle{Python Code for Plotting}
+\begin{lstlisting}[language=Python]   
+# Draw the triangle by connecting points and closing the loop
+triangle = plt.Polygon(points, closed=True, fill=True, color='cyan', alpha=0.3)
+plt.gca().add_patch(triangle)
+
+# Set limits
+plt.xlim(min(x)-1, max(x)+1)
+plt.ylim(min(y)-1, max(y)+1)
+
+# Title and labels
+plt.title('Triangle formed by points')
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+
+# Save the figure
+plt.savefig('triangle_area.png')
+
+plt.show()
+\end{lstlisting}
+
+\end{frame}
+
+\end{document}

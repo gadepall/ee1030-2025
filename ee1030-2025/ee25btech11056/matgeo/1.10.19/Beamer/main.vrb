@@ -1,0 +1,36 @@
+\frametitle{Python: plot.py}
+\begin{lstlisting}[language=Python]
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load points from file
+points = np.loadtxt("points.dat", delimiter=',')
+x, y, z = points[:,0], points[:,1], points[:,2]
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+# Plot points O and A
+ax.scatter(x, y, z, color="red", s=50)
+ax.text(0, 0, 0, "O(0,0,0)", color="black")
+ax.text(x[1], y[1], z[1], f"A({int(x[1])},{int(y[1])},{int(z[1])})", color="blue")
+
+# Draw line OA
+ax.plot([x[0], x[1]], [y[0], y[1]], [z[0], z[1]], color="blue", linewidth=2)
+
+# Add arrowhead at A
+ax.quiver(x[0], y[0], z[0], x[1], y[1], z[1],
+          color="blue", arrow_length_ratio=0.1, linewidth=2)
+
+# Axis labels
+ax.set_xlabel("X-axis")
+ax.set_ylabel("Y-axis")
+ax.set_zlabel("Z-axis")
+ax.set_title("Vector OA with direction ratios (2,-1,-2)")
+
+# Save and show
+plt.savefig("fig_vector.png")
+plt.show()
+
+\end{lstlisting}

@@ -1,0 +1,157 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=4em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{4.4.12}
+\author{AI25BTECH11016-Varun}
+ \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+\textbf{Question}:\\
+
+Find the equation of the plane passing through the points $(2, 5, -3)$ , $(-2, -3, 5)$ and
+$(5, 3, -3)$. Also find the point of intersection of this plane with the line passing
+through points $(3, 1, 5)$ and $(-1, -3, -1)$.
+
+\textbf{Solution}:\\
+The points are 
+\begin{align}
+\vec{A}=\myvec{2\\5\\-3}  ,\vec{B}=\myvec{-2\\-3\\5} , \vec{C}=\myvec{5\\3\\-3}
+\end{align}
+\begin{align} 
+\myvec{2 & 5 & -3 \\
+-2 & -3 & 5  \\
+5 & 3 & -3 }\vec{n}&=\myvec{1\\1\\1}\\
+\myvec{2 & 5 & -3 & \vline & 1 \\
+-2 & -3 & 5 & \vline & 1 \\
+5 & 3 & -3 & \vline & 1}\nonumber
+&\xrightarrow{R_2 \leftarrow R_2 + R_1,\; R_3 \leftarrow 2R_3 - 5R_1}
+\myvec{2 & 5 & -3 & \vline & 1 \\
+0 & 2 & 2 & \vline & 2 \\
+0 & -19 & 9 & \vline & -3}\nonumber
+\\[1em]
+&\xrightarrow{R_3 \leftarrow 2R_3 + 19R_2}
+\myvec{2 & 5 & -3 & \vline & 1 \\
+0 & 2 & 2 & \vline & 2 \\
+0 & 0 & 56 & \vline & 22}\nonumber
+\\[1em]
+&\xrightarrow{R_1 \leftarrow \tfrac{1}{2}R_1,\; R_2 \leftarrow \tfrac{1}{2}R_2,\; R_3 \leftarrow \tfrac{1}{56}R_3}
+\myvec{1 & \tfrac{5}{2} & -\tfrac{3}{2} & \vline & \tfrac{1}{2} \\
+0 & 1 & 1 & \vline & 1 \\
+0 & 0 & 1 & \vline & \tfrac{11}{28}
+}\nonumber
+\\[1em]
+&\xrightarrow{R_2 \leftarrow R_2 - R_3}
+\myvec{1 & \tfrac{5}{2} & -\tfrac{3}{2} & \vline & \tfrac{1}{2} \\
+0 & 1 & 0 & \vline & \tfrac{17}{28} \\
+0 & 0 & 1 & \vline & \tfrac{11}{28}}\nonumber
+\\[1em]
+&\xrightarrow{R_1 \leftarrow R_1 + \tfrac{3}{2}R_3,\; R_1 \leftarrow R_1 - \tfrac{5}{2}R_2}
+\myvec{1 & 0 & 0 & \vline & \tfrac{2}{7} \\
+0 & 1 & 0 & \vline & \tfrac{3}{7} \\
+0 & 0 & 1 & \vline & \tfrac{4}{7}}\nonumber
+\end{align}
+Hence the equation of the plane is 
+\begin{align} 
+\myvec{\tfrac{2}{7}&\tfrac{3}{7} &\tfrac{4}{7}}\vec{x}&=1
+\end{align}
+
+\textbf{The equation of the line passing through:}\\
+\begin{align}
+\vec{A}=\myvec{3\\1\\5},\vec{B}=\myvec{-1\\-3\\-1}\\
+\end{align}
+The direction vector of of the line
+\begin{align}
+\vec{m}&=\vec{A}-\vec{B}\\
+&=\myvec{4\\4\\6}
+\end{align}
+\textbf{Vector equation of the line is}
+\begin{align}
+\vec{x}=\vec{A}+\lambda\vec{m}
+\end{align}
+Solving the equation of the plane ($\vec{n}^{T}\vec{x}=1$) and the line ($\vec{x}=\vec{A}+\lambda\vec{m}$),
+\begin{align}
+\vec{n}^{T}(\vec{A}+\lambda\vec{m})&=1\\
+\vec{n}^{T}\vec{A}+\lambda\vec{n}^{T}\vec{m}&=1\\
+\lambda&=\tfrac{1-\vec{n}^{T}\vec{A}}{\vec{n}^{T}\vec{m}}\\
+\textbf{Substituting the $\vec{n},\vec{A},\vec{m}$}\\
+\lambda&=\dfrac{1-\myvec{\tfrac{2}{7}\\\tfrac{3}{7} \\\tfrac{4}{7}}^{T}\myvec{3\\1\\5}}{\myvec{\tfrac{2}{7}\\\tfrac{3}{7} \\\tfrac{4}{7}}^{T}\myvec{4\\4\\6}}\\
+\lambda&=\tfrac{1-(\tfrac{2}{7}.3+\tfrac{3}{7}.1+\tfrac{4}{7}.5)}{(\tfrac{2}{7}.4+\tfrac{3}{7}.4+\tfrac{4}{7}.6)}\\
+\lambda&=\tfrac{1-\tfrac{29}{7}}{\tfrac{44}{7}}\\
+\lambda&=\tfrac{-1}{2}\\
+\text{From equation 8,}\\
+\vec{x}&=\myvec{3+(\tfrac{-1}{2})4\\1+(\tfrac{-1}{2})4\\5+(\tfrac{-1}{2})6}\\
+&=\myvec{1\\-1\\2}
+\end{align}
+the point of intersection is
+\begin{align}
+\vec{x}&=\myvec{1\\-1\\2}
+\end{align}
+\textbf{Therefore,}\\
+the equation of the plane passing through the points (2, 5, -3) , (-2, -3, 5) and
+(5, 3, -3) is $\myvec{\tfrac{2}{7}&\tfrac{3}{7} &\tfrac{4}{7}}\vec{x}=1$\\
+and the point of intersection of the line with the plane is $\vec{x}=\myvec{1\\-1\\2}$
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{figs/4.4.12.jpg}
+    \caption{}
+    \label{fig:1}
+\end{figure}
+
+\end{document}
+

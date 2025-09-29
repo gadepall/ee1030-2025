@@ -1,0 +1,20 @@
+import numpy as np
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+A = np.array([1, 1, 1])
+B = np.array([2, 5, 0])
+C = np.array([3, 2, -3])
+D = np.array([1, -6, -1])
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.quiver(*A, *(B-A), color='b', label='AB')
+ax.quiver(*C, *(D-C), color='r', label='CD')
+ax.scatter(*A, color='blue')
+ax.scatter(*B, color='blue')
+ax.scatter(*C, color='red')
+ax.scatter(*D, color='red')
+ax.text(*A, 'A')
+ax.text(*B, 'B')
+ax.text(*C, 'C')
+ax.text(*D, 'D')
+plt.show()

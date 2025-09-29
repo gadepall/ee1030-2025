@@ -1,0 +1,198 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal,12pt,onecolumn]{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\graphicspath{{./figs/}}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage{caption}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\usepackage{gvv}                                        
+%\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}     
+\usepackage{xparse}
+\usepackage{color}                                            
+\usepackage{array}
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{float}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{example}{Example}[section]
+\newtheorem{definition}[problem]{Definition}
+\newcommand{\BEQA}{\begin{eqnarray}}
+\newcommand{\EEQA}{\end{eqnarray}}
+\newcommand{\define}{\stackrel{\triangle}{=}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+
+\begin{document}
+
+\title{5.13.81}
+\author{ee25btech11056 - Suraj.N}
+\maketitle
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+
+\begin{document}
+
+\textbf{Question :} Let \(S=\{\vec{A}=\myvec{0 & 1 & c\\[2pt] 1 & a & d\\[2pt] 1 & b & e} : a,b,c,d,e\in\{0,1\}\text{ and }|\vec{A}|\in\{-1,1\}\}\).
+Find the number of elements in \(S\).
+
+\textbf{Solution :} 
+
+\begin{table}[h!]
+  \centering
+  \input{tables/table.tex}
+  \caption*{Table : Matrix}
+  \label{5.13.81}
+\end{table}
+
+Rearranging the rows of $\vec{A}$
+
+\begin{align}
+\myvec{0 & 1 & c\\[2pt] 1 & a & d\\[2pt] 1 & b & e}
+\xleftrightarrow{R_2 \leftrightarrow R_3}
+\myvec{0 & 1 & c\\1 & b & e\\1 & a & d}
+\xleftrightarrow{R_1 \leftrightarrow R_2}
+\myvec{1 & b & e\\0 & 1 & c\\1 & a & d}
+\end{align}
+
+Applyting row operation to $\vec{A}$ to reduce it into Echelon form
+
+\begin{align}
+\myvec{1 & b & e\\0 & 1 & c\\1 & a & d}
+\xleftrightarrow{R_3 \to R_3 - R_1}
+\myvec{1 & b & e\\0 & 1 & c\\0 & a-b & d-e}
+\xleftrightarrow{R_3 \to R_3 - (a-b)R_2}
+\myvec{
+  \makebox[1cm][c]{1} & \makebox[1cm][c]{b} & \makebox[2cm][c]{e} \\
+  \makebox[1cm][c]{0} & \makebox[1cm][c]{1} & \makebox[2cm][c]{c} \\
+  \makebox[1cm][c]{0} & \makebox[1cm][c]{0} & \makebox[2.6cm][c]{$d-e-c(a-b)$}
+}
+\end{align}
+
+Finding the determinant by the first column 
+
+\begin{align}
+  \mydet{\vec{A}} &= d - e - c(a - b)
+\end{align}
+
+Taking cases to find the possibilities of matrix $\vec{A}$
+
+Case 1 : $\mydet{\vec{A}}=1$ \\
+
+if c = 0 \\
+the value of b and a can be 0 or 1.
+
+\begin{align}
+d - e &= 1
+\end{align}
+
+So,
+
+\begin{align}
+d &= 1 \\  
+e &= 0
+\end{align}
+
+By permutation we get ,\\
+
+\begin{align}
+2 \times 2 \times 1 \times 1 = 4
+\end{align}
+
+\pagebreak
+
+if c = 1, we get 4 possibilities
+
+\begin{align}
+d - e -(a - b) &= 1
+\end{align}
+
+So,
+
+\begin{align}
+  d &= 1 & e&=0 \\   
+  b&=a=1 & b&=a=0
+\end{align}
+
+\begin{align}
+  a &= 0 & b&=1 \\   
+  d&=e=1 & d&=e=0
+\end{align}
+
+Case 2 : $\mydet{\vec{A}}= -1$ \\
+
+if c = 0 \\
+the value of b and a can be 0 or 1.
+
+\begin{align}
+d - e &= -1
+\end{align}
+
+So,
+
+\begin{align}
+d &= 0 \\  
+e &= 1
+\end{align}
+
+By permutation we get ,\\
+
+\begin{align}
+2 \times 2 \times 1 \times 1 = 4
+\end{align}
+
+if c = 1, we get 4 possibilities
+
+\begin{align}
+d - e -(a - b) &= -1
+\end{align}
+
+So,
+
+\begin{align}
+  d &= 0 & e&=1 \\   
+  b&=a=1 & b&=a=0
+\end{align}
+
+\begin{align}
+  a &= 1 & b&=0 \\   
+  d&=e=1 & d&=e=0
+\end{align}
+
+\pagebreak 
+
+By adding all the possibilities , we get 
+
+\begin{align}
+  4 + 4 + 4 + 4 &= 16
+\end{align}
+
+Therefore, the number of elements in \(S=16\).
+
+\end{document}
+
+

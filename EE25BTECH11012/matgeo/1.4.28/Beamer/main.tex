@@ -1,0 +1,409 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{1.4.28}
+\date{August  2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{BEERAM MADHURI - EE25BTECH11012}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+ Find the position vector of a point $\mathbf{R}$ which divides the line joining two points $\mathbf{P}$ and $\mathbf{Q}$ whose position vectors are $(2\mathbf{a} + \mathbf{b})$ and $(\mathbf{a} - 3\mathbf{b})$ externally in the ratio $1 : 2$. Also, show that $\mathbf{P}$ is the mid point of the line segment $RQ$.
+ 
+ 
+
+\end{frame}
+ 
+\begin{frame}{given data}
+ 
+\text \textbf{R} divides \textbf{p} and \textbf{Q} in 1:2 ratio.
+\[
+\begin{array}{|c|c|c|c|}
+\hline
+\textbf{variable} & \textbf{Position Vector}\\
+\hline
+\textbf{P} & 2a+b\\
+\textbf{Q} & a-3b\\
+\hline
+\end{array}
+\]
+
+   
+\end{frame}
+
+\begin{frame}{Formula}
+Section Formula for a vector 
+  \textbf{R} which divides \textbf{P} and \textbf{Q} in k:1 ratio externally is given by 
+
+\begin{align*}
+ \textbf{R} &= \frac{k(\textbf{P}) - 1(\textbf{Q})}{k - 1}
+ \end{align*}
+ \end{frame}
+ 
+
+\begin{frame}{solution}
+    \frametitle{finding Position vector of \textbf{R}}
+\begin{align}
+    \textbf{R} &= \frac{2(\textbf{P}) - 1(\textbf{Q})}{2 - 1} \\
+&= \frac{2(2a+b) - (a-3b)}{1} \\
+&= 3a + 5b\\
+\end{align}
+Hence Position vector of \textbf{R} is 3a + 5b
+\end{frame}
+\begin{frame}{solution}
+    \frametitle{Proving \textbf{P} is midpoint of \textbf{QR}}
+    \begin{align*}
+\textbf{P} &= \frac{k(\textbf{R}) + 1(\textbf{Q})}{k+1} \\
+2a+b &= \frac{k(3a+5b) + a-3b}{k+1} \\
+(2a+b)(k+1) &= (3k+1)a + (5k-3)b
+\end{align*}
+\text{Comparing coefficients of } a:
+\begin{align*}
+2k+2 &= 3k+1 \\
+k &= 1
+\end{align*}
+
+\text Hence \textbf{P} divides $\overline{RQ}$ in 1:1 ratio, P is midpoint of $\overline{RQ}$.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+ import matplotlib.pyplot as plt
+import numpy as np
+
+#  Define Base Vectors
+# We assign arbitrary coordinates to vectors 'a' and 'b' for visualization.
+# To see a different layout, you can change these values.
+a = np.array([1, 1])
+b = np.array([-1, 2])
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+
+    \begin{lstlisting}
+#  Define Position Vectors for P and Q
+# As given in the problem statement.
+P = 2*a + b
+Q = a - 3*b
+ # Calculate Position Vector for R ---
+# Using the external division formula result we found: R = 3a + 5b
+R = 3*a + 5*b
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+
+    \begin{lstlisting}
+# Verify P is the midpoint of RQ ---
+# This calculation should result in the same coordinates as P.
+midpoint_RQ = (R + Q) / 2
+print(f"Coordinates of P: {P}")
+print(f"Calculated midpoint of RQ: {midpoint_RQ}")
+print(f"Is P the midpoint of RQ? {np.allclose(P, midpoint_RQ)}")
+
+\end{lstlisting}
+\end{frame}
+
+ 
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+
+    \begin{lstlisting}
+# --- Create the Plot ---
+fig, ax = plt.subplots(figsize=(10, 8))
+# Plot the line segment RQ
+ax.plot([R[0], Q[0]], [R[1], Q[1]], 'k--', alpha=0.6, label='Line Segment RQ')
+# Plot the points O, P, Q, R
+ax.scatter(0, 0, c='black', s=100, zorder=5, label='Origin (O)')
+ax.scatter(P[0], P[1], c='red', s=100, zorder=5, label=f'P = {P}')
+ax.scatter(Q[0], Q[1], c='green', s=100, zorder=5, label=f'Q = {Q}')
+ax.scatter(R[0], R[1], c='blue', s=100, zorder=5, label=f'R = {R}')
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+
+    \begin{lstlisting}
+# Plot position vectors from the origin
+ax.quiver(0, 0, P[0], P[1], angles='xy', scale_units='xy', scale=1, color='red', alpha=0.7)
+ax.quiver(0, 0, Q[0], Q[1], angles='xy', scale_units='xy', scale=1, color='green', alpha=0.7)
+ax.quiver(0, 0, R[0], R[1], angles='xy', scale_units='xy', scale=1, color='blue', alpha=0.7)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+
+    \begin{lstlisting}
+# Add Labels and Formatting 
+# Add text labels for each point
+ax.text(0, 0.5, 'O', fontsize=14)
+ax.text(P[0] + 0.3, P[1], 'P', fontsize=14)
+ax.text(Q[0] + 0.3, Q[1], 'Q', fontsize=14)
+ax.text(R[0] + 0.3, R[1], 'R', fontsize=14)
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+
+    \begin{lstlisting}
+# Set plot aesthetics
+ax.set_title('Vector Visualization', fontsize=16)
+ax.set_xlabel('X-axis', fontsize=12)
+ax.set_ylabel('Y-axis', fontsize=12)
+ax.axhline(0, color='grey', linewidth=0.5)
+ax.axvline(0, color='grey', linewidth=0.5)
+ax.grid(True, which='both', linestyle='--', linewidth=0.5)
+ax.set_aspect('equal', adjustable='box')
+ax.legend()
+
+plt.show()
+\end{lstlisting}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+  
+#include <stdio.h>
+
+// A structure to represent a vector with coefficients for a and b
+typedef struct {
+    int coeff_a;
+    int coeff_b;
+} Vector;
+int main() {
+    // P = 2a + 1b
+    Vector P = {2, 1};
+ \end{lstlisting}
+
+\end{frame}   
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+    // Q = 1a - 3b
+    Vector Q = {1, -3};
+    // Ratio m:n = 1:2
+    int m = 1;
+    int n = 2;
+    // Applying the external division formula: R = (m*Q - n*P) / (m - n)
+    // Numerator: (1 * Q) - (2 * P)
+    int num_a = (m * Q.coeff_a) - (n * P.coeff_a); // (1*1) - (2*2) = -3
+    int num_b = (m * Q.coeff_b) - (n * P.coeff_b); // (1*-3) - (2*1) = -5
+ \end{lstlisting}
+
+\end{frame}   
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+    // Denominator: m - n
+    int den = m - n; // 1 - 2 = -1
+    Vector R;
+    R.coeff_a = num_a / den; // -3 / -1 = 3
+    R.coeff_b = num_b / den; // -5 / -1 = 5
+
+    printf("The position vector of point R is (%d)a + (%d)b\n", R.coeff_a, R.coeff_b);
+return 0;
+}
+
+\end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+
+\begin{lstlisting}
+# File: main.py
+import ctypes
+import platform
+
+# --- 1. Define a Python class that mirrors the C struct ---
+# The names and types in fields must exactly match the C struct.
+class Vector(ctypes.Structure):
+    fields = [("coeff_a", ctypes.c_int),
+                ("coeff_b", ctypes.c_int)]
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+
+\begin{lstlisting}
+# --- 2. Load the shared library ---
+if platform.system() == "Windows":
+    lib_path = "./libvector.dll"
+else:
+    lib_path = "./libvector.so"
+
+try:
+    lib = ctypes.CDLL(lib_path)
+except OSError as e:
+    print(f"Error loading library: {e}")
+    print("Have you compiled vector_ops.c?")
+    exit()
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+
+\begin{lstlisting}
+
+# --- 3. Define the function signature (argtypes and restype) ---
+# This ensures Python sends the correct data types to the C function.
+lib.external_division.argtypes = [
+    ctypes.POINTER(Vector), # const Vector* P
+    ctypes.POINTER(Vector), # const Vector* Q
+    ctypes.c_int,           # int m
+    ctypes.c_int,           # int n
+    ctypes.POINTER(Vector)  # Vector* R (output)
+]
+lib.external_division.restype = None # for void return type
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+
+\begin{lstlisting}
+
+# --- 4. Prepare Input and Output Data ---
+# Create instances of our Vector class for the inputs
+P = Vector(coeff_a=2, coeff_b=1)
+Q = Vector(coeff_a=1, coeff_b=-3)
+# Define the ratio m:n
+m = 1
+n = 2
+# Create an empty Vector instance to hold the result from the C function.
+# This acts as the output buffer.
+R = Vector()
+
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+
+\begin{lstlisting}
+# --- 5. Call the C function ---
+# The C function will write its result directly into our 'R' object.
+lib.external_division(ctypes.byref(P), ctypes.byref(Q), m, n, ctypes.byref(R))
+print(f"Vector P = ({P.coeff_a})a + ({P.coeff_b})b")
+print(f"Vector Q = ({Q.coeff_a})a + ({Q.coeff_b})b")
+print(f"Ratio m:n = {m}:{n}")
+print("-" * 30)
+print(f"The position vector of point R is ({R.coeff_a})a + ({R.coeff_b})b")
+\end{lstlisting}
+
+\end{frame}
+
+ 
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\columnwidth]{Fig.png}
+    \caption{Plot}
+    \label{fig:placeholder}
+\end{figure}
+
+
+\end{document}

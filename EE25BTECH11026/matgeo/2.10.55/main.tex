@@ -1,0 +1,152 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=4em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{2.10.55}
+\author{EE25BTECH11026-Harsha}
+ \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question}:\\
+The edges of a parallelopiped are of unit length and are parallel to non-coplanar unit vectors $\hat{a},\hat{b},\hat{c}$ such that $\hat{a}.\hat{b}=\hat{b}.\hat{c}=\hat{c}.\hat{a}=\frac{1}{2}$ . Then, the volume of the parallelopiped is
+\begin{multicols}{4}
+\begin{enumerate}
+    \item $\frac{1}{\sqrt{2}}$
+    \item $\frac{1}{2\sqrt{2}}$
+    \item $\frac{\sqrt{3}}{2}$
+    \item $\frac{1}{\sqrt{3}}$
+\end{enumerate}
+\end{multicols}
+\solution \\
+Let us solve the given equation theoretically and then verify the solution computationally.\\
+\\
+According to the question,the edges of the parallelopiped are parallel to the unit vectors $\hat{a},\hat{b},\hat{c}$ and\\
+\begin{align*}
+    \hat{a}^T\hat{b}=\hat{b}^T\hat{c}=\hat{c}^T\hat{a}=\frac{1}{2}
+\end{align*}
+As we know that the volume of parallelopiped is given by
+\begin{align*}
+    V=[\vec{a}\;\vec{b}\;\vec{c}]
+\end{align*}
+and
+\begin{align*}
+    [\vec{a}\;\vec{b}\;\vec{c}][\vec{a}\;\vec{b}\;\vec{c}]^T=\vec{G}
+\end{align*}
+where $\vec{G}$ is the Gram Matrix.
+\begin{align*}
+    \therefore \vec{G}=\myvec{\hat{a}^T\hat{a}&&\hat{a}^T\hat{b}&&\hat{a}^T\hat{c} \\ \hat{b}^T\hat{a}&& \hat{b}^T\hat{b}&& \hat{b}^T\hat{c} \\ \hat{c}^T\hat{a}&& \hat{c}^T\hat{b}&& \hat{c}^T\hat{c}}=\myvec{1&&\frac{1}{2}&&\frac{1}{2}\\ \frac{1}{2}&&1&&\frac{1}{2}\\ \frac{1}{2}&&\frac{1}{2}&&1}
+\end{align*}
+For calculating the det($\vec{G}$), we can use the concept of eigen values.\\
+\\
+Eigen values are those scalars which satisfies the following condition,
+For any non-zero eigen-vector $\vec{v}$ and coefficient matrix $\vec{M}$,
+\begin{align*}
+    \vec{M}\vec{v}=\lambda \vec{v} \; , where \; \lambda \;is\; an \;eigen\; value.
+\end{align*}
+\begin{align*}
+     \vec{G}=(1-\rho)\vec{I}\;+\rho\;\vec{1}\vec{1}^T, \; where\, \rho=\frac{1}{2}\;and\;\vec{1}=\myvec{1&&1&&1}
+\end{align*}
+Let $\vec{1}\vec{1}^T=\vec{J}$. As we could see that the eigen-vector of $\vec{J}$ is $\vec{1}$ and by the rule,
+\newpage
+\vspace*{0.25cm}
+
+\begin{align*}
+    \myvec{1&&1&&1\\1&&1&&1\\1&&1&&1}\myvec{1\\1\\1}=\myvec{3\\3\\3}=3\vec{1}
+\end{align*}
+So, 3 is a eigen value of $\vec{J}$. Also, we know that the sum of eigen values is equal to trace of a matrix,we can say that the sum of the other eigen values would be 0. Also, we know that any orthogonal vector to $\vec{1}$ ,say $\myvec{-1&&1&&0}^T$ ,
+\begin{align*}
+    \myvec{1&&1&&1\\1&&1&&1\\1&&1&&1}\myvec{-1\\1\\0}=\vec{0}
+\end{align*}
+yields 0.Thus we can say that 0 is also one of the eigen value of J. As sum of the other eigen values other than 3 is zero, the other eigen value must be zero.
+\begin{align*}
+    \therefore eigen\;values\;of\;\vec{J}\;are\;\{3,0,0\}
+\end{align*}
+Modifying the above equation on $\vec{G}$,
+\begin{align*}
+    \therefore \vec{G}\vec{v}=\frac{1}{2}\vec{I}\vec{v}+\frac{1}{2}\vec{J}\vec{v}
+\end{align*}
+\begin{align*}
+    \implies \vec{G}\vec{v}=\frac{(1+\mu)}{2}\vec{v}
+\end{align*}
+where $\mu$ is the eigen value of $\vec{J}$. Here the eigen value of $\vec{G}$ is $\frac{1+\mu}{2}$ and substituting the obtained eigen values of $\vec{J}$ in this equation, we get the eigen values of $\vec{G}$ to be $\{2,\frac{1}{2},\frac{1}{2}\}$\\
+\\
+As we know that for eigen values of $\vec{G}$ being $\{\mu_1,\mu_2,\mu_3\}$,
+\begin{align*}
+    det(\vec{G})=\mu_1\mu_2\mu_3
+\end{align*}
+\begin{align*}
+    \therefore det(\vec{G})=2\times\frac{1}{2}\times\frac{1}{2}=\frac{1}{2}
+\end{align*}
+\begin{align*}
+    \implies V=\sqrt{det(\vec{G})}=\frac{1}{\sqrt{2}} \; units
+\end{align*}
+
+From the figure, taking an example of vectors $\vec{a}$ and $\vec{b}$ ,it is clearly verified that the theoretical solution matches with the computational solution.
+\newpage
+\vspace*{0.25cm}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\columnwidth]{figs/Figure-1.png}
+    \label{fig:1}
+\end{figure}
+
+
+\end{document}

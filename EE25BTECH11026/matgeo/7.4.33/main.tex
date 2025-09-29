@@ -1,0 +1,147 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+\usepackage{comment}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=4em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{7.4.33}
+\author{EE25BTECH11026-Harsha}
+ \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question}:\\
+A circle C of radius 1 unit is inscribed in an equilateral triangle PQR. The points of contact of C with sides PQ, QR, RP are D, E, F respectively.The line PQ is given by the equation
+$\sqrt{3}x+y-6=0$ and the point $\vec{D}$ is $\brak{\frac{3\sqrt{3}}{2},\frac{3}{2}}$. Further, it is given
+that the origin and the centre of C are on same side of line PQ. The equation of circle C is
+\begin{multicols}{2}
+\begin{enumerate}
+    \item $\brak{x-2\sqrt{3}}^2+\brak{y-1}^2=1$
+    \item $\brak{x-2\sqrt{3}}^2+\brak{y+\frac{1}{2}}^2=1$
+    \item $\brak{x-\sqrt{3}}^2+\brak{y-1}^2=1$
+    \item $\brak{x-\sqrt{3}}^2+\brak{y+1}^2=1$
+\end{enumerate}
+\end{multicols}
+\solution \\
+Let us solve the given question theoretically and then verify the solution computationally.\\
+\\
+According to the question,
+\begin{align}
+    \text{Equation of tangent PQ :\,}\vec{n}^{\top}\vec{x}=c
+\end{align}
+where $\vec{n}=\myvec{\sqrt{3}&&1}^{\top}$ and $c=6$
+\begin{align}
+    \text{Point of tangency}\brak{\vec{D}}:\myvec{\frac{3\sqrt{3}}{2}\\\frac{3}{2}}
+\end{align}
+\begin{align}
+    radius(r)=1
+\end{align}
+As the point of tangency $\vec{D}$ and centre of circle $\vec{u}$  are along the direction of the vector $\vec{n}$,
+\begin{align}
+    \therefore \vec{D}-\vec{u}=\lambda\vec{n}\;\text{, for some scalar $\lambda$}
+\end{align}
+\begin{align}
+    \implies \vec{u}=\vec{D}-\lambda\vec{n}
+\end{align}
+Also,
+\begin{align}
+    \frac{|\vec{n}^{\top}\vec{u}-c|}{\|\vec{n}\|}=r
+\end{align}
+\begin{align}
+    |\vec{n}^{\top}\vec{u}-c|=r\|\vec{n}\|
+\end{align}
+\begin{align}
+    \vec{n}^{\top}\vec{u}=c \pm r\|\vec{n}\|
+\end{align}
+\newpage
+\vspace*{0.25cm}
+To decide the sign , we need to use the fact that the origin and centre of circle are on the same side of the line PQ.
+\begin{align}
+    \therefore \brak{\vec{n}^{\top}\vec{u}-c}\brak{\vec{n}^{\top}\myvec{0\\0}-c}>0
+\end{align}
+\begin{align}
+    \implies \vec{n}^{\top}\vec{u}<c
+\end{align}
+\begin{align}
+    \therefore \vec{n}^{\top}\vec{u}=c-r\|\vec{n}\|
+\end{align}
+Substituting value of $\vec{u}$,
+\begin{align}
+\vec{n}^{\top}\brak{\vec{D}-\lambda\vec{n}}=c-r\|\vec{n}\|
+\end{align}
+\begin{align}
+    \implies \lambda=\frac{\vec{n}^{\top}\vec{D}+r\|n\|-c}{\vec{n}^{\top}\vec{n}}
+\end{align}
+\begin{align}
+    \vec{u}=\vec{D}-\frac{\vec{n}^{\top}\vec{D}+r\|n\|-c}{\vec{n}^{\top}\vec{n}}\;\vec{n}
+\end{align}
+Substituting the values,
+\begin{align}
+    \therefore \vec{u}=\myvec{\frac{3\sqrt{3}}{2}\\\frac{3}{2}}
+-\frac{1}{2}\myvec{\sqrt{3}\\1}=\myvec{\sqrt{3}\\1}
+\end{align}
+\begin{align}
+    \therefore \text{Required equation of circle :\,}\|\vec{x}\|^2-2\myvec{\sqrt{3}&&1}\vec{x}+3=0
+\end{align}
+From the figure, it is clearly verified that the theoretical solution matches with the computational solution.\\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\columnwidth]{figs/Figure_1.png}
+    \label{fig:1}
+\end{figure}
+\end{document}

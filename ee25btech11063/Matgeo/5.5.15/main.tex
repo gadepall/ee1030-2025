@@ -1,0 +1,119 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a4paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}  % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{5.5.15}
+\author{ee25btech11063-vejith}
+
+\maketitle
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+\textbf{Question}\\
+Using elementary row transformations,find the inverse of the matrix $\Vec{A}$=
+$\begin{pmatrix}
+        1 & 2 & 3 \\
+        2 & 5 & 7 \\
+        -2 & -4 & -5
+    \end{pmatrix}$\\
+\textbf{Solution}:\\
+\begin{align}
+    \Vec{A}=
+\begin{pmatrix}
+        1 & 2 & 3 \\
+        2 & 5 & 7 \\
+        -2 & -4 & -5
+    \end{pmatrix}
+\end{align}
+The Augmented matrix is
+    \begin{align}
+\left(\begin{array}{c|c}
+        \Vec{A} & \Vec{I}
+\end{array}\right)
+\implies 
+\left(\begin{array}{ccc|ccc}
+        1 & 2 & 3 & 1 & 0 & 0\\
+        2 & 5 & 7 &  0 & 1 & 0\\
+        -2 & -4 & -5 & 0 & 0 &1
+\end{array}\right) &\xleftrightarrow{R_2 \rightarrow R_2-2R_1}  \left(\begin{array}{ccc|ccc}
+        1 & 2 & 3 & 1 & 0 & 0\\
+        0 & 1 & 1 &  0 & 1 & 0\\
+        -2 & -4 & -5 & 0 & 0 &1
+\end{array}\right)\\
+&\xrightarrow{R_3 \rightarrow R_3+2R_1} \left(\begin{array}{ccc|ccc}
+        1 & 2 & 3 & 1 & 0 & 0\\
+        0 & 1 & 1 &  -2 & 1 & 0\\
+        0 & 0 & 1 & 2 & 0 &1
+\end{array}\right)\\
+&\xrightarrow{R_1 \rightarrow R_1-3R_3} \left(\begin{array}{ccc|ccc}
+        1 & 2 & 0 & -5 & 0 & 1\\
+        0 & 1 & 1 &  -2 & 1 & 0\\
+        0 & 0 & 1 & 2 & 0 &1
+\end{array}\right)\\
+&\xrightarrow{R_2 \rightarrow R_2-R_3} \left(\begin{array}{ccc|ccc}
+        1 & 2 & 0 & -5 & 0 & -3\\
+        0 & 1 & 0 &  -4 & 1 & -1\\
+        0 & 0 & 1 & 2 & 0 &1
+\end{array}\right)\\
+&\xrightarrow{R_1 \rightarrow R_1-2R_2} \left(\begin{array}{ccc|ccc}
+        1 & 0 & 0 & 3 & -2 & -1\\
+        0 & 1 & 0 &  -4 & 1 & -1\\
+        0 & 0 & 1 & 2 & 0 &1
+\end{array}\right)
+\end{align}
+As the left block of the Augmented matrix is $\Vec{I}$ the right block is $\Vec{A^{-1}}$.
+\begin{align}
+   \implies \Vec{A^{-1}}=\begin{pmatrix}
+        3 & -2 & -1\\
+        -4 & 1 & -1\\
+        2 & 0 &1
+    \end{pmatrix}
+\end{align}
+\end{document}

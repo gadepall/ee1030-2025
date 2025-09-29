@@ -1,0 +1,230 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{caption}
+\captionsetup{labelformat=empty}  % removes "Figure:"
+
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+	breakable=true,
+	listing engine=minted,
+	listing only,
+	minted language=#2,
+	minted style=default,
+	minted options={%
+		linenos,
+		gobble=0,
+		breaklines=true,
+		breakafter=,,
+		fontsize=\small,
+		numbersep=8pt,
+		#1},
+	boxsep=0pt,
+	left skip=0pt,
+	right skip=0pt,
+	left=25pt,
+	right=0pt,
+	top=3pt,
+	bottom=3pt,
+	arc=5pt,
+	leftrule=0pt,
+	rightrule=0pt,
+	bottomrule=2pt,
+	toprule=2pt,
+	colback=bg,
+	colframe=orange!70,
+	enhanced,
+	overlay={%
+		\begin{tcbclipinterior}
+			\fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+	\end{tcbclipinterior}},
+	#3,
+}
+\lstset{
+	language=C,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{orange},
+	commentstyle=\color{green!60!black},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	showstringspaces=false,
+}
+\begin{document}
+
+\title 
+{1.9.33}
+\date{september 5,2025}
+
+\author 
+{Navya Priya - EE25BTECH11045}
+\graphicspath{./figs}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+If $\textbf{Q}(0,1)$ is equidistant from $\textbf{P}(5,-3)$ and $\textbf{R}(x,6)$. Find the value of $x$.\\[5pt]
+\textbf{Variables taken}:
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1}
+\begin{tabular}{|m{1cm}|m{1cm}|}
+\hline
+  $\vec{P}$   &  $\myvec{5\\-3}$ \\ \hline 
+  $\vec{Q}$   &  $\myvec{0\\1}$ \\ \hline
+  $\vec{R}$   &  $\myvec{x\\6}$ \\ \hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+Since $\vec{Q}$ is equidistant from $\vec{p}$ and $\vec{R}$
+\begin{align}
+    \norm{\myvec{\vec{Q} - \vec{P}}} = \norm{\myvec{\vec{Q} - \vec{R}}}
+\end{align}
+
+\begin{align}
+     \norm{\myvec{\vec{Q} - \vec{P}}}^2 = \norm{\myvec{\vec{Q} - \vec{R}}}^2
+\end{align}
+
+\begin{align}
+ {||\vec{Q}||}^2 \, - \, 2\vec{Q}^\top\vec{P} \, + \, {||\vec{P}||}^2 \, = \, {||\vec{Q}||}^2 \, - \, 2\vec{Q}^\top\vec{R} \, + \, {||\vec{R}||}^2
+\end{align}
+
+\begin{align}
+    {(\vec{P} - \vec{R})}^\top \vec{Q} \, &= \, \frac{{||\vec{P}||}^2\, - \, {||\vec{R}||}^2}{2}
+\end{align}
+\end{frame}
+
+\begin{frame}
+After substituting the values,
+
+\begin{align}
+    \myvec{5-x\\-9}^\top\myvec{0\\1}\, = \, \frac{34-x^2-36}{2}
+\end{align}
+
+\begin{align}
+    -18 \, = \, -2 -x^2
+\end{align}
+
+Therefore,
+\begin{align}
+    x \, = \, \pm 4
+\end{align}
+\end{frame}
+
+\begin{frame}[fragile]{C code}
+\begin{lstlisting}
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    int qx = 0, qy = 1;
+    int px = 5, py = -3;
+    int ry = 6;
+    // Distance QP^2
+    int dQP2 = (qx - px) * (qx - px) + (qy - py) * (qy - py);
+    // Equation: (qx - x)^2 + (qy - ry)^2 = dQP^2
+    // => (0 - x)^2 + (1 - 6)^2 = dQP2
+    // => x^2 + 25 = dQP2
+    int rhs = dQP2 - 25;
+    int x1 = (int)sqrt(rhs);
+    int x2 = -x1;
+     printf("The value of x can be %d or %d\n", x1, x2);
+    return 0;
+}
+\end{lstlisting}    
+\end{frame}
+
+\begin{frame}[fragile]{Call C.py}
+\begin{lstlisting}
+import subprocess
+
+# Compile the C program (only once)
+subprocess.run(["gcc", "equidistant.c", "-o", "equidistant", "-lm"])
+
+# Run the compiled program and capture output
+result = subprocess.run(["./equidistant"], capture_output=True, text=True)
+
+print("Output from C program:")
+print(result.stdout)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Plot.py}
+\begin{lstlisting}
+import matplotlib.pyplot as plt
+
+# Points
+Q = (0, 1)
+P = (5, -3)
+R1 = (4, 6)
+R2 = (-4, 6)
+
+# Plot points with markers
+plt.scatter(*Q, color='red', s=100, marker='o', label='Q(0,1)')
+plt.scatter(*P, color='blue', s=100, marker='o', label='P(5,-3)')
+plt.scatter(*R1, color='green', s=100, marker='o', label='R1(4,6)')
+plt.scatter(*R2, color='purple', s=100, marker='o', label='R2(-4,6)')
+# Draw lines QP, QR1, QR2
+plt.plot([Q[0], P[0]], [Q[1], P[1]], 'b--')
+plt.plot([Q[0], R1[0]], [Q[1], R1[1]], 'g--')
+plt.plot([Q[0], R2[0]], [Q[1], R2[1]], 'm--')
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Plot.py}
+\begin{lstlisting}
+# Annotate points
+plt.text(Q[0]+0.2, Q[1], "Q(0,1)", fontsize=10, color='red')
+plt.text(P[0]+0.2, P[1], "P(5,-3)", fontsize=10, color='blue')
+plt.text(R1[0]+0.2, R1[1], "R1(4,6)", fontsize=10, color='green')
+plt.text(R2[0]-1, R2[1], "R2(-4,6)", fontsize=10, color='purple')
+
+# Labels and grid
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+plt.title('Equidistant Points from Q')
+plt.legend()
+plt.grid(True)
+plt.axhline(0, color='black', linewidth=0.5)
+plt.axvline(0, color='black', linewidth=0.5)
+
+plt.show()
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Plot}
+   \begin{figure}[H]
+\centering
+\includegraphics[width=1\columnwidth]{figs/graph.png}
+ \caption*{Equidistant Points from $\vec{Q}$ with Distances}
+\label{fig:graph.png}
+\end{figure}
+\end{frame}
+
+\end{document}

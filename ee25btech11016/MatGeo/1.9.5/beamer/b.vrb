@@ -1,0 +1,25 @@
+\frametitle{Python + C Code}
+    \begin{lstlisting}[language=Python]
+# Define points
+A = np.array([x1, y1])
+B = np.array([x2, y2])
+
+# Plot line AB and points
+plt.plot([A[0], B[0]], [A[1], B[1]], 'k-', label='$AB$')
+plt.scatter([A[0], B[0]], [A[1], B[1]], c=['red', 'blue'])
+
+# Annotate points
+labels = [f"A({x1},{y1:.2f})", f"B({x2:.2f},{y2})"]
+for label, coord in zip(labels, [A, B]):
+    plt.annotate(label, (coord[0], coord[1]),
+                 textcoords="offset points",
+                 xytext=(10, -10), ha='center')
+
+# Decorations
+plt.legend()
+plt.grid(True)
+plt.axis('equal')
+plt.title(f"Distance = {dist:.2f}")
+plt.savefig("2.png", dpi=150)
+plt.show()
+    \end{lstlisting}

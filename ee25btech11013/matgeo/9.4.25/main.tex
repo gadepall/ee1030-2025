@@ -1,0 +1,133 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{comment}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+%\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=4em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{9.4.25}
+\author{EE25BTECH11013 - Bhargav}
+\maketitle
+    {\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question}: \\
+Find the roots of the quadratic equation graphically.
+\begin{align}
+5x^2 - 6x - 2 = 0
+\end{align}
+\solution \\
+
+\begin{align}
+y = 5x^2 - 6x - 2 = 0
+\end{align}
+
+This equation can be represented as the conic
+\begin{align}
+\vec{x^T}\vec{V}\vec{x} + 2\vec{u^T}\vec{x} + f = 0
+\end{align}
+\begin{align}
+\vec{V} = \myvec{5 & 0 \\ 0 & 0}, \vec{u} = \myvec{-3 \\ 0}, f = -2
+\end{align}
+
+To find the roots, we find the points of intersection of the conic with the x-axis.
+\begin{align}
+\vec{x} = \vec{h} + k_i\vec{m}    
+\end{align}
+\begin{align}
+\vec{h}=\myvec{0 \\ 0}, \vec{m} = \myvec{1 \\ 0}
+\end{align}
+
+The value of $k_i$ can be found out by solving the line and conic equation
+
+\begin{align}
+(\vec{h} + k_i \vec{m})^{\top} \vec{V} (\vec{h} + k_i \vec{m}) + 2\vec{u}^{\top} (\vec{h} + k_i \vec{m}) + f &= 0 \\
+\implies k_i^{2} \vec{m}^{\top}\vec{V}\vec{m} + 2k_i \vec{m}^{\top} (\vec{V}\vec{h} + \vec{u}) + \vec{h}^{\top}\vec{V}\vec{h} + 2\vec{u}^{\top}\vec{h} + f &= 0 \\
+\text{or, } k_i^{2} \vec{m}^{\top}\vec{V}\vec{m} + 2k_i \vec{m}^{\top} (\vec{V}\vec{h} + \vec{u}) + g(\vec{h}) &= 0
+\end{align}
+
+Solving the above quadratic gives the equation
+\begin{align}
+k_i = \frac{1}{\vec{m}^{\top}\vec{V}\vec{m}}
+\brak{
+    -\vec{m}^{\top} (\vec{V}\vec{h} + \vec{u})
+    \;\pm\;
+    \sqrt{ \sbrak{\vec{m}^{\top}(\vec{V}\vec{h} + \vec{u})}^2
+    - g(\vec{h}) \, (\vec{m}^{\top}\vec{V}\vec{m}) }
+    }
+\end{align}
+
+Substituting the values in the above equation gives
+\begin{align}
+\therefore k_i = \frac{3}{5} \;\pm\; \frac{\sqrt{19}}{5}
+\end{align}
+
+\begin{align}
+\implies k_1 = \frac{3}{5} + \frac{\sqrt{19}}{5}, k_2 = \frac{3}{5} - \frac{\sqrt{19}}{5}
+\end{align}
+
+\begin{align}
+\therefore \vec{x} = \vec{h} + k_i\vec{m} = \myvec{\frac{3}{5} + \frac{\sqrt{19}}{5} \\ 0} ,  \myvec{\frac{3}{5} - \frac{\sqrt{19}}{5} \\ 0}
+\end{align}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[height=0.5\textheight, keepaspectratio]{figs/Figure_1.png}
+    \label{figure_1}
+\end{figure}
+
+\end{document}
+
+

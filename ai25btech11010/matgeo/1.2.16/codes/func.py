@@ -1,0 +1,15 @@
+import numpy as np, matplotlib.pyplot as plt, os
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+
+points=np.loadtxt("points.dat")
+fig=plt.figure(); ax=fig.add_subplot(111,projection="3d")
+ax.add_collection3d(Poly3DCollection([points],alpha=0.3,facecolor="cyan"))
+ax.scatter(points[:,0],points[:,1],points[:,2],color="red",s=50)
+for i,(x,y,z) in enumerate(points): ax.text(x,y,z,f"P{i+1}",color="black")
+ax.set_xlabel("X"); ax.set_ylabel("Y"); ax.set_zlabel("Z")
+
+save_path="../figs/img1.png"
+os.makedirs(os.path.dirname(save_path),exist_ok=True)
+plt.savefig(save_path,dpi=300)
+plt.show()
+

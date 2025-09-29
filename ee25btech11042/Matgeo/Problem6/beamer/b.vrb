@@ -1,0 +1,19 @@
+\frametitle{Python Code using shared output}
+			\begin{lstlisting}
+ ax.set_title(f"{fig_title} {title_suffix}\n{info_text}", loc='left', fontsize=10)
+ax.legend()
+plt.tight_layout()
+plt.show()
+# --- Test Cases ---
+print("--- Case 1: Magnitudes are equal (Expected from C: Bisects) ---")
+a1 = np.array([1.0, 2.0, 0.0])
+b1 = np.array([2.0, -1.0, 0.0])
+# ||a1|| = sqrt(1^2 + 2^2) = sqrt(5)
+# ||b1|| = sqrt(2^2 + (-1)^2) = sqrt(5)
+plot_vector_bisection_ctypes(a1, b1, "(a=[1,2,0], b=[2,-1,0])")
+print("\n--- Case 2: Magnitudes are different (Expected from C: Does NOT Bisect) ---")
+a2 = np.array([3.0, 0.0, 0.0]) # Mag = 3
+b2 = np.array([1.0, 1.0, 0.0]) # Mag = sqrt(2) approx 1.414
+plot_vector_bisection_ctypes(a2, b2, "(a=[3,0,0], b=[1,1,0])")
+				
+			\end{lstlisting}

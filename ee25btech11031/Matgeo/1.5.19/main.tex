@@ -1,0 +1,137 @@
+  \let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+\usepackage{lmodern} 
+\usepackage{tfrupee} 
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}                                      
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}
+\usepackage{multicol}
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{1.5.19}
+\author {EE25BTECH11031 - Sai Sreevallabh}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question: }\\
+
+Find the ratio in which the segment joining the points $\brak{1,3}$ and $\brak{4,5}$ is divided by the X-axis. Also find the coordinates of this point on the X-axis.\\ 
+
+\textbf{Solution: }\\
+
+Given points are\\
+\begin{align}
+    \vec{A}=\myvec{1\\3} \ \text{and}\  \vec{B}=\myvec{4\\5}
+\end{align}
+
+Let $\vec{P}$ be a point on the x-axis. We can assume it to be\\
+
+\begin{align}
+    \vec{P}=\myvec{x\\0}
+\end{align}
+
+$\vec{A}$, $\vec{B}$ and $\vec{P}$ are collinear. 
+
+\begin{align}
+    \vec{P}-\vec{A}=\myvec{x-1 \\ -3} \ , \ 
+    \vec{B}-\vec{A}=\myvec{3\\2}  
+\end{align}
+
+\begin{align}
+    \myvec{\vec{P}-\vec{A} & \vec{B}-\vec{A}}^T =& \myvec{x-1 & 3\\ -3 & 2}^T\\
+    =& \myvec{x-1 & -3 \\ 3 & 2}
+\end{align}
+
+Converting into echelon form using row operations
+
+\begin{align}
+    \myvec{x-1 & -3 \\ 3 & 2}\ \xleftrightarrow[]{R_2 \to R_2-\frac{3}{x-1}R_1} \  \myvec{x-1 & -3 \\ 0 & \frac{2x+7}{x-1}}
+\end{align}
+
+Since the points are collinear, we can say that the rank of the matrix is $1$ i.e. 
+
+\begin{align}
+    &\frac{2x+7}{x-1} = 0\\
+    \implies& x=-\frac{7}{2}
+\end{align}
+
+Let $\vec{P}$ divide the line joining points $\vec{A}$ and $\vec{B}$ in the ratio $k:1$. 
+
+\begin{align}
+    \vec{P}=\frac{k\vec{B}+\vec{A}}{k+1}
+\end{align}
+
+\begin{align}
+    k\brak{\vec{P}- \vec{B}} = \vec{A}-\vec{P}
+\end{align}
+
+\begin{align}
+    k=\frac{\brak{\vec{P}-\vec{B}}^T\brak{\vec{A}-\vec{P}}}{||\brak{\vec{P}-\vec{B}}||^2}
+\end{align}
+
+\begin{align}
+      k=\frac{\myvec{x-4 & -5}\myvec{1-x\\3}}{{\norm{\myvec{x-4 \\ -5}}}^2}
+\end{align}
+
+Substituting the value of $x$ as $-\frac{7}{2}$, we get the value of k as
+
+\begin{align}
+    k=-\frac{3}{5}
+\end{align}
+
+Therefore\\
+
+The point $\vec{P}\myvec{-\frac{7}{2}\\0}$ on the X-axis divides the line segment in the ratio $-3:5$ i.e. externally in the ratio $3:5$.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\columnwidth]{Figs/plot(py).png}
+    \caption{Caption}
+    \label{fig:placeholder}
+\end{figure}
+
+\end{document}
