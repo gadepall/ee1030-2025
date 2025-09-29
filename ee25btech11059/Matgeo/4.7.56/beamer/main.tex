@@ -1,0 +1,348 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{4.7.56}
+%\subtitle{A short story}
+
+\author % (optional)
+{Vaishnavi - EE25BTECH11059}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Find the equation of the line whose perpendicular distance from the origin is $4$ units and the angle which the normal makes with positive direction of x-axis is $15^\circ$
+\end{frame}
+\begin{frame}{allowframebreaks}
+\frametitle{Solution}
+\begin{table}[H]    
+  \centering
+  \input{../tables/table}
+  \caption{Variables Used}
+  \label{tab:1.10.2}
+\end{table}
+
+\end{frame}
+
+
+\begin{frame}{Solution}
+Let eq of line be
+\begin{align}
+\vec{n^T}\vec{x}=c
+\end{align}
+where,
+\begin{align}
+\vec{n}=\myvec{-m
+               \\
+               1}\\
+\vec{n}=\myvec{2+\sqrt{3}
+                \\
+                1}
+\end{align}
+\end{frame}
+
+\begin{frame}{solution}
+Hence eq of line is
+\begin{align}
+\myvec{2+\sqrt{3}&1}
+\vec{x}
+=c\\
+\end{align}
+As distance from origin=$4$ units
+\begin{align}
+    \frac{|c|}{\|n\|}=4\\
+    \frac{|c|}{2\sqrt{2+\sqrt{3}}}=4\\
+    c=\pm 8\sqrt{2+\sqrt{3}}
+\end{align}   
+
+
+Hence eq of line is 
+\begin{align}
+ \myvec{2+\sqrt{3}&1}
+\vec{x}
+= \pm 8 \sqrt{2 + \sqrt{3}}
+\end{align}
+\end{frame}
+\begin{frame}{Graph}
+   Refer to Figure
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\columnwidth]{../figs/graph7.png}
+\end{center}
+\caption{}
+\label{fig:Fig}
+\end{figure}  
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Define slope and intercept
+m = 1/2
+c = -3/2
+
+# Create x values
+x = np.linspace(-2, 10, 400)
+
+# Equation of the line
+y = m * x + c
+
+# Plot the line
+plt.figure(figsize=(8,6))
+plt.plot(x, y, label="y = (1/2)x - 3/2", color="blue")
+
+# Mark the y-intercept point
+plt.scatter(0, c, color="blue", marker="o", label="y-intercept (0, -3/2)")
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code }
+
+    \begin{lstlisting}
+# Draw x and y axes
+plt.axhline(0, color='black', linewidth=0.8)
+plt.axvline(0, color='black', linewidth=0.8)
+
+# Labels and title
+plt.xlabel("x-axis")
+plt.ylabel("y-axis")
+plt.title("Graph of Line: y = (1/2)x - 3/2")
+plt.legend()
+plt.grid(True)
+
+# Save the graph as PNG
+plt.savefig("grapha", dpi=300)
+
+# Show plot
+plt.show()
+
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+
+    \begin{lstlisting}
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Define the line: y = (1/2)x - 2
+x = np.linspace(-2, 8, 200)
+y = 0.5 * x - 2
+
+# Create plot
+plt.figure(figsize=(6,6))
+plt.plot(x, y, label=r"$y=\frac{1}{2}x-2$", color="blue")
+
+# Mark intercepts
+plt.scatter([4], [0], color="red", label="x-intercept (4,0)", zorder=5)
+plt.scatter([0], [-2], color="green", label="y-intercept (0,-2)", zorder=5)
+
+# Axes
+plt.axhline(0, color='black', linewidth=0.8)
+plt.axvline(0, color='black', linewidth=0.8)
+
+
+  \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+
+    \begin{lstlisting}
+# Labels
+plt.xlabel("x")
+plt.ylabel("y")
+plt.title("Line: x - 2y = 4")
+plt.legend()
+plt.grid(True)
+
+# Save and show
+file_path = "line_plot.png"   # will save in current directory
+plt.savefig(file_path)
+plt.show()
+
+print(f"Plot saved as {file_path}")
+
+
+  \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+#include <stdio.h>
+#include <math.h>
+
+// Function to compute normal vector, magnitude, and constants
+void compute_line_params(double m, double d, double* A, double* B, double* C1, double* C2) {
+    // Normal vector n = (-m, 1)
+    *A = -m;
+    *B = 1.0;
+
+    // Norm of the vector
+    double norm = sqrt((*A) * (*A) + (*B) * (*B));
+
+    // |c| = d * ||n||
+    double abs_c = d * norm;
+
+    // ±c values
+    *C1 = abs_c;
+    *C2 = -abs_c;
+}
+
+    \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+ int main() {
+    double m = -2.0 - sqrt(3.0);  // Given slope
+    double d = 4.0;               // Perpendicular distance from origin
+
+    double A, B, C1, C2;
+
+    // Compute parameters
+    compute_line_params(m, d, &A, &B, &C1, &C2);
+
+    // Display the results
+    printf("Equation of the lines:\n");
+    printf("%.4fx + %.4fy = %.4f\n", A, B, C1);
+    printf("%.4fx + %.4fy = %.4f\n", A, B, C2);
+
+    return 0;
+}
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+
+\begin{lstlisting}
+import ctypes
+from ctypes import c_double, POINTER
+
+# Load the compiled shared object
+lib = ctypes.CDLL("./code.so")
+
+# Define argument and return types for the function
+lib.compute_line_params.argtypes = [c_double, c_double,
+                                    POINTER(c_double), POINTER(c_double),
+                                    POINTER(c_double), POINTER(c_double)]
+
+# Inputs
+m = -2 - 3**0.5  # given slope
+d = 4.0          # distance from origin
+
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+
+\begin{lstlisting}
+# Outputs
+A = c_double()
+B = c_double()
+C1 = c_double()
+C2 = c_double()
+
+# Call the C function
+lib.compute_line_params(m, d, ctypes.byref(A), ctypes.byref(B), ctypes.byref(C1), ctypes.byref(C2))
+
+# Print the result
+print("Equation of the line(s):")
+print(f"{A.value:.4f}x + {B.value:.4f}y = {C1.value:.4f}")
+print(f"{A.value:.4f}x + {B.value:.4f}y = {C2.value:.4f}")
+
+
+\end{lstlisting}
+
+\end{frame}
+\end{document}
