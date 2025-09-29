@@ -1,0 +1,217 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+%------------------------------------------------------------
+\title{4.10.12}
+\date{September 29,2025}
+\author{EE25BTECH11011 - Navya Banavathu}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Question}
+ The straight line $5x+4y=0$ passes through the point of intersection of the straight lines $x+2y-10 = 0$ and $2x+y+5 = 0$.
+\end{frame}
+
+\begin{frame}{Solution}
+The equations of the given lines are
+\begin{align}
+    \myvec{1 & 2}\vec{x} &= 10 \label{eq1}\\
+    \myvec{2 & 1}\vec{x} &= -5 \label{eq2}
+\end{align}
+
+Writing (1) and (2) in augmented matrix form,
+\begin{align}
+\myvec{1 & 2 & 10\\ 2 & 1 & -5}
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+Performing row operations,
+\begin{align}
+R_2 \to R_2 - 2R_1 :\quad
+\myvec{1 & 2 & 10 \\ 0 & -3 & -25}
+\end{align}
+
+\begin{align}
+R_2 \to -\tfrac{1}{3}R_2 :\quad
+\myvec{1 & 2 & 10 \\ 0 & 1 & \tfrac{25}{3}}
+\end{align}
+
+\begin{align}
+R_1 \to R_1 - 2R_2 :\quad
+\myvec{1 & 0 & -\tfrac{20}{3} \\ 0 & 1 & \tfrac{25}{3}}
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Solution}
+Thus, the intersection point is
+\begin{align}
+\vec{x} = \myvec{-\tfrac{20}{3}\\[4pt]\tfrac{25}{3}}
+\end{align}
+
+Now, check whether it lies on the line
+\begin{align}
+\myvec{5 & 4}\vec{x} &= 0
+\end{align}
+
+Substituting,
+\begin{align}
+\myvec{5 & 4}\myvec{-\tfrac{20}{3}\\[4pt]\tfrac{25}{3}}
+&= \frac{1}{3}(-100+100)= 0 
+\end{align}
+
+Hence, The straight line $5x+4y=0$ passes through the point of intersection of the straight lines $x+2y-10 = 0$ and $2x+y+5 = 0$. 
+\end{frame}
+
+
+\begin{frame}[fragile]{ Code (C)}
+\begin{block}{Part 1}
+\begin{lstlisting}[language=C, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+#include <stdio.h>
+
+int find_intersection(double *x, double *y) {
+    double a1 = 1, b1 = 2, c1 = 10;
+    double a2 = 2, b2 = 1, c2 = -5;
+
+    double det = a1*b2 - a2*b1;
+    if(det == 0) return 0; // parallel
+
+    *x = (c1*b2 - c2*b1) / det;
+    *y = (a1*c2 - a2*c1) / det;
+
+    if(5*(*x) + 4*(*y) == 0)
+        return 1; // passes
+    else
+        return 2; // does not pass
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Python Code:Import and Define points}
+\begin{block}{Part 1}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+import ctypes
+import matplotlib.pyplot as plt
+import numpy as np
+
+# --- Load the DLL ---
+lib = ctypes.CDLL(r"C:\Users\Navya\code8.dll")
+
+# Prepare variables to receive x and y from C
+x = ctypes.c_double()
+y = ctypes.c_double()
+
+# Call the C function
+result = lib.find_intersection(ctypes.byref(x), ctypes.byref(y))
+xi, yi = x.value, y.value
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Python Code}
+\begin{block}{Part 2}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+print(f"Intersection point: ({xi:.2f}, {yi:.2f})")
+
+if result == 0:
+    print("Lines are parallel, no intersection.")
+elif result == 1:
+    print("The line 5x + 4y = 0 passes through the intersection point.")
+else:
+    print("The line 5x + 4y = 0 does NOT pass through the intersection point.")
+
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Python Code: Plotting}
+\begin{block}{Part 3}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+# Plot the lines 
+x_vals = np.linspace(-10, 10, 400)
+
+# Line 1: x + 2y = 10 => y = (10 - x)/2
+y1 = (10 - x_vals)/2
+# Line 2: 2x + y = -5 => y = -5 - 2*x
+y2 = -5 - 2*x_vals
+# Line 3: 5x + 4y = 0 => y = -5/4 * x
+y3 = -5/4 * x_vals
+
+plt.figure(figsize=(8,6))
+plt.plot(x_vals, y1,label=r'$(1\ 2)\mathbf{x} = 10$',color='blue')
+plt.plot(x_vals, y2,label=r'$(2\ 1)\mathbf{x} = -5$',color='green')
+plt.plot(x_vals, y3,label=r'$(5\ 4)\mathbf{x} = 0$',color='red')
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Python Code: Plotting}
+\begin{block}{Part 4}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, frame=single]
+# Mark the intersection point
+plt.scatter(xi, yi, color='black', zorder=5)
+plt.text(xi+0.5, yi, f'({xi:.2f},{yi:.2f})', fontsize=10)
+
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Intersection of Lines')
+plt.grid(True)
+plt.legend()
+plt.xlim(-10, 10)
+plt.ylim(-10, 10)
+
+# Save figure as fig8.png
+plt.savefig('fig8.png', dpi=300)
+plt.show()
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}{Graphical Representation}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\columnwidth]{../beamer/figs/fig8.png}
+    \end{figure}
+\end{frame}
+
+\end{document}
+
