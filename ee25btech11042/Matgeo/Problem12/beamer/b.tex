@@ -1,0 +1,310 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+	breakable=true,
+	listing engine=minted,
+	listing only,
+	minted language=#2,
+	minted style=default,
+	minted options={%
+		linenos,
+		gobble=0,
+		breaklines=true,
+		breakafter=,,
+		fontsize=\small,
+		numbersep=8pt,
+		#1},
+	boxsep=0pt,
+	left skip=0pt,
+	right skip=0pt,
+	left=25pt,
+	right=0pt,
+	top=3pt,
+	bottom=3pt,
+	arc=5pt,
+	leftrule=0pt,
+	rightrule=0pt,
+	bottomrule=2pt,
+	toprule=2pt,
+	colback=bg,
+	colframe=orange!70,
+	enhanced,
+	overlay={%
+		\begin{tcbclipinterior}
+			\fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+	\end{tcbclipinterior}},
+	#3,
+}
+\lstset{
+	language=C,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{orange},
+	commentstyle=\color{green!60!black},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{5.13.67}
+
+%\subtitle{A short story}
+
+\author % (optional)
+{Nipun Dasari - EE25BTECH11042}
+
+
+
+\begin{document}
+	
+	\frame{\titlepage}
+	\begin{frame}{Question}
+			For what value of k do the following system of equations possess a non trivial (i.e.,
+		not all zero) solution over the set of rationals Q?
+		\begin{align}
+			x + ky + 3z = 0
+		\end{align}
+		\begin{align}
+			3x+ky-2z=0%3x + ky − 2z = 0
+		\end{align}
+		\begin{align}
+			2x+3y-4z=0%2x + 3y − 4z = 0
+		\end{align}
+		
+	\end{frame}
+	
+	
+	\begin{frame}{Theoretical Solution}
+	Given:
+	\begin{align}
+		\begin{myvec}{1\\k\\3}\end{myvec}^\top\vec{x} = 0 \label{1}
+	\end{align}
+	\begin{align}
+		\begin{myvec}{3\\k\\-2}\end{myvec}^\top\vec{x} = 0\label{2}
+	\end{align}
+	\begin{align}
+		\begin{myvec}{2\\3\\-4}\end{myvec}^\top\vec{x} = 0\label{3}
+	\end{align}
+	Combining \eqref{1},\eqref{2},\eqref{3}:
+	\begin{align}
+		A\vec{x}=0
+	\end{align}
+\end{frame}
+	\begin{frame}{Theoretical Solution}
+	where A is :
+	\begin{align}
+		\begin{myvec}{1&k&3\\3&k&-2\\2&3&-4}\end{myvec}
+	\end{align}
+	\end{frame}
+	\begin{frame}{Theoretical Solution}
+	For this system to have non-trivial solution these planes must intersect on a line, i.e, any two of the rows must be linearly dependent in order to have infinitely many non-trivial solutions. We simplify the matrix by using gaussian elimination:
+	\begin{align}
+		\begin{myvec}{1&k&3\\3&k&-2\\2&3&-4}\end{myvec}
+		&\xleftrightarrow{\,R_2 \gets R_2-3R_1}
+		\begin{myvec}{1&k&3\\0&-2k&-11\\2&3&-4}\end{myvec}\\
+		\begin{myvec}{1&k&3\\0&-2k&-11\\2&3&-4}\end{myvec}
+		&\xleftrightarrow{\,R_2 \gets R_3-2R_1}
+		\begin{myvec}{1&k&3\\0&-2k&-11\\0&3-2k&-10}\end{myvec}
+	\end{align}
+	Now, the second and third row must be linearly dependent:
+	\begin{align}
+		\implies \frac{-2k}{-11}=\frac{3-2k}{-10}
+	\end{align}
+\end{frame}
+	\begin{frame}{Theoretical Solution}
+	On cross-multiplying
+	\begin{align}
+		20k = 22k-33
+	\end{align}
+	\begin{align}
+		\implies k = \frac{33}{2}
+	\end{align}
+	\end{frame}
+	
+	
+	\begin{frame}[fragile]
+		\frametitle{C Code}
+		
+		\begin{lstlisting}
+			double find_k() {
+				// A non-trivial solution exists if the determinant of the coefficient
+				// matrix is zero. The simplified determinant equation is: -2k + 33 = 0.
+				double k_coefficient = -2.0;
+				double constant_term = 33.0;
+				// We solve for k: k = -constant_term / k_coefficient
+				double k = -constant_term / k_coefficient;
+				return k;
+			}
+		\end{lstlisting}
+	\end{frame}
+	\begin{frame}[fragile]
+		\frametitle{Python Code using shared output}
+		
+		\begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+import ctypes
+import os
+# --- Part 1: Call the C Shared Library to Find k ---
+# Load the shared library
+solver_lib = ctypes.CDLL('./5.13.67.so')
+# Specify the function's return type to ensure it's read as a float
+solver_lib.find_k.restype = ctypes.c_double
+# Call the C function to get the exact value of k
+k = solver_lib.find_k()		
+		\end{lstlisting}
+	\end{frame}
+	
+	
+	\begin{frame}[fragile]
+		\frametitle{Python Code using shared output}
+		\begin{lstlisting}
+# --- Part 2: Plotting the Three Planes Using the Result from C ---
+# Create a figure and a 3D axes object
+fig = plt.figure(figsize=(12, 10))
+ax = fig.add_subplot(111, projection='3d')
+# Create a grid of points for the surfaces
+x_grid = np.linspace(-10, 10, 50)
+y_grid = np.linspace(-10, 10, 50)
+X, Y = np.meshgrid(x_grid, y_grid)
+# Equations of the three planes, using the value of k from the C library
+Z1 = (-X - k*Y) / 3
+Z2 = (3*X + k*Y) / 2
+Z3 = (2*X + 3*Y) / 4
+		\end{lstlisting}
+	\end{frame}
+	\begin{frame}[fragile]
+		\frametitle{Python Code using shared output}
+		\begin{lstlisting}		
+# Plot the surfaces of the three planes
+ax.plot_surface(X, Y, Z1, alpha=0.5, color='royalblue')
+ax.plot_surface(X, Y, Z2, alpha=0.5, color='crimson')
+ax.plot_surface(X, Y, Z3, alpha=0.5, color='forestgreen')
+# Plot the line of intersection (its direction vector is constant)
+t = np.linspace(-2, 2, 100)
+ax.plot(15 * t, -2 * t, 6 * t, color='black', linewidth=4)
+# --- Formatting the plot ---
+ax.set_xlabel('X-axis', fontsize=12)
+ax.set_ylabel('Y-axis', fontsize=12)
+ax.set_zlabel('Z-axis', fontsize=12)
+ax.set_title(f'Intersection of Three Planes at k = {k:.1f} (from C library)', fontsize=16, fontweight='bold')
+ax.view_init(elev=20, azim=-65)
+# Create a custom legend for the plot
+		\end{lstlisting}
+	\end{frame}
+	\begin{frame}[fragile]
+		\frametitle{Python Code using shared output}
+		\begin{lstlisting}		
+import matplotlib.patches as mpatches
+from matplotlib.lines import Line2D
+p1 = mpatches.Patch(color='royalblue', label=f'x + {k:.1f}y + 3z = 0')
+p2 = mpatches.Patch(color='crimson', label=f'3x + {k:.1f}y - 2z = 0')
+p3 = mpatches.Patch(color='forestgreen', label='2x + 3y - 4z = 0')
+line = Line2D([0], [0], color='black', linewidth=3, label='Line of Intersection')
+ax.legend(handles=[p1, p2, p3, line], fontsize=10)
+plt.show()
+		\end{lstlisting}
+	\end{frame}
+	\begin{frame}[fragile]
+		\frametitle{Python Code}
+		\begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+# Define the value of k for a non-trivial solution
+k = 33/2
+# Create a meshgrid for x and y values
+x_vals = np.linspace(-5, 5, 50)
+y_vals = np.linspace(-5, 5, 50)
+X, Y = np.meshgrid(x_vals, y_vals)
+# Calculate Z values for each plane
+Z1 = (-X - k * Y) / 3
+Z2 = (3 * X + k * Y) / 2
+Z3 = (2 * X + 3 * Y) / 4
+		\end{lstlisting}
+		
+	\end{frame}
+	\begin{frame}[fragile]
+		\frametitle{Python Code}
+		\begin{lstlisting}
+# Setup the 3D plot
+fig = plt.figure(figsize=(10, 8))
+ax = fig.add_subplot(111, projection='3d')
+# Plot the three planes
+ax.plot_surface(X, Y, Z1, alpha=0.5, rstride=100, cstride=100, color='skyblue', label='Plane 1')
+ax.plot_surface(X, Y, Z2, alpha=0.5, rstride=100, cstride=100, color='lightcoral', label='Plane 2')
+ax.plot_surface(X, Y, Z3, alpha=0.5, rstride=100, cstride=100, color='lightgreen', label='Plane 3')
+t = np.linspace(-5, 5, 100) # Parameter for the line
+line_x = 15 * t
+line_y = -2 * t
+line_z = 6 * t
+		\end{lstlisting}
+		
+	\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Python Code}
+	\begin{lstlisting}
+ax.plot(line_x, line_y, line_z, color='purple', linewidth=3, label='Line of Intersection')
+# Set labels and title
+ax.set_xlabel('X-axis')
+ax.set_ylabel('Y-axis')
+ax.set_zlabel('Z-axis')
+ax.set_title(f'Intersection of Three Planes when k = {k} (Line of Solutions)')
+ax.legend(['Plane 1: $x + {:.1f}y + 3z = 0$'.format(k),
+'Plane 2: $3x + {:.1f}y - 2z = 0$'.format(k),
+'Plane 3: $2x + 3y - 4z = 0$',
+'Line of Intersection'])
+# Adjust view for better visibility
+ax.view_init(elev=20, azim=-45) 
+plt.grid(True)
+plt.show()
+	\end{lstlisting}
+	
+\end{frame}
+	
+	
+	\begin{frame}{Plot by python using shared output from c}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width = 0.8\columnwidth]{figs/Figure_1.png}
+			\caption*{}
+			\label{fig1}
+		\end{figure}
+	\end{frame}
+	\begin{frame}{Plot by python}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width = 0.8\columnwidth]{figs/Figure_2.png}
+			\caption*{}
+			\label{fig2}
+		\end{figure}
+	\end{frame}
+\end{document}
