@@ -90,29 +90,31 @@ then the set of orthogonal vectors is
 \end{multicols}
 \end{enumerate}
 \textbf{solution}:
-Given three non-zero, non-coplanar vectors $\mathbf{a}$, $\mathbf{b}$, $\mathbf{c}$, define: \\
+Let $\mathbf{a},\ \mathbf{b},\ \mathbf{c}$ be three linearly independent (non-coplanar) vectors in $\mathbb{R}^3$. 
+
+We form a $3 \times 3$ matrix whose columns are these vectors:
 \begin{align}
-\mathbf{b}_1 &= \mathbf{b} - \frac{\mathbf{b} \cdot \mathbf{a}}{|\mathbf{a}|^2}\mathbf{a} \\
-\mathbf{c}_2 &= \mathbf{c} - \frac{\mathbf{c} \cdot \mathbf{a}}{|\mathbf{a}|^2}\mathbf{a} + \frac{\mathbf{b}_1\cdot\mathbf{c}}{|\mathbf{b}_1|^2}\mathbf{b}_1 
+A = \myvec{| & | & | \\ \mathbf{a} & \mathbf{b} & \mathbf{c} \\ | & | & |}
 \end{align}
 
+To obtain an orthogonal set, apply the projection formula (Gram-Schmidt):
+
+Let $\mathbf{v}_1 = \mathbf{a}$.
+Orthogonalize $\mathbf{b}$ against $\mathbf{a}$:
 \begin{align}
-\mathbf{a}\cdot\mathbf{b}_1 = \mathbf{a}\cdot\mathbf{b} - \frac{\mathbf{b}\cdot\mathbf{a}}{|\mathbf{a}|^2}|\mathbf{a}|^2 = 0.
+\mathbf{v}_2 = \mathbf{b}_1 = \mathbf{b} - \mathrm{proj}_{\mathbf{a}} \mathbf{b}
+= \mathbf{b} - \frac{\mathbf{a}^\mathrm{T} \mathbf{b}}{\mathbf{a}^\mathrm{T} \mathbf{a}} \mathbf{a}
 \end{align}
-$\mathbf{b}_1$ is orthogonal to $\mathbf{a}$.
+Orthogonalize $\mathbf{c}$ against $\mathbf{a}$ and $\mathbf{b}_1$:
 \begin{align}
-\mathbf{a}\cdot\mathbf{c}_2&= \mathbf{a}\cdot\mathbf{c}-\frac{\mathbf{c}\cdot\mathbf{a}}{|\mathbf{a}|^2}|\mathbf{a}|^2 + \frac{\mathbf{b}_1\cdot\mathbf{c}}{|\mathbf{b}_1|^2}\mathbf{a}\cdot\mathbf{b}_1 \\
-&=\mathbf{a}\cdot\mathbf{c}-\mathbf{c}\cdot\mathbf{a}+0 \\
-&=0
+\mathbf{v}_3 = \mathbf{c}_1 
+= \mathbf{c} - \frac{\mathbf{a}^\mathrm{T}\mathbf{c}}{\mathbf{a}^\mathrm{T}\mathbf{a}} \mathbf{a} 
+  - \frac{\mathbf{b}_1^\mathrm{T}\mathbf{c}}{\mathbf{b}_1^\mathrm{T}\mathbf{b}_1} \mathbf{b}_1
 \end{align}
-($\mathbf{a}\cdot\mathbf{b}_1 = 0$ as above)
+Thus, the matrix with orthogonal columns is:
 \begin{align}
-\mathbf{b}_1\cdot\mathbf{c}_2&= \mathbf{b}_1\cdot\mathbf{c} - \frac{\mathbf{c}\cdot\mathbf{a}}{|\mathbf{a}|^2}\mathbf{b}_1\cdot\mathbf{a} + \frac{\mathbf{b}_1\cdot\mathbf{c}}{|\mathbf{b}_1|^2}|\mathbf{b}_1|^2 \\
-&=\mathbf{b}_1\cdot\mathbf{c}-\mathbf{b}_1\cdot\mathbf{c} \\
-&=0
+Q = \myvec{| & | & | \\ \mathbf{a} & \mathbf{b}_1 & \mathbf{c}_1 \\ | & | & | }
 \end{align}
-($\mathbf{b}_1\cdot\mathbf{a} = 0$ from above) \\
-$\mathbf{c}_2$ is orthogonal to both $\mathbf{a}$ and $\mathbf{b}_1$\\
-Therefore, the orthogonal set is:
-($\mathbf{a},\ \mathbf{b}_1,\ \mathbf{c}_2$)
+The columns in $Q$ form an orthogonal set.The set of orthogonal vectors is:
+($\mathbf{a},\mathbf{b}_1,\mathbf{c}_1$)
 \end{document}
