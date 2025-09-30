@@ -1,0 +1,137 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+
+\title
+{12.497}
+\date{September 30, 2025}
+\author 
+{AI25BTECH11003 - Bhavesh Gaikwad}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Consider the following simultaneous equations (with $c_1$ and $c_2$ being constants)
+$$3x_1 + 2x_2 = c_1$$
+$$4x_1 + x_2 = c_2$$
+The characteristic equation for these simultaneous equations is
+
+\hfill{(CE 2017)}
+\begin{itemize}
+    \item[a)]$\lambda^2 - 4\lambda - 5 =0$
+    \item[b)] $\lambda^2 - 4\lambda + 5 =0$
+    \item[c)]$\lambda^2 + 4\lambda - 5 =0$
+    \item[d)]$\lambda^2 + 4\lambda + 5 =0$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Theoretical Solution}
+Given:
+\begin{align}
+   3x_1 + 2x_2 &= c_1\\
+4x_1 + x_2 &= c_2 
+\end{align}
+
+Let $\vec{A} = \myvec{3 & 2 \\ 4 & 1}$, $\vec{x} = \myvec{x_1 \\ x_2}$
+and $\vec{c} = \myvec{c_1 \\ c_2}$
+
+From Equation 0.1 and 0.2,
+\begin{equation}
+    \vec{A}\vec{x} = \vec{c}
+\end{equation}
+
+The characteristic equation is given by,
+\begin{align}
+|\vec{A} - \lambda\vec{I}| &= 0 \\
+\left| \myvec{3-\lambda & 2 \\ 4 & 1-\lambda} \right| &= 0 \\
+\end{align}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Theoretical Solution}
+\begin{equation}
+    \boxed{\lambda^2 - 4\lambda - 5 =0}
+\end{equation}
+
+\begin{align*}
+    \boxed{\text{Thus, Option-A is correct.}}
+\end{align*}
+\end{frame}
+
+\end{document}
