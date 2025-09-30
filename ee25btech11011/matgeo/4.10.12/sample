@@ -2,11 +2,9 @@
 \let\negthickspace\undefined
 \documentclass[journal]{IEEEtran}
 \usepackage[a5paper, margin=10mm, onecolumn]{geometry}
-%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
-\usepackage{tfrupee} % Include tfrupee package
-
-\setlength{\headheight}{1cm} % Set the height of the header box
-\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+\usepackage{tfrupee} 
+\setlength{\headheight}{1cm} 
+\setlength{\headsep}{0mm}     
 
 \usepackage{gvv-book}
 \usepackage{gvv}
@@ -24,8 +22,7 @@
 \usepackage{comment}
 \usepackage[breaklinks=true]{hyperref}
 \usepackage{tkz-euclide} 
-\usepackage{listings}
-% \usepackage{gvv}                                        
+\usepackage{listings}                                     
 \def\inputGnumericTable{}                                 
 \usepackage[latin1]{inputenc}                                
 \usepackage{color}                                            
@@ -36,6 +33,7 @@
 \usepackage{hhline}                                           
 \usepackage{ifthen}                                           
 \usepackage{lscape}
+
 \begin{document}
 
 \bibliographystyle{IEEEtran}
@@ -43,55 +41,44 @@
 
 \title{4.10.12}
 \author{EE25BTECH11011 - Navya}
-% \maketitle
-% \newpage
-% \bigskip
 {\let\newpage\relax\maketitle}
 
 \renewcommand{\thefigure}{\theenumi}
 \renewcommand{\thetable}{\theenumi}
-\setlength{\intextsep}{10pt} % Space between text and floats
+\setlength{\intextsep}{10pt} 
+
 \textbf{Question}:\\
- The straight line $5x+4y=0$ passes through the point of intersection of the straight lines $x+2y-10 = 0$ and $2x+y+5 = 0$.
+The straight line $5x+4y=0$ passes through the point of intersection of the straight lines $x+2y-10 = 0$ and $2x+y+5 = 0$.
  
-\textbf{Solution:}\\
-The equations of the given lines are
+\textbf{Solution}:\\
+The given equations can be expressed as
 \begin{align}
-    \myvec{1 & 2}\vec{x} &= 10 \label{eq1}\\
-    \myvec{2 & 1}\vec{x} &= -5 \label{eq2}
+    \myvec{1 & 2 \\ 2 & 1}\vec{x} &= \myvec{10 \\ -5} \label{eq:system}
 \end{align}
 
-Write the system as a single matrix equation:
+Thus, the point of intersection is
 \begin{align}
-\myvec{1 & 2\\[4pt]2 & 1}\vec{x} &= \myvec{10\\[4pt]-5}
-\end{align}
-Solve using the inverse:
-\begin{align}
-\vec{x} 
-&= \myvec{1 & 2\\[4pt]2 & 1}^{-1}\myvec{10\\[4pt]-5}= \frac{1}{-3}\myvec{1 & -2\\[4pt]-2 & 1}\myvec{10\\[4pt]-5} = \myvec{-\tfrac{20}{3}\\[6pt]\tfrac{25}{3}}
+    \vec{x} &= \myvec{1 & 2 \\ 2 & 1}^{-1}\myvec{10 \\ -5} \\
+             &= \myvec{-\tfrac{20}{3} \\ \tfrac{25}{3}} \label{eq:intersection}
 \end{align}
 
-Thus, the intersection point is
+Now, check whether this point lies on the line
 \begin{align}
-\vec{x} = \myvec{-\tfrac{20}{3}\\[4pt]\tfrac{25}{3}}
+    \myvec{5 & 4}\vec{x} &= 0
 \end{align}
 
-Now, check whether it lies on the line
+Substituting \eqref{eq:intersection},
 \begin{align}
-\myvec{5 & 4}\vec{x} &= 0
+    \myvec{5 & 4}\myvec{-\tfrac{20}{3} \\[4pt]\tfrac{25}{3}}
+    &= \frac{1}{3}(-100+100)=0
 \end{align}
 
-Substituting,
-\begin{align}
-\myvec{5 & 4}\myvec{-\tfrac{20}{3}\\[4pt]\tfrac{25}{3}}
-&= \frac{1}{3}(-100+100)= 0 
-\end{align}\\
-
-Hence, The straight line $5x+4y=0$ passes through the point of intersection of the straight lines $x+2y-10 = 0$ and $2x+y+5 = 0$. 
+Hence, the straight line $5x+4y=0$ passes through the intersection of $x+2y-10=0$ and $2x+y+5=0$. 
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.8\textwidth]{figs/fig8.png}
     \label{fig:division}
 \end{figure}
+
 \end{document}
