@@ -1,0 +1,138 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                   
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+\usepackage{comment}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+text width=4em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+%--------------------------
+
+\begin{document}
+	
+	\bibliographystyle{IEEEtran}
+	\vspace{3cm}
+	
+	\title{5.2.44}
+	\author{EE25BTECH11042 - Nipun Dasari}
+	\maketitle
+	
+	\renewcommand{\thefigure}{\theenumi}
+	\renewcommand{\thetable}{\theenumi}
+	\setlength{\intextsep}{10pt}
+	
+	\numberwithin{equation}{enumi}
+	\numberwithin{figure}{enumi}
+	\renewcommand{\thetable}{\theenumi}
+	
+	\textbf{Question}:\\
+	Solve the following system of rational equations
+	\begin{align}
+		\frac{10}{x+y}+\frac{2}{x-y} &= 4 \label{eq:rational_1} \\
+		\frac{15}{x+y}-\frac{5}{x-y} &= -2 \label{eq:rational_2}
+	\end{align}
+	
+	\solution
+	
+	We convert the system of rational equations from \eqref{eq:rational_1} and \eqref{eq:rational_2} into the standard quadratic form for conic sections.
+	For the first equation \eqref{eq:rational_1}, we multiply by $(x+y)(x-y)$:
+	\begin{align}
+		10(x-y) + 2(x+y) &= 4(x^2 - y^2) \nonumber \\
+		12x - 8y &= 4x^2 - 4y^2 \nonumber \\
+		\implies x^2 - y^2 - 3x + 2y &= 0 \label{eq:H1}
+	\end{align}
+	For the second equation \eqref{eq:rational_2}, we do the same:
+	\begin{align}
+		15(x-y) - 5(x+y) &= -2(x^2 - y^2) \nonumber \\
+		10x - 20y &= -2x^2 + 2y^2 \nonumber \\
+		\implies x^2 - y^2 + 5x - 10y &= 0 \label{eq:H2}
+	\end{align}
+	
+	The intersection points lie on a degenerate conic formed from a linear combination $H_1 + \mu H_2 = 0$. We must find the value of $\mu$ that makes the determinant of the combined conic's matrix equal to zero.
+	The general matrix for the conic pencil $H_1 + \mu H_2$ is:
+	\begin{align}
+		C(\mu) = \begin{myvec}{1+\mu & 0 & \frac{5\mu-3}{2} \\ 0 & -(1+\mu) & 1-5\mu \\ \frac{5\mu-3}{2} & 1-5\mu & 0}\end{myvec}
+	\end{align}
+	We find the determinant by reducing the matrix to row echelon form.
+	\begin{align}
+		C(\mu) \xrightarrow{R_3 \to R_3 - \frac{5\mu-3}{2(1+\mu)}R_1} \begin{myvec}{1+\mu & 0 & \frac{5\mu-3}{2} \\ 0 & -(1+\mu) & 1-5\mu \\ 0 & 1-5\mu & -\frac{(5\mu-3)^2}{4(1+\mu)}}\end{myvec}
+	\end{align}
+	\begin{align}
+		\xrightarrow{R_3 \to R_3 + \frac{1-5\mu}{1+\mu}R_2} \begin{myvec}{1+\mu & 0 & \frac{5\mu-3}{2} \\ 0 & -(1+\mu) & 1-5\mu \\ 0 & 0 & \frac{5(15\mu^2 - 2\mu - 1)}{4(1+\mu)}}\end{myvec}
+	\end{align}
+	The determinant is the product of the diagonal entries. We set it to zero:
+	\begin{align}
+		\det(C(\mu)) &= (1+\mu) \cdot \left(-(1+\mu)\right) \cdot \left(\frac{5(15\mu^2 - 2\mu - 1)}{4(1+\mu)}\right) = 0 \nonumber \\
+		&\implies -\frac{5(1+\mu)(15\mu^2 - 2\mu - 1)}{4} = 0
+	\end{align}
+	This equation is satisfied if either $(1+\mu) = 0$ or $(15\mu^2 - 2\mu - 1) = 0$. The simplest root is obtained from the first factor, which gives $\mu = -1$.
+	The equation for this degenerate conic is found by subtracting \eqref{eq:H2} from \eqref{eq:H1}:
+	\begin{align}
+		(x^2 - y^2 - 3x + 2y) - (x^2 - y^2 + 5x - 10y) &= 0 \nonumber \\
+		-8x + 12y &= 0 \nonumber \\
+		\implies y &= \frac{2}{3}x \label{eq:common_chord}
+	\end{align}
+	
+	We find the intersection of the common chord from \eqref{eq:common_chord} with $H_1$ using the formula $\vec{x}_i = \vec{h} + \kappa_i\vec{m}$.
+	The line and conic parameters from $H_1$ are:
+	$\vec{h} = \begin{myvec}{0 \\ 0}\end{myvec}$, $\vec{m} = \begin{myvec}{3 \\ 2}\end{myvec}$, $\vec{V} = \begin{myvec}{1 & 0 \\ 0 & -1}\end{myvec}$, $\vec{u} = \begin{myvec}{-3/2 \\ 1}\end{myvec}$, and $f = 0$.
+	
+	Next, we compute the components for the parameter $\kappa_i$:
+	\begin{align}
+		\vec{m}^\top\vec{V}\vec{m} &= 5 \\
+		g(\vec{h}) &= 0 \\
+		\vec{m}^\top(\vec{V}\vec{h} + \vec{u}) &= -\frac{5}{2}
+	\end{align}
+	
+	We substitute these into the formula for $\kappa_i$:
+	\begin{align}
+		\kappa_i &= \frac{1}{\vec{m}^\top\vec{V}\vec{m}} \left( - \vec{m}^\top(\vec{V}\vec{h} + \vec{u}) \pm \sqrt{[\vec{m}^\top(\vec{V}\vec{h} + \vec{u})]^2 - g(\vec{h})(\vec{m}^\top\vec{V}\vec{m})} \right) \nonumber \\
+		&= \frac{1}{5} \left( -(-\frac{5}{2}) \pm \sqrt{(-\frac{5}{2})^2 - (0)(5)} \right) = \frac{1}{5} \left( \frac{5}{2} \pm \frac{5}{2} \right)
+	\end{align}
+	This gives two values: $\kappa_1 = 1$ and $\kappa_2 = 0$.
+	
+	Finally, we find the intersection points using $\vec{x}_i = \vec{h} + \kappa_i\vec{m}$:
+	\begin{align}
+		\vec{x}_1 &= \begin{myvec}{0 \\ 0}\end{myvec} + 1 \begin{myvec}{3 \\ 2}\end{myvec} = \begin{myvec}{3 \\ 2}\end{myvec} \label{eq:sol1} \\
+		\vec{x}_2 &= \begin{myvec}{0 \\ 0}\end{myvec} + 0 \begin{myvec}{3 \\ 2}\end{myvec} = \begin{myvec}{0 \\ 0}\end{myvec} \label{eq:sol2}
+	\end{align}
+	
+	The intersection points are $(3,2)$ from \eqref{eq:sol1} and $(0,0)$ from \eqref{eq:sol2}. The point $(0,0)$ is extraneous because it causes division by zero in the original equations \eqref{eq:rational_1} and \eqref{eq:rational_2}. Thus, the only valid solution is $x=3, y=2$.
+	
+\end{document}
