@@ -1,0 +1,193 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+%\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=4em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{9.4.2}
+\author{AI25BTECH11030 -Sarvesh Tamgade}
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} 
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+
+\textbf{Question}:
+Find the roots of the following quadratic equation graphically:
+ \begin{align}
+  x\brak{2x + 3} = x^2 + 1
+ \end{align}
+
+\textbf{Solution}:  
+First, we expand and rearrange the equation to standard form:
+\begin{align}
+x\brak{2x + 3} &= x^2 + 1\\
+2x^2 + 3x &= x^2 + 1\\
+2x^2 + 3x - x^2 - 1 &= 0\\
+x^2 + 3x - 1 &= 0
+\end{align}
+
+\textbf{Input Variables:  }\\
+The given quadratic can be written in the conic form:
+\begin{align}
+\vec{x}^T\vec{V}\vec{x} + 2\vec{u}^T\vec{x} + f = 0
+\end{align}
+
+where
+\begin{align}
+\vec{V} = \myvec{1 & 0 \\ 0 & 0}, \quad \vec{u} = \myvec{\frac{3}{2} \\ 0}, \quad f = -1
+\end{align}
+
+Since the roots of the quadratic correspond to intersections with the x-axis, we represent the line:
+\begin{align}
+L: \vec{x} = \vec{h} + \kappa\vec{m}
+\end{align}
+
+with
+\begin{align}
+\vec{h} = \myvec{0 \\ 0}, \quad \vec{m} = \myvec{1 \\ 0}
+\end{align}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Symbol} & \textbf{Value} \\
+\hline
+$\vec{V}$ & $\myvec{1 & 0 \\ 0 & 0}$ \\
+\hline
+$\vec{u}$ & $\myvec{\frac{3}{2} \\ 0}$ \\
+\hline
+$f$ & $-1$ \\
+\hline
+$\vec{h}$ & $\myvec{0 \\ 0}$ \\
+\hline
+$\vec{m}$ & $\myvec{1 \\ 0}$ \\
+\hline
+\end{tabular}
+\caption{Input Parameters}
+\label{tab:input}
+\end{table}
+
+The points of intersection of a line with a conic are given by:
+\begin{align}
+\kappa = \frac{1}{\vec{m}^T\vec{V}\vec{m}} \sbrak{-\vec{m}^T\brak{\vec{V}\vec{h} + \vec{u}} \pm \sqrt{\brak{\vec{m}^T\brak{\vec{V}\vec{h} + \vec{u}}}^2 - g\brak{\vec{h}}\brak{\vec{m}^T\vec{V}\vec{m}}}}
+\end{align}
+
+where
+\begin{align}
+g\brak{\vec{h}} = \vec{h}^T\vec{V}\vec{h} + 2\vec{u}^T\vec{h} + f
+\end{align}
+
+\textbf{Step 1:} Compute $\vec{m}^T\vec{V}\vec{m}$
+\begin{align}
+\vec{m}^T\vec{V}\vec{m} = \myvec{1 & 0}\myvec{1 & 0 \\ 0 & 0}\myvec{1 \\ 0} = 1
+\end{align}
+
+\textbf{Step 2:} Compute $\vec{V}\vec{h} + \vec{u}$
+\begin{align}
+\vec{V}\vec{h} + \vec{u} = \myvec{1 & 0 \\ 0 & 0}\myvec{0 \\ 0} + \myvec{\frac{3}{2} \\ 0} = \myvec{\frac{3}{2} \\ 0}
+\end{align}
+
+\textbf{Step 3:} Compute $\vec{m}^T\brak{\vec{V}\vec{h} + \vec{u}}$
+\begin{align}
+\vec{m}^T\brak{\vec{V}\vec{h} + \vec{u}} = \myvec{1 & 0}\myvec{\frac{3}{2} \\ 0} = \frac{3}{2}
+\end{align}
+
+\textbf{Step 4:} Compute $g\brak{\vec{h}}$
+\begin{align}
+g\brak{\vec{h}} = \vec{h}^T\vec{V}\vec{h} + 2\vec{u}^T\vec{h} + f = 0 + 0 + \brak{-1} = -1
+\end{align}
+
+\textbf{Step 5:} Substitute into formula for $\kappa$
+\begin{align}
+\kappa &= -\frac{3}{2} \pm \sqrt{\brak{\frac{3}{2}}^2 - \brak{-1}\brak{1}}\\
+&= -\frac{3}{2} \pm \sqrt{\frac{9}{4} + 1}\\
+&= -\frac{3}{2} \pm \sqrt{\frac{13}{4}}\\
+&= -\frac{3}{2} \pm \frac{\sqrt{13}}{2}\\
+&= \frac{-3 \pm \sqrt{13}}{2}
+\end{align}
+
+\textbf{Step 6:} Evaluate roots
+\begin{align}
+\kappa_1 &= \frac{-3 + \sqrt{13}}{2}\\
+\kappa_2 &= \frac{-3 - \sqrt{13}}{2}
+\end{align}
+
+\textbf{Step 7:} Find intersection points
+The intersection points are obtained as:
+\begin{align}
+\vec{x}_1 &= \vec{h} + \kappa_1\vec{m} = \myvec{0 \\ 0} + \frac{-3 + \sqrt{13}}{2}\myvec{1 \\ 0} = \myvec{\frac{-3 + \sqrt{13}}{2} \\ 0}\\
+\vec{x}_2 &= \vec{h} + \kappa_2\vec{m} = \myvec{0 \\ 0} + \frac{-3 - \sqrt{13}}{2}\myvec{1 \\ 0} = \myvec{\frac{-3 - \sqrt{13}}{2} \\ 0}
+\end{align}
+
+Thus, the quadratic $x^2 + 3x - 1 = 0$ intersects the x-axis at:
+\begin{align}
+x &= \frac{-3 - \sqrt{13}}{2} \approx -3.303\\
+x &= \frac{-3 + \sqrt{13}}{2} \approx 0.303
+\end{align}
+
+The roots of the original equation $x\brak{2x + 3} = x^2 + 1$ are:
+\begin{align}
+\boxed{x = \frac{-3 \pm \sqrt{13}}{2}}
+\end{align}
+\newpage
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.65\linewidth]{FIG/fig1.png}
+    \caption{Vector Representation}
+    \label{fig:FIG/fig1.png}
+    \end{figure}
+
+\end{document}  
