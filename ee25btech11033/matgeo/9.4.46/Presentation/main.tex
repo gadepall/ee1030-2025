@@ -1,0 +1,232 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\begin{document}
+
+\title 
+{9.4.46}
+\date{September 30,2025}
+
+
+\author 
+{Kavin B-EE25BTECH11033}
+
+
+
+
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+A pole has to be erected at a point on the boundary of a circular park of diameter $1.3$ metres in such a way that the difference of its distances from two diametrically opposite fixed gates A and B on the boundary is $7$ metres. Is it possible to do so? If yes, at what distances from the two gates should the pole be erected?\\
+\bigskip
+\end{frame}
+
+
+
+\begin{frame}{Theoretical Solution}
+Let the circular park have gates $\vec{A}$ and $\vec{B}$ at the ends of a diameter. The distance between them, $AB$, is the diameter, which is $13$ m. Let the pole $\vec{P}$ be a point on the boundary of the circle.
+
+\begin{itemize}
+    \item The angle subtended by the diameter at any point on the circumference is a right angle ($90\degree$). Therefore, $\triangle APB$ is a right-angled triangle with the hypotenuse being the diameter AB.
+\end{itemize}
+
+
+Using Baudhayana's theorem for $\triangle APB$
+\begin{align*}
+ PA^2 + PB^2 = AB^2     
+\end{align*}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+\begin{align}
+PA^2 + PB^2 = 169
+\end{align}
+
+We are also given that the difference of the distances from the pole to the gates is 7 meters:
+\begin{align}
+\abs{PA - PB} = 7    
+\end{align} 
+
+Assuming $PA > PB$, we have:
+\begin{align}
+PA - PB = 7
+\end{align}
+\begin{align}
+\implies PB = PA - 7
+\end{align}
+\begin{align}
+\implies PA^2 + \brak{PA - 7}^2 = 169
+\end{align}
+\end{frame}
+
+
+\begin{frame}{Theoretical Solution}
+Let $PA$ be $x$,
+\begin{align}
+\implies x^2 + \brak{x - 7}^2 = 169
+\end{align}
+\begin{align}
+\implies    y = x^2 - 7x - 60 = 0
+\end{align}
+which 
+ can be expressed as the conic
+\begin{align}
+    \vec{x}^\top\vec{V}\vec{x} + 2\vec{u}^\top\vec{x} + f = 0 \\
+    \vec{V} = \myvec{1 & 0 \\ 0 & 0}, \vec{u} = \myvec{-\frac{7}{2} \\ -\frac{1}{2}}, f = -60.
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+To find the roots of the expression, we find the points of intersection of the conic with the $x$-axis 
+\begin{align}
+    \vec{x} = \vec{h} + k\vec{m} \\
+    \vec{h} = \myvec{0 \\ 0}, \vec{m} = \myvec{1 \\ 0}
+\end{align}\\
+\bigskip 
+
+The points of intersection of the line 
+\begin{align}
+L: \quad \vec{x} = \vec{h} + \kappa \vec{m} \quad \kappa \in \mathbb{R}
+\label{eq:conic_tangent}
+\end{align}
+with the conic section is given by
+\begin{align}
+\vec{x}_i = \vec{h} + \kappa_i \vec{m}
+	\label{eq:chord-pts}
+\end{align}
+%
+where
+\begin{multline}
+\kappa_i = \frac{1}
+{
+\vec{m}^{\top}\vec{V}\vec{m}
+}
+\lbrak{-\vec{m}^{\top}\brak{\vec{V}\vec{h}+\vec{u}}}
+%\\
+\pm
+%{\small
+\rbrak{\sqrt{
+\sbrak{
+\vec{m}^{\top}\brak{\vec{V}\vec{h}+\vec{u}}
+}^2
+	-\text{g}
+\brak
+{\vec{h}
+%\vec{h}^{\top}\vec{V}\vec{h} + 2\vec{u}^{\top}\vec{h} +f
+}
+\brak{\vec{m}^{\top}\vec{V}\vec{m}}
+}
+}
+%}
+\label{eq:tangent_roots}
+\end{multline}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+The values of $k$ are given by
+\begin{align}
+k_i    &= \frac{1}{1} \brak{\frac{7}{2} \pm \sqrt{\brak{\frac{7}{2}}^2 + 60}} \\
+  \implies  k_1 &= -5, k_1 = 12
+\end{align}
+Hence the points of intersection are
+\begin{align}
+    \vec{h} + k\vec{m} = \myvec{-5 \\ 0}, \myvec{12 \\ 0}
+\end{align}
+
+Hence the solutions 
+are $x = -5$ and $x = 12$. We reject $x = -5$ as the length of the side cannot be negative.\\
+This gives the value $PA = 12$ and $PB = 5$.\\
+\bigskip
+
+Therefore, it is possible to erect the pole as described.
+\end{frame}
+
+
+
+\begin{frame}{Plot}
+   \centering
+    \begin{columns}[T] % The [T] option aligns the columns 
+        \begin{column}{0.48\textwidth}
+            \includegraphics[width=\linewidth]{figs/fig1.png}
+            \caption{Intersection of $y = x^2 - 7x - 60$ with the $x$-axis}
+        \end{column}
+        \hfill 
+        % --- Second Figure ---
+        \begin{column}{0.48\textwidth}
+            \includegraphics[width=\linewidth]{figs/fig2.png}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\end{document}

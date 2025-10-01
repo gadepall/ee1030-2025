@@ -1,0 +1,177 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{9.4.46}
+\author{EE25BTECH11033 - Kavin}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+\textbf{Question}:\\
+A pole has to be erected at a point on the boundary of a circular park of diameter $1.3$ metres in such a way that the difference of its distances from two diametrically opposite fixed gates A and B on the boundary is $7$ metres. Is it possible to do so? If yes, at what distances from the two gates should the pole be erected?\\    
+\bigskip
+
+\textbf{Solution}:\\
+
+Let the circular park have gates $\vec{A}$ and $\vec{B}$ at the ends of a diameter. The distance between them, $AB$, is the diameter, which is $13$ m. Let the pole $\vec{P}$ be a point on the boundary of the circle.
+
+\begin{itemize}
+    \item The angle subtended by the diameter at any point on the circumference is a right angle ($90\degree$). Therefore, $\triangle APB$ is a right-angled triangle with the hypotenuse being the diameter AB.
+\end{itemize}
+
+
+Using Baudhayana's theorem for $\triangle APB$
+\begin{align*}
+ PA^2 + PB^2 = AB^2     
+\end{align*}
+
+
+\begin{align}
+PA^2 + PB^2 = 169
+\end{align}
+
+We are also given that the difference of the distances from the pole to the gates is 7 meters:
+\begin{align}
+\abs{PA - PB} = 7    
+\end{align} 
+Assuming $PA > PB$, we have:
+\begin{align}
+PA - PB = 7
+\end{align}
+\begin{align}
+\implies PB = PA - 7
+\end{align}
+\begin{align}
+\implies PA^2 + \brak{PA - 7}^2 = 169
+\end{align}
+Let $PA$ be $x$,
+\begin{align}
+\implies x^2 + \brak{x - 7}^2 = 169
+\end{align}
+\begin{align}
+\implies    y = x^2 - 7x - 60 = 0
+\end{align}
+which 
+ can be expressed as the conic
+\begin{align}
+    \vec{x}^\top\vec{V}\vec{x} + 2\vec{u}^\top\vec{x} + f = 0 \\
+    \vec{V} = \myvec{1 & 0 \\ 0 & 0}, \vec{u} = \myvec{-\frac{7}{2} \\ -\frac{1}{2}}, f = -60.
+\end{align}
+To find the roots of the expression, we find the points of intersection of the conic with the $x$-axis 
+\begin{align}
+    \vec{x} = \vec{h} + k\vec{m} \\
+    \vec{h} = \myvec{0 \\ 0}, \vec{m} = \myvec{1 \\ 0}
+\end{align}\\
+\bigskip 
+
+The points of intersection of the line 
+\begin{align}
+L: \quad \vec{x} = \vec{h} + \kappa \vec{m} \quad \kappa \in \mathbb{R}
+\label{eq:conic_tangent}
+\end{align}
+with the conic section is given by
+\begin{align}
+\vec{x}_i = \vec{h} + \kappa_i \vec{m}
+	\label{eq:chord-pts}
+\end{align}
+%
+where
+\begin{multline}
+\kappa_i = \frac{1}
+{
+\vec{m}^{\top}\vec{V}\vec{m}
+}
+\lbrak{-\vec{m}^{\top}\brak{\vec{V}\vec{h}+\vec{u}}}
+%\\
+\pm
+%{\small
+\rbrak{\sqrt{
+\sbrak{
+\vec{m}^{\top}\brak{\vec{V}\vec{h}+\vec{u}}
+}^2
+	-\text{g}
+\brak
+{\vec{h}
+%\vec{h}^{\top}\vec{V}\vec{h} + 2\vec{u}^{\top}\vec{h} +f
+}
+\brak{\vec{m}^{\top}\vec{V}\vec{m}}
+}
+}
+%}
+\label{eq:tangent_roots}
+\end{multline}
+The values of $k$ are given by
+\begin{align}
+k_i    &= \frac{1}{1} \brak{\frac{7}{2} \pm \sqrt{\brak{\frac{7}{2}}^2 + 60}} \\
+  \implies  k_1 &= -5, k_1 = 12
+\end{align}
+Hence the points of intersection are
+\begin{align}
+    \vec{h} + k\vec{m} = \myvec{-5 \\ 0}, \myvec{12 \\ 0}
+\end{align}
+
+Hence the solutions 
+are $x = -5$ and $x = 12$. We reject $x = -5$ as the length of the side cannot be negative.\\
+This gives the value $PA = 12$ and $PB = 5$.\\
+\bigskip
+
+Therefore, it is possible to erect the pole as described.
+\newpage
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\columnwidth]{figs/fig1.png}
+    \caption{Intersection of $y = x^2 - 7x - 60$ with the $x$-axis}
+	\label{fig:quad1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\columnwidth]{figs/fig2.png}
+	\label{fig:quad2}
+\end{figure}
+\end{document}
+
+
