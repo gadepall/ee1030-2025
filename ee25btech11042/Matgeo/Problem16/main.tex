@@ -22,22 +22,32 @@
 \usepackage{mathtools}
 \usepackage{gensymb}
 \usepackage[breaklinks=true]{hyperref}
-\usepackage{tkz-euclide} 
+\usepackage{tkz-euclide}
 \usepackage{listings}
-% \usepackage{gvv}                                        
-\def\inputGnumericTable{}                   
-\usepackage[latin1]{inputenc}                                
-\usepackage{color}                                            
-\usepackage{array}                                            
-\usepackage{longtable}                                       
-\usepackage{calc}                                             
-\usepackage{multirow}                                         
-\usepackage{hhline}                                           
-\usepackage{ifthen}                                           
+% \usepackage{gvv}
+
+\def\inputGnumericTable{}
+
+\usepackage[latin1]{inputenc}
+
+\usepackage{color}
+
+\usepackage{array}
+
+\usepackage{longtable}
+
+\usepackage{calc}
+
+\usepackage{multirow}
+
+\usepackage{hhline}
+
+\usepackage{ifthen}
+
 \usepackage{lscape}
 \usepackage{circuitikz}
 \usepackage{comment}
-\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+\tikzstyle{block} = [rectangle, draw, fill=blue!20,
 text width=4em, text centered, rounded corners, minimum height=3em]
 \tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
 \tikzstyle{input} = [coordinate]
@@ -80,13 +90,30 @@ text width=4em, text centered, rounded corners, minimum height=3em]
 	\end{align}
 	Therefore, the normal vector for line L is $\vec{n}_2 = \begin{myvec}{1 \\ 5}\end{myvec}$, and its equation is $x + 5y = c_2$.
 	
-	The line L forms a triangle with the coordinate axes. We find the intercepts. For the x-intercept, set $y=0$, which gives $x = c_2$. The point is $(c_2, 0)$. For the y-intercept, set $x=0$, which gives $5y = c_2$, so $y = c_2/5$. The point is $(0, c_2/5)$.
+	The line L forms a triangle with the coordinate axes. The equation for the y-axis is $x=0$, which is $\vec{e_1}^\top\vec{x} = 0$ with $\vec{e_1} = \begin{myvec}{1 \\ 0}\end{myvec}$. The equation for the x-axis is $y=0$, which is $\vec{e_2}^\top\vec{x} = 0$ with $\vec{e_2} = \begin{myvec}{0 \\ 1}\end{myvec}$.
 	
-	The area of this triangle is given as 5. Using the area formula:
+	The x-intercept, $\vec{a}$, is the intersection of line L and the x-axis. We solve the stacked system:
 	\begin{align}
-		\text{Area} = \frac{1}{2} |(\text{x-intercept}) \cdot (\text{y-intercept})| &= 5 \nonumber \\
-		\frac{1}{2} |(c_2)(c_2/5)| &= 5 \nonumber \\
-		|\frac{c_2^2}{10}| &= 5 \nonumber \\
+		\begin{myvec}{1 & 5 \\ 0 & 1}\end{myvec}\vec{x} = \begin{myvec}{c_2 \\ 0}\end{myvec}
+	\end{align}
+	The intercept vector $\vec{a}$ is found by inverting the matrix:
+	\begin{align}
+		\vec{a} = \begin{myvec}{1 & 5 \\ 0 & 1}\end{myvec}^{-1} \begin{myvec}{c_2 \\ 0}\end{myvec} = \begin{myvec}{1 & -5 \\ 0 & 1}\end{myvec}\begin{myvec}{c_2 \\ 0}\end{myvec} = \begin{myvec}{c_2 \\ 0}\end{myvec}
+	\end{align}
+	The y-intercept, $\vec{b}$, is the intersection of line L and the y-axis:
+	\begin{align}
+		\begin{myvec}{1 & 5 \\ 1 & 0}\end{myvec}\vec{x} = \begin{myvec}{c_2 \\ 0}\end{myvec}
+	\end{align}
+	The intercept vector $\vec{b}$ is:
+	\begin{align}
+		\vec{b} = \begin{myvec}{1 & 5 \\ 1 & 0}\end{myvec}^{-1} \begin{myvec}{c_2 \\ 0}\end{myvec} = \frac{1}{-5}\begin{myvec}{0 & -5 \\ -1 & 1}\end{myvec} \begin{myvec}{c_2 \\ 0}\end{myvec} = \begin{myvec}{0 \\ c_2/5}\end{myvec}
+	\end{align}
+	The area of the triangle formed by the origin, $\vec{a}$, and $\vec{b}$ is 5. Since $\vec{a}$ and $\vec{b}$ lie on the axes, the angle $\theta$ between them is $90^\circ$.
+	\begin{align}
+		\text{Area} = \frac{1}{2}\norm{\vec{a}}\norm{\vec{b}}\sin(90^\circ) &= 5 \nonumber \\
+		\frac{1}{2} \left(\sqrt{c_2^2+0^2}\right) \left(\sqrt{0^2+(c_2/5)^2}\right) (1) &= 5 \nonumber \\
+		\frac{1}{2} |c_2| \left|\frac{c_2}{5}\right| &= 5 \nonumber \\
+		\frac{|c_2^2|}{10} &= 5 \nonumber \\
 		c_2^2 &= 50 \implies c_2 = \pm\sqrt{50} = \pm 5\sqrt{2}
 	\end{align}
 	
@@ -95,5 +122,12 @@ text width=4em, text centered, rounded corners, minimum height=3em]
 		\begin{myvec}{1 & 5}\end{myvec}\begin{myvec}{x \\ y}\end{myvec} &= 5\sqrt{2} \\
 		\begin{myvec}{1 & 5}\end{myvec}\begin{myvec}{x \\ y}\end{myvec} &= -5\sqrt{2}
 	\end{align}
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.6\columnwidth]{figs/Figure_2.png} 
+		\caption*{Fig }
+		\label{Fig1}
+	\end{figure}
 	
 \end{document}
