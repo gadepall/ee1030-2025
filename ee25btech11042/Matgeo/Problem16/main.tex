@@ -1,0 +1,99 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                   
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+\usepackage{comment}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+text width=4em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+%--------------------------
+
+\begin{document}
+	
+	\bibliographystyle{IEEEtran}
+	\vspace{3cm}
+	
+	\title{Finding the Equation of a Perpendicular Line}
+	\author{EE25BTECH11042 - Nipun Dasari}
+	\maketitle
+	
+	\renewcommand{\thefigure}{\theenumi}
+	\renewcommand{\thetable}{\theenumi}
+	\setlength{\intextsep}{10pt}
+	
+	\numberwithin{equation}{enumi}
+	\numberwithin{figure}{enumi}
+	\renewcommand{\thetable}{\theenumi}
+	
+	\textbf{Question}:\\
+	A straight line L is perpendicular to the line $5x - y + 1 = 0$. The area of the triangle formed by L and the coordinate axes is 5. Find the equation of the line L.
+	
+	\solution
+	
+	Let the given line be $L_1$ and the required perpendicular line be $L$.
+	The equation of the given line $L_1$ is $5x - y = -1$. Using the matrix form $\vec{n}^\top\vec{x} = c$, its parameters are:
+	\begin{align}
+		\vec{n}_1 = \begin{myvec}{5 \\ -1}\end{myvec}, \quad \vec{x} = \begin{myvec}{x \\ y}\end{myvec}, \quad c_1 = -1
+	\end{align}
+	Let the required line $L$ have the equation $\vec{n}_2^\top\vec{x} = c_2$. Since the lines are perpendicular, the dot product of their normal vectors must be zero, so $\vec{n}_1^\top\vec{n}_2 = 0$.
+	
+	Let's assume the normal vector for line L is $\vec{n}_2 = \begin{myvec}{1 \\ m}\end{myvec}$. We can solve for $m$:
+	\begin{align}
+		\vec{n}_1^\top\vec{n}_2 = \begin{myvec}{5 & -1}\end{myvec}\begin{myvec}{1 \\ m}\end{myvec} = 5 - m &= 0 \nonumber \\
+		\implies m &= 5
+	\end{align}
+	Therefore, the normal vector for line L is $\vec{n}_2 = \begin{myvec}{1 \\ 5}\end{myvec}$, and its equation is $x + 5y = c_2$.
+	
+	The line L forms a triangle with the coordinate axes. We find the intercepts. For the x-intercept, set $y=0$, which gives $x = c_2$. The point is $(c_2, 0)$. For the y-intercept, set $x=0$, which gives $5y = c_2$, so $y = c_2/5$. The point is $(0, c_2/5)$.
+	
+	The area of this triangle is given as 5. Using the area formula:
+	\begin{align}
+		\text{Area} = \frac{1}{2} |(\text{x-intercept}) \cdot (\text{y-intercept})| &= 5 \nonumber \\
+		\frac{1}{2} |(c_2)(c_2/5)| &= 5 \nonumber \\
+		|\frac{c_2^2}{10}| &= 5 \nonumber \\
+		c_2^2 &= 50 \implies c_2 = \pm\sqrt{50} = \pm 5\sqrt{2}
+	\end{align}
+	
+	There are two possible lines that satisfy the given conditions. Substituting the values of $c_2$ into the matrix equation $\vec{n}_2^\top\vec{x} = c_2$, the possible equations for line L are:
+	\begin{align}
+		\begin{myvec}{1 & 5}\end{myvec}\begin{myvec}{x \\ y}\end{myvec} &= 5\sqrt{2} \\
+		\begin{myvec}{1 & 5}\end{myvec}\begin{myvec}{x \\ y}\end{myvec} &= -5\sqrt{2}
+	\end{align}
+	
+\end{document}
