@@ -1,0 +1,207 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{5.4.9}
+\date{October  2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{Bhoomika L - EE25BTECH11014}
+
+\begin{document}
+\frame{\titlepage}
+\begin{frame}{Question}Using elementary transformations, find the inverse of the following matrix\\
+\centering$\myvec{1&2\\3&4}$
+\end{frame}
+
+\begin{frame}{Solution}
+We know that,
+\begin{align}
+     \vec{A^{-1}}\vec{A}=\vec{I}
+\end{align}
+     where $\vec{I}$ is a 2 X 2 identity matrix.\\
+      The following is the augmented matrix we get,
+      \begin{align}
+           \myvec{
+    \begin{array}{cc|cc}
+      1 & 2 & 1 & 0 \\ 
+      3 & 4 & 0 & 1
+    \end{array}
+  } \end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+\begin{align}
+     \myvec{
+    \begin{array}{cc|cc}
+      1 & 2 & 1 & 0 \\ 
+      3 & 4 & 0 & 1
+    \end{array}                    
+  }                                 
+\xrightarrow[R_2 \longrightarrow \frac{R_2}{-2}]{R_2 \longrightarrow R_2 - 3 R_1}  \myvec{
+    \begin{array}{cc|cc}
+      1 & 2 & 1 & 0 \\ 
+      0 & 1 & \frac{3}{2} & \frac{-1}{2}
+    \end{array}
+  }\\
+   \myvec{\begin{array}{cc|cc}
+      1 & 2 & 1 & 0 \\ 
+      0 & 1 & \frac{3}{2} & \frac{-1}{2}
+    \end{array}
+  }\xrightarrow{\;R_1\longrightarrow R_1-2R_2\;}   \myvec{\begin{array}{cc|cc}
+      1 & 0 & -2 & 1 \\ 
+      0 & 1 & \frac{3}{2} & \frac{-1}{2}
+ \end{array}}\\
+ Therefore,\vec{A^{-1}}=\frac{1}{2}\myvec{-4 & 2 \\3 & -1}.
+\end{align}
+\end{frame}
+
+ \begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}
+#include <stdio.h>
+
+int inverse(double* mat, double* result) {
+    double a = mat[0], b = mat[1], c = mat[2], d = mat[3];
+    double det = a*d - b*c;
+    if(det == 0) return 0;
+    
+    result[0] =  d/det;
+    result[1] = -b/det;
+    result[2] = -c/det;
+    result[3] =  a/det;
+    return 1;
+}
+
+\end{lstlisting}
+\end{frame}
+
+ \begin{frame}[fragile]
+\frametitle{Python Code }
+\begin{lstlisting}
+import ctypes
+
+lib = ctypes.CDLL("./libinverse.so")
+lib.inverse.argtypes = [ctypes.POINTER(ctypes.c_double),
+                        ctypes.POINTER(ctypes.c_double)]
+lib.inverse.restype = ctypes.c_int
+
+# Input each element individually
+a11 = float(input("Enter mat[1][1]: "))
+a12 = float(input("Enter mat[1][2]: "))
+a21 = float(input("Enter mat[2][1]: "))
+a22 = float(input("Enter mat[2][2]: "))
+\end{lstlisting}
+\end{frame}
+
+ \begin{frame}[fragile]
+\frametitle{Python Code }
+\begin{lstlisting}
+# Create ctypes array row-wise
+mat_array = (ctypes.c_double * 4)(a11, a12, a21, a22)
+res_array = (ctypes.c_double * 4)()
+
+# Call C function
+status = lib.inverse(mat_array, res_array)
+
+if status == 0:
+    print("Matrix is singular, inverse does not exist.")
+else:
+    inv_matrix = [[res_array[0], res_array[1]],
+                  [res_array[2], res_array[3]]]
+    print("Inverse matrix:")
+    for row in inv_matrix:
+        print(row)
+\end{lstlisting}
+\end{frame}
+
+
+\end{document}
