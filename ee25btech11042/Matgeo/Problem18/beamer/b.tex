@@ -1,0 +1,193 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx} % <-- needed for images
+\def\UrlBreaks{\do\/\do-}
+
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=\paperwidth,ht=2ex,dp=1ex,right]{author in head/foot}%
+			\insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+	\end{beamercolorbox}}%
+	\vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\lstset{
+	frame=single,
+	breaklines=true,
+	columns=fullflexible,
+	basicstyle=\ttfamily\tiny    % tiny font so code fits
+}
+
+\numberwithin{equation}{section}
+
+% ---- your macros ----
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}}
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}}
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\newcommand{\mydet}[1]{\ensuremath{\begin{vmatrix}#1\end{vmatrix}}}
+
+\newenvironment{amatrix}[1]{%
+	\left(\begin{array}{@{}*{#1}{c}|*{#1}{c}@{}}
+	}{%
+	\end{array}\right)
+}
+
+\newcommand{\myaugvec}[2]{\ensuremath{\begin{amatrix}{#1}#2\end{amatrix}}}
+\let\vec\mathbf
+% ---------------------
+
+\title{10.7.90}
+\author{ee25btech11042-Nipun Dasari}
+
+\begin{document}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	\begin{frame}{Question}
+		\large
+		A circle touches the line $y=x$ at a point P such that $OP=4\sqrt{2}$, where O is the origin. The circle contains the point $(-10,2)$ in its interior and the length of its chord on the line $x+y=0$ is $6\sqrt{2}$. Determine the equation of the circle.
+	\end{frame}
+	
+	\begin{frame}{Theoretical solution}
+		Let the point of tangency be $\vec{P}$. Since it lies on the line $y=x$, its coordinates must be equal.
+	\begin{align}
+		\vec{P} = \begin{myvec}{p \\ p}\end{myvec}
+	\end{align}
+	The distance from the origin is given as $\|\vec{P}\| = 4\sqrt{2}$.
+	\begin{align}
+		\norm{\vec{P}} = \sqrt{p^2 + p^2} = |p|\sqrt{2} &= 4\sqrt{2} \nonumber \\
+		\implies |p| &= 4
+	\end{align}
+	This gives two possible points of tangency.
+	\begin{align}
+		\vec{P}_1 = \begin{myvec}{4 \\ 4}\end{myvec} \quad \text{and} \quad \vec{P}_2 = \begin{myvec}{-4 \\ -4}\end{myvec}
+	\end{align}
+	\end{frame}
+	
+	\begin{frame}{Theoretical solution}
+		Let the center of the circle be $\vec{C}$.
+	\begin{align}
+		\vec{C} = \begin{myvec}{h \\ k}\end{myvec}
+	\end{align}
+	The center lies on a line perpendicular to the tangent line, which has the matrix equation $\begin{myvec}{1 & -1}\end{myvec}\vec{x} = 0$. The normal to the tangent is $\vec{n}_t = \begin{myvec}{1 \\ -1}\end{myvec}$. A normal to the line of centers, $\vec{n}_c$, must be orthogonal to $\vec{n}_t$.
+	\begin{align}
+		\vec{n}_c = \begin{myvec}{1 \\ 1}\end{myvec}
+	\end{align}
+	The equation for the line of centers is $\vec{n}_c^\top\vec{x} = d$, where $d = \vec{n}_c^\top\vec{P}$.
+	For $\vec{P}_1$, the line of centers is:
+	\begin{align}
+		\begin{myvec}{1 & 1}\end{myvec}\vec{C} = \begin{myvec}{1 & 1}\end{myvec}\begin{myvec}{4 \\ 4}\end{myvec} = 8
+	\end{align}
+	For $\vec{P}_2$, the line of centers is:
+	\begin{align}
+		\begin{myvec}{1 & 1}\end{myvec}\vec{C} = \begin{myvec}{1 & 1}\end{myvec}\begin{myvec}{-4 \\ -4}\end{myvec} = -8
+	\end{align}
+	\end{frame}
+	
+	\begin{frame}{Theoretical solution}
+			The circle has a chord on the line with equation $\begin{myvec}{1 & 1}\end{myvec}\vec{x} = 0$. The distance from the center $\vec{C}$ to this line is $d_{chord}$.
+		\begin{align}
+			d_{chord} = \frac{|\vec{n}_c^\top\vec{C}|}{\|\vec{n}_c\|} = \frac{|h+k|}{\sqrt{2}}
+		\end{align}
+		The radius $r$, distance $d_{chord}$, and half the chord length ($L=3\sqrt{2}$) are related by $r^2 = d_{chord}^2 + L^2$.
+		\begin{align}
+			r^2 = \left(\frac{|h+k|}{\sqrt{2}}\right)^2 + (3\sqrt{2})^2 = \frac{(h+k)^2}{2} + 18
+		\end{align}
+		The radius is also the distance from the center to the point of tangency, $r^2 = \|\vec{C}-\vec{P}\|^2$.
+	\end{frame}
+	
+	\begin{frame}{Theoretical solution}
+			For the first case ($\begin{myvec}{1 & 1}\end{myvec}\vec{C} = 8$ and $\vec{P}=\begin{myvec}{4 \\ 4}\end{myvec}$):
+		\begin{align}
+			r^2 &= \frac{8^2}{2} + 18 = 50 \\
+			\norm{\vec{C}-\vec{P}}^2 &= (h-4)^2 + (k-4)^2 = (h-4)^2 + (8-h-4)^2 = 2(h-4)^2 = 50 \nonumber \\
+			(h-4)^2 &= 25 \implies h-4 = \pm 5 \implies h=9 \text{ or } h=-1
+		\end{align}
+		This gives centers $\vec{C}_A = \begin{myvec}{9 \\ -1}\end{myvec}$ and $\vec{C}_B = \begin{myvec}{-1 \\ 9}\end{myvec}$.
+		
+		For the second case ($\begin{myvec}{1 & 1}\end{myvec}\vec{C} = -8$ and $\vec{P}=\begin{myvec}{-4 \\ -4}\end{myvec}$):
+		\begin{align}
+			r^2 &= \frac{(-8)^2}{2} + 18 = 50 \\
+			\norm{\vec{C}-\vec{P}}^2 &= (h+4)^2 + (k+4)^2 = (h+4)^2 + (-8-h+4)^2 = 2(h+4)^2 = 50  \\
+			(h+4)^2 &= 25 \implies h+4 = \pm 5 \implies h=1 \text{ or } h=-9
+		\end{align}
+	\end{frame}
+	
+	\begin{frame}{Theoretical solution}
+			This gives centers $\vec{C}_C = \begin{myvec}{1 \\ -9}\end{myvec}$ and $\vec{C}_D = \begin{myvec}{-9 \\ 1}\end{myvec}$.
+		
+		The point $\vec{Q} = \begin{myvec}{-10 \\ 2}\end{myvec}$ is in the circle's interior, so $\|\vec{Q}-\vec{C}\|^2 < r^2 = 50$.
+		\begin{align}
+			\text{For } \vec{C}_A=\begin{myvec}{9 \\ -1}\end{myvec}: \|\begin{myvec}{-19 \\ 3}\end{myvec}\|^2 = 370 > 50 \\
+			\text{For } \vec{C}_B=\begin{myvec}{-1 \\ 9}\end{myvec}: \|\begin{myvec}{-9 \\ -7}\end{myvec}\|^2 = 130 > 50 \\
+			\text{For } \vec{C}_C=\begin{myvec}{1 \\ -9}\end{myvec}: \|\begin{myvec}{-11 \\ 11}\end{myvec}\|^2 = 242 > 50 \\
+			\text{For } \vec{C}_D=\begin{myvec}{-9 \\ 1}\end{myvec}: \|\begin{myvec}{-1 \\ 1}\end{myvec}\|^2 = 2 < 50
+		\end{align}
+		The correct center is $\vec{C}_D = \begin{myvec}{-9 \\ 1}\end{myvec}$.
+		
+		The center is $\begin{myvec}{-9 \\ 1}\end{myvec}$ and radius squared is $r^2=50$. The equation is $(x+9)^2 + (y-1)^2 = 50$.
+	\end{frame}
+	
+	
+	\begin{frame}{Theoretical solution}
+			\begin{align}
+			x^2+y^2+18x-2y+32=0
+		\end{align}
+		In the matrix form $\vec{x}^\top\vec{V}\vec{x} + 2\vec{u}^\top\vec{x} + f = 0$:
+		\begin{align}
+			\begin{myvec}{x & y}\end{myvec} \begin{myvec}{1 & 0 \\ 0 & 1}\end{myvec} \begin{myvec}{x \\ y}\end{myvec} + 2\begin{myvec}{9 & -1}\end{myvec} \begin{myvec}{x \\ y}\end{myvec} + 32 = 0
+		\end{align}
+	\end{frame}
+	
+	
+	
+	\begin{frame}{Plot}
+		
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=0.6\columnwidth]{figs/Figure_2.png} 
+			\caption*{Fig :}
+			\label{Fig1}
+		\end{figure}
+		
+	\end{frame}
+	
+\end{document}
