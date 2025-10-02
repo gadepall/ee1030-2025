@@ -1,0 +1,128 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{physics}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+
+\title{4.10.24}
+\author{EE25BTECH11022 - sankeerthan}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{align}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question}:Find the equations of the lines through the point of intersection of the line  $x - y + 1 = 0$ and $2x - 3y + 5 = 0$ and whose distance from the point $\brak{3, 2}$ is $\frac{7}{5}$. 
+
+\textbf{Solution}:
+Given lines are 
+\begin{align}
+\myvec{ 1 & -1 } \myvec{ x \\ y } + 1 = 0 ,
+\myvec{ 2 & -3 } \myvec{ x \\ y } + 5 = 0 \\
+\myvec{ 1 & -1 \\ 2 & -3 } \myvec{ x \\ y } = \myvec{ -1 \\ -5 } 
+\end{align}
+Inverse of coefficient matrix
+\begin{align}
+\det = 1 \times (-3) - (-1) \times 2 = -3 + 2 = -1 \\
+A^{-1} = \frac{1}{-1}
+\myvec{-3 & 1 \\ -2 & 1} =\myvec{3 & -1 \\ 2 & -1} 
+\end{align}
+Intersection point of given two lines is
+\begin{align}
+\myvec{x_0 \\ y_0} = A^{-1}\myvec{-1 \\ -5} =\myvec{3 & -1 \\ 2 & -1}\myvec{-1 \\ -5} =\myvec{2 \\ 3} 
+\end{align}
+General line through $\brak{x_0,y_0}$ with normal vector \myvec{a \\ b} is
+\begin{align}
+\myvec{a & b}\brak{\myvec{x \\ y} -\myvec{2 \\ 3}} = 0 
+\end{align}
+Distance from point $\myvec{3 \\ 2}$  to line is
+\begin{align}
+Distance = \frac{\lvert\myvec{a & b}\brak{\myvec{3 \\ 2}-\myvec{2 \\ 3}}\rvert}{\sqrt{\myvec{a & b}\myvec{a \\ b}}} =\frac{7}{5} \\
+\frac{\lvert\myvec{a & b}\brak{\myvec{3-2 \\ 2-3}-\myvec{2 \\ 3}}\rvert}{\sqrt{
+\myvec{a & b}\myvec{a \\ b}}} =\frac{7}{5} \\
+\frac{|a - b|}{\sqrt{a^2 + b^2}} = \frac{7}{5}
+\end{align}
+Let t = $\frac{a}{b}$ \quad \brak{b \neq 0} \\
+\begin{align}
+\frac{|t - 1|}{\sqrt{t^2 + 1}} = \frac{7}{5} 
+\end{align}
+Squaring  on both sides
+\begin{align}
+25 (t - 1)^2 &= 49 (t^2 + 1) \\
+25 (t^2 - 2 t + 1) &= 49 t^2 + 49 \\
+25 t^2 - 50 t + 25 &= 49 t^2 + 49 \\
+24 t^2 + 50 t + 24 &= 0 \\
+12 t^2 + 25 t + 12 &= 0 \\
+t = \frac{-25\pm \sqrt{25^2-4\times12\times12}}{2\times12} =\frac{-25\pm 7}{24} 
+\end{align}
+Solutions \quad $t_1 = -\frac{3}{4},t_2 = -1$ \\
+Normal vectors \brak{let b=1} :
+\begin{align}
+\myvec{a \\ b} =\myvec{\frac{-3}{4} \\ 1},\myvec{-1 \\ 1}
+\end{align}
+Equation constants \quad c = -a\times2 -b\times3 
+
+\begin{align}
+c_1 =\brak{-2}\times\brak{-\frac{3}{4}} -3\times1 =\frac{3}{2} -3 =\frac{-3}{2} \\
+c_2 = \brak{-2}\times\brak{-1} - 3\times1 = 2 -3= -1 
+\end{align}
+
+required equations of line are  
+
+\begin{align}
+\myvec{\frac{-3}{4} & 1} \myvec{x \\ y} -\frac{3}{2} = 0 \\
+\myvec{-1 & 1} \myvec{x \\ y} - 1 = 0 
+\end{align}
+
+\begin{figure}
+   \centering
+   \includegraphics[width=1\columnwidth]{figs/points.png}
+   \caption{}
+   \label{Figure}
+\end{figure}
+\end{document}  
