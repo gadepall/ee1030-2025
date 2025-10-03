@@ -1,0 +1,129 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{10.7.82}
+\author{EE25BTECH11033 - Kavin}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+\textbf{Question}:\\
+Find the coordinates of the point at which the circles $x^2+y^2-4x-2y=-4$ and $x^2+y^2-12x-8y=-36$ touch each other. Also find equations of the common tangents touching the circles in the distinct points.\\    
+\bigskip
+
+\textbf{Solution}:\\
+Circle $\brak{C_1}$:
+\begin{align}
+    x^2+y^2-4x-2y+4=0
+\end{align}
+\begin{align}
+    \implies u=\myvec{-2\\-1}\text{ and }f=4  
+\end{align}
+\begin{align}
+    \implies \text{Centre}\brak{\vec{c_1}} = \myvec{2\\1} \text{ and } r_1=\sqrt{\norm{u}^2-f}=1
+\end{align}
+Circle $\brak{C_2}$:
+\begin{align}
+    x^2+y^2-12x-8y+36=0
+\end{align}
+\begin{align}
+    \implies u=\myvec{-6\\-4}\text{ and }f=36  
+\end{align}
+\begin{align}
+    \implies \text{Centre}\brak{\vec{c_2}} = \myvec{6\\4} \text{ and } r_2=\sqrt{\norm{u}^2-f}=4
+\end{align}
+This point of contact$\brak{\vec{P}}$ lies on the line segment connecting the two centers, $\vec{c_1}$ and $\vec{c_2}$,and divides it in the ratio of their radii, $r_1:r_2$.
+\begin{align}
+    \vec{P} = \frac{1}{r_1+r_2}\myvec{c_1 & c_2}\myvec{r_2\\r_1}
+\end{align}
+\begin{align}
+    \vec{P} = \frac{1}{5}\myvec{2 & 6\\1 & 4}\myvec{4\\1}
+\end{align}
+\begin{align}
+    \vec{P} = \myvec{14/5\\8/5}
+\end{align}
+Let $\vec{n}^\top \vec{x}=c$ be the equation of common tangent to both the circles.\\
+\begin{align}
+    \frac{\abs{\vec{n}^\top\vec{c_1}-c}}{\norm{\vec{n}}} = r_1\implies \vec{n}^\top\vec{c_1} = c\pm\norm{\vec{n}}
+\end{align}
+\begin{align}
+    \frac{\abs{\vec{n}^\top\vec{c_2}-c}}{\norm{\vec{n}}} = r_2\implies \vec{n}^\top\vec{c_2} = c\pm4\norm{\vec{n}}
+\end{align}
+\begin{align}
+    \vec{n}^\top\brak{\vec{c_2}-\vec{c_1}}=\pm3\norm{\vec{n}}
+\end{align}
+substitute $\vec{n} = \myvec{-m\\1}$ where m is the slope of the line.
+\begin{align}
+    \implies  \myvec{-m & 1}\myvec{4\\3} = \pm3\sqrt{1+m^2}
+\end{align}
+\begin{align}
+    \implies 16m ^ 2 - 24m + 9 = 9(1 + m ^ 2)
+\end{align}
+\begin{align}
+    \implies 7m ^ 2 - 24m = 0
+\end{align}
+\begin{align}
+    m=0 \text{ and } m=24/7\implies \vec{n}=\myvec{0\\1}\text{ and } \vec{n} = \myvec{-24\\7}
+\end{align}
+To find the tangent line ,substitute $\vec{n} = \myvec{-24\\7}$ in equation (10), we get
+\begin{align}
+    c = -66\text{ and } c=-16
+\end{align}
+And equation (11)  holds only when $c=-16$.\\
+
+Therefore the two tangent lines are $\myvec{0 & 1}\vec{x}=0$
+and $\myvec{-24 & 7}\vec{x}=-16$
+\newpage
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.7\columnwidth]{figs/fig.png}
+\end{center}
+\label{fig:Fig1}
+\end{figure}
+\end{document}
+
+
