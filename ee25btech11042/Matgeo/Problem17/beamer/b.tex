@@ -72,8 +72,8 @@
 \let\vec\mathbf
 % ---------------------
 
-\title{10.5.9}
-\author{ee25btech11042-Nipun Dasari}
+\title{9.2.2}
+\author{EE25BTECH11042 - Nipun Dasari}
 
 \begin{document}
 	
@@ -83,50 +83,135 @@
 	
 	\begin{frame}{Question}
 		
-		For a matrix \\
-	\begin{align}
-		\vec{M}=\begin{myvec}{\frac{4}{5}&\frac{3}{5}\\\frac{3}{5}&x}\end{myvec} \label{matrix}
-	\end{align}
-	The transpose of the matrix is equal to inverse of the matrix, i.e., 
-	\begin{align}
-		\vec{M}^\top = \vec{M}^{-1} \label{ortho}
-	\end{align}
-	The value of x is given by
-		
-	\end{frame}
-	
-	
-	
-	\begin{frame}{Solution}
-		
-			From \eqref{ortho} it is evident that the matrix \eqref{matrix} is an orthogonal matrix.\\
-		We can proceed by the fact that columns of an orthogonal vector are perpendicular
+		 Find the points of intersection of the following parabola and circle :
 		\begin{align}
-			\vec{M} = \begin{myvec}{\vec{c_1}&\vec{c_2}}\end{myvec}
-		\end{align} 
-		where
-		\begin{align}
-			\vec{c_1} = \begin{myvec}{\frac{4}{5}\\\frac{3}{5}}\end{myvec}\text{, }\vec{c_2} = \begin{myvec}{\frac{3}{5}\\x}\end{myvec}
+			y^2 &= 6ax \\
+			x^2 + y^2 &= 16a^2 
 		\end{align}
 		
+	\end{frame}
+	
+	\begin{frame}{Solution: Standard Form and Matrices}
+		
+		 First, we express the equations in the standard quadratic form $g(x,y)=0$ .
+		\begin{align}
+			y^2 - 6ax &= 0 \label{eq:P1} \\
+			x^2 + y^2 - 16a^2 &= 0 \label{eq:C2}
+		\end{align}
+		
+		 In homogeneous coordinates, the matrices for the conics are :
+		\begin{align}
+			C_1 &= \begin{myvec}{0 & 0 & -3a \\ 0 & 1 & 0 \\ -3a & 0 & 0}\end{myvec} \label{eq:C1_matrix} \\
+			C_2 &= \begin{myvec}{1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & -16a^2}\end{myvec} \label{eq:C2_matrix}
+		\end{align}
 		
 	\end{frame}
 	
-	\begin{frame}{Solution}
+	\begin{frame}{Solution: The Degenerate Conic}
 		
+		 The intersection points are on a conic formed by the linear combination $P_1 + \mu C_2 = 0$ .  We find $\mu$ by setting the determinant of the combined matrix $C(\mu) = C_1 + \mu C_2$ to zero .
 		
-	By using \eqref{ortho}:
-	\begin{align}
-		\vec{c_1}^\top\vec{c_2} = 0\\
-		\implies \begin{myvec}{\frac{4}{5}&\frac{3}{5}}\end{myvec}\begin{myvec}{\frac{3}{5}\\x}\end{myvec} = 0\\
-		\implies \frac{12}{25} + \frac{3x}{5} = 0\\
-		\implies x = -\frac{4}{5}
-	\end{align}
+		 The combined matrix is :
+		\begin{align}
+			C(\mu) = \begin{myvec}{\mu & 0 & -3a \\ 0 & 1+\mu & 0 \\ -3a & 0 & -16a^2\mu}\end{myvec}
+		\end{align}
+		
+		 Setting the determinant to zero :
+		\begin{align}
+			\det(C(\mu)) &= \mu(1+\mu)(-16a^2\mu) - (-3a)(1+\mu)(-3a) \nonumber \\
+			&= -a^2(1+\mu)(16\mu^2 + 9) = 0
+		\end{align}
+		 The only real root is $\mu = -1$ .
 		
 	\end{frame}
 	
-	
+	\begin{frame}{Solution: Finding the Lines of Intersection}
 		
-
+		 With $\mu=-1$, we subtract the circle's equation from the parabola's to get the degenerate conic :
+		\begin{align}
+			(y^2 - 6ax) - (x^2 + y^2 - 16a^2) &= 0 \nonumber \\
+			-x^2 - 6ax + 16a^2 &= 0 \nonumber \\
+			x^2 + 6ax - 16a^2 &= 0 \nonumber
+		\end{align}
+		
+		 Factoring the equation gives two vertical lines :
+		\begin{align}
+			(x+8a)(x-2a) = 0 
+		\end{align}
+		 The lines are $x=2a$ and $x=-8a$ .  The line $x=-8a$ does not intersect the parabola $y^2=6ax$ in real points (for $a>0$), so we use $x=2a$
+		
+	\end{frame}
+	
+	\begin{frame}{Solution: Intersection Formula Setup}
+		
+		 We find the intersection of the line $x-2a=0$ with the parabola $P_1$ using the formula $\vec{x}_i = \vec{h} + \kappa_i\vec{m}$
+		
+		 The parameters for the line and conic are :\\
+		
+			 $\vec{h} = \begin{myvec}{2a \\ 0}\end{myvec}$\\
+		 $\vec{m} = \begin{myvec}{0 \\ 1}\end{myvec}$\\
+		 $\vec{V} = \begin{myvec}{0 & 0 \\ 0 & 1}\end{myvec}$\\
+		$\vec{u} = \begin{myvec}{-3a \\ 0}\end{myvec}$\\
+		 $f = 0$
+		
+		
+	\end{frame}
+	
+	\begin{frame}{Solution: Calculating Parameter $\kappa_i$}
+		
+		 First, we compute the necessary components :
+		\begin{align}
+			\vec{m}^\top\vec{V}\vec{m} &= 1 \\
+			g(\vec{h}) &= -12a^2 \\
+			\vec{m}^\top(\vec{V}\vec{h} + \vec{u}) &= 0
+		\end{align}
+		
+		 Substituting these into the formula for $\kappa_i$ :
+		\begin{align}
+			\kappa_i &= \frac{1}{1} \left( -(0) \pm \sqrt{(0)^2 - (-12a^2)(1)} \right) \nonumber \\
+			&= \pm\sqrt{12a^2} = \pm 2\sqrt{3}a
+		\end{align}
+		
+	\end{frame}
+	
+	\begin{frame}{Solution: Final Intersection Points}
+		
+		 Finally, we find the points using $\vec{x}_i = \vec{h} + \kappa_i\vec{m}$ :
+		
+		For $\kappa_1 = 2\sqrt{3}a$:
+		\begin{align}
+			\vec{x}_1 &= \begin{myvec}{2a \\ 0}\end{myvec} + 2\sqrt{3}a \begin{myvec}{0 \\ 1}\end{myvec} = \begin{myvec}{2a \\ 2\sqrt{3}a}\end{myvec} 
+		\end{align}
+		
+		For $\kappa_2 = -2\sqrt{3}a$:
+		\begin{align}
+			\vec{x}_2 &= \begin{myvec}{2a \\ 0}\end{myvec} - 2\sqrt{3}a \begin{myvec}{0 \\ 1}\end{myvec} = \begin{myvec}{2a \\ -2\sqrt{3}a}\end{myvec} 
+		\end{align}
+		
+		 The intersection points are $(2a, 2\sqrt{3}a)$ and $(2a, -2\sqrt{3}a)$ .
+		
+	\end{frame}
+	
+	\begin{frame}{Plot: Parabola and Circle}
+		
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=0.8\columnwidth]{figs/Figure_2.png} 
+			 \caption*{Fig : Parabola and Circle  }
+			\label{Fig1}
+		\end{figure}
+		
+	\end{frame}
+	
+	\begin{frame}{Plot: Intersection Points}
+		
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=0.8\columnwidth]{figs/Figure_1.png} 
+			 \caption*{Fig : Intersection Points  }
+			\label{Fig2}
+		\end{figure}
+		
+	\end{frame}
 	
 \end{document}
