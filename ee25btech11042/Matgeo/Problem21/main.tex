@@ -1,0 +1,120 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\graphicspath{{./figs/}}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\usepackage{gvv}                                        
+\def\inputGnumericTable{}                    
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                            
+\usepackage{multirow}                                         
+\usepackage{hhline}                                          
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+
+\begin{document}
+	
+	\bibliographystyle{IEEEtran}
+	\vspace{3cm}
+	
+	\title{12.471}
+	\author{EE25BTECH11042 - Nipun Dasari}
+	\maketitle
+	
+	\renewcommand{\thefigure}{\theenumi}
+	\renewcommand{\thetable}{\theenumi}
+	\setlength{\intextsep}{10pt} % Space between text and floats
+	
+	
+	\numberwithin{equation}{enumi}
+	\numberwithin{figure}{enumi}
+	\renewcommand{\thetable}{\theenumi}
+	
+	\textbf{Question}:\\
+	The solution to system of equations
+	\begin{align}
+		\begin{myvec}{2 & 5 \\ -4 & 3}\end{myvec}
+		\begin{myvec}{x \\ y}\end{myvec}
+		=
+		\begin{myvec}{2 \\ -30}\end{myvec}
+	\end{align}
+	is
+	\begin{enumerate}
+		\item $6$,$2$
+		\item $-6$,$2$
+		\item $-6$,$-2$
+		\item $6$,$-2$
+\end{enumerate}
+	\solution
+
+	We can write given system in the form of an augmented matrix and solve using row reduction.
+	\begin{align}
+		\myaugvec{2}{2 & 5 & 2 \\ -4 & 3 & -30}
+	\end{align}
+	
+	$R_2 \to R_2 + 2R_1$:
+	\begin{align}
+		\myaugvec{2}{2 & 5 & 2 \\ 0 & 13 & -26}
+	\end{align}
+	
+	$R_2 \to \frac{1}{13}R_2$:
+	\begin{align}
+		\myaugvec{2}{2 & 5 & 2 \\ 0 & 1 & -2}
+	\end{align}
+	
+	$R_1 \to R_1 - 5R_2$:
+	\begin{align}
+		\myaugvec{2}{2 & 0 & 12 \\ 0 & 1 & -2}
+	\end{align}
+	
+	$R_1 \to \frac{1}{2}R_1$:
+	\begin{align}
+		\myaugvec{2}{1 & 0 & 6 \\ 0 & 1 & -2}
+	\end{align}
+	
+	From the reduced row echelon form, we get the solution:
+	\begin{align}
+		x &= 6 \\
+		y &= -2
+	\end{align}
+	
+	The solution vector is
+	\begin{align}
+		\vec{x} = \begin{myvec}{6 \\ -2}\end{myvec}
+	\end{align}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width = 0.6\columnwidth]{Figure_1.png}
+		\caption*{}
+		\label{}
+	\end{figure}
+	
+\end{document}
