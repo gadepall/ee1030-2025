@@ -26,14 +26,18 @@
 \usepackage{listings}
 % \usepackage{gvv}                                        
 \def\inputGnumericTable{}                   
+
 \usepackage[latin1]{inputenc}                                
 \usepackage{color}                                            
-\usepackage{array}                                            
+\usepackage{array}                        
+
 \usepackage{longtable}                                       
-\usepackage{calc}                                             
+\usepackage{calc}                                         
+
 \usepackage{multirow}                                         
 \usepackage{hhline}                                           
-\usepackage{ifthen}                                           
+\usepackage{ifthen}            
+
 \usepackage{lscape}
 \usepackage{circuitikz}
 \usepackage{comment}
@@ -66,74 +70,78 @@ text width=4em, text centered, rounded corners, minimum height=3em]
 	
 	\solution
 	
-	Let the point of tangency be $\vec{P}$. Since it lies on the line $y=x$, its coordinates must be equal.
+	The tangent line is $y=x$, or $x-y=0$. A point $\vec{P}$ on this line can be represented parametrically.
 	\begin{align}
-		\vec{P} = \begin{myvec}{p \\ p}\end{myvec}
+		\vec{P} = k\begin{myvec}{1 \\ 1}\end{myvec}
 	\end{align}
-	The distance from the origin is given as $\|\vec{P}\| = 4\sqrt{2}$.
+	The distance from the origin is given as $\norm{\vec{P}} = 4\sqrt{2}$.
 	\begin{align}
-		\norm{\vec{P}} = \sqrt{p^2 + p^2} = |p|\sqrt{2} &= 4\sqrt{2} \nonumber \\
-		\implies |p| &= 4
+		\norm{\vec{P}} = |k|\norm{\begin{myvec}{1 \\ 1}\end{myvec}} = |k|\sqrt{2} &= 4\sqrt{2} \nonumber \\
+		\implies |k| &= 4
 	\end{align}
-	This gives two possible points of tangency.
-	\begin{align}
-		\vec{P}_1 = \begin{myvec}{4 \\ 4}\end{myvec} \quad \text{and} \quad \vec{P}_2 = \begin{myvec}{-4 \\ -4}\end{myvec}
-	\end{align}
+	This gives two possible points of tangency, $\vec{P}_1=4\begin{myvec}{1 \\ 1}\end{myvec}$ and $\vec{P}_2=-4\begin{myvec}{1 \\ 1}\end{myvec}$.
 	
-	Let the center of the circle be $\vec{C}$.
+	Let the center of the circle be $\vec{C} = \begin{myvec}{h \\ k}\end{myvec}$. The point of tangency $\vec{P}$ is the foot of the perpendicular from the center $\vec{C}$ to the line $\vec{n}^\top\vec{x}=c$, where $\vec{n}=\begin{myvec}{1 \\ -1}\end{myvec}$ and $c=0$. The formula is:
 	\begin{align}
-		\vec{C} = \begin{myvec}{h \\ k}\end{myvec}
+		\vec{P} = \vec{C} - \frac{\vec{n}^\top\vec{C} - c}{\norm{\vec{n}}^2}\vec{n}
 	\end{align}
-	The center lies on a line perpendicular to the tangent line, which has the matrix equation $\begin{myvec}{1 & -1}\end{myvec}\vec{x} = 0$. The normal to the tangent is $\vec{n}_t = \begin{myvec}{1 \\ -1}\end{myvec}$. A normal to the line of centers, $\vec{n}_c$, must be orthogonal to $\vec{n}_t$.
+	Substituting the values:
 	\begin{align}
-		\vec{n}_c = \begin{myvec}{1 \\ 1}\end{myvec}
+		\vec{P} &= \begin{myvec}{h \\ k}\end{myvec} - \frac{\begin{myvec}{1 & -1}\end{myvec}\begin{myvec}{h \\ k}\end{myvec} - 0}{1^2+(-1)^2}\begin{myvec}{1 \\ -1}\end{myvec} \nonumber \\
+		&= \begin{myvec}{h \\ k}\end{myvec} - \frac{h-k}{2}\begin{myvec}{1 \\ -1}\end{myvec} \nonumber \\
+		&= \begin{myvec}{h - \frac{h-k}{2} \\ k + \frac{h-k}{2}}\end{myvec} = \begin{myvec}{\frac{h+k}{2} \\ \frac{h+k}{2}}\end{myvec} = \frac{h+k}{2}\begin{myvec}{1 \\ 1}\end{myvec}
 	\end{align}
-	The equation for the line of centers is $\vec{n}_c^\top\vec{x} = d$, where $d = \vec{n}_c^\top\vec{P}$.
-	For $\vec{P}_1$, the line of centers is:
+	From the two possibilities for $\vec{P}$, we have two cases.
 	\begin{align}
-		\begin{myvec}{1 & 1}\end{myvec}\vec{C} = \begin{myvec}{1 & 1}\end{myvec}\begin{myvec}{4 \\ 4}\end{myvec} = 8
+		\text{Case 1: } \frac{h+k}{2} = 4 \implies h+k = 8 \\
+		\text{Case 2: } \frac{h+k}{2} = -4 \implies h+k = -8
 	\end{align}
-	For $\vec{P}_2$, the line of centers is:
+	The circle has a chord of length $6\sqrt{2}$ on the line $x+y=0$. The distance from the center $\vec{C}$ to this line is $d_{chord}$. The half-length of the chord is $L=3\sqrt{2}$.
 	\begin{align}
-		\begin{myvec}{1 & 1}\end{myvec}\vec{C} = \begin{myvec}{1 & 1}\end{myvec}\begin{myvec}{-4 \\ -4}\end{myvec} = -8
+		d_{chord} = \frac{\norm{h+k}}{\sqrt{1^2+1^2}} = \frac{\norm{h+k}}{\sqrt{2}}
 	\end{align}
+	The radius $r$ is related by $r^2 = d_{chord}^2 + L^2$.
+	\begin{align}
+		r^2 = \left(\frac{\norm{h+k}}{\sqrt{2}}\right)^2 + (3\sqrt{2})^2 = \frac{(h+k)^2}{2} + 18
+	\end{align}
+	The radius is also the distance from the center to the point of tangency, $r = \norm{\vec{C}-\vec{P}}$.
+	\begin{align}
+		r^2 = \norm{\begin{myvec}{h \\ k}\end{myvec} - \frac{h+k}{2}\begin{myvec}{1 \\ 1}\end{myvec}}^2 = \norm{\frac{1}{2}\begin{myvec}{h-k \\ k-h}\end{myvec}}^2 = \frac{(h-k)^2}{2}
+	\end{align}
+	Equating the two expressions for $r^2$:
+	\begin{align}
+		\frac{(h-k)^2}{2} &= \frac{(h+k)^2}{2} + 18 \nonumber \\
+		(h-k)^2 &= (h+k)^2 + 36 \nonumber \\
+		h^2-2hk+k^2 &= h^2+2hk+k^2+36 \nonumber \\
+		-4hk &= 36 \implies hk = -9
+	\end{align}
+	We now solve for the center in each case.
 	
-	The circle has a chord on the line with equation $\begin{myvec}{1 & 1}\end{myvec}\vec{x} = 0$. The distance from the center $\vec{C}$ to this line is $d_{chord}$.
+	For Case 1, $h+k=8$ and $hk=-9$. 
 	\begin{align}
-		d_{chord} = \frac{|\vec{n}_c^\top\vec{C}|}{\|\vec{n}_c\|} = \frac{|h+k|}{\sqrt{2}}
+		h(8-h)=-9 \implies h^2-8h-9=0 \implies (h-9)(h+1)=0
 	\end{align}
-	The radius $r$, distance $d_{chord}$, and half the chord length ($L=3\sqrt{2}$) are related by $r^2 = d_{chord}^2 + L^2$.
-	\begin{align}
-		r^2 = \left(\frac{|h+k|}{\sqrt{2}}\right)^2 + (3\sqrt{2})^2 = \frac{(h+k)^2}{2} + 18
-	\end{align}
-	The radius is also the distance from the center to the point of tangency, $r^2 = \|\vec{C}-\vec{P}\|^2$.
+	The centers are $\vec{C}_A = \begin{myvec}{9 \\ -1}\end{myvec}$ and $\vec{C}_B = \begin{myvec}{-1 \\ 9}\end{myvec}$.
 	
-	For the first case ($\begin{myvec}{1 & 1}\end{myvec}\vec{C} = 8$ and $\vec{P}=\begin{myvec}{4 \\ 4}\end{myvec}$):
+	For Case 2, $h+k=-8$ and $hk=-9$. 
 	\begin{align}
-		r^2 &= \frac{8^2}{2} + 18 = 50 \\
-		\norm{\vec{C}-\vec{P}}^2 &= (h-4)^2 + (k-4)^2 = (h-4)^2 + (8-h-4)^2 = 2(h-4)^2 = 50 \nonumber \\
-		(h-4)^2 &= 25 \implies h-4 = \pm 5 \implies h=9 \text{ or } h=-1
+		h(-8-h)=-9 \implies h^2+8h-9=0 \implies (h+9)(h-1)=0
 	\end{align}
-	This gives centers $\vec{C}_A = \begin{myvec}{9 \\ -1}\end{myvec}$ and $\vec{C}_B = \begin{myvec}{-1 \\ 9}\end{myvec}$.
+	The centers are $\vec{C}_C = \begin{myvec}{1 \\ -9}\end{myvec}$ and $\vec{C}_D = \begin{myvec}{-9 \\ 1}\end{myvec}$.
 	
-	For the second case ($\begin{myvec}{1 & 1}\end{myvec}\vec{C} = -8$ and $\vec{P}=\begin{myvec}{-4 \\ -4}\end{myvec}$):
+	For any of these centers, the radius squared is $r^2 = \frac{(h-k)^2}{2} = \frac{(\pm 10)^2}{2} = 50$.
+	
+	The point $\vec{Q} = \begin{myvec}{-10 \\ 2}\end{myvec}$ is in the circle's interior, so $\norm{\vec{Q}-\vec{C}}^2 < r^2 = 50$.
 	\begin{align}
-		r^2 &= \frac{(-8)^2}{2} + 18 = 50 \\
-		\norm{\vec{C}-\vec{P}}^2 &= (h+4)^2 + (k+4)^2 = (h+4)^2 + (-8-h+4)^2 = 2(h+4)^2 = 50  \\
-		(h+4)^2 &= 25 \implies h+4 = \pm 5 \implies h=1 \text{ or } h=-9
+		\text{For } \vec{C}_A=\begin{myvec}{9 \\ -1}\end{myvec}: \norm{\begin{myvec}{-19 \\ 3}\end{myvec}}^2 = 370 > 50 \\
+		\text{For } \vec{C}_B=\begin{myvec}{-1 \\ 9}\end{myvec}: \norm{\begin{myvec}{-9 \\ -7}\end{myvec}}^2 = 130 > 50 \\
+		\text{For } \vec{C}_C=\begin{myvec}{1 \\ -9}\end{myvec}: \norm{\begin{myvec}{-11 \\ 11}\end{myvec}}^2 = 242 > 50 \\
+		\text{For } \vec{C}_D=\begin{myvec}{-9 \\ 1}\end{myvec}: \norm{\begin{myvec}{-1 \\ 1}\end{myvec}}^2 = 2 < 50
 	\end{align}
-	This gives centers $\vec{C}_C = \begin{myvec}{1 \\ -9}\end{myvec}$ and $\vec{C}_D = \begin{myvec}{-9 \\ 1}\end{myvec}$.
-	
-	The point $\vec{Q} = \begin{myvec}{-10 \\ 2}\end{myvec}$ is in the circle's interior, so $\|\vec{Q}-\vec{C}\|^2 < r^2 = 50$.
+	The correct center is $\vec{C}_D = \begin{myvec}{-9 \\ 1}\end{myvec}$. 
 	\begin{align}
-		\text{For } \vec{C}_A=\begin{myvec}{9 \\ -1}\end{myvec}: \|\begin{myvec}{-19 \\ 3}\end{myvec}\|^2 = 370 > 50 \\
-		\text{For } \vec{C}_B=\begin{myvec}{-1 \\ 9}\end{myvec}: \|\begin{myvec}{-9 \\ -7}\end{myvec}\|^2 = 130 > 50 \\
-		\text{For } \vec{C}_C=\begin{myvec}{1 \\ -9}\end{myvec}: \|\begin{myvec}{-11 \\ 11}\end{myvec}\|^2 = 242 > 50 \\
-		\text{For } \vec{C}_D=\begin{myvec}{-9 \\ 1}\end{myvec}: \|\begin{myvec}{-1 \\ 1}\end{myvec}\|^2 = 2 < 50
+		(x+9)^2 + (y-1)^2 = 50
 	\end{align}
-	The correct center is $\vec{C}_D = \begin{myvec}{-9 \\ 1}\end{myvec}$.
-	
-	The center is $\begin{myvec}{-9 \\ 1}\end{myvec}$ and radius squared is $r^2=50$. The equation is $(x+9)^2 + (y-1)^2 = 50$.
 	\begin{align}
 		x^2+y^2+18x-2y+32=0
 	\end{align}
@@ -154,4 +162,4 @@ text width=4em, text centered, rounded corners, minimum height=3em]
 		\caption*{Fig }
 		\label{Fig2}
 	\end{figure}
-\end{document}
+	\end{document}

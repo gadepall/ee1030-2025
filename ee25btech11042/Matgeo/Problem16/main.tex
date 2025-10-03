@@ -90,24 +90,20 @@ text width=4em, text centered, rounded corners, minimum height=3em]
 	\end{align}
 	Therefore, the normal vector for line L is $\vec{n}_2 = \begin{myvec}{1 \\ 5}\end{myvec}$, and its equation is $x + 5y = c_2$.
 	
-	The line L forms a triangle with the coordinate axes. The equation for the y-axis is $x=0$, which is $\vec{e_1}^\top\vec{x} = 0$ with $\vec{e_1} = \begin{myvec}{1 \\ 0}\end{myvec}$. The equation for the x-axis is $y=0$, which is $\vec{e_2}^\top\vec{x} = 0$ with $\vec{e_2} = \begin{myvec}{0 \\ 1}\end{myvec}$.
+	The x-intercept, $\vec{a}$, is the intersection of line L and the x-axis ($y=0$). We solve the system by reducing the augmented matrix to RREF:
+	\begin{align}
+		\augvec{2}{1}{1 & 5 & c_2 \\ 0 & 1 & 0} &\xleftrightarrow{\,R_1 \to R_1 - 5R_2} \augvec{2}{1}{1 & 0 & c_2 \\ 0 & 1 & 0}
+	\end{align}
+	This gives the solution $x = c_2$ and $y=0$. So, the x-intercept vector is $\vec{a} = \begin{myvec}{c_2 \\ 0}\end{myvec}$.
 	
-	The x-intercept, $\vec{a}$, is the intersection of line L and the x-axis. We solve the stacked system:
+	The y-intercept, $\vec{b}$, is the intersection of line L and the y-axis ($x=0$). We solve by reducing the augmented matrix to RREF:
 	\begin{align}
-		\begin{myvec}{1 & 5 \\ 0 & 1}\end{myvec}\vec{x} = \begin{myvec}{c_2 \\ 0}\end{myvec}
+		\augvec{2}{1}{1 & 5 & c_2 \\ 1 & 0 & 0} &\xleftrightarrow{\,R_1 \leftrightarrow R_2} \augvec{2}{1}{1 & 0 & 0 \\ 1 & 5 & c_2} \\
+		&\xleftrightarrow{\,R_2 \to R_2 - R_1} \augvec{2}{1}{1 & 0 & 0 \\ 0 & 5 & c_2} \\
+		&\xleftrightarrow{\,R_2 \to \frac{1}{5}R_2} \augvec{2}{1}{1 & 0 & 0 \\ 0 & 1 & c_2/5}
 	\end{align}
-	The intercept vector $\vec{a}$ is found by inverting the matrix:
-	\begin{align}
-		\vec{a} = \begin{myvec}{1 & 5 \\ 0 & 1}\end{myvec}^{-1} \begin{myvec}{c_2 \\ 0}\end{myvec} = \begin{myvec}{1 & -5 \\ 0 & 1}\end{myvec}\begin{myvec}{c_2 \\ 0}\end{myvec} = \begin{myvec}{c_2 \\ 0}\end{myvec}
-	\end{align}
-	The y-intercept, $\vec{b}$, is the intersection of line L and the y-axis:
-	\begin{align}
-		\begin{myvec}{1 & 5 \\ 1 & 0}\end{myvec}\vec{x} = \begin{myvec}{c_2 \\ 0}\end{myvec}
-	\end{align}
-	The intercept vector $\vec{b}$ is:
-	\begin{align}
-		\vec{b} = \begin{myvec}{1 & 5 \\ 1 & 0}\end{myvec}^{-1} \begin{myvec}{c_2 \\ 0}\end{myvec} = \frac{1}{-5}\begin{myvec}{0 & -5 \\ -1 & 1}\end{myvec} \begin{myvec}{c_2 \\ 0}\end{myvec} = \begin{myvec}{0 \\ c_2/5}\end{myvec}
-	\end{align}
+	This gives the solution $x=0$ and $y=c_2/5$. Thus, the y-intercept vector is $\vec{b} = \begin{myvec}{0 \\ c_2/5}\end{myvec}$.
+	
 	The area of the triangle formed by the origin, $\vec{a}$, and $\vec{b}$ is 5. Since $\vec{a}$ and $\vec{b}$ lie on the axes, the angle $\theta$ between them is $90^\circ$.
 	\begin{align}
 		\text{Area} = \frac{1}{2}\norm{\vec{a}}\norm{\vec{b}}\sin(90^\circ) &= 5 \nonumber \\

@@ -62,17 +62,18 @@
 \newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
 \newcommand{\mydet}[1]{\ensuremath{\begin{vmatrix}#1\end{vmatrix}}}
 
+% I have corrected this environment to properly format a 2x3 augmented matrix
 \newenvironment{amatrix}[1]{%
-	\left(\begin{array}{@{}*{#1}{c}|*{#1}{c}@{}}
+	\left[\begin{array}{@{}*{#1}{c}|c@{}}
 	}{%
-	\end{array}\right)
+	\end{array}\right]
 }
 
 \newcommand{\myaugvec}[2]{\ensuremath{\begin{amatrix}{#1}#2\end{amatrix}}}
 \let\vec\mathbf
 % ---------------------
 
-\title{10.5.9}
+\title{4.13.46}
 \author{ee25btech11042-Nipun Dasari}
 
 \begin{document}
@@ -83,110 +84,94 @@
 	
 	\begin{frame}{Question}
 		\large
-		A straight line L is perpendicular to the line $5x - y + 1 = 0$. The area of the triangle formed by line L and the coordinate axes is 5.
+		A straight line L is perpendicular to the line $5x - y + 1 = 0$.
+		The area of the triangle formed by line L and the coordinate axes is 5.
 		
-		\textbf{Find the equation of the line L.}
+		\
+		
+		Find the equation of the line L.
 	\end{frame}
 	
-	\begin{frame}{Step 1: Define the Lines}
+	\begin{frame}{Theoretical solution}
 		Let the given line be $L_1$ and the required perpendicular line be $L$.
-		
 		The equation of the given line $L_1$ is $5x - y = -1$.
-		 
-		
 		In matrix form $\vec{n}^\top\vec{x} = c$, its parameters are:
 		\begin{align}
 			\vec{n}_1 = \begin{myvec}{5 \\ -1}\end{myvec}, \quad \vec{x} = \begin{myvec}{x \\ y}\end{myvec}, \quad c_1 = -1
 		\end{align}
 		
-		 
+		
 		Let the required line $L$ have the equation $\vec{n}_2^\top\vec{x} = c_2$.
 	\end{frame}
 	
-	\begin{frame}{Step 2: Find the Normal Vector of Line L}
+	\begin{frame}{Theoretical solution}
 		Since the lines are perpendicular, the dot product of their normal vectors must be zero:
-		\[ \vec{n}_1^\top\vec{n}_2 = 0 \]
+		\begin{align} 
+			\vec{n}_1^\top\vec{n}_2 = 0 
+		\end{align}
 		
-		 
-		Let's assume the normal vector for line L is $\vec{n}_2 = \begin{myvec}{1 \\ m}\end{myvec}$. We solve for $m$:
+		
+		Let's assume the normal vector for line L is $\vec{n}_2 = \begin{myvec}{1 \\ m}\end{myvec}$.
+		We solve for $m$:
 		\begin{align}
 			\vec{n}_1^\top\vec{n}_2 = \begin{myvec}{5 & -1}\end{myvec}\begin{myvec}{1 \\ m}\end{myvec} &= 5 - m = 0 \\
 			\implies m &= 5
 		\end{align}
 		
-		 
+		
 		Therefore, the normal vector for line L is $\vec{n}_2 = \begin{myvec}{1 \\ 5}\end{myvec}$, and its equation is:
-		\[ x + 5y = c_2 \]
-	\end{frame}
-	
-	\begin{frame}{Step 3: Finding the Intercepts}
-		The line L forms a triangle with the coordinate axes.
-		\begin{itemize}
-			\item The y-axis equation is $x=0$, or $\vec{e_1}^\top\vec{x} = 0$, where $\vec{e_1} = \begin{myvec}{1 \\ 0}\end{myvec}$.
-			\item The x-axis equation is $y=0$, or $\vec{e_2}^\top\vec{x} = 0$, where $\vec{e_2} = \begin{myvec}{0 \\ 1}\end{myvec}$.
-		\end{itemize}
-		
-		 
-		We find the intercepts by solving for the intersection of line L with each axis.
-	\end{frame}
-	
-	\begin{frame}{Step 4: Calculating the x-intercept ($\vec{a}$)}
-		The x-intercept, $\vec{a}$, is the intersection of line L ($x + 5y = c_2$) and the x-axis ($y=0$).
-		
-		We solve the stacked system:
-		\begin{align}
-			\begin{myvec}{1 & 5 \\ 0 & 1}\end{myvec}\vec{x} = \begin{myvec}{c_2 \\ 0}\end{myvec}
-		\end{align}
-		
-		 
-		The intercept vector $\vec{a}$ is found by inverting the matrix:
-		\begin{align}
-			\vec{a} = \begin{myvec}{1 & 5 \\ 0 & 1}\end{myvec}^{-1} \begin{myvec}{c_2 \\ 0}\end{myvec} = \begin{myvec}{1 & -5 \\ 0 & 1}\end{myvec}\begin{myvec}{c_2 \\ 0}\end{myvec} = \begin{myvec}{c_2 \\ 0}\end{myvec}
+		\begin{align} 
+			x + 5y = c_2 
 		\end{align}
 	\end{frame}
 	
-	\begin{frame}{Step 5: Calculating the y-intercept ($\vec{b}$)}
-		The y-intercept, $\vec{b}$, is the intersection of line L ($x + 5y = c_2$) and the y-axis ($x=0$).
+	\begin{frame}{Theoretical solution}
+		We find the intercepts by solving the intersection of line L ($x+5y=c_2$) with each axis using Gaussian elimination.
 		
-		We solve the stacked system:
-		\begin{align}
-			\begin{myvec}{1 & 5 \\ 1 & 0}\end{myvec}\vec{x} = \begin{myvec}{c_2 \\ 0}\end{myvec}
-		\end{align}
+		\
 		
-		 
-		The intercept vector $\vec{b}$ is:
+		x-intercept ($\vec{a}$): Intersection with x-axis ($y=0$)
 		\begin{align}
-			\vec{b} = \begin{myvec}{1 & 5 \\ 1 & 0}\end{myvec}^{-1} \begin{myvec}{c_2 \\ 0}\end{myvec} = \frac{1}{-5}\begin{myvec}{0 & -5 \\ -1 & 1}\end{myvec} \begin{myvec}{c_2 \\ 0}\end{myvec} = \begin{myvec}{0 \\ c_2/5}\end{myvec}
+			\myaugvec{2}{1 & 5 & c_2 \\ 0 & 1 & 0} \xleftrightarrow{\,R_1 \to R_1 - 5R_2} \myaugvec{2}{1 & 0 & c_2 \\ 0 & 1 & 0}
 		\end{align}
+		This gives the x-intercept vector $\vec{a} = \begin{myvec}{c_2 \\ 0}\end{myvec}$.
+		
+		\
+		
+		y-intercept ($\vec{b}$): Intersection with y-axis ($x=0$)
+		\begin{align}
+			\myaugvec{2}{1 & 5 & c_2 \\ 1 & 0 & 0} &\xleftrightarrow{\,R_1 \leftrightarrow R_2} \myaugvec{2}{1 & 0 & 0 \\ 1 & 5 & c_2} \\
+			&\xleftrightarrow{\,R_2 \to R_2 - R_1} \myaugvec{2}{1 & 0 & 0 \\ 0 & 5 & c_2} \\
+			&\xleftrightarrow{\,R_2 \to \frac{1}{5}R_2} \myaugvec{2}{1 & 0 & 0 \\ 0 & 1 & c_2/5}
+		\end{align}
+		This gives the y-intercept vector $\vec{b} = \begin{myvec}{0 \\ c_2/5}\end{myvec}$.
 	\end{frame}
 	
-	
-	\begin{frame}{Step 6: Using the Area to Find $c_2$}
+	\begin{frame}{Theoretical solution}
 		The area of the triangle formed by the origin, $\vec{a}$, and $\vec{b}$ is given as 5.
 		
 		Since the intercepts lie on the axes, the angle $\theta$ between them is $90^\circ$.
-		
 		\begin{align}
 			\text{Area} = \frac{1}{2}\norm{\vec{a}}\norm{\vec{b}}\sin(90^\circ) &= 5 \\
 			\frac{1}{2} \left(\sqrt{c_2^2}\right) \left(\sqrt{(c_2/5)^2}\right) (1) &= 5 \\
-			\frac{1}{2} |c_2| \left|\frac{c_2}{5}\right| &= 5 \\
+			\frac{1}{2} |c_2| \left|\frac{c_2}{5}\right|
+			&= 5 \\
 			\frac{|c_2^2|}{10} &= 5 \\
 			c_2^2 = 50 \implies c_2 &= \pm 5\sqrt{2}
 		\end{align}
 	\end{frame}
 	
-	\begin{frame}{Solution: The Equations of Line L}
+	\begin{frame}{Theoretical solution}
 		There are two possible lines that satisfy the given conditions.
+		Substituting the values of $c_2$ into the equation, the possible equations for line L are:\\
 		
-		Substituting the values of $c_2$ into the equation $\vec{n}_2^\top\vec{x} = c_2$, the possible equations for line L are:\\
+		\
 		
+		\large $x + 5y = 5\sqrt{2}$\\
 		
-		
-			 \large $x + 5y = 5\sqrt{2}$\\
-			
 		\large $x + 5y = -5\sqrt{2}$
 		
-		
+		\
 		
 		In matrix form:
 		\begin{align}
@@ -195,7 +180,7 @@
 		\end{align}
 	\end{frame}
 	
-	\begin{frame}{Plot}
+	\begin{frame}{Theoretical solution}
 		
 		\begin{figure}[h!]
 			\centering
