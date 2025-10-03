@@ -1,1 +1,175 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumerate}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
 
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}}
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}}
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\providecommand{\rank}{\text{rank}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\ensuremath{\left\vert #1 \right\vert}}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}} 
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{\overline{#1}}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+
+% this \vec is already defined in your file:
+\renewcommand{\vec}[1]{\begin{pmatrix}#1\end{pmatrix}}
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right)
+}
+
+\lstset{
+frame=single, 
+breaklines=true,
+columns=fullflexible
+}
+\usepackage{listings}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  numbers=left,
+  numberstyle=\tiny,
+  breaklines=true,
+  frame=single
+}
+
+\title{Matgeo-4.4.15}
+\author{AI25BTECH11019-Menavath Sai Sanjana}
+
+\date{}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Question}
+Find the sum of the intercepts cut off by the plane 
+$
+-\vec{r}\cdot(2\hat{i}+\hat{j}-\hat{k})-5=0
+$
+on the three coordinate axes.  
+\end{frame}
+
+\begin{frame}
+\frametitle{Solution}
+The general plane can be written as
+$
+a x + b y + c z + d = 0,
+$
+where $\vec r = x\mathbf e_1 + y\mathbf e_2 + z\mathbf e_3$, and
+$\mathbf n = a\mathbf e_1+b\mathbf e_2+c\mathbf e_3$ is the normal.  
+
+\medskip
+\textbf{Intercepts:}
+\begin{align}
+x\text{-intercept: } & -\frac{d}{a}\mathbf e_1, \\
+y\text{-intercept: } & -\frac{d}{b}\mathbf e_2, \\
+z\text{-intercept: } & -\frac{d}{c}\mathbf e_3.
+\end{align}
+
+\medskip
+\textbf{Vector sum of intercepts:}
+$
+-\;d\!\left(\frac{1}{a}\mathbf e_1+\frac{1}{b}\mathbf e_2+\frac{1}{c}\mathbf e_3\right).
+$
+\end{frame}
+
+\begin{frame}
+\frametitle{Solution}
+
+\textbf{Scalar sum of intercepts:}
+$
+x+y+z = -d\!\left(\frac{1}{a}+\frac{1}{b}+\frac{1}{c}\right).
+$
+
+For the given plane
+$
+2x+y-z+5=0,
+$
+we have $a=2,\; b=1,\; c=-1,\; d=5$.  
+
+\medskip
+Therefore,
+$
+x+y+z = -5\!\left(\frac{1}{2}+1+\frac{1}{-1}\right) = -\frac{5}{2}.
+$
+
+\medskip
+ 
+The sum of the intercepts cut off by the plane is
+$
+-\frac{5}{2}.
+$
+\end{frame}
+
+\begin{frame}
+\frametitle{Conclusion}
+\noindent\textbf{Conclusion:}  
+Using the basis vectors $\mathbf{e}_1,\mathbf{e}_2,\mathbf{e}_3$ we obtain the general formula
+$
+x+y+z = -d\!\left(\frac{1}{a}+\frac{1}{b}+\frac{1}{c}\right),
+$
+valid when the plane $ax+by+cz+d=0$ meets all three axes.  
+For the given plane the sum of intercepts is
+$
+-\frac{5}{2}.
+$
+\end{frame}
+
+\begin{frame}
+\frametitle{Graphical Representation}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.65\textwidth]{matgeo-4.4.15.jpeg}
+    \caption{}
+    \label{fig:triangle5cm}
+\end{figure}
+\end{frame}
+
+\end{document}
