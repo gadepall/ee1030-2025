@@ -13,7 +13,7 @@ lib.rref_solver.argtypes = [ctypes.c_double * 6, ctypes.c_double * 2]
 # Create augmented matrix for system:
 # x + 3y = 6
 # 2x - 3y = 12
-aug = (ctypes.c_double * 6)(1, 3, 6,   2, -3, 12)  # Flattened 2x3
+aug = (ctypes.c_double * 6)(2, 5, 2,   -4, 3, -30)  # Flattened 2x3
 solution = (ctypes.c_double * 2)()
 
 # Call C function
@@ -25,11 +25,11 @@ print("Solution vector from C:", x_sol)
 
 # plot
 x_vals = np.linspace(-2, 10, 400)
-y1 = (6 - x_vals) / 3
-y2 = (12 - 2*x_vals) / -3
+y1 = (2 - 2*x_vals) / 5
+y2 = (4*x_vals-30) / 3
 
-plt.plot(x_vals, y1, label=r"$x+3y=6$")
-plt.plot(x_vals, y2, label=r"$2x-3y=12$")
+plt.plot(x_vals, y1, label=r"$2x+5y=2$")
+plt.plot(x_vals, y2, label=r"$-4x+3y=-30$")
 
 plt.scatter(x_sol[0], x_sol[1], color="red", zorder=5)
 plt.text(float(x_sol[0])+0.2, float(x_sol[1]), f"({x_sol[0]:.1f}, {x_sol[1]:.1f})", color="red")
