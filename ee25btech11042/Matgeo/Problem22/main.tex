@@ -1,0 +1,125 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\graphicspath{{./figs/}}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\usepackage{gvv}                                        
+\def\inputGnumericTable{}                    
+
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                        
+
+\usepackage{longtable}                                       
+\usepackage{calc}                            
+\usepackage{multirow}             
+
+\usepackage{hhline}                                          
+\usepackage{ifthen}                              
+
+\usepackage{lscape}
+\usepackage{circuitikz}
+
+\begin{document}
+	
+	\bibliographystyle{IEEEtran}
+	\vspace{3cm}
+	
+	\title{12.263}
+	\author{EE25BTECH11042 - Nipun Dasari}
+	\maketitle
+	
+	\renewcommand{\thefigure}{\theenumi}
+	\renewcommand{\thetable}{\theenumi}
+	\setlength{\intextsep}{10pt}
+	
+	\numberwithin{equation}{enumi}
+	\numberwithin{figure}{enumi}
+	\renewcommand{\thetable}{\theenumi}
+	
+	\textbf{Question}:\\
+	The matrix
+	\begin{align}
+		\vec{A} = \begin{myvec}{1 & 1 & 1 \\ 2 & 1 & 2 \\ 1 & 3 & 2}\end{myvec}
+	\end{align}
+	can be decomposed into the product of a lower triangular matrix $\vec{L}$ and an upper triangular matrix $\vec{U}$ as $\vec{A} = \vec{L}\vec{U}$. Let $\vec{x}, \vec{z} \in \mathbb{R}^3$ and $\vec{b} = (1 \;\; 1 \;\; 1)^\top$.
+	\begin{enumerate}[label=\alph*)]
+		\item Find the solution $\vec{z}$ of the system $\vec{L}\vec{z} = \vec{b}$.
+		\item Find the solution $\vec{x}$ of the system $\vec{U}\vec{x} = \vec{z}$.
+	\end{enumerate}
+	
+	\solution
+	
+	\textbf{LU Decomposition by Row Transformations}\\
+	
+	We will perform row operations on $\vec{A}$ to obtain $\vec{U}$. The multipliers used will form the entries of $\vec{L}$.
+	\begin{align}
+		\vec{A} = \begin{myvec}{1 & 1 & 1 \\ 2 & 1 & 2 \\ 1 & 3 & 2}\end{myvec}
+	\end{align}
+	Operation $R_2 \to R_2 - (\textcolor{red}{2})R_1$. The multiplier is $l_{21} = 2$.
+	\begin{align}
+		\begin{myvec}{1 & 1 & 1 \\ 0 & -1 & 0 \\ 1 & 3 & 2}\end{myvec}
+	\end{align}
+	Operation $R_3 \to R_3 - (\textcolor{red}{1})R_1$. The multiplier is $l_{31} = 1$.
+	\begin{align}
+		\begin{myvec}{1 & 1 & 1 \\ 0 & -1 & 0 \\ 0 & 2 & 1}\end{myvec}
+	\end{align}
+	Operation $R_3 \to R_3 - (\textcolor{red}{-2})R_2$. The multiplier is $l_{32} = -2$.
+	\begin{align}
+		\vec{U} = \begin{myvec}{1 & 1 & 1 \\ 0 & -1 & 0 \\ 0 & 0 & 1}\end{myvec}
+	\end{align}
+	The lower triangular matrix $\vec{L}$ is constructed from the multipliers.
+	\begin{align}
+		\vec{L} = \begin{myvec}{1 & 0 & 0 \\ l_{21} & 1 & 0 \\ l_{31} & l_{32} & 1}\end{myvec} = \begin{myvec}{1 & 0 & 0 \\ 2 & 1 & 0 \\ 1 & -2 & 1}\end{myvec}
+	\end{align}
+	
+	\textbf{Part a): Solving $\vec{L}\vec{z} = \vec{b}$}\\
+	
+	We solve the system using Gaussian elimination on the augmented matrix $[\vec{L}|\vec{b}]$.
+	\begin{align}
+		\myaugvec{3}{1 & 0 & 0 & 1 \\ 2 & 1 & 0 & 1 \\ 1 & -2 & 1 & 1} 
+		&\xleftrightarrow[R_3 \to R_3 - R_1]{R_2 \to R_2 - 2R_1} \myaugvec{3}{1 & 0 & 0 & 1 \\ 0 & 1 & 0 & -1 \\ 0 & -2 & 1 & 0} \\
+		&\xleftrightarrow{R_3 \to R_3 + 2R_2} \myaugvec{3}{1 & 0 & 0 & 1 \\ 0 & 1 & 0 & -1 \\ 0 & 0 & 1 & -2}
+	\end{align}
+	From the reduced row echelon form, we get the solution:
+	\begin{align}
+		\vec{z} = \begin{myvec}{1 \\ -1 \\ -2}\end{myvec}
+	\end{align}
+	
+	\textbf{Part b): Solving $\vec{U}\vec{x} = \vec{z}$}\\
+	
+	We solve the system using the augmented matrix $[\vec{U}|\vec{z}]$.
+	\begin{align}
+		\myaugvec{3}{1 & 1 & 1 & 1 \\ 0 & -1 & 0 & -1 \\ 0 & 0 & 1 & -2}
+		&\xleftrightarrow{R_2 \to -R_2} \myaugvec{3}{1 & 1 & 1 & 1 \\ 0 & 1 & 0 & 1 \\ 0 & 0 & 1 & -2} \\
+		&\xleftrightarrow[R_1 \to R_1 - R_2]{R_1 \to R_1 - R_3} \myaugvec{3}{1 & 0 & 0 & 2 \\ 0 & 1 & 0 & 1 \\ 0 & 0 & 1 & -2}
+	\end{align}
+	From the reduced row echelon form, we get the solution:
+	\begin{align}
+		\vec{x} = \begin{myvec}{2 \\ 1 \\ -2}\end{myvec}
+	\end{align}
+	
+\end{document}
