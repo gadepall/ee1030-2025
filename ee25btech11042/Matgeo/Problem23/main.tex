@@ -49,7 +49,7 @@
 	\vspace{3cm}
 	
 	\title{12.159}
-	\author{EE25BTECH11042 - Nipun Dasari}
+	\author{EE25BTECH11?42 - Nipun Dasari}
 	\maketitle
 	
 	\renewcommand{\thefigure}{\theenumi}
@@ -79,25 +79,19 @@
 	\begin{align}
 		\Delta = \mydet{1+b & b & 1 \\ b & 1+b & 1 \\ 1 & 2b & 1}
 	\end{align}
-	We will use row operations to simplify the determinant. Applying the operations $R_1 \to R_1 - R_3$ and $R_2 \to R_2 - R_3$ does not change the value of the determinant.
-	
-	First, applying $R_1 \to R_1 - R_3$:
+	We will use row operations to simplify the determinant. Applying the operation $R_2 \to R_2 - R_1$ does not change the value of the determinant.
 	\begin{align}
-		\Delta = \mydet{1+b-1 & b-2b & 1-1 \\ b & 1+b & 1 \\ 1 & 2b & 1} = \mydet{b & -b & 0 \\ b & 1+b & 1 \\ 1 & 2b & 1}
+		\Delta = \mydet{1+b & b & 1 \\ b-(1+b) & 1+b-b & 1-1 \\ 1 & 2b & 1} = \mydet{1+b & b & 1 \\ -1 & 1 & 0 \\ 1 & 2b & 1}
 	\end{align}
-	Next, applying $R_2 \to R_2 - R_3$:
+	Next, applying the operation $R_3 \to R_3 - R_1$ also does not change the value of the determinant.
 	\begin{align}
-		\Delta = \mydet{b & -b & 0 \\ b-1 & 1+b-2b & 1-1 \\ 1 & 2b & 1} = \mydet{b & -b & 0 \\ b-1 & 1-b & 0 \\ 1 & 2b & 1}
+		\Delta = \mydet{1+b & b & 1 \\ -1 & 1 & 0 \\ 1-(1+b) & 2b-b & 1-1} = \mydet{1+b & b & 1 \\ -1 & 1 & 0 \\ -b & b & 0}
 	\end{align}
-	Now, we apply the column operation $C_1 \to C_1 + C_2$. This operation does not change the value of the determinant.
+	Now that the third column is in the form $(1, 0, 0)^\top$, we can easily evaluate the determinant by expanding along this column:
 	\begin{align}
-		\Delta = \mydet{b+(-b) & -b & 0 \\ (b-1)+(1-b) & 1-b & 0 \\ 1+2b & 2b & 1} = \mydet{0 & -b & 0 \\ 0 & 1-b & 0 \\ 1+2b & 2b & 1}
-	\end{align}
-	Since the first column of the matrix has two zero entries, we can easily evaluate the determinant by expanding along the first column:
-	\begin{align}
-		\Delta &= 0 \mydet{1-b & 0 \\ 2b & 1} - 0 \mydet{-b & 0 \\ 2b & 1} + (1+2b) \mydet{-b & 0 \\ 1-b & 0} \\
-		&= (1+2b) ((-b)(0) - (0)(1-b)) \\
-		&= (1+2b) (0) = 0
+		\Delta &= 1 \cdot \mydet{-1 & 1 \\ -b & b} - 0 + 0 \\
+		&= ((-1)(b) - (1)(-b)) \\
+		&= -b + b = 0
 	\end{align}
 	The determinant is $0$, which corresponds to option (a).
 	

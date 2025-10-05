@@ -1,0 +1,168 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx} % <-- needed for images
+\usepackage{xcolor}
+\def\UrlBreaks{\do\/\do-}
+
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=\paperwidth,ht=2ex,dp=1ex,right]{author in head/foot}%
+			\insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+	\end{beamercolorbox}}%
+	\vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\lstset{
+	frame=single,
+	breaklines=true,
+	columns=fullflexible,
+	basicstyle=\ttfamily\tiny    % tiny font so code fits
+}
+
+\numberwithin{equation}{section}
+
+% ---- your macros ----
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}}
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}}
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\newcommand{\mydet}[1]{\ensuremath{\begin{vmatrix}#1\end{vmatrix}}}
+
+\newenvironment{amatrix}[1]{%
+	\left[\begin{array}{@{}*{#1}{c}|c@{}}
+	}{%
+	\end{array}\right]
+}
+
+\newcommand{\myaugvec}[2]{\ensuremath{\begin{amatrix}{#1}#2\end{amatrix}}}
+\let\vec\mathbf
+% ---------------------
+
+\title{12.263}
+\author{EE25BTECH11042 - Nipun Dasari}
+
+\begin{document}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	\begin{frame}{Question}
+		The matrix
+		\begin{align}
+			\vec{A} = \begin{myvec}{1 & 1 & 1 \\ 2 & 1 & 2 \\ 1 & 3 & 2}\end{myvec}
+		\end{align}
+		can be decomposed into the product of a lower triangular matrix $\vec{L}$ and an upper triangular matrix $\vec{U}$ as $\vec{A} = \vec{L}\vec{U}$. Let $\vec{x}, \vec{z} \in \mathbb{R}^3$ and $\vec{b} = (1 \;\; 1 \;\; 1)^\top$.
+		
+		a) The solution $\vec{z} = (z_1 \;\; z_2 \;\; z_3)^\top$ of the system $\vec{L}\vec{z} = \vec{b}$ is
+		\begin{enumerate}[label=\roman*)]
+			\item $(-1 \;\; -1 \;\; -2)^\top$
+			\item $(1 \;\; -1 \;\; 2)^\top$
+			\item $(1 \;\; -1 \;\; -2)^\top$
+			\item $(-1 \;\; 1 \;\; 2)^\top$
+		\end{enumerate}
+		
+		b) The solution $\vec{x} = (x_1 \;\; x_2 \;\; x_3)^\top$ of the system $\vec{U}\vec{x} = \vec{z}$ is
+		\begin{enumerate}[label=\roman*)]
+			\item $(2 \;\; 1 \;\; -2)^\top$
+			\item $(2 \;\; 1 \;\; 2)^\top$
+			\item $(-2 \;\; -1 \;\; -2)^\top$
+			\item $(-2 \;\; 1 \;\; -2)^\top$
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}{Theoretical solution}
+		We will perform row operations on $\vec{A}$ to obtain $\vec{U}$. The multipliers used will form the entries of $\vec{L}$.
+		\begin{align}
+			\vec{A} = \begin{myvec}{1 & 1 & 1 \\ 2 & 1 & 2 \\ 1 & 3 & 2}\end{myvec}
+		\end{align}
+		Operation $R_2 \to R_2 - (\textcolor{red}{2})R_1$. The multiplier is $l_{21} = 2$.
+		\begin{align}
+			\begin{myvec}{1 & 1 & 1 \\ 0 & -1 & 0 \\ 1 & 3 & 2}\end{myvec}
+		\end{align}
+		Operation $R_3 \to R_3 - (\textcolor{red}{1})R_1$. The multiplier is $l_{31} = 1$.
+		\begin{align}
+			\begin{myvec}{1 & 1 & 1 \\ 0 & -1 & 0 \\ 0 & 2 & 1}\end{myvec}
+		\end{align}
+		\end{frame}
+			
+			\begin{frame}{Theoretical solution}
+				Operation $R_3 \to R_3 - (\textcolor{red}{-2})R_2$. The multiplier is $l_{32} = -2$.
+				\begin{align}
+					\vec{U} = \begin{myvec}{1 & 1 & 1 \\ 0 & -1 & 0 \\ 0 & 0 & 1}\end{myvec}
+				\end{align}
+				The lower triangular matrix $\vec{L}$ is constructed from the multipliers.
+				\begin{align}
+					\vec{L} = \begin{myvec}{1 & 0 & 0 \\ l_{21} & 1 & 0 \\ l_{31} & l_{32} & 1}\end{myvec} = \begin{myvec}{1 & 0 & 0 \\ 2 & 1 & 0 \\ 1 & -2 & 1}\end{myvec}
+				\end{align}
+			\end{frame}
+			
+			\begin{frame}{Theoretical solution}
+				Part a): Solving $\vec{L}\vec{z} = \vec{b}$
+				
+				We solve the system using Gaussian elimination.
+				\begin{align}
+					\myaugvec{3}{1 & 0 & 0 & 1 \\ 2 & 1 & 0 & 1 \\ 1 & -2 & 1 & 1} 
+					&\xleftrightarrow[R_3 \to R_3 - R_1]{R_2 \to R_2 - 2R_1} \myaugvec{3}{1 & 0 & 0 & 1 \\ 0 & 1 & 0 & -1 \\ 0 & -2 & 1 & 0} \\
+					&\xleftrightarrow{R_3 \to R_3 + 2R_2} \myaugvec{3}{1 & 0 & 0 & 1 \\ 0 & 1 & 0 & -1 \\ 0 & 0 & 1 & -2}
+				\end{align}
+				The solution is $\vec{z} = (1 \;\; -1 \;\; -2)^\top$, which is option (iii).
+			\end{frame}
+			
+			\begin{frame}{Theoretical solution}
+				Part b): Solving $\vec{U}\vec{x} = \vec{z}$
+				
+				We solve the system using the augmented matrix.
+				\begin{align}
+					\myaugvec{3}{1 & 1 & 1 & 1 \\ 0 & -1 & 0 & -1 \\ 0 & 0 & 1 & -2}
+					&\xleftrightarrow{R_2 \to -R_2} \myaugvec{3}{1 & 1 & 1 & 1 \\ 0 & 1 & 0 & 1 \\ 0 & 0 & 1 & -2} \\
+					&\xleftrightarrow[R_1 \to R_1 - R_2]{R_1 \to R_1 - R_3} \myaugvec{3}{1 & 0 & 0 & 2 \\ 0 & 1 & 0 & 1 \\ 0 & 0 & 1 & -2}
+				\end{align}
+				The solution is $\vec{x} = (2 \;\; 1 \;\; -2)^\top$, which is option (i).
+			\end{frame}
+			
+			\begin{frame}{Plot}
+				\begin{figure}[h!]
+					\centering
+					\includegraphics[width=0.6\columnwidth]{figs/Figure_1.png} 
+					\caption*{Fig }
+					\label{Fig1}
+				\end{figure}
+			\end{frame}
+			
+		\end{document}
