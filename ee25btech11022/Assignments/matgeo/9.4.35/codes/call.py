@@ -1,0 +1,18 @@
+import ctypes
+import numpy as np
+
+lib = ctypes.CDLL('./code.so')
+get_roots = lib.get_roots
+get_roots.argtypes = [
+    ctypes.POINTER(ctypes.c_double),
+    ctypes.POINTER(ctypes.c_double)
+]
+get_roots.restype = None
+
+
+def get_quadratic_roots():
+    root1 = ctypes.c_double()
+    root2 = ctypes.c_double()
+    get_roots(ctypes.byref(root1), ctypes.byref(root2))
+    return root1.value, root2.value
+

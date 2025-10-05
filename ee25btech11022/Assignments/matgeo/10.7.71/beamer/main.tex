@@ -1,0 +1,219 @@
+\documentclass{beamer}
+\usetheme{Madrid}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{gensymb}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{gvv}
+\usepackage{tikz}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{orange},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  showstringspaces=false
+}
+\usetikzlibrary{decorations.pathmorphing}
+
+\title{Question-10.7.71}
+\author{EE25BTECH11022 - sankeerthan}
+\date{}
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Question}
+The area formed by the positive X axis and the normal and the tangent to the circle$x^2 + y^2 = 4$ at $\brak{1,\sqrt{3}}$ is \underline{\phantom{imagine}}.
+\end{frame}
+
+\begin{frame}
+\frametitle{Solution}
+Equation of the circle
+\begin{align}
+\vec{X}^T \vec{X} = 4 ,\text{where}\vec{X} =\myvec{x \\ y}
+\end{align}
+Given point of contact
+\begin{align}
+\vec{P} = \myvec{1 \\ \sqrt{3}}
+\end{align}
+Equation of the tangent at $\vec{P}$
+\begin{align}
+\vec{P}^T \vec{X} = 4
+\end{align}
+\end{frame}
+
+\begin{frame}
+\frametitle{Solution}
+Let intersection of tangent with X-axis be $\vec{A} =\myvec{a \\ 0}$
+\begin{align}
+\vec{P}^T \vec{A} &= 4  \\
+\myvec{1 & \sqrt{3}}\myvec{a \\ 0} &= 4 \implies a = 4 \\
+\vec{A} = \myvec{4 \\ 0}
+\end{align}
+Equation of the normal at $\vec{P}$
+\begin{align}
+\vec{X} = t\myvec{1 \\ \sqrt{3}},t \in \mathbb{R}
+\end{align}
+Let intersection of normal with X-axis be $\vec{N} = \myvec{x \\ 0}$ 
+\begin{align}
+\vec{N}= t\myvec{1 \\ \sqrt{3}}
+0 = t\sqrt{3} \implies t = 0 \implies \vec{N} = \myvec{0 \\ 0}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Solution}
+Area of triangle formed by points $\vec{O}$,$\vec{A}$,$\vec{P}$
+\begin{align}
+\vec{O} =\myvec{0 \\ 0},\vec{A} =\myvec{4 \\ 0},\vec{P} = \myvec{1 \\ \sqrt{3}}  \\
+S =\frac{1}{2}\left|\myvec{0 & 0 & 1 \\4 & 0 & 1 \\1 & \sqrt{3} & 1} \right| \\
+=\frac{1}{2}|0\brak{0-\sqrt{3}}-0\brak{4-1}+1\brak{4\sqrt{3}-0}| \\
+=\frac{1}{2}|4\sqrt{3}|=2\sqrt{3} 
+\end{align}
+Therefore, required area formed = $2\sqrt{3}$
+
+\end{frame}
+
+\begin{frame}
+\frametitle{graph}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\columnwidth]{figs/points.png}
+    \caption{}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C-Code}
+\begin{lstlisting}[language=C]
+// code.c
+#include <stdio.h>
+#include <math.h>
+
+// Output: pts[9] = [O_x, O_y, A_x, A_y, P_x, P_y, T_x, T_y, N_x, N_y]
+// O: origin, A: tangent-X, P: point, T: tangent(another), N: normal(another)
+void get_points(double* pts) {
+    // O = (0, 0)
+    pts[0] = 0.0; pts[1] = 0.0;
+
+    // A = tangent with X axis: (4,0)
+    pts[2] = 4.0; pts[3] = 0.0;
+
+    // P = (1, sqrt(3))
+    pts[4] = 1.0; pts[5] = sqrt(3.0);
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C-Code}
+\begin{lstlisting}[language=C]
+   // Compute direction vectors:
+    // Tangent at P is x + sqrt(3)y = 4
+    // Let y = t, x = 4 - sqrt(3)t; giving (x, y) = (4-sqrt(3)t, t)
+    // Choose t1 = 0 for intersection A, and t2 = 2 for below intersection B
+    // B = (4 - sqrt(3)*2, 2) = (4 - 2*1.73205, 2) ~ (0.5359, 2)
+    pts[6] = 4.0 - sqrt(3.0)*2.0;
+    pts[7] = 2.0;
+
+    // Normal: line through O and P, param t, (t, t*sqrt(3))
+    // With x axis, y=0 => t=0 (origin)
+    // With y axis, x=0 => y=0 (again origin), for plotting purpose get a point far from origin t=2
+    pts[8] = 2.0;
+    pts[9] = 2.0*sqrt(3.0);
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python-Code}
+\begin{lstlisting}
+# Code by GVV Sharma
+# Modified for Problem Solution
+# Released under GNU GPL
+# Calculating area enclosed between curves
+# call.py
+import ctypes
+import numpy as np
+
+def get_points():
+    lib = ctypes.CDLL('./code.so')
+    arr = (ctypes.c_double * 10)()
+    lib.get_points(arr)
+    return np.array(list(arr))
+
+if __name__ == "__main__":
+    pts = get_points()
+    print(pts.reshape(-1, 2))
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python-Code}
+\begin{lstlisting}
+# plot.py
+import numpy as np
+import matplotlib.pyplot as plt
+from call import get_points
+
+pts = get_points()
+O = pts[0:2]
+A = pts[2:4]  # tangent intersection (4, 0)
+P = pts[4:6]  # (1, sqrt(3))
+T = pts[6:8]  # other tangent direction point
+N = pts[8:10] # other normal direction point
+
+# Draw circle
+theta = np.linspace(0, 2*np.pi, 400)
+xc = 2 * np.cos(theta)
+yc = 2 * np.sin(theta)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python-Code}
+\begin{lstlisting}
+plt.figure(figsize=(7,7))
+plt.plot(xc, yc, 'k--', label='Circle $x^2 + y^2 = 4$')
+
+# Plot the tangent (from A towards T)
+tan_x = [A[0], T[0]]
+tan_y = [A[1], T[1]]
+plt.plot(tan_x, tan_y, 'tab:red', label="Tangent at $P$")
+
+# Plot the normal (from O towards N)
+norm_x = [O[0], N[0]]
+norm_y = [O[1], N[1]]
+plt.plot(norm_x, norm_y, 'tab:green', label="Normal at $P$")
+
+# Draw triangle OAP
+tri_x = [O[0], A[0], P[0], O[0]]
+tri_y = [O[1], A[1], P[1], O[1]]
+plt.plot(tri_x, tri_y, 'b-', alpha=0.7, label='Triangle OAP')
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python-Code}
+\begin{lstlisting}
+# Points
+plt.scatter([O[0], A[0], P[0]], [O[1], A[1], P[1]], color='purple', zorder=5)
+plt.text(O[0], O[1]-0.2, "O", fontsize=12)
+plt.text(A[0]+0.1, A[1]-0.1, "A", fontsize=12)
+plt.text(P[0]+0.1, P[1]+0.1, "P", fontsize=12)
+
+plt.xlim(-1, 5)
+plt.ylim(-1, 5)
+plt.gca().set_aspect('equal')
+plt.grid(True)
+plt.legend()
+plt.title("Triangle formed by X axis, tangent, normal to $x^2 + y^2 = 4$\nat $P(1,\\sqrt{3})$")
+plt.show()
+\end{lstlisting}
+\end{frame}
+
+\end{document}

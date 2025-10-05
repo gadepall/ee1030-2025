@@ -1,0 +1,104 @@
+\documentclass{beamer}
+\usetheme{Madrid}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{gensymb}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{gvv}
+\usepackage{tikz}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{orange},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  showstringspaces=false
+}
+\usetikzlibrary{decorations.pathmorphing}
+
+\title{Question-5.13.48}
+\author{EE25BTECH11022 - sankeerthan}
+\date{}
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Question}
+If $\vec{A}$ and $\vec{B}$ are square matrices of equal degree, then which one is correct among the followings? 
+\begin{enumerate}
+    \item $\vec{A} + \vec{B} = \vec{B} + \vec{A}$
+    \item $\vec{A} + \vec{B} = \vec{A} - \vec{B}$
+    \item $\vec{A} - \vec{B} = \vec{B} - \vec{A}$
+    \item $\vec{A}\vec{B} = \vec{B}\vec{A}$
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Solution}
+For any two matrices $\vec{A}$ and $\vec{B}$ of the same order, addition is commutative
+ Therefore, $\vec{A}+\vec{B} = \vec{B}+\vec{A}$. \\
+ let
+\begin{align}
+\vec{A} = \myvec{2 &1 \\3 &6},\vec{B} = \myvec{5 &3 \\ 8 &2}     
+\end{align}
+
+\begin{align}
+ \vec{A}+\vec{B} &= \myvec{2+5 &3+1 \\3+8 &6+2} \\  
+ &=\myvec{7 &4 \\11 &8}
+\end{align}
+\begin{align}
+ \vec{B}+\vec{A} &= \myvec{5+2 &1+3 \\8+3 &2+6} \\  
+ &=\myvec{7 &4 \\11 &8}
+\end{align}
+Therefore, $\vec{A}+\vec{B} = \vec{B}+\vec{A}$.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C-Code}
+\begin{lstlisting}[language=C]
+// code.c
+#include <stdio.h>
+
+void get_points(double *A, double *B) {
+    // 2D points A: (1, 2), B: (3, 4)
+    A[0] = 1; A[1] = 2;
+    B[0] = 3; B[1] = 4;
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python-Code}
+\begin{lstlisting}
+# Code by GVV Sharma
+# Modified for Problem Solution
+# Released under GNU GPL
+# Calculating area enclosed between curves
+# call.py
+import ctypes
+import numpy as np
+
+lib = ctypes.CDLL('./code.so')
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python-Code}
+\begin{lstlisting}
+get_points = lib.get_points
+get_points.argtypes = [np.ctypeslib.ndpointer(dtype=np.float64, shape=(2,)),
+                       np.ctypeslib.ndpointer(dtype=np.float64, shape=(2,))]
+get_points.restype = None
+
+def get_points_from_c():
+    A = np.zeros(2, dtype=np.float64)
+    B = np.zeros(2, dtype=np.float64)
+    get_points(A, B)
+    return A, B
+\end{lstlisting}
+\end{frame}
+
+\end{document}

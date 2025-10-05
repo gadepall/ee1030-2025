@@ -1,0 +1,121 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{physics}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+
+\title{10.3.25}
+\author{EE25BTECH11022 - sankeerthan}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{align}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question:}Find equation of all lines having slope 2 which are tangents to curve $y+\frac{2}{x-3}=0$
+
+\textbf{Solution:}
+Given curve:
+\begin{align}
+y + \frac{2}{x-3} = 0
+\implies yx - 3y + 2 = 0
+\end{align}
+compare with
+\begin{align}
+\myvec{x}^T \mathbf{V} \myvec{x} + 2\myvec{u}^T \myvec{x} + f = 0 \\
+\mathbf{V} = \begin{pmatrix} 0 & 0
+.5 \\ 0.5 & 0 \end{pmatrix},\myvec{u} = \myvec{0 \\ -1.5},f = 2
+\end{align}
+From above,the normal vector is
+\begin{align}
+\myvec{n} = \myvec{-2 \\ 1}
+\end{align}
+Points of contact: 
+\begin{align}
+\myvec{q}_i = \mathbf{V}^{-1}(\kappa_i \myvec{n} - \myvec{u}),i = 1,2 \\
+\mathbf{V}^{-1} = \begin{pmatrix} 0 & 2 \\ 2 & 0 \end{pmatrix}, \\
+\myvec{u}^T \mathbf{V}^{-1} \myvec{u} = 0,f = 2,\myvec{n}^T \mathbf{V}^{-1} \myvec{n} = -8\\
+\kappa_i = \pm \sqrt{\frac{\myvec{u}^T \mathbf{V}^{-1} \myvec{u} - f}{\myvec{n}^T \mathbf{V}^{-1} \myvec{n}}} \\
+\kappa_i = \pm \sqrt{ \frac{-2}{-8} } = \pm 0.5  
+\end{align}
+For $\kappa_1 = 0.5$: 
+\begin{align}
+\myvec{q}_1 = \mathbf{V}^{-1}(0.5\myvec{n} - \myvec{u}) = \mathbf{V}^{-1}\myvec{-1 \\ -1} = \myvec{4 \\ -2} 
+\end{align}
+For $\kappa_2 = -0.5$:  
+\begin{align}
+\myvec{q}_2 = \mathbf{V}^{-1}(-0.5\myvec{n} - \myvec{u}) = \mathbf{V}^{-1}\myvec{1 \\ -2} = \myvec{2 \\ 2} 
+\end{align}
+Tangent equation at contact point:
+\begin{align}
+\brak{\mathbf{V}\myvec{q}+\myvec{u}}^T\myvec{x}+\myvec{u}^T\myvec{q}+f =0
+\end{align}
+For $\myvec{q}_1 =\myvec{4 \\ -2}$:
+\begin{align}
+\mathbf{V} \myvec{q}_1 + \myvec{u} =\myvec{-1 \\ 2}+\myvec{0 \\ -1.5} =\myvec{-1 \\ 0.5} \\
+\myvec{u}^T \myvec{q}_1 = 3
+\end{align}
+For $\myvec{q}_2 = \myvec{2 \\ 2}$:
+\begin{align}
+\mathbf{V} \myvec{q}_2 + \myvec{u} = \myvec{1 \\ 1}+\myvec{0 \\ -1.5} =\myvec{1 \\ -0.5}
+\myvec{u}^T \myvec{q}_2 = -3
+\end{align}
+The equations of tangents are
+\begin{align}
+\myvec{-1 & 0.5}\Vec{x}+5 =0 \\
+\myvec{1 & -0.5}\Vec{x}-1 =0
+\end{align}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\columnwidth]{figs/points.png}
+    \caption{}
+    \label{}
+\end{figure}
+
+\end{document}

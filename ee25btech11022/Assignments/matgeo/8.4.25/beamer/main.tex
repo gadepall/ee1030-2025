@@ -1,0 +1,185 @@
+\documentclass{beamer}
+\usetheme{Madrid}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{gensymb}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{gvv}
+\usepackage{tikz}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{orange},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  showstringspaces=false
+}
+\usetikzlibrary{decorations.pathmorphing}
+
+\title{Question-8.4.25}
+\author{EE25BTECH11022 - sankeerthan}
+\date{}
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Question}
+The equation of directrix of parabola $y^2+4y+4x+2=0$
+\begin{enumerate}
+     \item $x=-1$
+     \item $x=\frac{-3}{2}$
+     \item $x=1$
+     \item $x=\frac{3}{2}$
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Solution}
+Given the parabola equation:
+\begin{align}
+y^2 + 4y + 4x + 2 = 0
+\end{align}
+The equation of a conic with directrix $\vec{n}^\top \vec{x} = c$, eccentricity $e$ and focus $\vec{F}$ is given by
+\begin{align}
+\vec{x}^\top\vec{V}\vec{x} + 2\vec{u}^\top\vec{x} + f = 0,\vec{x} = \myvec{x \\ y},
+\mathbf{V} =\myvec{0 & 0 \\0 & 1},\vec{u} =\myvec{2 \\ 2},f = 2
+\end{align}
+Find vertex $\vec{c}$ from
+\begin{align}
+\mathbf{V} \vec{c} &= -\vec{u}  \\
+\myvec{0 & 0 \\0 & 1}\myvec{c_x \\c_y} &=-\myvec{2 \\ 2} \\
+\myvec{0 \\c_y} &=-\myvec{2 \\ 2} \\
+c_y &= -2
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Solution}
+Put $c_y=-2$ into parabola to find  $c_x$:
+\begin{align}
+(-2)^2 + 4(-2) + 4 c_x + 2 = 0  \Rightarrow  c_x = \frac{1}{2}
+\vec{c} = \myvec{ \frac{1}{2} \\ -2 }
+\end{align}
+
+Eigenvector for zero eigenvalue of $\vec{V}$:
+\begin{align}
+\vec{a} =\myvec{1 \\ 0}
+p = \frac{\|\vec{u}\|^2 - f}{4 \, \vec{u}^T \vec{a}} = \frac{4 + 4 - 2}{8} = \frac{6}{8} = \frac{3}{4}
+\end{align}
+Equation of directrix (line perpendicular to $\vec{a}$,distance p from vertex):
+\begin{align}
+\vec{n}^T \vec{x} = \vec{n}^T \vec{c} + p,\text{where}\vec{n}=\vec{a}=\myvec{1\\0}
+\vec{x} = \frac{1}{2} + \frac{3}{4} = \frac{5}{4}
+\end{align}
+Therefore, the equation of the directrix is approximately:
+$\vec{x} = \frac{3}{2}$
+\end{frame}
+
+\begin{frame}
+\frametitle{graph}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\columnwidth]{figs/points.png}
+    \caption{}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C-Code}
+\begin{lstlisting}[language=C]
+// code.c
+#include <stdio.h>
+
+void get_parabola_data(double *vertex, double *p, double *directrix_x) {
+    // vertex (1/2, -2)
+    vertex[0] = 0.5;
+    vertex[1] = -2.0;
+
+    // parameter p = 3/4
+    *p = 0.75;
+
+    // directrix x = vertex_x + p
+    *directrix_x = vertex[0] + *p;
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python-Code}
+\begin{lstlisting}
+# Code by GVV Sharma
+# Modified for Problem Solution
+# Released under GNU GPL
+# Calculating area enclosed between curves
+# call.py
+import ctypes
+import numpy as np
+
+lib = ctypes.CDLL('./code.so')
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python-Code}
+\begin{lstlisting}
+get_parabola_data = lib.get_parabola_data
+get_parabola_data.argtypes = [
+    np.ctypeslib.ndpointer(dtype=np.float64, shape=(2,)),
+    ctypes.POINTER(ctypes.c_double),
+    ctypes.POINTER(ctypes.c_double)
+]
+get_parabola_data.restype = None
+
+def get_data():
+    vertex = np.zeros(2, dtype=np.float64)
+    p = ctypes.c_double()
+    directrix_x = ctypes.c_double()
+    get_parabola_data(vertex, ctypes.byref(p), ctypes.byref(directrix_x))
+    return vertex, p.value, directrix_x.value
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python-Code}
+\begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+from call import get_data
+
+vertex, p, directrix_x = get_data()
+
+# Generate parabola points from equation transformed for y in terms of x
+# From (y+2)^2 = -4(x - 0.5)
+x = np.linspace(vertex[0] - 3, vertex[0] + 3, 400)
+y_right = np.sqrt(-4 * (x - vertex[0])) - 2
+y_left = -np.sqrt(-4 * (x - vertex[0])) - 2
+
+fig, ax = plt.subplots(figsize=(8, 6))
+
+# Plot parabola branches
+ax.plot(x, y_right, 'r', label='Parabola branch')
+ax.plot(x, y_left, 'r')
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python-Code}
+\begin{lstlisting}
+# Plot vertex
+ax.plot(vertex[0], vertex[1], 'bo', label='Vertex')
+
+# Plot directrix line: vertical line at x = directrix_x
+ax.axvline(directrix_x, color='g', linestyle='--', linewidth=2, label=f'Directrix (x = {directrix_x:.2f})')
+
+ax.set_xlim(vertex[0] - 4, vertex[0] + 4)
+ax.set_ylim(vertex[1] - 4, vertex[1] + 4)
+ax.set_aspect('equal')
+ax.grid(True)
+ax.legend()
+ax.set_title('Plot of Parabola and Directrix')
+ax.set_xlabel('x-axis')
+ax.set_ylabel('y-axis')
+plt.show()
+\end{lstlisting}
+\end{frame}
+\end{document}
