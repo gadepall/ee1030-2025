@@ -1,0 +1,152 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx} % <-- needed for images
+\usepackage{xcolor}
+\def\UrlBreaks{\do\/\do-}
+
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=\paperwidth,ht=2ex,dp=1ex,right]{author in head/foot}%
+			\insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+	\end{beamercolorbox}}%
+	\vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\lstset{
+	frame=single,
+	breaklines=true,
+	columns=fullflexible,
+	basicstyle=\ttfamily\tiny    % tiny font so code fits
+}
+
+\numberwithin{equation}{section}
+
+% ---- your macros ----
+\newcommand{\conj}[1]{{#1}^c} % Custom command for conjugate
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}}
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}}
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\newcommand{\mydet}[1]{\ensuremath{\begin{vmatrix}#1\end{vmatrix}}}
+
+\newenvironment{amatrix}[1]{%
+	\left[\begin{array}{@{}*{#1}{c}|c@{}}
+	}{%
+	\end{array}\right]
+}
+
+\newcommand{\myaugvec}[2]{\ensuremath{\begin{amatrix}{#1}#2\end{amatrix}}}
+\let\vec\mathbf
+% ---------------------
+
+\title{12.367}
+\author{EE25BTECH11042 - Nipun Dasari}
+
+\begin{document}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	\begin{frame}{Question}
+		The eigen-values of a real symmetric matrix are always
+		\begin{enumerate}[label=\alph*)]
+			\item positive
+			\item imaginary
+			\item real
+			\item complex conjugate pairs
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}{Theoretical solution}
+		Let $\vec{A}$ be a real symmetric matrix, meaning $\vec{A} = \vec{A}^\top$ and its entries are real. Let $\lambda$ be an eigenvalue and $\vec{v}$ its eigenvector. The eigenvalue equation is:
+		\begin{align}
+			\vec{A}\vec{v} = \lambda\vec{v}
+		\end{align}
+		Taking the complex conjugate of the equation:
+		\begin{align}
+			(\vec{A}\vec{v})^c = (\lambda\vec{v})^c \implies \vec{A}^c\vec{v}^c = \lambda^c\vec{v}^c
+		\end{align}
+		Since $\vec{A}$ is a real matrix, $\vec{A}^c = \vec{A}$. The equation becomes:
+		\begin{align}
+			\vec{A}\vec{v}^c = \lambda^c\vec{v}^c \label{eq:conj}
+		\end{align}
+	\end{frame}
+	
+	\begin{frame}{Theoretical solution}
+		First, left-multiply the original eigenvalue equation by $(\vec{v}^c)^\top$:
+		\begin{align}
+			(\vec{v}^c)^\top\vec{A}\vec{v} = (\vec{v}^c)^\top(\lambda\vec{v}) = \lambda((\vec{v}^c)^\top\vec{v}) \label{eq:first}
+		\end{align}
+		Next, take the transpose of equation (\ref{eq:conj}):
+		\begin{align}
+			(\vec{A}\vec{v}^c)^\top = (\lambda^c\vec{v}^c)^\top \implies (\vec{v}^c)^\top\vec{A}^\top = \lambda^c(\vec{v}^c)^\top
+		\end{align}
+		Since $\vec{A}$ is symmetric, $\vec{A}^\top = \vec{A}$.
+		\begin{align}
+			(\vec{v}^c)^\top\vec{A} = \lambda^c(\vec{v}^c)^\top
+		\end{align}
+	\end{frame}
+	
+	\begin{frame}{Theoretical solution}
+		Now, right-multiply this equation by $\vec{v}$:
+		\begin{align}
+			(\vec{v}^c)^\top\vec{A}\vec{v} = \lambda^c((\vec{v}^c)^\top\vec{v}) \label{eq:second}
+		\end{align}
+		By comparing equations (\ref{eq:first}) and (\ref{eq:second}), we see that:
+		\begin{align}
+			\lambda((\vec{v}^c)^\top\vec{v}) = \lambda^c((\vec{v}^c)^\top\vec{v}) \\
+			(\lambda - \lambda^c)((\vec{v}^c)^\top\vec{v}) = 0
+		\end{align}
+	\end{frame}
+	
+	\begin{frame}{Theoretical solution}
+		The term $(\vec{v}^c)^\top\vec{v}$ is the squared norm of $\vec{v}$:
+		\begin{align}
+			(\vec{v}^c)^\top\vec{v} = \sum_{i} v_i^c v_i = \sum_{i} |v_i|^2 = \norm{\vec{v}}^2
+		\end{align}
+		Since $\vec{v}$ is an eigenvector, it cannot be the zero vector, so its norm $\norm{\vec{v}}^2$ must be a positive real number.
+		
+		Given that $\norm{\vec{v}}^2 \neq 0$, the only way for the equation $(\lambda - \lambda^c)\norm{\vec{v}}^2 = 0$ to hold is if:
+		\begin{align}
+			\lambda - \lambda^c = 0 \implies \lambda = \lambda^c
+		\end{align}
+		A number is equal to its own conjugate only if its imaginary part is zero. Therefore, $\lambda$ must be real. The correct option is (c).
+	\end{frame}
+	
+\end{document}
