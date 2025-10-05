@@ -1,0 +1,104 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\graphicspath{{./figs/}}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{gvv}
+\def\inputGnumericTable{}
+
+\usepackage[latin1]{inputenc}
+\usepackage{color}
+\usepackage{array}
+
+\usepackage{longtable}
+\usepackage{calc}
+\usepackage{multirow}
+
+\usepackage{hhline}
+\usepackage{ifthen}
+
+\usepackage{lscape}
+\usepackage{circuitikz}
+
+\begin{document}
+	
+	\bibliographystyle{IEEEtran}
+	\vspace{3cm}
+	
+	\title{12.159}
+	\author{EE25BTECH11042 - Nipun Dasari}
+	\maketitle
+	
+	\renewcommand{\thefigure}{\theenumi}
+	\renewcommand{\thetable}{\theenumi}
+	\setlength{\intextsep}{10pt}
+	
+	\numberwithin{equation}{enumi}
+	\numberwithin{figure}{enumi}
+	\renewcommand{\thetable}{\theenumi}
+	
+	\textbf{Question}:\\
+	The determinant
+	\begin{align}
+		\mydet{1+b & b & 1 \\ b & 1+b & 1 \\ 1 & 2b & 1}
+	\end{align}
+	evaluates to
+	\begin{enumerate}[label=\alph*)]
+		\item $0$
+		\item $2b(b-1)$
+		\item $2(1-b)(1+2b)$
+		\item $3b(1+b)$
+	\end{enumerate}
+	
+	\solution
+	
+	Let the determinant of the given matrix be $\Delta$.
+	\begin{align}
+		\Delta = \mydet{1+b & b & 1 \\ b & 1+b & 1 \\ 1 & 2b & 1}
+	\end{align}
+	We will use row operations to simplify the determinant. Applying the operations $R_1 \to R_1 - R_3$ and $R_2 \to R_2 - R_3$ does not change the value of the determinant.
+	
+	First, applying $R_1 \to R_1 - R_3$:
+	\begin{align}
+		\Delta = \mydet{1+b-1 & b-2b & 1-1 \\ b & 1+b & 1 \\ 1 & 2b & 1} = \mydet{b & -b & 0 \\ b & 1+b & 1 \\ 1 & 2b & 1}
+	\end{align}
+	Next, applying $R_2 \to R_2 - R_3$:
+	\begin{align}
+		\Delta = \mydet{b & -b & 0 \\ b-1 & 1+b-2b & 1-1 \\ 1 & 2b & 1} = \mydet{b & -b & 0 \\ b-1 & 1-b & 0 \\ 1 & 2b & 1}
+	\end{align}
+	Now, we apply the column operation $C_1 \to C_1 + C_2$. This operation does not change the value of the determinant.
+	\begin{align}
+		\Delta = \mydet{b+(-b) & -b & 0 \\ (b-1)+(1-b) & 1-b & 0 \\ 1+2b & 2b & 1} = \mydet{0 & -b & 0 \\ 0 & 1-b & 0 \\ 1+2b & 2b & 1}
+	\end{align}
+	Since the first column of the matrix has two zero entries, we can easily evaluate the determinant by expanding along the first column:
+	\begin{align}
+		\Delta &= 0 \mydet{1-b & 0 \\ 2b & 1} - 0 \mydet{-b & 0 \\ 2b & 1} + (1+2b) \mydet{-b & 0 \\ 1-b & 0} \\
+		&= (1+2b) ((-b)(0) - (0)(1-b)) \\
+		&= (1+2b) (0) = 0
+	\end{align}
+	The determinant is $0$, which corresponds to option (a).
+	
+\end{document}
