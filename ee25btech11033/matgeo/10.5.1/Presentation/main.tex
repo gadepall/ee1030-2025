@@ -131,14 +131,15 @@ Let $\vec{D}$ be the foot of the perpendicular from $\vec{B}$ to the line
 \begin{align}
     \implies\myvec{-4 & 3\\3 & 4}\vec{D}=\myvec{0\\24}
 \end{align}
-\end{frame}
-
-
-\begin{frame}{Theoretical Solution}
 The augmented matrix  is given by,
 \begin{align}
     \augvec{2}{1}{-4 & 3 & 0\\3 & 3 & 24}
 \end{align}
+\end{frame}
+
+
+\begin{frame}{Theoretical Solution}
+
 \begin{align}
     R_1\rightarrow \frac{-1}{4}R_1\implies\augvec{2}{1}{1 & -3/4 & 0\\3 & 3 & 24}
 \end{align}
@@ -205,45 +206,87 @@ The augmented matrix  is given by,
 
 
 \begin{frame}{Theoretical Solution}
-Let $\vec{n}^\top \vec{x}=c$ be the equation of tangent to the circle.\\
-Also,
+Let $\vec{n_1}^\top \vec{x}=c_1$ and $\vec{n_2}^\top \vec{x}=c_2$ be the equation of tangents to the circle.\\
+\\
+The external point from which the tangents are drawn is $\vec{A}$\\
+Compute $\vec{\Sigma}$
 \begin{align}
-    \vec{n}^\top \vec{A}=c
+    \vec{\Sigma}=\brak{\vec{V}\vec{h} + \vec{u}}\brak{\vec{V}\vec{h} + \vec{u}}^{\top} - g\brak{\vec{h}}\vec{V}
 \end{align}
-and,
-\begin{align}
-    \frac{\abs{\vec{n}^\top(-\vec{u})-c}}{\norm{\vec{n}}} = r
-\end{align}
-where
-\begin{align*}
-    r=\sqrt{\norm{\vec{u}}^2-f}
-\end{align*}
-\begin{align}
-    \implies \vec{n}^\top \vec{u} + c= \pm \norm{\vec{n}}\sqrt{\norm{\vec{u}}^2-f}
+for $\vec{h} = \vec{A}$
+\begin{align}    
+    g\brak{\vec{h}}=\vec{h}^{\top}\vec{V}\vec{h} + 2\vec{u}^{\top}\vec{h} + f =\norm{\vec{h}}^2 +f =36+0 =36
 \end{align}
 \begin{align}
-    \implies  \vec{n}^\top=\brak{\vec{u} + \vec{A}} \pm \norm{\vec{n}}\sqrt{\norm{\vec{u}}^2-f}
+    \vec{\Sigma} = \brak{\vec{V}\vec{h} + \vec{u}}\brak{\vec{V}\vec{h} + \vec{u}}^{\top} - g\brak{\vec{h}}\vec{V}=\myvec{-4 \\ 6}\myvec{-4 & 6} - 36\myvec{ 1& 0 \\ 0 &1}
+\end{align}
+\begin{align}
+    \implies \vec{\Sigma}=\myvec{-20 & -24 \\ -24 & 0}
 \end{align}
 \end{frame}
 
 \begin{frame}{Theoretical Solution}
-substitute $ \vec{n} = \myvec{-m\\1}$ where m is the slope of the line.
+The eigenvalues of the matrix $\vec{\Sigma}$ are given by
 \begin{align}
-    \implies  \myvec{-m & 1}\myvec{-4\\6} = \pm4\sqrt{1+m^2}
+    \mydet{\vec{\Sigma} - \lambda\vec{I}} = 0
 \end{align}
 \begin{align}
-    m=-5/12 \implies \vec{n}=\myvec{5\\12}
+    \implies \mydet{-20-\lambda & -24 \\ -24 & -\lambda}
 \end{align}
 \begin{align}
-    c=\vec{n}^\top \vec{A} =72
+    \implies \brak{-20-\lambda}\brak{-\lambda}-(-24)(-24)=0
+\end{align}
+\begin{align}
+    \implies \lambda^2 + 20 \lambda - 576 = 0
+\end{align}
+\begin{align}
+    \implies \lambda_1 = 16 \text{ and } \lambda_2 = -36
+\end{align}
+The eigenvectors of the matrix $\vec{\Sigma}$  are,
+
+\begin{align}
+     \vec{p}_1 = \myvec{2\\-3} \text{ and } \vec{p}_2 = \myvec{3\\2}
+\end{align}
+\end{frame}
+
+
+\begin{frame}{Theoretical Solution}
+Define,
+\begin{align}
+    \vec{P} &= \myvec{\frac{\vec{p}_1}{\norm{\vec{p}_1}} & \frac{\vec{p}_2}{\norm{\vec{p}_2}}} = \myvec{\frac{2}{\sqrt{13}} & \frac{3}{\sqrt{13}}\\\frac{-3}{\sqrt{13}} & \frac{2}{\sqrt{13}}}
+\end{align}
+The direction vectors of the two tangents are,
+\begin{align}
+    \vec{m}=\vec{P}\myvec{\sqrt{\abs{\lambda_2}} \\ \pm\sqrt{\abs{\lambda_1}}}=\myvec{\frac{2}{\sqrt{13}} & \frac{3}{\sqrt{13}}\\\frac{-3}{\sqrt{13}} & \frac{2}{\sqrt{13}}}\myvec{6 \\ \pm 4}
+\end{align}
+\begin{align}
+\implies \vec{m}_1 = \myvec{0 \\ 1} \text{ and } \vec{m}_2 = \myvec{12 \\ -5}
+\end{align}
+
+\begin{align}
+\implies \vec{n}_1 = \myvec{1 \\ 0} \text{ and } \vec{n}_2 = \myvec{5 \\ 12}
+\end{align}
+\end{frame}
+
+
+\begin{frame}{Theoretical Solution}
+Also,
+\begin{align}
+    c_1 = \vec{n_1}^\top \vec{A} \text{ and } c_2 = \vec{n_2}^\top \vec{A}
+\end{align}
+
+\begin{align}
+    c_1 = 0 \text{ and } c_2 = 72
 \end{align}\\
-Therefore, the line $\myvec{5 & 12}\vec{x} = 72$ and the $\myvec{1 & 0}\vec{x} = 0$ are the two tangents.\\
 \bigskip 
 
+Therefore, the line $\myvec{5 & 12}\vec{x} = 72$ and the $\myvec{1 & 0}\vec{x} = 0$ are the two tangents.\\
 \end{frame}
+
 \begin{frame}{Plot}
     \centering
     \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{figs/fig.png}
 \end{frame}
 
 \end{document}
+
