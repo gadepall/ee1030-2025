@@ -91,20 +91,142 @@ text width=4em, text centered, rounded corners, minimum height=3em]
 	\begin{align}
 		C(\mu) = \begin{myvec}{\mu & 0 & -3a \\ 0 & 1+\mu & 0 \\ -3a & 0 & -16a^2\mu}\end{myvec}
 	\end{align}
-	We set the determinant to zero:
+	We set the determinant to zero. By applying the row operation $R_3 \to R_3 + \frac{3a}{\mu} R_1$, which does not change the determinant's value, we get an upper triangular matrix:
 	\begin{align}
-		\det(C(\mu)) &= \mu(1+\mu)(-16a^2\mu) - (-3a)(1+\mu)(-3a) \nonumber \\
-		&= -16a^2\mu^2(1+\mu) - 9a^2(1+\mu) \nonumber \\
+		\det(C(\mu)) &= \det \begin{myvec}{\mu & 0 & -3a \\ 0 & 1+\mu & 0 \\ 0 & 0 & -16a^2\mu - \frac{9a^2}{\mu}}\end{myvec} \nonumber \\
+		&= (\mu)(1+\mu)\left(-16a^2\mu - \frac{9a^2}{\mu}\right) \nonumber \\
+		&= (1+\mu)(-16a^2\mu^2 - 9a^2) \nonumber \\
 		&= -a^2(1+\mu)(16\mu^2 + 9) = 0
 	\end{align}
 	The only real root is obtained from the first factor, which gives $\mu = -1$.
 	The equation for this degenerate conic is found by subtracting \eqref{eq:C2} from \eqref{eq:P1}:
+	
+	We use the general conic (quadratic) matrix representation:
 	\begin{align}
-		(y^2 - 6ax) - (x^2 + y^2 - 16a^2) &= 0 \nonumber \\
-		-x^2 - 6ax + 16a^2 &= 0 \nonumber \\
-		x^2 + 6ax - 16a^2 &= 0 \nonumber \\
-		\implies (x+8a)(x-2a) &= 0 \label{eq:degenerate_conic}
+		\begin{myvec}{x & y}\end{myvec}
+		Q
+		\begin{myvec}{x \\ y}\end{myvec}
+		+ 
+		L^{\top}
+		\begin{myvec}{x \\ y}\end{myvec}
+		+ C = 0,
 	\end{align}
+	where 
+	\begin{align}
+		Q = 
+		\begin{myvec}{A & H/2 \\ H/2 & B}\end{myvec}, 
+		\quad 
+		L = 
+		\begin{myvec}{G \\ F}\end{myvec}.
+	\end{align}
+	
+
+	
+	%\subsection*{(1) \((y^{2}-6ax)-(x^{2}+y^{2}-16a^{2})=0\)}
+	
+	Simplify:
+	\begin{align}
+		-x^{2} - 6ax + 16a^{2} = 0.
+	\end{align}
+	
+	Hence,
+	\begin{align}
+		Q = 
+		\begin{myvec}{
+				-1 & 0 \\
+				0 & 0
+		}\end{myvec}, \quad
+		L = 
+		\begin{myvec}{
+				-6a \\
+				0
+		}\end{myvec}, \quad
+		C = 16a^{2}.
+	\end{align}
+	
+	Matrix form:
+	\begin{align}
+			\begin{myvec}{x & y}\end{myvec}
+			\begin{myvec}{
+					-1 & 0 \\
+					0 & 0
+			}\end{myvec}
+			\begin{myvec}{x \\ y}\end{myvec}
+			+
+			\begin{myvec}{-6a & 0}\end{myvec}
+			\begin{myvec}{x \\ y}\end{myvec}
+			+ 16a^{2} = 0.
+			\end{align}
+	
+
+	
+%	\subsection*{(2) \(-x^{2} - 6ax + 16a^{2} = 0\)}
+	
+	Same as above:
+	\begin{align}
+			\begin{myvec}{x & y}\end{myvec}
+			\begin{myvec}{
+					-1 & 0 \\
+					0 & 0
+			}\end{myvec}
+			\begin{myvec}{x \\ y}\end{myvec}
+			+
+			\begin{myvec}{-6a & 0}\end{myvec}
+			\begin{myvec}{x \\ y}\end{myvec}
+			+ 16a^{2} = 0.
+			\end{align}
+	
+
+	
+%	\subsection*{(3) \(x^{2} + 6ax - 16a^{2} = 0\)}
+	
+	\begin{align}
+		Q =
+		\begin{myvec}{
+				1 & 0 \\
+				0 & 0
+		}\end{myvec}, \quad
+		L =
+		\begin{myvec}{
+				6a \\
+				0
+		}\end{myvec}, \quad
+		C = -16a^{2}.
+	\end{align}
+	
+	Matrix form:
+	\begin{align}
+			\begin{myvec}{x & y}\end{myvec}
+			\begin{myvec}{
+					1 & 0 \\
+					0 & 0
+			}\end{myvec}
+			\begin{myvec}{x \\ y}\end{myvec}
+			+
+			\begin{myvec}{6a & 0}\end{myvec}
+			\begin{myvec}{x \\ y}\end{myvec}
+			- 16a^{2} = 0.
+		\end{align}
+	
+
+	
+%	\subsection*{(4) \((x + 8a)(x - 2a) = 0\)}
+	
+	This represents two linear equations:
+	\begin{align}
+		x + 8a = 0 
+		\quad \text{or} \quad 
+		x - 2a = 0.
+	\end{align}
+	
+	Matrix (vector) form of each line:
+	\begin{align}
+				\begin{myvec}{1 & 0}\end{myvec}
+			\begin{myvec}{x \\ y}\end{myvec} + 8a = 0
+			\quad \text{and} \quad
+			\begin{myvec}{1 & 0}\end{myvec}
+			\begin{myvec}{x \\ y}\end{myvec} - 2a = 0.
+		\end{align}
 	This degenerate conic consists of two vertical lines, $x=2a$ and $x=-8a$. The line $x=-8a$ does not intersect the parabola $y^2=6ax$ in real points (assuming $a>0$). We thus consider the line $x=2a$.
 	
 	We find the intersection of the line $x-2a=0$ with the parabola $P_1$ using the formula $\vec{x}_i = \vec{h} + \kappa_i\vec{m}$.
