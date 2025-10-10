@@ -1,0 +1,95 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+
+\title{5.8.21}
+\author{EE25BTECH11023 - Venkata Sai}
+% \maketitle
+% \newpage
+% \bigskip
+\maketitle \vspace{-1cm}
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+\numberwithin{align}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question:}  \\
+The Sum of the digits of a two-digit number is 9. Also, nine times this number is twice the number obtained by reversing the order of the digits. Find the number \\
+
+\textbf{Solution:}  \\
+ Let $\vec{x}$ be the matrix that contains the digits of the required number $N$
+ \begin{align}
+   N= \myvec{10&1}\vec{x} 
+ \end{align}
+Given Sum of the digits of a two-digit number is 9
+\begin{align}
+    \myvec{1&1}\vec{x}=9
+\end{align}
+Nine times this number is twice the number obtained by reversing the order of the digits.
+\begin{align}
+9\myvec{10&1}\vec{x}=2\myvec{1&10}\vec{x} \\ 
+\myvec{90-2&9-20}\vec{x}=0 \\
+\myvec{88&-11}\vec{x}=0 
+\end{align}
+\begin{align}
+11\myvec{8&-1}\vec{x}=0 \implies \myvec{8&-1}\vec{x}=0
+\end{align}
+\begin{align}
+\myvec{1&1 \\ 8&-1}\vec{x}=\myvec{9\\0}
+\end{align}
+Augmented Matrix:
+\begin{align}
+\augvec{2}{1}{1&1&9\\8&-1&0} \xrightarrow{R_2\rightarrow R_2-8R_1} \augvec{2}{1}{1&1&9\\0&-9&-72} \xrightarrow{R_1\rightarrow R_1+\frac{1}{9}R_2}\augvec{2}{1}{1&0&1\\0&-1&-8} 
+\end{align}
+\begin{align}
+\augvec{2}{1}{1&0&1\\0&-1&-8} \xrightarrow{R_2\rightarrow-R_2}\augvec{2}{1}{1&0&1\\0&1&8}
+\end{align}
+\begin{align}
+\vec{x}=\myvec{1\\8}
+\end{align}
+\begin{align}
+N=\myvec{10&1}\myvec{1\\8}=10+8=18
+\end{align}
+Hence the Required Number is 18
+\end{document}  

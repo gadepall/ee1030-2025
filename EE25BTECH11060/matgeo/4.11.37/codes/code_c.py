@@ -1,0 +1,12 @@
+import ctypes
+
+# Load the shared object file
+lib = ctypes.CDLL('./skew.so')
+
+# Call the function
+result = lib.check_intersection()
+
+if result == 0:
+    print("System is inconsistent -> Lines are skew (no intersection).")
+else:
+    print("Lines intersect.")

@@ -1,0 +1,181 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\begin{document}
+
+\title 
+{5.13.59}
+\date{September 13,2025}
+
+
+\author 
+{Kavin B-EE25BTECH11033}
+
+
+
+
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Let $\vec{P} = \myvec{a_{ij}}$ be a $3 \times 3$ matrix and let $\vec{Q} =  \myvec{b_{ij}}$, where $b_{ij} = 2^{i+j}a_{ij}$ for $1 \le i,j \le 3$. If the determinant of $\vec{P}$ is 2, then the determinant of the matrix $\vec{Q}$ is \\
+\begin{enumerate}
+\begin{multicols}
+\item $2^{10}$ \columnbreak
+\item $2^{11}$ \columnbreak
+\item $2^{12}$\columnbreak
+\item $2^{13}$
+\end{multicols}
+\end{enumerate}
+\bigskip
+\end{frame}
+
+
+
+\begin{frame}{Theoretical Solution}
+Let the matrix $\vec{P}$ be ,
+\begin{align}
+    \vec{P} = \myvec{a_{11} & a_{12} & a_{13}\\a_{21} & a_{22} & a_{23}\\a_{31} & a_{32} & a_{33}}
+\end{align}
+also,
+\begin{align}
+    \mydet{\vec{P}} = \mydet{a_{ij}} = 2
+\end{align}
+and the matrix $\vec{Q}$ be ,
+\begin{align}
+    \vec{Q} = \myvec{b_{11} & b_{12} & b_{13}\\b_{21} & b_{22} & b_{23}\\b_{31} & b_{32} & b_{33}}
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+Given that,
+\begin{align}
+    b_{ij} = 2^{i+j}a_{ij}
+\end{align}
+The determinant of the matrix $\vec{Q}$ is given by:
+
+\begin{align}
+\mydet{\vec{Q}} = \mydet{b_{ij}} = \mydet{2^{i+j} a_{ij}}
+\end{align}
+
+Split the exponent using the property $2^{i+j} = 2^i \cdot 2^j$:
+
+\begin{align}
+\mydet{\vec{Q}} = \mydet{2^i \cdot 2^j \cdot a_{ij}}
+\end{align}
+
+First, for each row $i$ (from $i=1$ to $3$),   factor out the common term $2^i$:
+
+\begin{align}
+\mydet{\vec{Q}} = (2^1)(2^2)(2^3) \cdot \mydet{2^j a_{ij}}
+\end{align}
+\end{frame}
+
+
+\begin{frame}{Theoretical Solution}
+The product of these factors is:
+
+\begin{align}
+\prod_{i=1}^{3} 2^i = 2^{\sum_{i=1}^{3} i} = 2^{\frac{3(3+1)}{2}} = 2^6
+\end{align}
+
+This simplifies the expression for the determinant to:
+
+\begin{align}
+\mydet{\vec{Q}} = 2^{6} \mydet{2^j a_{ij}}
+\end{align}
+
+Now, look at the remaining determinant, $\mydet{2^j a_{ij}}$. For each column $j$ (from $j=1$ to $3$),   factor out the common term $2^j$:
+
+\begin{align}
+\mydet{2^j a_{ij}} = (2^1)(2^2)(2^3) \cdot \mydet{a_{ij}} = 2^{6} \mydet{\vec{P}}
+\end{align}
+\end{frame}
+\begin{frame}{Theoretical Solution}
+Substituting this back into our expression for $\mydet{\vec{Q}}$:
+
+\begin{align}
+\mydet{\vec{Q}} = 2^{6} \cdot \brak{2^{6} \mydet{\vec{P}}}
+\end{align}
+
+\begin{align}
+\mydet{\vec{Q}} = 2^{12} \mydet{\vec{P}}
+\end{align}
+\begin{align}
+\implies\mydet{\vec{Q}} = 2^{12}\cdot2
+\end{align}
+\begin{align}
+\implies\mydet{\vec{Q}} = 2^{13}
+\end{align}
+\end{frame}
+
+\end{document}

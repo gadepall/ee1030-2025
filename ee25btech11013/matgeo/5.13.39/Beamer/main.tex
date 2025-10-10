@@ -1,0 +1,278 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{tfrupee}
+\usepackage{array}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\lstset{literate={·}{{$\cdot$}}1 {λ}{{$\lambda$}}1 {→}{{$\to$}}1}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\title{5.13.39}
+\date{September 19, 2025}
+\author{Bhargav - EE25BTECH11013}
+
+\begin{document}
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Let $\vec{P} = \myvec{3 & -1 & -2 \\ 2 & 0 & \alpha \\ 3 & -5 & 0}$ where $\alpha \in \mathbf{R}$. Suppose $\vec{Q}$ = $\myvec{q_{ij}}$ is a matrix such that $\vec{P}\vec{Q}$ = k$\vec{I}$, where k $\neq$ 0 and $\vec{I}$ is the identity of order 3. If $q_{23}$ = -$\frac{k}{8}$ and $\det{\vec{Q}} = \frac{k^2}{2}$, then 
+\begin{enumerate}
+\item a = 0, k = 8
+\item 4a - k + 8 = 0
+\item $\det{(\vec{P} adj(\vec{Q}))} = 2^9$
+\item $\det{(\vec{Q} adj(\vec{P}))} = 2^{13}$
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Solution}
+It is given that
+\begin{align}
+\vec{P}\vec{Q} = k\vec{I}, \det{\vec{Q}} = \frac{k^2}{2}
+\end{align}
+
+Taking the determinant
+\begin{align}
+\brak{\det{\vec{P}}} \cdot \frac{k^2}{2} = k^3
+\end{align}
+
+\begin{align}
+\abs{\myvec{3 & -1 & -2 \\ 2 & 0 & \alpha \\ 3 & -5 & 0}} = 2k
+\end{align}    
+\end{frame}
+
+\begin{frame}{Solution}
+\begin{align}
+\myvec{3 & -1 & -2 \\ 2 & 0 & \alpha \\ 3 & -5 & 0} \xleftrightarrow[R_3 \leftarrow R_3 - R_1]{R_2 \leftarrow R_2 - \frac{2}{3}R_1}\myvec{3 & -1 & -2 \\ 0 & \frac{2}{3} & \alpha + \frac{4}{3} \\ 0 & -4 & 2}
+\end{align}
+
+From equation \brak{3} we get
+\begin{align}
+3 \times \brak{\frac{2}{3}\times 2 - \brak{-4} \times \brak{\alpha + \frac{4}{3}}} = 2k
+\end{align}
+\begin{align}
+20 + 12\alpha = 2k
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+Using the relation $\vec{P}\vec{Q}=k\vec{I}$, we get the following augmented matrix
+
+\begin{align}
+\augvec{3}{3}{3 & -1 & -2 & 1 & 0 & 0\\ 2 & 0 &\alpha & 0 & 1 & 0 \\ 3 & -5 & 0&0&0&1} \xleftrightarrow[R_2 \leftarrow R_2 - 2R_1]{R_1 \leftarrow \frac{1}{3}R_1} \augvec{3}{3}{1 & -\frac{1}{3} & -\frac{2}{3} & \frac{1}{3} & 0 & 0 \\ 0 & \frac{2}{3} & \alpha + \frac{4}{3} & -\frac{2}{3} & 1 & 0 \\ 3 & -5 & 0 & 0 & 0 & 1}
+\end{align}
+
+\begin{align}
+\xleftrightarrow[R_2 \leftarrow \frac{3}{2}R_2]{R_3 \leftarrow R_3 - 3R_1} \augvec{3}{3}{
+1 & -\frac{1}{3} & -\frac{2}{3} & \frac{1}{3} & 0 & 0 \\
+0 & 1 & \frac{3}{2}\alpha + 2 & -1 & \frac{3}{2} & 0 \\
+0 & -4 & 2 & -1 & 0 & 1
+} \xleftrightarrow[R_3 \leftarrow R_3 + 4R_2]{R_1 \leftarrow \frac{1}{3}R_2} 
+\end{align}
+
+\begin{align}
+\augvec{3}{3}{
+1 & 0 & \frac{1}{2}\alpha & 0 & \frac{1}{2} & 0 \\
+0 & 1 & \frac{3}{2}\alpha + 2 & -1 & \frac{3}{2} & 0 \\
+0 & 0 & 6\alpha + 10 & -5 & 6 & 1
+}
+\xleftrightarrow{R_3 \leftarrow \frac{1}{6\alpha+10}R_3} 
+\end{align}    
+\end{frame}
+
+\begin{frame}{Solution}
+\begin{align}
+\augvec{3}{3}{
+1 & 0 & \frac{1}{2}\alpha & 0 & \frac{1}{2} & 0 \\
+0 & 1 & \frac{3}{2}\alpha + 2 & -1 & \frac{3}{2} & 0 \\
+0 & 0 & 1 & -\frac{5}{6\alpha+10} & \frac{6}{6\alpha+10} & \frac{1}{6\alpha+10}
+}
+\end{align}
+\begin{align}
+\xleftrightarrow[R_2 \leftarrow R_2 - \Big(\frac{3}{2}\alpha + 2\Big) R_3]{R_1 \leftarrow R_1 - \frac{1}{2}\alpha R_3} \augvec{3}{3}{
+1 & 0 & 0 & \frac{5\alpha}{12\alpha+20} & \frac{3\alpha+10}{6\alpha+20} & -\frac{\alpha}{12\alpha+20} \\
+0 & 1 & 0 & -1+\frac{5(3\alpha+4)}{12\alpha+20} & \frac{3}{2}-\frac{6(3\alpha+4)}{12\alpha+20} & -\frac{3\alpha+4}{12\alpha+20} \\
+0 & 0 & 1 & -\frac{5}{6\alpha+10} & \frac{6}{6\alpha+10} & \frac{1}{6\alpha+10}
+}
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+From this augmented matrix,
+\begin{align}
+q_{23} = -k\frac{3\alpha+4}{12\alpha+20} = -\frac{k}{8} \brak{Given}
+\end{align}
+
+\begin{align}
+\implies \alpha = -1
+\end{align}
+
+
+Substituting the value of $\alpha$ in equation \brak{6}, we get
+\begin{align}
+k = 4
+\end{align}
+
+n is the order of matrix B
+\begin{align}
+\abs{{\vec{A}\mathrm{adj}\brak{\vec{B}}}} = \abs{\vec{A}\cdot\vec{B}^{n-1}}
+\end{align}
+$\abs{\vec{P}} = 8$, $\abs{\vec{Q}} = 8$
+    
+\end{frame}
+
+\begin{frame}{Answer}
+\begin{align}
+\abs{{(\vec{P} adj(\vec{Q}))}} = \abs{\vec{P}} \abs{\vec{Q}}^{2} = 8\times64 = 2^9
+\end{align}
+
+\begin{align}
+\abs{{(\vec{Q} adj(\vec{P}))}} = \abs{\vec{Q}} \abs{\vec{P}}^{2} = 8\times64 = 2^9 
+\end{align}
+
+So options \brak{2} and \brak{3} are correct    
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+#include <stdio.h>
+
+
+int determinant(int n, int mat[n][n]){
+    int det = mat[0][0]*(mat[1][1]*mat[2][2] - mat[1][2]*mat[2][1])
+            - mat[0][1]*(mat[1][0]*mat[2][2] - mat[1][2]*mat[2][0])
+            + mat[0][2]*(mat[1][0]*mat[2][1] - mat[1][1]*mat[2][0]);
+    return det;
+}
+
+int solution(int a1, int b1, int c1, int alpha){
+    return ((c1-a1*alpha)/b1);
+}
+
+
+
+    \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python + C Code}
+    \begin{lstlisting}
+import ctypes
+import numpy as np 
+lib = ctypes.CDLL("./libcode.so")
+array = ctypes.c_int * 3
+matrix = array * 3
+lib.determinant.argtypes = [matrix]
+lib.determinant.restype = ctypes.c_int
+lib.solution.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int]
+lib.solution.restype = ctypes.c_int
+k = lib.solution(12 , -2, -20, -1)
+P = np.array([[3, -1, -2], [2, 0, -1], [3, -5, 0]])
+mat = matrix(*[ (ctypes.c_int * 3)(*row) for row in P ])
+det_P = lib.determinant(mat)
+det_Q = 2*k 
+print("Determinant of P and Q = ", det_P)
+print(det_Q*(det_P**2))
+print(det_P*(det_Q**2))
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import numpy as np
+def determinant(mat):
+    det = (mat[0][0]*(mat[1][1]*mat[2][2] - mat[1][2]*mat[2][1])
+         - mat[0][1]*(mat[1][0]*mat[2][2] - mat[1][2]*mat[2][0])
+         + mat[0][2]*(mat[1][0]*mat[2][1] - mat[1][1]*mat[2][0]))
+    return det
+def solution(a1, b1, c1, alpha):
+    return (c1 - a1*alpha) / b1
+k = solution(12, -2, -20, -1)
+P = np.array([[3, -1, -2],
+              [2,  0, -1],
+              [3, -5,  0]])
+det_P = determinant(P)
+det_Q = 2 * k
+print("Determinant of P =", det_P)
+print("Determinant of Q =", det_Q)
+print("det(Q) * det(P)^2 =", det_Q * (det_P**2))
+print("det(P) * det(Q)^2 =", det_P * (det_Q**2))
+
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+\end{document}

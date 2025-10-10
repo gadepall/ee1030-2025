@@ -1,0 +1,115 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+
+
+
+\author{EE25BTECH11041-Naman Kumar }
+\graphicspath{./figs/}
+
+\begin{document}
+\begin{center}
+    \huge{4.11.18}\\
+    \large{EE25BTECH11041 - Naman Kumar}
+\end{center}
+Question:\\
+Find the equation of the plane which contains the line of intersection of the planes $\vec{r}\cdot(\imath-2\jmath+3\hat{k})-4=0$ and  $\vec{r}\cdot(-2\imath+\jmath+\hat{k})+5=0$ and whose intercept on X axis is equal to that of on Y axis.\\
+\solution \\
+Given Planes,
+\begin{align}
+    \vec{n_1}^T\vec{x}=c_1,\vec{n_2}^T\vec{x}=c_2
+\end{align}
+Where
+\begin{align}
+\vec{n_1}=\begin{pmatrix}1\\-2\\3\end{pmatrix},\vec{n_2}=\begin{pmatrix}-2\\1\\1\end{pmatrix},c_1=4,c_2=-5
+\end{align}
+Let Required equation of plane
+\begin{align}
+    \vec{n_3}^T\vec{x}=c_3
+\end{align}
+Since we can write,
+\begin{align}
+P_3=P_1-\lambda P_2 \text{ (Where $P_1,P_2,P_3$ are equation of planes)}
+\end{align}
+Because All three planes intersect at same line,Therefore
+\begin{align}
+    (\vec{n_1}-\lambda \vec{n_2})^T\vec{x}=c_1-\lambda c_2\\
+\end{align}
+Given,
+\begin{align}
+    X-intercept=Y-intercept\\
+\end{align}
+for X-intercept
+\begin{align}
+    (\vec{n_1}-\lambda \vec{n_2})^T\begin{pmatrix}x\\0\\0\end{pmatrix}=c_1-\lambda c_2\\
+    (\vec{n_1}-\lambda \vec{n_2})^Tx\vec{e_1}=c_1-\lambda c_2
+\end{align}
+Therefore,
+\begin{align}
+    X-intercept= \frac{c_1-\lambda c_2}{(\vec{n_1}-\lambda \vec{n_2})^T\vec{e_1}}\label{1}
+\end{align}
+Similarly
+\begin{align}
+    Y-intercept=\frac{c_1-\lambda c_2}{(\vec{n_1}-\lambda \vec{n_2})^T\vec{e_2}} \label{2}
+\end{align}
+\newpage
+Comparing equations $\eqref{1}$ and $\eqref{2}$
+\begin{align}
+    \frac{c_1-\lambda c_2}{(\vec{n_1}-\lambda \vec{n_2})^T\vec{e_1}}=\frac{c_1-\lambda c_2}{(\vec{n_1}-\lambda \vec{n_2})^T\vec{e_2}}\\
+    (\vec{n_1}-\lambda \vec{n_2})^T\vec{e_1}=(\vec{n_1}-\lambda \vec{n_2})^T\vec{e_2}\\
+    \vec{n_1}^T\vec{e_1}-\lambda\vec{n_2}^T\vec{e_1}=\vec{n_1}^T\vec{e_2}-\lambda\vec{n_2}^T\vec{e_2}\\
+    \lambda\vec{n_2}^T\vec{e_2}-\lambda\vec{n_2}^T\vec{e_1}=\vec{n_1}^T\vec{e_2}-\vec{n_1}^T\vec{e_1}\\
+    \lambda=\frac{\vec{n_1}^T\vec{e_2}-\vec{n_1}^T\vec{e_1}}{\vec{n_2}^T\vec{e_2}-\lambda\vec{n_2}^T\vec{e_1}}\\
+    \lambda=\frac{\vec{n_1^T(\vec{e_2}-\vec{e_1})}}{n_2^T(\vec{e_2}-\vec{e_1})}\\
+    \lambda=\frac{\begin{pmatrix}1\\-2\\3\end{pmatrix}^T\begin{pmatrix}-1\\1\\0\end{pmatrix}}{\begin{pmatrix}-2\\1\\1\end{pmatrix}^T\begin{pmatrix}-1\\1\\0\end{pmatrix}}\\
+    \lambda=\frac{-1-2}{2+1}\\
+    \lambda=-1
+\end{align}
+Therefore equation of required plane is
+\begin{align}
+    \begin{pmatrix}1+2(-1)\\-2-1(-1)\\3-1(-1)\end{pmatrix}^T\vec{x}=4+5(-1)\\
+    \begin{pmatrix}-1\\-1\\4\end{pmatrix}^Tx=-1
+\end{align}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\columnwidth]{figs/Figure.png}
+    \caption{}
+    \label{fig:placeholder}
+\end{figure}
+\end{document}

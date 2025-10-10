@@ -1,0 +1,188 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{4.4.13}
+
+%\subtitle{A short story}
+
+\author % (optional)
+{BALU-ai25btech11017}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+ If $\vec{A}, \vec{B}, \vec{C}$ are three non-coplanar vectors, then
+\begin{align}
+\frac{\vec{A} \cdot(\vec{B}\times\vec{C})}{(\vec{C} \times \vec{A}) \cdot \vec{B}}
++ \frac{\vec{B} \cdot(\vec{A}\times \vec{C})}{\vec{C} \cdot (\vec{A} \times \vec{B)}}
+= 
+\end{align}\\ 
+\end{frame}
+\begin{frame}{Theoretical Solution}
+Let us solve the given equation theoretically and then verify the solution computationally \\
+According to the question, \\
+Let us take three non coplanar vectors \\
+\begin{align}
+\vec{A}=\begin{myvec}{1\\0\\0}\end{myvec}\
+\vec{B}=\begin{myvec}{0\\1\\0}\end{myvec}\
+\vec{C}=\begin{myvec}{0\\0\\1}\end{myvec}\
+\end{align}
+\begin{align}
+\vec{A}^T(\vec{B}\times\vec{C})=[\vec{A}\quad\vec{B}\quad\vec{C}]=
+\left\|\begin{myvec}{1&&0&&0\\0&&1&&0\\0&&0&&1}\end{myvec}\right\|=1
+\end{align}
+\begin{align}
+(\vec{C} \times \vec{A})^T\vec{B}=[\vec{C}\quad\vec{A}\quad\vec{B}]=\left\|\begin{myvec}{0&&1&&0\\0&&0&&1\\1&&0&&0}\end{myvec}\right\|=1\
+\end{align}
+
+\end{frame}
+\begin{frame}{Theoretical Solution}
+\begin{align}
+\vec{B}^T(\vec{A}\times \vec{C})=[\vec{B}\quad\vec{A}\quad\vec{C}]=\left\|\begin{myvec}{0&&1&&0\\1&&0&&0\\0&&0&&1}\end{myvec}\right\|=-1\
+\end{align}
+\begin{align}
+\vec{C}^T (\vec{A} \times \vec{B})=[\vec{C}\quad\vec{A}\quad\vec{B}]=\left\|\begin{myvec}{0&&1&&0\\0&&0&&1\\1&&0&&0}\end{myvec}\right\|=1\ 
+\end{align}
+\begin{align}
+\frac{\vec{A}^T(\vec{B}\times\vec{C})}{(\vec{C} \times \vec{A})^T \vec{B}}
++ \frac{\vec{B}^T(\vec{A}\times \vec{C})}{\vec{C}^T (\vec{A} \times \vec{B)}}
+= \frac{1}{1}+\frac{-1}{1}=1-1=0\
+\end{align}
+By verification method we showed the result is 0
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+#include <stdio.h>
+
+// Function to compute cross product of two vectors
+void crossProduct(double u[], double v[], double result[]) {
+    result[0] = u[1]*v[2] - u[2]*v[1];
+    result[1] = u[2]*v[0] - u[0]*v[2];
+    result[2] = u[0]*v[1] - u[1]*v[0];
+}
+
+// Function to compute dot product of two vectors
+double dotProduct(double u[], double v[]) {
+    return u[0]*v[0] + u[1]*v[1] + u[2]*v[2];
+}
+
+int main() {
+    // Define vectors A = i, B = j, C = k
+    double A[3] = {1, 0, 0};
+    double B[3] = {0, 1, 0};
+    double C[3] = {0, 0, 1};
+     \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{C Code }
+    \begin{lstlisting}
+     double BxC[3], CxA[3], AxC[3], AxB[3];
+    double numerator1, denominator1, numerator2, denominator2, result;
+
+    // Compute cross products
+    crossProduct(B, C, BxC);
+    crossProduct(C, A, CxA);
+    crossProduct(A, C, AxC);
+    crossProduct(A, B, AxB);
+
+    // Compute terms
+    numerator1 = dotProduct(A, BxC);
+    denominator1 = dotProduct(CxA, B);
+    numerator2 = dotProduct(B, AxC);
+    denominator2 = dotProduct(C, AxB);
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{C Code }
+    \begin{lstlisting}
+     // Final result
+    result = (numerator1 / denominator1) + (numerator2 / denominator2);
+
+    // Print results
+    printf("Numerator1 = %.2f, Denominator1 = %.2f\n", numerator1, denominator1);
+    printf("Numerator2 = %.2f, Denominator2 = %.2f\n", numerator2, denominator2);
+    printf("Final Result = %.2f\n", result);
+
+    return 0;
+}
+    \end{lstlisting}
+\end{frame}
+
+\end{document}

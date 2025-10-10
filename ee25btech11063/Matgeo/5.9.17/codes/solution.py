@@ -1,0 +1,35 @@
+import numpy as np
+
+# -----------------------------
+# System 1: for a, b
+# 2a + b  =  4
+#  a - 2b = -3
+# -----------------------------
+A1 = np.array([[2, 1],
+               [1, -2]])
+B1 = np.array([4, -3])
+
+# Solve for a, b
+a, b = np.linalg.solve(A1, B1)
+
+# -----------------------------
+# System 2: for c, d
+# 5c - d = 11
+# 4c + 3d = 24
+# -----------------------------
+A2 = np.array([[5, -1],
+               [4,  3]])
+B2 = np.array([11, 24])
+
+# Solve for c, d
+c, d = np.linalg.solve(A2, B2)
+
+# -----------------------------
+# Compute expression
+# -----------------------------
+result = a + b - c + 2*d
+
+print("a =", a, " b =", b)
+print("c =", c, " d =", d)
+print("a + b - c + 2d =", result)
+

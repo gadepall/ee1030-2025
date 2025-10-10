@@ -1,0 +1,249 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+	breakable=true,
+	listing engine=minted,
+	listing only,
+	minted language=#2,
+	minted style=default,
+	minted options={%
+		linenos,
+		gobble=0,
+		breaklines=true,
+		breakafter=,,
+		fontsize=\small,
+		numbersep=8pt,
+		#1},
+	boxsep=0pt,
+	left skip=0pt,
+	right skip=0pt,
+	left=25pt,
+	right=0pt,
+	top=3pt,
+	bottom=3pt,
+	arc=5pt,
+	leftrule=0pt,
+	rightrule=0pt,
+	bottomrule=2pt,
+	toprule=2pt,
+	colback=bg,
+	colframe=orange!70,
+	enhanced,
+	overlay={%
+		\begin{tcbclipinterior}
+			\fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+	\end{tcbclipinterior}},
+	#3,
+}
+\lstset{
+	language=C,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{orange},
+	commentstyle=\color{green!60!black},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	showstringspaces=false,
+}
+\begin{document}
+
+\title 
+{4.7.38}
+\date{14 September,2025}
+
+\author 
+{Naman Kumar-EE25BTECH11041}
+\graphicspath{./figs}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+P(0, 2) is the point of intersection of Y axis and perpendicular bisector of line segment joining the points A(-1, 1) and B(3, 3).
+\end{frame}
+\begin{frame}{Solution}
+Given points,
+\begin{align}
+\Vec{A}=\begin{pmatrix} -1\\1 \end{pmatrix},\Vec{B}=\begin{pmatrix} 3\\3 \end{pmatrix},\Vec{P}=\begin{pmatrix} 0\\2 \end{pmatrix}
+\end{align}
+Mid point of $\Vec{A}$ and $\Vec{B}$, Let it be $\Vec{R}$
+\begin{align}
+    \Vec{R}=\frac{\vec{A}+\vec{B}}{2}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Slope, $\vec{m}$
+\begin{align}
+    \vec{m}=\vec{B}-\vec{A}\\
+\end{align}
+Let $\vec{n}$ be the direction vector perpendicular to $\vec{m}$, If truly $\vec{P}$ is y-intercept of bisector 
+\begin{align}
+\vec{n}=\vec{P}-\vec{R}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Both $\vec{n}$ and $\vec{m}$ are perpendicular
+\begin{align}
+    \vec{n}^T\vec{m}=0\\
+    (\vec{P}-\vec{R})^T(\vec{B}-\vec{A})=0\\
+    (\vec{P}^T-(\frac{\vec{A}+\vec{B}}{2})^T)(\vec{B}-\vec{A})=0\\
+    \vec{P}^T(\vec{B}-\vec{A})-\frac{\brak{\vec{A}+\vec{B}}^T\brak{\vec{B}-\vec{A}}}{2}=0\\
+    \begin{pmatrix} 0&2 \end{pmatrix}\begin{pmatrix} 4\\2 \end{pmatrix}-\frac{\begin{pmatrix} 2&4 \end{pmatrix}\begin{pmatrix} 4\\2 \end{pmatrix}}{2}=0\\
+    4-\frac{16}{2}\neq0
+\end{align}
+Hence, $\vec{P}$ is not the y-intercept of perpendicular bisector of line $\vec{A}-\vec{B}$
+\end{frame}
+\begin{frame}{Figure}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\columnwidth]{figs/figure.png}
+        \caption{Caption}
+        \label{fig:placeholder}
+    \end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C code}
+\begin{lstlisting}
+#include <stdio.h>
+
+void midpoint(double x1, double y1, double x2, double y2, double *mx, double *my) {
+    *mx = (x1 + x2) / 2.0;
+    *my = (y1 + y2) / 2.0;
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code}
+\begin{lstlisting}
+import ctypes
+import matplotlib.pyplot as plt
+
+# Load shared object
+lib = ctypes.CDLL('./libmidpoint.so')
+
+# Define argument and return types
+lib.midpoint.argtypes = [ctypes.c_double, ctypes.c_double,
+                         ctypes.c_double, ctypes.c_double,
+                         ctypes.POINTER(ctypes.c_double),
+                         ctypes.POINTER(ctypes.c_double)]
+
+# Input points A and B
+x1, y1 = -1, 1
+x2, y2 = 3, 3
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code}
+\begin{lstlisting}
+# Output variables
+mx = ctypes.c_double()
+my = ctypes.c_double()
+
+# Call C function
+lib.midpoint(x1, y1, x2, y2, ctypes.byref(mx), ctypes.byref(my))
+
+print(f"Midpoint of A and B: ({mx.value}, {my.value})")
+
+# Points
+A = (x1, y1)
+B = (x2, y2)
+M = (mx.value, my.value)
+P = (0, 2)  # intersection with Y-axis
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code}
+\begin{lstlisting}
+# Plot
+plt.figure(figsize=(6,6))
+plt.plot([A[0], B[0]], [A[1], B[1]], 'b-', label="Line AB")
+plt.plot([M[0],P[0]], [M[1],P[1]], 'b-', label="Line MP")
+plt.scatter(*A, color='red', label="A(-1,1)")
+plt.scatter(*B, color='green', label="B(3,3)")
+plt.scatter(*M, color='purple', label=f"M{M}")
+plt.scatter(*P, color='orange', label="P(0,2)")
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code}
+\begin{lstlisting}
+plt.text(A[0]+0.08,A[1]+0.1,'A', color='red')
+plt.text(B[0]-0.08,B[1]-0.1,'B', color='green')
+plt.text(M[0]+0.08,M[1]+0.1,'M', color='purple')
+plt.text(0+0.08,2+0.1,'P', color='orange')
+
+
+# Draw perpendicular bisector line
+plt.axvline(x=0, color='gray', linestyle='--', label="Y-axis")
+plt.legend()
+plt.grid(True)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code}
+\begin{lstlisting}
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+plt.title("Midpoint and Perpendicular Bisector Intersection")
+plt.savefig("figure.png", dpi=150)
+plt.show()
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Direct Python code}
+\begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(8, 6), dpi=100)
+a=0
+b=0
+x=np.array([-1,3,a,0])
+y=np.array([1,3,b,2])
+x[2]=(x[0]+x[1])/2
+y[2]=(y[0]+y[1])/2
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Direct Python code}
+\begin{lstlisting}
+plt.scatter(x,y, color='blue', alpha=0.5, )
+plt.text(x[0]+0.15, y[0]+0.15, "A(-1,1)", color='blue')
+plt.text(x[1]-0.15, y[1]-0.15, "B(3,3)", color='blue')
+plt.text(x[2]+0.15, y[2]+0.15, "R(1,2)", color='blue')
+plt.text(x[3]+0.15, y[3]+0.15, "P(0,2)", color='blue')
+plt.title("Graph")
+
+plt.grid()
+plt.plot(x,y, 'o-', color='orange', mfc='blue', ms=0,alpha=0.5, label='Line AB and PR')
+plt.legend()
+plt.savefig('figure.png', dpi=300, bbox_inches='tight')
+plt.show()
+\end{lstlisting}
+\end{frame}
+
+\end{document}

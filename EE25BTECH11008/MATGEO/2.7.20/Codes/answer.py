@@ -1,0 +1,28 @@
+import ctypes
+
+lib = ctypes.CDLL("./computations.so")
+DoubleArray3 = ctypes.c_double * 3
+
+# signatures
+lib.diagonals.argtypes = [DoubleArray3, DoubleArray3, DoubleArray3, DoubleArray3]
+lib.unit.argtypes = [DoubleArray3, DoubleArray3]
+lib.dot.argtypes = [DoubleArray3, DoubleArray3]
+lib.dot.restype = ctypes.c_double
+lib.cross_via_dot.argtypes = [DoubleArray3, DoubleArray3]
+lib.cross_via_dot.restype = ctypes.c_double
+
+A = DoubleArray3(2, -4, -5)
+B = DoubleArray3(2, 2, 3)
+
+d1, d2 = DoubleArray3(), DoubleArray3()
+lib.diagonals(A, B, d1, d2)
+
+u1, u2 = DoubleArray3(), DoubleArray3()
+lib.unit(d1, u1)
+lib.unit(d2, u2)
+
+area = 0.5 * lib.cross_via_dot(d1, d2)
+
+print("u1:", list(u1))
+print("u2:", list(u2))
+print("Area:", area)

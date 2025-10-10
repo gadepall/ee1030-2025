@@ -1,0 +1,81 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+\usepackage{tfrupee}
+
+\setlength{\headheight}{1cm}
+\setlength{\headsep}{0mm}
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+
+\graphicspath{{./figs/}}
+
+\begin{document}
+\title{1.6.25}
+\author{AI25BTECH11010 - Dhanush Kumar}
+\maketitle
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+
+\noindent
+\textbf{Question:} \\
+Three points \(P(h, k)\), \(Q(x_1, y_1)\) and \(R(x_2, y_2)\) lie on a line. Show that 
+\((h-x_1)(y_2-y_1) = (k-y_1)(x_2-x_1)\).
+
+\bigskip
+\textbf{Solution:} \\
+Let
+\begin{align}
+\vec{P} &= \myvec{h \\ k}, &
+\vec{Q} &= \myvec{x_1 \\ y_1}, &
+\vec{R} &= \myvec{x_2 \\ y_2}.
+\end{align}
+
+\begin{align}
+\vec{P}-\vec{Q} &= \myvec{h-x_1 \\ k-y_1} \\
+\vec{R}-\vec{Q} &= \myvec{x_2-x_1 \\ y_2-y_1}
+\end{align}
+
+Now form the matrix:
+\begin{align}
+	\vec{M} &=\myvec{\vec{P}-\vec{Q} & \vec{R}-\vec{Q}} &=\myvec{h-x_1 & x_2-x_1 \\ k-y_1 & y_2-y_1}
+\end{align}
+
+Apply row reduction:
+\begin{align}
+\myvec{h-x_1 & x_2-x_1 \\ k-y_1 & y_2-y_1}
+&\xrightarrow{\;R_2 \leftarrow R_2 - \tfrac{k-y_1}{h-x_1}R_1\;}
+\myvec{h-x_1 & x_2-x_1 \\ 0 & (y_2-y_1) - \tfrac{k-y_1}{h-x_1}(x_2-x_1)}
+\end{align}
+Since P,Qand R lie on line the rank of matrix M is 1\\
+For rank \(=1\), the second entry in the last row must vanish:
+\begin{align}
+(y_2-y_1)(h-x_1) - (k-y_1)(x_2-x_1) &= 0
+\end{align}
+
+Thus,
+\begin{align}
+(h-x_1)(y_2-y_1) &= (k-y_1)(x_2-x_1).
+\end{align}
+
+Hence proved.
+
+\end{document}
+

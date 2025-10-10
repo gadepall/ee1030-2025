@@ -1,0 +1,266 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{1.2.17}
+%\subtitle{A short story}
+
+\author % (optional)
+{AI25BTECH11011-VARUN}
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Three vertices of a parallelogram ABCD are A(3,-1,2),B(1,-2,4),C(-1,1,2). Find the coordinates of the fourth vertex.
+\end{frame}
+
+
+
+\begin{frame}{Theoretical Solution}
+
+Let the vertices of parallelogram ABCD be
+$\Vec{A}\myvec{3\\-1\\2}$, $\Vec{ B}\myvec{1\\-2\\4}$, $\Vec{C}\myvec{-1\\1\\2}$.
+In any parallelogram, the diagonals bisect each other, so the midpoints of $\vec{AC}$ and $\vec{BD}$ are equal.
+
+\end{frame}
+
+\begin{frame}{Equation}
+\textbf{The  midpoint of $\vec{A}$ and $\vec{B}$ is}
+
+\begin{align}
+    \vec{M_{AB}} = \frac{\vec{A}+\vec{B}}{2}
+\end{align}
+\end{frame}
+
+
+\begin{frame}{Theoretical Solution}
+Midpoint of $\vec{AC}$:
+
+\begin{align}
+    \vec{M_{AC}} = \frac{\vec{A}+\vec{C}}{2}
+\end{align}
+
+Midpoint of $\vec{BD}$:
+
+\begin{align}
+    \vec{M_{BD}} = \frac{\vec{B}+\vec{D}}{2}
+\end{align}
+\end{frame}
+
+
+\begin{frame}{Theoretical Solution}
+As $\vec{M_{AC}}=\vec{M_{BD}}$:
+
+\begin{align}
+     \vec{A} + \vec{C} = \vec{B} + \vec{D}  \\
+     \vec{D} = \vec{A} + \vec{C} - \vec{B}  \\
+     \vec{D} = \myvec{3\\-1\\2} + \myvec{-1\\1\\2}  - \myvec{1\\-2\\4}  \\
+     \vec{D} = \myvec{3+(-1)-1 \\ -1+1-(-2) \\ 2+2-4} = \myvec{1\\2\\0}
+\end{align}
+The fourth vertex is $\vec{D}\myvec{1\\2\\0}$.
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{main C Code}
+
+    \begin{lstlisting}
+#include <stdio.h>
+
+int main() {
+    double A[3] = {3, -1, 2};
+    double B[3] = {1, -2, 4};
+    double C[3] = {-1, 1, 2};
+    double D[3];
+
+    D[0] = A[0] + C[0] - B[0];
+    D[1] = A[1] + C[1] - B[1];
+    D[2] = A[2] + C[2] - B[2];
+
+    FILE *fp = fopen("coords.dat", "w");
+    if (fp == NULL) {
+        printf("Error opening file!\n");
+        return 1;
+    }
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{main C Code}
+
+    \begin{lstlisting}
+   fprintf(fp, "%lf %lf %lf\n", A[0], A[1], A[2]);
+    fprintf(fp, "%lf %lf %lf\n", B[0], B[1], B[2]);
+    fprintf(fp, "%lf %lf %lf\n", C[0], C[1], C[2]);
+    fprintf(fp, "%lf %lf %lf\n", D[0], D[1], D[2]);
+
+    fclose(fp);
+
+    printf("Fourth vertex D: (%.2lf, %.2lf, %.2lf)\n", D[0], D[1], D[2]);
+
+    return 0;
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+
+    \begin{lstlisting}
+#include <stdio.h>
+
+void find_fourth_vertex(double A[3], double B[3], double C[3], double D[3]) {
+    D[0] = A[0] + C[0] - B[0];
+    D[1] = A[1] + C[1] - B[1];
+    D[2] = A[2] + C[2] - B[2];
+}
+    \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+from ctypes import CDLL, c_double, POINTER
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load the shared library
+lib = CDLL("./libvertex.so")
+
+# Define argument and return types
+lib.find_fourth_vertex.argtypes = [POINTER(c_double), POINTER(c_double), POINTER(c_double), POINTER(c_double)]
+
+# Define points
+A = (c_double * 3)(3, -1, 2)
+B = (c_double * 3)(1, -2, 4)
+C = (c_double * 3)(-1, 1, 2)
+D = (c_double * 3)()
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# Call the C function
+lib.find_fourth_vertex(A, B, C, D)
+
+# Convert to Python list
+D_point = [D[i] for i in range(3)]
+print(f"Fourth vertex D: {D_point}")
+
+#  Read coordinates from .dat file (generated by main C code)
+coords = np.loadtxt("coords.dat")
+
+#  Plot the parallelogram
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+# Points
+x = coords[:, 0]
+y = coords[:, 1]
+z = coords[:, 2]
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# Plot parallelogram edges
+ax.plot([x[0], x[1]], [y[0], y[1]], [z[0], z[1]], 'r-')
+ax.plot([x[1], x[2]], [y[1], y[2]], [z[1], z[2]], 'r-')
+ax.plot([x[2], x[3]], [y[2], y[3]], [z[2], z[3]], 'r-')
+ax.plot([x[3], x[0]], [y[3], y[0]], [z[3], z[0]], 'r-')
+
+# Plot diagonals
+ax.plot([x[0], x[2]], [y[0], y[2]], [z[0], z[2]], 'b--')
+ax.plot([x[1], x[3]], [y[1], y[3]], [z[1], z[3]], 'b--')
+
+# Labels
+ax.scatter(x, y, z, color='black')
+for i, txt in enumerate(['A', 'B', 'C', 'D']):
+    ax.text(x[i], y[i], z[i], txt)
+plt.savefig("/home/gara-varun-kumar/ee1030-2025/ai25btech11011/matgeo/1.2.17/figs/Fig 1.png")
+plt.show()
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Plot}
+    \centering
+    \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{figs/Fig 1.png}     
+\end{frame}
+
+\end{document}

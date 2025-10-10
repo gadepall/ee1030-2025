@@ -1,0 +1,385 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+\title %optional
+{1.8.26}
+\date{September 05, 2025}
+\author % (optional)
+{Anshu kumar ram-EE25BTECH11009}
+
+\begin{document}
+
+\frame{\titlepage}
+
+% ---------------- Question ----------------
+\begin{frame}{Question}
+Find a point on the $y$-axis which is equidistant from the points $A(6,5)$ and $B(-4,3)$.
+\end{frame}
+
+% ---------------- Table ----------------
+\begin{frame}{Input Parameters}
+The input parameters for this problem are available in the table below.
+\input{tables/table}
+\end{frame}
+
+
+% ---------------- Solution Step 1 ----------------
+\begin{frame}{Solution Step 1}
+If $\vec{O}$ lies on the $y$-axis and is equidistant from the points $\vec{A}$ and $\vec{B}$,  
+\begin{align}
+\norm{\vec{O}-\vec{A}} &= \norm{\vec{O}-\vec{B}} \\
+\implies \norm{\vec{O}-\vec{A}}^2 &= \norm{\vec{O}-\vec{B}}^2
+\end{align}
+Expanding both sides,  
+\begin{align}
+\norm{\vec{O}}^2 - 2\vec{O}^\top \vec{A} + \norm{\vec{A}}^2
+&= \norm{\vec{O}}^2 - 2\vec{O}^\top \vec{B} + \norm{\vec{B}}^2
+\end{align}
+\end{frame}
+
+% ---------------- Solution Step 2 ----------------
+\begin{frame}{Solution Step 2}
+Simplifying,  
+\begin{align}
+(\vec{A}-\vec{B})^\top \vec{O}
+= \frac{\norm{\vec{A}}^2 - \norm{\vec{B}}^2}{2}
+\end{align}
+Since $\vec{O}$ lies on the $y$-axis,  
+\begin{align}
+\vec{O} &= y \vec{e}_2
+\end{align}
+Thus,  
+\begin{align}
+y &= \frac{\norm{\vec{A}}^2 - \norm{\vec{B}}^2}{2(\vec{A}-\vec{B})^\top \vec{e}_2}
+\end{align}
+\end{frame}
+
+% ---------------- Solution Step 3 ----------------
+\begin{frame}{Solution Step 3}
+Substituting from the table we get,  
+\begin{align}
+y &= 9
+\end{align}
+So the required point is,  
+\[
+\boxed{\vec{O} = \myvec{0 \\ 9}}
+\]
+\end{frame}
+% ---------------- Plot ----------------
+\begin{frame}{Plot}
+\centering
+\includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{figs/equidistant_point.png}
+\end{frame}
+
+
+
+% ---------------- Pure Python ----------------
+\begin{frame}[fragile]{Pure Python (Part 1)}
+\begin{lstlisting}
+import sys
+import numpy as np
+import matplotlib.pyplot as plt
+
+# path to your external scripts
+sys.path.insert(0, '/home/anshu-ram/matgeo/codes/CoordGeo')
+
+# local imports
+from line.funcs import line_gen_num
+
+# ========== Given vectors ==========
+A = np.array([6, 5]).reshape(-1,1)
+B = np.array([-4, 3]).reshape(-1,1)
+O = np.array([0, 9]).reshape(-1,1)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Pure Python (Part 2)}
+\begin{lstlisting}
+# ========== Lines ==========
+x_AB = line_gen_num(A, B, 20)
+x_OA = line_gen_num(O, A, 20)
+x_OB = line_gen_num(O, B, 20)
+
+# ========== Plotting ==========
+plt.plot(x_AB[0,:], x_AB[1,:], "g--", label="Line AB")
+plt.plot(x_OA[0,:], x_OA[1,:], "r--", label="Line OA")
+plt.plot(x_OB[0,:], x_OB[1,:], "b--", label="Line OB")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Pure Python (Part 3)}
+\begin{lstlisting}
+# Points
+tri_coords = np.hstack((A,B,O))   # stack column vectors
+plt.scatter(tri_coords[0,:], tri_coords[1,:])
+
+# Labels
+vert_labels = [
+    f'A({int(A[0,0])},{int(A[1,0])})',
+    f'B({int(B[0,0])},{int(B[1,0])})',
+    f'O({int(O[0,0])},{int(O[1,0])})'
+]
+
+for i, txt in enumerate(vert_labels):
+    plt.annotate(txt, (tri_coords[0,i], tri_coords[1,i]),
+                 textcoords="offset points", xytext=(0,10), ha='right')
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Pure Python (Part 4)}
+\begin{lstlisting}
+plt.xlabel('$x$')
+plt.ylabel('$y$')
+plt.legend(loc='best')
+plt.grid()
+plt.title("Point O(0,9) equidistant from A and B")
+plt.axis('equal')
+
+# Save & show
+plt.savefig("../figs/equidistant_point.png")
+plt.show()
+\end{lstlisting}
+\end{frame}
+% ---------------- C Code ----------------
+\begin{frame}[fragile]{C Code (Part 1)}
+\begin{lstlisting}
+#include <stdio.h>
+
+/* Function to compute O on y-axis equidistant from A and B */
+void equidistant_yaxis(const double* A, const double* B, double* O) {
+    // A = (x1,y1), B = (x2,y2), O = (0,y)
+    double x1 = A[0], y1 = A[1];
+    double x2 = B[0], y2 = B[1];
+
+    double num = (x1*x1 + y1*y1) - (x2*x2 + y2*y2);
+    double den = 2*(y1 - y2);
+
+    O[0] = 0.0;
+    O[1] = num/den;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{C Code (Part 2)}
+\begin{lstlisting}
+/* Generate n points on line AB */
+void line_gen(double* X, double* Y, const double* A, const double* B, int n, int m) {
+    double temp[2];
+
+    for (int i = 0; i < 2; i++) {
+        temp[i] = (B[i] - A[i]) / (double)(n-1);
+    }
+
+    for (int i = 0; i < n; i++) {
+        X[i] = A[0] + temp[0] * i;
+        Y[i] = A[1] + temp[1] * i;
+    }
+}
+\end{lstlisting}
+\end{frame}
+
+% ---------------- Python + C Integration ----------------
+\begin{frame}[fragile]{Python + C Integration (Part 1)}
+\begin{lstlisting}
+import ctypes
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load shared library
+handc = ctypes.CDLL("./func.so")
+
+# Define equidistant_yaxis prototype
+handc.equidistant_yaxis.argtypes = [
+    ctypes.POINTER(ctypes.c_double),
+    ctypes.POINTER(ctypes.c_double),
+    ctypes.POINTER(ctypes.c_double),
+]
+handc.equidistant_yaxis.restype = None
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Python + C Integration (Part 2)}
+\begin{lstlisting}
+# Define line_gen prototype
+handc.line_gen.argtypes = [
+    ctypes.POINTER(ctypes.c_double),
+    ctypes.POINTER(ctypes.c_double),
+    ctypes.POINTER(ctypes.c_double),
+    ctypes.POINTER(ctypes.c_double),
+    ctypes.c_int,
+    ctypes.c_int
+]
+handc.line_gen.restype = None
+
+# Dimension
+m = 2
+
+# Points A and B
+A = np.array([6.0, 5.0], dtype=np.float64)
+B = np.array([-4.0, 3.0], dtype=np.float64)
+
+# Placeholder for O
+O = np.zeros(m, dtype=np.float64)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Python + C Integration (Part 3)}
+\begin{lstlisting}
+# Call C function to compute O
+handc.equidistant_yaxis(
+    A.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+    B.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+    O.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
+)
+
+print("A =", A)
+print("B =", B)
+print("O =", O)
+
+# Generate lines
+n = 20
+X_l = np.zeros(n, dtype=np.float64)
+Y_l = np.zeros(n, dtype=np.float64)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Python + C Integration (Part 4)}
+\begin{lstlisting}
+# AB
+handc.line_gen(X_l.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+               Y_l.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+               A.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+               B.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+               n, m)
+x_AB, y_AB = X_l.copy(), Y_l.copy()
+
+# OA
+handc.line_gen(X_l.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+               Y_l.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+               O.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+               A.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+               n, m)
+x_OA, y_OA = X_l.copy(), Y_l.copy()
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Python + C Integration (Part 5)}
+\begin{lstlisting}
+# OB
+handc.line_gen(X_l.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+               Y_l.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+               O.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+               B.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+               n, m)
+x_OB, y_OB = X_l.copy(), Y_l.copy()
+
+# Plotting
+plt.figure()
+plt.plot(x_AB, y_AB, "g--", label="Line AB")
+plt.plot(x_OA, y_OA, "r--", label="Line OA")
+plt.plot(x_OB, y_OB, "b--", label="Line OB")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Python + C Integration (Part 6)}
+\begin{lstlisting}
+# Points
+plt.scatter(A[0], A[1], color="blue", s=50)
+plt.scatter(B[0], B[1], color="red", s=50)
+plt.scatter(O[0], O[1], color="green", s=50)
+
+# Labels
+plt.annotate(f"A({A[0]:.0f},{A[1]:.0f})", (A[0], A[1]), textcoords="offset points", xytext=(-20,10))
+plt.annotate(f"B({B[0]:.0f},{B[1]:.0f})", (B[0], B[1]), textcoords="offset points", xytext=(10,-15))
+plt.annotate(f"O({O[0]:.0f},{O[1]:.0f})", (O[0], O[1]), textcoords="offset points", xytext=(10,10))
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Python + C Integration (Part 7)}
+\begin{lstlisting}
+# Equal aspect ratio
+plt.gca().set_aspect("equal", adjustable="box")
+plt.xlim([-8,8])
+plt.ylim([0,12])
+
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.title("Point O on y-axis equidistant from A and B")
+plt.legend(loc="upper left")
+plt.grid(True)
+
+# Save & show
+plt.savefig("../figs/equidistant_graph.png")
+plt.show()
+\end{lstlisting}
+\end{frame}
+
+\end{document}

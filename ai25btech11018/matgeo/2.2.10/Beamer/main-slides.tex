@@ -1,0 +1,320 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{2.2.10}
+\date{September 8,2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{Hemanth Reddy-AI25BTECH11018}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+The vectors $\vec{A} = 3\hat{i} - 2\hat{j} + 2\hat{k}$ and $\vec{B} = \hat{i} - 2\hat{k}$ are the adjancent sides of a parallelogram. \\
+The acute angle between its diagonals is \underline{\hspace{2cm}}.
+\end{frame}
+
+
+
+\begin{frame}{Theoretical Solution}
+\textbf{Solution:}\\
+
+
+The diagonals of the parallelogram are given by\\
+
+\begin{align}
+\vec{A} + \vec{B} =
+\myvec{
+4 \\
+-2 \\
+0
+}
+, \vec{A} - \vec{B} =
+\myvec{
+2 \\
+-2 \\
+4
+}
+\end{align}
+
+The angle $\theta$ between them satisfies
+$
+\cos\theta 
+= \frac{\vec{d}_1 ^{T}\vec{d}_2}{\|\vec{d}_1\| \, \|\vec{d}_2\|}
+= \frac{(\vec{A}+\vec{B})^{T}(\vec{A}-\vec{B})}{\|\vec{A}+\vec{B}\| \, \|\vec{A}-\vec{B}\|}
+= \frac{\|\vec{A}\|^2 - \|\vec{B}\|^2}{\|\vec{A}+\vec{B}\| \, \|\vec{A}-\vec{B}\|}.
+$\\
+\vspace{0.3cm}
+Now compute:
+\begin{align}
+\|\vec{A}\|^2 = 3^2 + (-2)^2 + 2^2 = 17,
+\qquad
+\|\vec{B}\|^2 = 1^2 + 0^2 + (-2)^2 = 5
+\end{align}
+
+
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+\begin{center}
+\begin{align}
+    \vec{A} + \vec{B} = \langle 4, -2, 0 \rangle, 
+\quad \|\vec{A}+\vec{B}\| = \sqrt{20} = 2\sqrt{5},
+\end{align}
+
+\begin{align}
+    \vec{A} - \vec{B} = \langle 2, -2, 4 \rangle, 
+\quad \|\vec{A}-\vec{B}\| = \sqrt{24} = 2\sqrt{6}.
+\end{align}
+
+Hence
+\begin{align}
+    \cos\theta 
+= \frac{17 - 5}{(2\sqrt{5})(2\sqrt{6})} 
+= \frac{12}{4\sqrt{30}} 
+= \frac{3}{\sqrt{30}}.
+\end{align}
+
+
+
+\vspace{0.3cm}
+Therefore, the acute angle between the diagonals is
+$
+\theta = \cos^{-1}\!\left(\frac{3}{\sqrt{30}}\right) \approx 56.7^\circ.
+$
+
+\end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code }
+    \begin{lstlisting}
+#include <stdio.h>
+#include <math.h>
+
+// Function to compute dot product of two vectors
+double dot(double v1[3], double v2[3]) {
+    return v1[0]*v2[0] + v1[1]*v2[1] + v1[2]*v2[2];
+}
+
+// Function to compute magnitude of vector
+double magnitude(double v[3]) {
+    return sqrt(dot(v, v));
+}
+
+int main() {
+    // Given vectors A and B
+    double A[3] = {3, -2, 2};
+    double B[3] = {1, 0, -2};
+    double d1[3], d2[3];
+    double cos_theta, theta;
+
+   
+
+    \end{lstlisting}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+
+ // Compute diagonals
+    for (int i = 0; i < 3; i++) {
+        d1[i] = A[i] + B[i]; // A + B
+        d2[i] = A[i] - B[i]; // A - B
+    }
+
+    // Compute cosine of angle
+    cos_theta = dot(d1, d2) / (magnitude(d1) * magnitude(d2));
+
+    // Clamp value to [-1, 1] for numerical stability
+    if (cos_theta > 1.0) cos_theta = 1.0;
+    if (cos_theta < -1.0) cos_theta = -1.0;
+
+    // Angle in radians
+    theta = acos(cos_theta);
+
+  
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+  // Convert to degrees
+    theta = theta * 180.0 / M_PI;
+
+    // Ensure acute angle
+    if (theta > 90.0) {
+        theta = 180.0 - theta;
+    }
+
+    printf("The acute angle between diagonals is: %.2f degrees\n", theta);
+
+    return 0;
+}
+
+
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+# Define vectors
+A = np.array([3, -2, 2])
+B = np.array([1, 0, -2])
+
+# Diagonals of parallelogram
+diag1 = A + B      # A+B
+diag2 = A - B      # A−B
+
+fig = plt.figure(figsize=(7,7))
+ax = fig.add_subplot(111, projection='3d')
+
+# Plot A
+ax.quiver(0, 0, 0, A, A[1], A[asset:1], color='blue', label='A', arrow_length_ratio=0.1)
+
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+
+# Plot B
+ax.quiver(0, 0, 0, B, B[1], B[asset:1], color='green', label='B', arrow_length_ratio=0.1)
+# Plot first diagonal
+ax.quiver(0, 0, 0, diag1, diag1[1], diag1[asset:1], color='red', label='A+B', arrow_length_ratio=0.1)
+# Plot second diagonal
+ax.quiver(0, 0, 0, diag2, diag2[1], diag2[asset:1], color='purple', label='A-B', arrow_length_ratio=0.1)
+
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+ax.set_title('3D Vectors: Sides and Diagonals of Parallelogram')
+ax.legend()
+plt.tight_layout()
+plt.savefig('parallelogram_diagonals.png', dpi=200)
+plt.close()
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+
+
+
+  
+\begin{frame}{Plot}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{Beamer/figs/parallelogram_diagonals.png}
+    \caption{}
+    \label{fig:placeholder}
+\end{figure}
+\end{frame}
+
+
+
+
+\end{document}

@@ -1,0 +1,172 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+%\numberwithin{equation}{section}
+
+\title{Matgeo-q.2.10.25}
+\author{AI25BTECH11036-SNEHAMRUDULA}
+
+\date{\today} 
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section*{Outline}
+\begin{frame}
+\frametitle{Question}
+% Q1 (2.10.25)
+\textbf{Q 2.10.25.} In $\triangle PQR$, let $\vec a=\overrightarrow{QR}$, $\vec b=\overrightarrow{RP}$ and $\vec c=\overrightarrow{PQ}$. 
+If $\lVert\vec a\rVert=12$, $\lVert\vec b\rVert=4\sqrt{3}$, and $\vec b\cdot\vec c=24$, then which of the following is/are true?
+\begin{enumerate}
+\item $\frac{\|\vec c\rVert^{2}}{2}-\|\vec a\|=12$
+\item $\frac{\lVert\vec c\rVert^{2}}{2}+\lVert\vec a\rVert=30$
+\item $\bigl\lVert\,\vec a\times\vec b+\vec c\times\vec a\,\bigr\rVert=48\sqrt{3}$
+\item $\vec a\cdot\vec b=-72$
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{solutioon}
+\[
+\vec a+\vec b+\vec c=\vec0\qquad\Rightarrow\qquad \vec c=-\vec a-\vec b
+\]
+
+\paragraph{(i)}
+\[
+\vec b^{T}\vec c=24
+\]
+\[
+\vec b^{T}(-\vec a-\vec b)=24\;\Rightarrow\; -\vec b^{T}\vec a-|\vec b|^{2}=24
+\]
+\[
+|\vec b|^{2}=(4\sqrt3)^{2}=48
+\]
+\[
+\vec a^{T}\vec b=-\big(48+24\big)=-72
+\]
+
+\paragraph{(ii)}
+\[
+|\vec c|^{2}=(-\vec a-\vec b)^{T}(-\vec a-\vec b)=|\vec a|^{2}+|\vec b|^{2}+2\vec a^{T}\vec b
+\]
+\[
+|\vec a|^{2}=12^{2}=144,\quad |\vec b|^{2}=48,\quad \vec a^{T}\vec b=-72
+\]
+\[
+|\vec c|^{2}=144+48+2(-72)=48\qquad\frac{|\vec c|^{2}}{2}=24
+\]
+\[
+\frac{|\vec c|^{2}}{2}-|\vec a|=24-12=12\quad\Rightarrow (a)\ \text{true}
+\]
+\end{frame}
+\frametitle{solution}
+\[
+\frac{|\vec c|^{2}}{2}+|\vec a|=24+12=36\quad\Rightarrow (b)\ \text{false}
+\]
+
+\paragraph{(iii)}
+\[
+\vec a\times\vec b+\vec c\times\vec a=\vec a\times\vec b+(-\vec a-\vec b)\times\vec a
+\]
+\[
+=\vec a\times\vec b-\vec a\times\vec a-\vec b\times\vec a= \vec a\times\vec b-\vec b\times\vec a
+\]
+\[
+=\vec a\times\vec b+\vec a\times\vec b=2(\vec a\times\vec b)
+\]
+\[
+|\vec a\times\vec b+\vec c\times\vec a|=2|\vec a\times\vec b|=2|\vec a||\vec b|\sin\theta
+\]
+\[
+\cos\theta=\dfrac{\vec a^{T}\vec b}{|\vec a||\vec b|}=\dfrac{-72}{12\cdot4\sqrt3}=-\dfrac{\sqrt3}{2}
+\]
+\[
+\sin\theta=\tfrac12
+\]
+\[
+|\vec a\times\vec b+\vec c\times\vec a|=48\sqrt3\quad\Rightarrow (c)\ \text{true}
+\]
+
+\[
+\boxed{\text{True}=\{(a),(c),(d)\},\qquad \text{False}=\{(b)\}}
+\]
+\end{frame}
+
+    \begin{frame}{Graphical Representation}
+   \begin{figure}[h!]
+\centering
+\includegraphics[width=0.6\linewidth]{fig2.10.25.png}
+\end{figure}
+\end{frame}
+\end{document}
+

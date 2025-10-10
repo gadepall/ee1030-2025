@@ -1,0 +1,240 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx} % <-- needed for images
+\def\UrlBreaks{\do\/\do-}
+
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\lstset{
+  frame=single,
+  breaklines=true,
+  columns=fullflexible,
+  basicstyle=\ttfamily\tiny   % tiny font so code fits
+}
+
+\numberwithin{equation}{section}
+
+% ---- your macros ----
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}}
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}}
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\newcommand{\mydet}[1]{\ensuremath{\begin{vmatrix}#1\end{vmatrix}}}
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|*{#1}{c}@{}}
+}{%
+  \end{array}\right)
+}
+
+\newcommand{\myaugvec}[2]{\ensuremath{\begin{amatrix}{#1}#2\end{amatrix}}}
+\let\vec\mathbf
+% ---------------------
+
+\title{Matgeo Presentation - Problem 5.13.81}
+\author{ee25btech11056 - Suraj.N}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Problem Statement}
+
+Let \(S=\{\vec{A}=\myvec{0 & 1 & c\\[2pt] 1 & a & d\\[2pt] 1 & b & e} : a,b,c,d,e\in\{0,1\}\text{ and }|\vec{A}|\in\{-1,1\}\}\).
+Find the number of elements in \(S\).
+
+\end{frame}
+
+
+\begin{frame}{Data}
+
+\begin{table}[h!]
+  \centering
+  \input{tables/table.tex}
+  \caption*{Table : Matrix}
+  \label{5.13.81}
+\end{table}
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+Rearranging the rows of $\vec{A}$
+
+\begin{align}
+\myvec{0 & 1 & c\\[2pt] 1 & a & d\\[2pt] 1 & b & e}
+\xleftrightarrow{R_2 \leftrightarrow R_3}
+\myvec{0 & 1 & c\\1 & b & e\\1 & a & d}
+\xleftrightarrow{R_1 \leftrightarrow R_2}
+\myvec{1 & b & e\\0 & 1 & c\\1 & a & d}
+\end{align}
+
+Applyting row operation to $\vec{A}$ to reduce it into Echelon form
+\begin{align}
+\myvec{1 & b & e\\0 & 1 & c\\1 & a & d}
+\xleftrightarrow{R_3 \to R_3 - R_1}
+\myvec{1 & b & e\\0 & 1 & c\\0 & a-b & d-e}
+\xleftrightarrow{R_3 \to R_3 - (a-b)R_2}\\
+\myvec{
+  \makebox[1cm][c]{1} & \makebox[1cm][c]{b} & \makebox[2cm][c]{e} \\
+  \makebox[1cm][c]{0} & \makebox[1cm][c]{1} & \makebox[2cm][c]{c} \\
+  \makebox[1cm][c]{0} & \makebox[1cm][c]{0} & \makebox[2.6cm][c]{$d-e-c(a-b)$}
+}
+\end{align}
+
+Finding the determinant by the first column 
+\begin{align}
+  \mydet{\vec{A}} &= d - e - c(a - b)
+\end{align}
+Taking cases to find the possibilities of matrix $\vec{A}$
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+Case 1 : $\mydet{\vec{A}}=1$ \\
+
+if c = 0 \\
+the value of b and a can be 0 or 1.
+
+\begin{align}
+d - e &= 1
+\end{align}
+
+So,
+
+\begin{align}
+d &= 1 \\  
+e &= 0
+\end{align}
+
+By permutation we get ,\\
+
+\begin{align}
+2 \times 2 \times 1 \times 1 = 4
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+if c = 1, we get 4 possibilities
+
+\begin{align}
+d - e -(a - b) &= 1
+\end{align}
+
+So,
+
+\begin{align}
+  d &= 1 & e&=0 \\   
+  b&=a=1 & b&=a=0
+\end{align}
+
+\begin{align}
+  a &= 0 & b&=1 \\   
+  d&=e=1 & d&=e=0
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+Case 2 : $\mydet{\vec{A}}= -1$ \\
+
+if c = 0 \\
+the value of b and a can be 0 or 1.
+
+\begin{align}
+d - e &= -1
+\end{align}
+
+So,
+
+\begin{align}
+d &= 0 \\  
+e &= 1
+\end{align}
+
+By permutation we get ,\\
+
+\begin{align}
+2 \times 2 \times 1 \times 1 = 4
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+if c = 1, we get 4 possibilities
+
+\begin{align}
+d - e -(a - b) &= -1
+\end{align}
+
+So,
+
+\begin{align}
+  d &= 0 & e&=1 \\   
+  b&=a=1 & b&=a=0
+\end{align}
+
+\begin{align}
+  a &= 1 & b&=0 \\   
+  d&=e=1 & d&=e=0
+\end{align}
+
+By adding all the possibilities , we get 
+
+\begin{align}
+  4 + 4 + 4 + 4 &= 16
+\end{align}
+
+Therefore, the number of elements in \(S=16\).
+
+\end{frame}
+
+\end{document}

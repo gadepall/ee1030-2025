@@ -1,0 +1,208 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframumber]
+
+\title{2.10.42}
+\author{EE25BTECH11013 - Bhargav}
+\date{September 5, 2025}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Question}
+If $\vec{a}, \vec{b}$ and $\vec{c}$ are unit coplanar vectors, evaluate the scalar triple product:
+
+$\sbrak{2\vec{a} - \vec{b} \;\quad 2\vec{b} - \vec{c} \;\quad 2\vec{c} - \vec{a}}$
+
+\vfill
+
+\end{frame}
+
+\begin{frame}{Solution}
+\textbf{Given Condition:} Since the vectors are coplanar, their scalar triple product is zero.
+\begin{align}
+\vec{B} = \myvec{2\vec{a} - \vec{b} & 2\vec{b} - \vec{c} & 2\vec{c} - \vec{a}} = 
+\myvec{
+\vec{a} & \vec{b} & \vec{c}
+}
+\myvec{
+2 & 0 & -1 \\
+-1 & 2 & 0 \\
+0 & -1 & 2
+}
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Solution}
+\begin{align}
+\therefore \det(\vec{B}) = \det(\vec{A})\cdot \det(\vec{M})
+\end{align}
+Since $\vec{a}, \vec{b}, \vec{c}$ are coplanar,
+\begin{align}
+\sbrak{\vec{a} \;\quad \vec{b} \;\quad \vec{c}} = 0.
+\end{align}
+
+
+\begin{align}
+\Rightarrow \sbrak{2\vec{a} - \vec{b}\;\quad 2\vec{b} - \vec{c}\;\quad 2\vec{c} - \vec{a}} = \det(\vec{M}) \cdot \sbrak{\vec{a}\;\quad \vec{b}\;\quad \vec{c}} = 0.
+\end{align}
+
+\end{frame}
+
+
+\begin{frame}{Verification}
+This can be verified by taking an example of 3 coplanar unit vectors.\\
+\begin{align}
+\vec{a} = \myvec{1 \\ 0 \\ 0}
+\end{align}
+
+\begin{align}
+\vec{b} = \myvec{0 \\ 1 \\ 0}
+\end{align}
+
+\begin{align}
+\vec{c} = \myvec{0.6 \\ 0.8 \\ 0}
+\end{align}
+
+\begin{align}
+\vec{X} = \sbrak{2\vec{a}-\vec{b} \;\quad 2\vec{b}-c \;\quad 2\vec{c}-\vec{a}} 
+\end{align}
+
+From the code, it is clear that the value of $\vec{X}$ is 0   
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+#include <stdio.h>
+
+typedef struct {
+    double x, y, z;
+} Vector;
+
+
+Vector createVector(double x, double y, double z) {
+    Vector v = {x, y, z};
+    return v;
+}
+
+Vector subtract(Vector u, Vector v) {
+    return createVector(u.x - v.x, u.y - v.y, u.z - v.z);
+}
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+Vector scale(Vector u, double k) {
+    return createVector(k*u.x, k*u.y, k*u.z);
+}
+
+Vector cross(Vector u, Vector v) {
+    return createVector(
+        u.y*v.z - u.z*v.y,
+        u.z*v.x - u.x*v.z,
+        u.x*v.y - u.y*v.x
+    );
+}
+
+double dot(Vector u, Vector v) {
+    return u.x*v.x + u.y*v.y + u.z*v.z;
+}
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+double triple(Vector u, Vector v, Vector w) {
+    return dot(u, cross(v, w));
+}
+
+Vector twominus(Vector a, Vector b) {
+    return subtract(scale(a, 2), b); 
+}
+
+
+double computeX(Vector a, Vector b, Vector c) {
+    Vector v1 = twominus(a, b);
+    Vector v2 = twominus(b, c);
+    Vector v3 = twominus(c, a);
+    return triple(v1, v2, v3);
+}
+
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+__attribute__((visibility("default"))) 
+double computeX_py(double ax, double ay, double az,
+                   double bx, double by, double bz,
+                   double cx, double cy, double cz) {
+    Vector a = createVector(ax, ay, az);
+    Vector b = createVector(bx, by, bz);
+    Vector c = createVector(cx, cy, cz);
+    return computeX(a, b, c);
+}
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python + C Code}
+    \begin{lstlisting}
+import ctypes
+lib = ctypes.CDLL("./libscalartp.so")
+lib.computeX_py.argtypes = [ctypes.c_double, ctypes.c_double, ctypes.c_double,
+                            ctypes.c_double, ctypes.c_double, ctypes.c_double,
+                            ctypes.c_double, ctypes.c_double, ctypes.c_double]
+lib.computeX_py.restype = ctypes.c_double
+a = (1.0, 0.0, 0.0)
+b = (0.0, 1.0, 0.0)
+c = (0.6, 0.8, 0.0)
+X = lib.computeX_py(*a, *b, *c)
+print("X =", X)
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import numpy as np
+
+
+a = np.array([1, 0, 0])
+b = np.array([0,1,0])
+c = np.array([0.6, 0.8, 0])
+
+x = np.dot(2*a-b, np.cross(2*b-c,2*c-a))
+print("Value of x: ", x)
+
+
+    \end{lstlisting}
+\end{frame}
+
+\end{document}

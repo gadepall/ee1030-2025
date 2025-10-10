@@ -1,0 +1,327 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{2.6.27}
+\date{September 9,2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{Hemanth Reddy-AI25BTECH11018}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+If A (-5,7),B(-4,-5),C(-1,-6) and D(4,5) are the vertices of a quadrilateral, find
+ the area of quadrilateral ABCD.
+\end{frame}
+
+
+
+\begin{frame}{Theoretical Solution}
+\textbf{Solution:}\\
+Area of quadrilateral ABCD = The area of triangle ABC + The area of triangle ACD\\Let 
+$\vec{A}$ \myvec{-5\\
+7},
+$\vec{B}$ \myvec{-4\\
+-5},
+$\vec{C}$ \myvec{-1\\
+-6},
+$\vec{D}$ \myvec{4\\
+5}
+be vectors\\
+\begin{align}
+    \overrightarrow{AB} =   \vec{B}  -  \vec{A}  =  \myvec{1\\
+-12}
+\end{align}
+
+\begin{align}
+    \overrightarrow{AC}  =   \vec{C}   -   \vec{A}   =  \myvec{4\\
+-13}
+\end{align}
+ 
+\begin{align}
+    \overrightarrow{AD}  =   \vec{D}   -   \vec{A}   =  \myvec{9\\
+-2}
+\end{align}
+ 
+
+
+
+
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+
+\begin{align}
+ar(ABC) &= \frac{1}{2} \, \|(\vec{B} - \vec{A}) \times (\vec{C} - \vec{A}) \|  =  17.5
+\end{align}
+\begin{align}
+ar(ACD) &= \frac{1}{2} \, \|(\vec{C} - \vec{A}) \times (\vec{D} - \vec{A}) \|  =  54.5
+\end{align}
+
+Therefore area of quadrilateral ABCD = 17.5+54.5 = 72 sq. units
+
+
+
+\begin{center}
+    \textbf{OR}
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}{Theoretical Solution}
+Area of quadrilateral ABCD = $\frac{1}{2}|d_{1}\times d_{2}|$\\
+where $d_{1}$ = $\overrightarrow{AC}$  and $d_{2}$ = $\overrightarrow{BD}$
+
+
+\begin{align}
+    \overrightarrow{AC}  =   \vec{C}   -   \vec{A}   =  \myvec{4\\
+-13}
+\end{align}
+
+\begin{align}
+    \overrightarrow{BD}  =   \vec{D}   -   \vec{B}   =  \myvec{8\\
+10}
+\end{align}
+
+\begin{align}
+ar(ABCD) &= \frac{1}{2} \, \|(\vec{D} - \vec{B}) \times (\vec{C} - \vec{A}) \|  =  72  sq. units
+\end{align}
+
+
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{C Code }
+    \begin{lstlisting}
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Point {
+    int x, y;
+};
+
+// Function to calculate the cross product (magnitude) of vectors u and v
+int crossProduct(int ux, int uy, int vx, int vy) {
+    return ux * vy - uy * vx;
+}
+
+// Function to calculate area of triangle given vertices p1, p2, p3 using vectors
+double triangleArea(struct Point p1, struct Point p2, struct Point p3) {
+
+
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code }
+    \begin{lstlisting}
+
+    int ux = p2.x - p1.x;
+    int uy = p2.y - p1.y;
+    int vx = p3.x - p1.x;
+    int vy = p3.y - p1.y;
+
+    int cross = crossProduct(ux, uy, vx, vy);
+    return abs(cross) / 2.0;
+}
+
+int main() {
+    struct Point A = {-5, 7};
+    struct Point B = {-4, -5};
+    struct Point C = {-1, -6};
+    struct Point D = {4, 5};
+
+
+
+
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+
+    // Calculate areas of triangles ABC and ACD
+    double areaABC = triangleArea(A, B, C);
+    double areaACD = triangleArea(A, C, D);
+
+    // Total area of quadrilateral ABCD
+    double areaABCD = areaABC + areaACD;
+
+    printf("Area of quadrilateral ABCD = %.2f\n", areaABCD);
+
+    return 0;
+}
+
+
+    \end{lstlisting}
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import matplotlib.pyplot as plt
+
+# Coordinates of the vertices
+A = (-5, 7)
+B = (-4, -5)
+C = (-1, -6)
+D = (4, 5)
+
+# Extract x and y coordinates for plotting, closing the shape by returning to A
+x = [A[0], B[0], C[0], D[0], A[0]]
+y = [A[1], B[1], C[1], D[1], A[1]]
+
+plt.figure(figsize=(8, 8))
+plt.plot(x, y, 'b-o', label='Quadrilateral ABCD')
+
+# Fill the quadrilateral for visualization
+plt.fill(x, y, 'skyblue', alpha=0.4)
+
+
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+
+# Label the vertices
+for point, label in zip([A, B, C, D], ['A', 'B', 'C', 'D']):
+    plt.text(point[0], point[1], label, fontsize=12, fontweight='bold',
+             ha='right', color='darkblue')
+
+plt.title('Quadrilateral ABCD')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.grid(True)
+plt.axis('equal')
+plt.tight_layout()
+
+# Save the plot as PNG file
+plt.savefig('quadrilateral_ABCD.png', dpi=200)
+plt.close()
+
+print('Plot saved as quadrilateral_ABCD.png')
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+
+
+
+  
+\begin{frame}{Plot}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{Beamer/figs/quadrilateral_ABCD.png}
+    \caption{}
+    \label{fig:placeholder}
+\end{figure}
+
+\end{frame}
+
+
+
+
+\end{document}

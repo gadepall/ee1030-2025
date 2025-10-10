@@ -1,0 +1,136 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{5.13.59}
+\author{EE25BTECH11033 - Kavin}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+\textbf{Question}:\\
+ Let $\vec{P} = \myvec{a_{ij}}$ be a $3 \times 3$ matrix and let $\vec{Q} =  \myvec{b_{ij}}$, where $b_{ij} = 2^{i+j}a_{ij}$ for $1 \le i,j \le 3$. If the determinant of $\vec{P}$ is 2, then the determinant of the matrix $\vec{Q}$ is 
+\begin{enumerate}
+\begin{multicols}{4}
+\item $2^{10}$ \columnbreak
+\item $2^{11}$ \columnbreak
+\item $2^{12}$\columnbreak
+\item $2^{13}$
+\end{multicols}
+\end{enumerate}
+\bigskip
+
+\textbf{Solution}:\\
+Let the matrix $\vec{P}$ be ,
+\begin{align}
+    \vec{P} = \myvec{a_{11} & a_{12} & a_{13}\\a_{21} & a_{22} & a_{23}\\a_{31} & a_{32} & a_{33}}
+\end{align}
+also,
+\begin{align}
+    \mydet{\vec{P}} = \mydet{a_{ij}} = 2
+\end{align}
+and the matrix $\vec{Q}$ be ,
+\begin{align}
+    \vec{Q} = \myvec{b_{11} & b_{12} & b_{13}\\b_{21} & b_{22} & b_{23}\\b_{31} & b_{32} & b_{33}}
+\end{align}
+Given that,
+\begin{align}
+    b_{ij} = 2^{i+j}a_{ij}
+\end{align}
+The determinant of the matrix $\vec{Q}$ is given by:
+
+\begin{align}
+\mydet{\vec{Q}} = \mydet{b_{ij}} = \mydet{2^{i+j} a_{ij}}
+\end{align}
+
+Split the exponent using the property $2^{i+j} = 2^i \cdot 2^j$:
+
+\begin{align}
+\mydet{\vec{Q}} = \mydet{2^i \cdot 2^j \cdot a_{ij}}
+\end{align}
+
+First, for each row $i$ (from $i=1$ to $3$),   factor out the common term $2^i$:
+
+\begin{align}
+\mydet{\vec{Q}} = (2^1)(2^2)(2^3) \cdot \mydet{2^j a_{ij}}
+\end{align}
+
+The product of these factors is:
+
+\begin{align}
+\prod_{i=1}^{3} 2^i = 2^{\sum_{i=1}^{3} i} = 2^{\frac{3(3+1)}{2}} = 2^6
+\end{align}
+
+This simplifies the expression for the determinant to:
+
+\begin{align}
+\mydet{\vec{Q}} = 2^{6} \mydet{2^j a_{ij}}
+\end{align}
+
+Now, look at the remaining determinant, $\mydet{2^j a_{ij}}$. For each column $j$ (from $j=1$ to $3$), factor out the common term $2^j$:
+
+\begin{align}
+\mydet{2^j a_{ij}} = (2^1)(2^2)(2^3) \cdot \mydet{a_{ij}} = 2^{6} \mydet{\vec{P}}
+\end{align}
+
+Substituting this back into our expression for $\mydet{\vec{Q}}$:
+
+\begin{align}
+\mydet{\vec{Q}} = 2^{6} \cdot \brak{2^{6} \mydet{\vec{P}}}
+\end{align}
+
+\begin{align}
+\mydet{\vec{Q}} = 2^{12} \mydet{\vec{P}}
+\end{align}
+\begin{align}
+\implies\mydet{\vec{Q}} = 2^{12}\cdot2
+\end{align}
+\begin{align}
+\implies\mydet{\vec{Q}} = 2^{13}
+\end{align}
+\end{document}
+
+

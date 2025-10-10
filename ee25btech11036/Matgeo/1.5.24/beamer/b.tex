@@ -1,0 +1,428 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+	breakable=true,
+	listing engine=minted,
+	listing only,
+	minted language=#2,
+	minted style=default,
+	minted options={%
+		linenos,
+		gobble=0,
+		breaklines=true,
+		breakafter=,,
+		fontsize=\small,
+		numbersep=8pt,
+		#1},
+	boxsep=0pt,
+	left skip=0pt,
+	right skip=0pt,
+	left=25pt,
+	right=0pt,
+	top=3pt,
+	bottom=3pt,
+	arc=5pt,
+	leftrule=0pt,
+	rightrule=0pt,
+	bottomrule=2pt,
+	toprule=2pt,
+	colback=bg,
+	colframe=orange!70,
+	enhanced,
+	overlay={%
+		\begin{tcbclipinterior}
+			\fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+	\end{tcbclipinterior}},
+	#3,
+}
+\lstset{
+	language=C,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{orange},
+	commentstyle=\color{green!60!black},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{1.5.24}
+\date{}
+%\subtitle{A short story}
+
+\author % (optional)
+{M Chanakya Srinivas- EE25BTECH11036}
+
+
+
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+
+%-------------------------------------------------
+\begin{frame}{Problem Statement}
+A line intersects the $Y$-axis and $X$-axis at the points
+\[
+P = (0,b), \quad Q = (c,0)
+\]
+respectively. If $(2,-5)$ is the midpoint of $\overline{PQ}$, then find the coordinates of $P$ and $Q$.
+\end{frame}
+
+%-------------------------------------------------
+\begin{frame}{Vector Representation}
+We represent the points as column vectors:
+\[
+\vec P = \myvec{0 \\ b}, \quad 
+\vec Q = \myvec{c \\ 0}, \quad
+\vec M = \myvec{2 \\ -5}.
+\]
+\end{frame}
+
+%-------------------------------------------------
+\begin{frame}{(i) Rank/Collinearity Condition}
+Since $P, Q, M$ are collinear,
+\begin{align}
+\operatorname{rank}\myvec{\vec P - \vec M \quad \vec Q - \vec M}^{\top} = 1.
+\end{align}
+
+\begin{align}
+\myvec{\vec P - \vec M & \vec Q - \vec M}^{\top} 
+&= \myvec{-2 & c-2 \\ b+5 & 5} \\
+&\xrightarrow{R_2 \leftarrow -2R_2 - (b+5)R_1}
+\myvec{-2 & c-2 \\ 0 & -10 - (b+5)(c-2)}.
+\end{align}
+
+For rank $=1$, the last entry must vanish:
+\begin{align}
+    (b+5)(c-2) = -10.
+\end{align}
+\end{frame}
+
+%-------------------------------------------------
+\begin{frame}{(ii) Midpoint Condition}
+The midpoint of $P$ and $Q$ is:
+\begin{align}
+\vec M &= \frac{\vec P + \vec Q}{2} \\
+\myvec{2 \\ -5} &= \frac{1}{2}\myvec{0 \\ b} + \frac{1}{2}\myvec{c \\ 0}
+= \frac{1}{2}\myvec{c \\ b}.
+\end{align}
+
+Thus,
+\begin{align}
+\myvec{c \\ b} = \myvec{4 \\ -10}
+\quad\Longrightarrow\quad c=4, \; b=-10.
+\end{align}
+
+
+\end{frame}
+
+%-------------------------------------------------
+\begin{frame}{Final Answer}
+Therefore, the intercept points are:
+\[
+\vec P = \myvec{0 \\ -10}, 
+\qquad 
+\vec Q = \myvec{4 \\ 0}.
+\]
+\end{frame}
+
+
+\begin{frame}{Illustration}
+\centering
+\includegraphics[width=0.65\textwidth]{figs/fig.png}
+
+\bigskip
+Plot shows \(P(0,-10)\), \(Q(4,0)\) and midpoint \(M(2,-5)\).
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+\frametitle{C Code - Section formula function}
+\begin{lstlisting}
+#include <stdio.h>
+
+int main() {
+ 
+    printf("Problem 1.5.24:\n");
+    printf("A line intersects the Y-axis and X-axis at P=(0,b) and Q=(c,0).\n");
+    printf("If (2,-5) is the midpoint of PQ, find P and Q.\n\n");
+
+   
+    printf("Step (i): Rank / Collinearity condition\n");
+    printf("From collinearity, (b+5)(c-2) = -10\n\n");
+
+ 
+    printf("Step (ii): Midpoint condition\n");
+    int Mx = 2, My = -5;
+    int c = 2 * Mx;   // c/2 = 2 -> c = 4
+    int b = 2 * My;   // b/2 = -5 -> b = -10
+    printf("Midpoint gives: c = %d, b = %d\n\n", c, b);
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code - Section formula function}
+\begin{lstlisting}
+
+    int Px = 0, Py = b;
+    int Qx = c, Qy = 0;
+    printf("Final Answer:\n");
+    printf("P = (%d, %d)\n", Px, Py);
+    printf("Q = (%d, %d)\n", Qx, Qy);
+
+  
+    int midx = (Px + Qx) / 2;
+    int midy = (Py + Qy) / 2;
+    printf("\nVerification:\n");
+    printf("Midpoint of P and Q = (%d, %d)\n", midx, midy);
+
+    return 0;
+}
+\end{lstlisting}
+\end{frame}
+
+
+ \begin{frame}[fragile]
+	\frametitle{Python Code through shared output}
+	\begin{lstlisting}       
+
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+print("Step 1: Rank condition (collinearity)")
+print("Matrix formed from (P-M) and (Q-M):")
+print("[[-2, c-2], [b+5, 5]]")
+
+print("Row operation: R2 -> -2*R2 - (b+5)*R1")
+print("=> [[-2, c-2], [0, -10 - (b+5)(c-2)]]")
+
+print("For rank=1: (b+5)(c-2) = -10")
+\end{lstlisting}
+\end{frame}
+
+% --- Step 2 ---
+\begin{frame}[fragile]\frametitle{Python Code through shared output}
+\begin{lstlisting}
+print("Step 2: Midpoint condition")
+Mx, My = 2, -5
+print("M = ((0+c)/2, (b+0)/2) = (2,-5)")
+
+c = 2*Mx
+b = 2*My
+print(f"From midpoint: c = {c}, b = {b}")
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Python Code through shared output}
+\begin{lstlisting}
+P = (0, b)
+Q = (c, 0)
+
+print("Final Answer:")
+print(f"P = {P}")
+print(f"Q = {Q}")
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Python Code through shared output}
+\begin{lstlisting}
+midpoint = ((P[0]+Q[0])/2, (P[1]+Q[1])/2)
+print("Verification:")
+print(f"Midpoint of P and Q = {midpoint}")
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]\frametitle{Python Code through shared output}
+\begin{lstlisting}
+# --- Step 5: Plot the graph ---
+plt.figure(figsize=(6,6))
+plt.axhline(0, color='black', linewidth=0.8)  # X-axis
+plt.axvline(0, color='black', linewidth=0.8)  # Y-axis
+
+# Plot line PQ
+plt.plot([P[0], Q[0]], [P[1], Q[1]], 'b-', label="Line PQ")
+
+# Mark points
+plt.scatter(*P, color='red')
+plt.scatter(*Q, color='green')
+plt.scatter(*M, color='purple')
+
+plt.text(P[0]-0.5, P[1], f"P({int(P[0])},{int(P[1])})", fontsize=10, color="red")
+plt.text(Q[0]+0.2, Q[1], f"Q({int(Q[0])},{int(Q[1])})", fontsize=10, color="green")
+plt.text(M[0]+0.2, M[1], f"M({int(M[0])},{int(M[1])})", fontsize=10, color="purple")
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]\frametitle{Python Code through shared output}
+\begin{lstlisting}
+plt.title("Line PQ with Midpoint M(2,-5)")
+plt.grid(True)
+plt.legend()
+plt.axis("equal")
+
+plt.show()
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Direct Python Code}
+	\begin{lstlisting}
+import sys                            # for path to external scripts
+import numpy as np
+import numpy.linalg as LA
+import matplotlib.pyplot as plt
+
+# local imports
+from libs.line.funcs import *
+from libs.triangle.funcs import *
+from libs.conics.funcs import circ_gen
+
+# --- Step 1: Rank Matrix condition ---
+print("Step 1: Rank condition between b and c")
+print("Take M = (2,-5), P = (0,b), Q = (c,0)")
+
+# Construct rank matrix for collinearity of P, Q, M
+# Vectors (P-M) and (Q-M) must be linearly dependent => rank = 1
+# Matrix form: [[Px-Mx, Qx-Mx], [Py-My, Qy-My]]
+# Here M=(2,-5)
+M = np.array(([2, -5])).reshape(-1,1)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Direct Python Code}
+	\begin{lstlisting}
+b, c = symbols = (None, None)  # placeholders for explanation
+
+print("Matrix formed from (P-M) and (Q-M):")
+print("[[-2, c-2], [b+5, 5]]")
+
+print("Row operation: R2 -> -2*R2 - (b+5)*R1")
+print("=> [[-2, c-2], [0, -10 - (b+5)(c-2)]]")
+
+print("For rank=1: (b+5)(c-2) = -10   (Relation 1)\n")
+
+# --- Step 2: Midpoint relation ---
+print("Step 2: Midpoint relation")
+print("Midpoint M = ((0+c)/2, (b+0)/2) = (2, -5)")
+
+c = 2 * M[0,0]
+b = 2 * M[1,0]
+print(f"c/2 = 2  =>  c = {c}")
+print(f"b/2 = -5 =>  b = {b}   (Relation 2)\n")
+
+# --- Step 3: Solve both relations ---
+P = np.array(([0,b])).reshape(-1,1)
+Q = np.array(([c,0])).reshape(-1,1)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Direct Python Code}
+	\begin{lstlisting}
+print("Step 3: Solve")
+print(f"Coordinates of P = (0, {b})")
+print(f"Coordinates of Q = ({c}, 0)\n")
+
+# --- Step 4: Verification ---
+mid = (P+Q)/2
+print("Verification: midpoint of P and Q =", mid.ravel())
+
+# --- Step 5: Plotting ---
+x_PQ = line_gen(P,Q)
+plt.plot(x_PQ[0,:], x_PQ[1,:], label='$PQ$')
+
+# Mark points
+coords = np.block([[P,Q,M]])
+vert_labels = ['P','Q','M']
+plt.scatter(coords[0,:], coords[1,:], color=['green','red','magenta'])
+for i, txt in enumerate(vert_labels):
+    plt.annotate(f'{txt}\n({coords[0,i]:.0f},{coords[1,i]:.0f})',
+                 (coords[0,i], coords[1,i]),
+                 textcoords="offset points", xytext=(20,-10), ha='center')
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Direct Python Code}
+	\begin{lstlisting}
+# Axis styling
+ax = plt.gca()
+ax.spines['left'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.spines['top'].set_visible(False)
+ax.spines['bottom'].set_visible(False)
+
+plt.legend(loc='best')
+plt.grid()
+plt.axis('equal')
+
+# Save figure as PDF
+outfile_pdf = 'chapters/10/7/2/2/figs/fig.pdf'
+plt.savefig(outfile_pdf)
+
+# Save figure as PNG
+outfile_png = 'chapters/10/7/2/2/figs/fig.png'
+plt.savefig(outfile_png, dpi=300)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Direct Python Code}
+	\begin{lstlisting}
+# Open image depending on system
+try:
+    import platform, subprocess, shlex
+    if "termux" in platform.platform().lower():   # Android Termux
+        subprocess.run(shlex.split(f"termux-open {outfile_png}"))
+    else:                                        # Linux desktop
+        subprocess.run(shlex.split(f"xdg-open {outfile_png}"))
+except Exception as e:
+    print(f"Could not auto-open file. Saved at {outfile_png}")
+\end{lstlisting}
+\end{frame}
+\begin{frame}{Plot by python using shared output from c}
+	\begin{center}
+		\includegraphics[width=0.8\columnwidth]{figs/Figure_1.png}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Plot by python only}
+	\begin{center}
+		\includegraphics[width=0.9\columnwidth]{figs/fig.png}
+	\end{center}
+\end{frame}
+\end{document}

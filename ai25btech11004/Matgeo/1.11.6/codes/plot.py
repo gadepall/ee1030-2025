@@ -1,0 +1,36 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+# Direction cosines
+l = m = n = 1/np.sqrt(3)
+
+# Define line points
+t = np.linspace(-5, 5, 100)
+x = l * t
+y = m * t
+z = n * t
+
+# Plotting
+fig = plt.figure(figsize=(8, 6))
+ax = fig.add_subplot(111, projection='3d')
+
+# Plot the line
+ax.plot(x, y, z, label="Line with equal angles", color="blue")
+
+# Plot origin
+ax.scatter(0, 0, 0, color="red", s=50, label="Origin")
+
+# Axes labels
+ax.set_xlabel('X-axis')
+ax.set_ylabel('Y-axis')
+ax.set_zlabel('Z-axis')
+ax.set_title("Line making equal angles with coordinate axes")
+ax.legend()
+
+# Save the figure
+plt.savefig("equal_angles_line.png", dpi=300, bbox_inches='tight')
+
+# Show the plot
+plt.show()
+

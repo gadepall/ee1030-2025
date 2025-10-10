@@ -1,0 +1,187 @@
+\documentclass{beamer}
+
+% Theme
+\usetheme{Madrid}
+\usecolortheme{default}
+
+% Packages
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{lscape}
+
+% Custom macros
+\newcommand{\myvec}[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand{\brak}[1]{\left( #1 \right)}
+
+% Redefine \vec to bold letters only (no arrow)
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+\title{1.5.7}
+\author{EE25BTECH11019 -- Darji Vivek M.}
+\date{}
+
+\begin{document}
+
+% Title slide
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% Question
+\begin{frame}{Question}
+If $\brak{\tfrac{a}{3},4}$ is the midpoint of the line segment joining 
+the points $\brak{-6,5}$ and $\brak{-2,3}$, then the value of $a$ is
+\hfill $\brak{10,2021}$
+\end{frame}
+
+% Variables table
+\begin{frame}{Variables Used}
+\begin{table}[h!]    
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+    Symbol & Meaning \\ \hline
+    $\vec{A}$ & Point $(-6,5)$ \\ \hline
+    $\vec{B}$ & Point $(-2,3)$ \\ \hline
+    $\vec{M}$ & Midpoint \\ \hline
+    $a$ & Unknown to find \\ \hline
+  \end{tabular}
+\end{table}
+\end{frame}
+
+% Midpoint formula
+\begin{frame}{Midpoint Formula}
+\begin{align}
+\vec{A} &= \myvec{-6\\5}, \quad 
+\vec{B} = \myvec{-2\\3} \\[6pt]
+\vec{M} &= \frac{\vec{A}+\vec{B}}{2}
+\end{align}
+\end{frame}
+
+% Substitution
+\begin{frame}{Substitution}
+\begin{align}
+\vec{M} &= \tfrac{1}{2}\brak{\myvec{-6\\5}+\myvec{-2\\3}} \\[6pt]
+&= \tfrac{1}{2}\myvec{-8\\8} \\[6pt]
+&= \myvec{-4\\4}
+\end{align}
+\end{frame}
+
+% Given midpoint
+\begin{frame}{Given Midpoint}
+\begin{align}
+\vec{M} = \myvec{\tfrac{a}{3}\\4}
+\end{align}
+
+Equating components:
+\begin{align}
+\tfrac{a}{3} = -4 \implies a = -12
+\end{align}
+\end{frame}
+
+% Final Answer
+\begin{frame}{Final Answer}
+\[
+\boxed{a = -12}
+\]
+\end{frame}
+\begin{frame}[fragile]{C Code}
+\begin{verbatim}
+#include <stdio.h>
+
+double find_a(int x1, int y1, int x2, int y2, int given_y)
+{
+    double mid_x = (x1 + x2) / 2.0;
+    // given midpoint is (a/4, given_y)
+    return 4 * mid_x;
+}
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]{Python Code (Import and Setup)}
+\begin{verbatim}
+import ctypes
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load the shared object file (compiled from your C code)
+lib = ctypes.CDLL('./lib1.so')  # change name if your .so file is different
+
+# Define argument and return types for the C function
+lib.find_a.argtypes = [ctypes.c_int, ctypes.c_int, 
+                       ctypes.c_int, ctypes.c_int, 
+                       ctypes.c_int]
+lib.find_a.restype = ctypes.c_double
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]{Python Code (Calling C Function)}
+\begin{verbatim}
+# Given data
+x1, y1 = -6, 5
+x2, y2 = -2, 3
+given_y = 4
+
+# Call the C function
+a_value = lib.find_a(x1, y1, x2, y2, given_y)
+print(f"Value of a: {a_value}")
+
+# Midpoint coordinates from a
+mid_x = a_value / 4
+mid_y = given_y
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]{Python Code (Preparing Data)}
+\begin{verbatim}
+# Create numpy arrays for plotting
+A = np.array([x1, y1])
+B = np.array([x2, y2])
+M = np.array([mid_x, mid_y])
+
+# Generate line between A and B
+line_AB = np.column_stack((A, B))
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]{Python Code (Plotting)}
+\begin{verbatim}
+# Plotting
+plt.plot([A[0], B[0]], [A[1], B[1]], label='$AB$')
+plt.scatter([A[0], B[0], M[0]], 
+            [A[1], B[1], M[1]], 
+            color=['red', 'blue', 'green'])
+
+# Annotate points
+labels = ['A', 'B', 'Midpoint']
+coords = [A, B, M]
+for label, coord in zip(labels, coords):
+    plt.annotate(f'{label}\n({coord[0]:.2f}, {coord[1]:.2f})',
+                 (coord[0], coord[1]),
+                 textcoords="offset points",
+                 xytext=(10, -10),
+                 ha='center')
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]{Python Code (Finalizing The Plot)}
+\begin{verbatim}
+plt.legend()
+plt.grid(True)
+plt.axis('equal')
+plt.savefig('1.png')
+plt.show()
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Plot}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\columnwidth]{figs/1.png}
+\caption{\centering plot}
+\label{fig:placeholder_125}
+\end{figure}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,15 @@
+\frametitle{Python plot}
+\lstset{language=C}
+\begin{lstlisting}
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.quiver(0,0,0, a[0],a[1],a[2], color='r', label='a = i+j+k')
+ax.quiver(0,0,0, b_vec[0],b_vec[1],b_vec[2], color='b', label='b')
+points = {'O':O,'A (1,1,1)':a,f'B ({bx:.0f},{by:.0f},{bz:.0f})':b_vec}
+for label, coord in points.items():
+    ax.text(coord[0], coord[1], coord[2], f'{label}', fontsize=10, ha='center')
+ax.set_xlim([0, 2]); ax.set_ylim([0, 2]); ax.set_zlim([0, 2])
+ax.set_xlabel('X'); ax.set_ylabel('Y'); ax.set_zlabel('Z')
+ax.legend(); plt.title("Vectors a and b with coordinates")
+plt.show()
+\end{lstlisting}
