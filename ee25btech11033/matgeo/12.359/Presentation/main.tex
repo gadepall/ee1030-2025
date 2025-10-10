@@ -105,8 +105,67 @@ The \textbf{condition number} of an invertible matrix $\vec{A}$, denoted as $\ka
 \begin{align}
     \kappa(\vec{A}) = \norm{\vec{A}} \norm{\vec{A}^{-1}}
 \end{align}
+where,
+\begin{align*}
+    \norm{\vec{A}} = \text{norm of matrix $\vec{A}$}
+\end{align*}
 It measures how much the output of a linear system $\vec{A}\vec{x}=b$ can change for a small change in the input data.\\
 \bigskip
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+In linear algebra, a \textbf{matrix norm} is a function that assigns a strictly positive length or size to every non-zero matrix. Conceptually, it is an extension of the idea of a vector norm (which measures the length of a vector) to matrices.
+
+\section*{Formal Definition}
+
+A function $\norm{\vec{A}}$ is defined as a matrix norm if it satisfies the following properties for any matrices $\vec{A}$ and $\vec{B}$ and any scalar $c$:
+
+\begin{enumerate}
+    \item \textbf{Non-negativity:} $\norm{\vec{A}} \ge 0$, and $\norm{\vec{A}} = 0$ if and only if $\vec{A}$ is the zero matrix.
+    
+    \item \textbf{Absolute Homogeneity:} $\norm{c\vec{A}} = \abs{c} \cdot \norm{\vec{A}}$.
+    
+    \item \textbf{Triangle Inequality:} $\norm{\vec{A} + \vec{B}} \le \norm{\vec{A}} + \norm{\vec{B}}$.
+    
+    \item \textbf{Submultiplicativity:} $\norm{\vec{AB}} \le \norm{\vec{A}} \cdot \norm{\vec{B}}$. (This property is specific to matrix norms).
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+\section*{Common Types of Matrix Norms}
+
+There are several different ways to define a matrix norm, with the most common types falling into two categories: induced norms and entry-wise norms.
+
+\subsection*{1. Induced Norms (or Operator Norms)}
+
+These norms are defined in terms of how a matrix acts on vectors. An induced norm measures the maximum "stretching factor" that the matrix applies to any vector. It is defined as:
+\begin{align} \norm{\vec{A}}_p = \sup_{\vec{x}\neq0} \frac{\norm{\vec{Ax}}_p}{\norm{\vec{x}}_p} \end{align}
+The most common induced norms are:
+\begin{itemize}
+    \item \textbf{L1-Norm (Maximum Absolute Column Sum):}
+    \begin{align} \norm{\vec{A}}_1 = \max_{j} \sum_{i=1}^{m} |a_{ij}| \end{align}
+\end{itemize}  
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+\begin{itemize}
+    \item \textbf{L-infinity Norm (Maximum Absolute Row Sum):}
+    \begin{align} \norm{\vec{A}}_\infty = \max_{i} \sum_{j=1}^{n} |a_{ij}| \end{align}
+
+    \item \textbf{L2-Norm (Spectral Norm):}
+    \begin{align} \norm{\vec{A}}_2 = \sqrt{\lambda_{\max}(\vec{A}^*\vec{A})} = \sigma_{\max}(\vec{A}) \end{align}
+    where $\sigma_{\max}$ is the largest singular value of $\vec{A}$ and $\vec{A}^*$ is the conjugate transpose of $\vec{A}$.
+\end{itemize}
+\subsection*{2. Entry-wise Norms}
+
+These norms treat the matrix as a long vector of its $m \times n$ elements.
+
+\begin{itemize}
+    \item \textbf{Frobenius Norm:}
+    \begin{align} \norm{\vec{A}}_F = \sqrt{\sum_{i=1}^{m} \sum_{j=1}^{n} |a_{ij}|^2} \end{align}
+    This is analogous to the standard Euclidean norm for vectors.
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Theoretical Solution}
