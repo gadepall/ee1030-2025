@@ -1,0 +1,116 @@
+ \let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{4.13.64}
+\author{EE25BTECH11060 - V.Namaswi}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+\textbf{Question}\\
+Let $a, b, c$ be real numbers with $a^2 + b^2 + c^2 = 1$. Show that the equation
+\[
+\begin{vmatrix}
+ax - by - c & bx + ay & cx + a \\
+bx + ay & -ax + by - c & cy + b \\
+cx + a & cy + b & -ax - by + c
+\end{vmatrix} = 0
+\]
+represents a straight line.\\
+\textbf{Solution}\\
+Let us denote it as a $3 \times 3$ matrix:
+\[
+M = 
+\begin{pmatrix}
+ax - by - c & bx + ay & cx + a \\
+bx + ay & -ax + by - c & cy + b \\
+cx + a & cy + b & -ax - by + c
+\end{pmatrix}
+\]
+A determinant represents a plane if it depends quadratically on $x$ and $y$. Here, if we can reduce it to a determinant that is linear in $x$ and $y$, it will represent a straight line.\\
+so,Replace
+\[
+R_3 \rightarrow R_3 - c R_1 - b R_2
+\]
+
+\[
+\text{First element of new } R_3: \quad
+\]
+\begin{align}
+(cx + a) - c(ax - by - c) - b(bx + ay)\\
+= cx + a - cax + cby + c^2 - b^2 x - a b y\\
+x(c - ca - b^2) + y(cb - ab) + (a + c^2)
+\end{align}
+\[
+\text{Second element of new } R_3: \quad
+\]
+\begin{align}
+(cy + b) - c(bx + ay) - b(-ax + by - c) \\
+= cy + b - cbx - cay + abx - b^2 y + bc \\
+= x(-cb + ab) + y(c - ca - b^2) + (b + bc)
+\end{align}
+ \[
+\text{Third element of new } R_3: \quad
+\]
+\begin{align}
+(-ax - by + c) - c(cx + a) - b(cy + b) \\
+= -ax - by + c - c^2 x - ac - bcy - b^2 \\
+= x(-a - c^2) + y(-b - bc) + (c - ac - b^2)
+\end{align}
+
+But since 
+\begin{align}
+a^2 + b^2 + c^2 = 1 \implies 1 - a^2 = b^2 + c^2,
+\end{align}
+all quadratic terms cancel.
+Similarly, the 2nd and 3rd entries of the new $R_3$ become constants or linear in $x, y$.\\
+The determinant now depends linearly on $x$ and $y$, so we can write:
+\[
+\det(M) = 0 \quad \implies \quad px + qy + r = 0,
+\]
+for some real constants $p, q, r$. \\
+Hence,the determinant represents a \textbf{straight line}.
+\end{document}

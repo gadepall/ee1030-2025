@@ -1,0 +1,161 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal,12pt,onecolumn]{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\graphicspath{{./figs/}}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage{caption}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\usepackage{gvv}                                        
+%\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}     
+\usepackage{xparse}
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{float}
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{problem}{Problem}
+%\newtheorem{proposition}{Proposition}[section]
+%\newtheorem{lemma}{Lemma}[section]
+%\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{example}{Example}[section]
+%\newtheorem{definition}[problem]{Definition}
+
+\begin{document}
+
+\title{8.4.23}
+\author{EE25BTECH11020 - Darsh Pankaj Gajare}
+% \maketitle
+% \newpage
+% \bigskip
+%\begin{document}
+{\let\newpage\relax\maketitle}
+%\renewcommand{\thefigure}{\theenumi}
+%\renewcommand{\thetable}{\theenumi}
+Question:\\
+The curve described parametrically by $x = t^2 + t + 1$ and $y = t^2 - t + 1$ represents:
+\begin{multicols}{4}
+\begin{enumerate}
+\item a pair of straight lines
+\item an ellipse
+\item a parabola
+\item a hyperbola
+\end{enumerate}
+\end{multicols}
+
+
+\solution
+\begin{table}[H]
+	\centering
+	\caption{}
+	\input{tables/table}
+	\label{}
+\end{table}
+
+The parametric form can be written as
+\begin{align}
+\vec{x} &= \vec{a}t^2 + \vec{b}t + \vec{c}.
+\end{align}
+\begin{align}
+	\vec{x}=\myvec{\vec{a}\\\vec{b}}^\top\myvec{t^2\\t}+\vec{c}
+\end{align}
+\begin{align}
+\myvec{x\\y}
+&= 
+\myvec{1 & 1\\[4pt]1 & -1}
+\myvec{t^2\\t} + \myvec{1\\1}.
+\end{align}
+
+Solving for $\myvec{t^2\\t}$ using the inverse matrix,
+\begin{align}
+\myvec{t^2\\t}
+&= 
+\frac{1}{2}
+\myvec{1 & 1\\[4pt]1 & -1}
+^{-1}
+\brak{\myvec{x\\y}-\myvec{1\\1}}\\
+&= 
+\frac{1}{2}
+\myvec{1 & 1\\[4pt]1 & -1}
+\brak{\myvec{x\\y}-\myvec{1\\1}}.
+\end{align}
+
+Multiplying,
+\begin{align}
+\myvec{t^2\\t}
+&= 
+\frac{1}{2}
+\myvec{x+y-2\\[4pt]x-y}.
+\end{align}
+
+\text{Eliminating } t:
+\begin{align}
+\myvec{t^2\\t}
+= \frac{1}{2}\myvec{x+y-2\\x-y}
+\implies
+\frac{1}{2}(x+y-2)
+= \brak{\frac{1}{2}(x-y)}^2
+\end{align}
+\begin{align}
+\Rightarrow (x-y)^2 = 2(x+y-2)
+\end{align}
+
+\begin{align}
+\text{Write as quadratic form:}\quad
+\vec{x}^\top \, \vec{V}\, \vec{x} + 2\vec{u}^\top\vec{x} + f &= 0
+\end{align}
+
+\begin{align}
+\vec{V} &= \myvec{1 & -1\\[4pt]-1 & 1}, &
+\vec{u} &= \myvec{-1\\[4pt]-1}, &
+f = 4
+\end{align}
+
+Extract quadratic coefficients:
+\begin{align}
+A &= V_{11} = 1, & B &= 2V_{12} = -2, & C &= V_{22} = 1
+\end{align}
+Discriminant:
+\begin{align}
+\Delta &= B^2 - 4AC = (-2)^2 - 4(1)(1) = 0
+\end{align}
+
+Since $\Delta=0$ the conic is a parabola.
+Plot using C libraries:
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{img1}
+	\caption*{}
+	\label{img1}
+\end{figure}
+Plot using Python:
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{img2}
+	\caption*{}
+	\label{img2}
+\end{figure}
+
+\end{document}

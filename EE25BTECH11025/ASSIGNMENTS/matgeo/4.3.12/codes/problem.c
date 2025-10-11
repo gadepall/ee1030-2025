@@ -1,32 +1,54 @@
-#include <stdio.h>
+#include<stdio.h>
+#include<math.h>
 
-#define size 2
-
-double n[size], v1[size], v2[size], v3[size], v4[size], v5[size];
-
-void insert_vector(int index, double vec[size]){
-    double *target;
-    switch (index){
-        case 0: target = n; break;
-        case 1: target = v1; break;
-        case 2: target = v2; break;
-        case 3: target = v3; break;
-        case 4: target = v4; break;
-        case 5: target = v5; break;
-    }
-    for (int i=0; i<size; i++){
-        target[i] = vec[i];
-    }
+void give_data(double *points){
+    points[0] = 1; //Ax
+    points[1] = -2; //Ay
+    points[2] = 0; //Bx
+    points[3] = 2; //By
+    points[4] = 2; //Cx
+    points[5] = 0; //Cy
+    points[6] = 4; //Dx
+    points[7] = 0; //Dy
+    points[8] = sqrt(2); //EX
+    points[9] = 4*sqrt(2); //Ey
+    points[10] = 1; //Fx
+    points[11] = 1; //Fy
 }
 
-double* get_vector(int index){
-    switch (index){
-        case 0: return n;
-        case 1: return v1;
-        case 2: return v2;
-        case 3: return v3;
-        case 4: return v4;
-        case 5: return v5;
-        default: return NULL;
+double dotpro(double A[], double B[]){
+    double sum = 0;
+    for(int i = 0; i<2; i++){
+        sum += (A[i]*B[i]);
+    }
+    return sum;
+}
+int main(){
+    double n[2] = {1, -2};
+    double A[2] = {0, 2};
+    double B[2] = {2, 0};
+    double C[2] = {4, 0};
+    double D[2] = {sqrt(2), 4*sqrt(2)};
+    double E[2] = {1, 1};
+    int k = 0;
+
+    for(int i = 1; i<=5; i++){
+        switch (i){
+            case 1: k = dotpro(n, A); if(k==4){printf("Option (%d) lies on the given line.", i);}
+            else{printf("Option (%d) does not lie on the given line", i);}
+            break;
+            case 2: k = dotpro(n, B); if(k==4){printf("Option (%d) lies on the given line.", i);}
+            else{printf("Option (%d) does not lie on the given line", i);}
+            break;
+            case 3: k = dotpro(n, C); if(k==4){printf("Option (%d) lies on the given line.", i);}
+            else{printf("Option (%d) does not lie on the given line", i);}
+            break;
+            case 4: k = dotpro(n, D); if(k==4){printf("Option (%d) lies on the given line.", i);}
+            else{printf("Option (%d) does not lie on the given line", i);}
+            break;
+            case 5: k = dotpro(n, E); if(k==4){printf("Option (%d) lies on the given line.", i);}
+            else{printf("Option (%d) does not lie on the given line", i);}
+            break;
+        }
     }
 }

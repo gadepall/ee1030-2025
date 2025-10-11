@@ -55,8 +55,7 @@ plt.scatter(coords[0,:], coords[1,:], color='red')
 # Labels
 labels = ['A','B','C','D']
 for i, txt in enumerate(labels):
-    plt.annotate(txt,
-                 (coords[0,i], coords[1,i]),
+    plt.annotate(txt, (coords[0,i], coords[1,i]),
                  textcoords="offset points",
                  xytext=(-5,10),
                  ha='center')

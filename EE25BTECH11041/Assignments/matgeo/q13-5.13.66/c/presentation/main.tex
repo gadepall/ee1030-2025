@@ -1,0 +1,141 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+	breakable=true,
+	listing engine=minted,
+	listing only,
+	minted language=#2,
+	minted style=default,
+	minted options={%
+		linenos,
+		gobble=0,
+		breaklines=true,
+		breakafter=,,
+		fontsize=\small,
+		numbersep=8pt,
+		#1},
+	boxsep=0pt,
+	left skip=0pt,
+	right skip=0pt,
+	left=25pt,
+	right=0pt,
+	top=3pt,
+	bottom=3pt,
+	arc=5pt,
+	leftrule=0pt,
+	rightrule=0pt,
+	bottomrule=2pt,
+	toprule=2pt,
+	colback=bg,
+	colframe=orange!70,
+	enhanced,
+	overlay={%
+		\begin{tcbclipinterior}
+			\fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+	\end{tcbclipinterior}},
+	#3,
+}
+\lstset{
+	language=C,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{orange},
+	commentstyle=\color{green!60!black},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	showstringspaces=false,
+}
+\begin{document}
+
+\title 
+{5.13.66}
+\date{26 September,2025}
+
+\author 
+{Naman Kumar-EE25BTECH11041}
+\graphicspath{./figs}
+
+
+\frame{\titlepage}
+\begin{frame}{Question c)}
+Let p be an odd prime number and $\vec{T_p}$ be the following set of $2\times2$ matrices
+\begin{align}
+\vec{T_p}=\cbrak{\Vec{A}=\begin{pmatrix}a&b\\c&a\end{pmatrix}:a,b,c \in \cbrak{0,1,2,\dots,p-1} }
+\end{align}
+c) The number of A in T p such that det(A) is not divisible by p is
+\end{frame}
+\begin{frame}{Solution}
+Step 1: Trace of $\vec{A}$
+\begin{align}
+    \vec{A}=\begin{pmatrix}a&b\\c&a \end{pmatrix}\\
+    tr(\vec{A})=a+a=2a\\
+    2a \mod p \not\equiv  0
+\end{align}
+p is a odd prime , the number 2 is not a multiple of p, so 'a' must also be non-zero,\\
+Therefore the condition simplifies to:
+\begin{align}
+    a\mod p \not\equiv 0
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+so for a their are p-1 chooses.\\
+Step 2: $det(\vec{A})\mod p\equiv0$
+\begin{align}
+    det(\vec{A})=\begin{vmatrix}a&b\\c&a \end{vmatrix}\\
+    =a^2-bc\\
+    a^2-bc\mod p \equiv 0 \implies bc\equiv a^2 \brak{\mod p}
+\end{align}
+'a' as p-1 choices leaving a=0,let $a^2=k$
+\begin{align}
+    bc=k(k\neq0)
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+neither of  'b' and 'c' be zero\\
+for 'b' we have p-1 choices leaving zero
+\begin{align}
+    bc\equiv k\\
+    c \equiv k.b^{-1}\text{ ($b^{-1}$multiplicative inverse of b modulo p)}
+\end{align}
+so for every 'b' we have 'c'\\
+Therefore their are p-1 pairs of (b,c)\\
+Finally, total number matrix $\vec{A}$
+\begin{align}
+    =(p-1)(p-1)
+    =(p-1)^2
+\end{align}
+\end{frame}
+\begin{frame}{figure}
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=\columnwidth]{figs/figure_c.png}
+    \caption{}
+    \label{fig:placeholder}
+\end{figure}
+\end{frame}
+\end{document}

@@ -1,0 +1,37 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Given line: x + y + 1 = 0
+# Perpendicular line through (1,2): slope = 1 => equation: x - y + 1 = 0
+
+# Define range for x
+x = np.linspace(-5, 5, 400)
+
+# Equations of lines
+y_given = -x - 1          # x + y + 1 = 0
+y_perp  = x + 1           # x - y + 1 = 0
+
+# Plot given line
+plt.plot(x, y_given, 'b', label="Given line: x + y + 1 = 0")
+
+# Plot perpendicular line
+plt.plot(x, y_perp, 'r', label="Perpendicular line: x - y + 1 = 0")
+
+# Plot the point (1,2)
+plt.scatter(1, 2, color='k', zorder=5)
+plt.text(1.1, 2.1, "(1,2)", fontsize=10)
+
+# Add axes
+plt.axhline(0, color='gray', linewidth=0.8)
+plt.axvline(0, color='gray', linewidth=0.8)
+
+# Title and labels
+plt.title("Line and its Perpendicular through (1,2)")
+plt.xlabel("x-axis")
+plt.ylabel("y-axis")
+plt.legend()
+plt.grid(True)
+plt.axis('equal')
+
+plt.show()
+

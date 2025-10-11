@@ -1,0 +1,43 @@
+\documentclass{beamer}
+\usepackage{amsmath}
+\usepackage{gvv}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\title{Question 4.2.3}
+\author{AI25BTECH11040 - Vivaan Parashar}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+    \frametitle{Question: }
+    Given $\vec{A} = \myvec{2 & -3 \\ -4 & 7}$, compute $\vec{A}^{-1}$ and show that $2\vec{A}^{-1} = 9\vec{I} - \vec{A}$.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Solution: }
+    We start by finding the characteristic equation of $\vec{A}$.
+    \begin{align*}
+        f(\lambda)          & = \det(\vec{A} - \lambda \vec{I})                                       \\
+                            & = \det\myvec{\lambda - 2                                            & 3 \\ 4 & \lambda - 7} \\
+                            & = (\lambda - 2)(\lambda - 7) - 12                                       \\
+                            & = \lambda^2 - 9\lambda + 2                                              \\
+        \implies f(\lambda) & = (\lambda - 1)(\lambda - 8) = \lambda^2 - 9\lambda + 2 \numberthis
+    \end{align*}
+    If we were to set $\lambda = 0$, we get $\det(\vec{A}) = 2 \ne 0$. Thus, $\vec{A}$ is invertible and $\vec{A}^{-1}$ exists. To find it, we use the Cayley-Hamilton theorem that states that the characteristic equation $f(\lambda) = 0$ is also satisfied by the matrix itself, i.e, $f(\vec{A}) = 0$. Thus,
+\end{frame}
+\begin{frame}
+    \begin{align*}
+        f(\vec{A})                    & = \vec{A}^2 - 9\vec{A} + 2\vec{I} = 0                        \\
+        \implies 2\vec{I}             & = 9\vec{A} - \vec{A}^2                                       \\
+        \implies 2\vec{I}\vec{A}^{-1} & = 9\vec{A}\vec{A}^{-1} - \vec{A}^2\vec{A}^{-1}               \\
+        \implies 2\vec{A}^{-1}        & = 9\vec{I} - \vec{A}       \numberthis                       \\
+        \implies \vec{A}^{-1}         & = \frac{1}{2}\myvec{9 - 2                      & 3           \\ 4 & 9 - 7} \\
+        \implies \vec{A}^{-1}         & = \myvec{\frac{7}{2}                           & \frac{3}{2} \\ 2 & 1} \numberthis
+    \end{align*}
+    Thus, we have computed $\vec{A}^{-1}$ and shown that $2\vec{A}^{-1} = 9\vec{I} - \vec{A}$.
+\end{frame}
+\end{document}

@@ -1,0 +1,81 @@
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+\usepackage{lmodern}
+
+\setlength{\headheight}{1cm}
+\setlength{\headsep}{0mm}
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{graphicx}
+\graphicspath{{./figs/}}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{5.4.31}
+\author{EE25BTECH11036 - M Chanakya Srinivas}
+\maketitle
+
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt}
+\renewcommand\theequation{\arabic{equation}}
+
+\textbf{Question 5.4.31:}  
+Using elementary row transformations, find the inverse of  
+\[
+A = \myvec{1 & 2 \\ 4 & 2}.
+\]
+
+\textbf{Method:}  
+The inverse of a non-singular matrix \(A\) can be found using the augmented form
+\[
+\augvec{n}{n}{A \; I} \;\xrightarrow{\text{row operations}}\; \augvec{n}{n}{I \; A^{-1}}.
+\]
+This is known as the \textbf{Gauss–Jordan elimination method}.  
+
+\textbf{Solution:}  
+
+\begin{align}
+\augvec{2}{2}{1 & 2 & 1 & 0 \\ 4 & 2 & 0 & 1}
+& \quad \text{Initial augmented matrix} \label{eq:init}
+\\[12pt]
+R_2 \leftarrow R_2 - 4R_1: &\quad
+(4-4\cdot1=0,\; 2-4\cdot2=-6,\; 0-4\cdot1=-4,\; 1-4\cdot0=1)
+\\[-2pt]
+\augvec{2}{2}{1 & 2 & 1 & 0 \\ 0 & -6 & -4 & 1}
+& \label{eq:step1}
+\\[12pt]
+R_2 \leftarrow -\tfrac{1}{6}R_2: &\quad
+(0,-6,-4,1)\cdot\left(-\tfrac{1}{6}\right)=(0,1,\tfrac{2}{3},-\tfrac{1}{6})
+\\[-2pt]
+\augvec{2}{2}{1 & 2 & 1 & 0 \\ 0 & 1 & \tfrac{2}{3} & -\tfrac{1}{6}}
+& \label{eq:step2}
+\\[12pt]
+R_1 \leftarrow R_1 - 2R_2: &\quad
+(1,2,1,0)-(0,2,\tfrac{4}{3},-\tfrac{1}{3})=(1,0,-\tfrac{1}{3},\tfrac{1}{3})
+\\[-2pt]
+\augvec{2}{2}{1 & 0 & -\tfrac{1}{3} & \tfrac{1}{3} \\ 0 & 1 & \tfrac{2}{3} & -\tfrac{1}{6}}
+& \label{eq:step3}
+\end{align}
+
+\medskip
+From \eqref{eq:step3}, the left block is \(I\), hence the right block is the inverse:
+\[
+A^{-1} = \myvec{-\tfrac{1}{3} & \tfrac{1}{3} \\[6pt] \tfrac{2}{3} & -\tfrac{1}{6}}.
+\]
+
+
+
+\end{document}

@@ -1,0 +1,17 @@
+\frametitle{C and Python Code}
+    \begin{lstlisting}
+        # Convert numpy to C array
+a_c = ((ctypes.c_double * 4) * 3)(*([tuple(row) for row in A]))
+
+# Allocate solution vector
+sol = (ctypes.c_double * 3)()
+
+# Call C function
+gauss.gauss(a_c, sol)
+
+# Print solution
+print("Solution from C function:")
+print("x =", sol[0])
+print("y =", sol[1])
+print("z =", sol[2])
+    \end{lstlisting}

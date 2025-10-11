@@ -1,0 +1,171 @@
+\documentclass{beamer}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{gvv}
+
+\title{Inverse of a Matrix Using Elementary Transformations}
+\author{EE25BTECH11008 - Anirudh M Abhilash}
+\date{October 4, 2025}
+
+\begin{document}
+
+%----------------- Title -------------------
+\begin{frame}
+\titlepage
+\end{frame}
+
+%----------------- Problem -------------------
+\begin{frame}{Problem Statement}
+Find the inverse of the matrix 
+\[
+A = \myvec{2 & 3 \\ 1 & 4}
+\]
+using elementary transformations.
+\end{frame}
+
+%----------------- Solution -------------------
+\begin{frame}{Solution}
+\[
+A A^{-1} = I,
+\]
+
+We write the augmented matrix of $A$ with the identity matrix:
+\[
+[A | I] = \augvec{2}{2}{2 & 3 & 1 & 0 \\ 1 & 4 & 0 & 1}.
+\]
+\end{frame}
+
+%----------------- Solution (cont) -------------------
+\begin{frame}{Solution (cont..)}
+\textbf{Step 1:}
+\[
+R_1 \to \frac{1}{2} R_1
+\]
+\[
+\augvec{2}{2}{1 & 3/2 & 1/2 & 0 \\ 1 & 4 & 0 & 1}.
+\]
+
+\textbf{Step 2:}
+\[
+R_2 \to R_2 - R_1
+\]
+\[
+\augvec{2}{2}{1 & 3/2 & 1/2 & 0 \\ 0 & 5/2 & -1/2 & 1}.
+\]
+\end{frame}
+
+%----------------- Solution (cont) -------------------
+\begin{frame}{Solution (cont..)}
+\textbf{Step 3:}
+\[
+R_2 \to \frac{2}{5} R_2
+\]
+\[
+\augvec{2}{2}{1 & 3/2 & 1/2 & 0 \\ 0 & 1 & -1/5 & 2/5}.
+\]
+
+\textbf{Step 4:}
+\[
+R_1 \to R_1 - \frac{3}{2} R_2
+\]
+\[
+\augvec{2}{2}{1 & 0 & 4/5 & -3/5 \\ 0 & 1 & -1/5 & 2/5}.
+\]
+\end{frame}
+
+%----------------- Solution (cont) -------------------
+\begin{frame}{Solution (cont..)}
+Hence, the inverse of $A$ is
+\[
+A^{-1} = \myvec{4/5 & -3/5 \\ -1/5 & 2/5}.
+\]
+\end{frame}
+
+%----------------- C Code -------------------
+
+\begin{frame}[fragile]{C Code (Inverse)}
+\begin{lstlisting}[language=C]
+#include <stdio.h>
+#include <stdlib.h>
+
+void inverse(double *mat, double *inv, int n) {
+    int i, j, k;
+    double temp;
+    double **aug = (double **)malloc(n * sizeof(double *));
+    for (i = 0; i < n; i++) {
+        aug[i] = (double *)malloc(2 * n * sizeof(double));
+        for (j = 0; j < n; j++) {
+            aug[i][j] = mat[i*n + j];
+            aug[i][j+n] = (i == j) ? 1.0 : 0.0; 
+        }
+    }
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{C Code (Cont..)}
+\begin{lstlisting}[language=C]
+    for (i = 0; i < n; i++) {
+        temp = aug[i][i];
+        for (j = 0; j < 2*n; j++)
+            aug[i][j] /= temp;
+
+        for (k = 0; k < n; k++) {
+            if (k != i) {
+                temp = aug[k][i];
+                for (j = 0; j < 2*n; j++)
+                    aug[k][j] -= temp * aug[i][j];
+            }
+        }
+    }
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{C Code (Cont..)}
+\begin{lstlisting}[language=C]
+    for (i = 0; i < n; i++)
+        for (j = 0; j < n; j++)
+            inv[i*n + j] = aug[i][j+n];
+
+    for (i = 0; i < n; i++)
+        free(aug[i]);
+    free(aug);
+}
+\end{lstlisting}
+\end{frame}
+
+%----------------- Python Code -------------------
+\begin{frame}[fragile]{Python Code (Using C)}
+\begin{lstlisting}[language=Python]
+import ctypes
+import numpy as np
+
+lib = ctypes.CDLL('./inv.so')
+
+lib.inverse.argtypes = [ctypes.POINTER(ctypes.c_double),
+                        ctypes.POINTER(ctypes.c_double),
+                        ctypes.c_int]
+lib.inverse.restype = None
+
+A = np.array([[2, 3],
+              [1, 4]], dtype=np.float64)
+n = A.shape[0]
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Python Code (Cont..)}
+\begin{lstlisting}[language=Python]
+A_inv = np.zeros((n, n), dtype=np.float64)
+
+lib.inverse(A.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+            A_inv.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+            n)
+
+print("Original matrix:")
+print(A)
+print("Inverse matrix:")
+print(A_inv)
+\end{lstlisting}
+\end{frame}
+
+\end{document}

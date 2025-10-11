@@ -14,22 +14,24 @@ from triangle.funcs import *
 
 from call import get_line_data_from_c
 
-# Get the intersection point P, and the line's defining vectors a and d
-P, point_a, dir_d = get_line_data_from_c()
-print(f"Intersection Point: ({P[0]:.0f}, {P[1]:.0f}, {P[2]:.0f})")
+P,point_a,dir_d=get_line_data_from_c()
 
-lambda_vals = np.array([-3, 3])
-line_points = point_a + lambda_vals[:, np.newaxis] * dir_d
- 
-a_plane, b_plane, c_plane, d_plane = 0, 0, 1, 0
-x = np.linspace(-4, 12, 10)   
-y = np.linspace(-5, 15, 10)   
-X_plane, Y_plane = np.meshgrid(x, y)
- 
-Z_plane = (-a_plane * X_plane - b_plane * Y_plane - d_plane) / c_plane
+line_points=point_a+np.array([-3,3]).reshape(-1,1)*dir_d
+fig=plt.figure(figsize=(8,8))
+ax=fig.add_subplot(111,projection='3d')
 
-fig = plt.figure(figsize=(10, 10))
-ax = fig.add_subplot(111, projection='3d')
+X_plane=np.linspace(-10,15,5)
+Y_plane=np.linspace(-25,20,10)
+X_plane,Y_plane = np.meshgrid(X_plane,Y_plane)
+Z_plane=np.zeros_like(X_plane)
+ax.plot_surface(X_plane,Y_plane,Z_plane,alpha=0.2,color='gray')
+ax.plot(line_points[:,0],line_points[:,1],line_points[:,2],color='b',label='Line')
+ax.scatter(P[0],P[1],P[2],color='r',s=35,label='Intersection Point')
+ax.text(P[0],P[1],P[2]+1.2,f'P({P[0]:.0f},{P[1]:.0f},{P[2]:.0f})',ha='center')
 
-ax.plot_surface(X_plane, Y_plane, Z_plane, alpha=0.2, color='gray', label='XY Plane')
-
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+ax.legend()
+plt.show()
+plt.savefig('fig1.png')

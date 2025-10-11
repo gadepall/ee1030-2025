@@ -39,8 +39,8 @@ int main()
 
     
 	fclose(file);
-	printf("Results have been written to values.dat\n");
-
+	("Results have been written to values.dat\n");
+printf
 	
 	return 0; 
 

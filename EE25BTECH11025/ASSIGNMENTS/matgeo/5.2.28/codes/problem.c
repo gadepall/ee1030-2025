@@ -1,14 +1,25 @@
 #include<stdio.h>
 
-double x = -24/5;
-double y = -3/5;
-double coefficient_mat[2][2] = {{5,-8},{3,-4.8}};
-double constant[2][1] = {{-1}, {-0.6}};
-
-double get_item(int i, int j){
-    return coefficient_mat[i][j];
+void make_data(double *points){
+    double n = 2;
+    points[0] = 5;
+    points[1] = -8;
+    points[2] = -1;
+    points[3] = 3;
+    points[4] = -4.8;
+    points[5] = -0.6;
+    points[6] = 2;
 }
-double get_constant(int i, int j){
-    return constant[i][j];
-}
 
+void processing(double rA, double rB, double n, double X, double Y){
+    if(rA==rB&&rB==n){
+        printf("Unique solution exists for the given system of linear equations.\n");
+        printf("The solution for the given system of linear equations is: x=%.2lf, y=%.2lf", X, Y);
+    }
+    else if(rA==rB&&rA!=n){
+        printf("Infinite solutions exist for the given system of linear equations in 2 variables.");
+    }
+    else{
+        printf("No solution exists for the given system of linear equations in 2 variables");
+    }
+}

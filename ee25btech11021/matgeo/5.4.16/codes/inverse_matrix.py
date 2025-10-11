@@ -1,0 +1,25 @@
+import ctypes
+import numpy as np
+
+# Load the shared library
+lib = ctypes.CDLL("./libmatrix.so")
+
+# Define function signature: get_matrix(double* mat)
+lib.get_matrix.argtypes = [ctypes.POINTER(ctypes.c_double)]
+lib.get_matrix.restype = None
+
+# Prepare a NumPy array (2x2) for the matrix
+A = np.zeros((2, 2), dtype=np.double)
+
+# Pass pointer to C function (as 1D flattened array)
+lib.get_matrix(A.ctypes.data_as(ctypes.POINTER(ctypes.c_double)))
+
+print("Matrix A =\n", A)
+
+# Compute inverse with NumPy
+try:
+    A_inv = np.linalg.inv(A)
+    print("\nComputed A^{-1} =\n", A_inv)
+except np.linalg.LinAlgError:
+    print("Matrix is singular, no inverse exists.")
+

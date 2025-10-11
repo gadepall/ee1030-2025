@@ -1,0 +1,21 @@
+\frametitle{Python:plot.py}
+\begin{lstlisting}
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Inverse matrix from 5.4.42
+A_inv = np.array([
+    [-2, 0, 1],
+    [9, 2, -3],
+    [6, 1, -2]
+])
+
+fig, ax = plt.subplots()
+cax = ax.matshow(A_inv, cmap='coolwarm')
+fig.colorbar(cax)
+for (i, j), val in np.ndenumerate(A_inv):
+    ax.text(j, i, f'{val}', ha='center', va='center', color='black')
+ax.set_title('Inverse of Matrix 5.4.42')
+plt.show()
+
+\end{lstlisting}

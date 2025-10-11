@@ -1,0 +1,216 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{multicol}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\title 
+{4.8.25}
+\date{}
+
+\author
+{SAMYAK GONDANE - AI25BTECH11029}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Question}
+Find the coordinates of the foot of the perpendicular drawn from the point $\vec{A}(-1, 8, 4)$ to the line joining the points $\vec{B}(0, -1, 3)$ and $\vec{C}(2, -3, -1)$. Hence find the image of the point $\vec{A}$ in the line $BC$.
+\end{frame}
+
+\begin{frame}{Solution}
+Given three lines:
+\begin{align}
+L_1 &: ax + 2y = -1 \\
+L_2 &: bx - 3y = -1 \\
+L_3 &: cx + 4y = -1
+\end{align}
+\end{frame}
+
+\begin{frame}
+representing as an augmented matrix:
+
+\begin{align}
+\myvec{
+a & 2 & -1 \\
+b & -3 & -1 \\
+c & 4 & -1
+}
+\end{align}
+
+Assume $a, b, c$ are in geometric progression:
+
+\begin{align}
+b^2 = ac \quad \Rightarrow \quad c = \frac{b^2}{a}
+\end{align}
+\end{frame}
+
+\begin{frame}
+Substitute into the third row:
+
+\begin{align}
+\myvec{
+a & 2 & -1 \\
+b & -3 & -1 \\
+\frac{b^2}{a} & 4 & -1
+}
+\end{align}
+
+Normalize the First Row
+
+\begin{align}
+R_1 \rightarrow \frac{1}{a} R_1 = 
+\myvec{
+1 & \frac{2}{a} & \frac{-1}{a} \\
+b & -3 & -1 \\
+\frac{b^2}{a} & 4 & -1
+}
+\end{align}
+\end{frame}
+
+\begin{frame}
+Eliminate First Column in $R_2$ and $R_3$
+
+\begin{align}
+R_2 \rightarrow R_2 - b \cdot R_1 = 
+\myvec{
+1 & \frac{2}{a} & \frac{-1}{a} \\
+0 & -3 - \frac{2b}{a} & -1 + \frac{b}{a} \\
+\frac{b^2}{a} & 4 & -1
+}
+\end{align}
+
+\begin{align}
+R_3 \rightarrow R_3 - \frac{b^2}{a} \cdot R_1 = 
+\myvec{
+1 & \frac{2}{a} & \frac{-1}{a} \\
+0 & -3 - \frac{2b}{a} & -1 + \frac{b}{a} \\
+0 & 4 - \frac{2b^2}{a^2} & -1 + \frac{b^2}{a^2}
+}
+\end{align}
+\end{frame}
+
+\begin{frame}
+For the system to be consistent (i.e., lines concurrent), rows 2 and 3 must be linearly dependent. This means the second and third rows must be scalar multiples of each other.
+
+Let us compare the second and third rows:
+
+\begin{align}
+Row\ 2: \myvec{0 \quad A \quad B} \quad
+Row\ 3: \myvec{0 \quad C \quad D}
+\end{align}
+
+Where:
+
+\begin{align}
+A = -3 - \frac{2b}{a}, \quad B = -1 + \frac{b}{a}
+\end{align}
+
+\begin{align}
+C = 4 - \frac{2b^2}{a^2}, \quad D = -1 + \frac{b^2}{a^2}
+\end{align}
+\end{frame}
+
+\begin{frame}
+For linear dependence:
+\begin{align}
+\frac{C}{A} = \frac{D}{B}
+\end{align}
+
+\begin{align}
+A \cdot D = B \cdot C
+\end{align}
+
+Substitute the expressions and simplify:
+\begin{align}
+\left(-3 - \frac{2b}{a}\right)\left(-1 + \frac{b^2}{a^2}\right) = 
+\left(-1 + \frac{b}{a}\right)\left(4 - \frac{2b^2}{a^2}\right)
+\end{align}
+\end{frame}
+
+\begin{frame}
+Expanding both sides and simplifying leads to:
+\begin{align}
+-7a^2 + 2ab + 5b^2 = 0
+\end{align}
+
+\textbf{Final Condition for Concurrency}
+
+\begin{align}
+\boxed{-7a^2 + 2ab + 5b^2 = 0}
+\end{align}
+
+If the condition is satisfied, the matrix reduces to:
+\begin{align}\myvec{1 & \frac{2}{a} & \frac{-1}{a} \\ 0 & 1 & \frac{B}{A} \\ 0 & 0 & 0}\end{align}
+This confirms the system is consistent and the lines are concurrent.
+
+\end{frame}
+
+\end{document}

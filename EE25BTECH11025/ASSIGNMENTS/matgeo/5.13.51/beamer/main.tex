@@ -1,0 +1,186 @@
+\documentclass{beamer}
+\usepackage[latin1]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath}
+\usepackage{amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{gensymb}
+\usepackage{physics}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\title{5.13.51}
+\date{3rd october, 2025}
+\author{Vishwambhar - EE25BTECH11025}
+
+\begin{document}
+
+\frame{\titlepage}
+\begin{frame}{Question}
+If $A=\myvec{\alpha&0\\1&1}$ and $B=\myvec{1&0\\5&1}$, then value of $\alpha$ for which $A^2=B$, is
+\begin{enumerate}
+\begin{multicols}{2}
+    \item 1
+    \item 4
+    \item 2
+    \item infinite
+\end{multicols}
+\end{enumerate}\end{frame}
+
+\begin{frame}{Given}
+Given:
+\begin{align}
+    A = \myvec{\alpha&0\\1&1};
+    B = \myvec{1&0\\5&1}
+\end{align}
+\end{frame}
+
+\begin{frame}{Outer product}
+Using outer product,
+\begin{align}
+    \myvec{\alpha\\1}\myvec{\alpha&0} = \myvec{\alpha^2&0\\\alpha&0}\\
+    \myvec{0\\1}\myvec{1&1} = \myvec{0&0\\1&1}
+\end{align}
+
+Adding (2) and (3):
+\begin{align}
+    \myvec{\alpha^2&0\\\alpha+1&1}
+\end{align}
+\end{frame}
+
+\begin{frame}{conclusion}
+Equating (4) to $B$:
+\begin{align}
+    \alpha = \pm1; \alpha = 4
+\end{align}
+No finite $\alpha$ satisfies the above conditions. Hence $\alpha$ is infinite.
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+#include<stdio.h>
+int check(double input, int t){
+    double matB[2][2] = {{1, 0}, {5, 1}};
+    double matA2[2][2];
+    matA2[0][0] = input*input;
+    matA2[0][1] = 0;
+    matA2[1][0] = input + 1;
+    matA2[1][1] = 1;
+    int k = 1;
+    for(int i = 0; i<2; i++){
+        for(int j = 0; j<2; j++){
+            if(matA2[i][j]==matB[i][j]){
+                continue;
+            }
+            else{
+                k = 0;
+                break;
+            }
+        }
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C code}
+    \begin{lstlisting}
+        if(k==0){
+            break;
+        }
+    }
+    
+    if(k==0){
+        printf("Given alpha = %.2lf is not the solution\n", input);
+        t++;
+    }
+    else if(k==1){
+        printf("Given alpha = %.2lf is the solution\n", input);
+    }
+    return t;
+
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C code}
+    \begin{lstlisting}
+int main(){
+    double input[3] = {1, 2, 4};
+    int t = 0;
+    int k = 0;
+    for(int i = 0; i<3; i++){
+        t = k; 
+    k = check(input[i], t);
+    }
+    if(t==2){
+        printf("only solution for the given question is alpha = infinity");
+    }
+}
+    \end{lstlisting}
+\end{frame}
+\end{document}

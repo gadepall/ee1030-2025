@@ -1,0 +1,354 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+	breakable=true,
+	listing engine=minted,
+	listing only,
+	minted language=#2,
+	minted style=default,
+	minted options={%
+		linenos,
+		gobble=0,
+		breaklines=true,
+		breakafter=,,
+		fontsize=\small,
+		numbersep=8pt,
+		#1},
+	boxsep=0pt,
+	left skip=0pt,
+	right skip=0pt,
+	left=25pt,
+	right=0pt,
+	top=3pt,
+	bottom=3pt,
+	arc=5pt,
+	leftrule=0pt,
+	rightrule=0pt,
+	bottomrule=2pt,
+	toprule=2pt,
+	colback=bg,
+	colframe=orange!70,
+	enhanced,
+	overlay={%
+		\begin{tcbclipinterior}
+			\fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+	\end{tcbclipinterior}},
+	#3,
+}
+\lstset{
+	language=C,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{orange},
+	commentstyle=\color{green!60!black},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	showstringspaces=false,
+}
+\begin{document}
+
+\title 
+{5.2.43}
+\date{26 September,2025}
+
+\author 
+{Naman Kumar-EE25BTECH11041}
+\graphicspath{./figs}
+
+
+\frame{\titlepage}
+\begin{frame}{Question)}
+Solve the linear equation:
+\begin{align}
+    6x + 3y = 6xy \label{eq1}\\2x + 4y = 5xy \label{eq2}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+General equation of conic
+\begin{align}
+    \vec{x}^T\vec{V}\vec{x}+2\vec{u}^T\vec{x}+f
+\end{align}
+Given set of equations in the form of general conic can be written as
+\begin{align}
+\vec{x}^T\begin{pmatrix}0&3\\3&0\end{pmatrix}\vec{x}+2\begin{pmatrix}-3\\-1.5\end{pmatrix}^T\vec{x}=0\\
+\vec{x}^T\vec{V_1}\vec{x}+2\vec{u_1}^T\vec{x}=0
+\end{align}
+Similarly
+\begin{align}
+    \vec{x}^T\begin{pmatrix}0&2.5\\2.5&0\end{pmatrix}\vec{x}+2\begin{pmatrix}-1\\-2\end{pmatrix}^T\vec{x}=0\\
+\vec{x}^T\vec{V_2}\vec{x}+2\vec{u_2}^T\vec{x}=0
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Intersection of two conic
+\begin{align}
+    \vec{x}^T(\vec{V_1}+\mu \vec{V_2})\vec{x}+2(\vec{u_1}+\mu \vec{u_2})^T\vec{x}=0 \label{comb}
+\end{align}
+General equation of conic represent pair of lines if
+\begin{align}
+    \begin{vmatrix}\vec{V}&\vec{u}\\ \vec{u}^T&f\end{vmatrix}=0
+\end{align}
+From $\eqref{comb}$
+\begin{align}
+    \begin{vmatrix}\vec{V_1}+\mu \vec{V_2}&\vec{u_1}+\mu \vec{u_2}\\ (\vec{u_1}+\mu \vec{u_2})^T&0\end{vmatrix}=0 \label{1}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Here
+\begin{align}
+    \vec{A}=\vec{V_1}+\mu \vec{V_2}=\begin{pmatrix}0&3+2.5\mu\\3+2.5\mu&0\end{pmatrix} \label{a} \\
+    \vec{A}=\begin{pmatrix}a_{11}&a_{12}\\a_{21}&a_{22}\end{pmatrix}\\ \\
+    \vec{B}=\vec{u_1}+\mu \vec{u_2}=\begin{pmatrix}-3+\mu(-1)\\-1.5+\mu(-2)\end{pmatrix} \label{b}\\ \vec{B}=\begin{pmatrix}b_{1}\\b_{2}\end{pmatrix}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Putting values in $\eqref{1}$
+\begin{align}
+    \begin{vmatrix}a_{11}&a_{12}&b_1\\a_{21}&a_{22}&b_2\\b_1&b_2&0\end{vmatrix}\\
+    -b_2(b_2a_{11}-b_1a_{21})+b_1(b_2a_{12}-b_1a_{22})
+\end{align}
+Putting values from $\eqref{a}$ $\eqref{b}$
+\begin{align}
+    (-3-2.5\mu)(3+\mu)(1.5+2\mu)\\
+    \mu=\frac{-6}{5},-3,\frac{-3}{4}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Case 1:$\mu=-3$ in $\eqref{comb}$
+\begin{align}
+    \vec{x}^T\begin{pmatrix}0&4.5\\4.5&0\end{pmatrix}\vec{x}+2\begin{pmatrix}0\\-4.5\end{pmatrix}^T\vec{x}=0\\
+    \begin{pmatrix}x\\y\end{pmatrix}^T\begin{pmatrix}0&4.5\\4.5&0\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}+2\begin{pmatrix}0\\-4.5\end{pmatrix}^T\begin{pmatrix}x\\y\end{pmatrix}=0\\
+    2\times4.5xy+2(0-4.5y)\\=9xy-9y=9y(x-1)=0\\
+    y=0,x=1
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Case 2: $\mu=\frac{-6}{5}$ in $\eqref{comb}$
+\begin{align}
+    \vec{x}^T\begin{pmatrix}0&0\\0&0\end{pmatrix}\vec{x}+2\begin{pmatrix}1.8\\-0.9\end{pmatrix}^T\vec{x}=0\\
+    \begin{pmatrix}x\\y\end{pmatrix}^T\begin{pmatrix}0&0\\0&0\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}+2\begin{pmatrix}1.8\\-0.9\end{pmatrix}^T\begin{pmatrix}x\\y\end{pmatrix}=0\\
+    2x-y=0
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Case 3: $\mu=\frac{-3}{4}$ in $\eqref{comb}$
+\begin{align}
+    \vec{x}^T\begin{pmatrix}0&-1.125\\-1.125&0\end{pmatrix}\vec{x}+2\begin{pmatrix}2.25\\0\end{pmatrix}^T\vec{x}=0\\
+    \begin{pmatrix}x\\y\end{pmatrix}^T\begin{pmatrix}0&-1.125\\-1.125&0\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}+2\begin{pmatrix}2.25\\0\end{pmatrix}^T\begin{pmatrix}x\\y\end{pmatrix}=0\\
+    -2.25xy+4.5=2.25x(2-y)=0\\
+    x=0,y=2
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Now checking point of intersection with conic\\
+from $\mu=-3$ factors y=0 and x=1
+\begin{itemize}
+    \item y=0 in $\eqref{eq1}$ 6x=6x.0 $\implies$ x=0 and in $\eqref{eq2}$ 2x=0, so point (0,0)
+    \item x=1 in $\eqref{eq1}$ 6+3y=6y $\implies$ y=2, so (1,2)
+\end{itemize}
+similarly for $\mu=\frac{-3}{4}$ factors are x=0 and y=2
+\begin{itemize}
+    \item x=0 gives (0,0)
+    \item y=2 gives (1,2)
+\end{itemize}
+And for $\mu=\frac{-6}{5}$ line y=2x
+\begin{itemize}
+    \item put y=2x in $\eqref{eq1}$ $12x=12x^2\implies x=0 ,1$ so (0,0),(1,2)
+\end{itemize}
+All three cases have same points ,\\so Points are (0,0) and (1,2)
+\end{frame}
+\begin{frame}{Figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\columnwidth]{figs/figure.png}
+        \caption{}
+        \label{fig:placeholder}
+    \end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Direct Python}
+\begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(5,5), dpi=200)
+plt.xlim(-1,4)
+plt.ylim(-1,4)
+A=np.array([[3,6],[4,2]])
+c=np.array([6,5])
+
+an=np.linalg.inv(A)
+ans=np.dot(an,c)
+
+Ans=np.linalg.solve(A,c)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Direct Python}
+\begin{lstlisting}
+print("x=",Ans[0],"y=",Ans[1])
+a=1/ans[0]
+b=1/ans[1]
+
+x = np.array([a,b]).reshape(-1,1)
+
+x1= np.linspace(-1,4,100)
+l1= (6*x1)/(6*x1-3)
+l2= (2*x1)/(5*x1-4)
+
+plt.plot(x1,l1, color='blue', label="Line 1")
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Direct Python}
+\begin{lstlisting}
+plt.plot(x1,l2, color='orange', label="Line 2")
+plt.scatter(1,2, c='r', zorder=5)
+plt.text(1,2,"(1,2)")
+plt.text(0,0,"Origin",)
+
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid()
+plt.legend()
+plt.savefig("figure.png", dpi=200)
+plt.show()
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C code}
+\begin{lstlisting}
+#include <stdio.h>
+
+typedef struct {
+    double x;
+    double y;
+} Point;
+
+typedef struct {
+    Point sols[2];
+    int count;
+} SolutionSet;
+
+// Solve 6x+3y=6xy, 2x+4y=5xy
+SolutionSet solve_equations() {
+    SolutionSet S;
+    S.count = 0;
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C code}
+\begin{lstlisting}
+    // Solution 1: (0,0)
+    S.sols[S.count].x = 0;
+    S.sols[S.count].y = 0;
+    S.count++;
+
+    // Solution 2: (1,2)
+    S.sols[S.count].x = 1;
+    S.sols[S.count].y = 2;
+    S.count++;
+
+    return S;
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C code}
+\begin{lstlisting}
+#ifdef TEST_C
+int main(){
+    SolutionSet S = solve_equations();
+    for(int i=0; i<S.count; i++){
+        printf("Solution %d: (%.2f, %.2f)\n", i+1, S.sols[i].x, S.sols[i].y);
+    }
+    return 0;
+}
+#endif
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with shared object}
+\begin{lstlisting}
+# main.py
+import ctypes
+from ctypes import Structure, c_double, c_int
+import matplotlib.pyplot as plt
+
+class Point(Structure):
+    _fields_ = [("x", c_double), ("y", c_double)]
+
+class SolutionSet(Structure):
+    _fields_ = [("sols", Point * 2), ("count", c_int)]
+
+# Load C lib
+lib = ctypes.CDLL("./libsolver.so")
+lib.solve_equations.restype = SolutionSet
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with shared object}
+\begin{lstlisting}
+# Call function
+solutions = lib.solve_equations()
+print(f"Found {solutions.count} solutions:")
+for i in range(solutions.count):
+    x, y = solutions.sols[i].x, solutions.sols[i].y
+    print(f"Solution {i+1}: ({x}, {y})")
+
+# Plot equations and solutions
+import numpy as np
+x_vals = np.linspace(-1, 3, 400)
+y1 = (6*x_vals)/(6*x_vals - 3)   # from eqn (1)
+y2 = (2*x_vals)/(5*x_vals - 4)   # from eqn (2)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with shared object}
+\begin{lstlisting}
+plt.figure(figsize=(6,6))
+plt.plot(x_vals, y1, label="6x+3y=6xy")
+plt.plot(x_vals, y2, label="2x+4y=5xy")
+for i in range(solutions.count):
+    x, y = solutions.sols[i].x, solutions.sols[i].y
+    plt.scatter(x, y, c='r', zorder=5)
+    plt.text(x, y, f"({x:.0f},{y:.0f})", fontsize=10)
+
+plt.ylim(-1,4)
+plt.grid(True)
+plt.legend()
+plt.xlabel("x")
+plt.ylabel("y")
+plt.title("Solutions of nonlinear system")
+plt.show()
+
+
+\end{lstlisting}
+\end{frame}
+
+\end{document}

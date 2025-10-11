@@ -1,0 +1,259 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+	breakable=true,
+	listing engine=minted,
+	listing only,
+	minted language=#2,
+	minted style=default,
+	minted options={%
+		linenos,
+		gobble=0,
+		breaklines=true,
+		breakafter=,,
+		fontsize=\small,
+		numbersep=8pt,
+		#1},
+	boxsep=0pt,
+	left skip=0pt,
+	right skip=0pt,
+	left=25pt,
+	right=0pt,
+	top=3pt,
+	bottom=3pt,
+	arc=5pt,
+	leftrule=0pt,
+	rightrule=0pt,
+	bottomrule=2pt,
+	toprule=2pt,
+	colback=bg,
+	colframe=orange!70,
+	enhanced,
+	overlay={%
+		\begin{tcbclipinterior}
+			\fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+	\end{tcbclipinterior}},
+	#3,
+}
+\lstset{
+	language=C,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{orange},
+	commentstyle=\color{green!60!black},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	showstringspaces=false,
+}
+\begin{document}
+
+\title 
+{9.2.1}
+\date{1 Oct,2025}
+
+\author 
+{Naman Kumar-EE25BTECH11041}
+\graphicspath{./figs}
+
+
+\frame{\titlepage}
+\begin{frame}{Question)}
+Find the area bounded by the curve $y=\sqrt{x},x=2y+3$, in the first quadrant and x-axis.
+\end{frame}
+\begin{frame}{Solution}
+General equation of conic
+\begin{align}
+    g(\vec{x})=\vec{x^T}\vec{V}\vec{x}+2\vec{u^T}\vec{x}+f
+\end{align}
+Equation of parabola,
+\begin{align}
+    \vec{x^T}\begin{pmatrix}0&0\\0&1\end{pmatrix}\vec{x}+2\begin{pmatrix}-\frac{1}{2}\\0\end{pmatrix}^T\vec{x}=0
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Equation of line,
+\begin{align}
+    \vec{x}=\vec{h}+k\vec{m} \\
+    \vec{h}=\begin{pmatrix}0\\-\frac{3}{2}\end{pmatrix},\vec{m}=\begin{pmatrix}1\\ \frac{1}{2} \end{pmatrix}
+\end{align}
+Using following equation to find point of intersection of conic and line
+\begin{align}
+    k_i=\frac{1}{\vec{m}^T\vec{V}\vec{m}}\brak{-\vec{m}^T\brak{\vec{V}\vec{h}+\vec{u}} \pm \sqrt{\sbrak{\vec{m}^T\brak{\vec{V}\vec{h}+\vec{u}}}^2-g(\vec{h})(\vec{m}^T\vec{V}\vec{m})} } \label{main}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Solving for $g(\vec{h})$
+\begin{align}
+    g(\vec{h})=\vec{h^T}\begin{pmatrix}0&0\\0&1\end{pmatrix}\vec{h}+2\begin{pmatrix}-\frac{1}{2}\\0\end{pmatrix}^T\vec{h}\\
+    g(\vec{h})=\frac{9}{4} \label{g}
+\end{align}
+Solving for $\vec{m}^T\vec{V}\vec{m}$
+\begin{align}
+    \vec{m}^T\vec{V}\vec{m}=\begin{pmatrix}1 \\ \frac{1}{2}\end{pmatrix}^T\begin{pmatrix}0&0\\0&1\end{pmatrix}\begin{pmatrix}1 \\ \frac{1}{2}\end{pmatrix}\\
+    =\frac{1}{4}\label{mv}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Solving for $\vec{m}^T\brak{\vec{V}\vec{h}+\vec{u}}$
+\begin{align}
+    \begin{pmatrix}1 \\ \frac{1}{2}\end{pmatrix}^T\brak{\begin{pmatrix}0&0\\0&1\end{pmatrix}\begin{pmatrix}0\\-\frac{3}{2}\end{pmatrix}+\begin{pmatrix}-\frac{1}{2}\\0\end{pmatrix}}\\
+    =-\frac{5}{4}
+\end{align}
+Solving $\eqref{main}$
+\begin{align}
+    k_i=\frac{1}{\frac{1}{4}}\brak{\frac{5}{4} \pm \sqrt{\frac{25}{16} - \frac{9}{4}\times \frac{1}{4}}}\\
+    k_i=4\brak{\frac{5}{4} \pm 1}\\
+    k_1=9,k_2=1
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+So with these values points are
+\begin{align}
+    \vec{x_1}=\begin{pmatrix}0\\-\frac{3}{2}\end{pmatrix}+9\times \begin{pmatrix}1\\\frac{1}{2}\end{pmatrix}\\
+    \vec{x_1}= \begin{pmatrix}9\\ 3\end{pmatrix} \\
+    \vec{x_2}=\begin{pmatrix}0\\-\frac{3}{2}\end{pmatrix}+1\times \begin{pmatrix}1\\\frac{1}{2}\end{pmatrix}\\
+    \vec{x_2}= \begin{pmatrix}1\\ -1\end{pmatrix}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Area under curve in first quadrant between parabola and line
+\begin{align}
+    \int_0^{3}\sqrt{x}+\int_3^{9}\sqrt{x}-\brak{\frac{x-3}{2}}\\
+    \sbrak{\frac{x^{\frac{3}{2}}}{\frac{3}{2}}}^9_0-\sbrak{\frac{x^2}{4}-\frac{3x}{2}}^9_3\\
+    area=9
+\end{align}
+\end{frame}
+
+\begin{frame}{Figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\columnwidth]{figs/figure.png}
+        \caption{}
+        \label{fig:placeholder}
+    \end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Direct Python}
+\begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+import math
+
+y = np.linspace(-2,4,300)
+x = y*y
+xl = np.linspace(0,10,300)
+yl = (xl-3)/2
+
+x1 = np.linspace(0,3, 200)
+y1 = np.sqrt(x1)
+x2 = np.linspace(3,9, 200)
+y2 = np.sqrt(x2)
+yl2 = (x2-3)/2
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Direct Python}
+\begin{lstlisting}
+plt.fill_between(x1, y1, 0, color='skyblue', alpha=0.4) 
+plt.fill_between(x2,y2, yl2, color='skyblue', alpha=0.4)
+plt.annotate('Intersection (9, 3)', xy=(9, 3), xytext=(7, 4),
+             arrowprops=dict(facecolor='black', shrink=0.05))
+plt.xlabel('x-axis', fontsize=12)
+plt.ylabel('y-axis', fontsize=12)
+plt.plot(x,y, label="parabola")
+plt.plot(xl,yl, label="line")
+plt.grid()
+plt.legend()
+
+plt.savefig("figure.png", dpi=300)
+
+plt.show()
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C code}
+\begin{lstlisting}
+#include <stdio.h>
+
+double area_bounded() {
+    double y1 = 0, y2 = 3;
+    double area;
+
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C code}
+\begin{lstlisting}
+    area = (y2 * y2 + 3 * y2 - (y2 * y2 * y2) / 3.0) -
+           (y1 * y1 + 3 * y1 - (y1 * y1 * y1) / 3.0);
+    return area;
+}
+int main() {
+    printf("Area bounded = %.2f\n", area_bounded());
+    return 0;
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with shared object}
+\begin{lstlisting}
+import ctypes
+import matplotlib.pyplot as plt
+import numpy as np
+
+lib = ctypes.CDLL('./area.so')
+lib.area_bounded.restype = ctypes.c_double
+
+area = lib.area_bounded()
+print("Area bounded =", area)
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with shared object}
+\begin{lstlisting}
+y = np.linspace(0, 3, 100)
+x1 = y**2          # x = y^2  (y = sqrt(x))
+x2 = 2*y + 3       # x = 2y + 3
+
+plt.plot(x1, y, label='y = sqrt(x) → x = y²')
+plt.plot(x2, y, label='x = 2y + 3')
+
+plt.fill_betweenx(y, x1, x2, color='lightblue', alpha=0.5)
+plt.xlabel("x")
+plt.ylabel("y")
+plt.title(f"Area bounded by curves = {area:.2f}")
+plt.legend()
+plt.grid(True)
+plt.show()
+\end{lstlisting}
+\end{frame}
+
+\end{document}

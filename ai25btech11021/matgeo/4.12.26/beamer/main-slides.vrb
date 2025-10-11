@@ -1,0 +1,35 @@
+\frametitle{Python Code: Plotting the Graphs}
+\framesubtitle{Visualization of the Locus and an Example Line}
+
+    \lstset{style=PythonStyle}
+    \begin{lstlisting}[language=Python]
+# 3. Create the plot
+plt.figure(figsize=(8, 8))
+
+# Plot the Locus (Circle)
+plt.plot(x_locus, y_locus, 'r--', label=f'Locus: $x^2 + y^2 = {c_squared:.0f}$')
+
+# Plot the Variable Line L
+plt.plot(x_line, y_line, 'b-', label=f'Variable Line L: $\\frac{{x}}{{{a:.2f}}} + \\frac{{y}}{{{b:.2f}}} = 1$')
+
+# Plot the Foot of the Perpendicular P and Origin O
+plt.plot(x0, y0, 'go', markersize=8, label=f'Foot P({x0:.0f}, {y0:.0f})')
+plt.plot([0, x0], [0, y0], 'g-', linestyle=':', linewidth=2, label='Perpendicular Segment $\\mathbf{OP}$')
+plt.plot(0, 0, 'kx', markersize=8, label='Origin O(0, 0)')
+
+# Set limits and aspect ratio
+plt.xlim(-c - 2, c + 2)
+plt.ylim(-c - 2, c + 2)
+plt.gca().set_aspect('equal', adjustable='box')
+
+# Add labels and legend
+plt.xlabel('$x$')
+plt.ylabel('$y$')
+plt.title('Locus of the Foot of the Perpendicular')
+plt.grid(True)
+plt.legend(loc='lower left')
+
+# Note: In a live environment, plt.show() would display the plot.
+# For Beamer, we just show the code.
+# plt.show()
+    \end{lstlisting}

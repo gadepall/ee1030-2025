@@ -1,0 +1,101 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+ \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+
+\title{5.4.16}
+\author{EE25BTECH11021 - Dhanush sagar}
+% \maketitle
+% \newpage
+% \bigskip
+\maketitle \vspace{-1cm}
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+\
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question:}  \\
+Using elementary transformations, find the inverse of the following matrix. 
+\begin{align*}
+\myvec{2 & 5 \\ 1 & 3}
+\end{align*}
+
+\textbf{Solution:}  
+Given  
+\begin{align}
+\vec{A}=\myvec{2 & 5 \\ 1 & 3}
+\end{align}
+Let $\vec{A}^{-1}$ be the inverse of $\vec{A}$. Then
+\begin{align}
+    \vec{A}\vec{A}^{-1}=\vec{I}
+\end{align}
+Augmented matrix of $\augvec{1}{1}{\vec{A} & \vec{I}}$ is given by
+\begin{align}
+    \augvec{2}{2}{2 & 5 & 1 & 0 \\ 1 & 3 & 0 & 1}
+\end{align}
+Perform the elementary row operation $R_2 \rightarrow 2R_2 - R_1$ to eliminate the first column entry of $R_2$:
+\begin{align}
+    \augvec{2}{2}{2 & 5 & 1 & 0 \\[4pt] 1 & 3 & 0 & 1}
+    \xrightarrow{R_2 \rightarrow 2R_2 - R_1}
+    \augvec{2}{2}{2 & 5 & 1 & 0 \\[4pt] 0 & 1 & -1 & 2}
+\end{align}
+Now eliminate the 5 above the (2,2) pivot by $R_1 \rightarrow R_1 - 5R_2$:
+\begin{align}
+    \augvec{2}{2}{2 & 5 & 1 & 0 \\[4pt] 0 & 1 & -1 & 2}
+    \xrightarrow{R_1 \rightarrow R_1 - 5R_2}
+    \augvec{2}{2}{2 & 0 & 6 & -10 \\[4pt] 0 & 1 & -1 & 2}
+\end{align}
+Finally make the leading entry of $R_1$ unity by $R_1 \rightarrow \tfrac{1}{2}R_1$:
+\begin{align}
+    \augvec{2}{2}{2 & 0 & 6 & -10 \\[4pt] 0 & 1 & -1 & 2}
+    \xrightarrow{R_1 \rightarrow \tfrac{1}{2}R_1}
+    \augvec{2}{2}{1 & 0 & 3 & -5 \\[4pt] 0 & 1 & -1 & 2}
+\end{align}
+Hence the inverse of the matrix $\myvec{2 & 5 \\ 1 & 3}$ is
+\[
+\vec{A}^{-1} = \myvec{3 & -5 \\ -1 & 2}.
+\]
+
+\end{document}
+
+\end{document}

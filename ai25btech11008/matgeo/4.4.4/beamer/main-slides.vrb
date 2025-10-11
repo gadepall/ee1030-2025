@@ -1,0 +1,32 @@
+\frametitle{Python Code}
+    \begin{lstlisting}
+
+# Axis labels
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.set_zlabel('z')
+
+# Try to set equal aspect ratio (works on matplotlib >= 3.3)
+try:
+    ax.set_box_aspect([1,1,1])
+except Exception:
+    # Fallback: approximate equal aspect by setting limits manually
+    all_pts = np.hstack((line, A.reshape(3,1)))
+    mins = all_pts.min(axis=1) - 1
+    maxs = all_pts.max(axis=1) + 1
+    ax.set_xlim(mins[0], maxs[0])
+    ax.set_ylim(mins[1], maxs[1])
+    ax.set_zlim(mins[2], maxs[2])
+
+ax.legend()
+
+# Save image
+out_path = Path('line_fig1.png')
+plt.tight_layout()
+plt.savefig(out_path, dpi=200)
+plt.show()
+
+print(f"Saved image to: {out_path.resolve()}")
+
+
+    \end{lstlisting}

@@ -1,0 +1,149 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{5.4.10}
+\author{EE25BTECH11015 - Bhoomika V}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+\parindent 0px 
+{Question :-} \\ 
+Using elementary transformations, find the inverse of the following matrix:
+\[
+A = \begin{bmatrix}
+1 & -1 & 2 \\
+2 & 3 & 5 \\
+-2 & 0 & 1
+\end{bmatrix}.
+\]
+
+\solution \\
+\[
+A = \begin{bmatrix}
+1 & -1 & 2 \\
+2 & 3 & 5 \\
+-2 & 0 & 1
+\end{bmatrix}.
+\]
+
+We form the augmented matrix $[A \mid I]$:
+
+\[
+\left[\begin{array}{ccc|ccc}
+1 & -1 & 2 & 1 & 0 & 0\\
+2 & 3 & 5 & 0 & 1 & 0\\
+-2 & 0 & 1 & 0 & 0 & 1
+\end{array}\right]
+\]
+
+\[
+\overset{\substack{R_2 \to R_2 - 2R_1 \\ R_3 \to R_3 + 2R_1}}{\longrightarrow}
+\left[\begin{array}{ccc|ccc}
+1 & -1 & 2 & 1 & 0 & 0\\
+0 & 5 & 1 & -2 & 1 & 0\\
+0 & -2 & 5 & 2 & 0 & 1
+\end{array}\right]
+\]
+
+\[
+\overset{R_2 \to \tfrac{1}{5}R_2}{\longrightarrow}
+\left[\begin{array}{ccc|ccc}
+1 & -1 & 2 & 1 & 0 & 0\\
+0 & 1 & \tfrac{1}{5} & -\tfrac{2}{5} & \tfrac{1}{5} & 0\\
+0 & -2 & 5 & 2 & 0 & 1
+\end{array}\right]
+\]
+
+\[
+\overset{\substack{R_1 \to R_1 + R_2 \\ R_3 \to R_3 + 2R_2}}{\longrightarrow}
+\left[\begin{array}{ccc|ccc}
+1 & 0 & \tfrac{11}{5} & \tfrac{3}{5} & \tfrac{1}{5} & 0\\
+0 & 1 & \tfrac{1}{5} & -\tfrac{2}{5} & \tfrac{1}{5} & 0\\
+0 & 0 & \tfrac{27}{5} & \tfrac{6}{5} & \tfrac{2}{5} & 1
+\end{array}\right]
+\]
+
+\[
+\overset{R_3 \to \tfrac{5}{27}R_3}{\longrightarrow}
+\left[\begin{array}{ccc|ccc}
+1 & 0 & \tfrac{11}{5} & \tfrac{3}{5} & \tfrac{1}{5} & 0\\
+0 & 1 & \tfrac{1}{5} & -\tfrac{2}{5} & \tfrac{1}{5} & 0\\
+0 & 0 & 1 & \tfrac{2}{9} & \tfrac{2}{27} & \tfrac{5}{27}
+\end{array}\right]
+\]
+
+\[
+\overset{\substack{R_1 \to R_1 - \tfrac{11}{5}R_3 \\ R_2 \to R_2 - \tfrac{1}{5}R_3}}{\longrightarrow}
+\left[\begin{array}{ccc|ccc}
+1 & 0 & 0 & \tfrac{1}{9} & \tfrac{1}{27} & -\tfrac{11}{27}\\
+0 & 1 & 0 & -\tfrac{4}{9} & \tfrac{5}{27} & -\tfrac{1}{27}\\
+0 & 0 & 1 & \tfrac{2}{9} & \tfrac{2}{27} & \tfrac{5}{27}
+\end{array}\right]
+\]
+
+Thus the inverse is
+
+\[
+A^{-1} =
+\begin{bmatrix}
+\dfrac{1}{9} & \dfrac{1}{27} & -\dfrac{11}{27}\\[6pt]
+-\dfrac{4}{9} & \dfrac{5}{27} & -\dfrac{1}{27}\\[6pt]
+\dfrac{2}{9} & \dfrac{2}{27} & \dfrac{5}{27}
+\end{bmatrix}.
+\]
+
+
+
+
+\end{document}

@@ -1,0 +1,166 @@
+ \let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+
+
+
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,angles,quotes}
+
+
+
+
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{5.6.7}
+\author{AI25BTECH11021 - Abhiram Reddy N}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+
+\section*{Question}
+Let
+\[
+A=\begin{pmatrix}
+2 & -1 & 1\\[4pt]
+-1 & 2 & -1\\[4pt]
+1 & -1 & 2
+\end{pmatrix}.
+\]
+Verify that
+\begin{equation}\label{eq:CH}
+A^{3}-6A^{2}+9A-4I=0,
+\end{equation}
+by using the Cayley--Hamilton theorem, and hence find \(A^{-1}\). When computing \(A^{-1}\) show the relation to the adjugate (transpose of cofactors).
+
+\subsection*{Step 1: Characteristic polynomial}
+Compute the characteristic polynomial of \(A\):
+\begin{align}
+\chi_A(\lambda)&=\det(\lambda I - A)\nonumber\\
+&=\det\begin{pmatrix}
+\lambda-2 & 1 & -1\\[4pt]
+1 & \lambda-2 & 1\\[4pt]
+-1 & 1 & \lambda-2
+\end{pmatrix}.\label{eq:char-det}
+\end{align}
+Expanding (or by direct computation) one obtains the factorisation
+\begin{equation}\label{eq:char-factor}
+\chi_A(\lambda)=(\lambda-4)(\lambda-1)^{2}
+=\lambda^{3}-6\lambda^{2}+9\lambda-4.
+\end{equation}
+
+\subsection*{Step 2: Cayley--Hamilton theorem}
+By the Cayley--Hamilton theorem the matrix \(A\) satisfies its own characteristic polynomial, i.e.
+\begin{equation}\label{eq:CH-matrix}
+A^{3}-6A^{2}+9A-4I=0,
+\end{equation}
+which is the desired identity \eqref{eq:CH}.
+
+\subsection*{Step 3: Express \(A^{-1}\) from the polynomial}
+Assuming \(A\) is invertible (we will check the determinant shortly), multiply \eqref{eq:CH-matrix} on the right by \(A^{-1}\) to obtain
+\begin{equation}\label{eq:pre-inv}
+A^{2}-6A+9I-4A^{-1}=0.
+\end{equation}
+Rearrange \eqref{eq:pre-inv} to solve for \(A^{-1}\):
+\begin{equation}\label{eq:inv-formula}
+A^{-1}=\tfrac{1}{4}\bigl(A^{2}-6A+9I\bigr).
+\end{equation}
+
+
+
+\subsection*{Step 4: Determinant and adjugate (transpose of cofactors)}
+From the characteristic polynomial \eqref{eq:char-factor} we read off the eigenvalues \(4,1,1\). Thus
+\begin{equation}\label{eq:det}
+\det(A)=4,
+\end{equation}
+so \(A\) is invertible. The adjugate matrix \(\operatorname{adj}(A)\) satisfies
+\[
+\operatorname{adj}(A)=\det(A)\,A^{-1}=4A^{-1}.
+\]
+From \eqref{eq:inv-explicit} we get
+\begin{equation}\label{eq:adj}
+\operatorname{adj}(A)=
+\begin{pmatrix}
+3 & 1 & -1\\[4pt]
+1 & 3 & 1\\[4pt]
+-1 & 1 & 3
+\end{pmatrix}.
+\end{equation}
+The adjugate is the transpose of the cofactor matrix; in this case \(\operatorname{adj}(A)\) is symmetric, so taking the transpose of the cofactor matrix yields the same matrix \eqref{eq:adj}. Finally,
+\begin{equation}\label{eq:inv-final}
+A^{-1}=\frac{1}{\det(A)}\operatorname{adj}(A)=\frac{1}{4}
+\begin{pmatrix}
+3 & 1 & -1\\[4pt]
+1 & 3 & 1\\[4pt]
+-1 & 1 & 3
+\end{pmatrix},
+\end{equation}
+which matches \eqref{eq:inv-explicit}.
+
+
+\bigskip
+\noindent\textbf{Answer.} The Cayley--Hamilton identity \eqref{eq:CH} holds, and
+\[
+\boxed{\,A^{-1}=\frac{1}{4}\bigl(A^{2}-6A+9I\bigr)
+=\begin{pmatrix}
+\frac{3}{4} & \frac{1}{4} & -\frac{1}{4}\\[6pt]
+\frac{1}{4} & \frac{3}{4} & \frac{1}{4}\\[6pt]
+-\frac{1}{4} & \frac{1}{4} & \frac{3}{4}
+\end{pmatrix}\,}
+\]
+which may equivalently be obtained from \(A^{-1}=\dfrac{1}{\det(A)}\operatorname{adj}(A)\) with \(\det(A)=4\) and \(\operatorname{adj}(A)\) given in \eqref{eq:adj} (the adjugate is the transpose of the cofactor matrix).
+
+
+
+\end{document}

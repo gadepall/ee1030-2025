@@ -1,27 +1,32 @@
-import ctypes
+import ctypes as ct
 import numpy as np
 
-lib = ctypes.CDLL("./problem.so")
+def get_data():
+    lib = ct.CDLL("./problem.so")
+
+    value = ct.c_double*9
+
+    lib.make_data.argtypes = [ct.POINTER(ct.c_double)]
+
+    points = value()
+
+    lib.make_data(points)
+
+    Px = points[0] 
+    Py = points[1]
+    Qx = points[2]
+    Qy = points[3]
+    Rx = points[4]
+    Ry = points[5]
+    Mx = points[6]
+    My = points[7]
+    values = points[8]
+    return Px, Py, Qx, Qy, Rx, Ry, Mx, My, values
 
 
-points = (ctypes.c_double * 6)()
-lib.get_points(points)
 
 
-pts = np.array(points).reshape(3,2)
-R, Q, P = pts
 
 
-M = (Q + P) / 2
 
-
-median_vec = M - R
-median_length = np.linalg.norm(median_vec)
-
-
-print("R =", R)
-print("Q =", Q)
-print("P =", P)
-print("Midpoint of QP =", M)
-print("Median RM length =", median_length)
 

@@ -1,0 +1,197 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\begin{document}
+
+\title 
+{4.3.50}
+\date{september 14,2025}
+
+
+\author 
+{Namaswi-EE25BTECH11060}
+\frame{\titlepage}
+\begin{frame}{Question}
+Let $a, b, c$ be real numbers with $a^2 + b^2 + c^2 = 1$. Show that the equation
+\[
+\begin{vmatrix}
+ax - by - c & bx + ay & cx + a \\
+bx + ay & -ax + by - c & cy + b \\
+cx + a & cy + b & -ax - by + c
+\end{vmatrix} = 0
+\]
+represents a straight line.
+\end{frame}
+\begin{frame}{Solution}
+Let us denote it as a $3 \times 3$ matrix:
+\[
+M = 
+\begin{pmatrix}
+ax - by - c & bx + ay & cx + a \\
+bx + ay & -ax + by - c & cy + b \\
+cx + a & cy + b & -ax - by + c
+\end{pmatrix}
+\]  
+\end{frame}
+\begin{frame}{Solution}
+A determinant represents a plane if it depends quadratically on $x$ and $y$. Here, if we can reduce it to a determinant that is linear in $x$ and $y$, it will represent a straight line.\\
+so,Replace
+\[
+R_3 \rightarrow R_3 - c R_1 - b R_2
+\]
+
+\[
+\text{First element of new } R_3: \quad
+\]
+\begin{align}
+(cx + a) - c(ax - by - c) - b(bx + ay)\\
+= cx + a - cax + cby + c^2 - b^2 x - a b y\\
+x(c - ca - b^2) + y(cb - ab) + (a + c^2)
+\end{align}  
+\end{frame}
+\begin{frame}{Solution}
+\[
+\text{Second element of new } R_3: \quad
+\]
+\begin{align}
+(cy + b) - c(bx + ay) - b(-ax + by - c) \\
+= cy + b - cbx - cay + abx - b^2 y + bc \\
+= x(-cb + ab) + y(c - ca - b^2) + (b + bc)
+\end{align}
+ \[
+\text{Third element of new } R_3: \quad
+\]
+\begin{align}
+(-ax - by + c) - c(cx + a) - b(cy + b) \\
+= -ax - by + c - c^2 x - ac - bcy - b^2 \\
+= x(-a - c^2) + y(-b - bc) + (c - ac - b^2)
+\end{align}  
+\end{frame}
+\begin{frame}{Solution}
+But since 
+\begin{align}
+a^2 + b^2 + c^2 = 1 \implies 1 - a^2 = b^2 + c^2,
+\end{align}
+all quadratic terms cancel.
+Similarly, the 2nd and 3rd entries of the new $R_3$ become constants or linear in $x, y$.\\
+The determinant now depends linearly on $x$ and $y$, so we can write:
+\[
+\det(M) = 0 \quad \implies \quad px + qy + r = 0,
+\]
+for some real constants $p, q, r$. \\
+Hence,the determinant represents a \textbf{straight line}.  
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+    #include <stdio.h>
+int main() {
+    // Define constants a, b, c (such that a^2 + b^2 + c^2 = 1)
+    double a, b, c;
+    printf("Enter values for a, b, c (a^2 + b^2 + c^2 = 1): ");
+    scanf("%lf %lf %lf", &a, &b, &c);
+
+    // Variables x and y
+    double x, y;
+    printf("Enter values for x and y: ");
+    scanf("%lf %lf", &x, &y);
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+     // Original matrix M
+    double M[3][3];
+    M[0][0] = a*x - b*y - c; M[0][1] = b*x + a*y;      M[0][2] = c*x + a;
+    M[1][0] = b*x + a*y;     M[1][1] = -a*x + b*y - c; M[1][2] = c*y + b;
+    M[2][0] = c*x + a;       M[2][1] = c*y + b;        M[2][2] = -a*x - b*y + c;
+
+    // Apply row operation: R3 -> R3 - c*R1 - b*R2
+    double newR3[3];
+    newR3[0] = M[2][0] - c*M[0][0] - b*M[1][0];
+    newR3[1] = M[2][1] - c*M[0][1] - b*M[1][1];
+    newR3[2] = M[2][2] - c*M[0][2] - b*M[1][2];
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+     // Determinant using expansion along R3 (simplified after operation)
+    double det = M[0][0]*(M[1][1]*newR3[2] - M[1][2]*newR3[1])
+               - M[0][1]*(M[1][0]*newR3[2] - M[1][2]*newR3[0])
+               + M[0][2]*(M[1][0]*newR3[1] - M[1][1]*newR3[0]);
+
+    printf("Determinant after row operation: %lf\n", det);
+
+    // Since quadratic terms cancel, det is linear in x and y
+    printf("This determinant represents a straight line in x and y.\n");
+
+    return 0;
+}
+\end{lstlisting}
+\end{frame}
+\end{document}

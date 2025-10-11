@@ -1,31 +1,37 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
-# Define range for x
-x_vals = np.linspace(-10, 10, 400)
+# Define lines
+x = np.linspace(-1, 5, 400)
 
-# Line equations
-def y_L1(x): return (5 - x) / 3
-def y_L2(x, k): return (3*x - 1) / k if k != 0 else np.full_like(x, np.nan)
-def y_L3(x): return (12 - 5*x) / 2
+# L1: x + 3y - 5 = 0 → y = (5 - x)/3
+y1 = (5 - x) / 3
 
-# Choose k values for cases
-k_values = [5, -6/5, 9]  # concurrent, parallel, triangle
+# L2: 3x - k*y - 1 = 0 → y = (3x - 1)/k (example with k=5)
+k = 5
+y2 = (3*x - 1) / k
 
-# Create 3D plot
-fig = plt.figure(figsize=(12, 8))
-ax = fig.add_subplot(111, projection='3d')
+# L3: 5x + 2y - 12 = 0 → y = (12 - 5x)/2
+y3 = (12 - 5*x) / 2
 
-# Plot each set of lines for different k
-for k in k_values:
-    ax.plot(x_vals, y_L1(x_vals), np.zeros_like(x_vals), label=f"L1")
-    ax.plot(x_vals, y_L2(x_vals, k), np.zeros_like(x_vals), label=f"L2 (k={k:.2f})")
-    ax.plot(x_vals, y_L3(x_vals), np.zeros_like(x_vals), label=f"L3")
+# Plot
+plt.figure(figsize=(6,6))
+plt.axhline(0, color="black", linewidth=0.8)  # x-axis
+plt.axvline(0, color="black", linewidth=0.8)  # y-axis
 
-# Labels and title
-ax.set_xlabel("X-axis")
-ax.set_ylabel("Y-axis")
-ax.set_zlabel("Z-axis")
-ax.set_title("3D Representation of Lines L1, L2, L3 in z=0 plane")
-ax.legend()
+plt.plot(x, y1, "r", label="L1: x+3y-5=0")
+plt.plot(x, y2, "b", label=f"L2: 3x-{k}y-1=0")
+plt.plot(x, y3, "g", label="L3: 5x+2y-12=0")
+
+# Intersection point (2,1)
+plt.plot(2, 1, "ko", markersize=6)
+plt.text(2.1, 0.9, "(2,1)")
+
+plt.xlim(-1, 5)
+plt.ylim(-1, 5)
+plt.xlabel("x")
+plt.ylabel("y")
+plt.title("Graphical Representation of L1, L2, L3")
+plt.legend()
+plt.grid(True)
 plt.show()

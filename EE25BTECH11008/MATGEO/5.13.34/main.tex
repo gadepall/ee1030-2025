@@ -1,0 +1,117 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{gvv-book}
+\usepackage{gvv}
+
+\title{\textbf{5.13.34}}
+\author{\textbf{EE25BTECH11008 - Anirudh M Abhilash}}
+\date{October 5, 2025}
+
+\begin{document}
+
+\maketitle
+
+\section*{Question}
+
+For $3 \times 3$ matrices $\vec{M}$ and $\vec{N}$, which of the following statement(s) is (are) \textbf{NOT} correct?  
+
+\begin{multicols}{2}
+\begin{enumerate}[label=(\alph*)]
+\item $\vec{N}^T \vec{M} \vec{N}$ is symmetric or skew symmetric, according as $\vec{M}$ is symmetric or skew symmetric.
+\item $\vec{M}\vec{N} - \vec{N}\vec{M}$ is skew symmetric for all matrices $\vec{M}$ and $\vec{N}$.
+\item $\vec{M}\vec{N}$ is symmetric for all symmetric matrices $\vec{M}$ and $\vec{N}$.
+\item $(\operatorname{adj}\vec{M})(\operatorname{adj}\vec{N}) = \operatorname{adj}(\vec{M}\vec{N})$ for all invertible matrices $\vec{M}$ and $\vec{N}$.
+\end{enumerate}
+\end{multicols}
+
+
+\section*{Solution}
+
+\subsection*{(a)}
+
+\begin{align}
+(\vec{N}^T \vec{M} \vec{N})^T &= \vec{N}^T \vec{M}^T \vec{N}
+\end{align}
+
+If $\vec{M}^T = \vec{M}$,  
+\begin{align}
+(\vec{N}^T \vec{M} \vec{N})^T = \vec{N}^T \vec{M} \vec{N}
+\end{align}
+Hence symmetric.
+
+If $\vec{M}^T = -\vec{M}$,  
+\begin{align}
+(\vec{N}^T \vec{M} \vec{N})^T = -\vec{N}^T \vec{M} \vec{N}
+\end{align}
+Hence skew symmetric.  
+
+Thus, (a) is \textbf{correct}.
+
+\subsection*{(b)}
+
+Assume $\vec{M}\vec{N} - \vec{N}\vec{M}$ is skew symmetric $\forall \, \vec{M}, \vec{N}$.
+
+Then,
+\begin{align}
+(\vec{M}\vec{N} - \vec{N}\vec{M})^T &= -(\vec{M}\vec{N} - \vec{N}\vec{M}) \\
+\Rightarrow \vec{N}^T \vec{M}^T - \vec{M}^T \vec{N}^T &= -\vec{M}\vec{N} + \vec{N}\vec{M}
+\end{align}
+
+Let $\vec{M}$ and $\vec{N}$ be symmetric:
+\begin{align}
+\vec{M}^T = \vec{M}, \quad \vec{N}^T = \vec{N}
+\end{align}
+Then,
+\begin{align}
+\vec{N}\vec{M} - \vec{M}\vec{N} &= -\vec{M}\vec{N} + \vec{N}\vec{M} \\
+\Rightarrow 2(\vec{N}\vec{M} - \vec{M}\vec{N}) &= 0 \\
+\Rightarrow \vec{M}\vec{N} = \vec{N}\vec{M}
+\end{align}
+
+Thus, this requires all symmetric matrices to commute, which is not true in general.  
+Hence, (b) is \textbf{not correct}.
+
+\subsection*{(c)}
+
+\begin{align}
+(\vec{M}\vec{N})^T &= \vec{N}^T \vec{M}^T
+\end{align}
+
+If $\vec{M}$ and $\vec{N}$ are symmetric,
+\begin{align}
+(\vec{M}\vec{N})^T &= \vec{N}\vec{M}
+\end{align}
+For $\vec{M}\vec{N}$ to be symmetric,  
+\begin{align}
+\vec{M}\vec{N} &= \vec{N}\vec{M}
+\end{align}
+Thus, $\vec{M}\vec{N}$ is symmetric $\iff$ $\vec{M}$ and $\vec{N}$ commute.  
+Since all symmetric matrices do not commute, (c) is \textbf{not correct}.
+
+\subsection*{(d)}
+
+For any invertible matrix $\vec{A}$,
+\begin{align}
+\operatorname{adj}(\vec{A}) = \mydet{\vec{A}} \vec{A}^{-1}
+\end{align}
+
+Hence,
+\begin{align}
+(\operatorname{adj}\vec{M})(\operatorname{adj}\vec{N}) &= \mydet{\vec{M}}\mydet{\vec{N}}\vec{M}^{-1}\vec{N}^{-1}, \\[4pt]
+\operatorname{adj}(\vec{M}\vec{N}) &= \mydet{\vec{M}\vec{N}}(\vec{M}\vec{N})^{-1} = \mydet{\vec{M}}\mydet{\vec{N}} \vec{N}^{-1}\vec{M}^{-1}.
+\end{align}
+
+Equality holds only if  
+\begin{align}
+\vec{M}^{-1}\vec{N}^{-1} = \vec{N}^{-1}\vec{M}^{-1} \iff \vec{M}\vec{N} = \vec{N}\vec{M}.
+\end{align}
+
+Since this does not hold for all invertible matrices, (d) is \textbf{not correct}.
+
+\[
+\boxed{\text{Statements (b), (c), and (d) are NOT correct.}}
+\]
+
+\end{document}

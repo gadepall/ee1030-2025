@@ -1,31 +1,19 @@
-import ctypes
+import ctypes as ct
 
-lib = ctypes.CDLL("./problem.so")
+lib = ct.CDLL("./problem.so")
+lib.give_data.argtypes = [ct.POINTER(ct.c_double)]
+lib.give_findata.argtypes = [ct.POINTER(ct.c_double)]
 
-finalvector1=[0, 0]
-finalvector2=[0, 0]
+points = ct.c_double*8
+data = points()
+lib.give_data(data)
+finpoints = ct.c_double*8
+findata = finpoints()
+lib.give_findata(findata)
 
-lib.get_vector1.argtypes = [ctypes.c_int]
-lib.get_vector1.restype = ctypes.c_int
-
-lib.get_vector2.argtypes = [ctypes.c_int]
-lib.get_vector2.restype = ctypes.c_int
-
-lib.get_constant1.argtypes = [ctypes.c_int]
-lib.get_constant1.restype = ctypes.c_int
-
-lib.get_constant2.argtypes = [ctypes.c_int]
-lib.get_constant2.restype = ctypes.c_int
+def send_data():
+    return data, findata 
 
 
-for i in range(0,2):
-    finalvector1[i]=lib.get_vector1(i)-lib.get_vector2(i)
-
-for i in range(0,2):
-    finalvector2[i]=lib.get_vector1(i)+lib.get_vector2(i)
-
-finalconstant=lib.get_constant1(0)+lib.get_constant2(0)
-
-print(f"The final line equations are y=0 and {finalvector2[0]}x={finalconstant}")
 
 

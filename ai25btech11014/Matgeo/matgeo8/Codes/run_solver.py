@@ -1,0 +1,16 @@
+import subprocess
+
+P = [3.0, 2.0, 1.0]
+N = [2.0, -1.0, 1.0]
+inputs = P + N
+input_str = ' '.join(map(str, inputs))
+
+result = subprocess.run(
+    ['./plane_solver'],
+    input=input_str,
+    capture_output=True,
+    text=True
+)
+
+print(result.stdout.strip())
+

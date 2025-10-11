@@ -1,0 +1,166 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{comment}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+%\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=4em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{5.13.39}
+\author{EE25BTECH11013 - Bhargav}
+\maketitle
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question}:\\
+Let $\vec{P} = \myvec{3 & -1 & -2 \\ 2 & 0 & \alpha \\ 3 & -5 & 0}$ where $\alpha \in \mathbf{R}$. Suppose $\vec{Q}$ = $\myvec{q_{ij}}$ is a matrix such that $\vec{P}\vec{Q}$ = k$\vec{I}$, where k $\neq$ 0 and $\vec{I}$ is the identity of order 3. If $q_{23}$ = -$\frac{k}{8}$ and $\det{\vec{Q}} = \frac{k^2}{2}$, then 
+\begin{enumerate}
+\item a = 0, k = 8
+\item 4a - k + 8 = 0
+\item $\det{(\vec{P} adj(\vec{Q}))} = 2^9$
+\item $\det{(\vec{Q} adj(\vec{P}))} = 2^{13}$
+\end{enumerate}
+
+
+
+\solution \\
+It is given that
+\begin{align}
+\vec{P}\vec{Q} = k\vec{I}, \det{\vec{Q}} = \frac{k^2}{2}
+\end{align}
+
+Taking the determinant
+\begin{align}
+\brak{\det{\vec{P}}} \cdot \frac{k^2}{2} = k^3
+\end{align}
+
+\begin{align}
+\abs{\myvec{3 & -1 & -2 \\ 2 & 0 & \alpha \\ 3 & -5 & 0}} = 2k
+\end{align}
+\begin{align}
+\myvec{3 & -1 & -2 \\ 2 & 0 & \alpha \\ 3 & -5 & 0} \xleftrightarrow[R_3 \leftarrow R_3 - R_1]{R_2 \leftarrow R_2 - \frac{2}{3}R_1}\myvec{3 & -1 & -2 \\ 0 & \frac{2}{3} & \alpha + \frac{4}{3} \\ 0 & -4 & 2}
+\end{align}
+
+From equation \brak{4.3} we get
+\begin{align}
+3 \times \brak{\frac{2}{3}\times 2 - \brak{-4} \times \brak{\alpha + \frac{4}{3}}} = 2k
+\end{align}
+\begin{align}
+20 + 12\alpha = 2k
+\end{align}
+
+Using the relation $\vec{P}\vec{Q}=k\vec{I}$, we get the following augmented matrix
+
+\begin{align}
+\augvec{3}{3}{3 & -1 & -2 & 1 & 0 & 0\\ 2 & 0 &\alpha & 0 & 1 & 0 \\ 3 & -5 & 0&0&0&1} \xleftrightarrow[R_2 \leftarrow R_2 - 2R_1]{R_1 \leftarrow \frac{1}{3}R_1} \augvec{3}{3}{1 & -\frac{1}{3} & -\frac{2}{3} & \frac{1}{3} & 0 & 0 \\ 0 & \frac{2}{3} & \alpha + \frac{4}{3} & -\frac{2}{3} & 1 & 0 \\ 3 & -5 & 0 & 0 & 0 & 1}
+\end{align}
+
+\begin{align}
+\xleftrightarrow[R_2 \leftarrow \frac{3}{2}R_2]{R_3 \leftarrow R_3 - 3R_1} \augvec{3}{3}{
+1 & -\frac{1}{3} & -\frac{2}{3} & \frac{1}{3} & 0 & 0 \\
+0 & 1 & \frac{3}{2}\alpha + 2 & -1 & \frac{3}{2} & 0 \\
+0 & -4 & 2 & -1 & 0 & 1
+} \xleftarrow[R_3 \leftarrow R_3 + 4R_2]{R_1 \leftarrow \frac{1}{3}R_2} \augvec{3}{3}{
+1 & 0 & \frac{1}{2}\alpha & 0 & \frac{1}{2} & 0 \\
+0 & 1 & \frac{3}{2}\alpha + 2 & -1 & \frac{3}{2} & 0 \\
+0 & 0 & 6\alpha + 10 & -5 & 6 & 1
+}
+\end{align}
+
+\begin{align}
+\xleftrightarrow{R_3 \leftarrow \frac{1}{6\alpha+10}R_3} \augvec{3}{3}{
+1 & 0 & \frac{1}{2}\alpha & 0 & \frac{1}{2} & 0 \\
+0 & 1 & \frac{3}{2}\alpha + 2 & -1 & \frac{3}{2} & 0 \\
+0 & 0 & 1 & -\frac{5}{6\alpha+10} & \frac{6}{6\alpha+10} & \frac{1}{6\alpha+10}
+}
+\end{align}
+
+\begin{align}
+\xleftrightarrow[R_2 \leftarrow R_2 - \Big(\frac{3}{2}\alpha + 2\Big) R_3]{R_1 \leftarrow R_1 - \frac{1}{2}\alpha R_3} \augvec{3}{3}{
+1 & 0 & 0 & \frac{5\alpha}{12\alpha+20} & \frac{3\alpha+10}{6\alpha+20} & -\frac{\alpha}{12\alpha+20} \\
+0 & 1 & 0 & -1+\frac{5(3\alpha+4)}{12\alpha+20} & \frac{3}{2}-\frac{6(3\alpha+4)}{12\alpha+20} & -\frac{3\alpha+4}{12\alpha+20} \\
+0 & 0 & 1 & -\frac{5}{6\alpha+10} & \frac{6}{6\alpha+10} & \frac{1}{6\alpha+10}
+}
+\end{align}
+
+From this augmented matrix,
+\begin{align}
+q_{23} = -k\frac{3\alpha+4}{12\alpha+20} = -\frac{k}{8} \brak{Given}
+\end{align}
+
+\begin{align}
+\implies \alpha = -1
+\end{align}
+
+
+Substituting the value of $\alpha$ in equation \brak{4.6}, we get
+\begin{align}
+k = 4
+\end{align}
+
+n is the order of matrix B
+\begin{align}
+\abs{{\vec{A}\mathrm{adj}\brak{\vec{B}}}} = \abs{\vec{A}\cdot\vec{B}^{n-1}}
+\end{align}
+$\abs{\vec{P}} = 8$, $\abs{\vec{Q}} = 8$
+\begin{align}
+\abs{{(\vec{P} adj(\vec{Q}))}} = \abs{\vec{P}} \abs{\vec{Q}}^{2} = 8\times64 = 2^9
+\end{align}
+
+\begin{align}
+\abs{{(\vec{Q} adj(\vec{P}))}} = \abs{\vec{Q}} \abs{\vec{P}}^{2} = 8\times64 = 2^9 
+\end{align}
+
+So options \brak{2} and \brak{3} are correct
+\end{document}

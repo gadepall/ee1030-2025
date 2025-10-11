@@ -1,0 +1,229 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx} % <-- needed for images
+\def\UrlBreaks{\do\/\do-}
+
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\lstset{
+  frame=single,
+  breaklines=true,
+  columns=fullflexible,
+  basicstyle=\ttfamily\tiny   % tiny font so code fits
+}
+
+\numberwithin{equation}{section}
+
+% ---- your macros ----
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}}
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}}
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\newcommand{\mydet}[1]{\ensuremath{\begin{vmatrix}#1\end{vmatrix}}}
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|*{#1}{c}@{}}
+}{%
+  \end{array}\right)
+}
+
+\newcommand{\myaugvec}[2]{\ensuremath{\begin{amatrix}{#1}#2\end{amatrix}}}
+\let\vec\mathbf
+% ---------------------
+
+\title{Matgeo Presentation - Problem 12.485}
+\author{ee25btech11056 - Suraj.N}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Problem Statement}
+
+Let 
+
+\begin{align*}
+  \vec{M} = \myvec{0 & 1\\0 & 1}
+\end{align*}
+
+Which of the following is correct 
+\begin{itemize}
+  \item (1) Rank of $\vec{M}$ is 1 and $\vec{M}$ is diagonalizable
+  \item (2) Rank of $\vec{M}$ is 2 and $\vec{M}$ is diagonalizable
+  \item (3) 1 is the only eigenvalue and $\vec{M}$ is diagonalizable
+  \item (4) 1 is the only eigenvalue and $\vec{M}$ is not diagonalizable
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Data}
+
+\begin{table}[h!]
+  \centering
+  \input{tables/table.tex}
+  \caption*{Table : Matrix}
+  \label{12.485}
+\end{table}
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+First convert $\vec{M}$ into echelon form by applying row reduction
+
+\begin{align}
+\myvec{0 & 1 \\ 0 & 1}
+\xleftrightarrow{\;R_2 \to R_2 - R_1}
+\myvec{0 & 1 \\ 0 & 0}
+\end{align}
+
+From the echelon form we see that there is one nonzero row, hence
+
+\begin{align}
+\text{rank}(\vec{M}) = 1
+\end{align}
+
+Next find the eigenvalues. Because $\vec{M}$ is upper triangular, its eigenvalues are the diagonal entries:
+
+\begin{align}
+  \lambda_1 &= 0 & \lambda_2 &= 1 
+\end{align}
+
+Now find eigenvectors by solving 
+\begin{align}
+  (\vec{M}-\lambda \vec{I})\vec{v} = \vec{0}
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+For $\lambda = 0$ solve 
+\begin{align}
+\vec{M}\vec{v}=\vec{0}\\
+\myvec{0 & 1 \\ 0 & 1}\vec{v} = \myvec{0\\0}\\
+\myvec{0 & 1\\0 & 1}\myvec{x\\y} = \myvec{0\\0}
+\end{align}
+
+\pagebreak
+
+This gives 
+
+\begin{align}
+y = 0
+\end{align}
+
+And x can be anything\\
+
+Thus an eigenvector for $\lambda=0$ is 
+\begin{align} 
+\vec{v}_1 = \myvec{1\\0}
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+For $\lambda = 1$ solve 
+
+\begin{align}
+(\vec{M}-\vec{I})\vec{v}=\vec{0}\\
+\myvec{-1 & 1 \\ 0 & 0}\vec{v} = \myvec{0\\0}\\
+\myvec{-1 & 1 \\ 0 & 0}\myvec{x\\y} = \myvec{0\\0}
+\end{align}
+This gives 
+\begin{align}
+-x + y = 0 \\
+y = x
+\end{align}
+Thus an eigenvector for $\lambda=1$ is
+\begin{align}
+\vec{v}_2 = \myvec{1\\1}
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+Since the eigenvalues $\lambda_1$ and $\lambda_2$ are distinct, the matrix $\vec{M}$ is diagonalizable.
+
+Form the matrix $\vec{P}$ with eigenvectors as columns and the diagonal matrix $\vec{D}$ of eigenvalues:
+\begin{align}
+\vec{P} = \myvec{1 & 1 \\ 0 & 1}\\
+\vec{D} = \myvec{0 & 0 \\ 0 & 1}
+\end{align}
+
+Compute $\vec{P}^{-1}$ 
+
+\begin{align}
+\myaugvec{2}{1 & 1 & 1 & 0\\0 & 1 & 0 & 1}
+\xleftrightarrow{\;R_1 \to R_1 - R_2}
+\myaugvec{2}{1 & 0 & 1 & -1\\0 & 1 & 0 & 1}
+\end{align}
+
+The right block gives
+\begin{align}
+\vec{P}^{-1} = \myvec{1 & -1 \\ 0 & 1}
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+Finally, the diagonalization:
+\begin{align}
+  \vec{M} &= \vec{P}\vec{D}\vec{P}^{-1} \\
+  \vec{M} &= \myvec{1 & 1 \\ 0 & 1}\myvec{0 & 0 \\ 0 & 1}\myvec{1 & -1 \\ 0 & 1}
+\end{align}
+
+\textbf{Conclusion :} The matrix $\vec{M}$ has $rank(\vec{M}) = 1$ and is \textbf{diagonizable}.\\
+Therefore the correct option is (1).
+
+\end{frame}
+
+\end{document}
+
+

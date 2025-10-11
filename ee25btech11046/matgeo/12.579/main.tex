@@ -1,0 +1,116 @@
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin:10mm, onecolumn]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title{12.579}
+\author{Puni Aditya - EE25BTECH11046}
+\maketitle
+
+\textbf{Question:}
+
+Let V be the vector space of all 3 × 3 matrices with complex entries over the real
+field. If
+\begin{align*}
+    W_1 &= \cbrak{\vec{A} \in V : \vec{A} = \bar{\vec{A}}^\top} \\
+    W_2 &= \cbrak{\vec{A} \in V : \text{trace} \brak{\vec{A}} = 0}
+\end{align*}
+then the dimension of $W_1 + W_2$ is equal to \rule{2cm}{0.4pt}.
+
+\textbf{Solution:}
+
+A basis for a vector space $V$ over a field $F$ is a set $\mathcal{B} = \cbrak{\vec{v}_1, \dots, \vec{v}_n}$ where for any $\vec{v} \in V$, there exist unique scalars $c_i \in F$ such that:
+\begin{align}
+    \vec{v} = \sum_{i=1}^n c_i \vec{v}_i
+\end{align}
+This uniqueness implies linear independence, where the only solution to the following equation is $c_1 = \dots = c_n = 0$.
+\begin{align}
+    \sum_{i=1}^n c_i \vec{v}_i = \vec{0}
+\end{align}
+Let $V$ be the space of $n \times n$ complex matrices over $\mathbb{R}$. Let $\vec{E}_{jk}$ be the matrix with 1 at position $\brak{j,k}$ and 0 elsewhere. Any $\vec{A} \in V$ can be written as:
+\begin{align}
+    \vec{A} = \sum_{j=1}^n \sum_{k=1}^n a_{jk} \vec{E}_{jk} = \sum_{j,k} \brak{x_{jk} + i y_{jk}} \vec{E}_{jk} = \sum_{j,k} x_{jk}\vec{E}_{jk} + \sum_{j,k} y_{jk}\brak{i\vec{E}_{jk}}
+\end{align}
+The set 
+\begin{align}
+    \mathcal{B}_V = \cbrak{\vec{E}_{11}, \dots, \vec{E}_{nn}, i\vec{E}_{11}, \dots, i\vec{E}_{nn}}
+\end{align}
+spans $V$. Linear independence over $\mathbb{R}$ is shown by:
+\begin{align}
+    \sum_{j,k} x_{jk}\vec{E}_{jk} + \sum_{j,k} y_{jk}\brak{i\vec{E}_{jk}} = \vec{0} \implies \sum_{j,k} \brak{x_{jk} + i y_{jk}} \vec{E}_{jk} = \vec{0}
+\end{align}
+This implies 
+\begin{align}
+    x_{jk} + i y_{jk} = 0\text{, thus }x_{jk}=0\text{ and }y_{jk}=0\text{ for all }j,k
+\end{align}    
+$\mathcal{B}_V$ is a basis.
+\begin{align}
+    \dim\brak{V} = n^2 + n^2 = 2n^2
+\end{align}
+Let $\mathcal{B}_{1 \cap 2}$ be a basis for $W_1 \cap W_2$. Extending it to bases $\mathcal{B}_1$ for $W_1$ and $\mathcal{B}_2$ for $W_2$. The set 
+\begin{align*}
+    \mathcal{B}_{1+2} = \mathcal{B}_1 \cup \mathcal{B}_2
+\end{align*}
+spans $W_1+W_2$. For linear independence:
+\begin{align}
+    \sum a_i \vec{u}_i + \sum b_j \vec{v}_j + \sum c_l \vec{w}_l = \vec{0} \implies \sum a_i \vec{u}_i + \sum b_j \vec{v}_j = - \sum c_l \vec{w}_l
+\end{align}
+The vector is in $W_1 \cap W_2$, so $-\sum c_l \vec{w}_l = \sum d_i \vec{u}_i$. Since $\mathcal{B}_2$ is a basis, all $c_l=0, d_i=0$, which implies all $a_i=0, b_j=0$.
+\begin{align}
+    \dim\brak{W_1 + W_2} = \dim\brak{W_1} + \dim\brak{W_2} - \dim\brak{W_1 \cap W_2}
+\end{align}
+For $W_1$, the Hermitian condition 
+\begin{align}
+    a_{jk} = \bar{a}_{kj} \label{eq:69}
+\end{align}
+From \eqref{eq:69},
+\begin{align}
+    x_{jk} + iy_{jk} = x_{kj} - iy_{kj} \implies x_{jk}=x_{kj} \text{ and } y_{jk}=-y_{kj}
+\end{align}
+For diagonal elements, 
+\begin{align}
+y_{jj} = -y_{jj} \implies y_{jj} = 0
+\end{align}
+This gives $n$ real parameters.
+For off-diagonal elements, there are 
+\begin{align}
+    \frac{n^2-n}{2}
+\end{align}
+pairs. Each pair is determined by one complex number $\myvec{x_{jk}, y_{jk}}$, giving 
+\begin{align}
+    2 \times \frac{n^2-n}{2} = n^2-n
+\end{align}
+real parameters.
+\begin{align}
+    \dim\brak{W_1} = n + \brak{n^2-n} = n^2
+\end{align}
+For $W_2$, the trace condition imposes two independent real constraints on the $2n^2$ parameters of $V$:
+\begin{align}
+    \text{trace}\brak{\vec{A}} = \sum x_{jj} + i \sum y_{jj} = 0 \implies \sum x_{jj} = 0 \text{ and } \sum y_{jj} = 0
+\end{align}
+\begin{align}
+    \dim\brak{W_2} = 2n^2 - 2
+\end{align}
+For $W_1 \cap W_2$, matrices are Hermitian, so $y_{jj}=0$. The trace condition becomes one real constraint on the $n^2$ parameters of $W_1$.
+\begin{align}
+    \dim\brak{W_1 \cap W_2} = n^2 - 1
+\end{align}
+For this problem,
+\begin{align}
+    n=3
+\end{align}
+\begin{align}
+    \dim\brak{W_1} &= 3^2 = 9 \\
+    \dim\brak{W_2} &= 2\brak{3^2} - 2 = 16 \\
+    \dim\brak{W_1 \cap W_2} &= 3^2 - 1 = 8
+\end{align}
+\begin{align}
+    \therefore \dim\brak{W_1 + W_2} = 9 + 16 - 8 = 17
+\end{align}
+
+\end{document}

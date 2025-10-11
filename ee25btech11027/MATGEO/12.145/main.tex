@@ -1,0 +1,151 @@
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+
+%\usepackage[a5paper, top=10mm, bottom=10mm, left=10mm, right=10mm]{geometry}
+
+%
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+\makeindex
+
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\usepackage{multicol}
+\usepackage{xparse}
+\usepackage{gvv}
+%\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                               
+\usepackage{lscape}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{float}
+\usepackage{ar}
+\usepackage[version=4]{mhchem}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{example}{Example}[section]
+\newtheorem{definition}[problem]{Definition}
+\newcommand{\BEQA}{\begin{eqnarray}}
+\newcommand{\EEQA}{\end{eqnarray}}
+
+\theoremstyle{remark}
+
+
+\begin{document}
+\bibliographystyle{IEEEtran}
+\onecolumn
+
+\title{12.145}
+\author{INDHIRESH S- EE25BTECH11027}
+\maketitle
+
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question}. If a square matrix $\Vec{A}$ is real and symmetric, then the eigenvalues
+\begin{enumerate}
+    \item are always real
+    \item  are always real and positive
+    \item are always real and non-negative
+    \item occur in complex conjupairs
+\end{enumerate}
+\textbf{Solution}:\\
+The correct statement is (1). This is a fundamental property of real symmetric matrices.\\
+Let $\Vec{A}$ be a real and symmetric matrix, which means
+\begin{align}
+\Vec{A} = \Vec{A}^T\;\; and\;\; \bar{\Vec{A}} = \Vec{A}
+\end{align}
+Let $\lambda$ be an eigenvalue of $\Vec{A}$ with a corresponding non-zero eigenvector $\Vec{x}$. The eigenvalue equation is:
+\begin{align}
+    \Vec{A}\Vec{x} = \lambda\Vec{x}
+\end{align}
+To prove that $\lambda$ is real, we must show it is equal to its own complex conjugate, i.e., $\lambda = \bar{\lambda}$.
+We take the conjugate transpose (Hermitian conjugate) on both sides:
+\begin{align}
+    (\Vec{A}\Vec{x})^H &= (\lambda\Vec{x})^H \\
+    \Vec{x}^H \Vec{A}^H &= \bar{\lambda}\Vec{x}^H
+\end{align}
+For a real and symmetric matrix, its conjugate transpose is itself:
+\begin{align}
+    \Vec{A}^H = \bar{\Vec{A}}^T = \Vec{A}^T = \Vec{A}
+\end{align}
+Substituting this into the Eq.4 gives:
+\begin{align}
+    \Vec{x}^H \Vec{A} = \bar{\lambda}\Vec{x}^H \label{eq:conj}
+\end{align}
+Now, we pre-multiply the Eq.2 by $\Vec{x}^H$:
+\begin{align}
+    \Vec{x}^H \Vec{A}\Vec{x} = \lambda(\Vec{x}^H\Vec{x}) \label{eq:pre}
+\end{align}
+And we post-multiply Eq.6 by $\Vec{x}$:
+\begin{align}
+    \Vec{x}^H \Vec{A}\Vec{x} = \bar{\lambda}(\Vec{x}^H\Vec{x}) \label{eq:post}
+\end{align}
+By comparing Eq.7 and Eq.8 , we see that:
+\begin{align}
+ \lambda(\Vec{x}^H\Vec{x}) = \bar{\lambda}(\Vec{x}^H\Vec{x})
+\end{align}
+This can be rearranged to:
+\begin{align}
+ (\lambda - \bar{\lambda})(\Vec{x}^H\Vec{x}) = 0
+\end{align}
+ Since an eigenvector $\Vec{x}$ is non-zero by definition, its magnitude $||\Vec{x}||^2$ is a positive real number.So,
+ \begin{align}
+     \lambda - \bar{\lambda} = 0 
+ \end{align}
+ \begin{align}
+     \lambda = \bar{\lambda}
+ \end{align}
+A number that is equal to its own complex conjugate must be a real number.\\
+From above statement it is clear that eigenvalues are always real\\\\
+Options (2) and (3) are incorrect because a real symmetric matrix can have negative eigenvalues.\\
+Example:\\
+Consider the matrix 
+\begin{align}
+    \Vec{A} = \myvec{0 & 1 \\ 1 & 0}
+\end{align}
+This matrix is real and symmetric.Now finding the eigen value for the matrix:
+\begin{align}
+   \mydet{-\lambda&1\\1&-\lambda}=\lambda^2-1= 0
+\end{align}
+The eigenvalues are
+\begin{align}
+    \lambda = 1\;\;and\;\;\lambda = -1
+\end{align}
+Therefore the eigenvalues can be negative\\
+Option (1) is correct
+\end{document}

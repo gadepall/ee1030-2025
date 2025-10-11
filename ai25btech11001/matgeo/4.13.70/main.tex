@@ -1,0 +1,95 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal,12pt,onecolumn]{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\graphicspath{{./figs/}}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage{caption}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\usepackage{gvv}                                        
+\usepackage[latin1]{inputenc}     
+\usepackage{xparse}
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{float}
+
+
+\begin{document}
+
+\title{4.13.70}
+\author{AI25BTECH11001 - ABHISEK MOHAPATRA}
+{\let\newpage\relax\maketitle}
+	 	\textbf{Question}:
+If $\mydet{a &a^2 &1+ a3\\ b & b^2 & 1 + b^3\\c & c^2 & 1 + c^3} = 0$
+and the vectors $\vec{A}=\myvec{1\\a\\a^2}$, $\vec{B}=\myvec{1\\b\\b^2}$, $\vec{C}=\myvec{1\\c\\c^2}$ are co-planar, then the product
+abc = \rule{1cm}{0.15mm}.
+		
+
+		\textbf{Solution:} 
+Let equation of the plane be $\vec{n}^\top\vec{x}=0$.
+
+so, 
+\begin{align}
+\vec{n}^\top\vec{A}=0,
+\vec{n}^\top\vec{B}=0,
+\vec{n}^\top\vec{C}=0
+\end{align}
+so ,
+\begin{align}
+		\myvec{\vec{A}&\vec{B}&\vec{C}}^\top\vec{n}=0,
+\end{align}
+\begin{align}
+		\myvec{1 & a &a^2\\1&b&b^2\\1&c&c^2}\vec{n}=0,
+\end{align}
+\begin{align}
+		\myvec{1&a &a^2 \\1& b & b^2 \\1& c & c^2}	\xrightarrow[R_3\leftarrow R_3-R_1]{R_2\leftarrow R_2-R_1}\myvec{1&a &a^2 \\0& b-a & b^2-a^2 \\0& c-a & c^2-a^2}
+\end{align}
+\begin{align}
+		\xrightarrow[]{R_3\leftarrow R_3-\frac{c-a}{b-a}R_2}\myvec{1&a &a^2 \\0& b-a & b^2-a^2 \\0&0 & (c-a)(c-b)}
+\end{align}
+Product of the eigen values is $(b-a)(c-a)(c-b)$. And,for the no non-trivial solution of $\vec{n}$ to exist, 
+\begin{align}
+(b-a)(c-a)(c-b) \neq 0 
+\end{align}
+
+Reducing the given determinant to ref,
+\begin{align}
+		\mydet{a &a^2 &1+ a^3\\ b & b^2 & 1 + b^3\\c & c^2 & 1 + c^3} \xrightarrow[R_3\leftarrow R_3-\frac{c}{a}R_1]{R_2\leftarrow R_2-\frac{b}{a}R_1} \mydet{a &a^2 &1+ a^3\\ 0 & b^2-ab & 1-\frac{b}{a} + b^3-a^2b\\0 & c^2-ca &1 -\frac{c}{a}  + c^3-a^2c }
+\end{align}
+\begin{align}
+\xrightarrow[]{R_3\leftarrow R_3-\frac{c^2-ca}{b^2-ba}R_2} \mydet{a &a^2 &1+ a^3\\ 0 & b^2-ab & 1-\frac{b}{a} + b^3-a^2b\\0 & 0 & ( 1 -\frac{c}{a}) (1-\frac{c}{b})  + c(c-a)(c-b)}
+\end{align}
+Product of the eigen values 
+\begin{align}
+		(b-a)(a-c)(b-c)+abc(b-a)(c-a)(c-b) = 0 
+\end{align}
+\begin{align}
+		(1+abc)(b-a)(c-a)(c-b) = 0 
+\end{align}
+From eq 7
+\begin{align}
+		1+abc = 0 \Rightarrow abc = -1 
+\end{align}
+
+\end{document}

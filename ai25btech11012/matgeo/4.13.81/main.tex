@@ -1,0 +1,148 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+
+
+\title{4.13.81}
+\author{AI25BTECH11012 - GARIGE UNNATHI}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+
+\vspace{-1cm}
+
+\textbf{Question}:\\
+Let $P_1$ : 2x + y - z = 3 and $P_2$ : x + 2y + z = 2 be two planes . Then, which of the following statements is/are TRUE ?
+\begin{enumerate}
+    \item The line of intersection of P1 and P2 has direction ratios 1,2,-1
+    \item The line $\frac{3x-4}{9}$ = $\frac{1-3y}{9} $= $\frac{z}{3}$ is perpendicular to the line of intersection of P1 and P2
+    \item The acute angle between $P_1$ and $P_2$ is 60\degree
+    \item If $P_3$ is the plane passing through the point (4,2,-2) and perpendicular to the line of intersection of $P_1$ and $P_2$ ,then the distance of the point (2,1,1) from the plane $P_3$ is $\frac{2}{\sqrt{3}}$
+\end{enumerate}
+\textbf{Solution: }
+\begin{enumerate}
+
+ \item  Let 
+\begin{align}
+    P_1 = \myvec{2\\1\\-1}^{T}\vec{X} = 3 \\
+    P_2 = \myvec{1\\2\\1}^{T}\vec{X} = 2\\
+    \myvec{2 &1 &-1\\1&2&1}\vec{X} = \myvec{3\\2}
+\end{align}
+
+Combining both equations and solving by row reduction we get :
+
+\begin{align}
+  \vec{X} = \myvec{0\\ \frac{5}{3} \\ -\frac{4}{3}} + \lambda\myvec{1\\-1\\1}
+\end{align}
+
+Hence , the direction ratios of the line of intersection are (1,-1,1) . So option 1 is false
+
+\item 
+simplifing the line equation we get the line equation to be :
+
+
+\begin{align}
+ \frac{x-\frac{4}{3}}{3} = \frac{y - \frac{1}{3}}{-3} = \frac{z}{3}\\
+ \vec{X} = \myvec{-\frac{4}{3}\\- \frac{1}{3}\\0} + \mu\myvec{3\\-3\\3}
+\end{align}
+
+
+solving the equation by row reduction we get  direction ratios of the line to be (3,-3,3) \\
+For two lines to be perpendicular :
+\begin{align}
+   n_1^{T}n_2 = 0
+\end{align}
+For the given lines :
+
+\begin{align}
+  \myvec{1\\-1\\1}^{T} \myvec{3 \\-3\\3} = 9 
+\end{align}
+Hence. the lines are not perpendicular . So option 2 is also false 
+
+\item 
+We find the angle between two planes by the formula :
+\begin{align}
+    \cos\theta = \frac{\lvert n_1^{T}n_2 \rvert}{\lVert n_1\rVert\lVert n_2\rVert}
+\end{align}
+By solving using above equation we get :
+\begin{align}
+    \cos\theta = \frac{1}{2}
+\end{align}
+Hence the angle $\theta$ = 60\degree . So option 3 is true 
+
+\item 
+The plane perpendicular to a line has normal or direction ratios equal to the direction ratios of the line that is (1,-1,1)\\
+Hence the plane equation can be written as :
+\begin{align}
+    \myvec{1\\-1\\1}^T\vec{X} = c
+\end{align}
+To find c we can substitute the point (4,2,-2) in the plane equation :
+\begin{align}
+    \myvec{1\\-1\\1}^T\myvec{4\\2\\-2} = 0
+\end{align}
+Hence the plane equation is :
+\begin{align}
+    \myvec{1\\-1\\1}^T\vec{X} = 0
+\end{align}
+The distance of a point from a plane is given by the equation :
+\begin{align}
+    \frac{\lvert n^{T}\vec{P} - c \rvert}{\lVert n \rVert}
+\end{align}
+Solving using above equation for the point $\vec{P} $= \myvec{2\\1\\1} we get :
+ \begin{align}
+      \frac{\lvert 2 - 1 +1 \rvert}{\sqrt{3}} = \frac{2}{\sqrt{3}}
+ \end{align}
+
+ Hence , option 4 is also true .\\
+ \end{enumerate}
+ Thus options 3 and 4 are true 
+\end{document}
+
+

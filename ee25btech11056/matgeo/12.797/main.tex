@@ -1,0 +1,134 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal,12pt,onecolumn]{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\graphicspath{{./figs/}}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage{caption}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\usepackage{gvv}                                        
+%\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}     
+\usepackage{xparse}
+\usepackage{color}                                            
+\usepackage{array}
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{float}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{example}{Example}[section]
+\newtheorem{definition}[problem]{Definition}
+\newcommand{\BEQA}{\begin{eqnarray}}
+\newcommand{\EEQA}{\end{eqnarray}}
+\newcommand{\define}{\stackrel{\triangle}{=}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+
+\begin{document}
+
+\title{12.797}
+\author{ee25btech11056 - Suraj.N}
+\maketitle
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+
+\begin{document}
+
+\textbf{Question :} Let $\vec{A}$ be an $n \times n$ real matrix. Consider the following statements:
+
+\begin{enumerate}
+
+\item If $\vec{A}$ is symmetric, then there exists $c \geq 0$ such that $\vec{A} + c\vec{I}_n$ is symmetric and positive definite, where $\vec{I}_n$ is the $n \times n$ identity matrix.
+\item If $\vec{A}$ is symmetric and positive definite, then there exists a symmetric and positive definite $\vec{B}$ such that $\vec{A} = \vec{B}^2$.
+
+Which of the above statements is/are true?
+
+\begin{enumerate}
+\begin{multicols}{4}
+\item Only (I) \\
+\item Only (II) \\
+\item Both (I) and (II) \\
+\item Neither (I) nor (II)
+\end{multicols}
+\end{enumerate}
+
+\end{enumerate}
+
+\textbf{Solution :}
+
+\begin{table}[h!]
+  \centering
+  \input{tables/table.tex}
+  \caption*{Table : Matrix}
+  \label{12.797}
+\end{table}
+
+Checking statement (\textbf{I}) \\
+If $\vec{A}$ is symmetric, its eigenvalues are real. Let the minimum eigenvalue of $\vec{A}$ be $\lambda_{\min}$.Then choose $c > -\lambda_{\min}$.  
+
+The Eigen values of $\vec{A}$ are given as :
+
+\begin{align}
+  \mydet{\vec{A}-\lambda_i\vec{I}} = 0
+\end{align}
+
+The Eigen values of $\vec{A} + c\vec{I}_n$ are given as :
+
+\begin{align}
+\mydet{\vec{A}-(\lambda_k-c)\vec{I}} = 0\\
+\lambda_k = \lambda_i + c\\
+\lambda_i + c > 0
+\end{align}
+
+Since $\lambda_i + c > 0$ for all $i$, $\vec{A} + c\vec{I}_n$ is positive definite and symmetric.  
+Hence, statement (\textbf{I}) is \textbf{true}.
+
+Checking statement (\textbf{II}) \\
+If $\vec{A}$ is symmetric and positive definite, then it can be diagonalized as:
+
+\begin{align}
+\vec{A} = \vec{P}\vec{D}\vec{P}^\top
+\end{align}
+
+where $\vec{P}$ is orthogonal and $\vec{D}$ is a diagonal matrix with positive entries (since $\vec{A}$ is positive definite).  
+Define
+
+\begin{align}
+\vec{B} = \vec{P}\vec{D}^{1/2}\vec{P}^\top
+\end{align}
+
+Then,
+
+\begin{align}
+\vec{B}^2 = \vec{P}\vec{D}^{1/2}\vec{P}^\top \vec{P}\vec{D}^{1/2}\vec{P}^\top = \vec{P}\vec{D}\vec{P}^\top = \vec{A}
+\end{align}
+
+Hence, $\vec{B}$ is symmetric and positive definite.  
+Therefore, statement (\textbf{II}) is also \textbf{true}.
+
+\textbf{Final Answer:} (c) Both (I) and (II)
+
+\end{document}

@@ -1,0 +1,14 @@
+import numpy as np
+import sympy as sp
+
+A = np.array([[3,0,0],[0,6,2],[0,2,6]])
+eigvals, P = np.linalg.eigh(A)
+B=sp.Matrix(np.round(P, 3))
+print("P=")
+sp.pprint(B)
+
+print(np.flip(eigvals))
+
+
+
+

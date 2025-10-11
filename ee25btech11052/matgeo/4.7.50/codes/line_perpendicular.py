@@ -5,13 +5,8 @@ from mpl_toolkits.mplot3d import Axes3D
 import os
 
 # Load the shared library
-try:
-    lib = ctypes.CDLL('/home/shriyasnh/Desktop/matgeonew/4.7.50/codes/libline_perpendicular.so')
-except OSError as e:
-    print(f"Error loading library: {e}")
-    print("Make sure you've compiled the C code using: gcc -shared -fPIC -o libline_perpendicular.so line_perpendicular.c")
-    exit(1)
-
+lib = ctypes.CDLL('/home/shriyasnh/Desktop/matgeonew/4.7.50/codes/libline_perpendicular.so')
+    
 # Define function signatures
 lib.get_point_on_line.argtypes = [ctypes.c_double, ctypes.c_double, ctypes.c_double,
                                  ctypes.c_double, ctypes.c_double, ctypes.c_double,
@@ -40,13 +35,12 @@ fig = plt.figure(figsize=(12, 10))
 ax = fig.add_subplot(111, projection='3d')
 
 # Plot the plane: x + 2y - 5z + 9 = 0 (rearranged to z = (x + 2y + 9)/5)
-print("Plotting plane: x + 2y - 5z + 9 = 0")
 xx, yy = np.meshgrid(np.linspace(-3, 5, 20), np.linspace(-2, 6, 20))
 zz = (xx + 2*yy + 9) / 5
 ax.plot_surface(xx, yy, zz, alpha=0.3, color='yellow', edgecolor='gray', linewidth=0.1)
 
 # Plot the line using C function
-print("Plotting line through point A with direction vector d")
+#"Plotting line through point A with direction vector d"
 t_values = np.linspace(-2, 2, 200)
 line_points = []
 for t in t_values:
@@ -75,8 +69,10 @@ ax.quiver(A[0], A[1], A[2], d[0]*arrow_scale, d[1]*arrow_scale, d[2]*arrow_scale
 
 # Verify the line is perpendicular to the plane
 # Plane normal vector is [1, 2, -5] (coefficients of x, y, z)
-plane_normal = np.array([1, 2, -5])
-dot_product = np.dot(d, plane_normal)
+if np.allclose(np.cross(d, plane_normal), 0, atol=1e-9):
+    print("Line is parallel to plane normal → line is perpendicular to plane")
+else:
+    print("Not perpendicular")
 
 # Set labels and title
 ax.set_xlabel('X', fontsize=12)

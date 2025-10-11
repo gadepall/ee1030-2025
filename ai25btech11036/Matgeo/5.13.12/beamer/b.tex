@@ -1,0 +1,152 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tk\input{b}z-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+%\numberwithin{equation}{section}
+
+\title{Matgeo-q.5.13.12}
+\author{AI25BTECH11036-SNEHAMRUDULA}
+
+\date{\today} 
+\begin{document}
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section*{Outline}
+\begin{frame}{question}
+Find the set of all values of $\lambda$ for which the system
+\[
+\begin{aligned}
+2x_1-2x_2+x_3 &= \lambda x_1,\\
+2x_1-3x_2+2x_3 &= \lambda x_2,\\
+- x_1+2x_2 &= \lambda x_3
+\end{aligned}
+\]
+has a non-trivial solution. Which of the following is true?
+ \item  \textbf{A)}contains two elements
+\item   \textbf{B)} contains more than two elements
+ \item  \textbf{C)}is an empty set
+\item   \textbf{D)}is a singlet
+  \end{frame}
+\begin{frame}{solution}
+Bring all terms to one side:
+
+\[
+\begin{aligned}
+(2 - \lambda)x_1 - 2x_2 + x_3 &= 0 \\
+2x_1 + (-3 - \lambda)x_2 + 2x_3 &= 0 \\
+-x_1 + 2x_2 - \lambda x_3 &= 0
+\end{aligned}
+\]
+
+
+\[
+\myvec{
+2 - \lambda & -2 & 1 \\
+2 & -3 - \lambda & 2 \\
+-1 & 2 & -\lambda
+}
+\vec{x}
+= \vec{0}
+\quad \text{where} \quad
+\vec{x} = \myvec{x_1 \\ x_2 \\ x_3},\quad \vec{0} = \myvec{0 \\ 0 \\ 0}
+\]
+\[
+\text{rank}(\text{Coefficient Matrix}) < 3
+\]
+\[
+\text{rank}\left(
+\myvec{
+2 - \lambda & -2 & 1 \\
+2 & -3 - \lambda & 2 \\
+-1 & 2 & -\lambda
+}
+\right) = 2
+\]
+So, the system has a non-trivial solution for exactly two values of \( \lambda \).
+
+\[
+\boxed{\text{Correct answer: (a) contains two elements}}
+\]
+\end{frame}
+    \begin{frame}{Graphical Representation}
+   \begin{figure}[h!]
+\centering
+\includegraphics[width=0.6\linewidth]{5.13.12fig.png}
+\end{figure}
+\end{frame}
+   \begin{figure}[h!]
+\centering
+\includegraphics[width=0.6\linewidth]{5.13.12fig(1).png}
+\end{figure}
+\end{frame}
+\end{document}

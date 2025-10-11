@@ -1,11 +1,14 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from call import get_data
+
+C, D, E, F = get_data()
 
 x = np.linspace(-10, 10, 100)
-y = (5/8)*x + (1/8)
+y = -((C[0]*x)-E)/D[0]
 
 X = np.linspace(-15, 15, 100)
-Y = (5/8)*X + (1/8)
+Y = -((C[0]*X)-E)/D[0]
 
 plt.plot(X, Y, '-k')
 plt.plot(x, y, '-r')

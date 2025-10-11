@@ -1,0 +1,131 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{txfonts}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{lmodern}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\title{5.12.3}
+\author{Chiruvella Harshith Sharan - AI25BTECH11008}
+
+\begin{document}
+
+\frame{\titlepage}
+
+%------------------------------------
+
+\begin{frame}{Question}
+Write the number of all possible matrices of order \(2\times 2\) with each entry \(1,2\) or \(3\).
+\end{frame}
+
+%------------------------------------
+
+\begin{frame}{Step 1: Matrix Structure}
+A \(2\times 2\) matrix has four entries:
+\[
+A = \begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}.
+\]
+Each entry \(a,b,c,d\) can independently be chosen from the set \(\{1,2,3\}\).
+\end{frame}
+
+%------------------------------------
+
+\begin{frame}{Step 2: Counting Choices}
+\begin{itemize}
+    \item Each entry has 3 possible values.
+    \item Since there are 4 entries, total number of matrices is
+    \[
+    3 \times 3 \times 3 \times 3 = 3^4.
+    \]
+\end{itemize}
+\end{frame}
+
+%------------------------------------
+
+\begin{frame}{Step 3: Final Answer}
+\[
+3^4 = 81
+\]
+
+\[
+\boxed{\text{Total number of such matrices} = 81}
+\]
+\end{frame}
+
+%------------------------------------
+
+\begin{frame}[fragile]{C Code}
+\begin{lstlisting}[language=C]
+#include <stdio.h>
+
+int main() {
+    int a, b, c, d;
+    int count = 0;
+
+    for (a = 1; a <= 3; a++) {
+        for (b = 1; b <= 3; b++) {
+            for (c = 1; c <= 3; c++) {
+                for (d = 1; d <= 3; d++) {
+                    count++;
+                    printf("Matrix %d:\n", count);
+                    printf("%d %d\n", a, b);
+                    printf("%d %d\n\n", c, d);
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{C Code}
+\begin{lstlisting}[language=C]
+
+                }
+            }
+        }
+    }
+
+    printf("Total matrices = %d\n", count);
+    return 0;
+}
+\end{lstlisting}
+\end{frame}
+
+%------------------------------------
+
+\begin{frame}[fragile]{Python Code}
+\begin{lstlisting}[language=Python]
+count = 0
+
+for a in [1,2,3]:
+    for b in [1,2,3]:
+        for c in [1,2,3]:
+            for d in [1,2,3]:
+                count += 1
+                print(f"Matrix {count}:")
+                print(f"{a} {b}")
+                print(f"{c} {d}\n")
+
+print("Total matrices =", count)
+\end{lstlisting}
+\end{frame}
+
+\end{document}

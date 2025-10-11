@@ -36,6 +36,18 @@
 \usepackage{hhline}                                           
 \usepackage{ifthen}                                           
 \usepackage{lscape}
+
+
+
+
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} 
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
 \begin{document}
 	
 	\bibliographystyle{IEEEtran}
@@ -43,46 +55,122 @@
 	
 	\title{2.9.4}
 	\author{EE25BTECH11052 - Shriyansh Kalpesh Chawda}
-
-
-	{\let\newpage\relax\maketitle}
-	
-	\renewcommand{\thefigure}{\theenumi}
-	\renewcommand{\thetable}{\theenumi}
-	\setlength{\intextsep}{10pt} 
-	
-	\numberwithin{equation}{enumi}
-	\numberwithin{figure}{enumi}
-	\renewcommand{\thetable}{\theenumi}
+\maketitle
 	\textbf{Question}:\\
 	\\
 	If  $\vec{a} = \hat{i} + \hat{j} + \hat{k}, \quad \vec{a} \cdot \vec{b} = 1, \quad \text{and} \quad \vec{a} \times \vec{b} = \hat{j} - \hat{k},$ then find $|\vec{b}|$.
 	\hfill (12, 2022)
 	\\
 	\solution\\
-	The problem can be solved using Lagrange's identity:
-	\begin{align}
-|\mathbf{a} \times \mathbf{b}|^2 + (\mathbf{a} \cdot \mathbf{b})^2 = |\mathbf{a}|^2 |\mathbf{b}|^2 
-\end{align}
-	Given:
-	\[
-	a=\myvec{1\\1\\1} ,
-	\vec{a} \times \vec{b} = \myvec{0 \\ 1 \\ -1}
-	\]
-Deriving the values needed to be substituted in the identity :
+Given in the question :
 \begin{align}
-|\mathbf{a}|^2 &= \mathbf{a}^T \mathbf{a} = \myvec{1 & 1 & 1}\myvec{1\\1\\1} = 3 \\ 
-(\mathbf{a} \cdot \mathbf{b})^2 &= (1)^2 = 1 \\
-|\mathbf{a} \times \mathbf{b}|^2 &= (\mathbf{a} \times \mathbf{b})^T (\mathbf{a} \times \mathbf{b}) = \myvec{0 & 1 & -1}\myvec{0\\1\\-1} = 2
-		\end{align}
-	Substituting values of the Components in the identity.
-	\begin{align}
-		|\mathbf{a} \times \mathbf{b}|^2 + (\mathbf{a} \cdot \mathbf{b})^2 = |\mathbf{a}|^2 |\mathbf{b}|^2 \\
-		2 + 1 = 3 \cdot |\mathbf{b}|^2 \\
-		3 = 3 |\mathbf{b}|^2 \\
-		|\mathbf{b}|^2 = 1 \\
-		|\mathbf{b}| = 1
-	\end{align}
-	The magnitude of vector \textbf{b} is \textbf{1}.	
-	
+\vec{a} = \myvec{1 \\ 1 \\ 1}.\\
+\vec{a} \times \vec{b} = \myvec{0 \\ 1 \\ -1}.\\
+\vec{b} = \myvec{b_1 \\ b_2 \\ b_3}
+\end{align}
+From the dot product: \\
+\begin{align}
+\vec{a}^\top \vec{b} = 1 \implies
+\begin{pmatrix} 1 & 1 & 1 \end{pmatrix} \myvec{b_1 \\ b_2 \\ b_3} = 1\\
+b_1 + b_2 + b_3 = 1 
+\end{align}
+\subsection*{Applying the Cross Product Formula given in the book (2.1.9):}
+The provided formula for the cross product is:
+\[
+A \times B = \myvec{|A_{23} B_{23}| \\ |A_{31} B_{31}| \\ |A_{12} B_{12}|}
+\]
+where $|A_{ij} B_{ij}|$ represents the determinant of the 2x2 matrix formed by the column vectors $A_{ij}$ and $B_{ij}$.
+
+\subsubsection*{Step 3.1: Define the sub-matrices $A_{ij}$ and $B_{ij}$}
+Based on the definition $A_{ij} = \myvec{a_i \\ a_j}$, we define the following matrices for A:
+\begin{align}
+A_{23} = \myvec{a_2 \\ a_3} = \myvec{1 \\ 1}\\
+A_{31} = \myvec{a_3 \\ a_1} = \myvec{1 \\ 1}\\
+A_{12} = \myvec{a_1 \\ a_2} = \myvec{1 \\ 1}
+\end{align}
+Similarly, for the unknown vector B:
+\begin{align}
+B_{23} = \myvec{b_2 \\ b_3}\\
+B_{31} = \myvec{b_3 \\ b_1}\\
+B_{12} = \myvec{b_1 \\ b_2}
+\end{align}
+
+\subsubsection*{Step 3.2: Calculate the determinants}
+Now, we compute the determinants for each component of the cross product:
+\begin{align}
+	|\vec{A}_{23}\vec{B}_{23}| 
+	&= \vec{A}_{23}^\top \vec{B}_{23} 
+	= \myvec{1 & b_2 \\ 1 & b_3} 
+	= (1)(b_3) - (1)(b_2) 
+	= b_3 - b_2 \\	
+	|\vec{A}_{31}\vec{B}_{31}| 
+	&= \vec{A}_{31}^\top \vec{B}_{31} 
+	= \myvec{1 & b_3 \\ 1 & b_1} 
+	= (1)(b_1) - (1)(b_3) 
+	= b_1 - b_3 \\
+	|\vec{A}_{12}\vec{B}_{12}| 
+	&= \vec{A}_{12}^\top \vec{B}_{12} 
+	= \myvec{1 & b_1 \\ 1 & b_2} 
+	= (1)(b_2) - (1)(b_1) 
+	= b_2 - b_1 
+\end{align}
+
+\begin{align}
+\vec{a} \times \vec{b} = \myvec{b_3 - b_2 \\ b_1 - b_3 \\ b_2 - b_1}.
+\end{align}
+
+
+\subsection*{4. Formulating and Solving the System of Equations}
+By equating our calculated cross product with the given one, $\mathbf{a} \times \mathbf{b} = \brak{0, 1, -1}$, we get a system of linear equations:
+\begin{enumerate}
+	\item $b_3 - b_2 = 0$
+	\item $b_1 - b_3 = 1$
+	\item $b_2 - b_1 = -1$
+\end{enumerate}
+We also use the given dot product information: $\mathbf{a} \cdot \mathbf{b} = 1$.
+\begin{align*}
+	a_1b_1 + a_2b_2 + a_3b_3 &= 1 \\
+	\brak{1}b_1 + \brak{1}b_2 + \brak{1}b_3 &= 1 \\
+\end{align*}
+\begin{enumerate}
+	\setcounter{enumi}{3}
+	\item $b_1 + b_2 + b_3 = 1$
+\end{enumerate}
+Now we solve this system of four equations:
+\begin{itemize}
+	\item From equation (1), we find:
+	\[ b_3 = b_2 \]
+	\item Substitute $b_3 = b_2$ into equation (2):
+	\[ b_1 - b_2 = 1 \]
+	(Note: This is consistent with equation (3), as multiplying by -1 gives $b_2 - b_1 = -1$)
+	\item Now we have a simplified system:
+	\begin{itemize}
+		\item[(i)] $b_3 = b_2$
+		\item[(ii)] $b_1 = 1 + b_2$
+		\item[(iii)] $b_1 + b_2 + b_3 = 1$
+	\end{itemize}
+	\item Substitute (i) and (ii) into (iii):
+	\begin{align*}
+		\brak{1 + b_2} + b_2 + \brak{b_2} &= 1 \\
+		1 + 3b_2 &= 1 \\
+		3b_2 &= 0 \\
+		b_2 &= 0
+	\end{align*}
+	\item Now find $b_1$ and $b_3$:
+	\begin{align*}
+		b_3 &= b_2 = 0 \\
+		b_1 &= 1 + b_2 = 1 + 0 = 1
+	\end{align*}
+\end{itemize}
+So, the components of vector $\mathbf{b}$ are $\brak{b_1, b_2, b_3} = \brak{1, 0, 0}$. This means the vector is $\mathbf{b} = 1\hat{i} + 0\hat{j} + 0\hat{k} = \hat{i}$.
+
+To find magnitude,
+\begin{align}
+	\vec{b}^\top \vec{b} = 1 \\
+	\myvec{ 1 & 0 & 0 } \myvec{1 \\ 0 \\ 0} = 1
+\end{align}
+The magnitude of vector $\vec{b}$ is \textbf{1}.
+
+		
+
 \end{document}

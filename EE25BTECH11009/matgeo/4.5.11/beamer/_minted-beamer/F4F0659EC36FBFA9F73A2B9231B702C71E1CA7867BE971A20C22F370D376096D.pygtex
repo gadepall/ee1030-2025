@@ -1,0 +1,23 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
+\PYG{k+kn}{import} \PYG{n+nn}{ctypes}
+
+\PYG{c+c1}{\PYGZsh{} Load the shared library}
+\PYG{n}{lib} \PYG{o}{=} \PYG{n}{ctypes}\PYG{o}{.}\PYG{n}{CDLL}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}./func.so\PYGZdq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Create arrays for results}
+\PYG{n}{A} \PYG{o}{=} \PYG{p}{(}\PYG{n}{ctypes}\PYG{o}{.}\PYG{n}{c\PYGZus{}int} \PYG{o}{*} \PYG{l+m+mi}{3}\PYG{p}{)()}
+\PYG{n}{m} \PYG{o}{=} \PYG{p}{(}\PYG{n}{ctypes}\PYG{o}{.}\PYG{n}{c\PYGZus{}int} \PYG{o}{*} \PYG{l+m+mi}{3}\PYG{p}{)()}
+
+\PYG{c+c1}{\PYGZsh{} Call C functions}
+\PYG{n}{lib}\PYG{o}{.}\PYG{n}{get\PYGZus{}point}\PYG{p}{(}\PYG{n}{A}\PYG{p}{)}
+\PYG{n}{lib}\PYG{o}{.}\PYG{n}{get\PYGZus{}direction}\PYG{p}{(}\PYG{n}{m}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Convert to numpy}
+\PYG{n}{point\PYGZus{}A} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{n}{A}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)])}
+\PYG{n}{direction\PYGZus{}vector} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{n}{m}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)])}
+
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Point A:\PYGZdq{}}\PYG{p}{,} \PYG{n}{point\PYGZus{}A}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Direction vector:\PYGZdq{}}\PYG{p}{,} \PYG{n}{direction\PYGZus{}vector}\PYG{p}{)}
+\end{Verbatim}

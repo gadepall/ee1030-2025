@@ -40,6 +40,19 @@ print("p =", p_val)
 x_vals = np.linspace(-4, 4, 200)
 y_vals = -np.sqrt(3)*x_vals - 2
 
+# Call C functions
+norm_val = lib.norm(n_ptr)
+lib.normalize(n_ptr, unit_ptr)
+p_val = lib.compute_p(n_ptr, c)
+
+print("||n|| =", norm_val)
+print("Unit normal =", unit_n)
+print("p =", p_val)
+
+# ----------------- Plotting -----------------
+# Line: sqrt(3)x + y + 2 = 0  => y = -sqrt(3)x - 2
+x_vals = np.linspace(-4, 4, 200)
+y_vals = -np.sqrt(3)*x_vals - 2
 # Normal vector (scaled for plotting)
 origin = np.array([0,0])
 normal_line = np.vstack([origin, unit_n*2])  # scale for visibility

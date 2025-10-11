@@ -111,30 +111,13 @@ For two vectors to be orthogonal their dot product should be equal to zero which
     \frametitle{C Code}
     \begin{lstlisting}
 #include <stdio.h>
-
-// Function to calculate dot product of two vectors
-double dot_product(double a[], double b[], int size) {
-    double result = 0.0;
-    for(int i = 0; i < size; i++) {
-        result += a[i] * b[i];
-    }
-    return result;
-}
-    \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{C Code}
-    \begin{lstlisting}
-// Wrapper for Python to access
-double solve_lambda(double b[]) {
-    // a = [2, lambda, 1]
-    double a[3];
-    double lambda;
-    // Equation: 2*b[0] + lambda*b[1] + 1*b[2] = 0
-    // => lambda = -(2*b[0] + 1*b[2]) / b[1]
-    lambda = -(2*b[0] + 1*b[2]) / b[1];
-    return lambda;
+void make_data(double *points){
+    points[0] = 1;
+    points[1] = 2;
+    points[2] = 3;
+    double lambda_val;
+    lambda_val = -2.5;
+    points[3] = lambda_val;
 }
     \end{lstlisting}
 \end{frame}
@@ -142,71 +125,39 @@ double solve_lambda(double b[]) {
 \begin{frame}[fragile]
     \frametitle{Python Code 1}
     \begin{lstlisting}
-import ctypes
-import numpy as np
-
-# Load the shared object file
-lib = ctypes.CDLL('./problem.so')
-
-# Set argument types for solve_lambda
-lib.solve_lambda.argtypes = [ctypes.POINTER(ctypes.c_double)]
-    \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{Python Code 1}
-    \begin{lstlisting}
-# Set return type
-lib.solve_lambda.restype = ctypes.c_double
-
-b = np.array([1.0, 2.0, 3.0], dtype=np.double)
-
-b_ptr = b.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
-
-lambda_val = lib.solve_lambda(b_ptr)
-print(f"Solved lambda: {lambda_val}")
+import ctypes as ct
+def give_data():
+    lib = ct.CDLL("./problem.so")
+    entry = ct.c_double*4
+    lib.make_data.argtypes = [ct.POINTER(ct.c_double)]
+    data = entry()
+    lib.make_data(data)
+    return data[1], data[3], data[0], data[0], data[1], data[2]
     \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{Python Code 2}
     \begin{lstlisting}
-import sys
-sys.path.insert(0, '/home/ganachari-vishwmabhar/Downloads/codes/CoordGeo')
 import numpy as np
 import matplotlib.pyplot as plt
-
-from line.funcs import *
-from triangle.funcs import *
-
-# Load lambda from previous result
+from call import give_data
+Ax, Ay, Az, Bx, By, Bz = give_data()
 lambda_val = -2.5
-a = np.array([2, lambda_val, 1])   # vector a
-b = np.array([1, 2, 3])            # vector b
-    \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{Python Code 2}
-    \begin{lstlisting}
-# Prepare 3D plot
+a = np.array([Ax, Ay, Az])   
+b = np.array([Bx, By, Bz])   
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-
-# Plot vectors from origin
 ax.quiver(0, 0, 0, a[0], a[1], a[2], color='r', label='Vector a')
 ax.quiver(0, 0, 0, b[0], b[1], b[2], color='b', label='Vector b')
-
-# Mark points
-ax.text(a[0], a[1], a[2], 'a', fontsize=12)
-ax.text(b[0], b[1], b[2], 'b', fontsize=12)
     \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{Python Code 2}
     \begin{lstlisting}
-# Labels
+ax.text(a[0], a[1], a[2], 'a', fontsize=12)
+ax.text(b[0], b[1], b[2], 'b', fontsize=12)
 ax.set_xlabel('X')
 ax.set_ylabel('Y')
 ax.set_zlabel('Z')
@@ -225,8 +176,4 @@ plt.show()
         \label{fig:fig}
     \end{figure}
 \end{frame}
-
-
-
-
 \end{document}
