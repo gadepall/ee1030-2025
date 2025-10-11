@@ -1,0 +1,34 @@
+import numpy as np
+
+# Example 1: satisfies p + q + r = 0
+p, q, r = 1, 2, -3
+
+# Example 2 (uncomment to test p=q=r case)
+# p, q, r = 5, 5, 5
+
+# Construct coefficient matrix A
+A = np.array([
+    [p, q, r],
+    [q, r, p],
+    [r, p, q]
+], dtype=float)
+
+# Compute determinant
+detA = np.linalg.det(A)
+
+print(f"Given: p={p}, q={q}, r={r}")
+print("Matrix A =\n", A)
+print(f"Determinant of A = {detA:.6f}")
+
+# Check for non-trivial solution
+if abs(detA) < 1e-9:
+    print("\n The system has a NON-TRIVIAL solution.")
+    if abs(p + q + r) < 1e-9:
+        print("Condition satisfied: p + q + r = 0")
+    elif abs(p - q) < 1e-9 and abs(q - r) < 1e-9:
+        print("Condition satisfied: p = q = r")
+    else:
+        print("Condition satisfied: determinant = 0 (degenerate case)")
+else:
+    print("\n The system has only the TRIVIAL solution (x = y = z = 0).")
+
