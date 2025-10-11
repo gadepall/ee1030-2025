@@ -49,7 +49,7 @@
 	\vspace{3cm}
 	
 	\title{12.159}
-	\author{EE25BTECH11?42 - Nipun Dasari}
+	\author{EE25BTECH11042 - Nipun Dasari}
 	\maketitle
 	
 	\renewcommand{\thefigure}{\theenumi}
@@ -75,24 +75,36 @@
 	
 	\solution
 	
-	Let the determinant of the given matrix be $\Delta$.
+	Let the determinant of the given matrix be $\Delta$. We will use row operations to simplify the matrix. Adding a multiple of one row to another does not change the determinant's value. This method is valid for $b \neq -1$.
+	
 	\begin{align}
 		\Delta = \mydet{1+b & b & 1 \\ b & 1+b & 1 \\ 1 & 2b & 1}
 	\end{align}
-	We will use row operations to simplify the determinant. Applying the operation $R_2 \to R_2 - R_1$ does not change the value of the determinant.
+	
+	First, we create zeros in the first column of the second and third rows using the first row as the pivot.
+	
+	Apply the operation $R_2 \to R_2 - \frac{b}{1+b}R_1$:
 	\begin{align}
-		\Delta = \mydet{1+b & b & 1 \\ b-(1+b) & 1+b-b & 1-1 \\ 1 & 2b & 1} = \mydet{1+b & b & 1 \\ -1 & 1 & 0 \\ 1 & 2b & 1}
+		\Delta &= \mydet{1+b & b & 1 \\ b - \frac{b}{1+b}(1+b) & (1+b) - \frac{b}{1+b}(b) & 1 - \frac{b}{1+b}(1) \\ 1 & 2b & 1} \\
+		&= \mydet{1+b & b & 1 \\ 0 & \frac{(1+b)^2 - b^2}{1+b} & \frac{1+b-b}{1+b} \\ 1 & 2b & 1} \\
+		&= \mydet{1+b & b & 1 \\ 0 & \frac{1+2b}{1+b} & \frac{1}{1+b} \\ 1 & 2b & 1}
 	\end{align}
-	Next, applying the operation $R_3 \to R_3 - R_1$ also does not change the value of the determinant.
+	
+	Next, apply the operation $R_3 \to R_3 - \frac{1}{1+b}R_1$:
 	\begin{align}
-		\Delta = \mydet{1+b & b & 1 \\ -1 & 1 & 0 \\ 1-(1+b) & 2b-b & 1-1} = \mydet{1+b & b & 1 \\ -1 & 1 & 0 \\ -b & b & 0}
+		\Delta &= \mydet{1+b & b & 1 \\ 0 & \frac{1+2b}{1+b} & \frac{1}{1+b} \\ 1 - \frac{1}{1+b}(1+b) & 2b - \frac{1}{1+b}(b) & 1 - \frac{1}{1+b}(1)} \\
+		&= \mydet{1+b & b & 1 \\ 0 & \frac{1+2b}{1+b} & \frac{1}{1+b} \\ 0 & \frac{2b(1+b)-b}{1+b} & \frac{1+b-1}{1+b}} \\
+		&= \mydet{1+b & b & 1 \\ 0 & \frac{1+2b}{1+b} & \frac{1}{1+b} \\ 0 & \frac{b+2b^2}{1+b} & \frac{b}{1+b}}
 	\end{align}
-	Now that the third column is in the form $(1, 0, 0)^\top$, we can easily evaluate the determinant by expanding along this column:
+	We can see that the third row is $b$ times the second row ($R_3 = b \cdot R_2$). This indicates linear dependence. To make this explicit, we perform one final operation, $R_3 \to R_3 - bR_2$.
 	\begin{align}
-		\Delta &= 1 \cdot \mydet{-1 & 1 \\ -b & b} - 0 + 0 \\
-		&= ((-1)(b) - (1)(-b)) \\
-		&= -b + b = 0
+		\Delta &= \mydet{1+b & b & 1 \\ 0 & \frac{1+2b}{1+b} & \frac{1}{1+b} \\ 0 & \frac{b(1+2b)}{1+b} - b\left(\frac{1+2b}{1+b}\right) & \frac{b}{1+b} - b\left(\frac{1}{1+b}\right)} \\
+		&= \mydet{1+b & b & 1 \\ 0 & \frac{1+2b}{1+b} & \frac{1}{1+b} \\ 0 & 0 & 0}
 	\end{align}
-	The determinant is $0$, which corresponds to option (a).
+	Since the matrix has a row consisting entirely of zeros, its determinant is 0.
+	\begin{align}
+		\Delta = 0
+	\end{align}
+	The correct option is (a).
 	
 \end{document}

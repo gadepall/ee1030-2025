@@ -97,32 +97,34 @@
 	\end{frame}
 	
 	\begin{frame}{Theoretical solution}
-		Let the determinant of the given matrix be $\Delta$.
+		Let the determinant of the given matrix be $\Delta$. We will find its value by converting the matrix to Row Echelon Form (REF).
 		\begin{align}
 			\Delta = \mydet{1+b & b & 1 \\ b & 1+b & 1 \\ 1 & 2b & 1}
 		\end{align}
-		We use the row operation $R_2 \to R_2 - R_1$, which does not change the determinant's value.
+		First, apply the operation $R_2 \to R_2 - R_1$.
 		\begin{align}
 			\Delta = \mydet{1+b & b & 1 \\ b-(1+b) & 1+b-b & 1-1 \\ 1 & 2b & 1} = \mydet{1+b & b & 1 \\ -1 & 1 & 0 \\ 1 & 2b & 1}
 		\end{align}
 	\end{frame}
 	
 	\begin{frame}{Theoretical solution}
-		Next, we apply the operation $R_3 \to R_3 - R_1$. This also does not change the determinant's value.
+		Next, apply the operation $R_3 \to R_3 - R_1$.
 		\begin{align}
 			\Delta = \mydet{1+b & b & 1 \\ -1 & 1 & 0 \\ 1-(1+b) & 2b-b & 1-1} = \mydet{1+b & b & 1 \\ -1 & 1 & 0 \\ -b & b & 0}
 		\end{align}
-		The third column now has two zero entries, which simplifies the calculation.
+		Here, we can observe that the third row is a scalar multiple of the second row: $R_3 = b \cdot R_2$. This implies the rows are linearly dependent.
 	\end{frame}
 	
 	\begin{frame}{Theoretical solution}
-		We can now evaluate the determinant by expanding along the third column:
+		To complete the reduction to REF, we perform one final operation, $R_3 \to R_3 - bR_2$, to create a zero row.
 		\begin{align}
-			\Delta &= 1 \mydet{-1 & 1 \\ -b & b} - 0 + 0 \\
-			&= ((-1)(b) - (1)(-b)) \\
-			&= -b + b = 0
+			\Delta = \mydet{1+b & b & 1 \\ -1 & 1 & 0 \\ -b - b(-1) & b-b(1) & 0-b(0)} = \mydet{1+b & b & 1 \\ -1 & 1 & 0 \\ 0 & 0 & 0}
 		\end{align}
-		The determinant is $0$, which corresponds to option (a).
+		Since the matrix in Row Echelon Form has a row of all zeros, its determinant is 0.
+		\begin{align}
+			\Delta = 0
+		\end{align}
+		This corresponds to option (a).
 	\end{frame}
 	
 \end{document}
