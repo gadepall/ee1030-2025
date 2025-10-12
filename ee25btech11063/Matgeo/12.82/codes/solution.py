@@ -1,0 +1,37 @@
+import numpy as np
+
+# Step 1: Define symmetric matrix M (diagonal with eigenvalues 1,2,3)
+M = np.diag([1.0, 2.0, 3.0])
+
+# Step 2: Eigen decomposition of M
+eigvals_M, Q = np.linalg.eigh(M)
+
+# Step 3: Compute N' = diag(3 / (2 * λ_i))
+eigvals_N = 3.0 / (2.0 * eigvals_M)
+N_dash = np.diag(eigvals_N)
+
+# Step 4: Reconstruct N = Q * N' * Q^T
+N = Q @ N_dash @ Q.T
+
+# Step 5: Verification: M*N + N*M
+verify = M @ N + N @ M
+
+# Step 6: Display results
+print("Matrix M:")
+print(M)
+
+print("\nEigenvalues of M:")
+print(eigvals_M)
+
+print("\nEigenvalues of N:")
+print(eigvals_N)
+
+print("\nMatrix N:")
+print(N)
+
+print("\nVerification (M*N + N*M):")
+print(verify)
+
+print("\nCheck if equal to 3I:")
+print(np.allclose(verify, 3 * np.eye(3)))
+

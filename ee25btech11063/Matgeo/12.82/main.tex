@@ -1,0 +1,110 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a4paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}  % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{12.82}
+\author{ee25btech11063-vejith}
+
+\maketitle
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+\textbf{Question}:\\
+let $\Vec{M}$ be a 3$\times$ 3 symmetric matrix with eigenvalues 1,2 and 3. let $\Vec{N}$ be any 3$\times$ 3  matrix with real eigenvalues such that $\Vec{MN} + \Vec{NM}= 3\Vec{I}$, where $\Vec{I}$ is a 3$\times$ 3  identity matrix. Then which of the following cannot be eigenvalue\brak{s} of the matrix $\Vec{N}$ ?
+\hspace{2cm}\brak{\text{ST } 2022}
+\begin{enumerate}[label=\alph*)]
+    \begin{multicols}{4}
+  \item $\frac{1}{4}$        
+  \item $\frac{3}{4}$
+  \item $\frac{1}{2}$
+  \item $\frac{7}{4}$  
+    \end{multicols}
+\end{enumerate}
+
+\textbf{Solution}:\\
+let $\lambda_1$  , $\lambda_2$ , $\lambda_3$ be the eigenvalues of $\vec{N}$\\
+By Eigenvalue decomposition
+\begin{align}
+    \vec{M}=\vec{QDQ}^\vec{\top}\\
+     \vec{N}=\vec{Q}\vec{N}'\vec{Q}^\top
+\end{align}
+where 
+\begin{align}
+    \vec{Q}^\top\vec{Q}=\vec{I}\\
+    \vec{D}=\text{diag}\brak{1,2 ,3}\\
+    \vec{N}'=\text{diag}\brak{\lambda_1,\lambda_2 ,\lambda_3}\\
+    \vec{MN}+\vec{NM}=3\vec{I}
+\end{align}
+From (1) and (2) (6) can be simplified as 
+\begin{align}
+        \vec{QD}\vec{N}'\vec{Q}^\top + \vec{Q}\vec{N}'\vec{DQ}=3\vec{I}\\
+        \implies \vec{Q}^\top \brak{\vec{QD}\vec{N}'\vec{Q}^\top + \vec{Q}\vec{N}'\vec{DQ}}=\vec{Q}^\top\brak{3\vec{I}}\\
+        \implies \brak{\vec{Q}^\top\vec{Q}}\vec{D}\vec{N}'\vec{Q}^\top + \brak{\vec{Q}^\top\vec{Q}}\vec{N}'\vec{DQ}=3\vec{Q}^\top\\
+        \implies \vec{D}\vec{N}'\vec{Q}^\top + \vec{N}'\vec{DQ}=3\vec{Q}^\top\\
+        \implies \brak{\vec{D}\vec{N}'\vec{Q}^\top + \vec{N}'\vec{DQ}}\vec{Q}= 3\vec{Q}^\top\vec{Q}\\
+        \implies \vec{D}\vec{N}' + \vec{N}'\vec{D}=3\vec{I}
+\end{align}
+From (4) and (5)
+\begin{align}
+    \text{diag}\brak{\lambda_1,2\lambda_2 ,3\lambda_3} + \text{diag}\brak{\lambda_1,2\lambda_2 ,3\lambda_3} = 3\vec{I}\\
+    \implies \text{diag}\brak{\lambda_1,2\lambda_2 ,3\lambda_3}=\frac{3}{2}\vec{I}\\
+    \implies \begin{pmatrix}
+        \lambda_1 & 0 & 0\\
+        0 & 2\lambda_2 & 0\\
+        0 & 0 & 3\lambda_3
+    \end{pmatrix}=\begin{pmatrix}
+        \frac{3}{2} & 0 & 0\\
+        0 & \frac{3}{2} & 0\\
+        0 & 0 & \frac{3}{2}
+    \end{pmatrix}\\
+    \implies \lambda_1=\frac{3}{2} \text{ and } \lambda_2=\frac{3}{4} \text{ and } \lambda_3=\frac{1}{2}
+\end{align}
+The eigen values of $\vec{N}$ are $\frac{3}{2}$ and $\frac{3}{4}$ and $\frac{1}{2}$
+\end{document}
