@@ -82,51 +82,71 @@ let $\Vec{M}$ be a 3$\times$ 3 symmetric matrix with eigenvalues 1,2 and 3. let 
 \end{enumerate}
 \end{frame}
 
-
 \begin{frame}{Solution}
     let $\lambda_1$  , $\lambda_2$ , $\lambda_3$ be the eigenvalues of $\vec{N}$\\
 By Eigenvalue decomposition
 \begin{align}
-    \vec{M}=\vec{QDQ}^\vec{\top}\\
-     \vec{N}=\vec{Q}\vec{N}'\vec{Q}^\top
+    \vec{M}=\vec{QDQ}^\vec{\top}
 \end{align}
 where 
 \begin{align}
-    \vec{Q}^\top\vec{Q}=\vec{I}\\
+    \vec{Q}^\top\vec{Q}=\vec{Q}\vec{Q}^\top=\vec{I}\\
     \vec{D}=\text{diag}\brak{1,2 ,3}\\
-    \vec{N}'=\text{diag}\brak{\lambda_1,\lambda_2 ,\lambda_3}\\
-    \vec{MN}+\vec{NM}=3\vec{I}
+    \implies \vec{D}=\vec{Q}^\top\vec{M}\vec{Q}
 \end{align}
-From (1) and (2) (6) can be simplified as 
 \begin{align}
-        \vec{QD}\vec{N}'\vec{Q}^\top + \vec{Q}\vec{N}'\vec{DQ}=3\vec{I}\\
-        \implies \vec{Q}^\top \brak{\vec{QD}\vec{N}'\vec{Q}^\top + \vec{Q}\vec{N}'\vec{DQ}}=\vec{Q}^\top\brak{3\vec{I}}\\
-        \implies \brak{\vec{Q}^\top\vec{Q}}\vec{D}\vec{N}'\vec{Q}^\top + \brak{\vec{Q}^\top\vec{Q}}\vec{N}'\vec{DQ}=3\vec{Q}^\top
-        \end{align}
+    \vec{MN}+\vec{NM}=3\vec{I}\\
+    \vec{Q}^\top\brak{ \vec{MN}+\vec{NM}}\vec{Q}=\vec{Q}^\top 3\vec{I}\vec{Q}\\
+    \vec{Q}^\top\vec{MN}\vec{Q} + \vec{Q}^\top\vec{NM}\vec{Q}=3\vec{I}\\
+  \implies  \vec{Q}^\top\vec{MN}\vec{Q}=\brak{\vec{Q}^\top\vec{M}\vec{Q}}\brak{\vec{Q}^\top\vec{N}\vec{Q}}\\
+  \implies  \vec{Q}^\top\vec{NM}\vec{Q}=\brak{\vec{Q}^\top\vec{N}\vec{Q}}\brak{\vec{Q}^\top\vec{M}\vec{Q}}
+\end{align}
 \end{frame}
 
 \begin{frame}{Solution}
-    \begin{align}
-        \implies \vec{D}\vec{N}'\vec{Q}^\top + \vec{N}'\vec{DQ}=3\vec{Q}^\top\\
-        \implies \brak{\vec{D}\vec{N}'\vec{Q}^\top + \vec{N}'\vec{DQ}}\vec{Q}= 3\vec{Q}^\top\vec{Q}\\
-        \implies \vec{D}\vec{N}' + \vec{N}'\vec{D}=3\vec{I}
-\end{align}
-From (4) and (5)
+let
 \begin{align}
-    \text{diag}\brak{\lambda_1,2\lambda_2 ,3\lambda_3} + \text{diag}\brak{\lambda_1,2\lambda_2 ,3\lambda_3} = 3\vec{I}\\
-    \implies \text{diag}\brak{\lambda_1,2\lambda_2 ,3\lambda_3}=\frac{3}{2}\vec{I}\\
-    \implies \begin{pmatrix}
-        \lambda_1 & 0 & 0\\
-        0 & 2\lambda_2 & 0\\
-        0 & 0 & 3\lambda_3
-    \end{pmatrix}=\begin{pmatrix}
-        \frac{3}{2} & 0 & 0\\
-        0 & \frac{3}{2} & 0\\
-        0 & 0 & \frac{3}{2}
-    \end{pmatrix}\\
+ \vec{Q}^\top\vec{N}\vec{Q}=\vec{N}'\\
+ \implies \vec{N}=\vec{QN}'\vec{Q}^\top\\
+ \implies \vec{Q}^\top\vec{MN}\vec{Q}=\vec{D}\vec{N}'\\
+ \implies \vec{Q}^\top\vec{NM}\vec{Q}=\vec{N}'\vec{D}
+\end{align}
+From (0.11) and (0.12) (0.7) can be written as
+\begin{align}
+    \vec{D}\vec{N}' + \vec{N}'\vec{D}=3\vec{I}
+\end{align}
+let $\brak{\vec{D}\vec{N}'}_{i,j}$ be the entry of $i$th column and $j$th row of the matrix $\vec{D}\vec{N}'$.  As $\vec{D}$ is a diagonal matrix
+\begin{align}
+    \brak{\vec{D}\vec{N}'}_{i,j}=\vec{D}_i\vec{N}'_{i,j}
+\end{align}
+let $\brak{\vec{N}'\vec{D}}_{i,j}$ be the entry of $i$th column and $j$th row of the matrix $\vec{N}'\vec{D}$.  As $\vec{D}$ is a diagonal matrix
+\end{frame}
+
+\begin{frame}{Solution}
+\begin{align}
+    \brak{\vec{N}'\vec{D}}_{i,j}=\vec{D}_j\vec{N}'_{i,j}\\
+    \implies \brak{\vec{D}_i + \vec{D}_j}\vec{N}'_{i,j}=3\brak{\vec{I}}_{i,j}
+\end{align}
+for $i\neq j$
+\begin{align}
+     \brak{\vec{D}_i + \vec{D}_j}\vec{N}'_{i,j}=0\\
+   \implies  \vec{N}'_{i,j}=0
+\end{align}
+for $i=j$
+\begin{align}
+     \brak{\vec{D}_i + \vec{D}_j}\vec{N}'_{i,j}=3\\
+     \implies \vec{N}'_{i,j}=\frac{3}{2D_i}
+\end{align}
+$\implies$ The diagonal values of $\vec{N}'$ are $\frac{3}{2}$ and $\frac{3}{4}$ and $\frac{1}{2}$\\
+In  (0.11) $\vec{Q}$ is an orthogonal matrix and $\vec{N}'$ is a daigonal matrix so we can say that (11) is the eigenvalue decomposition of $\vec{N}$\\
+$\implies \vec{N}=\vec{QN}'\vec{Q}^\top$
+\end{frame}
+
+\begin{frame}{Solution}
+\begin{align}
+    \vec{N}'=\text{diag}\brak{\lambda_1,\lambda_2 ,\lambda_3}\\
     \implies \lambda_1=\frac{3}{2} \text{ and } \lambda_2=\frac{3}{4} \text{ and } \lambda_3=\frac{1}{2}
 \end{align}
-The eigen values of $\vec{N}$ are $\frac{3}{2}$ and $\frac{3}{4}$ and $\frac{1}{2}$
 \end{frame}
 
  % --------- CODE APPENDIX ---------
