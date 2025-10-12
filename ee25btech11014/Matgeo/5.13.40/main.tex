@@ -1,0 +1,112 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal,onecolumn]{IEEEtran}
+
+\usepackage[a5paper, margin=10mm]{geometry} % Safe with onecolumn
+\usepackage{lmodern} % Better fonts (optional but recommended)
+\usepackage{tfrupee} % Rupee symbol package
+
+% Header fix
+\setlength{\headheight}{12pt} % Safe value
+\setlength{\headsep}{0pt}     % Reduce gap
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{multicol}
+
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,angles,quotes}
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{5.13.40}
+\author{EE25BTECH11014 - Bhoomika Lokesh}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+% Remove this line so equations use default numbering (1, 2, 3,...)
+% \numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+
+\textbf{Question:} Let $a,\lambda,\mu \in \mathbb{R}$. Consider the system of linear equations\\
+\begin{center}
+$ax+2y=\lambda$\\
+$3x-2y=\mu$
+\end{center}
+Which of the following statement$\brak{s}$ is $\brak{are}$ correct?
+\begin{multicols}{1}
+\begin{enumerate}
+\item If $a=-3,$ then the system has infinitely many solutions for all value of $\lambda$ and $\mu$.
+ \item If $a \neq -3$, then the system has unique solution for all values of $\lambda$ and $\mu.$
+ \item  If $\lambda + \mu = 0$, then the system has infinitely many solutions for $a = -3$.
+\item  If $\lambda + \mu \neq 0$, then the system has no solution for $a = -3$.
+\end{enumerate}
+\end{multicols}
+
+\textbf{Solution:}\\
+By the system of equations,we get the following augmented matrix:\\
+By \ row \ reduction \ method,
+\begin{align} 
+\myvec{\begin{array}{cc|c}
+a & 2 & \lambda \\
+3 & -2 & \mu
+\end{array}} \xrightarrow{R_2\longrightarrow R_2-3\frac{R_1}{a}}\myvec{\begin{array}{cc|c}
+a & 2 & \lambda \\
+0 & \frac{-2a-6}{a} & \mu-\frac{3\lambda}{a}
+\end{array}} \\
+Now \ if \ \frac{-2a-6}{a}=0 \implies a=-3,\\
+when \ a=-3,\mu-3\frac{\lambda}{a}=\mu+\lambda
+\end{align}
+
+\textbf{Case-1:}If $\lambda+\mu=0$ and the system has \textbf{infinitely many solutions}.\\
+\textbf{Case-2:}If $\lambda+\mu\neq0$, then the system has \textbf{no solution}\\
+\\and if $a\neq-3$, then the first row is non-zero and matrix is invertible. Hence system has a \textbf{unique solution} for all values of $\lambda$ and $\mu$. \\
+
+And solution for $a\neq-3$ is:
+\begin{align}
+   x\brak{a+3}=\lambda+\mu \implies x=\frac{\lambda+\mu}{a+3}\\
+   3x-2y=\mu \implies y=\frac{3\lambda-a\mu}{2a+6}
+ \end{align}
+
+Therefore (2),(3) and (4) are the correct statements.
+
+\end{document}
