@@ -104,78 +104,55 @@
 \end{frame}
 
 \begin{frame}{Theoretical Solution}
-\noindent 
- Given the matrices
-\begin{align}
-A = \myvec{ 1 & 0 & 0 \\ 0 & 1 & 1 \\ 0 & -2 & 4 }
-\quad \text{and} \quad
-I = \myvec{ 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 }
-\end{align}
-and the relation $\vec{A}^{-1} = \frac{1}{6}(\vec{A}^2 + c\vec{A} + d\vec{I})$
+The characteristic equation for $\vec{A}$is given by $\det(A - \lambda I) = 0$.
 
-First we Isolate the Unknowns\\
-Starting with the given relation:
+First, we construct the matrix $\brak{\vec{A} - \lambda \vec{I}}$:
 \begin{align}
-\vec{A}^{-1} = \frac{1}{6}\brak{\Vec{A}^2 + c\vec{A} + d\vec{I}}
+\vec{A} - \lambda \vec{I} = \myvec{ 1 & 0 & 0 \\ 0 & 1 & 1 \\ 0 & -2 & 4 } - \lambda \myvec{ 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 } = \myvec{ 1-\lambda & 0 & 0 \\ 0 & 1-\lambda & 1 \\ 0 & -2 & 4-\lambda }
 \end{align}
-Multiply both sides by 6 and rearrange to isolate the terms with the unknown scalars.
-\begin{align}
-6\vec{A}^{-1} = \vec{A}^2 + c\vec{A} + d\vec{I}\\
-c\vec{A} + d\vec{I} = 6\vec{A}^{-1} - \vec{A}^2 
-\end{align}
-\end{frame}
-\begin{frame}{Theoretical Solution}
-We find the inverse using Gauss-Jordan elimination on the augmented matrix $\augvec{1}{1}{\vec{A}&\vec{I}}$.
-\begin{align}
-\augvec{3}{3}{
-1 & 0 & 0 & 1 & 0 & 0 \\
-0 & 1 & 1 & 0 & 1 & 0 \\
-0 & -2 & 4 & 0 & 0 & 1
-}
-\xrightarrow{R_3 \to R_3 + 2R_2}
-\augvec{3}{3}{
-1 & 0 & 0 & 1 & 0 & 0 \\
-0 & 1 & 1 & 0 & 1 & 0 \\
-0 & 0 & 6 & 0 & 2 & 1
-}
-\xrightarrow{R_2 \to R_2 - \frac{1}{6}R_3}
-\augvec{3}{3}{
-1 & 0 & 0 & 1 & 0 & 0 \\
-0 & 1 & 0 & 0 & 2/3 & -1/6 \\
-0 & 0 & 6 & 0 & 2 & 1
-}
-\end{align}
-After scaling the last row, we get $\augvec{1}{1}{\vec{A}&\vec{I}}$. The resulting inverse matrix is:
-\begin{align}
-\vec{A}^{-1} = \myvec{ 1 & 0 & 0 \\ 0 & 2/3 & -1/6 \\ 0 & 1/3 & 1/6 }
-\end{align}
-
-Now we Calculate the Square Matrix, $\vec{A}^2$
-We compute $\vec{A}^2$ by matrix multiplication.
-
-\end{frame}
-\begin{frame}{Theoretical Solution}
-\begin{align}
-\vec{A}^2 = \vec{A.A} = \myvec{ 1 & 0 & 0 \\ 0 & 1 & 1 \\ 0 & -2 & 4 } \myvec{ 1 & 0 & 0 \\ 0 & 1 & 1 \\ 0 & -2 & 4 } = \myvec{ 1 & 0 & 0 \\ 0 & -1 & 5 \\ 0 & -10 & 14 }
-\end{align}
-Substituting the calculated matrices into Equation \brak{2}:
+Next, we calculate its determinant:
 \begin{align*}
-6\vec{A}^{-1} - \vec{A}^2 &= 6\myvec{ 1 & 0 & 0 \\ 0 & 2/3 & -1/6 \\ 0 & 1/3 & 1/6 } - \myvec{ 1 & 0 & 0 \\ 0 & -1 & 5 \\ 0 & -10 & 14 } \\
-&= \myvec{ 6 & 0 & 0 \\ 0 & 4 & -1 \\ 0 & 2 & 1 } - \myvec{ 1 & 0 & 0 \\ 0 & -1 & 5 \\ 0 & -10 & 14 } \\
-&= \myvec{ 5 & 0 & 0 \\ 0 & 5 & -6 \\ 0 & 12 & -13 }
+\det(\vec{A} - \lambda \vec{I}) &= \brak{1-\lambda} \myvec{ 1-\lambda & 1 \\ -2 & 4-\lambda } \\
+&= \brak{1-\lambda} \sbrak{(1-\lambda)(4-\lambda) - (1)(-2) } \\
+&= \brak{1-\lambda} \sbrak{ 4 - 4\lambda - \lambda + \lambda^2 + 2 } \\
+&= \brak{1-\lambda} \brak{ \lambda^2 - 5\lambda + 6 } \\
+&= \lambda^2 - 5\lambda + 6 - \lambda^3 + 5\lambda^2 - 6\lambda \\
+&= -\lambda^3 + 6\lambda^2 - 11\lambda + 6
 \end{align*}
-    
 \end{frame}
 \begin{frame}{Theoretical Solution}
-Now, set the left side of Equation \brak{2} equal to this result:
+Setting the determinant to zero gives the characteristic equation. Multiplying by -1 for convention, we get:
 \begin{align}
-c \myvec{ 1 & 0 & 0 \\ 0 & 1 & 1 \\ 0 & -2 & 4 } + d \myvec{ 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 } = \myvec{ 5 & 0 & 0 \\ 0 & 5 & -6 \\ 0 & 12 & -13 }\\
-\myvec{ c+d & 0 & 0 \\ 0 & c+d & c \\ 0 & -2c & 4c+d } = \myvec{ 5 & 0 & 0 \\ 0 & 5 & -6 \\ 0 & 12 & -13 }
+\lambda^3 - 6\lambda^2 + 11\lambda - 6 = 0
 \end{align}
-By equating corresponding elements, we can find the values of $c$ and $d$.
-
- From element (2, 3): $c = -6$\\ From element (2, 2): $c + d = 5 \implies -6 + d = 5 \implies d = 11$\\
-The solution is therefore third option$(c, d) = (-6, 11)$.
+The theorem allows us to substitute the matrix $A$ for $\lambda$ in the characteristic equation. The constant term is multiplied by the identity matrix $I$.
+\begin{align}
+\vec{A}^3 - 6\vec{A}^2 + 11\vec{A} - 6\vec{I} = \vec{O}
+\end{align}
+where $\vec{O}$ is the zero matrix.\\
+We can rearrange Equation \brak{4} to solve for the inverse. First, move the identity term to the right side:
+\begin{align}
+\vec{A}^3 - 6\vec{A}^2 + 11\vec{A} = 6\vec{I}
+\end{align}
+Now, multiply the entire equation by $\vec{A}^{-1}$ from the left:
+\begin{align*}
+\vec{A}^{-1}\brak{\vec{A}^3 - 6\vec{A}^2 + 11\vec{A}} &= \vec{A}^{-1}\brak{6\vec{I}} \\
+\vec{A}^2 - 6\vec{A} + 11\vec{I} &= 6\vec{A}^{-1}
+\end{align*}
+\end{frame}
+\begin{frame}{Theoretical Solution}
+Finally, isolate $\vec{A}^{-1}$ by dividing by 6:
+\begin{align}
+\vec{A}^{-1} = \frac{1}{6}\brak{\vec{A}^2 - 6\vec{A} + 11\vec{I}}
+\end{align}
+We now compare the derived expression \brak{5} with the expression given in the question.\\
+Derived Expression: $\vec{A}^{-1} = \frac{1}{6}\brak{\vec{A}^2 - 6\vec{A} + 11\vec{I}}$\\
+Given Expression: $\vec{A}^{-1} = \frac{1}{6}(\vec{A}^2 + c\vec{A} + d\vec{I})$\\
+By directly comparing the coefficients of the matrices $\vec{A}$ and $\vec{I}$ inside the parentheses, we find:
+\begin{align}
+c = -6 \quad \text{and} \quad d = 11
+\end{align}
+The solution is therefore third option, $\brak{c, d} = \brak{-6, 11}$.
 \end{frame}
 
 \begin{frame}[fragile]
