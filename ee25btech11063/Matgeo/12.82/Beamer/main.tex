@@ -1,0 +1,310 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx} % <-- needed for images
+\def\UrlBreaks{\do\/\do-}
+
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\lstset{
+  frame=single,
+  breaklines=true,
+  columns=fullflexible,
+  basicstyle=\ttfamily\tiny   % tiny font so code fits
+}
+
+\numberwithin{equation}{section}
+
+% ---- your macros ----
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}}
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}}
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\let\vec\mathbf
+
+\title{Matgeo Presentation - Problem 12.82}
+\author{ee25btech11063 - Vejith}
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+let $\Vec{M}$ be a 3$\times$ 3 symmetric matrix with eigenvalues 1,2 and 3. let $\Vec{N}$ be any 3$\times$ 3  matrix with real eigenvalues such that $\Vec{MN} + \Vec{NM}= 3\Vec{I}$, where $\Vec{I}$ is a 3$\times$ 3  identity matrix. Then which of the following cannot be eigenvalue\brak{s} of the matrix $\Vec{N}$ ?
+\hspace{2cm}\brak{\text{ST } 2022}
+\begin{enumerate}[label=\alph*)]
+    \begin{multicols}{4}
+  \item $\frac{1}{4}$        
+  \item $\frac{3}{4}$
+  \item $\frac{1}{2}$
+  \item $\frac{7}{4}$  
+    \end{multicols}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Solution}
+    let $\lambda_1$  , $\lambda_2$ , $\lambda_3$ be the eigenvalues of $\vec{N}$\\
+By Eigenvalue decomposition
+\begin{align}
+    \vec{M}=\vec{QDQ}^\vec{\top}
+\end{align}
+where 
+\begin{align}
+    \vec{Q}^\top\vec{Q}=\vec{Q}\vec{Q}^\top=\vec{I}\\
+    \vec{D}=\text{diag}\brak{1,2 ,3}\\
+    \implies \vec{D}=\vec{Q}^\top\vec{M}\vec{Q}
+\end{align}
+\begin{align}
+    \vec{MN}+\vec{NM}=3\vec{I}\\
+    \vec{Q}^\top\brak{ \vec{MN}+\vec{NM}}\vec{Q}=\vec{Q}^\top 3\vec{I}\vec{Q}\\
+    \vec{Q}^\top\vec{MN}\vec{Q} + \vec{Q}^\top\vec{NM}\vec{Q}=3\vec{I}\\
+  \implies  \vec{Q}^\top\vec{MN}\vec{Q}=\brak{\vec{Q}^\top\vec{M}\vec{Q}}\brak{\vec{Q}^\top\vec{N}\vec{Q}}\\
+  \implies  \vec{Q}^\top\vec{NM}\vec{Q}=\brak{\vec{Q}^\top\vec{N}\vec{Q}}\brak{\vec{Q}^\top\vec{M}\vec{Q}}
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+let
+\begin{align}
+ \vec{Q}^\top\vec{N}\vec{Q}=\vec{N}'\\
+ \implies \vec{N}=\vec{QN}'\vec{Q}^\top\\
+ \implies \vec{Q}^\top\vec{MN}\vec{Q}=\vec{D}\vec{N}'\\
+ \implies \vec{Q}^\top\vec{NM}\vec{Q}=\vec{N}'\vec{D}
+\end{align}
+From (0.11) and (0.12), (0.7) can be written as
+\begin{align}
+    \vec{D}\vec{N}' + \vec{N}'\vec{D}=3\vec{I}
+\end{align}
+let $\brak{\vec{D}\vec{N}'}_{i,j}$ be the entry of $i$th row and $j$th column of the matrix $\vec{D}\vec{N}'$.  As $\vec{D}$ is a diagonal matrix
+\begin{align}
+    \brak{\vec{D}\vec{N}'}_{i,j}=\vec{D}_{i,i}\vec{N}'_{i,j}
+\end{align}
+let $\brak{\vec{N}'\vec{D}}_{i,j}$ be the entry of $i$th row and $j$th column of the matrix $\vec{N}'\vec{D}$.  As $\vec{D}$ is a diagonal matrix
+\end{frame}
+
+\begin{frame}{Solution}
+\begin{align}
+    \brak{\vec{N}'\vec{D}}_{i,j}=\vec{D}_{j,j}\vec{N}'_{i,j}\\
+    \implies \brak{\vec{D}_{i,i} + \vec{D}_{j,j}}\vec{N}'_{i,j}=3\brak{\vec{I}}_{i,j}
+\end{align}
+for $i\neq j$
+\begin{align}
+     \brak{\vec{D}_{i,i} + \vec{D}_{j,j}}\vec{N}'_{i,j}=0\\
+   \implies  \vec{N}'_{i,j}=0
+\end{align}
+for $i=j$
+\begin{align}
+     \brak{\vec{D}_{i,i}+ \vec{D}_{j,j}}\vec{N}'_{i,j}=3\\
+     \implies \vec{N}'_{i,i}=\frac{3}{2D_{i,i}}
+\end{align}
+from (0.3)
+\begin{align}
+    \implies \text{The diagonal values of } \vec{N}' \text{ are } \frac{3}{2} \text{ and } \frac{3}{4} \text{ and } \frac{1}{2}
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+In  (0.11) $\vec{Q}$ is an orthogonal matrix and $\vec{N}'$ is a diagonal matrix so we can say that (0.11) is the eigenvalue decomposition of $\vec{N}$\\
+$\implies \vec{N}=\vec{QN}'\vec{Q}^\top$
+\begin{align}
+    \vec{N}'=\text{diag}\brak{\lambda_1,\lambda_2 ,\lambda_3}\\
+    \implies \lambda_1=\frac{3}{2} \text{ and } \lambda_2=\frac{3}{4} \text{ and } \lambda_3=\frac{1}{2}
+\end{align}
+\end{frame}
+
+ % --------- CODE APPENDIX ---------
+\section*{Appendix: Code}
+
+% C program
+\begin{frame}[fragile]{C Code: eigen.c}
+\begin{lstlisting}[language=C]
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+
+#define N 3
+#define MAX_ITERS 100
+#define EPS 1e-12
+void max_offdiag(double A[N][N], int *pi, int *pj) {
+    double max = 0.0;
+    int imax = 0, jmax = 1;
+    for (int i = 0; i < N; ++i) {
+        for (int j = i+1; j < N; ++j) {
+            double v = fabs(A[i][j]);
+            if (v > max) {
+                max = v;
+                imax = i; jmax = j;
+            }
+        }
+    }
+    *pi = imax; *pj = jmax;
+}
+void jacobi_eigensolver(double A[N][N], double eig[N]) {
+    double V[N][N] = {0}; // eigenvector matrix (not used for result but kept)
+    for (int i=0;i<N;i++) V[i][i]=1.0;
+
+    double B[N][N];
+    for (int i=0;i<N;i++)
+        for (int j=0;j<N;j++)
+            B[i][j]=A[i][j];
+for (int iter = 0; iter < MAX_ITERS; ++iter) {
+        int p,q;
+        max_offdiag(B, &p, &q);
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{C Code: eigen.c}
+\begin{lstlisting}[language=C]
+        double bpq = B[p][q];
+        if (fabs(bpq) < EPS) break;
+
+        double app = B[p][p];
+        double aqq = B[q][q];
+
+        double tau = (aqq - app) / (2.0 * bpq);
+        double t;
+        if (tau >= 0.0) t = 1.0 / (tau + sqrt(1.0 + tau*tau));
+        else t = -1.0 / (-tau + sqrt(1.0 + tau*tau));
+        double c = 1.0 / sqrt(1.0 + t*t);
+        double s = t * c;
+        double tauPrime = s/(1.0 + c);
+
+        // update matrix B
+        double app_new = app - t * bpq;
+        double aqq_new = aqq + t * bpq;
+        B[p][p] = app_new;
+        B[q][q] = aqq_new;
+        B[p][q] = B[q][p] = 0.0;
+
+        for (int k = 0; k < N; ++k) {
+            if (k != p && k != q) {
+                double bkp = B[k][p];
+                double bkq = B[k][q];
+                B[k][p] = B[p][k] = bkp - s*(bkq + tauPrime*bkp);
+                B[k][q] = B[q][k] = bkq + s*(bkp - tauPrime*bkq);
+            }
+        }
+        for (int k = 0; k < N; ++k) {
+            double vkp = V[k][p];
+            double vkq = V[k][q];
+\end{lstlisting}
+\end{frame}
+
+        \begin{frame}[fragile]{C Code: eigen.c}
+\begin{lstlisting}[language=C]
+            V[k][p] = vkp - s*(vkq + tauPrime*vkp);
+            V[k][q] = vkq + s*(vkp - tauPrime*vkq);
+        }}
+    for (int i = 0; i < N; ++i) eig[i] = B[i][i];
+}
+
+int main(void) {
+    
+    double M[N][N] = {
+        {1.0, 0.0, 0.0},
+        {0.0, 2.0, 0.0},
+        {0.0, 0.0, 3.0}
+    };
+    double lambda[N];
+    jacobi_eigensolver(M, lambda);
+
+    double mu[N];
+    for (int i = 0; i < N; ++i) {
+        if (fabs(lambda[i]) < 1e-14) {
+            fprintf(stderr, "Eigenvalue near zero; cannot compute mu = 3/(2*lambda).\n");
+            return 1;}
+        mu[i] = 3.0 / (2.0 * lambda[i]);}
+
+    FILE *fp = fopen("eigen.dat", "w");
+    if (!fp) {
+        perror("fopen");
+        return 1;}
+    for (int i = 0; i < N; ++i) {
+        fprintf(fp, "%.12g\n", mu[i]);
+    }
+    fclose(fp);
+    printf("Wrote 3 eigenvalues of N to eigen.dat\n");
+    return 0;}
+\end{lstlisting}
+\end{frame}
+
+% Python plotting
+\begin{frame}[fragile]{Python: solution.py}
+\begin{lstlisting}[language=Python]
+import numpy as np
+
+# Step 1: Define symmetric matrix M (diagonal with eigenvalues 1,2,3)
+M = np.diag([1.0, 2.0, 3.0])
+
+# Step 2: Eigen decomposition of M
+eigvals_M, Q = np.linalg.eigh(M)
+
+# Step 3: Compute N' = diag(3 / (2 * λ_i))
+eigvals_N = 3.0 / (2.0 * eigvals_M)
+N_dash = np.diag(eigvals_N)
+
+# Step 4: Reconstruct N = Q * N' * Q^T
+N = Q @ N_dash @ Q.T
+
+# Step 5: Verification: M*N + N*M
+verify = M @ N + N @ M
+
+# Step 6: Display results
+print("Matrix M:")
+print(M)
+
+print("\nEigenvalues of M:")
+print(eigvals_M)
+
+print("\nEigenvalues of N:")
+print(eigvals_N)
+
+print("\nMatrix N:")
+print(N)
+
+print("\nVerification (M*N + N*M):")
+print(verify)
+
+\end{lstlisting}
+\end{frame}
+\end{document}

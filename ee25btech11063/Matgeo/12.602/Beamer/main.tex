@@ -1,0 +1,268 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx} % <-- needed for images
+\def\UrlBreaks{\do\/\do-}
+
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\lstset{
+  frame=single,
+  breaklines=true,
+  columns=fullflexible,
+  basicstyle=\ttfamily\tiny   % tiny font so code fits
+}
+
+\numberwithin{equation}{section}
+
+% ---- your macros ----
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}}
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}}
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\let\vec\mathbf
+
+\title{Matgeo Presentation - Problem 12.602}
+\author{ee25btech11063 - Vejith}
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+If the following system has a non-trivial solution:
+\begin{align*}
+px + qy + rz &= 0, \\
+qx + ry + pz &= 0,\\
+rx + py + qz &= 0,
+\end{align*}
+then which one of the following options is \textbf{TRUE}? \hfill (CS 2016)
+\vspace{0.5cm}
+
+\begin{enumerate}
+    \item[(a)] $p + q + r = 0$ \text{ or } $p = q = r$
+    \item[(b)] $p + q + r = 0$ \text{ or } $p = q = -r$
+    \item[(c)] $p + q + r = 0$ \text{ or } $p = q = r = 0$
+    \item[(d)] $p + q + r = 0$ \text{ or } $p = -q = r$
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Solution}
+    Given equations are
+\begin{align}
+ \brak{p\hspace{0.5cm}q\hspace{0.5cm}r}\myvec{x\\y\\z}=0\\
+   \brak{q\hspace{0.5cm}r\hspace{0.5cm}p}\myvec{x\\y\\z}=0\\
+   \brak{r\hspace{0.5cm}p\hspace{0.5cm}q}\myvec{x\\y\\z}=0\\
+   \implies \begin{pmatrix}
+        p & q & r\\
+        q & r & p\\
+        r & p & q
+    \end{pmatrix} \myvec{x\\y\\z} =\myvec{0\\0\\0}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+let 
+\begin{align}
+    \Vec{A}=\begin{pmatrix}
+        p & q & r\\
+        q & r & p\\
+        r & p & q
+    \end{pmatrix} \text{ and } \Vec{X}=\myvec{x\\y\\z}\\
+    \implies \Vec{A}\Vec{X}=\Vec{0}
+\end{align}
+The system of equations $\Vec{AX = 0}$ has non trivial solution if rank of $\Vec{A}<3$
+\begin{align}
+      \begin{pmatrix}
+        p & q & r\\
+        q & r & p\\
+        r & p & q
+    \end{pmatrix} &\xleftrightarrow{R_2 \rightarrow pR_2- qR_1} 
+    \begin{pmatrix}
+        p & q & r \\
+        0 & pr-q^2 & p^2-qr \\
+        r & p & q 
+\end{pmatrix}\\
+&\xleftrightarrow{R_3 \rightarrow pR_3- rR_1} \begin{pmatrix}
+        p & q & r \\
+        0 & pr-q^2 & p^2-qr \\
+        0 & p^2-rq & pq-r^2 
+\end{pmatrix}\\
+&\xleftrightarrow{R_3 \rightarrow (pr-q^2)R_3 - (p^2-rq)R_2} \begin{pmatrix}
+        p & q & r \\
+        0 & pr-q^2 & p^2-qr \\
+        0 & 0 & D 
+\end{pmatrix}
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+\begin{align}
+\implies D=(pr-q^2)(pq-r^2)-(p^2-rq)(p^2-qr)=0\\
+\implies (pr-q^2)(pq-r^2)=p^2qr-pr^3-pq^3+q^2r^2\\
+\implies (p^2-rq)(p^2-qr)=p^4-2p^2qr+r^2q^2
+\end{align}
+From (0.11) and (0.12)
+\begin{align}
+    D=\brak{p^2qr-pr^3-pq^3+q^2r^2}-\brak{p^4-2p^2qr+r^2q^2}\\
+    =-p^4+3p^2qr-pq^3-pr^3\\
+    =-p\brak{p^3+q^3+r^3-3pqr}\\
+    =-p\brak{p+q+r}\brak{p^2+q^2+r^2-pq-qr-pr}\\
+ \implies D  =-\frac{1}{2}p\brak{p+q+r}\brak{\brak{p-q}^2 + \brak{q-r}^2 + \brak{p-r}^2}
+\end{align}
+$D=0$ means 
+\begin{align}
+    p+q+r=0 \hspace{0.5cm} \text{ or }\hspace{0.5cm} \brak{p-q}^2 + \brak{q-r}^2 + \brak{p-r}^2=0\\
+    \implies  p+q+r=0 \hspace{1cm} \text{ or }\hspace{1cm} p=q=r
+    \end{align}
+\end{frame}
+
+\begin{frame}{Conclusion}
+ $\implies$ Given system of equations has non trivial solution if
+ \begin{align}
+     p+q+r=0 \hspace{1cm} \text{ or }\hspace{1cm} p=q=r
+ \end{align}
+\end{frame}
+
+
+ % --------- CODE APPENDIX ---------
+\section*{Appendix: Code}
+
+% C program
+\begin{frame}[fragile]{C Code: program.c}
+\begin{lstlisting}[language=C]
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    FILE *fp;
+
+    // Open output file
+    fp = fopen("answer.dat", "w");
+    if (fp == NULL) {
+        printf("Error opening file!\n");
+        return 1;
+    }
+
+    // ---------------- Example 1: p + q + r = 0 ----------------
+    double p1 = 1, q1 = 2, r1 = -3; // satisfies p + q + r = 0
+    fprintf(fp, "Example 1:\n");
+    fprintf(fp, "Given values: p = %.2lf, q = %.2lf, r = %.2lf\n", p1, q1, r1);
+
+    if (fabs(p1 + q1 + r1) < 1e-9 || (fabs(p1 - q1) < 1e-9 && fabs(q1 - r1) < 1e-9)) {
+        fprintf(fp, "→ The system has a NON-TRIVIAL solution.\n");
+        if (fabs(p1 + q1 + r1) < 1e-9)
+            fprintf(fp, "  Condition satisfied: p + q + r = 0\n\n");
+        else
+            fprintf(fp, "  Condition satisfied: p = q = r\n\n");
+    } else {
+        fprintf(fp, "→ The system does NOT have a non-trivial solution.\n\n");
+    }
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{C Code: program.c}
+\begin{lstlisting}[language=C]
+    // ---------------- Example 2: p = q = r ----------------
+    double p2 = 5, q2 = 5, r2 = 5; // satisfies p = q = r
+    fprintf(fp, "Example 2:\n");
+    fprintf(fp, "Given values: p = %.2lf, q = %.2lf, r = %.2lf\n", p2, q2, r2);
+
+    if (fabs(p2 + q2 + r2) < 1e-9 || (fabs(p2 - q2) < 1e-9 && fabs(q2 - r2) < 1e-9)) {
+        fprintf(fp, "→ The system has a NON-TRIVIAL solution.\n");
+        if (fabs(p2 + q2 + r2) < 1e-9)
+            fprintf(fp, "  Condition satisfied: p + q + r = 0\n");
+        else
+            fprintf(fp, "  Condition satisfied: p = q = r\n");
+    } else {
+        fprintf(fp, "→ The system does NOT have a non-trivial solution.\n");
+    }
+
+    fclose(fp);
+    printf("Results for both examples written to answer.dat\n");
+    return 0;
+}
+
+\end{lstlisting}
+\end{frame}
+
+% Python plotting
+\begin{frame}[fragile]{Python: plot.py}
+\begin{lstlisting}[language=Python]
+import numpy as np
+
+# Example 1: satisfies p + q + r = 0
+p, q, r = 1, 2, -3
+
+# Example 2 (uncomment to test p=q=r case)
+# p, q, r = 5, 5, 5
+
+# Construct coefficient matrix A
+A = np.array([
+    [p, q, r],
+    [q, r, p],
+    [r, p, q]
+], dtype=float)
+
+# Compute determinant
+detA = np.linalg.det(A)
+
+print(f"Given: p={p}, q={q}, r={r}")
+print("Matrix A =\n", A)
+print(f"Determinant of A = {detA:.6f}")
+
+# Check for non-trivial solution
+if abs(detA) < 1e-9:
+    print("\n The system has a NON-TRIVIAL solution.")
+    if abs(p + q + r) < 1e-9:
+        print("Condition satisfied: p + q + r = 0")
+    elif abs(p - q) < 1e-9 and abs(q - r) < 1e-9:
+        print("Condition satisfied: p = q = r")
+    else:
+        print("Condition satisfied: determinant = 0 (degenerate case)")
+else:
+    print("\n The system has only the TRIVIAL solution (x = y = z = 0).")
+
+\end{lstlisting}
+\end{frame}
+
+\end{document}

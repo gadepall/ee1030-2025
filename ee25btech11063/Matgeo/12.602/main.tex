@@ -1,0 +1,139 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a4paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}  % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{12.602}
+\author{ee25btech11063-vejith}
+
+\maketitle
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+\textbf{Question}:\\
+If the following system has a non-trivial solution:
+\begin{align*}
+px + qy + rz &= 0, \\
+qx + ry + pz &= 0,\\
+rx + py + qz &= 0,
+\end{align*}
+then which one of the following options is \textbf{TRUE}? \hfill (CS 2016)
+\vspace{0.5cm}
+
+\begin{enumerate}
+    \item[(a)] $p + q + r = 0$ \text{ or } $p = q = r$
+    \item[(b)] $p + q + r = 0$ \text{ or } $p = q = -r$
+    \item[(c)] $p + q + r = 0$ \text{ or } $p = q = r = 0$
+    \item[(d)] $p + q + r = 0$ \text{ or } $p = -q = r$
+\end{enumerate}
+\textbf{Solution}:\\
+Given equations are
+\begin{align}
+   \brak{p\hspace{0.5cm}q\hspace{0.5cm}r}\myvec{x\\y\\z}=0\\
+   \brak{q\hspace{0.5cm}r\hspace{0.5cm}p}\myvec{x\\y\\z}=0\\
+   \brak{r\hspace{0.5cm}p\hspace{0.5cm}q}\myvec{x\\y\\z}=0\\
+   \implies \begin{pmatrix}
+        p & q & r\\
+        q & r & p\\
+        r & p & q
+    \end{pmatrix} \myvec{x\\y\\z} =\myvec{0\\0\\0}
+\end{align}
+let 
+\begin{align}
+    \Vec{A}=\begin{pmatrix}
+        p & q & r\\
+        q & r & p\\
+        r & p & q
+    \end{pmatrix} \text{ and } \Vec{X}=\myvec{x\\y\\z}\\
+    \implies \Vec{A}\Vec{X}=\Vec{0}
+\end{align}
+The system of equations $\Vec{AX = 0}$ has non trivial solution if rank of $\Vec{A}<3$
+\begin{align}
+      \begin{pmatrix}
+        p & q & r\\
+        q & r & p\\
+        r & p & q
+    \end{pmatrix} &\xleftrightarrow{R_2 \rightarrow pR_2- qR_1} 
+    \begin{pmatrix}
+        p & q & r \\
+        0 & pr-q^2 & p^2-qr \\
+        r & p & q 
+\end{pmatrix}\\
+&\xleftrightarrow{R_3 \rightarrow pR_3- rR_1} \begin{pmatrix}
+        p & q & r \\
+        0 & pr-q^2 & p^2-qr \\
+        0 & p^2-rq & pq-r^2 
+\end{pmatrix}\\
+&\xleftrightarrow{R_3 \rightarrow (pr-q^2)R_3 - (p^2-rq)R_2} \begin{pmatrix}
+        p & q & r \\
+        0 & pr-q^2 & p^2-qr \\
+        0 & 0 & D 
+\end{pmatrix}\\
+\implies D=(pr-q^2)(pq-r^2)-(p^2-rq)(p^2-qr)=0\\
+\implies (pr-q^2)(pq-r^2)=p^2qr-pr^3-pq^3+q^2r^2\\
+\implies (p^2-rq)(p^2-qr)=p^4-2p^2qr+r^2q^2
+\end{align}
+From (11) and (12)
+\begin{align}
+    D=\brak{p^2qr-pr^3-pq^3+q^2r^2}-\brak{p^4-2p^2qr+r^2q^2}\\
+    =-p^4+3p^2qr-pq^3-pr^3\\
+    =-p\brak{p^3+q^3+r^3-3pqr}\\
+    =-p\brak{p+q+r}\brak{p^2+q^2+r^2-pq-qr-pr}\\
+ \implies D  =-\frac{1}{2}p\brak{p+q+r}\brak{\brak{p-q}^2 + \brak{q-r}^2 + \brak{p-r}^2}
+\end{align}
+$D=0$ means 
+\begin{align}
+    p+q+r=0 \hspace{1.5cm} \text{ or }\hspace{1.5cm} \brak{p-q}^2 + \brak{q-r}^2 + \brak{p-r}^2=0\\
+    \implies  p+q+r=0 \hspace{3cm} \text{ or }\hspace{4.7cm} p=q=r
+    \end{align}
+ $\implies$ Given system of equations has non trivial solution if
+ \begin{align}
+     p+q+r=0 \hspace{1cm} \text{ or }\hspace{1cm} p=q=r
+ \end{align}
+\end{document}
