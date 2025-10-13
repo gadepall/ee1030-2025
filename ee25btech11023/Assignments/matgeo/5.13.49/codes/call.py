@@ -14,7 +14,6 @@ coeffs = list(int(v) for v in out_data_c)
  
 k = sympy.Symbol('k')
     
- 
 M = sympy.Matrix([
         [coeffs[0], -k,         coeffs[1]],  
         [k,         coeffs[2],  coeffs[3]],  

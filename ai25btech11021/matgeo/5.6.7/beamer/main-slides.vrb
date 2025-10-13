@@ -1,0 +1,26 @@
+\frametitle{Python Code (Part 1)}
+\begin{lstlisting}[language=Python]
+import numpy as np
+
+A = np.array([
+    [2, -1, 1],
+    [-1, 2, -1],
+    [1, -1, 2]
+], dtype=float)
+
+# Compute A^2
+A2 = np.dot(A, A)
+
+# Compute A^2 - 6A + 9I
+temp = A2 - 6*A + 9*np.eye(3)
+
+# Divide by determinant (4) to get inverse
+Ainv = temp / 4.0
+
+print("The inverse matrix A^{-1} is:")
+print(Ainv)
+
+# Verify by multiplying A * A^{-1}
+print("Check A * A^{-1} = I:")
+print(np.dot(A, Ainv))
+\end{lstlisting}

@@ -1,0 +1,175 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+
+\title{12.869}
+\author{EE25BTECH11023 - Venkata Sai}
+% \maketitle
+% \newpage
+% \bigskip
+\maketitle 
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+\numberwithin{align}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+\vspace{-1em}
+\textbf{Question:}  \\
+For $\vec{X}=\myvec{x_1\\x_2\\x_3}$, quadratic form
+\begin{align}
+\vec{Q\brak{\vec{X}}} = 2x^2_1 + 2x^2_2 + 3x^2_3 + 4x_1x_2 + 2x_1x_3 + 2x_2x_3
+\end{align}
+Let $\vec{M}$ be symmetric matrix of Q. For $\vec{Y} \in \mathbb{R}^3$? non-zero define 
+\begin{align}
+    a_n=\frac{\vec{Y}^\top\brak{\vec{M}+\vec{I}_3}^{n+1}\vec{Y}}{\vec{Y}^\top\brak{\vec{M}+\vec{I}_3}^{n}\vec{Y}}
+\end{align}
+Then lim$_{n\rightarrow\infty}a_n$ = \dots  \\
+\textbf{Solution:}  \\
+ Given
+ \begin{align}
+ \vec{Q\brak{\vec{X}}} = 2x^2_1 + 2x^2_2 + 3x^2_3 &+ 4x_1x_2 + 2x_1x_3 + 2x_2x_3  \\
+ \vec{X}&=\myvec{x_1\\x_2\\x_3}
+ \end{align}
+ $\vec{M}$ is a symmetric matrix of Q
+\begin{align}
+     \vec{Q}=\vec{X}^\top\vec{M}\vec{X} 
+     \end{align}
+     \begin{align}
+          \vec{Q}  &=\myvec{x_1 & x_2 & x_3}\myvec{M_{11} & M_{12} & M_{13}\\M_{12} &M_{22} &M_{23}\\M_{13} &M_{23}&M_{33}}\myvec{x_1\\x_2\\x_3} \\
+            &=\myvec{x_1&x_2&x_3}\myvec{ x_1 M_{11} + x_2 M_{21} + x_3 M_{13} \\ x_1 M_{12} + x_2 M_{22} + x_3 M_{23} \\x_1 M_{13} + x_2 M_{23} + x_3 M_{33}}
+            \end{align}
+            \begin{align}
+            =x_1^2 M_{11} + x_1 x_2 M_{12} + x_1 x_3 M_{13} + x_2 x_1 M_{12} + x_2^2 M_{22} \\ \nonumber+ x_2 x_3 M_{23} + x_3 x_1 M_{13} + x_3 x_2 M_{23} + x_3^2 M_{33}
+            \end{align}
+            \begin{align}
+           =x_1^2 M_{11} + 2x_1 x_2 M_{12} + 2x_1 x_3 M_{13}+2x_2 x_3 M_{23} + x_2^2 M_{22}+x_3^2 M_{33}
+            \end{align}
+On comparing
+\begin{align}
+    M_{11}=2,M_{12}=\frac{4}{2}=2,M_{13}=\frac{2}{2}=1,M_{23}=\frac{2}{2}=1,M_{22}=2,M_{33}=3 
+\end{align}
+\begin{align}
+    \vec{M}&=\myvec{2&2&1\\2&2&1\\1&1&3}\\
+    \vec{M}+\vec{I_3}&=\myvec{2&2&1\\2&2&1\\1&1&3}+\myvec{1&0&0\\0&1&0\\0&0&1}=\myvec{3&2&1\\2&3&1\\1&1&4}=\vec{A}
+\end{align}
+For eigen values of $\vec{A}$
+\begin{align}
+    \mydet{\vec{A}-\lambda\vec{I}}=0 
+    \end{align}
+    \begin{align}
+    \mydet{\myvec{3&2&1\\2&3&1\\1&1&4}-\lambda\myvec{1&0&0\\0&1&0\\0&0&1}} = 0 \\
+ \mydet{\myvec{3-\lambda&2&1\\2&3-\lambda&1\\1&1&4-\lambda}}=0 
+ \end{align}
+ \begin{align}
+ \brak{3-\lambda}\brak{\brak{3-\lambda}\brak{4-\lambda}-1}-2\brak{2\brak{4-\lambda}-1}+1\brak{2-\brak{3-\lambda}}=0 
+ \end{align}
+ \vspace{-0.7cm} 
+ \begin{align}
+ \brak{3-\lambda}\brak{\lambda^2-7\lambda+12-1}-2\brak{8-2\lambda-1}+1\brak{2+\lambda-3}=0 
+ \end{align}
+ \vspace{-0.7cm} 
+ \begin{align}
+ \brak{3-\lambda}\brak{\lambda^2-7\lambda+11}-2\brak{7-2\lambda}+1\brak{\lambda-1}=0 
+ \end{align}
+ \vspace{-0.7cm} 
+ \begin{align}
+ \brak{3\lambda^2-21\lambda+33-\lambda^3+7\lambda^2-11\lambda}-14+4\lambda+\lambda-1=0
+ \end{align}
+ \vspace{-0.7cm}
+ \begin{align}
+ -\lambda^3-10\lambda^2-32\lambda+33-14+5\lambda-1=0 
+ \end{align}
+ \vspace{-0.7cm}
+ \begin{align}
+ \lambda^3-10\lambda^2+27\lambda-18=0 
+\end{align}
+\vspace{-0.7cm}
+\begin{align}
+    \brak{\lambda-1}\brak{\lambda^2-9\lambda+18}=0
+\end{align}
+\vspace{-0.7cm}
+\begin{align}
+    \brak{\lambda-1}\brak{\lambda-3}\brak{\lambda-6}=0
+\end{align}
+The eigen values of $\vec{A}$ are 1,3,6 \\
+Given
+\begin{align}
+a_n&=\frac{\vec{Y}^\top\brak{\vec{M}+\vec{I}_3}^{n+1}\vec{Y}}{\vec{Y}^\top\brak{\vec{M}+\vec{I}_3}^{n}\vec{Y}} \\
+    a_n&=\frac{\vec{Y}^\top\vec{A}^{n+1}\vec{Y}}{\vec{Y}^\top\vec{A}^{n}\vec{Y}}
+\end{align}
+As $\vec{A}$ is symmetric
+\begin{align}
+    \vec{A}=\vec{P}\vec{D}\vec{P}^\top\ \text{where}\ \vec{D}=\myvec{1&0&0\\0&3&0\\0&0&6} \\
+\vec{A}^n=\vec{P}\myvec{1^n&0&0\\0&3^n&0\\0&0&6^n}\vec{P}^\top 
+\end{align}
+\begin{align}
+\vec{Y}^\top\vec{A}^n\vec{Y}=\brak{\vec{P^\top}\vec{Y}}^\top \myvec{1^n&0&0\\0&3^n&0\\0&0&6^n}\vec{P}^\top\vec{Y}=\vec{v}^\top\myvec{1^n&0&0\\0&3^n&0\\0&0&6^n}\vec{v}
+\end{align}
+where
+\begin{align}
+    \vec{v}&=\vec{P}^\top\vec{Y} \\
+\vec{Y}^\top\vec{A}^n\vec{Y}&=v_1^2\brak{1}^n+v_2^2\brak{3}^n+v_3^2\brak{6}^n
+\end{align}
+which will be of the form
+\begin{align}
+a_n=\frac{v_1^2\brak{1}^{n+1}+v_2^2\brak{3}^{n+1}+v_3^2\brak{6}^{n+1}}{v_1^2\brak{1}^n+v_2^2\brak{3}^n+v_3^2\brak{6}^n}
+\end{align}
+\begin{align}
+a_n=\frac{v_1^2\brak{1}^{n}1+v_2^2\brak{3}^{n}3+v_3^2\brak{6}^{n}6}{v_1^2\brak{1}^n+v_2^2\brak{3}^n+v_3^2\brak{6}^n} 
+\end{align}
+\begin{align}
+   a_n= \frac{6^n\brak{v_1^2\brak{\frac{1}{6}}^{n}1+v_2^2\brak{\frac{3}{6}}^{n}3+v_3^2\brak{\frac{6}{6}}^{n}6}}{6^n\brak{v_1^2\brak{\frac{1}{6}}^n+v_2^2\brak{\frac{3}{6}}^n+v_3^2\brak{\frac{6}{6}}^n}} 
+\end{align}
+
+\begin{align}
+    lim_{n\rightarrow\infty}a_n = \frac{0+0+v_3^2\brak{6}}{0+0+v_3^2}=6
+\end{align}
+where as $n\rightarrow\infty$
+\begin{align}
+    \frac{1}{6} \rightarrow 0 ,\frac{3}{6} \rightarrow 0
+\end{align}
+Hence
+\begin{align}
+    lim_{n\rightarrow\infty}a_n=6
+\end{align}
+ \end{document}

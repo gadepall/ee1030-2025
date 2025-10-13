@@ -1,0 +1,122 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+
+
+
+\author{EE25BTECH11041-Naman Kumar }
+\graphicspath{./figs/}
+
+\begin{document}
+\begin{center}
+    \huge{5.4.35}\\
+    \large{EE25BTECH11041 - Naman Kumar}
+\end{center}
+Question:\\
+Let p be an odd prime number and $\vec{T_p}$ be the following set of $2\times2$ matrices
+\begin{align}
+\vec{T_p}=\cbrak{\Vec{A}=\begin{pmatrix}a&b\\c&a\end{pmatrix}:a,b,c \in \cbrak{0,1,2,\dots,p-1} }
+\end{align}
+a) The number of $\vec{A}$ in $\vec{T_p}$ such that $\vec{A}$ is either symmetric or skew-symmetric or
+both, and det(A) divisible by p is\\
+\solution \\
+Case 1: Symmentric
+\begin{align}
+    \vec{A}=\vec{A}^T\\
+    \begin{pmatrix}a&b\\c&a\end{pmatrix}=\begin{pmatrix}a&c\\b&a\end{pmatrix}\\
+    b=c\\
+    \vec{A}=\begin{pmatrix}a&b\\b&a\end{pmatrix}
+\end{align}
+Determinant divisible by p
+\begin{align}
+    \vert\vec{A}\vert=\begin{vmatrix}a&b\\b&a\end{vmatrix}\\
+    =a^2-b^2\\
+    =(a-b)(a+b)\\
+    \vert \vec{A}\vert\mod p =0\\
+    (a-b)(a+b) \mod p=0
+\end{align}
+Since p is a prime number, \\
+\begin{enumerate}[label=\roman*)]
+    \item $a-b\mod p =0$ only at $a-b=0$:
+        \begin{align}
+            a-b=0\\
+            a=b
+        \end{align}
+        So their are p pairs for (a,b) at a-b=0\\
+    \item   \begin{align}
+                a+b\mod p =0\\
+            \end{align}
+            \begin{center}    
+                at a=1, b=p-1, a+b=p\\
+                at a=2, b=p-2, a+b=p\\
+                \[ \vdots \] \\
+                so,similarly for all a, their is b in pair(a,b)\\
+                therefore their are p pairs
+            \end{center}
+\end{enumerate}
+Total number of such $\vec{A}$ in case 1 = ${i}+{ii}-{i\cap ii}$\\
+Total = p + p -1 (case of elements = 0)\\
+=2p-1\\\\
+Case 2:Skew-Symmetric
+\begin{align}
+    \vec{A}+\vec{A}^T=0\\
+    \begin{pmatrix}a&b\\c&a\end{pmatrix}+\begin{pmatrix}a&c\\b&a\end{pmatrix}=0\\
+    \begin{pmatrix}2a&b+c\\c+b&2a\end{pmatrix}=0\\
+    a=0,b=-c\\
+    \vec{A}=\begin{pmatrix}0&b\\-b&0\end{pmatrix}
+\end{align}
+Now, for $\mod$
+\begin{align}
+    \vert \vec{A} \vert \mod p =0\\
+    (0+b^2) \mod p=0\\
+    b^2 \mod p=0
+\end{align}
+Only when b=0, so
+\begin{align}
+    \vec{A}=\begin{pmatrix}0&0\\0&0\end{pmatrix}
+\end{align}
+Already included in case 1
+therefore, final answer = 2p-1
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\columnwidth]{figs/figure.png}
+    \caption{}
+    \label{fig:placeholder}
+\end{figure}
+\end{document}

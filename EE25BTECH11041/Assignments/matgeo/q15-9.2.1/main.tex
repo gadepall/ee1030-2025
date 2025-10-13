@@ -1,0 +1,113 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[a5paper,10pt]{article}
+\usepackage[margin=10mm]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+
+
+
+\author{EE25BTECH11041-Naman Kumar }
+\graphicspath{./figs/}
+
+\begin{document}
+\begin{center}
+    \huge{9.2.1}\\
+    \large{EE25BTECH11041 - Naman Kumar}
+\end{center}
+Question:\\
+Find the area bounded by the curve $y=\sqrt{x},x=2y+3$, in the first quadrant and
+x-axis.
+\solution \\
+General equation of conic
+\begin{align}
+    g(\vec{x})=\vec{x^T}\vec{V}\vec{x}+2\vec{u^T}\vec{x}+f
+\end{align}
+Equation of parabola,
+\begin{align}
+    \vec{x^T}\begin{pmatrix}0&0\\0&1\end{pmatrix}\vec{x}+2\begin{pmatrix}-\frac{1}{2}\\0\end{pmatrix}^T\vec{x}=0
+\end{align}
+Equation of line,
+\begin{align}
+    \vec{x}=\vec{h}+k\vec{m} \\
+    \vec{h}=\begin{pmatrix}0\\-\frac{3}{2}\end{pmatrix},\vec{m}=\begin{pmatrix}1\\ \frac{1}{2} \end{pmatrix}
+\end{align}
+Using following equation to find point of intersection of conic and line
+\begin{align}
+    k_i=\frac{1}{\vec{m}^T\vec{V}\vec{m}}\brak{-\vec{m}^T\brak{\vec{V}\vec{h}+\vec{u}} \pm \sqrt{\sbrak{\vec{m}^T\brak{\vec{V}\vec{h}+\vec{u}}}^2-g(\vec{h})(\vec{m}^T\vec{V}\vec{m})} } \label{main}
+\end{align}
+Solving for $g(\vec{h})$
+\begin{align}
+    g(\vec{h})=\vec{h^T}\begin{pmatrix}0&0\\0&1\end{pmatrix}\vec{h}+2\begin{pmatrix}-\frac{1}{2}\\0\end{pmatrix}^T\vec{h}\\
+    g(\vec{h})=\frac{9}{4} \label{g}
+\end{align}
+Solving for $\vec{m}^T\vec{V}\vec{m}$
+\begin{align}
+    \vec{m}^T\vec{V}\vec{m}=\begin{pmatrix}1 \\ \frac{1}{2}\end{pmatrix}^T\begin{pmatrix}0&0\\0&1\end{pmatrix}\begin{pmatrix}1 \\ \frac{1}{2}\end{pmatrix}\\
+    =\frac{1}{4}\label{mv}
+\end{align}
+Solving for $\vec{m}^T\brak{\vec{V}\vec{h}+\vec{u}}$
+\begin{align}
+    \begin{pmatrix}1 \\ \frac{1}{2}\end{pmatrix}^T\brak{\begin{pmatrix}0&0\\0&1\end{pmatrix}\begin{pmatrix}0\\-\frac{3}{2}\end{pmatrix}+\begin{pmatrix}-\frac{1}{2}\\0\end{pmatrix}}\\
+    =-\frac{5}{4}
+\end{align}
+Solving $\eqref{main}$
+\begin{align}
+    k_i=\frac{1}{\frac{1}{4}}\brak{\frac{5}{4} \pm \sqrt{\frac{25}{16} - \frac{9}{4}\times \frac{1}{4}}}\\
+    k_i=4\brak{\frac{5}{4} \pm 1}\\
+    k_1=9,k_2=1
+\end{align}
+So with these values points are
+\begin{align}
+    \vec{x_1}=\begin{pmatrix}0\\-\frac{3}{2}\end{pmatrix}+9\times \begin{pmatrix}1\\\frac{1}{2}\end{pmatrix}\\
+    \vec{x_1}= \begin{pmatrix}9\\ 3\end{pmatrix} \\
+    \vec{x_2}=\begin{pmatrix}0\\-\frac{3}{2}\end{pmatrix}+1\times \begin{pmatrix}1\\\frac{1}{2}\end{pmatrix}\\
+    \vec{x_2}= \begin{pmatrix}1\\ -1\end{pmatrix}
+\end{align}
+Area under curve in first quadrant between parabola and line
+\begin{align}
+    \int_0^{3}\sqrt{x}+\int_3^{9}\sqrt{x}-\brak{\frac{x-3}{2}}\\
+    \sbrak{\frac{x^{\frac{3}{2}}}{\frac{3}{2}}}^9_0-\sbrak{\frac{x^2}{4}-\frac{3x}{2}}^9_3\\
+    area=9
+\end{align}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\columnwidth]{figs/figure.png}
+    \caption{}
+    \label{fig:placeholder}
+\end{figure}
+
+\end{document}

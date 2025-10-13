@@ -1,11 +1,14 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from call import send_data
 
-x = [-3/2, -3/2]
-y = [5, -5]
+data = send_data()
 
-X = [1, -1, 2]
-Y = [0, 0, 0]
+y = np.linspace(-5, 5, 100)
+x = ((data[7]*y)+data[8])/data[6]
+
+X = [data[0], data[2], data[4]]
+Y = [data[1], data[3], data[5]]
 
 plt.plot(x, y, '-r')
 plt.plot(X, Y, 'ko')

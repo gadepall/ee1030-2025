@@ -1,0 +1,194 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{extarrows}
+\usepackage{amsmath}
+\usepackage{extarrows}
+\usepackage{amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{amsmath} 
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\title %optional
+{12.254}
+
+
+\author 
+{Kartik Lahoti - EE25BTECH11032}
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+The two vectors $\sbrak{1,1,1}$ and $\sbrak{1,a,a^2}$, where $a = \brak{\frac{-1}{2} + j\frac{\sqrt{3}}{2}}$
+
+\begin{multicols}
+\begin{enumerate}
+    \item orthonormal
+        \item orthogonal
+        \item paralle
+        \item collinear
+\end{enumerate}
+\end{multicols}
+
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+Given , 
+\begin{align}
+    \vec{P} = \myvec{1\\1\\1} 
+\end{align}
+\begin{align}
+    \vec{Q} = \myvec{1\\a\\a^2} 
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+Let,
+
+\begin{align}
+    \vec{z_1}=x_1+jy_1 \longrightarrow{} \myvec{x_1 & -y_1 \\ y_1 & x_1 }\\ 
+    \vec{z_2}=x_2+jy_2 \longrightarrow{} \myvec{x_2 & -y_2 \\ y_2 & x_2 } 
+\end{align}
+
+Look at 
+
+\begin{align} 
+    \vec{z_1} + \vec{z_2} = \brak{x_1+x_2} + j \brak{y_1 + y_2}
+\end{align}
+
+   
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+Which is equivalent to 
+\begin{align}
+    \myvec{x_1 & -y_1 \\ y_1 & x_1 } + \myvec{x_2 & -y_2 \\ y_2 & x_2 } = \myvec{x_1+x_2 & -y_1-y_2 \\ y_1+y_2 & x_1+x_1}
+\end{align}
+
+Also, 
+
+\begin{align}
+    \vec{z_1}\vec{z_2} = \brak{x_1x_2 - y_1y_2} + j\brak{x_1y_2 + x_2y_1}
+\end{align}
+
+This is equivalent to 
+
+\begin{align}
+    \myvec{x_1 & -y_1 \\ y_1 & x_1}\myvec{x_2 & -y_2 \\ y_2 & x_2 } = \myvec{\brak{x_1x_2 - y_1y_2} & -\brak{x_1y_2 + x_2y_1} \\ \brak{x_1y_2 + x_2y_1} & \brak{x_1x_2 - y_1y_2}}
+\end{align}
+ 
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+
+$\therefore$ Complex Numbers can be represented as this matrix form since it satisfies Addition and Multiplication properties. 
+ 
+\begin{align}
+    x+jy \longrightarrow{} \myvec{x & -y \\ y & x }
+\end{align}
+
+\begin{align}
+    \therefore a = \brak{\frac{-1}{2} + j\frac{\sqrt{3}}{2}} \longrightarrow \vec{A} = \myvec{\frac{-1}{2}&-\frac{\sqrt{3}}{2}\\\frac{-1}{2} & \frac{\sqrt{3}}{2}}
+\end{align}
+
+Similarly 
+
+\begin{align}
+    a^2 = \brak{\frac{-1}{2} - j\frac{\sqrt{3}}{2}} \longrightarrow \vec{A}^2 = \myvec{\frac{-1}{2}&\frac{\sqrt{3}}{2}\\\frac{-1}{2} & -\frac{\sqrt{3}}{2}}
+\end{align}
+
+\begin{align}
+    1 \longrightarrow \vec{I} = \myvec{1&0\\0&1}
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+
+Now, 
+\begin{align}
+    \vec{I} + \vec{A} + \vec{A^2} &= \myvec{1&0\\0&1} + \myvec{\frac{-1}{2}&-\frac{\sqrt{3}}{2}\\\frac{-1}{2} & \frac{\sqrt{3}}{2}} + \myvec{\frac{-1}{2}&\frac{\sqrt{3}}{2}\\\frac{-1}{2} & -\frac{\sqrt{3}}{2}}\\ 
+    &= \myvec{0&0\\0&0}
+\end{align}
+
+\begin{align}
+    \implies 1 + a + a^2 = 0 
+\end{align}
+\end{frame}
+\begin{frame}{Theoretical Solution}
+Now, Look At , 
+
+\begin{align}
+    \vec{P}^{\top}\vec{Q} = \myvec{1&1&1}\myvec{1\\a\\a^2} = 1 + a + a^2 = 0 
+\end{align}
+
+Hence $\vec{P}$ and $\vec{Q}$ are orthogonal. 
+
+Answer  : Option $\brak{2}$
+\end{frame}
+
+\end{document}

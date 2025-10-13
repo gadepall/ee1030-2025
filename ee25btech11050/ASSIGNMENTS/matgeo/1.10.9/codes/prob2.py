@@ -2,12 +2,7 @@ import ctypes, os, math
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-# Load library
-if os.name == "nt":
-    libname = "unitvec3d.dll"
-else:
-    libname = "./libunitvec3d.so"
-lib = ctypes.CDLL(libname)
+lib = ctypes.CDLL("./prob2.so")
 
 # Function signature
 lib.unit_vector_3d.argtypes = [

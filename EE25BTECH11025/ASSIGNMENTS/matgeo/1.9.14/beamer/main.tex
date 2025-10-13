@@ -118,70 +118,89 @@ Thus the length of the median of the triangle through $\vec{R}$ is $\sqrt{85}\ap
     \frametitle{C Code}
     \begin{lstlisting}
 #include <stdio.h>
-
-void get_points(double *points) {
-    points[0] = 5;   points[1] = -8;   // R
-    points[2] = -4;  points[3] = -4;   // Q
-    points[4] = 2;   points[5] = 2;    // P
+#include <math.h>
+void make_data(double *points) {
+    double Px = 2; double Py = 2;
+    double Qx = -4; double Qy = -4;
+    double Rx = 5; double Ry = -8;
+    double Mx = (Px + Qx)/2; double My = (Py + Qy)/2;
+    double value = sqrt(((Mx - Rx)*(Mx - Rx))+((My - Ry)*(My - Ry)));
+    points[0] = Px;points[1] = Py;
+    points[2] = Qx;points[3] = Qy;
+    points[4] = Rx;points[5] = Ry;
+    points[6] = Mx;points[7] = My;
+    points[8] = value;
 }
     \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-    \frametitle{Python Code}
+    \frametitle{Python Code 1}
     \begin{lstlisting}
-import sys
-import math
+import ctypes as ct
+import numpy as np
+
+def get_data():
+    lib = ct.CDLL("./problem.so")
+
+    value = ct.c_double*9
+
+    lib.make_data.argtypes = [ct.POINTER(ct.c_double)]
+
+    points = value()
+
+    lib.make_data(points)
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code 1}
+    \begin{lstlisting}
+    Px = points[0] 
+    Py = points[1]
+    Qx = points[2]
+    Qy = points[3]
+    Rx = points[4]
+    Ry = points[5]
+    Mx = points[6]
+    My = points[7]
+    values = points[8]
+    return Px, Py, Qx, Qy, Rx, Ry, Mx, My, values
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code 2}
+    \begin{lstlisting}
 import numpy as np
 import matplotlib.pyplot as plt
-import ctypes
+from call import get_data
 
-problem = ctypes.CDLL('/home/ganachari-vishwmabhar/ee1030-2025/EE25BTECH11025/ASSIGNMENTS/matgeo/1.5.13/codes/problem.so')
+Px, Py, Qx, Qy, Rx, Ry, Mx, My, values = get_data()
+
+a = ([Px, Qx, Rx, Mx, Px, Rx])
+b = ([Py, Qy, Ry, My, Py, Ry])
+
+plt.plot(a, b, color = 'black')
+
+plt.text(Px, Py, 'P', fontsize=12, color = 'red')
+plt.text(-4.4, -3.9, 'Q', fontsize=12, color = 'red')
     \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{Python Code}
     \begin{lstlisting}
-P = np.array([2, 2])
-Q = np.array([-4, -4])
-R = np.array([5, -8])
+plt.text(Rx, Ry, 'R', fontsize=12, color = 'red')
+plt.text(-1.1, -0.8, 'M', fontsize=12, color = 'red')
 
-# Calculate the midpoint M of PQ (for the median through R)
-M = (P + Q) / 2
-
-# Prepare plot
-plt.figure()
-# Plot the triangle
-xs = [P[0], Q[0], R[0], P[0]]
-ys = [P[1], Q[1], R[1], P[1]]
-plt.plot(xs, ys, 'k-', label='Triangle')
-    \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{Python Code}
-    \begin{lstlisting}
-plt.plot([R[0], M[0]], [R[1], M[1]], 'r--', label='Median from R')
-
-# Mark vertices
-plt.scatter([P[0], Q[0], R[0], M[0]], [P[1], Q[1], R[1], M[1]], c=['b','g','r','m'])
-plt.text(P[0], P[1], 'P', fontsize=12)
-plt.text(Q[0], Q[1], 'Q', fontsize=12)
-plt.text(R[0], R[1], 'R', fontsize=12)
-plt.text(M[0], M[1], 'M', fontsize=12)
-    \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{Python Code}
-    \begin{lstlisting}
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
 plt.axis('equal')
 plt.grid(True)
-plt.legend()
-plt.title("Triangle PQR and Median through R")
-plt.savefig("../figs/plot.png")
+plt.savefig('../figs/plot.png')
 plt.show()
+
     \end{lstlisting}
 \end{frame}
 

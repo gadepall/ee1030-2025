@@ -122,57 +122,71 @@ Infinite solutions exist for the given system of linear equations.
     \begin{lstlisting}
 #include<stdio.h>
 
-double x = -24/5;
-double y = -3/5;
-double coefficient_mat[2][2] = {{5,-8},{3,-4.8}};
-double constant[2][1] = {{-1}, {-0.6}};
-
-double get_item(int i, int j){
-    return coefficient_mat[i][j];
-}
-double get_constant(int i, int j){
-    return constant[i][j];
+void make_data(double *points){
+    double n = 2;
+    points[0] = 5;
+    points[1] = -8;
+    points[2] = -1;
+    points[3] = 3;
+    points[4] = -4.8;
+    points[5] = -0.6;
+    points[6] = 2;
 }
     \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+void processing(double rA, double rB, double n, double X, double Y){
+    if(rA==rB&&rB==n){
+        printf("Unique solution exists for the given system of linear equations.\n");
+        printf("The solution for the given system of linear equations is: x=%.2lf, y=%.2lf", X, Y);
+    }
+    else if(rA==rB&&rA!=n){
+        printf("Infinite solutions exist for the given system of linear equations in 2 variables.");
+    }
+    else{
+        printf("No solution exists for the given system of linear equations in 2 variables");
+    }
+}
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
     \frametitle{Python Code 1}
     \begin{lstlisting}
-import ctypes
+import ctypes as ct
 import sympy as sp
-lib = ctypes.CDLL("./problem.so")
-lib.get_item.argtypes = [ctypes.c_int, ctypes.c_int]
-lib.get_item.restype = ctypes.c_double
-lib.get_constant.argtypes = [ctypes.c_int, ctypes.c_int]
-lib.get_constant.restype = ctypes.c_double
-A = sp.Matrix([[0, 0, 0],
-               [0, 0, 0]])
-B = sp.Matrix([[0, 0],
-               [0, 0]])
-for i in range(0,2):
-    for j in range(0,2):
-        A[i, j] = lib.get_item(i, j)
-        B[i, j] = lib.get_item(i, j)
+
+lib = ct.CDLL("./problem.so")
+entry = ct.c_double*7
+lib.make_data.argtypes = [ct.POINTER(ct.c_double)]
+lib.processing.argtypes = [ct.c_double, ct.c_double, ct.c_double, ct.c_double, ct.c_double]
+data = entry()
+lib.make_data(data)
+A = sp.Matrix([[data[0], data[1], data[2]],
+                   [data[3], data[4], data[5]]])
+B = sp.Matrix([[data[0], data[1]],
+                   [data[3], data[4]]])
     \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{Python Code 1}
     \begin{lstlisting}
-A[0, 2] = lib.get_constant(0, 0)
-A[1, 2] = lib.get_constant(1, 0)
+C = ([data[0], data[3]])
+D = ([data[1], data[4]])
+E = data[2]
+F = data[5]
+n = data[6]
+def get_data():
+    return C, D, E, F
 rA = A.rank()
 rB = B.rank()
-n = 2
-if rA==rB and rB==n:
-    print("Unique solution exist for the given system of linear equations.")
-    rref_matrix, pivots = A.rref()
-    print("The solution for the given system of linear equations is: x=", rref_matrix[0,2],", y=",rref_matrix[1,2])
-elif rA==rB and rA!=n:
-    print('Infinite solutions exist for the given system of linear equations in 2 variables.')
-else:
-    print("No solution exists for the given system of linear equations in 2 variables")
+rref_matrix, pivots = A.rref()
+lib.processing(rA, rB, n, rref_matrix[0,2], rref_matrix[1,2])
     \end{lstlisting}
 \end{frame}
 
@@ -181,24 +195,25 @@ else:
     \begin{lstlisting}
 import matplotlib.pyplot as plt
 import numpy as np
+from call import get_data
+
+C, D, E, F = get_data()
 
 x = np.linspace(-10, 10, 100)
-y = (5/8)*x + (1/8)
+y = -((C[0]*x)-E)/D[0]
 
 X = np.linspace(-15, 15, 100)
-Y = (5/8)*X + (1/8)
-
-plt.plot(X, Y, '-k')
-plt.plot(x, y, '-r')
+Y = -((C[0]*X)-E)/D[0]
     \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{Python Code 2}
     \begin{lstlisting}
+plt.plot(X, Y, '-k')
+plt.plot(x, y, '-r')
 plt.text(-13.64, -8.96, r'$5x-8y=-1$', fontsize=10, color='black')
 plt.text(1.06, 1.08, r'$3x-\frac{24}{5}y=-\frac{3}{5}$', fontsize=10, color='black')
-
 plt.xlabel('X-axis')
 plt.ylabel('Y-axis')
 plt.axis('equal')

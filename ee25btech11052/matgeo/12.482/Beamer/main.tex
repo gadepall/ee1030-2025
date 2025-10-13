@@ -1,0 +1,131 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern} 
+\usepackage{listings}
+\usepackage{xcolor} 
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\definecolor{myblue}{RGB}{48, 63, 159}
+\setbeamercolor{palette primary}{bg=myblue, fg=white}
+\setbeamercolor{structure}{fg=myblue}
+\setbeamercolor{frametitle}{bg=myblue, fg=white}
+\setbeamercolor{title}{bg=myblue, fg=white}
+\setbeamercolor{footlinecolor}{bg=myblue, fg=white}
+
+\defbeamertemplate*{title page}{mytemplate}{
+	\vfill
+	\begin{center}
+		\begin{beamercolorbox}[wd=0.8\paperwidth, center, rounded=true, shadow=true]{title}
+			\usebeamerfont{title}\inserttitle\par
+		\end{beamercolorbox}
+		\vspace{2cm} 
+		\usebeamerfont{author}\insertauthor
+		\vspace{1cm} 
+		\usebeamerfont{date}\insertdate
+	\end{center}
+	\vfill
+}
+
+\defbeamertemplate*{frametitle}{mytemplate}{
+	\begin{beamercolorbox}[wd=\paperwidth, ht=2.5ex, dp=1.5ex, left]{frametitle}
+		\hspace{1em}\usebeamerfont{frametitle}\insertframetitle
+	\end{beamercolorbox}
+}
+
+\setbeamertemplate{footline}{
+	\begin{beamercolorbox}[wd=\paperwidth, ht=2.25ex, dp=1ex]{footlinecolor}
+		\hspace{1em}\usebeamerfont{author in footline}\insertshortauthor
+		\hfill
+		\usebeamerfont{title in footline}\insertshorttitle
+		\hfill
+		\usebeamerfont{date in footline}\insertdate \hspace{1em} \insertframenumber/\inserttotalframenumber \hspace{0.5em}
+	\end{beamercolorbox}
+}
+
+\setbeamerfont{author in footline}{size=\tiny}
+\setbeamerfont{title in footline}{size=\tiny}
+\setbeamerfont{date in footline}{size=\tiny}
+
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+
+\title{12.482}
+\author{Shriyansh Chawda-EE25BTECH11052}
+
+\begin{document}
+	
+	\setbeamertemplate{footline}{} 
+	\frame{\titlepage}
+	
+	\begin{frame}{Question}
+			Consider the matrix $\mathbf{M} = \myvec{5 & 3\\3 & 5}$. The normalized eigen-vector corresponding to the smallest eigen-value of the matrix $\mathbf{M}$ is:\\
+		\hfill{(PE 2016)}
+		\begin{multicols}{4} 
+			\begin{enumerate}
+				\item $\begin{pmatrix} \frac{\sqrt{3}}{2} \\ \frac{1}{2} \end{pmatrix}$
+				\item $\begin{pmatrix} \frac{\sqrt{3}}{2} \\ -\frac{1}{2} \end{pmatrix}$
+				\item $\begin{pmatrix} \frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}} \end{pmatrix}$
+				\item $\begin{pmatrix} \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{pmatrix}$
+			\end{enumerate}
+		\end{multicols} 
+	\end{frame}
+	
+	\begin{frame}{Solution}
+	Given matrix:
+\begin{align}
+	\mathbf{M} = \myvec{5 & 3\\3 & 5}
+\end{align}
+The characteristic equation is:
+\begin{align}
+	\det(\mathbf{M} - \lambda\mathbf{I}) &= 0\\
+	\det\myvec{5-\lambda & 3\\3 & 5-\lambda} &= 0\\
+	(5-\lambda)(5-\lambda) - (3)(3) &= 0\\
+	(5-\lambda)^2 - 9 &= 0\\
+	\lambda^2 - 10\lambda + 16 &= 0
+\end{align}
+Using the quadratic formula:
+
+	\end{frame}
+	
+	\begin{frame}{Solution}
+		\begin{align}
+			\lambda &= \frac{10 \pm \sqrt{100 - 64}}{2} = \frac{10 \pm \sqrt{36}}{2} = \frac{10 \pm 6}{2}\\
+			\lambda_1 &=  8 \quad \text{(largest eigenvalue)}\\
+			\lambda_2 &=  2 \quad \text{(smallest eigenvalue)}
+		\end{align}
+			For $\lambda = 2$, solve $(\mathbf{M} - 2\mathbf{I})\mathbf{v} = \mathbf{0}$:
+		\begin{align}
+			\myvec{5-2 & 3\\3 & 5-2}\myvec{v_1\\v_2} &= \myvec{0\\0}\\
+			\myvec{3 & 3\\3 & 3}\myvec{v_1\\v_2} &= \myvec{0\\0}\\
+			3v_1 + 3v_2 &= 0\\
+			v_1 + v_2 &= 0 \implies v_1 = -v_2
+		\end{align}
+	\end{frame}
+
+\begin{frame}{Solution}
+	Let $v_2 = t$, then $v_1 = -t$.\\
+The general eigenvector is:
+\begin{align}
+	\mathbf{v} = t\myvec{-1\\1} = t\myvec{1\\-1} \cdot (-1)
+\end{align}
+We can choose:
+\begin{align}
+	\mathbf{v} = \myvec{1\\-1}
+\end{align}
+
+\subsection*{Step 3: Normalize the Eigenvector}
+
+The normalized eigenvector is:
+\begin{align}
+	\hat{\mathbf{v}} &= \frac{\mathbf{v}}{\|\mathbf{v}\|}\\
+	\|\mathbf{v}\| &= \sqrt{\mathbf{v}^\top \mathbf{v}}= \sqrt{2}\\
+	\hat{\mathbf{v}} &= \frac{1}{\sqrt{2}}\myvec{1\\-1} = \myvec{\frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}}}
+\end{align}
+
+\end{frame}
+$$\boxed{\text{The correct answer is (c) } \myvec{\frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}}}}$$	
+
+\end{document}

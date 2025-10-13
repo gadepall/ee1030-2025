@@ -1,0 +1,257 @@
+\documentclass{beamer}
+    \usepackage[utf8]{inputenc}
+    
+    \usetheme{Madrid}
+    \usecolortheme{default}
+    \usepackage{amsmath,amssymb,amsfonts,amsthm}
+    \usepackage{mathtools}
+    \usepackage{txfonts}
+    \usepackage{tkz-euclide}
+    \usepackage{listings}
+    \usepackage{adjustbox}
+    \usepackage{array}
+    \usepackage{gensymb}
+    \usepackage{tabularx}
+    \usepackage{gvv}
+    \usepackage{lmodern}
+    \usepackage{circuitikz}
+    \usepackage{tikz}
+    \lstset{literate={·}{{$\cdot$}}1 {λ}{{$\lambda$}}1 {→}{{$\to$}}1}
+    \usepackage{graphicx}
+    
+    \setbeamertemplate{page number in head/foot}[totalframenumber]
+    
+    \usepackage{tcolorbox}
+    \tcbuselibrary{minted,breakable,xparse,skins}
+    
+    
+    
+    \definecolor{bg}{gray}{0.95}
+    \DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+      breakable=true,
+      listing engine=minted,
+      listing only,
+      minted language=#2,
+      minted style=default,
+      minted options={%
+        linenos,
+        gobble=0,
+        breaklines=true,
+        breakafter=,,
+        fontsize=\small,
+        numbersep=8pt,
+        #1},
+      boxsep=0pt,
+      left skip=0pt,
+      right skip=0pt,
+      left=25pt,
+      right=0pt,
+      top=3pt,
+      bottom=3pt,
+      arc=5pt,
+      leftrule=0pt,
+      rightrule=0pt,
+      bottomrule=2pt,
+      toprule=2pt,
+      colback=bg,
+      colframe=orange!70,
+      enhanced,
+      overlay={%
+        \begin{tcbclipinterior}
+        \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+        \end{tcbclipinterior}},
+      #3,
+    }
+    \lstset{
+        language=C,
+        basicstyle=\ttfamily\small,
+        keywordstyle=\color{blue},
+        stringstyle=\color{orange},
+        commentstyle=\color{green!60!black},
+        numbers=left,
+        numberstyle=\tiny\color{gray},
+        breaklines=true,
+        showstringspaces=false,
+    }
+    %------------------------------------------------------------
+    %This block of code defines the information to appear in the
+    %Title page
+    \title %optional
+    {12.145}
+    \date{10 October, 2025}
+    %\subtitle{A short story}
+    
+    \author % (optional)
+    {INDHIRESH S - EE25BTECH11027}
+    
+    \begin{document}
+    
+    \frame{\titlepage}
+    
+    \begin{frame}{Question}
+    If a square matrix $\Vec{A}$ is real and symmetric, then the eigenvalues
+\begin{enumerate}
+    \item are always real
+    \item  are always real and positive
+    \item are always real and non-negative
+    \item occur in complex conjupairs
+\end{enumerate}
+    \end{frame}
+    
+    
+    \begin{frame}
+    \frametitle{Theoretical Solution}
+   The correct statement is (1). This is a fundamental property of real symmetric matrices.\\
+Let $\Vec{A}$ be a real and symmetric matrix, which means
+\begin{align}
+\Vec{A} = \Vec{A}^T\;\; and\;\; \bar{\Vec{A}} = \Vec{A}
+\end{align}
+Let $\lambda$ be an eigenvalue of $\Vec{A}$ with a corresponding non-zero eigenvector $\Vec{x}$. The eigenvalue equation is:
+\begin{align}
+    \Vec{A}\Vec{x} = \lambda\Vec{x}
+\end{align}
+To prove that $\lambda$ is real, we must show it is equal to its own complex conjugate, i.e., $\lambda = \bar{\lambda}$.
+We take the conjugate transpose (Hermitian conjugate) on both sides:
+\begin{align}
+    (\Vec{A}\Vec{x})^H &= (\lambda\Vec{x})^H \\
+    \Vec{x}^H \Vec{A}^H &= \bar{\lambda}\Vec{x}^H
+\end{align}
+
+
+    \end{frame}
+    
+    \begin{frame}
+    \frametitle{Theoretical solution}
+ For a real and symmetric matrix, its conjugate transpose is itself:
+\begin{align}
+    \Vec{A}^H = \bar{\Vec{A}}^T = \Vec{A}^T = \Vec{A}
+\end{align}
+Substituting this into the Eq.4 gives:
+\begin{align}
+    \Vec{x}^H \Vec{A} = \bar{\lambda}\Vec{x}^H \label{eq:conj}
+\end{align}
+Now, we pre-multiply the Eq.2 by $\Vec{x}^H$:
+\begin{align}
+    \Vec{x}^H \Vec{A}\Vec{x} = \lambda(\Vec{x}^H\Vec{x}) \label{eq:pre}
+\end{align}
+And we post-multiply Eq.6 by $\Vec{x}$:
+\begin{align}
+    \Vec{x}^H \Vec{A}\Vec{x} = \bar{\lambda}(\Vec{x}^H\Vec{x}) \label{eq:post}
+\end{align}
+
+    \end{frame}
+
+     \begin{frame}
+    \frametitle{Theoretical solution}
+By comparing Eq.7 and Eq.8 , we see that:
+\begin{align}
+ \lambda(\Vec{x}^H\Vec{x}) = \bar{\lambda}(\Vec{x}^H\Vec{x})
+\end{align}
+This can be rearranged to:
+\begin{align}
+ (\lambda - \bar{\lambda})(\Vec{x}^H\Vec{x}) = 0
+\end{align}
+ Since an eigenvector $\Vec{x}$ is non-zero by definition, its magnitude $||\Vec{x}||^2$ is a positive real number.So,
+ \begin{align}
+     \lambda - \bar{\lambda} = 0 
+ \end{align}
+ \begin{align}
+     \lambda = \bar{\lambda}
+ \end{align}
+A number that is equal to its own complex conjugate must be a real number.\\
+From above statement it is clear that eigenvalues are always real\\\\
+
+    \end{frame}
+
+     \begin{frame}
+    \frametitle{Theoretical solution}
+Options (2) and (3) are incorrect because a real symmetric matrix can have negative eigenvalues.\\
+Example:\\
+Consider the matrix 
+\begin{align}
+    \Vec{A} = \myvec{0 & 1 \\ 1 & 0}
+\end{align}
+This matrix is real and symmetric.Now finding the eihgen value for the matrix:
+\begin{align}
+    \begin{vmatrix} -\lambda & 1 \\ 1 & -\lambda \end{vmatrix} = \lambda^2 - 1 = 0
+\end{align}
+The eigenvalues are
+\begin{align}
+    \lambda = 1\;\;and\;\;\lambda = -1
+\end{align}
+Therefore the eigenvalues can be negative\\
+Option (1) is correct
+    \end{frame}
+
+      \begin{frame}[fragile]
+        \frametitle{C Code}
+        \begin{lstlisting}
+#include <math.h>
+void find_eigenvalues_2x2(double a, double b, double c, double d, double* eig1, double* eig2) {
+    double trace = a + d;
+    double determinant = a * d - b * c;
+    double discriminant = trace * trace - 4 * determinant;
+    
+    if (discriminant >= 0) {
+        double sqrt_discriminant = sqrt(discriminant);
+        *eig1 = (trace + sqrt_discriminant) / 2.0;
+        *eig2 = (trace - sqrt_discriminant) / 2.0;
+    }
+}
+        \end{lstlisting}
+    \end{frame}
+    
+   
+    
+    \begin{frame}[fragile]
+        \frametitle{Python Code}
+        \begin{lstlisting}
+import ctypes
+
+
+eigen_lib = ctypes.CDLL('./eigen.so')
+
+# Define the function signature (argument types and return type).
+# This helps ctypes correctly handle data marshalling.
+find_eigs = eigen_lib.find_eigenvalues_2x2
+find_eigs.argtypes = [ctypes.c_double, ctypes.c_double, 
+                      ctypes.c_double, ctypes.c_double,
+                      ctypes.POINTER(ctypes.c_double), 
+                      ctypes.POINTER(ctypes.c_double)]
+find_eigs.restype = None  # The C function returns void
+
+
+
+        \end{lstlisting}
+    \end{frame}
+    
+    \begin{frame}[fragile]
+        \frametitle{Python Code}
+        \begin{lstlisting}
+  # Define the matrix elements
+a, b = 0.0, 1.0
+c, d = 1.0, 0.0
+
+# Create C-compatible double variables to store the results
+eig1 = ctypes.c_double()
+eig2 = ctypes.c_double()
+
+# Call the C function from Python
+# We pass the result variables by reference using byref()
+find_eigs(a, b, c, d, ctypes.byref(eig1), ctypes.byref(eig2))
+
+print("Eigenvalues found using Python wrapper for C library:")
+# Access the value of the ctypes object with .value
+print(f"Lambda 1: {eig1.value}")
+print(f"Lambda 2: {eig2.value}")
+    
+   
+        \end{lstlisting}
+    \end{frame}
+    
+    
+    \end{document}
+    
+    
+   
+   

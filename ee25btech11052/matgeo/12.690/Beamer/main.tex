@@ -1,0 +1,90 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern} 
+\usepackage{listings}
+\usepackage{xcolor} 
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\definecolor{myblue}{RGB}{48, 63, 159}
+\setbeamercolor{palette primary}{bg=myblue, fg=white}
+\setbeamercolor{structure}{fg=myblue}
+\setbeamercolor{frametitle}{bg=myblue, fg=white}
+\setbeamercolor{title}{bg=myblue, fg=white}
+\setbeamercolor{footlinecolor}{bg=myblue, fg=white}
+
+\defbeamertemplate*{title page}{mytemplate}{
+	\vfill
+	\begin{center}
+		\begin{beamercolorbox}[wd=0.8\paperwidth, center, rounded=true, shadow=true]{title}
+			\usebeamerfont{title}\inserttitle\par
+		\end{beamercolorbox}
+		\vspace{2cm} 
+		\usebeamerfont{author}\insertauthor
+		\vspace{1cm} 
+		\usebeamerfont{date}\insertdate
+	\end{center}
+	\vfill
+}
+
+\defbeamertemplate*{frametitle}{mytemplate}{
+	\begin{beamercolorbox}[wd=\paperwidth, ht=2.5ex, dp=1.5ex, left]{frametitle}
+		\hspace{1em}\usebeamerfont{frametitle}\insertframetitle
+	\end{beamercolorbox}
+}
+
+\setbeamertemplate{footline}{
+	\begin{beamercolorbox}[wd=\paperwidth, ht=2.25ex, dp=1ex]{footlinecolor}
+		\hspace{1em}\usebeamerfont{author in footline}\insertshortauthor
+		\hfill
+		\usebeamerfont{title in footline}\insertshorttitle
+		\hfill
+		\usebeamerfont{date in footline}\insertdate \hspace{1em} \insertframenumber/\inserttotalframenumber \hspace{0.5em}
+	\end{beamercolorbox}
+}
+
+\setbeamerfont{author in footline}{size=\tiny}
+\setbeamerfont{title in footline}{size=\tiny}
+\setbeamerfont{date in footline}{size=\tiny}
+
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+
+\title{12.690}
+\author{Shriyansh Chawda-EE25BTECH11052}
+
+\begin{document}
+	
+	\setbeamertemplate{footline}{} 
+	\frame{\titlepage}
+	
+	\begin{frame}{Question}
+		A real $2 \times 2$ non-singular matrix $\mathbf{A} = \begin{pmatrix} x & -3.0 \\ 3.0 & 4.0 \end{pmatrix}$ where $x$ is a real positive number, has repeated eigenvalues. The value of $x$ is \underline{\hspace{2cm}}. \hfill (EC 2021)	\\
+	\end{frame}
+	
+	\begin{frame}{Solution}
+According to the Cayley-Hamilton theorem:
+\begin{align}
+	\det(\mathbf{A} - \lambda\mathbf{I}) = 0\\
+	\det\myvec{x - \lambda & -3.0 \\ 3.0 & 4.0 - \lambda} &= 0 \\
+	(x-\lambda)(4-\lambda) - (-3)(3) &= 0 \\
+	\lambda^2 - (x+4)\lambda + (4x+9) &= 0
+\end{align}
+For the matrix to have repeated eigenvalues, the discriminant of this quadratic characteristic equation must be zero.
+	\end{frame}
+	
+	\begin{frame}{Solution}
+\begin{align}
+	\Delta = (-(x+4))^2 - 4(1)(4x+9) &= 0 \\
+	(x+4)^2 - 4(4x+9) &= 0 \\
+	x^2 - 8x - 20 &= 0\\
+	(x-10)(x+2) &= 0
+\end{align}
+This gives two possible solutions: $x=10$ or $x=-2$. Since the problem states that $x$ is a real positive number, we have:
+$$ x = 10 $$	
+
+	\end{frame}
+	
+ 
+\end{document}

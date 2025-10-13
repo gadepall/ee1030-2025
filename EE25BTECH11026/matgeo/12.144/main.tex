@@ -1,0 +1,203 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+\usepackage{comment}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=4em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{12.144}
+\author{EE25BTECH11026-Harsha}
+ \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question}:\\
+Let $\vec{A}=\myvec{3&&0&&0\\0&&6&&2\\0&&2&&6}$ and let $\lambda_1 \geq \lambda_2 \geq \lambda_3$ be the eigen values of $\vec{A}$.\\
+\\
+$\brak{a}$ The triple $\brak{\lambda_1,\lambda_2,\lambda_3}$ equals
+\begin{enumerate}
+\begin{multicols}{4}
+    \item $\brak{9,4,2}$
+    \item $\brak{8,4,3}$
+    \item $\brak{9,3,3}$
+    \item $\brak{7,5,3}$
+\end{multicols}
+\end{enumerate}
+$\brak{b}$ The Matrix $\vec{P}$ such that
+\begin{align*}
+    \vec{P}^{-1}\vec{A}\vec{P}=\myvec{\lambda_1&&0&&0\\0&&\lambda_2&&0\\0&&0&&\lambda_3}
+\end{align*}
+is
+\begin{enumerate}
+\begin{multicols}{2}
+    \item $\myvec{\frac{1}{\sqrt{3}}&&0&&\frac{-2}{\sqrt{6}}\\\frac{1}{\sqrt{3}}&&\frac{1}{\sqrt{2}}&&\frac{1}{\sqrt{6}}\\\frac{1}{\sqrt{3}}&&\frac{-1}{\sqrt{2}}&&\frac{1}{\sqrt{6}}}$
+    \item $\myvec{\frac{1}{\sqrt{3}}&&\frac{-2}{\sqrt{6}}&&0\\\frac{1}{\sqrt{3}}&&\frac{1}{\sqrt{6}}&&\frac{1}{\sqrt{2}}\\\frac{1}{\sqrt{3}}&&\frac{1}{\sqrt{6}}&&\frac{-1}{\sqrt{2}}}$
+    \item $\myvec{0&&0&&1\\\frac{1}{\sqrt{2}}&&\frac{1}{\sqrt{2}}&&0\\\frac{1}{\sqrt{2}}&&\frac{-1}{\sqrt{2}}&&0}$
+    \item $\myvec{0&&1&&0\\\frac{1}{\sqrt{2}}&&0&&\frac{1}{\sqrt{2}}\\\frac{1}{\sqrt{2}}&&0&&\frac{-1}{\sqrt{2}}}$
+\end{multicols}
+\end{enumerate}
+    
+\solution \\
+Let us solve the given question theoretically and then verify the solution computationally.\\
+\\
+$\brak{a}$ The eigen values of $\vec{A}$ is obtained using characteristic polynomial, which is given by,
+\begin{align}
+    det|\vec{A}-\lambda\vec{I}|=0
+\end{align}
+\begin{align}
+    \therefore \mydet{3-\lambda&0&0\\0&6-\lambda&2\\0&2&6-\lambda}=0
+\end{align}
+\begin{align}
+    \therefore \brak{3-\lambda}\brak{\brak{6-\lambda}^2-4}=0
+\end{align}
+\begin{align}
+    \implies  \brak{\lambda-3}\brak{\lambda-4}\brak{\lambda-8}=0
+\end{align}
+\newpage
+\vspace*{0.25cm}
+\begin{align}
+    \therefore \brak{\lambda_1,\lambda_2,\lambda_3}=\brak{8,4,3}
+\end{align}
+\\
+$\brak{b}$ The given relation can be computed as ,
+\begin{align}
+    \vec{A}=\vec{P}\vec{D}\vec{P}^{-1} \label{eq:1}
+\end{align}
+where $\vec{D}$ is the diagonal matrix of eigenvalues of $\vec{A}$.\\
+\\
+From~\eqref{eq:1}, we can infer that it is the Eigen-value decomposition of matrix $\vec{A}$.\\
+\\
+Therefore, $\vec{P}$ is the ortho-normalized matrix of collection of eigen vectors of $\vec{A}$.
+\begin{align}
+    \vec{P}=\myvec{\vec{v_1}&&\vec{v_2}&&\vec{v_3}}
+\end{align}
+where $\vec{v_1},\vec{v_2} \,and\, \vec{v_3}$ are the normalized eigen vectors of $\vec{A}$.\\
+\\
+Eigenvectors $\vec{v}$ for any square matrix $\vec{A}$ is defined as 
+\begin{align}
+    \vec{A}\vec{v}=\lambda\vec{v}
+\end{align}
+where $\lambda$ is a scalar and is called the eigen value of $\vec{A}$.
+\begin{align}
+    \therefore \brak{\vec{A}-\lambda\vec{I}}\vec{v}=\vec{0}
+\end{align}
+For $\lambda=3$,
+\begin{align}
+    \brak{\myvec{3&&0&&0\\0&&6&&2\\0&&2&&6}-3\myvec{1&&0&&0\\0&&1&&0\\0&&0&&1}}\vec{v}=0
+\end{align}
+Let $\vec{v}=\myvec{\alpha\\\beta\\\gamma}$.
+\begin{align}
+    \therefore \myvec{0&&0&&0\\0&&3&&2\\0&&2&&3}\myvec{\alpha\\\beta\\\gamma}=\myvec{0\\0\\0} 
+\end{align}
+\begin{align}
+    \therefore 3\beta+2\gamma=0 \quad and \quad 2\beta+3\gamma=0
+\end{align}
+\begin{align}
+    \therefore \beta=\gamma=0
+\end{align}
+\begin{align}
+    \vec{e_1}=\myvec{\alpha\\0\\0}
+\end{align}
+\newpage
+\vspace*{0.25cm}
+For $\lambda=4$,
+\begin{align}
+    \brak{\myvec{3&&0&&0\\0&&6&&2\\0&&2&&6}-4\myvec{1&&0&&0\\0&&1&&0\\0&&0&&1}}\vec{v}=0
+\end{align}
+Let $\vec{v}=\myvec{\alpha\\\beta\\\gamma}$.
+\begin{align}
+    \therefore \myvec{-1&&0&&0\\0&&2&&2\\0&&2&&2}\myvec{\alpha\\\beta\\\gamma}=\myvec{0\\0\\0} 
+\end{align}
+\begin{align}
+    \therefore 2\beta+2\gamma=0 \quad and \quad \alpha=0
+\end{align}
+\begin{align}
+    \therefore \beta=-\gamma
+\end{align}
+\begin{align}
+    \vec{e_2}=\beta\myvec{0\\1\\-1}
+\end{align}
+For $\lambda=8$,
+\begin{align}
+    \brak{\myvec{3&&0&&0\\0&&6&&2\\0&&2&&6}-8\myvec{1&&0&&0\\0&&1&&0\\0&&0&&1}}\vec{v}=0
+\end{align}
+Let $\vec{v}=\myvec{\alpha\\\beta\\\gamma}$.
+\begin{align}
+    \therefore \myvec{-5&&0&&0\\0&&-2&&2\\0&&2&&-2}\myvec{\alpha\\\beta\\\gamma}=\myvec{0\\0\\0} 
+\end{align}
+\begin{align}
+    \therefore 2\beta-2\gamma=0 \quad and \quad \alpha=0
+\end{align}
+\begin{align}
+    \therefore \beta=\gamma
+\end{align}
+\begin{align}
+    \vec{e_3}=\gamma \myvec{0\\1\\1}
+\end{align}
+\newpage
+\vspace*{0.25cm}
+As we require unit eigen-vectors,
+
+\begin{align}
+    \implies \vec{v_1}=\myvec{1\\0\\0} \qquad \vec{v_2}=\myvec{0\\\frac{1}{\sqrt{2}}\\\frac{1}{\sqrt{2}}} \qquad \vec{v_3}=\myvec{0\\\frac{1}{\sqrt{2}}\\\frac{-1}{\sqrt{2}}}
+\end{align}
+\begin{align}
+    \therefore \vec{P}=\myvec{1&&0&&0\\0&&\frac{1}{\sqrt{2}}&&\frac{1}{\sqrt{2}}\\0&&\frac{1}{\sqrt{2}}&&\frac{-1}{\sqrt{2}}}
+\end{align}
+
+\end{document}
+

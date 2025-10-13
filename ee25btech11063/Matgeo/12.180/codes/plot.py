@@ -1,0 +1,31 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Define x range
+x = np.linspace(-5, 5, 400)
+
+# Line 1: 4x + 2y = 7 -> y = (7 - 4x) / 2
+y1 = (7 - 4*x) / 2
+
+# Line 2: 2x + y = 6 -> y = 6 - 2x
+y2 = 6 - 2*x
+
+# Plot the lines
+plt.figure(figsize=(6,6))
+plt.plot(x, y1, label="4x + 2y = 7", color="blue")
+plt.plot(x, y2, label="2x + y = 6", color="red")
+
+# Formatting
+plt.xlabel("x-axis")
+plt.ylabel("y-axis")
+plt.title("Parallel Lines: System of Equations")
+plt.legend()
+plt.grid(True)
+plt.axis("equal")
+
+# Save the figure
+plt.savefig("parallel_lines.png", dpi=300)
+
+# Show the plot
+plt.show()
+

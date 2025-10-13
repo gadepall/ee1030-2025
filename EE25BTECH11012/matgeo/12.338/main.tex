@@ -1,0 +1,123 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{multicol}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{12.338}
+\author{EE25BTECH11012-BEERAM MADHURI}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+
+\textbf{Question}:\\
+For a real symmetric matrix $\mathbf{A}$, which of the following statements is true?
+
+\begin{enumerate}
+    \item[a)] The matrix is always diagonalizable and invertible.
+    \item[b)] The matrix is always invertible but not necessarily diagonalizable.
+    \item[c)] The matrix is always diagonalizable but not necessarily invertible.
+    \item[d)] The matrix is always neither diagonalizable nor invertible.
+\end{enumerate}
+
+\textbf{Solution:}\\
+Checking for diagonalizability of matrix $A$ \\
+given,
+\begin{align}
+\vec{A} = \vec{A}^\top
+\end{align}
+$\therefore$ eigenvalues of $\vec{A}$ are real.\\
+for distinct eigenvalues $\lambda_i$, $\lambda_j$ corresponding eigenvectors are $\vec{x_i}$, $\vec{x_j}$.
+\begin{align}
+\vec{Ax_i} &= \lambda_i \vec{x_i} \quad \text{and} \quad \vec{Ax_j} = \lambda_j \vec{x_j} 
+\\\vec{x_j}^\top \vec{A x_i} &= \lambda_i \vec{x_j}^\top \vec{x_i} \\
+\vec{(Ax_j)}^\top \vec{x_i} &= \lambda_i \vec{x_j}^\top \vec{x_i}\\
+\because \quad \vec{Ax_j} &= \lambda_j \vec{x_j}\\
+\lambda_j \vec{x_j}^\top \vec{x_i} = \lambda_i \vec{x_j}^\top \vec{x_i}\\
+(\lambda_j - \lambda_i) \vec{x_j}^\top \vec{x_i} = 0
+\end{align}
+$\therefore$ \text{eigenvectors are orthogonal}\\
+$\therefore$ \text{We can construct an orthogonal matrix with these eigenvectors}\\
+\begin{align}
+Q = [\vec{x_1} \ \vec{x_2} \ \vec{x_3} \ \dots \ \vec{x_n}] \\
+Q^\top Q = I\\
+A = Q MQ^\top
+\end{align}
+\text{Where $\vec{M}$ is diagonal matrix}\\
+$\therefore$ $\vec{A}$ is always diagonalizable.\\\\
+Checking for invertibility of Matrix  $\vec{A}$:
+\begin{align}
+\vec{A} = Q M Q^\top \\|A| = |Q| |M| |Q^\top|
+|\vec{A}| = M_1 M_2 \cdots M_n
+\end{align}
+where $M_1, M_2, \cdots M_n$ are diagonal entries of Matrix M.\\
+A is invertible only when 
+\begin{align}
+\det(A) \neq 0 
+\end{align}
+that is $M_1, M_2, M_3 \cdots M_n \neq 0$ \\
+that is none of its eigenvalues are zero \\
+
+if $\lambda_i = 0$ \\
+then $A$ is non-invertible \\
+
+$\therefore$ a real symmetric matrix may or may not be invertible.\\
+$\therefore$ Option c is correct.\\\\
+Example of a real symmetric matrix $\vec{A}$:
+\begin{align}
+    \vec{A}=\begin{pmatrix}
+        1 & 1\\1& 1
+    \end{pmatrix}\\
+    \vec{A}=\vec{A^\top}
+\end{align}
+$\vec{A}$ is symmetric and diagonalizable but not invertible as $det(\vec{A})=0$
+\end{document}

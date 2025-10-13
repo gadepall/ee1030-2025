@@ -1,0 +1,290 @@
+\documentclass{beamer}
+    \usepackage[utf8]{inputenc}
+    
+    \usetheme{Madrid}
+    \usecolortheme{default}
+    \usepackage{amsmath,amssymb,amsfonts,amsthm}
+    \usepackage{mathtools}
+    \usepackage{txfonts}
+    \usepackage{tkz-euclide}
+    \usepackage{listings}
+    \usepackage{adjustbox}
+    \usepackage{array}
+    \usepackage{gensymb}
+    \usepackage{tabularx}
+    \usepackage{gvv}
+    \usepackage{lmodern}
+    \usepackage{circuitikz}
+    \usepackage{tikz}
+    \lstset{literate={·}{{$\cdot$}}1 {λ}{{$\lambda$}}1 {→}{{$\to$}}1}
+    \usepackage{graphicx}
+    
+    \setbeamertemplate{page number in head/foot}[totalframenumber]
+    
+    \usepackage{tcolorbox}
+    \tcbuselibrary{minted,breakable,xparse,skins}
+    
+    
+    
+    \definecolor{bg}{gray}{0.95}
+    \DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+      breakable=true,
+      listing engine=minted,
+      listing only,
+      minted language=#2,
+      minted style=default,
+      minted options={%
+        linenos,
+        gobble=0,
+        breaklines=true,
+        breakafter=,,
+        fontsize=\small,
+        numbersep=8pt,
+        #1},
+      boxsep=0pt,
+      left skip=0pt,
+      right skip=0pt,
+      left=25pt,
+      right=0pt,
+      top=3pt,
+      bottom=3pt,
+      arc=5pt,
+      leftrule=0pt,
+      rightrule=0pt,
+      bottomrule=2pt,
+      toprule=2pt,
+      colback=bg,
+      colframe=orange!70,
+      enhanced,
+      overlay={%
+        \begin{tcbclipinterior}
+        \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+        \end{tcbclipinterior}},
+      #3,
+    }
+    \lstset{
+        language=C,
+        basicstyle=\ttfamily\small,
+        keywordstyle=\color{blue},
+        stringstyle=\color{orange},
+        commentstyle=\color{green!60!black},
+        numbers=left,
+        numberstyle=\tiny\color{gray},
+        breaklines=true,
+        showstringspaces=false,
+    }
+    %------------------------------------------------------------
+    %This block of code defines the information to appear in the
+    %Title page
+    \title %optional
+    {12.249}
+    \date{10 October, 2025}
+    %\subtitle{A short story}
+    
+    \author % (optional)
+    {INDHIRESH S - EE25BTECH11027}
+    
+    \begin{document}
+    
+    \frame{\titlepage}
+    
+    \begin{frame}{Question}
+  A plane contains the following three points: $\Vec{P}(2, 1, 5), \Vec{Q}(-1, 3, 4)$ and $\Vec{R}(3, 0, 6)$. The vector perpendicular to the above plane can be represented as
+    \end{frame}
+    
+    \begin{frame}[allowframebreaks] 
+    \frametitle{Equation}
+        \centering
+        \label{tab:parameters}
+Given points are:
+\begin{align}
+ \Vec{P}=\myvec{2\\1\\5}\;\;,\Vec{Q}=\myvec{-1\\3\\4}\;\;and\;\;\Vec{R}=\myvec{3\\0\\6}
+\end{align}
+    \end{frame}
+    
+    \begin{frame}
+    \frametitle{Theoretical Solution}
+   Now finding two vectors in the plane:
+
+\begin{align}
+ \Vec{P}\Vec{Q}=\myvec{-3\\2\\-1}
+\end{align}
+\begin{align}
+\Vec{P}\Vec{R}=\myvec{1\\-1\\1}
+\end{align}
+Now the required vector be $\Vec{n}$
+\begin{align}
+\Vec{n}=\Vec{P}\Vec{Q}\times\Vec{P}\Vec{R}
+\end{align}
+
+
+
+
+    \end{frame}
+    
+    \begin{frame}
+    \frametitle{Theoretical solution}
+Let
+\begin{align}
+    \Vec{A}=\Vec{P}\Vec{Q}\;\;and\;\;\Vec{B}=\Vec{P}\Vec{R}
+\end{align}
+Then
+\begin{align}
+    \Vec{n}=\Vec{A}\times\Vec{B}
+\end{align}
+\begin{align}
+\Vec{A}\times\Vec{B}=\myvec{\mydet{\Vec{A_{23}}\Vec{B_{23}}}\\\\\mydet{\Vec{A_{31}} \Vec{B_{31}}}\\\\\mydet{\Vec{A_{12}} \Vec{B_{12}}}}
+\end{align}
+
+\begin{align}
+ \mydet{\Vec{A_{23}}\Vec{B_{23}}}=\mydet{2&-1\\-1&1}=1
+\end{align}
+
+
+
+
+
+    \end{frame}
+
+     \begin{frame}
+    \frametitle{Theoretical solution}
+
+    \begin{align}
+ \mydet{\Vec{A_{31}} \Vec{B_{31}}}=-\mydet{-3&-1\\1&1}=2
+\end{align}
+
+\begin{align}
+ \mydet{\Vec{A_{12}} \Vec{B_{12}}}=\mydet{-3&2\\1&-1}=1
+\end{align}
+
+\begin{align}
+  \Vec{A}\times\Vec{B}=\myvec{1\\2\\1}
+\end{align}
+\begin{align}
+   \Vec{n}=\myvec{1\\2\\1}
+\end{align}
+
+    \end{frame}
+
+    
+    
+    
+   
+    \begin{frame}[fragile]
+        \frametitle{C Code}
+        \begin{lstlisting}
+typedef struct {
+    double x, y, z;
+} Vector3D;
+
+void find_normal_vector_lib(Vector3D p, Vector3D q, Vector3D r, Vector3D* normal_out) {
+    Vector3D vec_pq = {q.x - p.x, q.y - p.y, q.z - p.z};
+    Vector3D vec_pr = {r.x - p.x, r.y - p.y, r.z - p.z};
+    
+    normal_out->x = (vec_pq.y * vec_pr.z) - (vec_pq.z * vec_pr.y);
+    normal_out->y = (vec_pq.z * vec_pr.x) - (vec_pq.x * vec_pr.z);
+    normal_out->z = (vec_pq.x * vec_pr.y) - (vec_pq.y * vec_pr.x);
+}
+        \end{lstlisting}
+    \end{frame}
+    
+   
+    
+    \begin{frame}[fragile]
+        \frametitle{Python Code}
+        \begin{lstlisting}
+import ctypes
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+
+def plot_3d(p, q, r, normal):
+    """Visualizes the plane, points, and normal vector with coordinate labels."""
+    fig = plt.figure(figsize=(10, 8))
+    ax = fig.add_subplot(111, projection='3d')
+
+    points = np.array([p, q, r])
+    ax.scatter(points[:,0], points[:,1], points[:,2], color='red', s=100)
+
+    # Add text labels with coordinates
+    ax.text(p[0], p[1], p[2] + 0.2, f' P({p[0]}, {p[1]}, {p[2]})', color='darkred')
+  
+
+        \end{lstlisting}
+    \end{frame}
+    
+    \begin{frame}[fragile]
+        \frametitle{Python Code}
+        \begin{lstlisting}
+   ax.text(q[0], q[1], q[2] + 0.2, f' Q({q[0]}, {q[1]}, {q[2]})', color='darkred')
+    ax.text(r[0], r[1], r[2] + 0.2, f' R({r[0]}, {r[1]}, {r[2]})', color='darkred')
+    
+    # Create and plot the plane
+    d = np.dot(normal, p)
+    x_range = np.linspace(min(points[:,0])-2, max(points[:,0])+2, 10)
+    y_range = np.linspace(min(points[:,1])-2, max(points[:,1])+2, 10)
+    xx, yy = np.meshgrid(x_range, y_range)
+    zz = (d - normal[0] * xx - normal[1] * yy) / normal[2]
+    ax.plot_surface(xx, yy, zz, alpha=0.4, color='cyan')
+
+    
+   
+        \end{lstlisting}
+    \end{frame}
+    
+    \begin{frame}[fragile]
+        \frametitle{Python Code}
+        \begin{lstlisting}
+   # Plot the normal vector
+    ax.quiver(p[0], p[1], p[2], normal[0], normal[1], normal[2],
+              length=4, normalize=True, color='black', arrow_length_ratio=0.2, label='Normal Vector')
+
+    ax.set_xlabel('X-axis'); ax.set_ylabel('Y-axis'); ax.set_zlabel('Z-axis')
+    ax.set_title('Plane and Perpendicular Vector')
+    ax.legend()
+    plt.savefig("/media/indhiresh-s/New Volume/Matrix/ee1030-2025/ee25btech11027/MATGEO/12.249/figs/figure1.png")
+    plt.show()
+
+class Vector3D(ctypes.Structure):
+    _fields_ = [("x", ctypes.c_double), ("y", ctypes.c_double), ("z", ctypes.c_double)]
+
+
+
+   
+        \end{lstlisting}
+    \end{frame}
+    
+    \begin{frame}[fragile]
+        \frametitle{Python Code}
+        \begin{lstlisting}
+   c_lib_file = 'plane.so'
+
+c_lib = ctypes.CDLL(os.path.abspath(c_lib_file))
+c_lib.find_normal_vector_lib.argtypes = [Vector3D, Vector3D, Vector3D, ctypes.POINTER(Vector3D)]
+c_lib.find_normal_vector_lib.restype = None
+
+p_pt, q_pt, r_pt = Vector3D(2, 1, 5), Vector3D(-1, 3, 4), Vector3D(3, 0, 6)
+normal_out = Vector3D()
+c_lib.find_normal_vector_lib(p_pt, q_pt, r_pt, ctypes.byref(normal_out))
+
+
+
+        \end{lstlisting}
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Python Code}
+        \begin{lstlisting}
+    normal_vector = np.array([normal_out.x, normal_out.y, normal_out.z])
+p_np, q_np, r_np = np.array([p_pt.x, p_pt.y, p_pt.z]), np.array([q_pt.x, q_pt.y, q_pt.z]), np.array([r_pt.x, r_pt.y, r_pt.z])
+
+print(f"Perpendicular vector (from C): {normal_vector}")
+plot_3d(p_np, q_np, r_np, normal_vector)
+
+   
+        \end{lstlisting}
+    \end{frame}
+
+    
+    
+    \end{document}

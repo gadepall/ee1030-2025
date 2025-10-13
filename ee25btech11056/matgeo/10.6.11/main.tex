@@ -1,0 +1,206 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal,12pt,onecolumn]{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\graphicspath{{./figs/}}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage{caption}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\usepackage{gvv}                                        
+%\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}     
+\usepackage{xparse}
+\usepackage{color}                                            
+\usepackage{array}
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{float}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{example}{Example}[section]
+\newtheorem{definition}[problem]{Definition}
+\newcommand{\BEQA}{\begin{eqnarray}}
+\newcommand{\EEQA}{\end{eqnarray}}
+\newcommand{\define}{\stackrel{\triangle}{=}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+
+\begin{document}
+
+\title{10.6.11}
+\author{ee25btech11056 - Suraj.N}
+\maketitle
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+
+\begin{document}
+
+\textbf{Question :} Draw a circle of radius $4\,$cm. Draw two tangents to the circle inclined at an angle of $60^\circ$ to each other.
+
+
+\textbf{Solution :}
+
+\begin{table}[h!]
+  \centering
+  \input{tables/table.tex}
+  \caption*{Table : Circle}
+  \label{10.6.11}
+\end{table}
+
+The parameters of the circle with center $\vec{0}$ are :
+
+\begin{align}
+  \vec{V} &= \vec{I} & \vec{u} &= \vec{0} & f &= -16
+\end{align}
+
+Let the point from which tangent is being drawn be $\vec{p}$ .\\
+
+Let the point of contact be $\vec{q}$ and 
+
+\begin{align}
+\vec{q}^\top\vec{q} = 16 
+\end{align}
+
+From the condition of tangency we get 
+
+\begin{align}
+  \vec{q}^\top(\vec{q}-\vec{p}) &= 0\\
+  \vec{p}^\top\vec{q} &= \vec{q}^\top\vec{q}\\
+  \vec{p}^\top\vec{q} &= 16 \label{eq:pq} 
+\end{align}
+
+If the angle between the tangents is 60{\degree} then the angle betweent the normals at the points of contact is 120{\degree}.\\
+
+Therefore,
+
+\begin{align}
+  \cos(\tfrac{120\degree}{2}) &= \frac{\vec{p}^\top\vec{q}}{\norm{\vec{p}}\norm{\vec{q}}}\\
+  \norm{\vec{p}} &= 8\\
+  \vec{p}^\top\vec{p} - 64 &= 0
+\end{align}
+
+Therefore the locus of point $\vec{p}$ is a circle with center $\vec{0}$ and radius 8 cm.\\
+
+\pagebreak
+
+Consider point $\vec{P} = \myvec{8\\0}$ (lies on the locus) from which tangents are drawn.\\
+
+Let the tangent equation passing through $\vec{P}$ be 
+
+\begin{align}
+  \vec{x} &= \vec{P} + k\vec{m}
+\end{align}
+
+Finding the point of contact :
+
+\begin{align}
+  g(\vec{x}) = \vec{x}^\top\vec{x} - 16 \label{eq:circle}\\
+  (\vec{P}+k\vec{m})^\top(\vec{P}+k\vec{m}) - 16 = 0\\
+  k^2\vec{m}^\top\vec{m} + 2k\vec{P}^\top\vec{m} + \vec{P}^\top\vec{P} - 16 = 0\\
+  k^2\vec{m}^\top\vec{m} + 2k\vec{P}^\top\vec{m} + g(\vec{P}) = 0\\
+\end{align}
+
+As the tangent intersects the conic at only one point(the point of contact),the discriminant for the quadratic in k is equal to 0
+
+\begin{align}
+    g(\vec{P}) = 48\\
+  \vec{m}^\top\myvec{-16 & 0\\0 & 48}\vec{m} = 0 \label{eq:mqm} \\
+  \vec{Q} = \myvec{-16 & 0\\0 & 48}\\ 
+\end{align}
+
+As $\vec{Q}$ is an upper triangular matrix , the eigen values are the diagonal entries :
+
+\begin{align}
+  \lambda_1 &= -16 & \lambda_2 &= 48
+\end{align}
+
+Applying eigen value decomposition for $\vec{Q}$ 
+
+\begin{align}
+  \vec{Q} = \vec{X}\vec{D}\vec{X}^\top\\
+  \vec{D} = \myvec{-16 & 0\\0 & 48}
+\end{align}
+
+$\vec{X}$ is an orthogonal matrix whose columns are the corresponding normalized eigenvectors of $\vec{Q}$\\
+As $\vec{Q}$ is a diagonal matrix , 
+
+\begin{align}
+  \vec{X} = \vec{I}
+\end{align}
+
+From \eqref{eq:mqm} ,
+
+\begin{align}
+  \vec{m}^\top\vec{X}\vec{D}\vec{X}^\top\vec{m} = 0\\
+  \vec{z} = \vec{X}^\top\vec{m}\\
+  \vec{z}^\top\vec{D}\vec{z} = 0\\
+  \myvec{z_1 & z_2}\myvec{-16 & 0\\0 & 48}\myvec{z_1\\z_2} = 0\\
+  \frac{z_1}{z_2} = \pm \sqrt{3} \label{eq:z} 
+\end{align}
+
+\pagebreak 
+
+Solving for $\vec{m}$ ,
+
+\begin{align}
+  \vec{I}\vec{m} = \vec{z}\\
+  \vec{m} = \myvec{z_1\\z_2}\\
+  \vec{m} = \myvec{1\\\tfrac{z_2}{z_1}}
+\end{align}
+
+From \eqref{eq:z} , the direction vectors for the tangents are given as :
+
+\begin{align}
+  \vec{m_1} &= \myvec{1\\\tfrac{1}{\sqrt{3}}} & \vec{m_2} &= \myvec{1\\-\tfrac{1}{\sqrt{3}}}
+\end{align}
+
+The normal vectors for the tangents are given as :
+
+\begin{align}
+  \vec{n_1} &= \myvec{-\tfrac{1}{\sqrt{3}}\\1} & \vec{n_2} &= \myvec{\tfrac{1}{\sqrt{3}}\\1} 
+\end{align}
+
+The points of contacts are given as :
+
+\begin{align}
+  \vec{q_i} &= \pm r \frac{\vec{n_i}}{\norm{\vec{n_i}}}
+\end{align}
+
+From \eqref{eq:pq} , $\vec{P}^\top\vec{q}=16$ , so the points of contact are :
+
+\begin{align}
+  \vec{q_1} &= \myvec{2\\2\sqrt{3}} & \vec{q_2} &= \myvec{2\\-2\sqrt{3}}
+\end{align}
+
+\pagebreak
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.7\columnwidth]{figs/circle_tangents.png} 
+   \caption*{Fig : Circle and Tangents}
+  \label{Fig1}
+\end{figure}
+
+\end{document}

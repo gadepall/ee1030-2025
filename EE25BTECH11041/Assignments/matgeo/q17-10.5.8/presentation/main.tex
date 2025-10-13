@@ -1,0 +1,370 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+	breakable=true,
+	listing engine=minted,
+	listing only,
+	minted language=#2,
+	minted style=default,
+	minted options={%
+		linenos,
+		gobble=0,
+		breaklines=true,
+		breakafter=,,
+		fontsize=\small,
+		numbersep=8pt,
+		#1},
+	boxsep=0pt,
+	left skip=0pt,
+	right skip=0pt,
+	left=25pt,
+	right=0pt,
+	top=3pt,
+	bottom=3pt,
+	arc=5pt,
+	leftrule=0pt,
+	rightrule=0pt,
+	bottomrule=2pt,
+	toprule=2pt,
+	colback=bg,
+	colframe=orange!70,
+	enhanced,
+	overlay={%
+		\begin{tcbclipinterior}
+			\fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+	\end{tcbclipinterior}},
+	#3,
+}
+\lstset{
+	language=C,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{orange},
+	commentstyle=\color{green!60!black},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	showstringspaces=false,
+}
+\begin{document}
+
+\title 
+{10.5.8}
+\date{5 Oct,2025}
+
+\author 
+{Naman Kumar-EE25BTECH11041}
+\graphicspath{./figs}
+
+
+\frame{\titlepage}
+\begin{frame}{Question)}
+Draw two concentric circles of radii 3 cm and 5 cm. Taking a point on outer circle construct the pair of tangents to the other. Measure the length of a tangent and verify it by actual calculation.
+\end{frame}
+\begin{frame}{Solution}
+General equation of conic
+\begin{align}
+    g(\vec{x})=\vec{x^T}\vec{V}\vec{x}+2\vec{u^T}\vec{x}+f 
+\end{align}
+Equation of circle,
+\begin{align}
+    \vec{x^T}\begin{pmatrix}1&0\\0&1\end{pmatrix}\vec{x}+2\begin{pmatrix}0\\0\end{pmatrix}^T\vec{x}-r^2=0,\label{1} r=\text{radius od circle}\\
+    r_1=3cm , r_2=5cm
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+A point lies on the tangent to the conic if it satisfies the following equation
+\begin{align}
+    \vec{m}^T\sbrak{\brak{\vec{V}\vec{h}+\vec{u}}\brak{\vec{V}\vec{h}+\vec{u}}^T-\vec{V}g(\vec{h})}\vec{m}=0 \label{2}
+\end{align}
+Assuming a point on outer circle as $\vec{A}(5,0)$\\
+putting $\vec{A}$ in $\eqref{1}$ for inner circle
+\begin{align}
+    \vec{A^T}\begin{pmatrix}1&0\\0&1\end{pmatrix}\vec{A}+2\begin{pmatrix}0\\0\end{pmatrix}^T\vec{A}-(r_1)^2\\
+    25-9=16\\
+    g(\vec{A})_1=16
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Calculating $\brak{\vec{V}\vec{A}+\vec{u}}$
+\begin{align}
+    \begin{pmatrix}1&0\\0&1\end{pmatrix}\begin{pmatrix}5\\0\end{pmatrix}+\begin{pmatrix}0\\0\end{pmatrix}\\
+    \begin{pmatrix}5\\0\end{pmatrix}    
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+putting in $\eqref{2}$
+\begin{align}
+    \vec{m}^T\sbrak{\brak{\vec{V}\vec{A}+\vec{u}}\brak{\vec{V}\vec{A}+\vec{u}}^T-\vec{V}g(\vec{A})_1}\vec{m}=0\\
+    \vec{m}^T\sbrak{\begin{pmatrix}5\\0\end{pmatrix}\begin{pmatrix}5\\0\end{pmatrix}^T-\begin{pmatrix}1&0\\0&1\end{pmatrix}\times16}\vec{m}=0\\
+    \vec{m}^T\sbrak{\begin{pmatrix}9&0\\0&-16\end{pmatrix}}\vec{m}=0\end{align}
+    \end{frame}
+\begin{frame}{Solution}
+    \begin{align}
+    \begin{pmatrix}1\\m\end{pmatrix}^T\begin{pmatrix}9&0\\0&-16\end{pmatrix}\begin{pmatrix}1\\m\end{pmatrix}=0\\
+    9-16m^2=0\\
+    m=\pm \frac{3}{4}\\
+    \vec{m}=\begin{pmatrix}1\\\pm \frac{3}{4}\end{pmatrix}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Using following formula to find point of contact of tangent
+\begin{align}
+    \vec{q}_{j}=\brak{\pm r \frac{\vec{n}_j}{\lVert \vec{n}_j \rVert} -\vec{u}}, j=1,2 \label{3} \\
+    \vec{q_1}=\brak{\pm 3 \frac{\begin{pmatrix}\frac{3}{4}\\1\end{pmatrix}}{\sqrt{\brak{\frac{3}{4}}^2+1}}} \\
+    \vec{q}_1=\pm \begin{pmatrix}\frac{9}{5}\\ \frac{12}{5}\end{pmatrix}\\
+    Similarly, \vec{q}_2=\pm\begin{pmatrix}\frac{9}{5}\\ \frac{-12}{5}\end{pmatrix}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+To take the ones passing through $\vec{A}$ taking $\vec{q}_1$ and $\vec{q}_2$ as
+\begin{align}
+\vec{q}_1=\begin{pmatrix}\frac{9}{5}\\ \frac{12}{5}\end{pmatrix}\\
+\vec{q}_2=\begin{pmatrix}\frac{9}{5}\\ \frac{-12}{5}\end{pmatrix}    
+\end{align}
+Length of both tangent will be equal and will be
+\begin{align}
+    \lVert \vec{q_1}-\vec{A} \rVert\\
+    \lVert \begin{pmatrix}\frac{9}{5}\\ \frac{12}{5}\end{pmatrix} -\begin{pmatrix}5\\0\end{pmatrix}\rVert\\
+    \lVert \begin{pmatrix}\frac{-16}{5}\\ \frac{12}{5}\end{pmatrix}\rVert\\
+    =4
+\end{align}
+\end{frame}
+
+\begin{frame}{Figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\columnwidth]{figs/figure.png}
+        \caption{}
+        \label{fig:placeholder}
+    \end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Direct Python}
+\begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+center = (0, 0)
+r_inner = 3.0
+r_outer = 5.0
+
+
+point_A = np.array([5.0, 0.0])
+
+
+tangent_point_1 = np.array([9/5, 12/5])  # (1.8, 2.4)
+tangent_point_2 = np.array([9/5, -12/5]) # (1.8, -2.4)
+
+theta = np.linspace(0, 2 * np.pi, 200)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Direct Python}
+\begin{lstlisting}
+
+x_inner = center[0] + r_inner * np.cos(theta)
+y_inner = center[1] + r_inner * np.sin(theta)
+
+
+x_outer = center[0] + r_outer * np.cos(theta)
+y_outer = center[1] + r_outer * np.sin(theta)
+
+
+plt.figure(figsize=(8, 8))
+ax = plt.gca()
+
+
+ax.plot(x_inner, y_inner, label=f'Inner Circle (r={r_inner})', color='blue')
+ax.plot(x_outer, y_outer, label=f'Outer Circle (r={r_outer})', color='orange')
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Direct Python}
+\begin{lstlisting}
+
+ax.plot([point_A[0], tangent_point_1[0]], [point_A[1], tangent_point_1[1]], 'g-', label='Tangent 1')
+ax.plot([point_A[0], tangent_point_2[0]], [point_A[1], tangent_point_2[1]], 'g-', label='Tangent 2')
+
+ax.plot([center[0], tangent_point_1[0]], [center[1], tangent_point_1[1]], 'r--', label='Radius to Tangent Point')
+ax.plot([center[0], tangent_point_2[0]], [center[1], tangent_point_2[1]], 'r--')
+
+
+ax.plot(center[0], center[1], 'ko', label='Center (0,0)')
+ax.plot(point_A[0], point_A[1], 'go', markersize=8, label=f'Point A {tuple(point_A)}')
+ax.plot(tangent_point_1[0], tangent_point_1[1], 'ro', label='Tangent Points')
+ax.plot(tangent_point_2[0], tangent_point_2[1], 'ro')
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Direct Python}
+\begin{lstlisting}
+# --- 5. Final Plot Adjustments ---
+# Ensure the plot has an equal aspect ratio to make circles look circular
+ax.set_aspect('equal', adjustable='box')
+
+# Add titles and labels for clarity
+plt.title('Construction of Tangents to Concentric Circles')
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+plt.legend()
+plt.grid(True)
+
+# Set axis limits for a nice view
+plt.xlim(-6, 6)
+plt.ylim(-6, 6)
+
+plt.savefig("figure.png", dpi=300)
+# Show the plot
+plt.show()
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C code}
+\begin{lstlisting}
+// main.c
+#include <stdio.h>
+#include <math.h>
+double tangent_length(double R, double r) {
+    if (R <= r) {
+        printf("Invalid input: Outer radius must be greater than inner radius.\n");
+        return -1;
+    }
+    return sqrt((R * R) - (r * r));
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C code}
+\begin{lstlisting}
+    return k;
+}
+
+int main() {
+    double k = find_k();
+    printf("The value of k = %.2lf\n", k);
+    return 0;
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with shared object}
+\begin{lstlisting}
+# main.py
+import ctypes
+import numpy as np
+import matplotlib.pyplot as plt
+from math import acos, sqrt
+
+# Load the shared object file (compiled C code)
+lib = ctypes.CDLL("./main.so")
+
+# Define argument and return types for the C function
+lib.tangent_length.argtypes = [ctypes.c_double, ctypes.c_double]
+lib.tangent_length.restype = ctypes.c_double
+
+# Given radii
+r = 3.0
+R = 5.0
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with shared object}
+\begin{lstlisting}
+# Call C function to get tangent length
+tangent_len_c = lib.tangent_length(R, r)
+
+if tangent_len_c < 0:
+    raise ValueError("Invalid radii: R must be greater than r")
+
+print(f"[C Function] Tangent length (√(R²−r²)) = {tangent_len_c:.3f} cm")
+
+# Now use geometry to verify and plot
+theta = np.deg2rad(60)
+O = np.array([0.0, 0.0])
+P = np.array([R * np.cos(theta), R * np.sin(theta)])
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with shared object}
+\begin{lstlisting}
+# Compute tangent points
+beta = acos(r / R)
+T1 = np.array([r * np.cos(theta + beta), r * np.sin(theta + beta)])
+T2 = np.array([r * np.cos(theta - beta), r * np.sin(theta - beta)])
+
+# Verify length geometrically
+L1 = np.linalg.norm(P - T1)
+L2 = np.linalg.norm(P - T2)
+
+print(f"[Python Geometry] PT1 = {L1:.3f} cm, PT2 = {L2:.3f} cm")
+
+# Plot
+fig, ax = plt.subplots(figsize=(6,6))
+ax.set_aspect('equal', 'box')
+ax.set_title("Tangents from a Point on Outer Circle to Inner Circle")
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with shared object}
+\begin{lstlisting}
+# Circles
+outer = plt.Circle((0,0), R, fill=False, color='blue', linestyle='--', label='Outer Circle (R=5 cm)')
+inner = plt.Circle((0,0), r, fill=False, color='green', linestyle='--', label='Inner Circle (r=3 cm)')
+ax.add_patch(outer)
+ax.add_patch(inner)
+
+# Lines
+ax.plot([0, P[0]], [0, P[1]], 'k-', label='OP')
+ax.plot([P[0], T1[0]], [P[1], T1[1]], 'r-', label='Tangent 1')
+ax.plot([P[0], T2[0]], [P[1], T2[1]], 'r-')
+ax.plot([0, T1[0]], [0, T1[1]], 'gray', linestyle=':')
+ax.plot([0, T2[0]], [0, T2[1]], 'gray', linestyle=':')
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with shared object}
+\begin{lstlisting}
+# Points
+ax.plot(0, 0, 'ko')
+ax.plot(P[0], P[1], 'ro')
+ax.plot(T1[0], T1[1], 'go')
+ax.plot(T2[0], T2[1], 'go')
+
+ax.text(0.2, -0.3, 'O', fontsize=10)
+ax.text(P[0]*1.05, P[1]*1.05, 'P', fontsize=10)
+ax.text(T1[0]*1.05, T1[1]*1.05, 'T1', fontsize=10)
+ax.text(T2[0]*1.05, T2[1]*1.05, 'T2', fontsize=10)
+
+ax.legend()
+ax.grid(True)
+plt.show()
+\end{lstlisting}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,157 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{multicol}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\title 
+{5.7.2}
+\date{}
+
+\author
+{SAMYAK GONDANE - AI25BTECH11029}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Question}
+If $\textbf{A}$ = $\myvec{-3 & 2 \\ 1 & -1}$ and $\textbf{I}$ = $\myvec{1 & 0 \\ 0 & 1}$, find the scalar $k$ so that $\textbf{A}^2 + \textbf{I} = k\textbf{A}$.
+\end{frame}
+
+\begin{frame}{Solution}
+
+\textbf{Given}:
+
+\begin{align}
+A = \myvec{-3 & 2 \\ 1 & -1}, \quad
+I = \myvec{1 & 0 \\ 0 & 1}
+\end{align}
+
+
+\textbf{Characteristic Polynomial of $A$}
+
+The characteristic polynomial is obtained from:
+
+\begin{align}
+\det(A - \lambda I) = 0
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+\begin{align}
+\det\myvec{-3 - \lambda & 2 \\ 1 & -1 - \lambda}
+= (-3 - \lambda)(-1 - \lambda) - (2)(1)
+\end{align}
+
+\begin{align}
+= (\lambda + 3)(\lambda + 1) - 2 = \lambda^2 + 4\lambda + 3 - 2 = \lambda^2 + 4\lambda + 1
+\end{align}
+
+So the characteristic equation is:
+\begin{align}
+\lambda^2 + 4\lambda + 1 = 0
+\end{align}
+\end{frame}
+
+
+\begin{frame}{Solution}
+By Cayley-Hamilton theorem, matrix $A$ satisfies its own characteristic equation:
+
+\begin{align}
+A^2 + 4A + I = 0
+\end{align}
+
+
+\subsection*{Rearranging the Equation}
+
+From the Cayley-Hamilton result:
+
+\begin{align}
+A^2 + I = -4A
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+Comparing with the target equation $A^2 + I = kA$, we get:
+
+\begin{align}
+kA = -4A \Rightarrow \boxed{k = -4}
+\end{align}
+
+
+\textbf{Final Answer}
+
+\begin{align}
+\boxed{k = -4}
+\end{align}
+
+
+\end{frame}
+\end{document}

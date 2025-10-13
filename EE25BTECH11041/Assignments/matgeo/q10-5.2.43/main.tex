@@ -1,0 +1,142 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[a5paper,10pt]{article}
+\usepackage[margin=10mm]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+
+
+
+\author{EE25BTECH11041-Naman Kumar }
+\graphicspath{./figs/}
+
+\begin{document}
+\begin{center}
+    \huge{5.2.43}\\
+    \large{EE25BTECH11041 - Naman Kumar}
+\end{center}
+Question:\\
+Solve the linear equation:
+\begin{align}
+    6x + 3y = 6xy \label{eq1}\\2x + 4y = 5xy \label{eq2}
+\end{align} \\
+\solution \\
+General equation of conic
+\begin{align}
+    \vec{x}^T\vec{V}\vec{x}+2\vec{u}^T\vec{x}+f
+\end{align}
+Given set of equations in the form of general conic can be written as
+\begin{align}
+\vec{x}^T\begin{pmatrix}0&3\\3&0\end{pmatrix}\vec{x}+2\begin{pmatrix}-3\\-1.5\end{pmatrix}^T\vec{x}=0\\
+\vec{x}^T\vec{V_1}\vec{x}+2\vec{u_1}^T\vec{x}=0
+\end{align}
+Similarly
+\begin{align}
+    \vec{x}^T\begin{pmatrix}0&2.5\\2.5&0\end{pmatrix}\vec{x}+2\begin{pmatrix}-1\\-2\end{pmatrix}^T\vec{x}=0\\
+\vec{x}^T\vec{V_2}\vec{x}+2\vec{u_2}^T\vec{x}=0
+\end{align}
+Intersection of two conic
+\begin{align}
+    \vec{x}^T(\vec{V_1}+\mu \vec{V_2})\vec{x}+2(\vec{u_1}+\mu \vec{u_2})^T\vec{x}=0 \label{comb}
+\end{align}
+General equation of conic represent pair of lines if
+\begin{align}
+    \begin{vmatrix}\vec{V}&\vec{u}\\ \vec{u}^T&f\end{vmatrix}=0
+\end{align}
+From $\eqref{comb}$
+\begin{align}
+    \begin{vmatrix}\vec{V_1}+\mu \vec{V_2}&\vec{u_1}+\mu \vec{u_2}\\ (\vec{u_1}+\mu \vec{u_2})^T&0\end{vmatrix}=0 \label{1}
+\end{align}
+Here
+\begin{align}
+    \vec{A}=\vec{V_1}+\mu \vec{V_2}=\begin{pmatrix}0&3+2.5\mu\\3+2.5\mu&0\end{pmatrix} \label{a} \\
+    \vec{A}=\begin{pmatrix}a_{11}&a_{12}\\a_{21}&a_{22}\end{pmatrix}\\ \\
+    \vec{B}=\vec{u_1}+\mu \vec{u_2}=\begin{pmatrix}-3+\mu(-1)\\-1.5+\mu(-2)\end{pmatrix} \label{b}\\ \vec{B}=\begin{pmatrix}b_{1}\\b_{2}\end{pmatrix}
+\end{align}
+Putting values in $\eqref{1}$
+\begin{align}
+    \begin{vmatrix}a_{11}&a_{12}&b_1\\a_{21}&a_{22}&b_2\\b_1&b_2&0\end{vmatrix}\\
+    -b_2(b_2a_{11}-b_1a_{21})+b_1(b_2a_{12}-b_1a_{22})
+\end{align}
+Putting values from $\eqref{a}$ $\eqref{b}$
+\begin{align}
+    (-3-2.5\mu)(3+\mu)(1.5+2\mu)\\
+    \mu=\frac{-6}{5},-3,\frac{-3}{4}
+\end{align}
+Case 1:$\mu=-3$ in $\eqref{comb}$
+\begin{align}
+    \vec{x}^T\begin{pmatrix}0&4.5\\4.5&0\end{pmatrix}\vec{x}+2\begin{pmatrix}0\\-4.5\end{pmatrix}^T\vec{x}=0\\
+    \begin{pmatrix}x\\y\end{pmatrix}^T\begin{pmatrix}0&4.5\\4.5&0\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}+2\begin{pmatrix}0\\-4.5\end{pmatrix}^T\begin{pmatrix}x\\y\end{pmatrix}=0\\
+    2\times4.5xy+2(0-4.5y)\\=9xy-9y=9y(x-1)=0\\
+    y=0,x=1
+\end{align}
+Case 2: $\mu=\frac{-6}{5}$ in $\eqref{comb}$
+\begin{align}
+    \vec{x}^T\begin{pmatrix}0&0\\0&0\end{pmatrix}\vec{x}+2\begin{pmatrix}1.8\\-0.9\end{pmatrix}^T\vec{x}=0\\
+    \begin{pmatrix}x\\y\end{pmatrix}^T\begin{pmatrix}0&0\\0&0\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}+2\begin{pmatrix}1.8\\-0.9\end{pmatrix}^T\begin{pmatrix}x\\y\end{pmatrix}=0\\
+    2x-y=0
+\end{align}
+Case 3: $\mu=\frac{-3}{4}$ in $\eqref{comb}$
+\begin{align}
+    \vec{x}^T\begin{pmatrix}0&-1.125\\-1.125&0\end{pmatrix}\vec{x}+2\begin{pmatrix}2.25\\0\end{pmatrix}^T\vec{x}=0\\
+    \begin{pmatrix}x\\y\end{pmatrix}^T\begin{pmatrix}0&-1.125\\-1.125&0\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}+2\begin{pmatrix}2.25\\0\end{pmatrix}^T\begin{pmatrix}x\\y\end{pmatrix}=0\\
+    -2.25xy+4.5=2.25x(2-y)=0\\
+    x=0,y=2
+\end{align}
+Now checking point of intersection with conic\\
+from $\mu=-3$ factors y=0 and x=1
+\begin{itemize}
+    \item y=0 in $\eqref{eq1}$ 6x=6x.0 $\implies$ x=0 and in $\eqref{eq2}$ 2x=0, so point (0,0)
+    \item x=1 in $\eqref{eq1}$ 6+3y=6y $\implies$ y=2, so (1,2)
+\end{itemize}
+similarly for $\mu=\frac{-3}{4}$ factors are x=0 and y=2
+\begin{itemize}
+    \item x=0 gives (0,0)
+    \item y=2 gives (1,2)
+\end{itemize}
+And for $\mu=\frac{-6}{5}$ line y=2x
+\begin{itemize}
+    \item put y=2x in $\eqref{eq1}$ $12x=12x^2\implies x=0 ,1$ so (0,0),(1,2)
+\end{itemize}
+All three cases have same points ,\\so Points are (0,0) and (1,2)
+\newpage
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\columnwidth]{figs/figure.png}
+    \caption{}
+    \label{fig:placeholder}
+\end{figure}
+\end{document}

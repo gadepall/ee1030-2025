@@ -1,0 +1,18 @@
+import numpy as np
+
+def check_ltm(matrix):
+    m,n= np.shape(matrix)
+    if(m!=n):
+        print("It is not a lower triangular matrix")
+        return
+    if np.all(matrix[np.triu_indices(m,k=1)]==0):
+        print("It is a lower triangular matrix")
+    else:
+        print("It is not a lower triangular matrix")
+
+def generate_ltm(n, low=0 , high=10 ):
+    A= np.random.randint( low , high , size=(n,n))
+    return np.tril(A)
+
+L=generate_ltm(4)
+print(L)

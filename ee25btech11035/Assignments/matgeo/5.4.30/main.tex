@@ -1,0 +1,122 @@
+\documentclass[journal,12pt,onecolumn]{IEEEtran}
+\usepackage{cite}
+ \usepackage{caption}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\usepackage{gvv}
+%\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc} 
+\usetikzlibrary{arrows.meta, positioning}
+\usepackage{xparse}
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{float}
+
+\usepackage{float}
+%\newcommand{\define}{\stackrel{\triangle}{=}}
+\theoremstyle{remark}
+\usepackage{circuitikz}
+\captionsetup{justification=centering}
+\usepackage{tikz}
+
+\title{Matrices in Geometry 5.4.30}
+\author{EE25BTECH11035 - Kushal B N}
+\begin{document}
+\vspace{3cm}
+\maketitle
+{\let\newpage\relax\maketitle}
+\textbf{Question: }
+Using elementary transformations, find the inverse of the following matrix.\\
+$\myvec{x^2-x+1 & x-1 \\ x+1 & x+1}$
+
+\textbf{Given: } \\
+Let $\vec{A} = \myvec{x^2-x+1 & x-1 \\ x+1 & x+1}$
+
+\textbf{Solution: }\\
+If $\vec{B}$ is the inverse of the matrix i.e,
+\begin{equation}
+    \vec{B} = \vec{A}^{-1}
+\end{equation}
+\begin{equation}
+    \implies \vec{A}\vec{B} = \vec{I}
+\end{equation}
+Forming the augmented matrix for this in order to solve for $\vec{B}$
+
+\begin{equation}
+    \augvec{2}{2}{x^2-x+1 & x-1 &1&0\\x+1 & x+1&0&1}
+\end{equation}
+
+\begin{equation}
+\augvec{2}{2}{
+x^2 - x + 1 & x - 1 & 1 & 0 \\
+x + 1 & x + 1 & 0 & 1
+}
+ \xleftrightarrow{R_2 \leftarrow R_2 - \frac{x+1}{x^2 - x + 1}R_1}
+\augvec{2}{2}{
+x^2 - x + 1 & x - 1 & 1 & 0 \\
+0 & \frac{(x+1)(x^2 - 2x + 2)}{x^2 - x + 1} & -\frac{x+1}{x^2 - x + 1} & 1
+}
+\end{equation}
+
+\begin{equation}
+\xleftrightarrow{R_2 \leftarrow \frac{x^2 - x + 1}{(x+1)(x^2 - 2x + 2)}R_2}
+\augvec{2}{2}{
+x^2 - x + 1 & x - 1 & 1 & 0 \\
+0 & 1 & -\frac{1}{x^2 - 2x + 2} & \frac{x^2 - x + 1}{(x+1)(x^2 - 2x + 2)}
+}
+\end{equation}
+
+\begin{equation}
+\xleftrightarrow{R_1 \leftarrow R_1 - (x-1)R_2}
+\augvec{2}{2}{
+x^2 - x + 1 & 0 & \frac{x^2 - x + 1}{x^2 - 2x + 2} & -\frac{(x-1)(x^2 - x + 1)}{(x+1)(x^2 - 2x + 2)} \\
+0 & 1 & -\frac{1}{x^2 - 2x + 2} & \frac{x^2 - x + 1}{(x+1)(x^2 - 2x + 2)}
+}
+\end{equation}
+
+\begin{equation}
+\xleftrightarrow{R_1 \leftarrow \frac{1}{x^2 - x + 1}R_1}
+\augvec{2}{2}{
+1 & 0 & \frac{1}{x^2 - 2x + 2} & -\frac{x-1}{(x+1)(x^2 - 2x + 2)} \\
+0 & 1 & -\frac{1}{x^2 - 2x + 2} & \frac{x^2 - x + 1}{(x+1)(x^2 - 2x + 2)}
+}
+\end{equation}
+
+\begin{equation}
+\implies A^{-1} =
+\myvec{
+\frac{1}{x^2 - 2x + 2} & -\frac{x-1}{(x+1)(x^2 - 2x + 2)} \\
+-\frac{1}{x^2 - 2x + 2} & \frac{x^2 - x + 1}{(x+1)(x^2 - 2x + 2)}
+}
+\end{equation}
+
+\textbf{Final Answer:}\\
+$\therefore$ The inverse of the given matrix is $\myvec{
+\frac{1}{x^2 - 2x + 2} & -\frac{x-1}{(x+1)(x^2 - 2x + 2)} \\
+-\frac{1}{x^2 - 2x + 2} & \frac{x^2 - x + 1}{(x+1)(x^2 - 2x + 2)}
+}$
+
+
+\end{document}

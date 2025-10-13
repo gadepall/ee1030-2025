@@ -1,0 +1,459 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{multicol}
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{12.546}
+\date{October  2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{BEERAM MADHURI - EE25BTECH11012}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Consider the following two statements
+
+P: $\begin{pmatrix} 0 & 5 \\ 0 & 7 \end{pmatrix}$ has infinitely many LU factorizations, where $\mathbf{L}$ is lower triangular with each diagonal entry 1 and $\mathbf{U}$ is upper triangular.
+
+Q: $\begin{pmatrix} 0 & 0 \\ 2 & 5 \end{pmatrix}$ has no LU factorization, where $\mathbf{L}$ is lower triangular with each diagonal entry 1 and $\mathbf{U}$ is upper triangular.
+
+Then which one of the following options is correct? \hfill (MA 2018)
+
+\begin{enumerate}
+    \item[a)] P is TRUE and Q is FALSE
+    \item[b)] Both P and Q are TRUE
+    \item[c)] P is FALSE and Q is TRUE
+    \item[d)] Both P and Q are FALSE
+\end{enumerate}
+\end{frame}
+ 
+\begin{frame}{given data}
+\begin{table}[h!]
+    \centering
+    \input{tables/tables}
+    \caption{Variables used}
+    \label{table 12.546}
+\end{table}
+\end{frame}
+
+\begin{frame}{solution}
+    \frametitle{solution}
+Let 
+\begin{align}
+L = \begin{pmatrix} 1 & 0 \\ l_{21} & 1 \end{pmatrix}\\
+U = \begin{pmatrix} u_{11} & u_{12} \\ 0 & u_{22} \end{pmatrix}\\
+LU = \begin{pmatrix} u_{11} & u_{12} \\ l_{21}u_{11} & l_{21}u_{12} + u_{22} \end{pmatrix}
+\end{align}
+\end{frame}
+\begin{frame}
+\textbf{Statement P:}
+\begin{align}
+LU = \begin{pmatrix} 0 & 5 \\ 0 & 7 \end{pmatrix} \\
+u_{11} = 0, u_{12} = 5\\
+l_{21}u_{12} + u_{22} = 7
+\end{align}
+has infinite solutions.
+
+$\therefore$ there are infinitely many pairs $(l_{21}, u_{22})$
+
+Statement P is true\\
+\end{frame}
+\begin{frame}
+\textbf{Statement Q:}
+\begin{align}
+LU = \begin{pmatrix} 0 & 0 \\ 2 & 5 \end{pmatrix}\\
+u_{11} = 0\\
+l_21u_11=0\\
+\text{but} l_21u_11=2
+\end{align}
+$\therefore$ no pairs(L,U) exists.\\
+$\therefore$ Statement Q is true.\\
+Option b is correct.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+def print_matrix(name: str, matrix: list[list[float]]):
+    """Prints a 2x2 matrix with a given name in a formatted way."""
+    print(f"Matrix {name}:")
+    for row in matrix:
+        print("  [ ", end="")
+        for val in row:
+            # Format to 2 decimal places with a width of 5 characters
+            print(f"{val:5.2f} ", end="")
+        print("]")
+    print()
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+def analyze_lu_factorization(matrix_name: str, A: list[list[float]]):
+    """
+    Analyzes the LU factorization for a 2x2 matrix A.
+
+    It checks the conditions derived from A = LU, where L is lower
+    triangular with 1s on the diagonal and U is upper triangular.
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+    """
+    print(f"--- Analyzing Matrix {matrix_name} ---")
+    print_matrix(matrix_name, A)
+
+    # For a matrix A = [[a, b], [c, d]], we want to find L and U such that A = LU:
+    # L = [[1, 0], [l21, 1]] and U = [[u11, u12], [0, u22]]
+    #
+    # Multiplying L and U and equating to A gives the system of equations:
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+    # 1) u11 = A[0][0]
+    # 2) u12 = A[0][1]
+    # 3) l21 * u11 = A[1][0]  <-- This is the critical equation.
+    # 4) l21 * u12 + u22 = A[1][1]
+    u11 = A[0][0]
+    a10 = A[1][0] # The element at row 1, column 0
+    print("From the definition, the critical equation is: l21 * u11 = A[1][0]")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+    print(f"Substituting known values from matrix {matrix_name}:")
+    print(f"  -> l21 * {u11:.2f} = {a10:.2f}\n")
+
+    # Check the condition of the critical equation (3)
+    if u11 == 0:
+        if a10 == 0:
+            # This is the case for Matrix P: l21 * 0 = 0
+            print(f"Result for {matrix_name}:")
+            print("The equation becomes 0 = 0, which is always true.")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+            print("This means 'l21' can be any real number, leading to infinitely many solutions.")
+            print(f"Conclusion: Statement {matrix_name} is TRUE.")
+        else:
+            # This is the case for Matrix Q: l21 * 0 = 2
+            print(f"Result for {matrix_name}:")
+            print(f"The equation becomes 0 = {a10:.2f}, which is a contradiction.")
+            print("No value of 'l21' can satisfy this, so no LU factorization exists.")
+            print(f"Conclusion: Statement {matrix_name} is TRUE.")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+    else:
+        # This is the standard case where a unique solution would exist
+        print(f"Result for {matrix_name}:")
+        print(f"Since u11 ({u11:.2f}) is non-zero, a unique solution for l21 could be found.")
+        print(f"This case does not apply to matrices P or Q.")
+# This block ensures the code runs only when the script is executed directly
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+if _name_ == "_main_":
+    # Matrix from Statement P
+    P = [
+        [0.0, 5.0],
+        [0.0, 7.0]
+    ]
+
+    # Matrix from Statement Q
+    Q = [
+        [0.0, 0.0],
+        [2.0, 5.0]
+    ]
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting} 
+    print("This program analyzes the LU factorization for the two given matrices.\n")
+    # Analyze Matrix P
+    analyze_lu_factorization("P", P)
+    # Analyze Matrix Q
+    analyze_lu_factorization("Q", Q)
+    print("Final Conclusion:")
+    print("Both statements P and Q are TRUE. The correct option is (b).")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+#include <stdio.h>
+
+/**
+ * @file compile_time_lu.c
+ * @brief Analyzes LU factorization at compile time using the preprocessor.
+ *
+ * The logic to determine the truthiness of statements P and Q is resolved
+ * before the program is compiled. The runtime executable only contains the
+ * final, pre-determined answer.
+ */
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+// --- Matrix P Definition ---
+// A = [[P_00, P_01], [P_10, P_11]]
+#define P_00 0
+#define P_01 5
+#define P_10 0
+#define P_11 7
+// --- Matrix Q Definition ---
+// A = [[Q_00, Q_01], [Q_10, Q_11]]
+#define Q_00 0
+#define Q_01 0
+#define Q_10 2
+#define Q_11 5
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+// --- COMPILE-TIME ANALYSIS ---
+// The preprocessor will evaluate these #if statements.
+// Analyze Statement P: "P has infinitely many LU factorizations"
+// This is TRUE if A[0][0] is 0 AND A[1][0] is 0, leading to 0 = 0.
+#if P_00 == 0 && P_10 == 0
+  #define P_IS_TRUE 1
+#else
+  #define P_IS_TRUE 0
+#endif
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+// Analyze Statement Q: "Q has no LU factorization"
+// This is TRUE if A[0][0] is 0 AND A[1][0] is not 0, leading to 0 = non-zero.
+#if Q_00 == 0 && Q_10 != 0
+  #define Q_IS_TRUE 1
+#else
+  #define Q_IS_TRUE 0
+#endif
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+int main() {
+    printf("This conclusion was determined entirely at COMPILE TIME.\n");
+    printf("The running program is just printing the pre-calculated result.\n\n");
+
+    // The preprocessor uses the P_IS_TRUE and Q_IS_TRUE macros
+    // to select ONLY ONE of the following printf statements to
+    // include in the final compiled program.
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+    #if P_IS_TRUE && Q_IS_TRUE
+      printf("Conclusion: Both P and Q are TRUE. The correct option is (b).\n");
+    #elif P_IS_TRUE && !Q_IS_TRUE
+      printf("Conclusion: P is TRUE and Q is FALSE. The correct option is (a).\n");
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+    #elif !P_IS_TRUE && Q_IS_TRUE
+      printf("Conclusion: P is FALSE and Q is TRUE. The correct option is (c).\n");
+    #else
+      printf("Conclusion: Both P and Q are FALSE. The correct option is (d).\n");
+    #endif
+    return 0;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}
+from ctypes import c_int
+"""
+Simulating C preprocessor-based compile-time LU factorization analysis
+in Python using ctypes and top-level evaluation.
+"""
+# --- Matrix P Definition ---
+P_00 = c_int(0)
+P_01 = c_int(5)
+P_10 = c_int(0)
+P_11 = c_int(7)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}
+# --- Matrix Q Definition ---
+Q_00 = c_int(0)
+Q_01 = c_int(0)
+Q_10 = c_int(2)
+Q_11 = c_int(5)
+# --- "Compile-time" evaluation simulated at import time ---
+# Analyze Statement P: "P has infinitely many LU factorizations"
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}
+# TRUE if A[0][0] == 0 and A[1][0] == 0
+if P_00.value == 0 and P_10.value == 0:
+    P_IS_TRUE = True
+else:
+    P_IS_TRUE = False
+
+# Analyze Statement Q: "Q has no LU factorization"
+# TRUE if A[0][0] == 0 and A[1][0] != 0
+if Q_00.value == 0 and Q_10.value != 0:
+    Q_IS_TRUE = True
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}
+else:
+    Q_IS_TRUE = False
+
+
+def main():
+    print("This conclusion was determined entirely at 'import time' (simulating compile time).")
+    print("The running program is just printing the pre-determined result.\n")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}
+    if P_IS_TRUE and Q_IS_TRUE:
+        print("Conclusion: Both P and Q are TRUE. The correct option is (b).")
+    elif P_IS_TRUE and not Q_IS_TRUE:
+        print("Conclusion: P is TRUE and Q is FALSE. The correct option is (a).")
+    elif not P_IS_TRUE and Q_IS_TRUE:
+        print("Conclusion: P is FALSE and Q is TRUE. The correct option is (c).")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}
+    else:
+        print("Conclusion: Both P and Q are FALSE. The correct option is (d).")
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+\end{frame}
+
+\end{document}

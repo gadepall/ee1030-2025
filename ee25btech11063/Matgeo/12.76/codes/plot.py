@@ -1,0 +1,38 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Points
+P = (0, 1)
+Q = (0, -3)
+R = (-2, -1)
+S = (2, -1)
+
+# Order: P → S → Q → R → P
+x = [P[0], S[0], Q[0], R[0], P[0]]
+y = [P[1], S[1], Q[1], R[1], P[1]]
+
+# Plot
+plt.figure(figsize=(6,6))
+plt.plot(x, y, 'b-o', linewidth=2, markersize=8)
+
+# Label points
+points = {'P': P, 'Q': Q, 'R': R, 'S': S}
+for name, (x_pt, y_pt) in points.items():
+    plt.text(x_pt + 0.2, y_pt + 0.2, name, fontsize=12, color='red')
+
+# Symmetric axes
+limit = 4   # choose a limit big enough to include all points
+plt.xlim(-limit, limit)
+plt.ylim(-limit, limit)
+plt.gca().set_aspect('equal', adjustable='box')  # equal scaling
+
+# Axes & grid
+plt.axhline(0, color='black', linewidth=0.8)
+plt.axvline(0, color='black', linewidth=0.8)
+plt.grid(True, linestyle='--', alpha=0.5)
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+plt.title("Quadrilateral PSQR")
+plt.savefig("plot.png", dpi=300, bbox_inches='tight')
+plt.show()
+

@@ -1,0 +1,118 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+\usepackage{tfrupee} 
+\setlength{\headheight}{1cm} 
+\setlength{\headsep}{0mm}     
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+%\usepackage{wasysym}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=4em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{12.670}
+\author{EE25BTECH11032 - Kartik Lahoti}
+\maketitle
+
+\subsection*{Question: } 
+Consider the linear transformation $\vec{T} \colon \mathbb{C}^3 \xrightarrow{} \mathbb{C}^3$ defined by 
+\begin{align*}
+    \vec{T}\brak{x,y,z} = \brak{x,\frac{\sqrt{3}}{2}y - \frac{1}{2}z , \frac{1}{2}y+\frac{\sqrt{3}}{2}z}
+\end{align*}
+
+where $\mathbb{C}$ is the set of all complex numbers and $\mathbb{C}^3 = \mathbb{C}\times\mathbb{C}\times\mathbb{C} $. Which of the following statements is TRUE?
+
+\begin{enumerate}
+        \item There exists a non-zero vector $\vec{X}$ such that $\vec{T}\brak{\vec{X}} = -\vec{X}$
+        \item There exists a non-zero vector $\vec{Y}$ and a real number  $\lambda \neq 1$  such that $\vec{T}\brak{\vec{Y}} = \lambda\vec{Y}$
+        \item $\vec{T}$ is diagonalizable
+        \item $\vec{T}^2 = \vec{I}_3$ , where $\vec{I}_3$ us the $3\times 3$ identity matrix
+    \end{enumerate}
+\textbf{Solution}:\\
+
+Let this function be written as 
+
+\begin{align}
+    \vec{y} = \vec{T}\vec{x}
+\end{align}
+where , $\vec{x} $ and $\vec{y}$ are complex vector in $\mathbb{C}^3$
+
+Now, 
+\begin{align}
+    \vec{T}\vec{e_1} = \myvec{1\\ 0 \\ 0} 
+\end{align}
+\begin{align}
+    \vec{T}\vec{e_2}  = \myvec{0\\ \frac{\sqrt{3}}{2} \\ \frac{1}{2}} 
+\end{align}
+\begin{align}
+    \vec{T}\vec{e_3}  = \myvec{0\\ \frac{-1}{2} \\ \frac{\sqrt{3}}{2}} 
+\end{align}
+
+\begin{align}
+    \therefore \vec{T} = \myvec{1&0&0\\0&\frac{\sqrt{3}}{2}&\frac{-1}{2}\\ 0&\frac{1}{2}&\frac{\sqrt{3}}{2}}
+\end{align}
+
+Now, 
+
+\begin{align}
+    \mydet{\lambda\vec{I}-\vec{T}} &= \mydet{\lambda-1 & 0 & 0 \\ 0 & \lambda-\frac{\sqrt{3}}{2}& \frac{1}{2} \\ 0 & \frac{-1}{2} & \lambda-\frac{\sqrt{3}}{2}}\\
+    &= \brak{\lambda-1}\brak{\brak{\lambda-\frac{\sqrt{3}}{2}}^2 + \frac{1}{4}}
+\end{align}
+This gives eigen values as
+\begin{align}
+    \lambda_1 = 1 , \lambda_2 = \frac{\sqrt{3}}{2} + i\frac{1}{2} , \lambda_3 =\frac{\sqrt{3}}{2} - i\frac{1}{2}
+\end{align}
+
+Option $1$ : INCORRECT . $\because$ No Eigen Value $= -1$
+
+Option $2$ : INCORRECT . $\because$ No Eigen Value other than $1$ is real. 
+
+Option $3$ : CORRECT.    $\because$ All eigen values are distinct! 
+
+Hence , Answer : Option $\brak{3}$
+
+\end{document}
+
+

@@ -1,0 +1,323 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx} % <-- needed for images
+\def\UrlBreaks{\do\/\do-}
+
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\lstset{
+  frame=single,
+  breaklines=true,
+  columns=fullflexible,
+  basicstyle=\ttfamily\tiny   % tiny font so code fits
+}
+
+\numberwithin{equation}{section}
+
+% ---- your macros ----
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}}
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}}
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\newcommand{\mydet}[1]{\ensuremath{\begin{vmatrix}#1\end{vmatrix}}}
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|*{#1}{c}@{}}
+}{%
+  \end{array}\right)
+}
+
+\newcommand{\myaugvec}[2]{\ensuremath{\begin{amatrix}{#1}#2\end{amatrix}}}
+\let\vec\mathbf
+% ---------------------
+
+\title{Matgeo Presentation - Problem 12.797}
+\author{ee25btech11056 - Suraj.N}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Problem Statement}
+
+Let $\vec{A}$ be an $n \times n$ real matrix. Consider the following statements:
+ 
+\begin{itemize}
+
+\item (I) If $\vec{A}$ is symmetric, then there exists $c \geq 0$ such that $\vec{A} + c\vec{I}_n$ is symmetric and positive definite, where $\vec{I}_n$ is the $n \times n$ identity matrix.
+\item (II) If $\vec{A}$ is symmetric and positive definite, then there exists a symmetric and positive definite $\vec{B}$ such that $\vec{A} = \vec{B}^2$.
+
+Which of the above statements is/are true?
+
+\begin{itemize}
+\item (a) Only (I) \\
+\item (b) Only (II) \\
+\item (c) Both (I) and (II) \\
+\item (d) Neither (I) nor (II)
+\end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Data}
+
+\begin{table}[h!]
+  \centering
+  \input{tables/table.tex}
+  \caption*{Table : Matrix}
+  \label{12.797}
+\end{table}
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+Checking statement (\textbf{I}) \\
+If $\vec{A}$ is symmetric, its eigenvalues are real. Let the minimum eigenvalue of $\vec{A}$ be $\lambda_{\min}$.Then choose $c > -\lambda_{\min}$.  
+
+The Eigen values of $\vec{A}$ are given as :
+
+\begin{align}
+  \mydet{\vec{A}-\lambda_i\vec{I}} = 0
+\end{align}
+
+The Eigen values of $\vec{A} + c\vec{I}_n$ are given as :
+
+\begin{align}
+\mydet{\vec{A}-(\lambda_k-c)\vec{I}} = 0\\
+\lambda_k = \lambda_i + c\\
+\lambda_i + c > 0
+\end{align}
+
+Since $\lambda_i + c > 0$ for all $i$, $\vec{A} + c\vec{I}_n$ is positive definite and symmetric.  
+Hence, statement (\textbf{I}) is \textbf{true}.
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+Checking statement (\textbf{II}) \\
+If $\vec{A}$ is symmetric and positive definite, then it can be diagonalized as:
+
+\begin{align}
+\vec{A} = \vec{P}\vec{D}\vec{P}^\top
+\end{align}
+
+where $\vec{P}$ is orthogonal and $\vec{D}$ is a diagonal matrix with positive entries (since $\vec{A}$ is positive definite).  
+Define
+
+\begin{align}
+\vec{B} = \vec{P}\vec{D}^{1/2}\vec{P}^\top
+\end{align}
+
+Then,
+
+\begin{align}
+\vec{B}^2 = \vec{P}\vec{D}^{1/2}\vec{P}^\top \vec{P}\vec{D}^{1/2}\vec{P}^\top = \vec{P}\vec{D}\vec{P}^\top = \vec{A}
+\end{align}
+
+Hence, $\vec{B}$ is symmetric and positive definite.  
+Therefore, statement (\textbf{II}) is also \textbf{true}.
+
+\textbf{Final Answer:} (c) Both (I) and (II)
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+\textbf{Examples}\\
+
+\textbf{Example a for (I)}
+
+\begin{align}
+\vec{A} &= \myvec{0 & 1\\ 1 & 0}
+\end{align}
+
+To find eigenvalues, evaluate:
+
+\begin{align}
+\mydet{\vec{A}-\lambda \vec{I}}=0\\
+\mydet{-\lambda & 1\\1 & -\lambda} &= 0\\
+\mydet{-\lambda & 1\\1 & -\lambda} 
+\xleftrightarrow{R_2 \to R_2 + \tfrac{1}{\lambda}R_1}
+\mydet{-\lambda & 1\\0 & \tfrac{1-\lambda^2}{\lambda}} &= 0\\
+\lambda^2 - 1 &= 0\\
+\lambda = \pm1\\
+\lambda_1=1, \lambda_2=-1
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+The minimum eigenvalue $\lambda_{\min}=-1$. Choose $c=2$. Then:
+\begin{align}
+\lambda_1+c=3,\quad \lambda_2+c=1
+\end{align}
+
+All eigenvalues are positive, so $\vec{A}+2\vec{I}$ is symmetric positive definite.
+
+\textbf{Example b for (I)}
+\begin{align}
+\vec{A} &= \myvec{-2 & 0 & 0\\ 0 & 1 & 0\\ 0 & 0 & 3}
+\end{align}
+
+Compute eigenvalues from $\mydet{\vec{A}-\lambda\vec{I}}=0$:
+\begin{align}
+\mydet{-2-\lambda & 0 & 0\\0 & 1-\lambda & 0\\0 & 0 & 3-\lambda} &= 0
+\end{align}
+\begin{align}
+(-2-\lambda)(1-\lambda)(3-\lambda)&=0
+\end{align}
+Hence
+\begin{align}
+\lambda_1=-2,\quad \lambda_2=1,\quad \lambda_3=3
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+Choose $c=3$ so $c>-\lambda_{\min}=2$.  
+Then $\lambda_i+c>0$ for all $i$.  
+Thus $\vec{A}+3\vec{I}$ is symmetric positive definite.
+
+\textbf{Example a for (II)}
+\begin{align}
+\vec{A} &= \myvec{5 & 2\\2 & 5}
+\end{align}
+Find eigenvalues from $\mydet{\vec{A}-\lambda \vec{I}}=0$:
+\begin{align}
+\mydet{5-\lambda & 2\\2 & 5-\lambda} &= 0
+\end{align}
+\begin{align}
+\mydet{5-\lambda & 2\\2 & 5-\lambda} 
+\xleftrightarrow{R_2 \to R_2 - \tfrac{2}{5-\lambda}R_1}
+\mydet{5-\lambda & 2\\0 & (5-\lambda)-\tfrac{4}{5-\lambda}} &= 0
+\end{align}
+\begin{align}
+(5-\lambda)^2 - 4 &= 0\\
+\lambda^2 - 10\lambda + 21 &= 0\\
+\lambda_1 = 7,\ \lambda_2 = 3 
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+For eigenvectors:
+\begin{align}
+(\vec{A}-7\vec{I})\vec{v}=0,\quad(\vec{A}-3\vec{I})\vec{v}=0
+\end{align}
+
+They correspond to $\vec{v}_1=\myvec{1\\1}$ and $\vec{v}_2=\myvec{1\\-1}$.  
+Form $\vec{P}$ and $\vec{D}$:
+
+\begin{align}
+\vec{P} &= \frac{1}{\sqrt{2}}\myvec{1 & 1\\1 & -1},\quad
+\vec{D} = \myvec{7 & 0\\0 & 3}
+\end{align}
+
+Then
+\begin{align}
+\vec{B} = \vec{P}\vec{D}^{1/2}\vec{P}^\top,\quad
+\vec{B}^2 = \vec{A}
+\end{align}
+
+Hence verified for $2\times2$.
+
+\textbf{Example b for (II)}
+
+\begin{align}
+\vec{A} &= \myvec{2 & 0 & 0\\0 & 3 & 0\\0 & 0 & 4}
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+Compute $\mydet{\vec{A}-\lambda\vec{I}}=0$:
+
+\begin{align}
+\mydet{2-\lambda & 0 & 0\\0 & 3-\lambda & 0\\0 & 0 & 4-\lambda} &= 0
+\end{align}
+
+\begin{align}
+(2-\lambda)(3-\lambda)(4-\lambda) = 0\\
+\lambda_1=2,\ \lambda_2=3,\ \lambda_3=4
+\end{align}
+
+Diagonalization:
+
+\begin{align}
+\vec{A} = \vec{P}\vec{D}\vec{P}^\top,\quad \vec{P}=\vec{I},\quad
+\vec{D}=\myvec{2 & 0 & 0\\0 & 3 & 0\\0 & 0 & 4}
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+Define
+\begin{align}
+\vec{B} = \vec{P}\vec{D}^{1/2}\vec{P}^\top
+= \myvec{\sqrt{2} & 0 & 0\\0 & \sqrt{3} & 0\\0 & 0 & 2}
+\end{align}
+
+Then
+\begin{align}
+\vec{B}^2 = \vec{A}
+\end{align}
+
+Hence $\vec{B}$ is symmetric positive definite.
+
+\textbf{Conclusion:}  
+In all four examples, both statements (I) and (II) hold true.
+
+\end{frame}
+
+\end{document}

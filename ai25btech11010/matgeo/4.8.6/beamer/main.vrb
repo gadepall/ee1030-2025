@@ -1,0 +1,23 @@
+\frametitle{Python code - Plotting the Plane}
+\begin{lstlisting}
+
+# Plot points P, Q, R
+ax.scatter(*P_arr, color='blue', label='P')
+ax.scatter(*Q_arr, color='green', label='Q (foot)')
+ax.scatter(*R_vals, color='red', label='R (reflection)')
+
+# Plot plane
+xx, yy = np.meshgrid(np.linspace(0,5,10), np.linspace(0,5,10))
+zz = (-n_arr[0]*xx - n_arr[1]*yy + d)/n_arr[2]
+ax.plot_surface(xx, yy, zz, alpha=0.3, color='orange')
+
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+ax.legend()
+ax.set_title("Point, Foot of Perpendicular, Reflection, Plane")
+
+# Save figure
+plt.savefig("../figs/point_plane_plot.png", dpi=300)
+plt.show()
+\end{lstlisting}

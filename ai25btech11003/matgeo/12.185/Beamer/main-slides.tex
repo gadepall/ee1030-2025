@@ -1,0 +1,149 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+
+\title
+{12.185}
+\date{October 1, 2025}
+\author 
+{AI25BTECH11003 - Bhavesh Gaikwad}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+If the rank of a (5$\times$6) matrix $\vec{Q}$ is 4, then which one of the following statements is correct?
+
+\hfill{(EE 2008)}
+
+\begin{itemize}
+    \item[a)]$\vec{Q}$ will have four linearly independent rows and four linearly independent columns.
+    \item[b)]$\vec{Q}$ will have four linearly independent rows and five linearly independent columns.
+    \item[c)]$\vec{Q}\vec{Q}^\top$ will be invertible.
+    \item[d)]$\vec{Q}^\top\vec{Q}$ will be invertible 
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Theoretical Solution}
+\textbf{Primary Analysis:}\\
+Since rank($\vec{Q}$)=4 $\Rightarrow \; \therefore \vec{Q}$ will have four linearly independent rows and four linearly independent columns.\\
+
+Option-A:\\
+Correct Option by Primary Analysis itself.\\
+
+Option-B:\\
+Incorrect Option by Primary Analysis itself.\\
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Theoretical Solution}
+Option C:\\
+$\vec{Q}\vec{Q}^\top$ is a $5 \times 5$ matrix.\\
+Since $\text{rank}(\vec{Q}^\top) = \text{rank}(\vec{Q}) = 4$,\\
+By the Gram matrix rank theorem, $\text{rank}(\vec{A}\vec{A}^\top) = \text{rank}(\vec{A})$ for any matrix $\vec{A}$.\\
+Applying this theorem,
+\begin{align}
+\text{rank}(\vec{Q}\vec{Q}^\top) = \text{rank}(\vec{Q}) = 4
+\end{align}
+Since $\vec{Q}\vec{Q}^\top$ is a $5 \times 5$ matrix with rank $4 < 5$, it is not full rank and therefore s$\det{(\vec{Q}\vec{Q}^\top)}$ = 0. A square matrix is invertible if and only if it has full rank. Therefore, $\vec{Q}\vec{Q}^\top$ is NOT invertible.
+
+Thus, Incorrect Option.\\
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Theoretical Solution}
+Option D:\\
+$\vec{Q}^\top\vec{Q}$ is a $6 \times 6$ matrix.\\
+Since $\text{rank}(\vec{Q}^\top) = \text{rank}(\vec{Q}) = 4$,\\
+By the Gram matrix rank theorem, $\text{rank}(\vec{A}^\top\vec{A}) = \text{rank}(\vec{A})$ for any matrix $\vec{A}$.\\
+Applying this theorem,
+\begin{align}
+\text{rank}(\vec{Q}^\top\vec{Q}) = \text{rank}(\vec{Q}) = 4
+\end{align}
+Since $\vec{Q}^\top\vec{Q}$ is a $6 \times 6$ matrix with rank $4 < 6$, it is not full rank and therefore $\det{(\vec{Q}^\top\vec{Q})}$ = 0. A square matrix is invertible if and only if it has full rank. Therefore, $\vec{Q}^\top\vec{Q}$ is NOT invertible.
+
+Thus, Incorrect Option.\\
+
+\begin{align*}
+    \boxed{\text{Only Option-A is Correct.}}
+\end{align*}
+\end{frame}
+
+\end{document}

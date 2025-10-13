@@ -1,0 +1,289 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{5.5.11}
+%\subtitle{A short story}
+
+\author % (optional)
+{Vaishnavi - EE25BTECH11059}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Find inverse of the following matrix,using elementary transformation\\
+A=\myvec{2 & 0 & -1
+          \\
+        5 & 1 & 0
+         \\
+        0 & 1 & 3
+}
+\end{frame}
+
+\begin{frame}{Solution}
+Construct the augmented matrix of A and I
+\begin{align}
+&\left(
+\begin{array}{ccc|ccc}
+2 & 0 & -1 & 1 & 0 & 0 \\
+5 & 1 & 0 & 0 & 1 & 0 \\
+0 & 1 & 3 & 0 & 0 & 1
+\end{array}
+\right)
+\xrightarrow{R_1 \gets \frac{1}{2}R_1}
+\left(
+\begin{array}{ccc|ccc}
+1 & 0 & -\frac{1}{2} & \frac{1}{2} & 0 & 0 \\
+5 & 1 & 0 & 0 & 1 & 0 \\
+0 & 1 & 3 & 0 & 0 & 1
+\end{array}
+\right) \\[12pt]
+&\xrightarrow{R_2 \gets R_2 - 5R_1}
+\left(
+\begin{array}{ccc|ccc}
+1 & 0 & -\frac{1}{2} & \frac{1}{2} & 0 & 0 \\
+0 & 1 & \frac{5}{2} & -\frac{5}{2} & 1 & 0 \\
+0 & 1 & 3 & 0 & 0 & 1
+\end{array}
+\right)
+\end{align}
+\end{frame}
+
+\begin{frame}{solution}
+\begin{align}
+&\xrightarrow{R_3 \gets R_3 - R_2}
+\left(
+\begin{array}{ccc|ccc}
+1 & 0 & -\frac{1}{2} & \frac{1}{2} & 0 & 0 \\
+0 & 1 & \frac{5}{2} & -\frac{5}{2} & 1 & 0 \\
+0 & 0 & \frac{1}{2} & \frac{5}{2} & -1 & 1
+\end{array}
+\right) \\[12pt]
+&\xrightarrow{R_3 \gets 2R_3}
+\left(
+\begin{array}{ccc|ccc}
+1 & 0 & -\frac{1}{2} & \frac{1}{2} & 0 & 0 \\
+0 & 1 & \frac{5}{2} & -\frac{5}{2} & 1 & 0 \\
+0 & 0 & 1 & 5 & -2 & 2
+\end{array}
+\right)
+\end{align}
+\end{frame}
+\begin{frame}{Solutions}
+\begin{align}
+&\xrightarrow{R_2 \gets R_2 - \frac{5}{2}R_3}
+\left(
+\begin{array}{ccc|ccc}
+1 & 0 & -\frac{1}{2} & \frac{1}{2} & 0 & 0 \\
+0 & 1 & 0 & -15 & 6 & -5 \\
+0 & 0 & 1 & 5 & -2 & 2
+\end{array}
+\right) \\[12pt]
+&\xrightarrow{R_1 \gets R_1 + \frac{1}{2}R_3}
+\left(
+\begin{array}{ccc|ccc}
+1 & 0 & 0 & 3 & -1 & 1 \\
+0 & 1 & 0 & -15 & 6 & -5 \\
+0 & 0 & 1 & 5 & -2 & 2
+\end{array}
+\right)
+\end{align}
+\end{frame}
+\begin{frame}{Solutions}
+  \begin{align}
+A^{-1}
+   =\myvec{3 & -1 & 1
+          \\
+        -15 & 6 & -5
+         \\
+        5 & -2 & 2
+}
+\end{align}  
+\end{frame}
+
+
+
+
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import numpy as np
+
+# Define the matrix A
+A = np.array([[2, 0, -1],
+              [5, 1, 0],
+              [0, 1, 3]])
+
+# Calculate the inverse of A
+A_inv = np.linalg.inv(A)
+
+print("Inverse of the matrix A is:")
+print(A_inv)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+#include <stdio.h>
+
+void invert_matrix(double A[3][3], double inv[3][3]) {
+    int i, j, k;
+    double aug[3][6];
+    // Build augmented matrix [A | I]
+    for (i = 0; i < 3; ++i) {
+        for (j = 0; j < 3; ++j) {
+            aug[i][j] = A[i][j];
+            aug[i][j+3] = (i == j) ? 1.0 : 0.0;
+        }
+    }
+          
+    \end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+  // Forward elimination
+    for (i = 0; i < 3; ++i) {
+        double f = aug[i][i];
+        for (j = 0; j < 6; ++j)
+            aug[i][j] /= f;
+        for (k = 0; k < 3; ++k) {
+            if(k != i) {
+                double f2 = aug[k][i];
+                for (j = 0; j < 6; ++j)
+                    aug[k][j] -= f2 * aug[i][j];
+            }
+        }
+    }
+    // Extract inverse
+    for (i = 0; i < 3; ++i)
+        for(j = 0; j < 3; ++j)
+            inv[i][j] = aug[i][j+3];
+}
+    \end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+
+\begin{lstlisting}
+import ctypes
+import numpy as np
+
+# Load shared library
+lib = ctypes.CDLL('./code.so')
+
+# Prepare arguments
+A = np.array([[2, 0, -1],
+              [5, 1, 0],
+              [0, 1, 3]], dtype=np.float64)
+A_inv = np.zeros((3, 3), dtype=np.float64)
+
+# Set up argtypes for the C function
+lib.invert_matrix.argtypes = [ctypes.POINTER(ctypes.c_double * 3 * 3), ctypes.POINTER(ctypes.c_double * 3 * 3)]
+
+
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+
+\begin{lstlisting}
+# Create ctypes pointers
+A_ct = (ctypes.c_double * 3 * 3)(*A.flatten())
+A_inv_ct = (ctypes.c_double * 3 * 3)()
+
+# Call C function
+lib.invert_matrix(ctypes.byref(A_ct), ctypes.byref(A_inv_ct))
+
+# Convert result back to numpy
+A_inv_result = np.array(A_inv_ct).reshape((3, 3))
+print("Inverse matrix from C:\n", A_inv_result)
+
+\end{lstlisting}
+
+\end{frame}
+
+\end{document}

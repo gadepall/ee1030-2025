@@ -1,0 +1,185 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\DeclareMathOperator{\Tr}{Tr}
+\usepackage{mathtools}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{tfrupee}
+\usepackage{array}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\lstset{literate={·}{{$\cdot$}}1 {λ}{{$\lambda$}}1 {→}{{$\to$}}1}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\title{12.339}
+\date{October 2, 2025}
+\author{Bhargav - EE25BTECH11013}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Question}
+\textbf{Question}: \\
+If
+\begin{align}
+\vec{A} = \myvec{3 & -3 \\ -3 & 4}
+\end{align}
+then 
+\begin{align}
+\det{\brak{-\vec{A}^2 + 7\vec{A} - 3\vec{I}}}
+\end{align}
+is \\ \\
+\end{frame}
+
+
+\begin{frame}{Solution}
+The characteristic equation of matrix $\vec{A}$ is
+\begin{align}
+f(\lambda) = \abs{\vec{A} - \lambda\vec{I}} = 0
+\end{align}
+\begin{align}
+\abs{\myvec{3-\lambda & -3 \\ -3 & 4-\lambda}} = 0
+\end{align}
+\begin{align}
+\implies \brak{3-\lambda}\brak{4-\lambda} - 9 = 0
+\end{align}
+\begin{align}
+-\lambda^2 + 7\lambda -3 = 0
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+According to Cayley-Hamilton Theorem:
+\begin{align}
+f(\lambda) = f(\vec{A})
+\end{align}
+\begin{align}
+\therefore -\vec{A}^2 + 7\vec{A} - 3\vec{I} = 0
+\end{align}
+\begin{align}
+\therefore \abs{-\vec{A}^2 + 7\vec{A} - 3\vec{I}} = 0
+\end{align}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+#include <stdio.h>
+
+double det(double *mat) {
+    return mat[0]*mat[3] - mat[1]*mat[2];
+}
+
+
+
+    \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python + C Code}
+    \begin{lstlisting}
+import numpy as np
+import ctypes
+lib = ctypes.CDLL("./libcode.so")   
+lib.det.argtypes = [ctypes.POINTER(ctypes.c_double)]
+lib.det.restype = ctypes.c_double
+
+A = np.array([[3, -3],
+              [-3, 4]], dtype=np.float64)
+
+I = np.eye(2, dtype=np.float64)
+expr = -A @ A + 7*A - 3*I
+mat_flat = expr.flatten()
+det_value = lib.det(mat_flat.ctypes.data_as(ctypes.POINTER(ctypes.c_double)))
+print("Matrix (-A^2 + 7A - 3I):\n", expr)
+print("Determinant =", det_value)
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import numpy as np
+A = np.array([[3, -3],
+              [-3, 4]])
+I = np.eye(2)
+
+expr = -A @ A + 7*A - 3*I
+
+det_value = np.linalg.det(expr)
+
+print("Matrix A:\n", A)
+print("Matrix (-A^2 + 7A - 3I):\n", expr)
+print("Determinant =", det_value)
+
+
+    \end{lstlisting}
+\end{frame}
+
+\end{document}
+

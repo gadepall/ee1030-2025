@@ -1,0 +1,118 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal,12pt,onecolumn]{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\graphicspath{{./figs/}}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage{caption}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\usepackage{gvv}                                        
+%\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}     
+\usepackage{xparse}
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{float}
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{problem}{Problem}
+%\newtheorem{proposition}{Proposition}[section]
+%\newtheorem{lemma}{Lemma}[section]
+%\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{example}{Example}[section]
+%\newtheorem{definition}[problem]{Definition}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+  language=C,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue},
+  commentstyle=\color{green!50!black},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  stepnumber=1,
+  frame=single
+}
+
+\begin{document}
+
+\title{5.8.18}
+\author{EE25BTECH11020 - Darsh Pankaj Gajare}
+% \maketitle
+% \newpage
+% \bigskip
+%\begin{document}
+{\let\newpage\relax\maketitle}
+%\renewcommand{\thefigure}{\theenumi}
+%\renewcommand{\thetable}{\theenumi}
+Question:\\Five years hence, the age of Rahul will be three times that of his son. Five years ago, Rahul's age was seven times that of his son. What are their present ages?
+\solution
+Let the age of Rahul and his son be $a$ and $b$ respectively
+\begin{align}
+	\vec{A}=\myvec{a\\b}
+\end{align}
+Given Equations,
+\begin{align}
+	a+5=3\brak{b+5} \implies a-3b=10\\
+	a-5=7\brak{b-5} \implies a-7b=-30
+\end{align}
+\begin{align}
+	\myvec{1 & -3 \\ 1 & -7}\vec{A}=\myvec{10\\-30}
+\end{align}
+Using Guassian elimination,
+\begin{align}
+	\augvec{2}{1}{1&-3&10\\1&-7&-30}
+\end{align}
+$R_1=\frac{R_1-R_2}{4}$
+\begin{align}
+	\augvec{2}{1}{0&1&10\\1&-7&-30}
+\end{align}
+$R_2=R_2+7R_1$
+
+\begin{align}
+	\augvec{2}{1}{0&1&10\\1&0&40}
+\end{align}
+\begin{align}
+	\vec{A}=\myvec{40\\10}
+\end{align}
+C function to calculate age:
+\begin{lstlisting}[caption={ages.c}]
+#include <stdio.h>
+
+int solve2x2(double a11, double a12, double a21, double a22,
+             double b1, double b2, double sol[2]) {
+    double det = a11*a22 - a12*a21;
+    if(det == 0.0) {
+        return -1; // No unique solution
+    }
+
+    sol[0] = (b1*a22 - b2*a12) / det; // x1
+    sol[1] = (a11*b2 - a21*b1) / det; // x2
+    return 0;
+}
+\end{lstlisting}
+
+\end{document}
+

@@ -1,0 +1,117 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+\usepackage{comment}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=4em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{12.872}
+\author{EE25BTECH11026-Harsha}
+ \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question}:\\
+Let $\vec{A}=\myvec{1&&1\\1&&3\\-2&&-3}$ and $\vec{b}=\myvec{b_1\\b_2\\b_3}$. For $\vec{A}\vec{x}=\vec{b}$ to be solvable, which one of the following options is the correct condition on $b_1,b_2,\,and\,b_3$.
+\begin{enumerate}
+\begin{multicols}{2}
+    \item $b_1+b_2+b_3=1$
+    \item $3b_1+b_2+2b_3=0$
+    \item $b_1+3b_2+b_3=2$
+    \item $b_1+b_2+b_3=2$
+\end{multicols}
+\end{enumerate}
+
+\solution \\
+Let us solve the given question theoretically and then verify the solution computationally.\\
+\\
+Given,
+\begin{align}
+    \vec{A}\vec{x}=\vec{b} \label{eq:1}
+\end{align}
+Multiplying $\vec{A}^{\top}$ on both sides,
+\begin{align}
+    \myvec{1&&1&&-2\\1&&3&&-3}\myvec{1&&1\\1&&3\\-2&&-3}\vec{x}=\myvec{1&&1&&-2\\1&&3&&-3}\myvec{b_1\\b_2\\b_3}
+\end{align}
+\begin{align}
+    \implies \myvec{6&&10\\10&&19}\vec{x}=\myvec{b_1+b_2-2b_3\\b_1+3b_2-3b_3}
+\end{align}
+Forming the augmented matrix,
+\begin{align}
+    \augvec{2}{1}{6&10&b_1+b_2-2b_3\\10&19&b_1+3b_2-3b_3}
+    \xleftrightarrow{\, R_2 \gets R_2-\frac{5}{3}R_1}
+    \augvec{2}{1}{6&10&b_1+b_2-2b_3\\0&\frac{7}{3}&-\frac{2}{3}b_1+\frac{4}{3}b_2+\frac{1}{3}b_3}
+    \xleftrightarrow[\, R_1 \gets R_1-10R_2]{\, R_2 \gets \frac{3}{7}R_2}
+\end{align}
+\begin{align}
+    \augvec{2}{1}{6&0&\frac{27}{7}b_1-\frac{33}{7}b_2-\frac{24}{7}b_3\\0&1&-\frac{2}{7}b_1+\frac{4}{7}b_2+\frac{1}{7}b_3}
+    \xleftrightarrow{\, R_1 \gets \frac{1}{6}R_1}
+    \augvec{2}{1}{1&0&\frac{9}{14}b_1-\frac{11}{14}b_2-\frac{4}{7}b_3\\0&1&-\frac{2}{7}b_1+\frac{4}{7}b_2+\frac{1}{7}b_3}
+\end{align}
+\begin{align}
+    \therefore \vec{x}=\myvec{x_1\\x_2}=\myvec{\frac{9}{14}b_1-\frac{11}{14}b_2-\frac{4}{7}b_3\\-\frac{2}{7}b_1+\frac{4}{7}b_2+\frac{1}{7}b_3} 
+\end{align}
+From ~\eqref{eq:1},
+\begin{align}
+    x_1+x_2=b_1 \Rightarrow \; \frac{9}{14}b_1-\frac{11}{14}b_2-\frac{4}{7}b_3\, +\, \brak{-\frac{2}{7}b_1+\frac{4}{7}b_2+\frac{1}{7}b_3} =b_1
+\end{align}
+\begin{align}
+    \therefore 3b_1+b_2+2b_3=0 
+\end{align}
+
+
+\end{document}

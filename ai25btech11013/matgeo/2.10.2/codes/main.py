@@ -1,0 +1,15 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import numpy.linalg as la
+import math
+a=3
+b=4
+c=5
+#x=a.b,y=b.c,z=c.a
+#x+y=0,y+z=0,x+z=0
+B=np.array([0,0,0])
+A=np.array([[1,1,0],[0,1,1],[1,0,1]])
+X=la.solve(A,B)
+d=a*a+b*b+c*c+2*np.sum(X)
+print(math.sqrt(d))
+

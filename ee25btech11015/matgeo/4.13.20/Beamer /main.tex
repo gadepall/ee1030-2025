@@ -1,0 +1,298 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  literate={λ}{{$\lambda$}}1
+}
+
+
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\begin{document}
+
+\title 
+{4.13.20}
+\date{october 1,2025}
+
+
+\author 
+{Bhoomika V - EE25BTECH11015}
+
+
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+A ray of light along $x + 3y = 3$ gets reflected upon reaching the $X$-axis.  
+The equation of the reflected ray is:  
+
+\[
+\begin{array}{cc}
+\text{(a)} \; y = x + 3 & \text{(b)} \; 3y = x - 3 \\[8pt]
+\text{(c)} \; y = 3x - 3 & \text{(d)} \; 3y = x - 1
+\end{array}
+\]
+\end{frame}
+
+\begin{frame}{Parametric form of line}
+The given line in parametric (matrix) form
+
+\[
+x+3y=3.
+\]
+The normal vector is 
+\[
+\vec{n}=\begin{pmatrix}1\\3\end{pmatrix}.
+\]
+A direction vector $\vec{d}$ satisfies $\vec{n}^\top \vec{d}=0$.  
+\[
+\vec{d}=\begin{pmatrix}-3\\1\end{pmatrix}, 
+\quad 
+\]
+A point on the line is 
+\[
+\vec{p}=\begin{pmatrix}0\\1\end{pmatrix}, \quad (0+3\cdot 1=3).
+\]
+
+Hence, the parametric form is
+\[
+\vec{r}(t)=\vec{p}+t\vec{d}
+=\begin{pmatrix}0\\1\end{pmatrix}+t\begin{pmatrix}-3\\1\end{pmatrix}.
+\]
+\end{frame}
+
+\begin{frame}
+Point of incidence (intersection with the $x$-axis)
+
+
+For incidence with the $x$-axis, set $y=0$.  
+From the second component:
+\[
+1+t=0 \;\;\Rightarrow\;\; t=-1.
+\]
+
+Thus,
+\[
+\vec{P}=\vec{r}(-1)
+=\begin{pmatrix}0\\1\end{pmatrix} -1\begin{pmatrix}-3\\1\end{pmatrix}
+=\begin{pmatrix}3\\0\end{pmatrix}.
+\]
+
+\end{frame}
+
+\begin{frame}{Reflection}
+Reflection in the $x$-axis is represented by the matrix
+\[
+R=\begin{pmatrix}1 & 0\\[4pt] 0 & -1\end{pmatrix}.
+\]
+
+So,
+\[
+\vec{d}'=R\vec{d}
+=\begin{pmatrix}1 & 0\\ 0 & -1\end{pmatrix}
+\begin{pmatrix}-3\\1\end{pmatrix}
+=\begin{pmatrix}-3\\-1\end{pmatrix}.
+\]
+
+(Equivalently, we can take $\vec{d}'=(3,1)$.)
+
+
+\end{frame}
+
+\begin{frame}{Reflected ray}
+Equation of the reflected ray
+
+
+The reflected ray is
+\[
+\vec{r}'(s)=\vec{P}+s\vec{d}'
+=\begin{pmatrix}3\\0\end{pmatrix}+s\begin{pmatrix}3\\1\end{pmatrix}.
+\]
+
+Coordinates:
+\[
+x=3+3s, \quad y=0+s.
+\]
+
+Thus,
+\[
+x-3=3y \quad \Rightarrow \quad 3y=x-3.
+\]
+
+ \text{Equation of the reflected ray: } \; 3y=x-3 
+\end{frame}
+
+\begin{frame}[fragile]
+    \begin{lstlisting}
+#include <stdio.h>
+
+// Reflect a vector (dx,dy) about the X-axis
+void reflect_ray(float dx, float dy, float *rx, float *ry) {
+    *rx = dx;      // x component unchanged
+    *ry = -dy;     // y component flipped
+}
+
+     \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import ctypes
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+
+# --- Load the C library ---
+lib_path = os.path.abspath("./reflection.so")
+try:
+    c_lib = ctypes.CDLL(lib_path)
+except OSError:
+    print("reflection.so not found. Compile with: gcc -shared -o reflection.so -fPIC reflection.c")
+    exit()
+
+# Define function signature
+c_lib.reflect_ray.argtypes = [ctypes.c_float, ctypes.c_float,
+                              ctypes.POINTER(ctypes.c_float),
+                              ctypes.POINTER(ctypes.c_float)]
+
+    \end{lstlisting}
+\end{frame} 
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# --- Incident ray direction (line x+3y=3 has direction (-3,1)) ---
+dx, dy = -3.0, 1.0
+rx, ry = ctypes.c_float(), ctypes.c_float()
+
+# Call C function
+c_lib.reflect_ray(ctypes.c_float(dx), ctypes.c_float(dy),
+                  ctypes.byref(rx), ctypes.byref(ry))
+
+print(f"Incident direction = ({dx}, {dy})")
+print(f"Reflected direction = ({rx.value}, {ry.value})")
+
+# --- Geometry ---
+# Point of incidence (intersection with x-axis)
+P = (3, 0)
+    \end{lstlisting}
+\end{frame} 
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# Parametric plotting
+t = np.linspace(-1, 2, 100)
+incident_x = P[0] + dx * t
+incident_y = P[1] + dy * t
+
+reflected_x = P[0] + rx.value * t
+reflected_y = P[1] + ry.value * t
+
+# --- Plot ---
+plt.figure(figsize=(6,6))
+plt.plot(incident_x, incident_y, "b", label="Incident Ray")
+plt.plot(reflected_x, reflected_y, "r", label="Reflected Ray")
+
+    \end{lstlisting}
+\end{frame} 
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# Mark incidence point
+plt.scatter(*P, color="black", s=60, zorder=5)
+plt.text(P[0]+0.1, P[1]+0.2, "P(3,0)", fontsize=10)
+
+# Axes formatting
+plt.axhline(0, color="black", linewidth=1)
+plt.axvline(0, color="black", linewidth=1)
+plt.gca().set_aspect("equal")
+plt.xlim(-2, 6)
+plt.ylim(-3, 3)
+
+plt.title("Reflection of Ray $x+3y=3$ at the X-axis (via C function)")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.grid(True)
+plt.show()
+    \end{lstlisting}
+\end{frame} 
+
+
+\end{document}

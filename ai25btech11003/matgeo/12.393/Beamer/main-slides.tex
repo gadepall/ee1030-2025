@@ -1,0 +1,188 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+
+\title
+{12.393}
+\date{September 29, 2025}
+\author 
+{AI25BTECH11003 - Bhavesh Gaikwad}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Values of a, b, c which render the matrix $$\vec{Q} = \myvec{\frac{1}{\sqrt{3}} & \frac{1}{\sqrt{2}} & a \\ 
+\frac{1}{\sqrt{3}} & 0 & b \\
+\frac{1}{\sqrt{3}} & \frac{-1}{\sqrt{2}} & c}$$
+
+orthonormal are, respectively,
+
+\hfill{(AE 2013)}
+\begin{itemize}
+    \item[a)]$\frac{1}{\sqrt{2}}$, $\frac{1}{\sqrt{2}}$, 0
+
+    \item[b)]$\frac{1}{\sqrt{6}}$, $\frac{-2}{\sqrt{6}}$, $\frac{1}{\sqrt{6}}$
+
+    \item[c)]$\frac{1}{\sqrt{3}}$, $\frac{1}{\sqrt{3}}$, $\frac{1}{\sqrt{3}}$
+
+    \item[d)]$\frac{-1}{\sqrt{6}}$, $\frac{2}{\sqrt{6}}$, $\frac{-1}{\sqrt{6}}$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Theoretical Solution}
+Given: $\vec{Q}$ is an orthogonal matrix.\\
+$\qquad$ $\vec{Q} = \dfrac{1}{\sqrt{6}}\myvec{\sqrt{2} & \sqrt{3} & \sqrt{6}a \\ \sqrt{2} & 0 & \sqrt{6}b \\ \sqrt{2} & -\sqrt{3} & \sqrt{6}c}$\\\\
+
+Condition for orthogonality,
+\begin{equation}
+    \vec{A}^\top\vec{A} = \vec{I}
+\end{equation}
+
+Substituting $\vec{Q}$ in Equation 0.1,
+\begin{align}
+\vec{Q}^\top\vec{Q} = \dfrac{1}{6} \myvec{6 & 0 & 2\sqrt{3}(a+b+c) \\ 0 & 6 & 3\sqrt{2}(a-c) \\ 2\sqrt{3}(a+b+c) & 3\sqrt{2}(a-c) & 6(a^2 + b^2 + c^2)} 
+\end{align}
+
+\begin{equation}
+    \dfrac{1}{6} \myvec{6 & 0 & 2\sqrt{3}(a+b+c) \\ 0 & 6 & 3\sqrt{2}(a-c) \\ 2\sqrt{3}(a+b+c) & 3\sqrt{2}(a-c) & 6(a^2 + b^2 + c^2)} = \myvec{1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1}
+\end{equation}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Theoretical Solution}
+On Comparing we get,\\
+Let $\vec{P} = \myvec{a \\ b \\c}$
+\begin{align}
+\vec{P}^\top\myvec{1 \\ 1 \\ 1} &= 0\\
+\vec{P}^\top\myvec{1 \\ 0 \\ -1} &= 0\\
+\vec{P}^\top\vec{P} = \norm{\vec{P}}^2 &=  1
+\end{align}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Theoretical Solution}
+From Equation 4 and 5,
+\begin{equation}
+    \myvec{1 & 1 & 1 \\ 1 & 0 & -1}\vec{P} = \myvec{0 \\ 0}
+\end{equation}
+
+Row Transformation-1: $R_2 \rightarrow R_2 - R_1$
+\begin{equation}
+    \myvec{1 & 1 & 1 \\ 0 & -1 & -2}\vec{P} = \myvec{0 \\ 0}
+\end{equation}
+
+Row Transformation-2: $R_1 \rightarrow R_1 + R_2$
+\begin{equation}
+    \myvec{1 & 0 & -1 \\ 0 & -1 & -2}\vec{P} = \myvec{0 \\ 0}
+\end{equation}
+
+From this,
+\begin{equation}
+    a = c \; \& \; b = -2a
+\end{equation}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Theoretical Solution}
+\begin{equation}
+  \therefore \;  \vec{P} = a\myvec{1 \\ -2 \\ 1}
+\end{equation}
+
+From Equations 6 and 11
+\begin{align}
+   a^2 \myvec{1 & -2 & 1} \myvec{1 \\ -2 \\ 1} &= 1 \\ 
+   a^2\left[ 1 + 4 + 1 \right] = 6a^2 &= 1\\
+   \boxed{a = \pm \dfrac{1}{\sqrt{6}}}
+\end{align}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Theoretical Solution}
+    Substituting value of a in Equation-11
+\begin{align}
+    \therefore \; \vec{P} = \myvec{\frac{1}{\sqrt{6}} \\ \frac{-2}{\sqrt{6}} \\ \frac{1}{\sqrt{6}}} 
+     \qquad OR \qquad
+    \vec{P} = \myvec{\frac{-1}{\sqrt{6}} \\ \frac{2}{\sqrt{6}} \\ \frac{-1}{\sqrt{6}}}
+    \end{align}
+
+\begin{align*}
+    \boxed{\text{Thus, Option B and D are correct.}}
+\end{align*}
+\end{frame}
+\end{document}

@@ -1,0 +1,19 @@
+\frametitle{Python Code: Direct}
+\begin{lstlisting}[language=Python]
+# Plot points and line
+ax.scatter(A[0], A[1], A[2], c='r', s=100, label='A')
+ax.scatter(B[0], B[1], B[2], c='b', s=100, label='B')
+ax.scatter(C[0], C[1], C[2], c='g', s=100, label='C (Intersection)')
+line_pts = np.array([A, B, C])
+ax.plot(line_pts[:,0], line_pts[:,1], line_pts[:,2], 'purple')
+# Plot XZ plane
+x_plane = np.linspace(2, 8, 10)
+z_plane = np.linspace(0, 8, 10)
+X_plane, Z_plane = np.meshgrid(x_plane, z_plane)
+Y_plane = np.zeros_like(X_plane)
+ax.plot_surface(X_plane, Y_plane, Z_plane, alpha=0.3, color='gray')
+ax.set_xlabel('X'); ax.set_ylabel('Y'); ax.set_zlabel('Z')
+ax.legend()
+plt.savefig("fig2.png")
+plt.show()
+\end{lstlisting}

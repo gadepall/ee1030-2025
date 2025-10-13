@@ -1,0 +1,220 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{2.10.2}
+%\subtitle{A short story}
+
+\author % (optional)
+{Gautham-AI25BTECH11013}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Let $\Vec{A}$, $\Vec{B}$, and $\Vec{C}$ be vectors of lengths 3, 4, and 5 respectively such that
+$\Vec{A} \perp \Vec{B} + \Vec{C}$, 
+$\Vec{B} \perp \Vec{C} + \Vec{A}$, and
+$\Vec{C} \perp \Vec{A} + \Vec{B}$. Find the length of the vector $\Vec{A} + \Vec{B} + \Vec{C}$.\\
+\end{frame}
+\begin{frame}{Theoretical Solution}
+Let the Gram matrix $G$ for the vectors $\Vec{A}, \Vec{B}, \Vec{C}$ be:
+\begin{align}
+G = \myvec{
+\Vec{A}^T \Vec{A} & \Vec{A}^T \Vec{B} & \Vec{A}^T \Vec{C} \\
+\Vec{B}^T \Vec{A} & \Vec{B}^T \Vec{B} & \Vec{B}^T \Vec{C} \\
+\Vec{C}^T \Vec{A} & \Vec{C}^T \Vec{B} & \Vec{C}^T \Vec{C}
+}
+= \myvec{
+9 & a & b \\
+a & 16 & c \\
+b & c & 25
+}
+\end{align}
+where $a = \Vec{A}^T \Vec{B}$, $b = \Vec{A}^T \Vec{C}$, and $c = \Vec{B}^T \Vec{C}$.
+
+Given the orthogonality conditions:
+\begin{align}
+\Vec{A} \perp \Vec{B} + \Vec{C} &\implies \Vec{A}^T (\Vec{B} + \Vec{C}) = 0 \implies a + b = 0, \\
+\Vec{B} \perp \Vec{C} + \Vec{A} &\implies \Vec{B}^T (\Vec{C} + \Vec{A}) = 0 \implies c + a = 0, \\
+\Vec{C} \perp \Vec{A} + \Vec{B} &\implies \Vec{C}^T (\Vec{A} + \Vec{B}) = 0 \implies b + c = 0.
+\end{align}
+\end{frame}
+\begin{frame}{Theoretical Solution}
+ This system can be written as:
+\begin{align}
+a + b = 0 \\
+c + a = 0 \\
+b + c = 0.
+\end{align}
+In matrix form:
+\begin{align}
+\myvec{
+1 & 1 & 0 \\
+1 & 0 & 1 \\
+0 & 1 & 1
+}
+\myvec{
+a \\ b \\ c
+}
+= \myvec{
+0 \\ 0 \\ 0
+}
+\end{align}
+
+Convert the coefficient matrix to upper triangular form by row operations:
+\begin{align}
+\myvec{
+1 & 1 & 0 \\
+1 & 0 & 1 \\
+0 & 1 & 1
+}
+\overset{R_2 \to R_2 - R_1}{\longrightarrow}
+\myvec{
+1 & 1 & 0 \\
+0 & -1 & 1 \\
+0 & 1 & 1
+}
+\overset{R_3 \to R_3 + R_2}{\longrightarrow}
+\myvec{
+1 & 1 & 0 \\
+0 & -1 & 1 \\
+0 & 0 & 2
+}
+\end{align}
+\end{frame}
+\begin{frame}{Theoretical Solution}
+From the last row:
+\begin{align}
+2c = 0 \implies c = 0
+\end{align}
+From the second row:
+\begin{align}
+- b + c = 0 \implies b = 0
+\end{align}
+From the first row:
+\begin{align}
+a + b = 0 \implies a = 0
+\end{align}
+
+Thus, the Gram matrix is:
+\begin{align}
+G = \myvec{
+9 & 0 & 0 \\
+0 & 16 & 0 \\
+0 & 0 & 25
+}
+\end{align}
+\end{frame}
+\begin{frame}{Theoretical Solution}
+Let $\Vec{u}=\myvec{1 \\ 1 \\ 1}$\\
+Now, the squared length of $\Vec{A} + \Vec{B} + \Vec{C}$ is:
+\begin{align}
+||\Vec{A} + \Vec{B} + \Vec{C}||^2 = \Vec{u}^T \Vec{G} \Vec{u}
+\end{align}
+Expanding using the Gram matrix:
+\begin{align}
+||\Vec{A} + \Vec{B} + \Vec{C}||^2 = 50
+\end{align}
+Therefore,
+\begin{align}
+||\Vec{A} + \Vec{B} + \Vec{C}|| = \sqrt{50} = 5 \sqrt{2}
+\end{align}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+   \begin{lstlisting}
+import numpy as np
+import numpy.linalg as la
+import math
+a=3
+b=4
+c=5
+#x=a.b,y=b.c,z=c.a
+#x+y=0,y+z=0,x+z=0
+B=np.array([0,0,0])
+A=np.array([[1,1,0],[0,1,1],[1,0,1]])
+X=la.solve(A,B)
+d=a*a+b*b+c*c+2*np.sum(X)
+print(math.sqrt(d))
+   \end{lstlisting}
+\end{frame}
+
+
+\end{document}

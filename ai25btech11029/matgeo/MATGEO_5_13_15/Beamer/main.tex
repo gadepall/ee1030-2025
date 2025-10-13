@@ -1,0 +1,175 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{multicol}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\title 
+{5.13.15}
+\date{}
+
+\author
+{SAMYAK GONDANE - AI25BTECH11029}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Question}
+The area of a triangle formed by vertices $\vec{O}, \vec{A}$ and $\vec{B}$, where $\vec{OA} = \hat{i} + 2\hat{j} + 3\hat{k}$ and $\vec{OB} = -3\hat{i} - 2\hat{j} + \hat{k}$ is
+\end{frame}
+
+
+\begin{frame}{Solution}
+
+\textbf{Given}:
+
+\begin{align}
+\textbf{A} = \myvec{ 5a & -b \\ 3 & 2 }
+\end{align}
+
+
+\begin{align}
+Adj(\textbf{A}) = \myvec{ 2 & b \\ -3 & 5a }
+\end{align}
+\end{frame}
+
+
+\begin{frame}{Solution}
+\textbf{Compute $AA^T$}
+
+First, compute the transpose:
+
+\begin{align}
+A^\top = \myvec{ 5a & 3 \\ -b & 2 }
+\end{align}
+
+Now multiply:
+
+\begin{align}
+AA^\top = \myvec{ 5a & -b \\ 3 & 2 } \myvec{ 5a & 3 \\ -b & 2 }
+\end{align}
+\end{frame}
+
+
+\begin{frame}{Solution}
+Compute each entry:
+
+\begin{align}
+AA^\top = \myvec{
+(5a)^2 + (-b)^2 & 5a \cdot 3 + (-b) \cdot 2 \\
+3 \cdot 5a + 2 \cdot (-b) & 3^2 + 2^2
+}
+= \myvec{
+25a^2 + b^2 & 15a - 2b \\
+15a - 2b & 13
+}
+\end{align}
+
+\subsection*{Equate $AA^T = \textbf{A}Adj\textbf{A}$}
+
+
+\begin{align}
+\myvec{
+25a^2 + b^2 & 15a - 2b \\
+15a - 2b & 13
+}
+=
+\myvec{
+2 & b \\
+-3 & 5a
+}
+\end{align}\\
+
+
+\end{frame}
+
+
+\begin{frame}{Solution}
+Compare bottom-right entries:
+\begin{align}
+13 = 5a \Rightarrow a = \frac{13}{5}
+\end{align}
+
+Compare top-right entries:
+\begin{align}
+15a - 2b = b \Rightarrow 15a = 3b \Rightarrow b = 13
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+\textbf{Final Step: Compute $5a + b$}
+
+\begin{align}
+5a + b = 5 \times \frac{13}{5} + 13 = 26 = \boxed{26}
+\end{align}
+
+\end{frame}
+
+\end{document}

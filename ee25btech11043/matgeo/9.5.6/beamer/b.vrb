@@ -1,0 +1,20 @@
+\frametitle{Python Code (Direct)}
+\begin{lstlisting}{python}
+    if len(y_vals) > 1 and np.std(y_vals) > 1e-6:
+        y_min_plot = np.min(y_vals)
+        y_max_plot = np.max(y_vals)
+        y_padding = abs(y_max_plot - y_min_plot) * 0.1
+        if y_padding == 0: y_padding = 1
+        plt.ylim(y_min_plot - y_padding, y_max_plot + y_padding)
+    else: # Fallback for cases with very flat or constant functions
+        plt.ylim(min(y_vals)-2, max(y_vals)+2)
+    plt.xlim(plot_min_x, plot_max_x) # Ensure x-limits are set
+    plt.show()
+
+# --- Main execution ---
+# Given quadratic equation: 2x^2 - 9x + 4 = 0
+a_given = 2.0
+b_given = -9.0
+c_given = 4.0
+solve_quadratic_and_plot(a_given, b_given, c_given)
+\end{lstlisting}

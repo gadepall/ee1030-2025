@@ -1,0 +1,134 @@
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+\usepackage{lmodern}
+
+\setlength{\headheight}{1cm}
+\setlength{\headsep}{0mm}
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{graphicx}
+\graphicspath{{./figs/}}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{5.13.62}
+\author{EE25BTECH11036 - M Chanakya Srinivas}
+\maketitle
+
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt}
+\renewcommand\theequation{\arabic{equation}}
+
+
+
+\section*{Question}
+
+How many $3 \times 3$ matrices $M$, with entries from the set $\{0,1,2\}$, satisfy
+\begin{align}
+\operatorname{tr}(M^\top M) = 5?
+\end{align}
+
+\section*{Solution}
+
+Let the matrix \( M \in \mathbb{R}^{3 \times 3} \) be represented column-wise as:
+\begin{align}
+M = \vec{(c_1 \quad c_2 \quad c_3)}
+\end{align}
+where each column \( \vec{c_j} \in \mathbb{R}^3 \), and entries \( c_{ij} \in \{0, 1, 2\} \).
+
+Each column vector is of the form:
+\begin{align}
+\vec{c_j} = \myvec{c_{1j} \\ c_{2j} \\ c_{3j}}, \quad j = 1,2,3
+\end{align}
+
+Since each entry in the vector is from \(\{0,1,2\}\), the number of possible 3D vectors is:
+\begin{align}
+3^3 = 27
+\end{align}
+
+\subsection*{Step 1: Compute \( M^\top M \)}
+
+\begin{align}
+M^\top M = 
+\myvec{
+\vec{c_1}^\top \vec{c_1} & \vec{c_1}^\top \vec{c_2} & \vec{c_1}^\top \vec{c_3} \\
+\vec{c_2}^\top \vec{c_1} & \vec{c_2}^\top \vec{c_2} & \vec{c_2}^\top \vec{c_3} \\
+\vec{c_3}^\top \vec{c_1} & \vec{c_3}^\top \vec{c_2} & \vec{c_3}^\top \vec{c_3}
+}
+\end{align}
+
+The trace is the sum of diagonal entries:
+\begin{align}
+\operatorname{tr}(M^\top M) = \vec{c_1}^\top \vec{c_1} + \vec{c_2}^\top \vec{c_2} + \vec{c_3}^\top \vec{c_3} = \|\vec{c_1}\|^2 + \|\vec{c_2}\|^2 + \|\vec{c_3}\|^2
+\end{align}
+
+We are given:
+\begin{align}
+\|\vec{c_1}\|^2 + \|\vec{c_2}\|^2 + \|\vec{c_3}\|^2 = 5
+\end{align}
+
+Let:
+\begin{align}
+n_1 = \|\vec{c_1}\|^2, \quad n_2 = \|\vec{c_2}\|^2, \quad n_3 = \|\vec{c_3}\|^2
+\Rightarrow n_1 + n_2 + n_3 = 5
+\end{align}
+
+\subsection*{Step 2: Count vectors with given norm}
+
+Let \( N(n) \) be the number of vectors \( \vec{v} \in \mathbb{R}^3 \) with entries from \(\{0,1,2\}\) and squared norm \( \|\vec{v}\|^2 = n \).
+
+By enumeration:
+
+\begin{align*}
+N(0) &= 1 \quad (\myvec{0\\0\\0}) \\
+N(1) &= 3 \quad (\text{3 vectors with one }1) \\
+N(2) &= 3 \quad (\text{3 vectors with one }2) \\
+N(3) &= 6 \quad (\text{e.g., } \myvec{1\\1\\1}, \myvec{0\\1\\2}, \ldots) \\
+N(4) &= 3 \quad (\text{e.g., } \myvec{2\\0\\0}, \ldots) \\
+N(5) &= 6
+\end{align*}
+
+\subsection*{Step 3: Final Count Using Vector Norm Histogram}
+
+Each column \( \vec{c_i} \in \mathbb{R}^3 \) can take values from the set \( \{0,1,2\}^3 \), so total:
+\begin{align}
+27 \text{ vectors}
+\end{align}
+
+We want to count all ordered triples of vectors \( (\vec{c_1}, \vec{c_2}, \vec{c_3}) \) such that:
+\begin{align}
+\|\vec{c_1}\|^2 + \|\vec{c_2}\|^2 + \|\vec{c_3}\|^2 = 5
+\end{align}
+
+That is:
+\begin{align}
+\text{Total} = \sum_{\substack{n_1 + n_2 + n_3 = 5 \\ 0 \leq n_i \leq 5}} N(n_1) \cdot N(n_2) \cdot N(n_3)
+\end{align}
+
+This is a bounded discrete sum over all integer solutions \( (n_1, n_2, n_3) \in \{0,1,\dots,5\} \) such that \( n_1 + n_2 + n_3 = 5 \).
+
+Using enumeration or a small program, we evaluate this sum:
+\begin{align}
+\boxed{198}
+\end{align}
+
+\section*{Final Answer}
+
+\begin{align}
+\boxed{198}
+\end{align}
+
+\end{document}

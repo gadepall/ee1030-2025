@@ -1,0 +1,116 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{mathtools}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\title{12.59}
+\date{28th September, 2025}
+\author{Puni Aditya - EE25BTECH11046}
+
+\begin{document}
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Given matrix
+\begin{align*}
+    \vec{A} = \myvec{2 & -1 \\ -1 & 2}
+\end{align*}
+The eigenvalue corresponding to the eigenvector
+\begin{align*}
+    \myvec{1 \\ -1}
+\end{align*}
+is \rule{2cm}{0.4pt}.
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+Let the eigenvalue $\lambda$ have $\vec{v}$ as its corresponding eigenvector for the matrix $\vec{A}$.
+\begin{align}
+    \vec{A}\vec{v} &= \lambda\vec{v} \\
+    \vec{v}^\top\vec{A}\vec{v} &= \lambda\vec{v}^\top\vec{v} \\
+    \lambda &= \frac{\vec{v}^\top\vec{A}\vec{v}}{\vec{v}^\top\vec{v}} \label{eq:30}
+\end{align}
+Here,
+\begin{align}
+    \vec{A} = \myvec{2 & -1 \\ -1 & 2}\text{ and }\vec{v} = \myvec{1 \\ -1}
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+Using \eqref{eq:30},
+\begin{align}
+    \lambda &= \frac{\myvec{1 & -1}\myvec{2 & -1 \\ -1 & 2}\myvec{1 \\ -1}}{\myvec{1 & -1}\myvec{1 \\ -1}}
+\end{align}
+\begin{align}
+    \therefore \lambda &= 3
+\end{align}
+\end{frame}
+
+\end{document}

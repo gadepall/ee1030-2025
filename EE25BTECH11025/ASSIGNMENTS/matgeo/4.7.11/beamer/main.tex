@@ -144,8 +144,11 @@ int constant1[1]={5};
 int vector2[2]={3, 2};
 int constant2[1]={5};
 
-int get_vector1(int index){
-    return vector1[index];
+void give_data(double *points){
+    points[0] = vector1[0];points[1] = vector1[1];
+    points[2] = constant1[0];
+    points[3] = vector2[0]; points[4] = vector2[1];
+    points[5] = constant2[0];
 }
     \end{lstlisting}
 \end{frame}
@@ -153,16 +156,19 @@ int get_vector1(int index){
 \begin{frame}[fragile]
     \frametitle{C Code}
     \begin{lstlisting}
-int get_vector2(int index){
-    return vector2[index];
-}
-
-int get_constant1(int index){
-    return constant1[index];
-}
-
-int get_constant2(int index){
-    return constant2[index];
+void give_findata(double *points2){ 
+    double finalvector1[2]; double finalvector2[2]; 
+    double finalconstant1; double finalconstant2;
+    for(int i = 0; i<2; i++){
+        finalvector1[i] = vector1[i] - vector2[i];
+        finalvector2[i] = vector1[i] + vector2[i];
+    }  
+    finalconstant1 = constant1[0] - constant2[0];
+    finalconstant2 = constant1[0] + constant2[0];
+    points2[0] = finalvector1[0];points2[1] = finalvector1[1];
+    points2[2] = finalconstant1;
+    points2[3] = finalvector2[0]; points2[4] = finalvector2[1];
+    points2[5] = finalconstant2;
 }
     \end{lstlisting}
 \end{frame}
@@ -170,40 +176,21 @@ int get_constant2(int index){
 \begin{frame}[fragile]
     \frametitle{Python Code 1}
     \begin{lstlisting}
-import ctypes
+import ctypes as ct
 
-lib = ctypes.CDLL("./problem.so")
+lib = ct.CDLL("./problem.so")
+lib.give_data.argtypes = [ct.POINTER(ct.c_double)]
+lib.give_findata.argtypes = [ct.POINTER(ct.c_double)]
 
-finalvector1=[0, 0]
-finalvector2=[0, 0]
+points = ct.c_double*8
+data = points()
+lib.give_data(data)
+finpoints = ct.c_double*8
+findata = finpoints()
+lib.give_findata(findata)
 
-lib.get_vector1.argtypes = [ctypes.c_int]
-lib.get_vector1.restype = ctypes.c_int
-
-lib.get_vector2.argtypes = [ctypes.c_int]
-lib.get_vector2.restype = ctypes.c_int
-
-lib.get_constant1.argtypes = [ctypes.c_int]
-lib.get_constant1.restype = ctypes.c_int
-    \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{Python Code 1}
-    \begin{lstlisting}
-lib.get_constant2.argtypes = [ctypes.c_int]
-lib.get_constant2.restype = ctypes.c_int
-
-
-for i in range(0,2):
-    finalvector1[i]=lib.get_vector1(i)-lib.get_vector2(i)
-
-for i in range(0,2):
-    finalvector2[i]=lib.get_vector1(i)+lib.get_vector2(i)
-
-finalconstant=lib.get_constant1(0)+lib.get_constant2(0)
-
-print(f"The final line equations are y=0 and {finalvector2[0]}x={finalconstant}")
+def send_data():
+    return data, findata 
     \end{lstlisting}
 \end{frame}
 
@@ -212,35 +199,30 @@ print(f"The final line equations are y=0 and {finalvector2[0]}x={finalconstant}"
     \begin{lstlisting}
 import matplotlib.pyplot as plt
 import numpy as np
-
+from call import send_data
+data, findata = send_data()
 a = np.linspace(-10, 10, 100)
-b = (3*a)/2 - (5/2)
-
+b = ((data[0]*a)-data[2])/(-data[1])
 A = np.linspace(-10, 10, 100)
-B = (-3*A)/2 + (5/2)
-
-x = [10/6, 10/6]
-y = [15, -15]
-
-X = [-15, 15]
-Y = [0, 0]
+B = ((-data[3]*A)+data[5])/data[4]
+y = np.linspace(-10, 10, 100)
+x = ((findata[4]*y)-findata[5])/(-findata[3])
+X = np.linspace(-10, 10, 100)
+Y = ((findata[0]*X)-findata[2])/(-findata[1])
     \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{Python Code 2}
     \begin{lstlisting}
-plt.plot(a, b, 'r-')
+plt.plot(a, b, 'r-') 
 plt.plot(A, B, 'r-')
 plt.plot(x, y, 'k-')
 plt.plot(X, Y, 'k-')
-
 plt.text(10, 12.3, "3x-2y=5", fontsize=10, color='black')
 plt.text(-8.3, 15, "3x+2y=5", fontsize=10, color='black')
 plt.text(15.2, -0.06, "y=0", fontsize=10, color='black')
 plt.text(1.6, 14.6, "x=10/6", fontsize=10, color='black')
-
-
 plt.xlabel('X-axis')
 plt.ylabel('Y-axis')
 plt.axis('equal')

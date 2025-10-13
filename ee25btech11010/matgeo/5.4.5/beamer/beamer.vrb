@@ -1,0 +1,18 @@
+\frametitle{Python+ C Code}
+\begin{lstlisting}
+# Prepare output matrix
+inv = ((ctypes.c_double * 2) * 2)()
+
+# Call the C function
+status = lib.inverse2x2(A, inv)
+
+if status:
+    # Convert result to numpy array for convenience
+    result = np.array([[inv[0][0], inv[0][1]],
+                       [inv[1][0], inv[1][1]]])
+    print("Inverse matrix:")
+    print(result)
+else:
+    print("Matrix is singular — no inverse.")
+
+\end{lstlisting}

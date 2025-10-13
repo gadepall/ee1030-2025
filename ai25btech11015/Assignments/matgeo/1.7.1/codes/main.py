@@ -10,6 +10,13 @@ pt1 = np.array([0,0]).reshape(-1,1)
 pt2 = np.array([2*m,-4]).reshape(-1,1)
 pt3 = np.array([3,6]).reshape(-1,1)
 
+#checking if m = -1 satisfies the collinearity condition
+rank = np.linalg.matrix_rank(np.hstack((pt2-pt1,pt3-pt1)))
+if rank == 1:
+    print("The points are collinear")
+else:
+    print("The points are not collinear")
+    
 pts = np.array([pt1,pt2,pt3])
 print(pts[:,0])
 plt.plot(pts[:,0],pts[:,1])

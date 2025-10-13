@@ -1,17 +1,11 @@
 // file: unitvec3d.c
 #include <math.h>
 
-#ifdef _WIN32
-#define API __declspec(dllexport)
-#else
-#define API
-#endif
-
 // Compute unit vector from P to Q in 3D
 // Inputs: P[3], Q[3]
 // Output: unit[3]
 // Returns: 0 on success, -1 if P=Q
-API int unit_vector_3d(const double* P, const double* Q, double* unit) {
+ int unit_vector_3d(const double* P, const double* Q, double* unit) {
     double dx = Q[0] - P[0];
     double dy = Q[1] - P[1];
     double dz = Q[2] - P[2];

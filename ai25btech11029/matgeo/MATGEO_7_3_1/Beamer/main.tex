@@ -1,0 +1,185 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{multicol}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\title 
+{7.3.1}
+\date{}
+
+\author
+{SAMYAK GONDANE - AI25BTECH11029}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Question}
+Find the equation of the circle passing through $(0, 0)$ and making intercepts $a$ and $b$ on the coordinate axes.
+\end{frame}
+
+
+\begin{frame}{Solution}
+
+Let:
+\begin{align}
+\vec{x_1} = \myvec{0 \\ 0},\ \vec{x_2} = \myvec{a \\ 0},\ \vec{x_3} = \myvec{0 \\ b}
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+We use the general matrix form of a circle:
+
+
+\begin{align}
+\myvec{2x_1 & 2x_2 & 2x_3\\
+1 & 1 & 1}^T \myvec{\vec{u} \\ f} = - \myvec{\norm{x_1}^2 \\ \norm{x_2}^2 \\ \norm{x_3}^2}
+\end{align}
+
+
+\begin{align}
+\myvec{
+2x_1^T & 1 \\
+2x_2^T & 1 \\
+2x_3^T & 1
+}
+\myvec{
+\vec{u} \\
+f
+}
+=
+- \myvec{
+\norm{x_1}^2 \\
+\norm{x_2}^2 \\
+\norm{x_3}^2
+}
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+Substituting the values:
+
+\begin{align}
+\myvec{
+0 & 0 & 1 \\
+2a & 0 & 1 \\
+0 & 2b & 1
+}
+\myvec{
+u_1 \\
+u_2 \\
+f
+}
+=
+- \myvec{
+0 \\
+a^2 \\
+b^2
+}
+\end{align}
+
+
+Solving the system:
+
+\begin{align*}
+f &= 0 \\
+2a u_1 + f &= -a^2 \Rightarrow u_1 = -\frac{a}{2} \\
+2b u_2 + f &= -b^2 \Rightarrow u_2 = -\frac{b}{2}
+\end{align*}
+\end{frame}
+
+
+\begin{frame}{Solution}
+\textbf{Final Result}
+
+\begin{align}
+\vec{u} = \myvec{ -\frac{a}{2} \\ -\frac{b}{2} }, \quad f = 0
+\end{align}
+
+
+So the equation of the circle becomes:
+
+
+\begin{align}
+x^2 + y^2 + ax + by = 0
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Plot}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\linewidth]{./figs/Figure_1.png}
+        \caption{}
+        \label{fig:fig1}
+    \end{figure}
+\end{frame}
+
+\end{document}

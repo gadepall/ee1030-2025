@@ -1,18 +1,13 @@
 import sys
-import math
 sys.path.insert(0, '/home/sai-sreevallabh/Matrix_Theory/Matgeo/codes/CoordGeo')
 import numpy as np
-import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import numpy.linalg as LA
 
 #local imports
 from line.funcs import *
-from triangle.funcs import *
 
-#if using termux
-import subprocess
-import shlex
+
 
 A = np.array([5,-2]).reshape(-1,1)
 B = np.array([-3,2]).reshape(-1,1)

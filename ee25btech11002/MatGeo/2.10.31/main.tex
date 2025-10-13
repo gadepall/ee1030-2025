@@ -1,0 +1,111 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+\bibliographystyle{IEEEtran}
+\title{2.10.31}
+\author{EE25BTECH11002 - Achat Parth Kalpesh }
+{\let\newpage\relax\maketitle}
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+\parindent 0px
+
+
+\textbf{Question:}\\
+Let $\vec{a}$, $\vec{b}$, $\vec{c}$ be three non coplanar vectors and 
+$\vec{p}, \vec{q},\vec{r}$ are vectors defined by the relations 
+\begin{align}
+\vec{p}=\frac{\vec{b}\times\vec{c}}{\sbrak{\vec{a}\ \vec{b}\ \vec{c}}}, \vec{q}=\frac{\vec{c}\times\vec{a}}{\sbrak{\vec{a}\ \vec{b}\ \vec{c}}},\vec{r}=\frac{\vec{a}\times\vec{b}}{\sbrak{\vec{a}\ \vec{b}\ \vec{c}}}
+\end{align}
+then the value of the expression $\brak{\vec{a}+\vec{b}}\cdot\vec{p}+\brak{\vec{b}+\vec{c}}\cdot\vec{q}+\brak{\vec{c}+\vec{a}}\cdot\vec{r}$ is equal to
+  \begin{multicols}{4}
+\begin{enumerate}
+\item $0$
+\item $1$
+\item $2$
+\item $3$
+\end{enumerate}
+  \end{multicols}
+\textbf{Solution:}\\
+Let the given expression be:
+\begin{align}
+    E &= \brak{\vec{a} + \vec{b}} \cdot \vec{p} + \brak{\vec{b} + \vec{c}} \cdot \vec{q} + \brak{\vec{c} + \vec{a}} \cdot \vec{r}\\
+    &= \brak{\vec{a} \cdot \vec{p} + \vec{b} \cdot \vec{p}} + \brak{\vec{b} \cdot \vec{q} + \vec{c} \cdot \vec{q}} + \brak{\vec{c} \cdot \vec{r} + \vec{a} \cdot \vec{r}}
+\end{align}
+Let ,
+\begin{align}
+    \vec{V} &= \myvec{\vec{a}&\vec{b}&\vec{c}}\\
+    \vec{P} &= \myvec{\vec{p}&\vec{q}&\vec{r}}
+\end{align}
+\begin{align}
+    \vec{V}^\top\vec{P} &= \myvec{\vec{a}\\ \vec{b}\\ \vec{c}} \myvec{\vec{p}&\vec{q}&\vec{r}} 
+    = \myvec{\vec{a} \cdot \vec{p} & \vec{a} \cdot \vec{q} & \vec{a} \cdot \vec{r} \\
+        \vec{b} \cdot \vec{p} & \vec{b} \cdot \vec{q} & \vec{b} \cdot \vec{r} \\
+        \vec{c} \cdot \vec{p} & \vec{c} \cdot \vec{q} & \vec{c} \cdot \vec{r}}
+\end{align}
+
+\begin{align}
+    \vec{a} \cdot \vec{p} = \vec{a} \cdot \frac{\vec{b} \times \vec{c}}{\sbrak{\vec{a}\ \vec{b}\ \vec{c}}} = \frac{\sbrak{\vec{a}\ \vec{b}\ \vec{c}}}{\sbrak{\vec{a}\ \vec{b}\ \vec{c}}} = 1
+\end{align}
+
+\begin{align}
+    \vec{a} \cdot \vec{q} = \vec{a} \cdot \frac{\vec{c} \times \vec{a}}{\sbrak{\vec{a}\ \vec{b}\ \vec{c}}} = \frac{\sbrak{\vec{a}\ \vec{c}\ \vec{a}}}{\sbrak{\vec{a}\ \vec{b}\ \vec{c}}} = 0
+\end{align}
+since the scalar triple product with a repeated vector is zero.
+Thus, the matrix product becomes the identity matrix:
+\begin{align}
+    \myvec{\vec{a} \cdot \vec{p} & \vec{a} \cdot \vec{q} & \vec{a} \cdot \vec{r} \\
+        \vec{b} \cdot \vec{p} & \vec{b} \cdot \vec{q} & \vec{b} \cdot \vec{r} \\
+        \vec{c} \cdot \vec{p} & \vec{c} \cdot \vec{q} & \vec{c} \cdot \vec{r}}
+    =\myvec{1 & 0 & 0 \\
+        0 & 1 & 0 \\
+        0 & 0 & 1} = \vec{I}
+\end{align}
+Substituting these results back into the expanded expression for $E$:
+\begin{align}
+    E &= \brak{1 + 0} + \brak{1 + 0} + \brak{1 + 0} \\
+      &= 1 + 1 + 1 \\
+      &= 3
+\end{align}
+The value of the expression is 3.
+
+\end{document}

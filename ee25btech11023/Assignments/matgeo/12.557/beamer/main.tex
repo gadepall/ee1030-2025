@@ -1,0 +1,228 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{multicol}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{lmodern}
+\usepackage{gvv}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}} % nCr
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}} % nPr
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{{}\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+%\providecommand{\hilbert}{\overset{\mathcal{H}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+	%\newcommand{\solution}[2]{\textbf{Solution:}{#1}}
+%\newcommand{\solution}{\noindent \textbf{Solution: }}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\let\vec\mathbf
+
+\lstset{
+%language=C,
+frame=single,
+breaklines=true,
+columns=fullflexible
+}
+
+\numberwithin{equation}{section}
+
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{orange},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  showstringspaces=false
+}
+
+\title{Problem 12.557}
+\author{ee25btech11023-Venkata Sai}
+
+\date{\today}
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section*{Outline}
+\begin{frame}
+\tableofcontents
+\end{frame}
+
+\section{Problem}
+
+\begin{frame}
+\frametitle{Problem}
+Let $\vec{A}=\myvec{5&-3\\6&-4}$.Then the trace of $\vec{A}^{1000}$ equals\\
+\end{frame}
+%\subsection{Literature}
+\section{Solution}
+
+
+\subsection{Given}
+\begin{frame}
+\frametitle{Given}
+  Given
+  \begin{align}
+      \vec{A}=\myvec{5&-3\\6&-4} \\
+  \end{align}
+  To find eigen values
+  \begin{align}
+      |\vec{A}-\lambda\vec{I}|=0
+      \end{align}
+      \begin{align}
+            \mydet{\myvec{5&-3\\6&-4}-\lambda\myvec{1&0\\0&1}}=0\\
+            \mydet{\myvec{5&-3\\6&-4}-\myvec{\lambda&0\\0&\lambda}}=0\\
+            \mydet{\myvec{5-\lambda&-3\\6&-4-\lambda}}=0 \\
+            \brak{5-\lambda}\brak{-4-\lambda}+3\brak{6}=0
+  \end{align}
+\end{frame}
+\subsection{Finding eigen values}
+\begin{frame}
+\frametitle{Finding eigen values}
+ \begin{align}
+     \lambda^2+4\lambda-5\lambda-20+18=0 \\
+            \lambda^2-\lambda-2=0 \\
+            \brak{\lambda-2}\brak{\lambda+1}=0 \\
+            \lambda_1=2\ \brak{\text{and}}\ \lambda_2=-1
+ \end{align}
+ For a given matrix $\vec{A}$
+\begin{align}
+     \vec{A}&=\vec{P}\vec{D}\vec{P}^{-1} \\
+      \vec{A}^2&=\brak{\vec{P}\vec{D}\vec{P}^{-1}}^2 \\
+      &=\vec{P}\vec{D}\vec{P}^{-1}\vec{P}\vec{D}\vec{P}^{-1}\\
+      &=\vec{P}\vec{D}\vec{I}\vec{D}\vec{P}^{-1}\\
+      &=\vec{P}\vec{D}^2\vec{P}^{-1}
+ \end{align}
+ where
+ \end{frame}
+ \subsection{Formula}
+\begin{frame}
+\frametitle{Formula}
+ \begin{align}
+\vec{D}=\myvec{\lambda_1&0\\0&\lambda_2}=\myvec{2&0\\0&-1}
+ \end{align}
+ \begin{align}
+     \vec{A}^k&=\vec{P}\vec{D}^k\vec{P}^{-1}\\
+\text{trace}\brak{\vec{A}^k}&=\text{trace}\brak{\vec{P}\vec{D}^k\vec{P}^{-1}} \\
+&=\text{trace}\brak{\brak{\vec{P}\vec{D}^k}\vec{P}^{-1}}
+     \end{align}
+     Since trace$\brak{\vec{AB}}$=trace$\brak{\vec{BA}}$
+     \begin{align}
+\text{trace}\brak{\vec{A}^k}&=\text{trace}\brak{\brak{\vec{P}\vec{D}^k}\vec{P}^{-1}}  \\
+&=\text{trace}\brak{\vec{P}^{-1}\brak{\vec{P}\vec{D}^k}}  \\
+\text{trace}\brak{\vec{A}^k}&=\text{trace}\brak{\vec{I}\vec{D}^k}=\text{trace}\brak{\vec{D}^k}
+     \end{align}
+\end{frame}
+\subsection{Conclusion}
+\begin{frame}
+\frametitle{Conclusion}
+   \begin{align}
+     \text{trace}\brak{\vec{A}^{1000}}&=\text{trace}\brak{\vec{D}^{1000}} \\
+&=\text{trace}\myvec{2^{1000}&0\\0&\brak{-1}^{1000}} \\
+&=2^{1000}+1
+ \end{align}
+ \end{frame}
+ \section{C code}
+  \begin{frame}[fragile]
+\frametitle{C code }
+\begin{lstlisting}[language=C]
+void get_matrix_A(double* data) {
+    data[0] = 5.0;
+    data[1] = -3.0;
+    data[2] = 6.0;
+    data[3] = -4.0;
+}
+
+\end{lstlisting}
+\end{frame}
+\section{Python code}
+ \begin{frame}[fragile]
+\frametitle{Python code for Solving }
+\begin{lstlisting}[language=Python]
+import ctypes
+import numpy as np
+
+def get_trace_of_power_matrix():
+
+    lib = ctypes.CDLL('./code.so')
+
+    double_array_4 = ctypes.c_double * 4
+    lib.get_matrix_A.argtypes = [ctypes.POINTER(ctypes.c_double)]
+
+    out_data_c = double_array_4()
+    lib.get_matrix_A(out_data_c)
+
+    A = np.array(list(out_data_c)).reshape((2, 2))
+
+    eigenvalues = np.linalg.eigvals(A)
+\end{lstlisting}
+\end{frame}
+
+ \begin{frame}[fragile]
+\frametitle{Python code for Solving }
+\begin{lstlisting}[language=Python]
+lambda_1, lambda_2 = eigenvalues
+    trace_A_1000 = lambda_1**1000 + lambda_2**1000
+    return A, (lambda_1, lambda_2), trace_A_1000
+
+if __name__ == '__main__':
+    matrix_A, eigs, final_trace = get_trace_of_power_matrix()
+    l1, l2 = eigs
+    print(f"\ntrace(A^1000) = ({l1.real:.0f})^1000 + ({l2.real:.0f})^1000")
+
+
+\end{lstlisting}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,249 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+
+\title 
+{5.13.7}
+\date{September 28,2025}
+
+
+\author 
+{Abhiram Reddy-AI25BTECH11021}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Question 5.13.7}
+Let $A$ and $B$ be two symmetric matrices of order $3$.  
+
+\textbf{Statement 1:} $A(BA)$ and $(AB)A$ are symmetric matrices.  
+
+\textbf{Statement 2:} $AB$ is symmetric if $A$ and $B$ commute ($AB=BA$).  
+
+Determine the correct option.
+\end{frame}
+
+\begin{frame}
+\frametitle{Step 1: Symmetry property}
+A matrix $M$ is symmetric if
+\begin{equation}
+M^T = M
+\end{equation}
+\end{frame}
+
+\begin{frame}
+\frametitle{Step 2: Check $A(BA)$}
+Let 
+\[
+M = A(BA)
+\]  
+Then,
+\begin{align}
+M^T &= (A(BA))^T \\
+&= (BA)^T A^T \\
+&= A^T B^T A^T \\
+&= A B A \quad \text{(since $A^T=A$, $B^T=B$)} \\
+&= A(BA) = M
+\end{align}
+Hence, $A(BA)$ is symmetric.
+\end{frame}
+
+\begin{frame}
+\frametitle{Step 3: Check $(AB)A$}
+Let 
+\[
+N = (AB)A
+\]  
+Then,
+\begin{align}
+N^T &= ((AB)A)^T \\
+&= A^T (AB)^T \\
+&= A^T B^T A^T \\
+&= ABA \\
+&= (AB)A = N
+\end{align}
+Hence, $(AB)A$ is symmetric.
+\end{frame}
+
+\begin{frame}
+\frametitle{Step 4: Condition for $AB$ to be symmetric}
+\begin{align}
+(AB)^T &= B^T A^T \\
+&= BA \quad \text{(since $A^T=A$, $B^T=B$)}
+\end{align}
+Thus,
+\begin{equation}
+AB \text{ is symmetric } \iff AB = BA
+\end{equation}
+
+Conclusion: Statement 1 is true, Statement 2 is true but not the correct explanation for Statement 1.
+\[
+\boxed{\text{Correct option: (a)}}
+\]
+\end{frame}
+
+% ---------------- C CODE -----------------
+\begin{frame}[fragile]
+\frametitle{C Code (Part 1)}
+\begin{lstlisting}[language=C]
+#include <stdio.h>
+
+int main() {
+    int A[3][3] = {{1,2,3},{4,5,6},{7,8,9}};
+    int B[3][3] = {{9,8,7},{6,5,4},{3,2,1}};
+    int AB[3][3], ABt[3][3], BtAt[3][3], i, j, k;
+
+    for(i=0;i<3;i++){
+        for(j=0;j<3;j++){
+            AB[i][j]=0;
+            for(k=0;k<3;k++){
+                AB[i][j]+=A[i][k]*B[k][j];
+            }
+        }
+    }
+
+    for(i=0;i<3;i++){
+        for(j=0;j<3;j++){
+            ABt[i][j]=AB[j][i];
+        }
+    }
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code (Part 2)}
+\begin{lstlisting}[language=C]
+    int At[3][3], Bt[3][3];
+    for(i=0;i<3;i++){
+        for(j=0;j<3;j++){
+            At[i][j]=A[j][i];
+            Bt[i][j]=B[j][i];
+        }
+    }
+
+    for(i=0;i<3;i++){
+        for(j=0;j<3;j++){
+            BtAt[i][j]=0;
+            for(k=0;k<3;k++){
+                BtAt[i][j]+=Bt[i][k]*At[k][j];
+            }
+        }
+    }
+
+    printf("Transpose of AB:\n");
+    for(i=0;i<3;i++){
+        for(j=0;j<3;j++){
+            printf("%d ",ABt[i][j]);
+        }
+        printf("\n");
+    }
+
+    printf("Product B^T A^T:\n");
+    for(i=0;i<3;i++){
+        for(j=0;j<3;j++){
+            printf("%d ",BtAt[i][j]);
+        }
+        printf("\n");
+    }
+    return 0;
+}
+\end{lstlisting}
+\end{frame}
+
+% ---------------- PYTHON CODE -----------------
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}[language=Python]
+import numpy as np
+
+A = np.array([[1,2,3],[4,5,6],[7,8,9]])
+B = np.array([[9,8,7],[6,5,4],[3,2,1]])
+
+AB = np.dot(A, B)
+ABt = AB.T
+BtAt = np.dot(B.T, A.T)
+
+print("Transpose of AB:")
+print(ABt)
+print("Product B^T A^T:")
+print(BtAt)
+\end{lstlisting}
+\end{frame}
+
+\end{document}

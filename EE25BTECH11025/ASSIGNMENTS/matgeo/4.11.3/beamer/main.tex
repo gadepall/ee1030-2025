@@ -161,21 +161,56 @@ Substituting the values from (11), (1) and (3):
     \frametitle{C Code}
     \begin{lstlisting}
 #include <stdio.h>
+void get_data(double *out_data){
+    double P0[3] = {2.0, -1.0, 2.0};
+    double P1[3] = {5.0,  3.0, 4.0};
+    double Q1[3] = {2.0, 0.0, 3.0};
+    double Q2[3] = {1.0, 1.0, 5.0};
+    double Q3[3] = {3.0, 2.0, 4.0};
+    double u[3], v[3], n[3];
+    for(int i=0;i<3;i++){
+        u[i] = Q2[i] - Q1[i];
+        v[i] = Q3[i] - Q1[i];
+    }
+    n[0] = u[1]*v[2] - u[2]*v[1];
+    n[1] = u[2]*v[0] - u[0]*v[2];
+    n[2] = u[0]*v[1] - u[1]*v[0];
+    \end{lstlisting}
+\end{frame}
 
-int lpoint1[3] = {2, -1, 2};
-int lpoint2[3] = {5, 3, 4};
-int ppoint[3][4] = {{2, 0, 3, 1}, {1,1,5,1}, {3,2,4,1}};
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+    double dir[3];
+    for(int i=0;i<3;i++) dir[i] = P1[i] - P0[i];
+    double numerator = 0.0, denominator = 0.0, rhs = 0.0;
+    for(int i=0;i<3;i++){
+        rhs += n[i] * Q1[i];
+        numerator += n[i] * P0[i];
+        denominator += n[i] * dir[i];
+    }
+    double t;
+    if (denominator == 0.0) {
+        if (numerator == rhs) t = 0.0;
+        else {
+            t = 0.0/0.0;
+        }
+    } else {
+        t = (rhs - numerator) / denominator;
+    }
+    \end{lstlisting}
+\end{frame}
 
-int get_lpoint1(int index){
-    return lpoint1[index];
-}
-
-int get_lpoint2(int index){
-    return lpoint2[index];
-}
-
-int get_ppoint(int index1, int index2){
-    return ppoint[index1][index2];
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+    for(int i=0;i<3;i++) X[i] = P0[i] + t * dir[i];
+    out_data[0] = P0[0]; out_data[1] = P0[1]; out_data[2] = P0[2];
+    out_data[3] = P1[0]; out_data[4] = P1[1]; out_data[5] = P1[2];
+    out_data[6] = Q1[0]; out_data[7] = Q1[1]; out_data[8] = Q1[2];
+    out_data[9] = Q2[0]; out_data[10]= Q2[1]; out_data[11]= Q2[2];
+    out_data[12]= Q3[0]; out_data[13]= Q3[1]; out_data[14]= Q3[2];
+    out_data[15]= X[0];  out_data[16]= X[1];  out_data[17]= X[2];
 }
     \end{lstlisting}
 \end{frame}
@@ -185,35 +220,35 @@ int get_ppoint(int index1, int index2){
     \begin{lstlisting}
 import ctypes
 import numpy as np
-import sympy as sp
-
 lib = ctypes.CDLL("./problem.so")
+pointP = [0.00,0.00]
+pointQ = [0.00,0.00]
+pointR = [0.00,0.00]
 
-lpoint=[0, 0, 0]
-lvec=[0, 0, 0]
-
-for i in range(0,3):
-    lpoint[i] = lib.get_lpoint1(i)
-
-for i in range(0,3):
-    lvec[i] = lib.get_lpoint1(i) - lib.get_lpoint2(i)
+for i in range(0,2):
+    pointP[i] = lib.get_pointP(i)
+for i in range(0,2):
+    pointQ[i] = lib.get_pointQ(i)
+for i in range(0,2):
+    pointR[i] = lib.get_pointR(i)
     \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{Python Code 1}
     \begin{lstlisting}
-print("Line equation is: ",lpoint,"+ k",lvec)
-
-A = sp.Matrix([[2,0,3,1],
-              [1,1,5,1],
-              [3,2,4,1]])
-
-rref, pivots = A.rref()
-
-e = (rref[0,3],rref[1,3], rref[2,2])
-
-print("Plane equation is: ", e[0],"x+",e[1],"y+",e[2],"/5z=",rref[0,0])
+normal = [0,0]
+print(pointP)
+print(pointQ)
+print(pointR)
+for i in range(0,2):
+    normal[i] = pointQ[i] + pointR[i] - (2*pointP[i])
+z = np.array(['x','y'])
+z_t = z.T
+k = 0.00
+for i in range(0,2):
+    k += ((pointQ[i]**2)+(pointR[i]**2)-(2*(pointP[i]**2)))/2
+print(normal,z_t,'=',k,"\nHence the locus of S is a line.")
     \end{lstlisting}
 \end{frame}
 
@@ -222,53 +257,47 @@ print("Plane equation is: ", e[0],"x+",e[1],"y+",e[2],"/5z=",rref[0,0])
     \begin{lstlisting}
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
+from call import get_data
 
-
-a, b, c, d = 1, -1, 1, 5   
-
-
-xx, yy = np.meshgrid(np.linspace(-10, 10, 50), np.linspace(-10, 10, 50))
-
-
-zz = (d - a*xx - b*yy) / c
+P0, P1, Q1, Q2, Q3, X = get_data()
+P0 = np.asarray(P0); P1 = np.asarray(P1)
+Q1 = np.asarray(Q1); Q2 = np.asarray(Q2); Q3 = np.asarray(Q3)
+X  = np.asarray(X)
+fig = plt.figure(figsize=(8,6))
+ax = fig.add_subplot(111, projection='3d')
+t = np.linspace(-1, 2, 50)
+dirv = P1 - P0
+line_pts = P0[None,:] + t[:,None] * dirv[None,:]
+ax.plot(line_pts[:,0], line_pts[:,1], line_pts[:,2], label='Line', linewidth=2)
     \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{Python Code 2}
     \begin{lstlisting}
-p0 = np.array([2, -1, 2])   
-v = np.array([3, 4, 2])    
-
-t = np.linspace(-5, 5, 50)
-x_line = p0[0] + v[0]*t
-y_line = p0[1] + v[1]*t
-z_line = p0[2] + v[2]*t
-
-
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-
-
-ax.plot_surface(xx, yy, zz, alpha=0.5, color='cyan')    \end{lstlisting}
+u = Q2 - Q1
+v = Q3 - Q1
+s = np.linspace( -0.5, 1.2, 10 )
+r = np.linspace( -0.5, 1.2, 10 )
+S,R = np.meshgrid(s, r)
+plane_pts = Q1[None,None,:] + S[:,:,None]*u[None,None,:] + R[:,:,None]*v[None,None,:]
+ax.plot_surface(plane_pts[:,:,0], plane_pts[:,:,1], plane_pts[:,:,2], alpha=0.5)
+ax.scatter(*P0, color='red', s=40, label='P0 (line)')
+ax.scatter(*P1, color='red', s=40, label='P1 (line)')
+ax.scatter(*Q1, color='green', s=40, label='Q1 (plane)')    \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{Python Code 2}
     \begin{lstlisting}
-ax.plot(x_line, y_line, z_line, color='red', linewidth=2)
+ax.scatter(*Q2, color='green', s=40, label='Q2 (plane)')
+ax.scatter(*Q3, color='green', s=40, label='Q3 (plane)')
+ax.scatter(*X,  color='black', s=70, label='Intersection')
 
-ax.text(-12, -22, -8, r'$\frac{x-2}{3}=\frac{y+1}{4}=\frac{z-2}{2}$', fontsize=12, color="black")
-ax.text(-14,21,12, "x-y+z=5", fontsize=12, color="black")
-ax.text(2.1, -0.9, 2.1, "(2,-1,2)", fontsize=12, color="black")
-
-ax.set_xlabel('X')
-ax.set_ylabel('Y')
-ax.set_zlabel('Z')
-
+ax.set_xlabel('X'); ax.set_ylabel('Y'); ax.set_zlabel('Z')
+ax.legend()
 plt.savefig("../figs/plot.png")
-plt.show()    \end{lstlisting}
+plt.show()   \end{lstlisting}
 \end{frame}
 
 \begin{frame}{Plot}
