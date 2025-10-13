@@ -1,0 +1,303 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{advdate}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}} % nCr
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}} % nPr
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{{}\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}} 
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+%\providecommand{\hilbert}{\overset{\mathcal{H}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+	%\newcommand{\solution}[2]{\textbf{Solution:}{#1}}
+%\newcommand{\solution}{\noindent \textbf{Solution: }}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\newcommand{\mydet}[1]{\ensuremath{\begin{vmatrix}#1\end{vmatrix}}}
+\let\vec\mathbf
+
+\lstset{
+%language=C,
+frame=single, 
+breaklines=true,
+columns=fullflexible
+}
+
+\numberwithin{equation}{section}
+
+
+\title{5.5.9}
+\author{Rushil Shanmukha Srinivas \\EE25BTECH11057 \\ Electrical Enggineering ,\\IIT Hyderabad.}
+
+\date{\today} 
+\begin{document} 
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section*{Outline}
+\begin{frame}
+\tableofcontents
+\end{frame}
+\section{Problem}
+\begin{frame}
+\frametitle{Problem Statement}
+\textbf{Question} : 
+Using elementary row transformations find the inverse of the matrix 
+\begin{align}
+\myvec{3&0&-1\\
+       2&3&0\\
+       0&4&1}
+\end{align}
+\end{frame}
+\section{Solution}
+\subsection{ Augmented Matrix and Inverse of a matrix}
+\begin{frame}
+\frametitle{Augmented Matrix and Inverse of a matrix}
+%\framesubtitle{Literature}
+\textbf{Solution:}
+
+Given, \begin{align} 
+\vec{A}=\myvec{3&0&-1\\
+       2&3&0\\
+       0&4&1}
+       \end{align}
+Forming the Augmented Matrix
+\begin{align}
+\myvec{3&0&-1 &\vrule& 1&0&0 \\
+       2&3&0 &\vrule&  0&1&0 \\
+       0&4&1 &\vrule&  0&0&1 }
+\end{align}
+Applying elementary row operations to find the inverse
+\begin{align}
+\myvec{3&0&-1 &\vrule& 1&0&0 \\
+       2&3&0 &\vrule&  0&1&0 \\
+       0&4&1 &\vrule&  0&0&1 } \xrightarrow{R_3 \longrightarrow 3R_3-4R_2}
+       \myvec{3&0&-1 &\vrule& 1&0&0 \\
+       2&3&0 &\vrule&  0&1&0 \\
+       -8&0&3 &\vrule&  0&-4&3} 
+       \end{align}
+       \end{frame}
+       \begin{frame}
+       \begin{align}
+       \xrightarrow{R_3 \longrightarrow 3R_3+8R_1}
+       \myvec{3&0&-1 &\vrule& 1&0&0 \\
+       2&3&0 &\vrule&  0&1&0 \\
+       0&0&1 &\vrule&  8&-12&9} 
+\end{align}
+\begin{align}
+ \myvec{3&0&-1 &\vrule& 1&0&0 \\
+       2&3&0 &\vrule&  0&1&0 \\
+       0&0&1 &\vrule&  8&-12&9} \xrightarrow{R_2 \longrightarrow 3R_2-2R_1}
+    \myvec{3&0&-1 &\vrule& 1&0&0 \\
+       0&9&2 &\vrule&  -2&3&0 \\
+       0&0&1 &\vrule&  8&-12&9} 
+       \end{align}
+       \begin{align}
+       \xrightarrow{R_2 \longrightarrow R_2-2R_3}
+        \myvec{3&0&-1 &\vrule& 1&0&0 \\
+       0&9&0 &\vrule&  -18&27&-18 \\
+       0&0&1 &\vrule&  8&-12&9} 
+\end{align}
+\begin{align}
+ \myvec{3&0&-1 &\vrule& 1&0&0 \\
+       0&9&0 &\vrule&  -18&27&-18 \\
+       0&0&1 &\vrule&  8&-12&9} \xrightarrow{R_2 \longrightarrow \frac{R_2}{9}}
+        \myvec{3&0&-1 &\vrule& 1&0&0 \\
+       0&1&0 &\vrule&  -2&3&-2 \\
+       0&0&1 &\vrule&  8&-12&9} 
+       \end{align}
+       \end{frame}
+       \begin{frame}
+       \begin{align}
+       \xrightarrow{R_1 \longrightarrow R_1+R_3}
+        \myvec{3&0&0 &\vrule& 9&-12&9 \\
+       0&1&0 &\vrule&  -2&3&-2 \\
+       0&0&1 &\vrule&  8&-12&9} 
+\end{align}
+\begin{align}
+\myvec{3&0&0 &\vrule& 9&-12&9 \\
+       0&1&0 &\vrule&  -2&3&-2 \\
+       0&0&1 &\vrule&  8&-12&9} \xrightarrow{R_1 \longrightarrow \frac{R_1}{3}}
+       \myvec{1&0&0 &\vrule& 3&-4&3 \\
+       0&1&0 &\vrule&  -2&3&-2 \\
+       0&0&1 &\vrule&  8&-12&9} 
+\end{align}
+The right side part of the Augmented Matrix is $\vec{A}^{-1}$
+\begin{align}
+\vec{A}^{-1} = \myvec{3&-4&3\\
+                      -2&3&-2\\
+                      8&-12&9}
+\end{align}
+
+\end{frame}
+
+\section{C Code}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]  
+ 
+#include <stdio.h>
+#include <math.h>
+// Function to display an augmented matrix [A|I]
+void display(float mat[SIZE][2*SIZE]) {
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < 2*SIZE; j++) {
+            printf("%10.6f ", mat[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+
+int main() {
+    // Augmented matrix [A|I] for A = {{3,0,-1},{2,3,0},{0,4,1}}
+    \end{lstlisting}
+    \end{frame}
+    \begin{frame}[fragile]
+    \begin{lstlisting}
+    float mat[SIZE][2*SIZE] = {
+        {3.0f, 0.0f, -1.0f, 1.0f, 0.0f, 0.0f},
+        {2.0f, 3.0f,  0.0f, 0.0f, 1.0f, 0.0f},
+        {0.0f, 4.0f,  1.0f, 0.0f, 0.0f, 1.0f}
+    };
+    printf("Initial augmented matrix [A | I]:\n");
+    display(mat);
+    // Gauss-Jordan elimination
+    for (int i = 0; i < SIZE; i++) {
+        // Pivot element
+        float pivot = mat[i][i];
+        if (fabs(pivot) < 1e-6) {
+            printf("Matrix is singular and cannot be inverted.\n");
+            return 1;
+        }
+        // Normalize pivot row
+        for (int j = 0; j < 2*SIZE; j++) {
+            mat[i][j] /= pivot;
+        }
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+        // Eliminate column entries in other rows
+        for (int r = 0; r < SIZE; r++) {
+            if (r != i) {
+                float factor = mat[r][i];
+                for (int c = 0; c < 2*SIZE; c++) {
+                    mat[r][c] -= factor * mat[i][c];
+                }}}
+        printf("After step %d:\n", i+1);
+        display(mat);
+    }
+
+    // Extract inverse from right half
+    printf("Inverse matrix A^{-1}:\n");
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = SIZE; j < 2*SIZE; j++) {
+            // Round if close to integer
+            float v = mat[i][j];
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+            if (fabs(v - roundf(v)) < 1e-6f)
+                printf("%6.0f ", roundf(v));
+            else
+                printf("%8.6f ", v);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+
+\end{lstlisting}
+\end{frame}
+
+\section{Python Code}
+\begin{frame}[fragile]
+\frametitle{Python Code 1: call\_c.py}
+\begin{lstlisting}
+import ctypes as ct
+import numpy as np
+handc1 = ct.CDLL("./func.so")
+handc1.inv.argtypes = [
+    ct.POINTER(ct.c_double),
+    ct.POINTER(ct.c_double),
+    ct.POINTER(ct.c_double)
+]
+A = np.array([3 , 2 , 0 ], dtype =np.float64).reshape(-1,1)
+B = np.array([0 , 3 , 4 ], dtype =np.float64).reshape(-1,1)
+C = np.array([-1 , 0 , 1 ], dtype =np.float64).reshape(-1,1)
+handc1.inv.restype = None
+handc1.inv(
+    A.ctypes.data_as(ct.POINTER(ct.c_double)),
+    B.ctypes.data_as(ct.POINTER(ct.c_double)),
+    C.ctypes.data_as(ct.POINTER(ct.c_double)))
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code 2}
+\begin{lstlisting}[language=Python]
+
+import numpy as np
+import numpy.linalg as LA
+A = np.array([[3,0,-1],
+              [2,3,0],
+              [0,4,1]])
+
+A_inv = LA.inv(A)
+
+print("Matrix A:")
+print(A)
+print("\nInverse of A:")
+print(A_inv)
+
+
+\end{lstlisting}
+\end{frame}
+
+\end{document}
+  

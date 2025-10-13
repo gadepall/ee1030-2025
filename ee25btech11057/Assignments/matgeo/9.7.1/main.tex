@@ -1,0 +1,186 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+
+
+
+\title{9.7.1}
+\author{EE25BTECH11057 - Rushil Shanmukha Srinivas
+}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+\textbf{Question :}Find the area of the region $\{
+S(x,y) :
+x^2 + y^2 \leq 16a^2 \ and \ y^2 \leq 6ax 
+\}$.
+
+\textbf{Solution :}
+\begin{table}[h!]
+  \centering
+  \input{tables/table.tex}
+  \caption*{Table : Conics}
+  \label{9.2.20}
+\end{table}
+
+On comparing conics with 
+\begin{align}
+\vec{x}^\top\vec{V}\vec{x} + 2\vec{u}^\top\vec{x} + f &= 0 \label{eq: conics}
+\end{align}
+The parameters of the Parabola are 
+\begin{align}
+\vec{V_1}=\myvec{0&0\\0&1} , \vec{u_1}=-\myvec{3a\\0} , f_1=0 \label{eq: Parabola}
+\end{align}
+The parameters of the Circle are
+\begin{align}
+\vec{V_2}=\myvec{1&0\\0&1},\vec{u_2}=0,f_2=-16a^2  \label{eq: Circle}
+\end{align}
+The intersection of two conics with parameters $\vec{V_i},\vec{u_i},f_i$ , i = 1,2 is defined as
+\begin{align}
+\vec{x}^\top(\vec{V_1} + \mu\vec{V_2})\vec{x} + 2(\vec{u_1} + \mu\vec{u_2})^\top\vec{x} + (f_1 +\mu f_2) = 0. \label{eq: conics intersection}
+\end{align}
+\eqref{eq: conics} represents a pair of straight lines if 
+\begin{align}
+\mydet{\vec{V}&\vec{u}\\\vec{u}^\top&f} = 0  \label{eq: det}
+\end{align}
+From \eqref{eq: det} , \eqref{eq: conics intersection} represents a pair of straight lines if
+\begin{align}
+\mydet{\vec{V_1} + \mu\vec{V_2}&\vec{u_1} + \mu\vec{u_2}\\
+       (\vec{u_1} + \mu\vec{u_2})^\top&f_1 + \mu f_2} = 0  \label{eq: longdet}
+\end{align}
+On substituting from \eqref{eq: Parabola} and \eqref{eq: Circle} in \eqref{eq: longdet}, we obtain
+\begin{align}
+\mydet{\mu&0&-3a\\
+       0&\mu+1&0\\
+       -3a&0&-16\mu a^2} = 0
+\end{align}
+On solving we get
+\begin{align}
+(\mu + 1)(16 \mu^2 + 9) = 0
+\end{align}
+yielding
+\begin{align}
+\mu = -1
+\end{align}
+Substituting \eqref{eq: Parabola} and \eqref{eq: Circle} in \eqref{eq: conics intersection}, we obtain
+\begin{align}
+\vec{x}^\top\myvec{-1&0\\0&0}\vec{x} + 2\myvec{-3a&0}\vec{x} + 16a^2 = 0
+\end{align}
+On solving we get
+\begin{align}
+\myvec{1&0}\vec{x} = 2a \ and \ \myvec{1&0}\vec{x} = -8a
+\end{align}
+But circle and line $\myvec{1&0}\vec{x} = -8a$ do not intersect.
+So The solution is
+\begin{align}
+\myvec{1&0}\vec{x} = 2a   \label{eq: chord}
+\end{align}
+Therefore the intersection of two conics is a line with parameters
+\begin{align}
+\vec{m} = \myvec{0\\1} , \vec{h} = \myvec{2a\\0}
+\end{align}
+The points of intersection for a conic and a line is given by
+\begin{align}
+\kappa_i
+  &= \frac{1}{\vec{m}^\top \vec{V}\vec{m}}
+     \left(
+       -\,\vec{m}^\top\big(\vec{V}\vec{h}+\vec{u}\big)
+       \;\pm\;
+       \sqrt{ \big[\vec{m}^\top(\vec{V}\vec{h}+\vec{u})\big]^2
+       - g(\vec{h})\,\big(\vec{m}^\top \vec{V}\vec{m}\big)}
+     \right)
+\end{align}
+\begin{align}
+g(\vec{x}) = \vec{x}^\top\myvec{1&0\\0&1}\vec{x} - 16a^2 \\
+g(\vec{h}) = \vec{h}^\top\myvec{1&0\\0&1}\vec{h} - 16a^2
+\end{align}
+
+The intersection parameters of the chord in \eqref{eq: chord} with the circle is obtained as
+\begin{align}
+\kappa_i = \;\pm\;
+            \sqrt{16a^2 - \vec{h}^\top\myvec{1&0\\0&1}\vec{h}} \\
+            \kappa_i = \;\pm\;
+                       2\sqrt{3}a
+\end{align}
+So the points of intersection are obtained as
+\begin{align}
+\vec{x_1} = \myvec{2a\\2\sqrt{3}a} , \vec{x_2} = \myvec{2a\\-2\sqrt{3}a}
+\end{align}
+The desired area of region is given as
+\begin{align}
+2 \left( 
+\int_{0}^{2a} \sqrt{6ax}\, dx + 
+\int_{2a}^{4a} \sqrt{16a^2 - x^2}\, dx
+\right)
+\end{align}
+
+\begin{align}
+= 2 \left[
+\sqrt{6a} \left( \frac{2}{3} x^{3/2} \right)
+\right]_{0}^{2a}
++ 2 \left[
+\frac{x}{2} \sqrt{16a^2 - x^2}
++ 8a^2 \sin^{-1} \left( \frac{x}{4a} \right)
+\right]_{2a}^{4a}
+\end{align}
+\begin{align}
+= \frac{4a^2}{\sqrt{3}} + \frac{16 \pi a^2}{3} \\
+= 4a^2 \left(
+       \frac{4\pi}{3} + \frac{1}{\sqrt{3}}
+       \right)
+\end{align}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.9\columnwidth]{figs/fig16.png} 
+   \caption*{Fig : Parabola and Circle }
+  \label{Fig1}
+\end{figure}
+\end{document}

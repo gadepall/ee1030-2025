@@ -1,0 +1,387 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{advdate}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}} % nCr
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}} % nPr
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{{}\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}} 
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+%\providecommand{\hilbert}{\overset{\mathcal{H}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+	%\newcommand{\solution}[2]{\textbf{Solution:}{#1}}
+%\newcommand{\solution}{\noindent \textbf{Solution: }}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\newcommand{\mydet}[1]{\ensuremath{\begin{vmatrix}#1\end{vmatrix}}}
+\let\vec\mathbf
+
+\lstset{
+%language=C,
+frame=single, 
+breaklines=true,
+columns=fullflexible
+}
+
+\numberwithin{equation}{section}
+
+\title{8.2.24}
+\author{Rushil Shanmukha Srinivas \\EE25BTECH11057 \\ Electrical Enggineering ,\\IIT Hyderabad.}
+
+\date{\today} 
+\begin{document} 
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section*{Outline}
+\begin{frame}
+\tableofcontents
+\end{frame}
+\section{Problem}
+\begin{frame}
+\frametitle{Problem Statement}
+\textbf{Question :} The conic has vertices $\,(\pm 6,0)\,$ and foci $\,(\pm 4,0)\,$. Find the equation of the conic.
+\end{frame}
+\section{Data}
+\begin{frame}
+\frametitle{Data}
+\\ \begin{table}[h!]    
+  \centering
+  \input{tables/table.tex}
+  \caption{Vertex and Foci}
+\end{table}
+\end{frame}
+\section{Solution}
+\subsection{Solving Conics with Matrices}
+\begin{frame}
+\frametitle{Solving Conics with Matrices}
+%\framesubtitle{Literature}
+
+The conic has two foci , so it cannot be a parabola .
+
+Equation for any conic with directrix $\vec{n}^\top\vec{x} = c$ , eccentricity e and focus $\vec{F}$ is given by 
+
+\begin{align}
+  \vec{x}^\top\vec{V}\vec{x} + 2\vec{u}^\top\vec{x} + f &= 0 \label{eq:conic} 
+\end{align}
+\begin{align}
+  \vec{V} &= \norm{\vec{n}}^2\vec{I} - e^2\vec{n}\vec{n}^\top \label{eq:matrixV} \\
+  \vec{u} &= ce^2\vec{n} - \norm{\vec{n}}^2\vec{F} \label{eq:matrixu} \\
+  f &= \norm{\vec{n}}^2\norm{\vec{F}}^2 - c^2e^2 \label{eq:f}
+\end{align}
+
+The normal vector of the directrix is along the direction vector of $\vec{F_1} - \vec{F_2}$
+
+\begin{align}
+  \vec{n} &= \vec{F_1} - \vec{F_2} \equiv \vec{e_1}
+\end{align}
+\begin{align}
+\vec{e_1} = \myvec{1\\0}
+\end{align}
+\end{frame}
+\begin{frame}
+From \eqref{eq:matrixV} we can form the matrix $\vec{V}$
+
+\begin{align}
+  \vec{V} &= \myvec{1 & 0\\0 & 1} - e^2\myvec{1 & 0\\0 & 0}\\
+  \vec{V} &= \myvec{1-e^2 & 0\\0 & 1}
+\end{align}
+
+As $\vec{V}$ is an upper triangular matrix , we get the eigen values as the diagonal entries 
+
+\begin{align}
+  \lambda_1 &= 1 - e^2 & \lambda_2 = 1
+\end{align}
+
+Clearly $\mydet{\vec{V}} \neq 0$ , $\vec{V}^{-1}$ exists.
+
+
+
+The center of the conic $\vec{c}$ can be found 
+
+\begin{align}
+  \vec{c} &= \frac{\vec{F_1}+\vec{F_2}}{2} = \vec{0}
+\end{align}
+\end{frame}
+\begin{frame}
+The relation between the $\vec{c}$ , $\vec{V}$ and $\vec{u}$ is given by 
+
+\begin{align}
+  \vec{V}\vec{c} + \vec{u} &= \vec{0} & \mydet{\vec{V}} \neq 0 \\
+  \vec{c} &= \vec{0}\\
+  \vec{u} &= \vec{0}
+\end{align}
+
+From \eqref{eq:matrixu} we get 
+
+\begin{align}
+  ce^2\vec{e_1} &= \vec{F_1}\\
+  \myvec{ce^2\\0} &= \myvec{4\\0}\\
+  ce^2 &= 4\\
+  c &= \frac{4}{e^2} \label{eq:c}
+\end{align}
+
+\begin{align}
+  f_0 &= \vec{u}^\top\vec{V}^{-1}\vec{u} - f
+\end{align}
+\end{frame}
+\begin{frame}
+as $\vec{u}=\vec{0}$ and from \eqref{eq:f}, we get 
+
+\begin{align}
+  f_0 &= c^2e^2 - 16
+\end{align}
+
+The length of the major axis is the distance between the two vertices 
+
+\begin{align}
+  \norm{\vec{B_1}-\vec{B_2}} &= 12
+\end{align}
+
+The length of major axes is also given as 
+
+\begin{align}
+  2\sqrt{\left|\frac{f_0}{\lambda_1}\right|}
+\end{align}
+
+So,
+
+\begin{align}
+  2\sqrt{\left|\frac{c^2e^2 - 16}{1 - e^2}\right|} &= 12
+\end{align}
+\end{frame}
+\begin{frame}
+From \eqref{eq:c} we get 
+
+\begin{align}
+  \sqrt{\frac{16}{e^2}} &= 6\\
+  \frac{4}{e} &= 6\\
+  e &= \frac{2}{3}
+\end{align}
+
+
+As e \textless 1 , the conic is an \textbf{ellipse}
+
+The value of c and directix equation are given as 
+
+\begin{align}
+  c &= 9 & \vec{n}^\top\vec{x} = \pm 9
+\end{align}
+
+Using the obtained values of c and e , we get 
+
+\begin{align}
+  \vec{V} &= \myvec{\frac{5}{9} & 0\\0 & 1}\\
+  \vec{u} &= \vec{0}\\
+  \end{align}
+  \end{frame}
+  \begin{frame}
+  \begin{align}
+  f &= -20
+\end{align}
+
+Substituting these in \eqref{eq:conic} , we get the equation of \textbf{ellipse} as 
+
+\begin{align}
+  \vec{x}^\top\myvec{\frac{1}{36} & 0\\0 & \frac{1}{20}}\vec{x} &= 1
+\end{align}
+
+\end{frame}
+\subsection{Plots}
+\begin{frame}
+\frametitle{Plots}
+\begin{figure}
+\centering
+\includegraphics[width=0.7\columnwidth]{figs/ellipse.png}
+\caption{}
+\label{fig:placeholder}
+\end{figure}
+\end{frame}
+\section{C Code}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+#include <stdio.h>
+#include <math.h>
+
+#define N 400  // Number of points for the ellipse
+
+// Function to generate ellipse coordinates
+void ellipse_points(double *x_vals, double *y_upper, double *y_lower, double a, double b) {
+    double step = (2 * a) / (N - 1);  // Step size between x-values
+
+    for (int i = 0; i < N; i++) {
+        x_vals[i] = -a + i * step;  // X values range from -a to +a
+        double value = 1.0 - (x_vals[i] * x_vals[i]) / (a * a);
+
+        if (value < 0)
+            value = 0;  // Avoid sqrt of small negative rounding errors
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+        y_upper[i] = b * sqrt(value);   // Upper half of ellipse
+        y_lower[i] = -y_upper[i];       // Lower half (mirror)
+    }
+}
+
+// Main function callable from Python
+void generate_ellipse(double *x_vals, double *y_upper, double *y_lower) {
+    double a = 6.0;             // Semi-major axis (x-axis)
+    double c = 4.0;             // Distance to focus
+    double b = sqrt(a * a - c * c);  // Semi-minor axis (y-axis)
+
+    ellipse_points(x_vals, y_upper, y_lower, a, b);
+}
+
+\end{lstlisting}
+\end{frame}
+
+\section{Python Code}
+\begin{frame}[fragile]
+\frametitle{call.py}
+\begin{lstlisting}[language=Python]
+   import ctypes
+import os
+import numpy as np
+
+N = 400
+# Load the shared object
+lib = ctypes.CDLL("./ellipse.so")
+
+# Define argument and return types for the C function
+lib.generate_ellipse.argtypes = [
+    np.ctypeslib.ndpointer(dtype=np.float64, ndim=1, flags="C_CONTIGUOUS"),
+    np.ctypeslib.ndpointer(dtype=np.float64, ndim=1, flags="C_CONTIGUOUS"),
+    np.ctypeslib.ndpointer(dtype=np.float64, ndim=1, flags="C_CONTIGUOUS")
+]
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+lib.generate_ellipse.restype = None
+# Create numpy arrays to hold results
+x_vals = np.zeros(N, dtype=np.float64)
+y_upper = np.zeros(N, dtype=np.float64)
+y_lower = np.zeros(N, dtype=np.float64)
+
+# Call the C function
+lib.generate_ellipse(x_vals, y_upper, y_lower)
+
+# Print some sample results to verify
+print("Sample Ellipse Points:")
+for i in range(0, N, 50):  # print every 50th point
+    print(f"x = {x_vals[i]:.3f}, y_upper = {y_upper[i]:.3f}, y_lower = {y_lower[i]:.3f}")
+
+print("\nC function executed successfully.")
+ 
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python Code for Plotting}
+\begin{lstlisting}[language=Python]
+import numpy as np
+import matplotlib.pyplot as plt
+import os
+
+# save figure in figs folder
+figs_folder = os.path.join("..", "figs")
+
+# Given ellipse parameters
+f1 = (4.0, 0.0)
+f2 = (-4.0, 0.0)
+vert = (6.0, 0.0)
+vert2 = (-6.0, 0.0)
+
+# semi-major and semi-minor axes
+a = vert[0]    # semi-major axis (along x-axis)
+c_f = f1[0]    # distance to focus from origin
+b = np.sqrt(a**2 - c_f**2)  # semi-minor axis (along y-axis)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+# x and y values for ellipse
+x_vals = np.linspace(-a, a, 400)
+y_upper = b * np.sqrt(1 - (x_vals**2 / a**2))
+y_lower = -y_upper
+
+# Plotting
+fig, ax = plt.subplots(figsize=(8, 8))
+ax.plot(x_vals, y_upper, 'r')
+ax.plot(x_vals, y_lower, 'r')
+
+# plot foci
+ax.scatter([f1[0], f2[0]], [f1[1], f2[1]], color="blue")
+ax.text(f1[0], f1[1] + 0.5, f"F1{f1}", fontsize=10, color="blue")
+ax.text(f2[0], f2[1] + 0.5, f"F2{f2}", fontsize=10, color="blue")
+
+# plot vertices
+ax.scatter([vert[0]], [vert[1]], color="green")
+ax.text(vert[0], vert[1] + 0.5, f"B1{vert}", fontsize=10, color="green")
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+ax.scatter([vert2[0]], [vert2[1]], color="orange")
+ax.text(vert2[0], vert2[1] + 0.5, f"B2{vert2}", fontsize=10, color="orange")
+
+# center axes
+ax.axhline(0, color='black', linewidth=1)
+ax.axvline(0, color='black', linewidth=1)
+
+# formatting
+ax.set_aspect('equal')
+ax.set_title("Ellipse (Major Axis along X-axis)")
+ax.grid(True)
+
+# save figure
+plt.tight_layout()
+fig.savefig(os.path.join(figs_folder, "ellipse.png"))
+plt.show()
+
+\end{lstlisting}
+\end{frame}
+\end{document}

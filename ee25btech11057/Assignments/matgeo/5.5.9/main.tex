@@ -1,0 +1,124 @@
+
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal,12pt,onecolumn]{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\graphicspath{{./figs/}}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage{caption}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\usepackage{gvv}                                        
+%\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}     
+\usepackage{xparse}
+\usepackage{color}                                            
+\usepackage{array}
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{float}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{example}{Example}[section]
+\newtheorem{definition}[problem]{Definition}
+\newcommand{\BEQA}{\begin{eqnarray}}
+\newcommand{\EEQA}{\end{eqnarray}}
+\newcommand{\define}{\stackrel{\triangle}{=}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+
+\begin{document}
+
+\title{5.5.9}
+\author{EE25BTECH11057 - Tammineedi Rushil Shanmukha Srinivas}
+\maketitle
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\textbf{Question:} Using elementary row transformations find the inverse of the matrix 
+\begin{align}
+\myvec{3&0&-1\\
+       2&3&0\\
+       0&4&1}
+\end{align}
+\textbf{Solution:}
+Given, \begin{align} 
+\vec{A}=\myvec{3&0&-1\\
+       2&3&0\\
+       0&4&1}
+       \end{align}
+Forming the Augmented Matrix
+\begin{align}
+\myvec{3&0&-1 &\vrule& 1&0&0 \\
+       2&3&0 &\vrule&  0&1&0 \\
+       0&4&1 &\vrule&  0&0&1 }
+\end{align}
+Applying elementary row operations to find the inverse
+\begin{align}
+\myvec{3&0&-1 &\vrule& 1&0&0 \\
+       2&3&0 &\vrule&  0&1&0 \\
+       0&4&1 &\vrule&  0&0&1 } \xrightarrow{R_3 \longrightarrow 3R_3-4R_2}
+       \myvec{3&0&-1 &\vrule& 1&0&0 \\
+       2&3&0 &\vrule&  0&1&0 \\
+       -8&0&3 &\vrule&  0&-4&3} \xrightarrow{R_3 \longrightarrow 3R_3+8R_1}
+       \myvec{3&0&-1 &\vrule& 1&0&0 \\
+       2&3&0 &\vrule&  0&1&0 \\
+       0&0&1 &\vrule&  8&-12&9} 
+\end{align}
+\begin{align}
+ \myvec{3&0&-1 &\vrule& 1&0&0 \\
+       2&3&0 &\vrule&  0&1&0 \\
+       0&0&1 &\vrule&  8&-12&9} \xrightarrow{R_2 \longrightarrow 3R_2-2R_1}
+    \myvec{3&0&-1 &\vrule& 1&0&0 \\
+       0&9&2 &\vrule&  -2&3&0 \\
+       0&0&1 &\vrule&  8&-12&9} \xrightarrow{R_2 \longrightarrow R_2-2R_3}
+        \myvec{3&0&-1 &\vrule& 1&0&0 \\
+       0&9&0 &\vrule&  -18&27&-18 \\
+       0&0&1 &\vrule&  8&-12&9} 
+\end{align}
+\begin{align}
+ \myvec{3&0&-1 &\vrule& 1&0&0 \\
+       0&9&0 &\vrule&  -18&27&-18 \\
+       0&0&1 &\vrule&  8&-12&9} \xrightarrow{R_2 \longrightarrow \frac{R_2}{9}}
+        \myvec{3&0&-1 &\vrule& 1&0&0 \\
+       0&1&0 &\vrule&  -2&3&-2 \\
+       0&0&1 &\vrule&  8&-12&9} \xrightarrow{R_1 \longrightarrow R_1+R_3}
+        \myvec{3&0&0 &\vrule& 9&-12&9 \\
+       0&1&0 &\vrule&  -2&3&-2 \\
+       0&0&1 &\vrule&  8&-12&9} 
+\end{align}
+\begin{align}
+\myvec{3&0&0 &\vrule& 9&-12&9 \\
+       0&1&0 &\vrule&  -2&3&-2 \\
+       0&0&1 &\vrule&  8&-12&9} \xrightarrow{R_1 \longrightarrow \frac{R_1}{3}}
+       \myvec{1&0&0 &\vrule& 3&-4&3 \\
+       0&1&0 &\vrule&  -2&3&-2 \\
+       0&0&1 &\vrule&  8&-12&9} 
+\end{align}
+The right side part of the Augmented Matrix is $\vec{A}^{-1}$
+\begin{align}
+\vec{A}^{-1} = \myvec{3&-4&3\\
+                      -2&3&-2\\
+                      8&-12&9}
+\end{align}
+\end{document}

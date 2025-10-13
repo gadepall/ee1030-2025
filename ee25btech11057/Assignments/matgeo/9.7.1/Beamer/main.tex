@@ -1,0 +1,412 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{advdate}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}} % nCr
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}} % nPr
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{{}\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}} 
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+%\providecommand{\hilbert}{\overset{\mathcal{H}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+	%\newcommand{\solution}[2]{\textbf{Solution:}{#1}}
+%\newcommand{\solution}{\noindent \textbf{Solution: }}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\newcommand{\mydet}[1]{\ensuremath{\begin{vmatrix}#1\end{vmatrix}}}
+\let\vec\mathbf
+
+\lstset{
+%language=C,
+frame=single, 
+breaklines=true,
+columns=fullflexible
+}
+
+\numberwithin{equation}{section}
+
+\title{9.7.1}
+\author{Rushil Shanmukha Srinivas \\EE25BTECH11057 \\ Electrical Enggineering ,\\IIT Hyderabad.}
+
+\date{\today} 
+\begin{document} 
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section*{Outline}
+\begin{frame}
+\tableofcontents
+\end{frame}
+\section{Problem}
+\begin{frame}
+\frametitle{Problem Statement}
+\textbf{Question :} Find the area of the region between the conics given by $\{S(x,y) :
+ x^2 + y^2 \leq 16a^2 \ and \ y^2 \leq 6ax 
+\}$.
+\end{frame}
+\section{Data}
+\begin{frame}
+\frametitle{Data}
+\\ \begin{table}[h!]    
+  \centering
+  \input{tables/table.tex}
+  \caption{Parabola and Circle}
+\end{table}
+\end{frame}
+\section{Solution}
+\subsection{Finding Area between Parabola and Circle}
+\begin{frame}
+\frametitle{Finding Area between Parabola and Circle}
+%\framesubtitle{Literature}
+On comparing conics with 
+\begin{align}
+\vec{x}^\top\vec{V}\vec{x} + 2\vec{u}^\top\vec{x} + f &= 0 \label{eq: conics}
+\end{align}
+The parameters of the Parabola are 
+\begin{align}
+\vec{V_1}=\myvec{0&0\\0&1} , \vec{u_1}=-\myvec{3a\\0} , f_1=0 \label{eq: Parabola}
+\end{align}
+The parameters of the Circle are
+\begin{align}
+\vec{V_2}=\myvec{1&0\\0&1},\vec{u_2}=0,f_2=-16a^2  \label{eq: Circle}
+\end{align}
+The intersection of two conics with parameters $\vec{V_i},\vec{u_i},f_i$ , i = 1,2 is defined as
+\begin{align}
+\vec{x}^\top(\vec{V_1} + \mu\vec{V_2})\vec{x} + 2(\vec{u_1} + \mu\vec{u_2})^\top\vec{x} + (f_1 +\mu f_2) = 0. \label{eq: conics intersection}
+\end{align}
+\eqref{eq: conics} represents a pair of straight lines if 
+\begin{align}
+\mydet{\vec{V}&\vec{u}\\\vec{u}^\top&f} = 0  \label{eq: det}
+\end{align}
+\end{frame}
+\begin{frame}
+From \eqref{eq: det} , \eqref{eq: conics intersection} represents a pair of straight lines if
+\begin{align}
+\mydet{\vec{V_1} + \mu\vec{V_2}&\vec{u_1} + \mu\vec{u_2}\\
+       (\vec{u_1} + \mu\vec{u_2})^\top&f_1 + \mu f_2} = 0  \label{eq: longdet}
+\end{align}
+On substituting from \eqref{eq: Parabola} and \eqref{eq: Circle} in \eqref{eq: longdet}, we obtain
+\begin{align}
+\mydet{\mu&0&-3a\\
+       0&\mu+1&0\\
+       -3a&0&-16\mu a^2} = 0
+\end{align}
+On solving we get
+\begin{align}
+(\mu + 1)(16 \mu^2 + 9) = 0
+\end{align}
+yielding
+\begin{align}
+\mu = -1
+\end{align}
+Substituting \eqref{eq: Parabola} and \eqref{eq: Circle} in \eqref{eq: conics intersection}, we obtain
+\begin{align}
+\vec{x}^\top\myvec{-1&0\\0&0}\vec{x} + 2\myvec{-3a&0}\vec{x} + 16a^2 = 0
+\end{align}
+\end{frame}
+\begin{frame}
+On solving we get
+\begin{align}
+\myvec{1&0}\vec{x} = 2a \ and \ \myvec{1&0}\vec{x} = -8a
+\end{align}
+But circle and line $\myvec{1&0}\vec{x} = -8a$ do not intersect.
+So The solution is
+\begin{align}
+\myvec{1&0}\vec{x} = 2a   \label{eq: chord}
+\end{align}
+Therefore the intersection of two conics is a line with parameters
+\begin{align}
+\vec{m} = \myvec{0\\1} , \vec{h} = \myvec{2a\\0}
+\end{align}
+The points of intersection for a conic and a line is given by
+\begin{align}
+\kappa_i
+  &= \frac{1}{\vec{m}^\top \vec{V}\vec{m}}
+     \left(
+       -\,\vec{m}^\top\big(\vec{V}\vec{h}+\vec{u}\big)
+       \;\pm\;
+       \sqrt{ \big[\vec{m}^\top(\vec{V}\vec{h}+\vec{u})\big]^2
+       - g(\vec{h})\,\big(\vec{m}^\top \vec{V}\vec{m}\big)}
+     \right)
+\end{align}
+\begin{align}
+g(\vec{x}) = \vec{x}^\top\myvec{1&0\\0&1}\vec{x} - 16a^2 \\
+g(\vec{h}) = \vec{h}^\top\myvec{1&0\\0&1}\vec{h} - 16a^2
+\end{align}
+\end{frame}
+\begin{frame}
+The intersection parameters of the chord in \eqref{eq: chord} with the circle is obtained as
+\begin{align}
+\kappa_i = \;\pm\;
+            \sqrt{16a^2 - \vec{h}^\top\myvec{1&0\\0&1}\vec{h}} \\
+            \kappa_i = \;\pm\;
+                       2\sqrt{3}a
+\end{align}
+So the points of intersection are obtained as
+\begin{align}
+\vec{x_1} = \myvec{2a\\2\sqrt{3}a} , \vec{x_2} = \myvec{2a\\-2\sqrt{3}a}
+\end{align}
+The desired area of region is given as
+\begin{align}
+2 \left( 
+\int_{0}^{2a} \sqrt{6ax}\, dx + 
+\int_{2a}^{4a} \sqrt{16a^2 - x^2}\, dx
+\right)
+\end{align}
+
+\begin{align}
+= 2 \left[
+\sqrt{6a} \left( \frac{2}{3} x^{3/2} \right)
+\right]_{0}^{2a}
++ 2 \left[
+\frac{x}{2} \sqrt{16a^2 - x^2}
++ 8a^2 \sin^{-1} \left( \frac{x}{4a} \right)
+\right]_{2a}^{4a}
+\end{align}
+\end{frame}
+\begin{frame}
+\begin{align}
+= \frac{4a^2}{\sqrt{3}} + \frac{16 \pi a^2}{3} \\
+= 4a^2 \left(
+       \frac{4\pi}{3} + \frac{1}{\sqrt{3}}
+       \right)
+\end{align}
+\end{frame}
+\subsection{Plots}
+\begin{frame}
+\frametitle{Plots}
+\begin{figure}
+\centering
+\includegraphics[width=0.7\columnwidth]{figs/fig16.png}
+\caption{}
+\label{fig:placeholder}
+\end{figure}
+\end{frame}
+\section{C Code}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+#include <stdio.h>
+#include <math.h>
+/*
+   Program to find the area of the region:
+   S = { (x, y): x^2 + y^2 <= 16a^2 and y^2 <= 6ax }
+
+   We compute:
+   A = 2 * [ ∫_0^{2a} sqrt(6ax) dx + ∫_{2a}^{4a} sqrt(16a^2 - x^2) dx ]
+   using Simpson's 1/3 rule (numerical integration).
+*/
+
+// Function for the parabola y = sqrt(6*a*x)
+double parabola(double x, double a) {
+    return sqrt(6.0 * a * x);
+}
+// Function for the circle y = sqrt(16*a^2 - x^2)
+double circle(double x, double a) {
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+    return sqrt(16.0 * a * a - x * x);
+}
+// Simpson’s rule for integration
+double simpson(double (*f)(double, double), double a, double x0, double x1, int n) {
+    double h = (x1 - x0) / n;
+    double sum = f(x0, a) + f(x1, a);
+    for (int i = 1; i < n; i++) {
+        double x = x0 + i * h;
+        if (i % 2 == 0)
+            sum += 2 * f(x, a);
+        else
+            sum += 4 * f(x, a);
+    }
+    return (h / 3.0) * sum;
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+int main() {
+    double a;
+    printf("Enter the value of a: ");
+    scanf("%lf", &a);
+
+    int n = 10000; // number of subintervals for Simpson’s rule (even)
+
+    // Integrate sqrt(6ax) from 0 to 2a
+    double area1 = simpson(parabola, a, 0, 2 * a, n);
+
+    // Integrate sqrt(16a^2 - x^2) from 2a to 4a
+    double area2 = simpson(circle, a, 2 * a, 4 * a, n);
+
+    // Total area (both above and below x-axis)
+    double total_area = 2 * (area1 + area2);
+
+    // Display results
+    printf("\n--- Step-by-Step Integration Process ---\n");
+ \end{lstlisting}
+\end{frame}
+ \begin{frame}[fragile]
+ \begin{lstlisting}
+ printf("Parabola: y = sqrt(6ax)\n"); 
+ printf("Circle:   y = sqrt(16a^2 - x^2)\n");
+    printf("Intersection point: (2a, 2√3 a)\n");
+
+    printf("\nIntegrating in first quadrant:\n");
+    printf("Area1 = ∫[0 to 2a] sqrt(6ax) dx = %.6lf\n", area1);
+    printf("Area2 = ∫[2a to 4a] sqrt(16a^2 - x^2) dx = %.6lf\n", area2);
+
+    printf("\nTotal Area (both halves): A = 2*(Area1 + Area2)\n");
+    printf("=> Area = %.6lf\n", total_area);
+
+    return 0;
+}
+
+\end{lstlisting}
+\end{frame}
+
+\section{Python Code}
+\begin{frame}[fragile]
+\frametitle{call.py}
+\begin{lstlisting}[language=Python]
+import ctypes
+import os
+# Load the compiled shared object (.so file)
+# Make sure "area_region.so" is in the same directory
+so_file = "./area_region.so"
+
+# Load the shared object
+lib = ctypes.CDLL(so_file)
+
+# Define the argument and return types for the C function 'main'
+lib.main.restype = ctypes.c_int
+
+print("Running the C integration program...\n")
+# Call the main() function from the C program
+lib.main()
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python Code for Plotting}
+\begin{lstlisting}[language=Python]
+import numpy as np
+import matplotlib.pyplot as plt
+# Parameter 'a'
+a = 2  # You can change this value
+
+# Circle: x^2 + y^2 = 16a^2 → y = ±√(16a^2 - x^2)
+x_circle = np.linspace(-4 * a, 4 * a, 800)
+y_circle_upper = np.sqrt(16 * a**2 - x_circle**2)
+y_circle_lower = -y_circle_upper
+
+# Parabola: y^2 = 6ax → y = ±√(6ax)
+x_parabola = np.linspace(0, 4 * a, 500)
+y_parabola_upper = np.sqrt(6 * a * x_parabola)
+y_parabola_lower = -y_parabola_upper
+
+# Intersection points (analytical)
+x_intersect = 2 * a
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+y_intersect = 2 * np.sqrt(3) * a
+# Create plot
+plt.figure(figsize=(8, 8))
+
+# Shaded region between curves (upper and lower parts)
+x_fill1 = np.linspace(0, x_intersect, 300)
+x_fill2 = np.linspace(x_intersect, 4 * a, 300)
+y_fill1_upper = np.sqrt(6 * a * x_fill1)
+y_fill2_upper = np.sqrt(16 * a**2 - x_fill2**2)
+
+plt.fill_between(x_fill1, y_fill1_upper, color='orange', alpha=0.4)
+plt.fill_between(x_fill2, y_fill2_upper, color='orange', alpha=0.4)
+plt.fill_between(x_fill1, -y_fill1_upper, color='orange', alpha=0.4)
+plt.fill_between(x_fill2, -y_fill2_upper, color='orange', alpha=0.4)
+
+# Plot circle
+plt.plot(x_circle, y_circle_upper, 'b', linewidth=1.8)
+plt.plot(x_circle, y_circle_lower, 'b', linewidth=1.8)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+# Plot parabola
+plt.plot(x_parabola, y_parabola_upper, 'g', linewidth=1.8)
+plt.plot(x_parabola, y_parabola_lower, 'g', linewidth=1.8)
+
+# Mark intersection points
+plt.scatter([x_intersect, x_intersect], [y_intersect, -y_intersect], color='red', zorder=5)
+plt.text(x_intersect + 0.3 * a, y_intersect, f"({x_intersect/a:.1f}a, {y_intersect/a:.2f}a)",
+         color='red', fontsize=10)
+
+plt.text(-2.5 * a, 3.2 * a, r'$x^2 + y^2 = 16a^2$', color='blue', fontsize=12, rotation=-25)
+plt.text(0.5 * a, 0.7 * a, r'$y^2 = 6ax$', color='green', fontsize=12, rotation=35)
+
+# Axes setup
+plt.axhline(0, color='black', linewidth=1)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+plt.axvline(0, color='black', linewidth=1)
+plt.gca().set_aspect('equal', adjustable='box')
+plt.xlim(-4.5 * a, 5.0 * a)
+plt.ylim(-4.5 * a, 5.0 * a)
+
+# Title and labels
+plt.title(r"Region bounded by $x^2 + y^2 = 16a^2$ and $y^2 = 6ax$")
+plt.xlabel("x-axis")
+plt.ylabel("y-axis")
+plt.grid(alpha=0.3)
+plt.savefig("../figs/fig16.png")
+# Show plot
+plt.show()
+
+\end{lstlisting}
+\end{frame}
+\end{document}

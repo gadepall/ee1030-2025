@@ -1,0 +1,37 @@
+\begin{lstlisting}
+
+# Plane 2: x - 2y + z = -4 -> z = (-4 -x + 2y)
+Z2 =(-4 -X +2*Y)
+
+# Plane 3: 3x - y - 2z = 3 -> z = (-3 + 3x - y )/2
+Z3 = (-3 + 3*X - Y)/2
+
+# Plotting
+fig = plt.figure(figsize=(10, 8))
+ax = fig.add_subplot(111, projection="3d")
+
+# Plot the planes
+ax.plot_surface(X, Y, Z1, alpha=0.5, color="red")
+ax.plot_surface(X, Y, Z2, alpha=0.5, color="green")
+ax.plot_surface(X, Y, Z3, alpha=0.5, color="blue")
+
+# Plot the solution point
+ax.scatter(x, y, z, color="black")
+ax.text(x+0.5, y+0.5, z+0.5,
+        f"P({x:.2f},{y:.2f},{z:.2f})",
+        fontsize=10, color="black")
+
+# Axes labels and title
+ax.set_xlabel("X Axis")
+ax.set_ylabel("Y Axis")
+ax.set_zlabel("Z Axis")
+ax.set_title("Intersection of Three Planes and Solution Point P")
+ax.grid(True)
+
+# Save figure
+plt.tight_layout()
+fig.savefig(os.path.join(figs_folder, "solution.png"))
+plt.show()
+
+
+\end{lstlisting}

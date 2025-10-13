@@ -1,0 +1,202 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+
+\title{8.2.24}
+\author{EE25BTECH11057 - Rushil Shanmukha Srinivas
+}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+\textbf{Question :} The conic has vertices $\,(\pm 6,0)\,$ and foci $\,(\pm 4,0)\,$. Find the equation of the conic.
+
+\textbf{Solution :} 
+
+\begin{table}[h!]
+  \centering
+  \input{tables/table.tex}
+  \caption*{Table : Ellipse}
+  \label{8.2.23}
+\end{table}
+
+The conic has two foci , so it cannot be a parabola .
+
+Equation for any conic with directrix $\vec{n}^\top\vec{x} = c$ , eccentricity e and focus $\vec{F}$ is given by 
+
+\begin{align}
+  \vec{x}^\top\vec{V}\vec{x} + 2\vec{u}^\top\vec{x} + f &= 0  \label{eq:conic}
+\end{align}
+\begin{align}
+  \vec{V} &= \norm{\vec{n}}^2\vec{I} - e^2\vec{n}\vec{n}^\top \label{eq:matrixV} \\
+  \vec{u} &= ce^2\vec{n} - \norm{\vec{n}}^2\vec{F} \label{eq:matrixu} \\
+  f &= \norm{\vec{n}}^2\norm{\vec{F}}^2 - c^2e^2 \label{eq:f}
+\end{align}
+
+The normal vector of the directrix is along the direction vector of $\vec{F_1} - \vec{F_2}$
+
+\begin{align}
+  \vec{n} &= \vec{F_1} - \vec{F_2} \equiv \vec{e_1}
+\end{align}
+\begin{align}
+\vec{e_1} = \myvec{1\\0}
+\end{align}
+\pagebreak
+
+From \eqref{eq:matrixV} we can form the matrix $\vec{V}$
+
+\begin{align}
+  \vec{V} &= \myvec{1 & 0\\0 & 1} - e^2\myvec{1 & 0\\0 & 0}\\
+  \vec{V} &= \myvec{1-e^2 & 0\\0 & 1}
+\end{align}
+
+As $\vec{V}$ is an upper triangular matrix , we get the eigen values as the diagonal entries 
+
+\begin{align}
+  \lambda_1 &= 1 - e^2 & \lambda_2 = 1
+\end{align}
+
+Clearly $\mydet{\vec{V}} \neq 0$ , $\vec{V}^{-1}$ exists.
+
+
+
+The center of the conic $\vec{c}$ can be found 
+
+\begin{align}
+  \vec{c} &= \frac{\vec{F_1}+\vec{F_2}}{2} = \vec{0}
+\end{align}
+
+The relation between the $\vec{c}$ , $\vec{V}$ and $\vec{u}$ is given by 
+
+\begin{align}
+  \vec{V}\vec{c} + \vec{u} &= \vec{0} & \mydet{\vec{V}} \neq 0 \\
+  \vec{c} &= \vec{0}\\
+  \vec{u} &= \vec{0}
+\end{align}
+
+From \eqref{eq:matrixu} we get 
+
+\begin{align}
+  ce^2\vec{e_1} &= \vec{F_1}\\
+  \myvec{ce^2\\0} &= \myvec{4\\0}\\
+  ce^2 &= 4\\
+  c &= \frac{4}{e^2} \label{eq:c}
+\end{align}
+
+\begin{align}
+  f_0 &= \vec{u}^\top\vec{V}^{-1}\vec{u} - f
+\end{align}
+
+as $\vec{u}=\vec{0}$ and from \eqref{eq:f}, we get 
+
+\begin{align}
+  f_0 &= c^2e^2 - 16
+\end{align}
+
+The length of the major axis is the distance between the two vertices 
+
+\begin{align}
+  \norm{\vec{B_1}-\vec{B_2}} &= 12
+\end{align}
+
+\pagebreak
+
+The length of major axes is also given as 
+
+\begin{align}
+  2\sqrt{\left|\frac{f_0}{\lambda_1}\right|}
+\end{align}
+
+So,
+
+\begin{align}
+  2\sqrt{\left|\frac{c^2e^2 - 16}{1 - e^2}\right|} &= 12
+\end{align}
+
+From \eqref{eq:c} we get 
+
+\begin{align}
+  \sqrt{\frac{16}{e^2}} &= 6\\
+  \frac{4}{e} &= 6\\
+  e &= \frac{2}{3}
+\end{align}
+
+
+As e \textless 1 , the conic is an \textbf{ellipse}
+
+The value of c and directix equation are given as 
+
+\begin{align}
+  c &= 9 & \vec{n}^\top\vec{x} = \pm 9
+\end{align}
+
+Using the obtained values of c and e , we get 
+
+\begin{align}
+  \vec{V} &= \myvec{\frac{5}{9} & 0\\0 & 1}\\
+  \vec{u} &= \vec{0}\\
+  f &= -20
+\end{align}
+
+Substituting these in \eqref{eq:conic} , we get the equation of \textbf{ellipse} as 
+
+\begin{align}
+  \vec{x}^\top\myvec{\frac{1}{36} & 0\\0 & \frac{1}{20}}\vec{x} &= 1
+\end{align}
+
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.9\columnwidth]{figs/ellipse.png} 
+   \caption*{Fig : Ellipse}
+  \label{Fig1}
+\end{figure}
+
+
+\end{document}
