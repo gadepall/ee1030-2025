@@ -1,0 +1,22 @@
+\frametitle{Plot.py}
+\begin{lstlisting}
+labels = {
+    "P": (P, (offset, offset, offset)),
+    "Q": (Q, (offset, offset, offset)),
+    "R": (R, (offset, offset, offset))
+    "S": (S, (offset, offset, offset)),
+    "O": (O, (offset, offset, offset)),}
+for name, (point, delta) in labels.items():
+    label_pos = point + np.array(delta)
+    ax.text(*label_pos, f"{name}{clean_coords(point)}",
+            fontsize=11, fontweight="bold",
+            color="darkblue" if name=="O" else "green",
+            bbox=dict(facecolor="white", edgecolor="none", pad=2, alpha=0.8))
+# Axes and title
+ax.set_xlabel("X-axis")
+ax.set_ylabel("Y-axis")
+ax.set_zlabel("Z-axis")
+ax.set_title("Parallelogram PQRS with Diagonals and Intersection")
+ax.legend()
+plt.show()
+\end{lstlisting}
