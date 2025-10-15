@@ -1,0 +1,129 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}      % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\graphicspath{{./figs/}}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{gvv}
+
+\def\inputGnumericTable{}
+
+\usepackage[latin1]{inputenc}
+
+\usepackage{color}
+
+\usepackage{array}
+
+\usepackage{longtable}
+
+\usepackage{calc}
+\usepackage{multirow}
+
+\usepackage{hhline}
+
+\usepackage{ifthen}
+
+\usepackage{lscape}
+\usepackage{circuitikz}
+
+\begin{document}
+	
+	\bibliographystyle{IEEEtran}
+	\vspace{3cm}
+	
+	\title{5.13.67}
+	\author{EE25BTECH11042 - Nipun Dasari}
+	\maketitle
+	
+	\renewcommand{\thefigure}{\theenumi}
+	\renewcommand{\thetable}{\theenumi}
+	\setlength{\intextsep}{10pt} % Space between text and floats
+	
+	
+	\numberwithin{equation}{enumi}
+	\numberwithin{figure}{enumi}
+	\renewcommand{\thetable}{\theenumi}
+	
+	\textbf{Question}:\\
+	For what value of k do the following system of equations possess a non trivial (i.e.,
+	not all zero) solution over the set of rationals Q?
+	\begin{align}
+		x + ky + 3z = 0\\
+	3x+ky-2z=0\\
+		2x+3y-4z=0\\
+	\end{align}
+	\solution
+	Given:
+	\begin{align}
+		\begin{myvec}{1\\ k \\3}\end{myvec}^\top\vec{x} = 0 \label{1}
+	\end{align}
+	\begin{align}
+		\begin{myvec}{3\\ k \\-2}\end{myvec}^\top\vec{x} = 0\label{2}
+	\end{align}
+	\begin{align}
+		\begin{myvec}{2\\3\\-4}\end{myvec}^\top\vec{x} = 0\label{3}
+	\end{align}
+	Combining \eqref{1},\eqref{2},\eqref{3}:
+	\begin{align}
+		A\vec{x}=0
+	\end{align}
+	where A is :
+	\begin{align}
+		\begin{myvec}{1&k&3\\3&k&-2\\2&3&-4}\end{myvec}
+	\end{align}
+	For this system to have non-trivial solution these planes must intersect on a line, i.e, any two of the rows must be linearly dependent in order to have infinitely many non-trivial solutions. We simplify the matrix by using gaussian elimination:
+	\begin{align}
+		\begin{myvec}{1&k&3\\3&k&-2\\2&3&-4}\end{myvec}
+		&\xleftrightarrow{,R_2 \gets R_2-3R_1}
+		\begin{myvec}{1&k&3\\0&-2k&-11\\2&3&-4}\end{myvec}
+		&\xleftrightarrow{,R_3 \gets R_3-2R_1}
+		\begin{myvec}{1&k&3\\0&-2k&-11\\0&3-2k&-10}\end{myvec}
+	\end{align}
+	Now, we continue the row reduction to get the matrix into row echelon form:
+	\begin{align}
+		\begin{myvec}{1&k&3\\0&-2k&-11\\0&3-2k&-10}\end{myvec}
+		&\xleftrightarrow{,R_3 \gets 2kR_3+(3-2k)R_2}
+		\begin{myvec}{1&k&3\\0&-2k&-11\\0&0&2k-33}\end{myvec}
+	\end{align}
+	For a non-trivial solution, the third element of the last row must be zero.
+	\begin{align}
+		2k - 33 = 0
+	\end{align}
+	\begin{align}
+		\implies k = \frac{33}{2}
+	\end{align}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width = 0.9\columnwidth]{figs/Figure_2.png}
+		\caption*{}
+		\label{fig2}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width = 0.9\columnwidth]{figs/Figure_1.png}
+		\caption*{}
+		\label{fig1}
+	\end{figure}
+\end{document}

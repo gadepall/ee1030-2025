@@ -1,0 +1,271 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+% \usepackage{gvv}
+\def\inputGnumericTable{}
+\usepackage[latin1]{inputenc}
+\usepackage{color}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{calc}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{ifthen}
+\usepackage{lscape}
+\usepackage{circuitikz}
+\usepackage{comment}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20,
+text width=4em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+%--------------------------
+
+\begin{document}
+	
+	\bibliographystyle{IEEEtran}
+	\vspace{3cm}
+	
+	\title{9.2.2}
+	\author{EE25BTECH11042 - Nipun Dasari}
+	\maketitle
+	
+	\renewcommand{\thefigure}{\theenumi}
+	\renewcommand{\thetable}{\theenumi}
+	\setlength{\intextsep}{10pt}
+	
+	\numberwithin{equation}{enumi}
+	\numberwithin{figure}{enumi}
+	\renewcommand{\thetable}{\theenumi}
+	
+	\textbf{Question}:\\
+	Find the points of intersection of the following parabola and circle and plot the region 
+	\begin{align}
+		y^2 \le 6ax \label{eq:parabola} \\
+		x^2 + y^2 \le 16a^2 \label{eq:circle}
+	\end{align}
+	
+	\solution
+	
+	We first express the equations for the parabola \eqref{eq:parabola} and the circle \eqref{eq:circle} in the standard quadratic form $g(x,y)=0$.
+	\begin{align}
+		y^2 - 6ax &= 0 \label{eq:P1} \\
+		x^2 + y^2 - 16a^2 &= 0 \label{eq:C2}
+	\end{align}
+	
+	In homogeneous coordinates, using the form $\vec{x}^\top C \vec{x} = 0$, where $\vec{x} = \begin{myvec}{x & y & 1}\end{myvec}^\top$, the matrices for the conics are:\\
+	where,
+	\begin{align}
+		C = \begin{myvec}{\vec{V}& \vec{u}\\\vec{u}^\top & f}\end{myvec}
+	\end{align}
+	\begin{align}
+		C_1 &= \begin{myvec}{0 & 0 & -3a \\ 0 & 1 & 0 \\ -3a & 0 & 0}\end{myvec} \label{eq:C1_matrix} \\
+		C_2 &= \begin{myvec}{1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & -16a^2}\end{myvec} \label{eq:C2_matrix}
+	\end{align}
+	
+	The intersection points lie on a degenerate conic formed from a linear combination $P_1 + \mu C_2 = 0$. We must find the value of $\mu$ that makes the determinant of the combined conic's matrix, $C(\mu) = C_1 + \mu C_2$, equal to zero.
+	The general matrix for this combination is:
+	\begin{align}
+		C(\mu) = \begin{myvec}{\mu & 0 & -3a \\ 0 & 1+\mu & 0 \\ -3a & 0 & -16a^2\mu}\end{myvec}
+	\end{align}
+	We set the determinant to zero. By applying the row operation $R_3 \to R_3 + \frac{3a}{\mu} R_1$, which does not change the determinant's value, we get an upper triangular matrix:
+	\begin{align}
+		\det(C(\mu)) &= \det \begin{myvec}{\mu & 0 & -3a \\ 0 & 1+\mu & 0 \\ 0 & 0 & -16a^2\mu - \frac{9a^2}{\mu}}\end{myvec} \nonumber \\
+		&= (\mu)(1+\mu)\left(-16a^2\mu - \frac{9a^2}{\mu}\right) \nonumber \\
+		&= (1+\mu)(-16a^2\mu^2 - 9a^2) \nonumber \\
+		&= -a^2(1+\mu)(16\mu^2 + 9) = 0
+	\end{align}
+	The only real root is obtained from the first factor, which gives $\mu = -1$.
+	The equation for this degenerate conic is found by subtracting \eqref{eq:C2} from \eqref{eq:P1}:
+	
+	We use the general conic (quadratic) matrix representation:
+	\begin{align}
+		\begin{myvec}{x & y}\end{myvec}
+		Q
+		\begin{myvec}{x \\ y}\end{myvec}
+		+ 
+		L^{\top}
+		\begin{myvec}{x \\ y}\end{myvec}
+		+ C = 0,
+	\end{align}
+	where 
+	\begin{align}
+		Q = 
+		\begin{myvec}{A & H/2 \\ H/2 & B}\end{myvec}, 
+		\quad 
+		L = 
+		\begin{myvec}{G \\ F}\end{myvec}.
+	\end{align}
+	
+
+	
+	%\subsection*{(1) \((y^{2}-6ax)-(x^{2}+y^{2}-16a^{2})=0\)}
+	
+	Simplify:
+	\begin{align}
+		-x^{2} - 6ax + 16a^{2} = 0.
+	\end{align}
+	
+	Hence,
+	\begin{align}
+		Q = 
+		\begin{myvec}{
+				-1 & 0 \\
+				0 & 0
+		}\end{myvec}, \quad
+		L = 
+		\begin{myvec}{
+				-6a \\
+				0
+		}\end{myvec}, \quad
+		C = 16a^{2}.
+	\end{align}
+	
+	Matrix form:
+	\begin{align}
+			\begin{myvec}{x & y}\end{myvec}
+			\begin{myvec}{
+					-1 & 0 \\
+					0 & 0
+			}\end{myvec}
+			\begin{myvec}{x \\ y}\end{myvec}
+			+
+			\begin{myvec}{-6a & 0}\end{myvec}
+			\begin{myvec}{x \\ y}\end{myvec}
+			+ 16a^{2} = 0.
+			\end{align}
+	
+
+	
+%	\subsection*{(2) \(-x^{2} - 6ax + 16a^{2} = 0\)}
+	
+	Same as above:
+	\begin{align}
+			\begin{myvec}{x & y}\end{myvec}
+			\begin{myvec}{
+					-1 & 0 \\
+					0 & 0
+			}\end{myvec}
+			\begin{myvec}{x \\ y}\end{myvec}
+			+
+			\begin{myvec}{-6a & 0}\end{myvec}
+			\begin{myvec}{x \\ y}\end{myvec}
+			+ 16a^{2} = 0.
+			\end{align}
+	
+
+	
+%	\subsection*{(3) \(x^{2} + 6ax - 16a^{2} = 0\)}
+	
+	\begin{align}
+		Q =
+		\begin{myvec}{
+				1 & 0 \\
+				0 & 0
+		}\end{myvec}, \quad
+		L =
+		\begin{myvec}{
+				6a \\
+				0
+		}\end{myvec}, \quad
+		C = -16a^{2}.
+	\end{align}
+	
+	Matrix form:
+	\begin{align}
+			\begin{myvec}{x & y}\end{myvec}
+			\begin{myvec}{
+					1 & 0 \\
+					0 & 0
+			}\end{myvec}
+			\begin{myvec}{x \\ y}\end{myvec}
+			+
+			\begin{myvec}{6a & 0}\end{myvec}
+			\begin{myvec}{x \\ y}\end{myvec}
+			- 16a^{2} = 0.
+		\end{align}
+	
+
+	
+%	\subsection*{(4) \((x + 8a)(x - 2a) = 0\)}
+	
+	This represents two linear equations:
+	\begin{align}
+		x + 8a = 0 
+		\quad \text{or} \quad 
+		x - 2a = 0.
+	\end{align}
+	
+	Matrix (vector) form of each line:
+	\begin{align}
+				\begin{myvec}{1 & 0}\end{myvec}
+			\begin{myvec}{x \\ y}\end{myvec} + 8a = 0
+			\quad \text{and} \quad
+			\begin{myvec}{1 & 0}\end{myvec}
+			\begin{myvec}{x \\ y}\end{myvec} - 2a = 0.
+		\end{align}
+	This degenerate conic consists of two vertical lines, $x=2a$ and $x=-8a$. The line $x=-8a$ does not intersect the parabola $y^2=6ax$ in real points (assuming $a>0$). We thus consider the line $x=2a$.
+	
+	We find the intersection of the line $x-2a=0$ with the parabola $P_1$ using the formula $\vec{x}_i = \vec{h} + \kappa_i\vec{m}$.
+	The line and conic parameters from $P_1$ are:
+	$\vec{h} = \begin{myvec}{2a \\ 0}\end{myvec}$, $\vec{m} = \begin{myvec}{0 \\ 1}\end{myvec}$, $\vec{V} = \begin{myvec}{0 & 0 \\ 0 & 1}\end{myvec}$, $\vec{u} = \begin{myvec}{-3a \\ 0}\end{myvec}$, and $f = 0$.
+	
+	Next, we compute the components for the parameter $\kappa_i$:
+	\begin{align}
+		\vec{m}^\top\vec{V}\vec{m} &= 1 \\
+		g(\vec{h}) &= -12a^2 \\
+		\vec{m}^\top(\vec{V}\vec{h} + \vec{u}) &= 0
+	\end{align}
+	
+	We substitute these into the formula for $\kappa_i$:
+	\begin{align}
+		\kappa_i &= \frac{1}{\vec{m}^\top\vec{V}\vec{m}} \left( - \vec{m}^\top(\vec{V}\vec{h} + \vec{u}) \pm \sqrt{[\vec{m}^\top(\vec{V}\vec{h} + \vec{u})]^2 - g(\vec{h})(\vec{m}^\top\vec{V}\vec{m})} \right) \nonumber \\
+		&= \frac{1}{1} \left( -(0) \pm \sqrt{(0)^2 - (-12a^2)(1)} \right) = \pm\sqrt{12a^2} = \pm 2\sqrt{3}a
+	\end{align}
+	This gives two values: $\kappa_1 = 2\sqrt{3}a$ and $\kappa_2 = -2\sqrt{3}a$.
+	
+	Finally, we find the intersection points using $\vec{x}_i = \vec{h} + \kappa_i\vec{m}$:
+	\begin{align}
+		\vec{x}_1 &= \begin{myvec}{2a \\ 0}\end{myvec} + 2\sqrt{3}a \begin{myvec}{0 \\ 1}\end{myvec} = \begin{myvec}{2a \\ 2\sqrt{3}a}\end{myvec} \label{eq:sol1} \\
+		\vec{x}_2 &= \begin{myvec}{2a \\ 0}\end{myvec} - 2\sqrt{3}a \begin{myvec}{0 \\ 1}\end{myvec} = \begin{myvec}{2a \\ -2\sqrt{3}a}\end{myvec} \label{eq:sol2}
+	\end{align}
+	
+	Thus, the intersection points are $(2a, 2\sqrt{3}a)$ from \eqref{eq:sol1} and $(2a, -2\sqrt{3}a)$ from \eqref{eq:sol2}.
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.8\columnwidth]{figs/Figure_2.png} 
+		\caption*{Fig : Parabola and Circle}
+		\label{Fig1}
+	\end{figure}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.8\columnwidth]{figs/Figure_1.png} 
+		\caption*{Fig : Intersection Points}
+		\label{Fig2}
+	\end{figure}
+	
+\end{document}

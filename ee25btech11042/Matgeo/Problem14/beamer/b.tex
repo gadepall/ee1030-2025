@@ -1,0 +1,159 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{mathtools}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+	breakable=true,
+	listing engine=minted,
+	listing only,
+	minted language=#2,
+	minted style=default,
+	minted options={%
+		linenos,
+		gobble=0,
+		breaklines=true,
+		breakafter=,,
+		fontsize=\small,
+		numbersep=8pt,
+		#1},
+	boxsep=0pt,
+	left skip=0pt,
+	right skip=0pt,
+	left=25pt,
+	right=0pt,
+	top=3pt,
+	bottom=3pt,
+	arc=5pt,
+	leftrule=0pt,
+	rightrule=0pt,
+	bottomrule=2pt,
+	toprule=2pt,
+	colback=bg,
+	colframe=orange!70,
+	enhanced,
+	overlay={%
+		\begin{tcbclipinterior}
+			\fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+	\end{tcbclipinterior}},
+	#3,
+}
+\lstset{
+	language=C,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{orange},
+	commentstyle=\color{green!60!black},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	showstringspaces=false,
+}
+\title{8.2.11}
+\date{30th September, 2025}
+\author{EE25BTECH11042-Nipun Dasari}
+
+\begin{document}
+	
+	\frame{\titlepage}
+	\begin{frame}{Question}
+	Find the roots of the equation $x^2 + 3x - 10 = 0$ 
+	\end{frame}
+	
+	\begin{frame}{Theoretical Solution}
+	We express the equation as a parabola $y = x^2 + 3x - 10$, which can be written in the standard conic form $\vec{x}^\top\vec{V}\vec{x} + 2\vec{u}^\top\vec{x} + f = 0$ as:
+	\begin{align}
+		x^2 + 3x - y - 10 = 0
+	\end{align}
+	The components of the conic form are:
+	\begin{align}
+		\vec{V} = \myvec{1&0\\0&0}, \quad 2\vec{u} = \myvec{3\\-1} \implies \vec{u} = \myvec{3/2\\-1/2}, \quad f = -10
+	\end{align}
+	\end{frame}
+	
+	\begin{frame}{Theoretical Solution}
+		We find the intersection with the x-axis, which has the parametric form $\vec{x} = \vec{h} + \kappa\vec{m}$, with a point on the line $\vec{h} = \myvec{0\\0}$ and direction vector $\vec{m} = \myvec{1\\0}$.
+		
+		The values of $\kappa$ for the intersection points  The solution is:
+		\begin{align}
+			\kappa = \frac{-\vec{m}^\top(\vec{V}\vec{h} + \vec{u}) \pm \sqrt{(\vec{m}^\top(\vec{V}\vec{h}+\vec{u}))^2 - (\vec{m}^\top\vec{V}\vec{m})(\vec{h}^\top\vec{V}\vec{h} + 2\vec{u}^\top\vec{h} + f)}}{\vec{m}^\top\vec{V}\vec{m}}
+		\end{align}
+		We will now calculate each term in this formula.
+	\end{frame}
+	
+	\begin{frame}{Theoretical Solution}
+		\textbf{Denominator Term:}
+		\begin{align}
+			\vec{m}^\top\vec{V}\vec{m} = \myvec{1 & 0}\myvec{1&0\\0&0}\myvec{1\\0} = \myvec{1 & 0}\myvec{1\\0} = 1
+		\end{align}
+		\textbf{Numerator Term 1:} Since $\vec{h} = \vec{0}$, this term is $-\vec{m}^\top\vec{u}$.
+		\begin{align}
+			-\vec{m}^\top\vec{u} = -\left(\myvec{1 & 0}\myvec{3/2\\-1/2}\right) = -\frac{3}{2}
+		\end{align}
+	\end{frame}
+	
+	\begin{frame}{Theoretical Solution}
+		\textbf{Term under the Square Root:} Since $\vec{h} = \vec{0}$, this term is $(\vec{m}^\top\vec{u})^2 - (\vec{m}^\top\vec{V}\vec{m})(f)$.
+		\begin{align}
+			(\vec{m}^\top\vec{u})^2 &= \left(\frac{3}{2}\right)^2 = \frac{9}{4} \\
+			(\vec{m}^\top\vec{V}\vec{m})(f) &= (1)(-10) = -10 \\
+			\text{under root term} &= \frac{9}{4} - (-10) = \frac{9}{4} + \frac{40}{4} = \frac{49}{4}
+		\end{align}
+		Now, we substitute these calculated values back into the formula for $\kappa$:
+	\end{frame}
+	
+	\begin{frame}{Theoretical Solution}
+		\begin{align}
+		\kappa = \frac{-3/2 \pm \sqrt{49/4}}{1} = -\frac{3}{2} \pm \frac{7}{2}
+	\end{align}
+	This gives two values for $\kappa$:
+	\begin{align}
+		\kappa_1 = -\frac{3}{2} + \frac{7}{2} = \frac{4}{2} = 2 \\
+		\kappa_2 = -\frac{3}{2} - \frac{7}{2} = -\frac{10}{2} = -5
+	\end{align}
+	\end{frame}
+	
+	\begin{frame}{Theoretical Solution}
+			The points of intersection are found using $\vec{x_i} = \vec{h} + \kappa_i\vec{m}$:
+		\begin{align}
+			\vec{x_1} = \myvec{0\\0} + 2\myvec{1\\0} = \myvec{2\\0} \\
+			\vec{x_2} = \myvec{0\\0} - 5\myvec{1\\0} = \myvec{-5\\0}
+		\end{align}
+		The roots of the original equation are the x-coordinates of these intersection points.
+		
+		\textbf{The roots are 2 and -5.}
+	\end{frame}
+	
+
+	\begin{frame}{Plot}
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.7\columnwidth]{../figs/Figure_1.png}
+			\caption{}
+			\label{fig:fig}
+		\end{figure}
+	\end{frame}
+	
+\end{document}

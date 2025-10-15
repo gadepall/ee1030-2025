@@ -1,0 +1,352 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+	breakable=true,
+	listing engine=minted,
+	listing only,
+	minted language=#2,
+	minted style=default,
+	minted options={%
+		linenos,
+		gobble=0,
+		breaklines=true,
+		breakafter=,,
+		fontsize=\small,
+		numbersep=8pt,
+		#1},
+	boxsep=0pt,
+	left skip=0pt,
+	right skip=0pt,
+	left=25pt,
+	right=0pt,
+	top=3pt,
+	bottom=3pt,
+	arc=5pt,
+	leftrule=0pt,
+	rightrule=0pt,
+	bottomrule=2pt,
+	toprule=2pt,
+	colback=bg,
+	colframe=orange!70,
+	enhanced,
+	overlay={%
+		\begin{tcbclipinterior}
+			\fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+	\end{tcbclipinterior}},
+	#3,
+}
+\lstset{
+	language=C,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{orange},
+	commentstyle=\color{green!60!black},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{1.9.30}
+\date{January 9, 2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{Nipun Dasari - EE25BTECH11042}
+
+
+
+\begin{document}
+	
+	\frame{\titlepage}
+	\begin{frame}{Question}
+	Solve the following system of rational equations
+	\begin{align}
+		\frac{10}{x+y}+\frac{2}{x-y} = 4
+	\end{align}
+	\begin{align}
+		\frac{15}{x+y}-\frac{5}{x-y} = -2
+	\end{align}
+	
+	\end{frame}
+	
+	
+	\begin{frame}{Theoretical Solution}
+			We convert the system of rational equations from \eqref{eq:rational_1} and \eqref{eq:rational_2} into the standard quadratic form for conic sections.
+		
+		For the first equation \eqref{eq:rational_1}, we multiply by $(x+y)(x-y)$:
+		\begin{align}
+			10(x-y) + 2(x+y) &= 4(x^2 - y^2) \nonumber \\
+			12x - 8y &= 4x^2 - 4y^2 \nonumber \\
+			\implies x^2 - y^2 - 3x + 2y &= 0 \label{eq:H1}
+		\end{align}
+		
+		For the second equation \eqref{eq:rational_2}, we do the same:
+		\begin{align}
+			15(x-y) - 5(x+y) &= -2(x^2 - y^2) \nonumber \\
+			10x - 20y &= -2x^2 + 2y^2 \nonumber \\
+			\implies x^2 - y^2 + 5x - 10y &= 0 \label{eq:H2}
+		\end{align}
+	\end{frame}
+	\begin{frame}{Theoretical Solution}
+	 	The intersection points of the two hyperbolas from \eqref{eq:H1} and \eqref{eq:H2} lie on a degenerate conic (a pair of lines). We find this by creating a linear combination of the two conics, $H_1 + \mu H_2 = 0$, and finding $\mu$ such that the determinant of the resulting conic matrix is zero.
+	 
+	 The parameters for each hyperbola in the form $\vec{x}^\top\vec{V}\vec{x} + 2\vec{u}^\top\vec{x} + f = 0$ are:
+	 \begin{align}
+	 	\text{For } H_1: \quad \vec{V}_1 = \begin{myvec}{1 & 0 \\ 0 & -1}\end{myvec}, \quad \vec{u}_1 = \begin{myvec}{-3/2 \\ 1}\end{myvec}, \quad f_1 = 0 \\
+	 	\text{For } H_2: \quad \vec{V}_2 = \begin{myvec}{1 & 0 \\ 0 & -1}\end{myvec}, \quad \vec{u}_2 = \begin{myvec}{5/2 \\ -5}\end{myvec}, \quad f_2 = 0
+	 \end{align}
+	 
+	 The condition for a degenerate conic is:
+	 \begin{align}
+	 	\begin{vmatrix} \vec{V}_1 + \mu\vec{V}_2 & \vec{u}_1 + \mu\vec{u}_2 \\ (\vec{u}_1 + \mu\vec{u}_2)^\top & f_1 + \mu f_2 \end{vmatrix} = 0
+	 \end{align}
+	\end{frame}
+		\begin{frame}{Theoretical Solution}
+		
+Since $\vec{V}_1 = \vec{V}_2$, choosing $\mu = -1$ makes the quadratic term $\vec{V}_1 - \vec{V}_2$ a zero matrix, which guarantees a degenerate conic. The equation for this conic is found by subtracting \eqref{eq:H2} from \eqref{eq:H1}:
+\begin{align}
+	(x^2 - y^2 - 3x + 2y) - (x^2 - y^2 + 5x - 10y) &= 0 \nonumber \\
+	-8x + 12y &= 0 \nonumber \\
+	\implies y &= \frac{2}{3}x \label{eq:common_chord}
+\end{align}
+This linear equation is the common chord passing through the intersection points.
+
+
+We now find the intersection of the common chord from \eqref{eq:common_chord} with the first hyperbola from \eqref{eq:H1} using the formula $\vec{x}_i = \vec{h} + \kappa_i\vec{m}$.
+	\end{frame}
+		\begin{frame}{Theoretical Solution}
+		First, we define the line and conic parameters:
+		
+		\textbf{Line}: From \eqref{eq:common_chord}, the line passes through the origin, so $\vec{h} = \begin{myvec}{0 \\ 0}\end{myvec}$. The direction vector is $\vec{m} = \begin{myvec}{3 \\ 2}\end{myvec}$.\\
+		\textbf{Conic}: We use the parameters for $H_1$, so $\vec{V} = \vec{V}_1$, $\vec{u} = \vec{u}_1$, and $f = f_1$.
+		
+		
+		$\kappa_i$:
+		\begin{align}
+			\vec{m}^\top\vec{V}\vec{m} &= \begin{myvec}{3 & 2}\end{myvec}\begin{myvec}{1 & 0 \\ 0 & -1}\end{myvec}\begin{myvec}{3 \\ 2}\end{myvec} = 5 \\
+			g(\vec{h}) &= \vec{h}^\top\vec{V}\vec{h} + 2\vec{u}^\top\vec{h} + f = 0 \\
+			\vec{m}^\top(\vec{V}\vec{h} + \vec{u}) &= \vec{m}^\top\vec{u} = \begin{myvec}{3 & 2}\end{myvec}\begin{myvec}{-3/2 \\ 1}\end{myvec} = -\frac{5}{2}
+		\end{align}
+		
+	\end{frame}	
+	\begin{frame}{Theoretical Solution}
+		We substitute these into the formula for $\kappa_i$:
+	\begin{align}
+		\kappa_i &= \frac{1}{\vec{m}^\top\vec{V}\vec{m}} \left( - \vec{m}^\top(\vec{V}\vec{h} + \vec{u}) \pm \sqrt{[\vec{m}^\top(\vec{V}\vec{h} + \vec{u})]^2 - g(\vec{h})(\vec{m}^\top\vec{V}\vec{m})} \right) \nonumber \\
+		&= \frac{1}{5} \left( -(-\frac{5}{2}) \pm \sqrt{(-\frac{5}{2})^2 - (0)(5)} \right) = \frac{1}{5} \left( \frac{5}{2} \pm \frac{5}{2} \right)
+	\end{align}
+	This gives two values: $\kappa_1 = 1$ and $\kappa_2 = 0$.
+	
+	\end{frame}
+	\begin{frame}{Theoretical Solution}
+			Finally, we find the intersection points using $\vec{x}_i = \vec{h} + \kappa_i\vec{m}$:
+		\begin{align}
+			\vec{x}_1 &= \begin{myvec}{0 \\ 0}\end{myvec} + 1 \begin{myvec}{3 \\ 2}\end{myvec} = \begin{myvec}{3 \\ 2}\end{myvec} \label{eq:sol1} \\
+			\vec{x}_2 &= \begin{myvec}{0 \\ 0}\end{myvec} + 0 \begin{myvec}{3 \\ 2}\end{myvec} = \begin{myvec}{0 \\ 0}\end{myvec} \label{eq:sol2}
+		\end{align}
+		
+		The intersection points are $(3,2)$ from \eqref{eq:sol1} and $(0,0)$ from \eqref{eq:sol2}. The point $(0,0)$ is extraneous because it causes division by zero in the original equations \eqref{eq:rational_1} and \eqref{eq:rational_2}. Thus, the only valid solution is $x=3, y=2$.
+		
+	\end{frame}
+	\begin{frame}[fragile]
+		\frametitle{C Code}
+		
+		\begin{lstlisting}
+	void get_conic_data(double* data_out) {							// Hyperbola 1: V1=[[4,0],[0,-4]], u1=[-6,4]			data_out[0] = 4.0;  data_out[1] = 0.0;
+		data_out[2] = 0.0;  data_out[3] = -4.0;
+		data_out[4] = -6.0; data_out[5] = 4.0;
+		// Hyperbola 2: V2=[[-2,0],[0,2]], u2=[-5,10]
+		data_out[6] = -2.0; data_out[7] = 0.0;
+		data_out[8] = 0.0;  data_out[9] = 2.0;
+		data_out[10] = -5.0; data_out[11] = 10.0;
+		// Solution Point: [3, 2]
+	data_out[12] = 3.0; data_out[13] = 2.0;
+		}
+		\end{lstlisting}
+	\end{frame}
+	\begin{frame}[fragile]
+		\frametitle{Python Code using shared output}
+		
+		\begin{lstlisting}
+# plot_from_so.py
+import ctypes
+import numpy as np
+import matplotlib.pyplot as plt
+# Load the shared library
+lib = ctypes.CDLL('./5.2.44.so')
+# Define the function signature
+get_data_func = lib.get_conic_data
+get_data_func.argtypes = [np.ctypeslib.ndpointer(dtype=np.double, ndim=1, flags='C_CONTIGUOUS')]
+get_data_func.restype = None		
+		\end{lstlisting}
+	\end{frame}
+
+	
+	\begin{frame}[fragile]
+		\frametitle{Python Code using shared output}
+		\begin{lstlisting}
+# Create a buffer and call the C function
+output_array = np.zeros(14, dtype=np.double)			get_data_func(output_array)
+# Unpack the data from C
+V1 = output_array[0:4].reshape((2, 2))
+u1 = output_array[4:6]
+V2 = output_array[6:10].reshape((2, 2))
+u2 = output_array[10:12]
+solution_point = output_array[12:14]
+# --- Plotting Code ---
+x_vals = np.linspace(-10, 15, 500)
+y_vals = np.linspace(-10, 15, 500)
+X, Y = np.meshgrid(x_vals, y_vals)
+eq1 = V1[0,0]*X**2 + V1[1,1]*Y**2 + 2*(u1[0]*X + u1[1]*Y)
+eq2 = V2[0,0]*X**2 + V2[1,1]*Y**2 + 2*(u2[0]*X + u2[1]*Y)		
+		\end{lstlisting}
+	\end{frame}
+	\begin{frame}[fragile]
+		\frametitle{Python Code using shared output}
+		\begin{lstlisting}		
+plt.figure(figsize=(10, 10))
+plt.contour(X, Y, eq1, levels=[0], colors='red')
+plt.contour(X, Y, eq2, levels=[0], colors='blue')
+plt.plot(x_vals, (2/3)*x_vals, 'g--', label='Common Chord')
+plt.plot(solution_point[0], solution_point[1], 'ko', markersize=10, label=f'Solution from C: ({solution_point[0]}, {solution_point[1]})')
+plt.title('Plot from C Shared Library Data', fontsize=16)
+plt.xlabel('x-axis'); plt.ylabel('y-axis')
+plt.grid(True, linestyle='--'); plt.axhline(0, color='k', lw=0.5); plt.axvline(0, color='k', lw=0.5)
+plt.gca().set_aspect('equal', adjustable='box'); plt.xlim(-5, 10); plt.ylim(-5, 10)
+plt.legend()
+plt.savefig('so_python_plot.png')
+print("Plot saved to so_python_plot.png")
+plt.show()			
+		\end{lstlisting}
+	\end{frame}
+	\begin{frame}[fragile]
+		\frametitle{Python Code}
+		\begin{lstlisting}
+# Code to plot the solution of the system of rational equations
+import numpy as np
+import matplotlib.pyplot as plt
+# --- Define the parameters for the two hyperbolas ---
+# Hyperbola 1: 4(x^2 - y^2) - 12x + 8y = 0
+V1 = np.array([[4, 0], [0, -4]])
+u1 = np.array([-6, 4])
+f1 = 0
+# Hyperbola 2: -2(x^2 - y^2) - 10x + 20y = 0
+V2 = np.array([[-2, 0], [0, 2]])
+u2 = np.array([-5, 10])
+f2 = 0		
+		\end{lstlisting}
+	\end{frame}
+	\begin{frame}[fragile]
+		\frametitle{Python Code}
+	\begin{lstlisting}
+# --- Set up the plotting grid ---
+# Generate a grid of points to evaluate the equations on
+x_vals = np.linspace(-10, 15, 500)
+y_vals = np.linspace(-10, 15, 500)
+X, Y = np.meshgrid(x_vals, y_vals)
+# --- Define the hyperbola equations ---
+# Equation is x^T V x + 2u^T x + f = 0
+# For a point (x,y), the vector is [x, y]
+# So x^T V x becomes V[0,0]*x^2 + V[1,1]*y^2
+# and 2u^T x becomes 2*(u[0]*x + u[1]*y)
+eq1 = V1[0,0]*X**2 + V1[1,1]*Y**2 + 2*(u1[0]*X + u1[1]*Y) + f1
+eq2 = V2[0,0]*X**2 + V2[1,1]*Y**2 + 2*(u2[0]*X + u2[1]*Y) + f2
+	\end{lstlisting}
+	
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Python Code}
+	\begin{lstlisting}
+# --- Create the Plot ---
+plt.figure(figsize=(10, 10))
+# Plot the hyperbolas by finding where their equations equal zero
+plt.contour(X, Y, eq1, levels=[0], colors='red', linewidths=2)
+plt.contour(X, Y, eq2, levels=[0], colors='blue', linewidths=2)
+# --- Plot the Common Chord and Solution ---
+# The common chord is 64x - 96y = 0, which simplifies to 2x - 3y = 0
+# So, y = (2/3)x
+plt.plot(x_vals, (2/3)*x_vals, 'g--', label='Common Chord: $2x - 3y = 0$')
+# The solution point
+solution_point = np.array([3, 2])
+plt.plot(solution_point[0], solution_point[1], 'ko', markersize=10, label='Solution (3, 2)')
+	\end{lstlisting}
+	
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Python Code}
+	\begin{lstlisting}
+plt.title('Intersection of Hyperbolas', fontsize=16)
+plt.xlabel('x-axis', fontsize=12)
+plt.ylabel('y-axis', fontsize=12)
+plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+plt.axhline(0, color='black', linewidth=0.5)
+plt.axvline(0, color='black', linewidth=0.5)
+plt.gca().set_aspect('equal', adjustable='box')
+plt.xlim(-5, 10)
+plt.ylim(-5, 10)
+	\end{lstlisting}
+	
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Python Code}
+	\begin{lstlisting}
+# Create a legend
+plt.legend(handles=[
+plt.Line2D([0], [0], color='red', lw=2, label='Hyperbola 1'),
+plt.Line2D([0], [0], color='blue', lw=2, label='Hyperbola 2'),
+plt.Line2D([0], [0], color='g', linestyle='--', label='Common Chord'),
+plt.Line2D([0], [0], marker='o', color='k', linestyle='', markersize=8, label='Solution (3, 2)')
+])
+# Save and show the plot
+plt.savefig('hyperbola_intersection.png')
+plt.show()
+	\end{lstlisting}
+	
+\end{frame}
+
+	
+	\begin{frame}{Plot by python using shared output from c}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width = 0.8\columnwidth]{figs/Figure_1.png}
+			\caption*{}
+			\label{fig1}
+		\end{figure}
+	\end{frame}
+	\begin{frame}{Plot by python}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width = 0.8\columnwidth]{figs/Figure_2.png}
+			\caption*{}
+			\label{fig2}
+		\end{figure}
+	\end{frame}
+\end{document}

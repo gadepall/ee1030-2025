@@ -1,0 +1,151 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx} % <-- needed for images
+\def\UrlBreaks{\do\/\do-}
+
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=\paperwidth,ht=2ex,dp=1ex,right]{author in head/foot}%
+			\insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+	\end{beamercolorbox}}%
+	\vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+
+\lstset{
+	frame=single,
+	breaklines=true,
+	columns=fullflexible,
+	basicstyle=\ttfamily\tiny    % tiny font so code fits
+}
+
+\numberwithin{equation}{section}
+
+% ---- your macros ----
+\providecommand{\nCr}[2]{\,^{#1}C_{#2}}
+\providecommand{\nPr}[2]{\,^{#1}P_{#2}}
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\providecommand{\abs}[1]{\left\vert#1\right\vert}
+\providecommand{\res}[1]{\Res\displaylimits_{#1}}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\mean}[1]{E\left[ #1 \right]}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\newcommand{\mydet}[1]{\ensuremath{\begin{vmatrix}#1\end{vmatrix}}}
+
+\newenvironment{amatrix}[1]{%
+	\left(\begin{array}{@{}*{#1}{c}|*{#1}{c}@{}}
+	}{%
+	\end{array}\right)
+}
+\newcommand{\myaugvec}[2]{\ensuremath{\begin{amatrix}{#1}#2\end{amatrix}}}
+% ---------------------
+
+\title{12.471}
+\author{EE25BTECH11042 - Nipun Dasari}
+
+\begin{document}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	\begin{frame}[fragile]{Question}
+		
+		The solution to system of equations
+		\begin{align}
+			\begin{myvec}{2 & 5 \\ -4 & 3}\end{myvec}
+			\begin{myvec}{x \\ y}\end{myvec}
+			=
+			\begin{myvec}{2 \\ -30}\end{myvec}
+		\end{align}
+		is
+		
+	\end{frame}
+	
+	\begin{frame}{Theoretical Solution}
+		
+		We can write the given system in the form of an augmented matrix and solve using row reduction.
+		\begin{align}
+			\myaugvec{2}{2 & 5 & 2 \\ -4 & 3 & -30}
+		\end{align}
+		
+		Applying the row operation $R_2 \to R_2 + 2R_1$:
+		\begin{align}
+			\myaugvec{2}{2 & 5 & 2 \\ 0 & 13 & -26}
+		\end{align}
+		
+	\end{frame}
+	
+	\begin{frame}{Theoretical Solution}
+		
+		Applying the row operation $R_2 \to \frac{1}{13}R_2$:
+		\begin{align}
+			\myaugvec{2}{2 & 5 & 2 \\ 0 & 1 & -2}
+		\end{align}
+		
+		Applying the row operation $R_1 \to R_1 - 5R_2$:
+		\begin{align}
+			\myaugvec{2}{2 & 0 & 12 \\ 0 & 1 & -2}
+		\end{align}
+		
+	\end{frame}
+	
+	\begin{frame}{Theoretical Solution}
+		
+		Applying the row operation $R_1 \to \frac{1}{2}R_1$:
+		\begin{align}
+			\myaugvec{2}{1 & 0 & 6 \\ 0 & 1 & -2}
+		\end{align}
+		
+		From the reduced row echelon form, we get the solution:
+		\begin{align}
+			x &= 6 \\
+			y &= -2
+		\end{align}
+		
+		The solution vector is
+		\begin{align}
+			\vec{x} = \begin{myvec}{6 \\ -2}\end{myvec}
+		\end{align}
+		
+	\end{frame}
+	
+	\begin{frame}{Plot}
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=0.7\columnwidth]{figs/Figure_1.png}
+			\caption*{Plot of the intersecting lines}
+		\end{figure}
+	\end{frame}
+	
+\end{document}

@@ -1,0 +1,110 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\graphicspath{{./figs/}}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{gvv}
+\def\inputGnumericTable{}
+
+\usepackage[latin1]{inputenc}
+\usepackage{color}
+\usepackage{array}
+
+\usepackage{longtable}
+\usepackage{calc}
+\usepackage{multirow}
+
+\usepackage{hhline}
+\usepackage{ifthen}
+
+\usepackage{lscape}
+\usepackage{circuitikz}
+
+\begin{document}
+	
+	\bibliographystyle{IEEEtran}
+	\vspace{3cm}
+	
+	\title{12.159}
+	\author{EE25BTECH11042 - Nipun Dasari}
+	\maketitle
+	
+	\renewcommand{\thefigure}{\theenumi}
+	\renewcommand{\thetable}{\theenumi}
+	\setlength{\intextsep}{10pt}
+	
+	\numberwithin{equation}{enumi}
+	\numberwithin{figure}{enumi}
+	\renewcommand{\thetable}{\theenumi}
+	
+	\textbf{Question}:\\
+	The determinant
+	\begin{align}
+		\mydet{1+b & b & 1 \\ b & 1+b & 1 \\ 1 & 2b & 1}
+	\end{align}
+	evaluates to
+	\begin{enumerate}[label=\alph*)]
+		\item $0$
+		\item $2b(b-1)$
+		\item $2(1-b)(1+2b)$
+		\item $3b(1+b)$
+	\end{enumerate}
+	
+	\solution
+	
+	Let the determinant of the given matrix be $\Delta$. We will use row operations to simplify the matrix. Adding a multiple of one row to another does not change the determinant's value. This method is valid for $b \neq -1$.
+	
+	\begin{align}
+		\Delta = \mydet{1+b & b & 1 \\ b & 1+b & 1 \\ 1 & 2b & 1}
+	\end{align}
+	
+	First, we create zeros in the first column of the second and third rows using the first row as the pivot.
+	
+	Apply the operation $R_2 \to R_2 - \frac{b}{1+b}R_1$:
+	\begin{align}
+		\Delta &= \mydet{1+b & b & 1 \\ b - \frac{b}{1+b}(1+b) & (1+b) - \frac{b}{1+b}(b) & 1 - \frac{b}{1+b}(1) \\ 1 & 2b & 1} \\
+		&= \mydet{1+b & b & 1 \\ 0 & \frac{(1+b)^2 - b^2}{1+b} & \frac{1+b-b}{1+b} \\ 1 & 2b & 1} \\
+		&= \mydet{1+b & b & 1 \\ 0 & \frac{1+2b}{1+b} & \frac{1}{1+b} \\ 1 & 2b & 1}
+	\end{align}
+	
+	Next, apply the operation $R_3 \to R_3 - \frac{1}{1+b}R_1$:
+	\begin{align}
+		\Delta &= \mydet{1+b & b & 1 \\ 0 & \frac{1+2b}{1+b} & \frac{1}{1+b} \\ 1 - \frac{1}{1+b}(1+b) & 2b - \frac{1}{1+b}(b) & 1 - \frac{1}{1+b}(1)} \\
+		&= \mydet{1+b & b & 1 \\ 0 & \frac{1+2b}{1+b} & \frac{1}{1+b} \\ 0 & \frac{2b(1+b)-b}{1+b} & \frac{1+b-1}{1+b}} \\
+		&= \mydet{1+b & b & 1 \\ 0 & \frac{1+2b}{1+b} & \frac{1}{1+b} \\ 0 & \frac{b+2b^2}{1+b} & \frac{b}{1+b}}
+	\end{align}
+	We can see that the third row is $b$ times the second row ($R_3 = b \cdot R_2$). This indicates linear dependence. To make this explicit, we perform one final operation, $R_3 \to R_3 - bR_2$.
+	\begin{align}
+		\Delta &= \mydet{1+b & b & 1 \\ 0 & \frac{1+2b}{1+b} & \frac{1}{1+b} \\ 0 & \frac{b(1+2b)}{1+b} - b\left(\frac{1+2b}{1+b}\right) & \frac{b}{1+b} - b\left(\frac{1}{1+b}\right)} \\
+		&= \mydet{1+b & b & 1 \\ 0 & \frac{1+2b}{1+b} & \frac{1}{1+b} \\ 0 & 0 & 0}
+	\end{align}
+	Since the matrix has a row consisting entirely of zeros, its determinant is 0.
+	\begin{align}
+		\Delta = 0
+	\end{align}
+	The correct option is (a).
+	
+\end{document}

@@ -1,0 +1,125 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\graphicspath{{./figs/}}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{gvv}
+\def\inputGnumericTable{}
+
+\usepackage[latin1]{inputenc}
+\usepackage{color}
+\usepackage{array}
+
+\usepackage{longtable}
+\usepackage{calc}
+\usepackage{multirow}
+
+\usepackage{hhline}
+\usepackage{ifthen}
+
+\usepackage{lscape}
+\usepackage{circuitikz}
+
+% Custom command for conjugate
+\newcommand{\conj}[1]{{#1}^c}
+
+\begin{document}
+	
+	\bibliographystyle{IEEEtran}
+	\vspace{3cm}
+	
+	\title{12.367}
+	\author{EE25BTECH11042 - Nipun Dasari}
+	\maketitle
+	
+	\renewcommand{\thefigure}{\theenumi}
+	\renewcommand{\thetable}{\theenumi}
+	\setlength{\intextsep}{10pt}
+	
+	\numberwithin{equation}{enumi}
+	\numberwithin{figure}{enumi}
+	\renewcommand{\thetable}{\theenumi}
+	
+	\textbf{Question}:\\
+	The eigen-values of a real symmetric matrix are always
+	\begin{enumerate}[label=\alph*)]
+		\item positive
+		\item imaginary
+		\item real
+		\item complex conjugate pairs
+	\end{enumerate}
+	
+	\solution	
+	Let $\vec{A}$ be a real symmetric matrix. This means all its entries are real numbers and $\vec{A} = \vec{A}^\top$.
+	
+	Let $\lambda$ be an eigenvalue of $\vec{A}$ and $\vec{v}$ be its corresponding eigenvector. Note that $\lambda$ and the components of $\vec{v}$ could be complex. The eigenvalue equation is:
+	\begin{align}
+		\vec{A}\vec{v} = \lambda\vec{v}
+	\end{align}
+	If we take the complex conjugate of this entire equation, we get:
+	\begin{align}
+		(\vec{A}\vec{v})^c = (\lambda\vec{v})^c \\
+		\conj{\vec{A}}\conj{\vec{v}} = \conj{\lambda}\conj{\vec{v}}
+	\end{align}
+	Since $\vec{A}$ is a real matrix, its complex conjugate is itself ($\conj{\vec{A}} = \vec{A}$). So, the equation becomes:
+	\begin{align}
+		\vec{A}\conj{\vec{v}} = \conj{\lambda}\conj{\vec{v}} \label{eq:conj}
+	\end{align}
+	Now, left-multiply the original eigenvalue equation by $(\conj{\vec{v}})^\top$:
+	\begin{align}
+		(\conj{\vec{v}})^\top\vec{A}\vec{v} = (\conj{\vec{v}})^\top(\lambda\vec{v}) = \lambda((\conj{\vec{v}})^\top\vec{v}) \label{eq:first}
+	\end{align}
+	Next, take the transpose of both sides of equation (\ref{eq:conj}):
+	\begin{align}
+		(\vec{A}\conj{\vec{v}})^\top = (\conj{\lambda}\conj{\vec{v}})^\top \\
+		(\conj{\vec{v}})^\top\vec{A}^\top = \conj{\lambda}(\conj{\vec{v}})^\top
+	\end{align}
+	Since $\vec{A}$ is a symmetric matrix, $\vec{A}^\top = \vec{A}$. The equation is:
+	\begin{align}
+		(\conj{\vec{v}})^\top\vec{A} = \conj{\lambda}(\conj{\vec{v}})^\top
+	\end{align}
+	Now, right-multiply this equation by $\vec{v}$:
+	\begin{align}
+		(\conj{\vec{v}})^\top\vec{A}\vec{v} = \conj{\lambda}((\conj{\vec{v}})^\top\vec{v}) \label{eq:second}
+	\end{align}
+	By comparing equations (\ref{eq:first}) and (\ref{eq:second}), we see that:
+	\begin{align}
+		\lambda((\conj{\vec{v}})^\top\vec{v}) = \conj{\lambda}((\conj{\vec{v}})^\top\vec{v}) \\
+		(\lambda - \conj{\lambda})((\conj{\vec{v}})^\top\vec{v}) = 0
+	\end{align}
+	The term $(\conj{\vec{v}})^\top\vec{v}$ is the dot product of the vector $\conj{\vec{v}}$ with $\vec{v}$, which is the squared norm of $\vec{v}$.
+	\begin{align}
+		(\conj{\vec{v}})^\top\vec{v} = \sum_{i} \conj{v_i}v_i = \sum_{i} |v_i|^2 = \norm{\vec{v}}^2
+	\end{align}
+	Since $\vec{v}$ is an eigenvector, it cannot be the zero vector, so its norm $\norm{\vec{v}}^2$ must be a positive real number.
+	
+	Given that $\norm{\vec{v}}^2 \neq 0$, the only way for the equation $(\lambda - \conj{\lambda})\norm{\vec{v}}^2 = 0$ to hold is if:
+	\begin{align}
+		\lambda - \conj{\lambda} = 0 \implies \lambda = \conj{\lambda}
+	\end{align}
+	A complex number is equal to its own conjugate only if its imaginary part is zero. Therefore, $\lambda$ must be a real number.
+	
+\end{document}

@@ -1,0 +1,131 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+% \usepackage{gvv}
+
+\def\inputGnumericTable{}
+
+\usepackage[latin1]{inputenc}
+
+\usepackage{color}
+
+\usepackage{array}
+
+\usepackage{longtable}
+
+\usepackage{calc}
+
+\usepackage{multirow}
+
+\usepackage{hhline}
+
+\usepackage{ifthen}
+
+\usepackage{lscape}
+\usepackage{circuitikz}
+\usepackage{comment}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20,
+text width=4em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+%--------------------------
+
+\begin{document}
+	
+	\bibliographystyle{IEEEtran}
+	\vspace{3cm}
+	
+	\title{4.13.46}
+	\author{EE25BTECH11042 - Nipun Dasari}
+	\maketitle
+	
+	\renewcommand{\thefigure}{\theenumi}
+	\renewcommand{\thetable}{\theenumi}
+	\setlength{\intextsep}{10pt}
+	
+	\numberwithin{equation}{enumi}
+	\numberwithin{figure}{enumi}
+	\renewcommand{\thetable}{\theenumi}
+	
+	\textbf{Question}:\\
+	A straight line L is perpendicular to the line $5x - y + 1 = 0$. The area of the triangle formed by L and the coordinate axes is 5. Find the equation of the line L.
+	
+	\solution
+	
+	Let the given line be $L_1$ and the required perpendicular line be $L$.
+	The equation of the given line $L_1$ is $5x - y = -1$. Using the matrix form $\vec{n}^\top\vec{x} = c$, its parameters are:
+	\begin{align}
+		\vec{n}_1 = \begin{myvec}{5 \\ -1}\end{myvec}, \quad \vec{x} = \begin{myvec}{x \\ y}\end{myvec}, \quad c_1 = -1
+	\end{align}
+	Let the required line $L$ have the equation $\vec{n}_2^\top\vec{x} = c_2$. Since the lines are perpendicular, the dot product of their normal vectors must be zero, so $\vec{n}_1^\top\vec{n}_2 = 0$.
+	
+	Let's assume the normal vector for line L is $\vec{n}_2 = \begin{myvec}{1 \\ m}\end{myvec}$. We can solve for $m$:
+	\begin{align}
+		\vec{n}_1^\top\vec{n}_2 = \begin{myvec}{5 & -1}\end{myvec}\begin{myvec}{1 \\ m}\end{myvec} = 5 - m &= 0 \  \\
+		\implies m &= 5
+	\end{align}
+	Therefore, the normal vector for line L is $\vec{n}_2 = \begin{myvec}{1 \\ 5}\end{myvec}$, and its equation is $x + 5y = c_2$.
+	
+	The x-intercept, $\vec{a}$, is the intersection of line L and the x-axis ($y=0$). We solve the system by reducing the augmented matrix to RREF:
+	\begin{align}
+		\augvec{2}{1}{1 & 5 & c_2 \\ 0 & 1 & 0} &\xleftrightarrow{\,R_1 \to R_1 - 5R_2} \augvec{2}{1}{1 & 0 & c_2 \\ 0 & 1 & 0}
+	\end{align}
+	This gives the solution $x = c_2$ and $y=0$. So, the x-intercept vector is $\vec{a} = \begin{myvec}{c_2 \\ 0}\end{myvec}$.
+	
+	The y-intercept, $\vec{b}$, is the intersection of line L and the y-axis ($x=0$). We solve by reducing the augmented matrix to RREF:
+	\begin{align}
+		\augvec{2}{1}{1 & 5 & c_2 \\ 1 & 0 & 0} &\xleftrightarrow{\,R_1 \leftrightarrow R_2} \augvec{2}{1}{1 & 0 & 0 \\ 1 & 5 & c_2} \\
+		&\xleftrightarrow{\,R_2 \to R_2 - R_1} \augvec{2}{1}{1 & 0 & 0 \\ 0 & 5 & c_2} \\
+		&\xleftrightarrow{\,R_2 \to \frac{1}{5}R_2} \augvec{2}{1}{1 & 0 & 0 \\ 0 & 1 & c_2/5}
+	\end{align}
+	This gives the solution $x=0$ and $y=c_2/5$. Thus, the y-intercept vector is $\vec{b} = \begin{myvec}{0 \\ c_2/5}\end{myvec}$.
+	
+	The area of the triangle formed by the origin, $\vec{a}$, and $\vec{b}$ is 5. Since $\vec{a}$ and $\vec{b}$ lie on the axes, the angle $\theta$ between them is $90^\circ$.
+	\begin{align}
+		\text{Area} = \frac{1}{2}\norm{\vec{a}\times\vec{b}}\\
+		\norm{\vec{a}\times\vec{b}} = \norm{\vec{a}}\norm{\vec{b}}|\sin(\theta)|\\
+		\implies\frac{1}{2}\norm{\vec{a}}\norm{\vec{b}}\sin(90\degree) &= 5   \\
+		\implies\frac{1}{2} \left(\sqrt{c_2^2+0^2}\right) \left(\sqrt{0^2+(c_2/5)^2}\right) (1) &= 5   \\
+		\implies\frac{1}{2} |c_2| \left|\frac{c_2}{5}\right| &= 5   \\
+		\implies\frac{|c_2^2|}{10} &= 5  \\
+		c_2^2 &= 50 \implies c_2 = \pm\sqrt{50} = \pm 5\sqrt{2}
+	\end{align}
+	
+	There are two possible lines that satisfy the given conditions. Substituting the values of $c_2$ into the matrix equation $\vec{n}_2^\top\vec{x} = c_2$, the possible equations for line L are:
+	\begin{align}
+		\begin{myvec}{1 & 5}\end{myvec}\begin{myvec}{x \\ y}\end{myvec} &= 5\sqrt{2} \\
+		\begin{myvec}{1 & 5}\end{myvec}\begin{myvec}{x \\ y}\end{myvec} &= -5\sqrt{2}
+	\end{align}
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.6\columnwidth]{figs/Figure_2.png} 
+		\caption*{Fig }
+		\label{Fig1}
+	\end{figure}
+	
+\end{document}

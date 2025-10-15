@@ -1,0 +1,132 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\graphicspath{{./figs/}}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\usepackage{gvv}                                        
+\def\inputGnumericTable{}                    
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                     
+\usepackage{longtable}                                       
+\usepackage{calc}                                        
+\usepackage{multirow}                                         
+\usepackage{hhline}                                            
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+text width=4em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+
+
+\begin{document}
+	
+	\bibliographystyle{IEEEtran}
+	\vspace{3cm}
+	
+	\title{12.679}
+	\author{EE25BTECH11042 - Nipun Dasari}
+	\maketitle
+	{\let\newpage\relax\maketitle}
+	
+	\renewcommand{\thefigure}{\theenumi}
+	\renewcommand{\thetable}{\theenumi}
+	\setlength{\intextsep}{10pt}
+	
+	\numberwithin{equation}{enumi}
+	\numberwithin{figure}{enumi}
+	\renewcommand{\thetable}{\theenumi}
+	
+	\textbf{Question}:\\
+	If the area of a triangle with the vertices (k, 0), (2, 0) and (0, -2) is 2 square units, find the value of k. \\ 
+	\solution \\
+	
+	The vertices are $\vec{A}\brak{k, 0}$, $\vec{B}\brak{2, 0}$ and $\vec{C}\brak{0, -2}$.
+	\begin{align}
+		\vec{A} = \begin{myvec}{k\\0} \end{myvec} , \vec{B} = \begin{myvec}{2\\0} \end{myvec}, \vec{C} = \begin{myvec}{0\\-2} \end{myvec}
+	\end{align}
+	
+	The side vectors are:
+	\begin{align}
+		\vec{a} = \vec{B}-\vec{C} = \begin{myvec}{2\\2} \end{myvec} && \text{and} && \vec{b} = \vec{A}-\vec{C} = \begin{myvec}{k\\2} \end{myvec}
+	\end{align}
+	
+	Area is given by $\Delta = \frac{1}{2}\norm{\vec{b}\times\vec{a}}$. Since $\Delta = 2$, we have $\norm{\vec{b}\times\vec{a}} = 4$.
+	
+	The cross product formula is:
+	\begin{align}
+		\vec{A}\times\vec{B} = \begin{myvec}{|\vec{A}_{23} & \vec{B}_{23}|\\|\vec{A}_{31} & \vec{B}_{31}|\\|\vec{A}_{12} & \vec{B}_{12}|} \end{myvec} \label{eq:cross}
+	\end{align}
+	 The vectors in 3-D space are $\vec{b} = \begin{myvec}{k\\2\\0} \end{myvec}$ and $\vec{a} = \begin{myvec}{2 \\2\\0} \end{myvec}$.
+	 
+	 Calculating each component:
+	\begin{align}
+	|\vec{b}_{23} \text{ } \vec{a}_{23}| = \begin{mydet}{2 & 2\\ 0 & 0} \end{mydet} = 0
+	\end{align}
+	\begin{align}
+	|\vec{b}_{31} \text{ } \vec{a}_{31}| = \begin{mydet}{0 & 0\\ k & 2} \end{mydet} = 0
+	\end{align}
+	\begin{align}
+	|\vec{b}_{12} \text{ } \vec{a}_{12}| = \begin{mydet}{k & 2\\ 2 & 2} \end{mydet} = 2k - 4
+	\end{align}
+	By \eqref{eq:cross}:
+	\begin{align}
+		\vec{b}\times\vec{a} = \begin{myvec}{0 \\ 0 \\ 2k - 4} \end{myvec}
+	\end{align}
+	Now, we find the norm:
+	\begin{align}
+		\norm{\vec{b}\times\vec{a}} = \sqrt{0^2 + 0^2 + (2k-4)^2} = |2k-4|
+	\end{align}
+	
+	We solve for k:
+	\begin{align}
+		|2k - 4| = 4
+	\end{align}
+	This gives two solutions:
+	\begin{align}
+		2k - 4 &= 4 \implies 2k = 8 \implies k = 4 \\
+		2k - 4 &= -4 \implies 2k = 0 \implies k = 0
+	\end{align}
+	
+	The possible values of k are $0$ or $4$.
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.8\columnwidth]{figs/Figure_1.png} 
+		\caption*{Fig }
+		\label{Fig1}
+	\end{figure}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.8\columnwidth]{figs/Figure_2.png} 
+		\caption*{Fig }
+		\label{Fig2}
+	\end{figure}
+		
+\end{document}
