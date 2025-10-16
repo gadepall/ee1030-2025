@@ -1,0 +1,110 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{extarrows}
+\usepackage{amsmath}
+\usepackage{extarrows}
+\usepackage{amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{amsmath} 
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\title %optional
+{12.166}
+\author 
+{EE25BTECH11049-Sai Krishna Bakki}
+
+\begin{document}
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Let $\vec{R}$ be an $n \times n$ nonsingular matrix. Let $\vec{P}$ and $\vec{Q}$ be two $n \times n$ matrices such that $\vec{Q} = \vec{R}^{-1}\vec{P}\vec{R}$. If $\vec{x}$ is an eigenvector of $\vec{P}$ corresponding to a nonzero eigenvalue $\lambda$ of $\vec{P}$, then
+\begin{enumerate}[label=\alph*)]
+    \item $\vec{R}\vec{x}$ is an eigenvector of $\vec{Q}$ corresponding to eigenvalue $\lambda$ of $\vec{Q}$
+    \item $\vec{R}\vec{x}$ is an eigenvector of $\vec{Q}$ corresponding to eigenvalue $\frac{1}{\lambda}$ of $\vec{Q}$
+    \item $\vec{R}^{-1}\vec{x}$ is an eigenvector of $\vec{Q}$ corresponding to eigenvalue $\lambda$ of $\vec{Q}$
+    \item $\vec{R}^{-1}\vec{x}$ is an eigenvector of $\vec{Q}$ corresponding to eigenvalue $\frac{1}{\lambda}$ of $\vec{Q}$
+\end{enumerate}
+\end{frame}
+\begin{frame}{Theoretical Solution}
+    \begin{enumerate*}
+    \item Start with the eigenvector equation for P:
+    \begin{align}
+    \vec{P}\vec{x} = \lambda \vec{x}
+\end{align}
+    \item Pre-multiply both sides by $\vec{R}^{-1}$:
+    \begin{align} \vec{R}^{-1}(\vec{P}\vec{x}) = \vec{R}^{-1}(\lambda \vec{x}) 
+    \end{align}
+    \item Now, we need to relate this to \textbf{Q}. We know that $\vec{Q} = \vec{R}^{-1}\vec{P}\vec{R}$. Let's introduce the identity matrix $\vec{I} = \vec{R}\vec{R}^{-1}$ into our equation.
+    \begin{align} \vec{R}^{-1}\vec{P}(\vec{R}\vec{R}^{-1})\vec{x} = \lambda(\vec{R}^{-1}\vec{x}) \\ (\vec{R}^{-1}\vec{P}\vec{R})(\vec{R}^{-1}\vec{x}) = \lambda(\vec{R}^{-1}\vec{x}) 
+\end{align}
+    \item Substitute $\vec{Q} = \vec{R}^{-1}\vec{P}\vec{R}$ into the equation:
+    \begin{align} \vec{Q}(\vec{R}^{-1}\vec{x}) = \lambda(\vec{R}^{-1}\vec{x}) \end{align}
+\end{enumerate*}
+
+$\therefore$ $\vec{R}^{-1}\vec{x}$ is an eigenvector of $\vec{Q}$ corresponding to the eigenvalue $\lambda$ of $\vec{Q}$.
+\end{frame}
+\end{document}
