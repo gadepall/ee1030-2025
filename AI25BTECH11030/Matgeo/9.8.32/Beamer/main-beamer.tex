@@ -1,0 +1,590 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{enumitem}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\numberwithin{equation}{section}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{orange},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  showstringspaces=false
+}
+
+
+\title{Problem 9.8.32}
+\author{Sarvesh Tamgade}
+
+\date{\today} 
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section{Question}
+\begin{frame}{Question}
+\textbf{Question}:
+The centre of the circle passing through the point $(0,1)$ and touching the curve $y = x^2$ at $(2,4)$ is
+
+\begin{enumerate}[label=(\alph*)]
+\item $\left(\frac{-16}{5},\; \frac{27}{10}\right)$
+\item $\left(\frac{-16}{7},\; \frac{53}{10}\right)$
+\item $\left(\frac{-16}{5},\; \frac{53}{10}\right)$
+\item none of these
+\end{enumerate}
+
+\end{frame}
+
+\section{Solution}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+\textbf{Input Variables:  }\\
+Parameters of the Circle:\\
+Where $\vec{c}$ is the centre of circle.
+\begin{equation}
+\vec{V}_1 = \myvec{1 & 0 \\ 0 & 1}, \, \vec{u}_1 = -\vec{c}
+\end{equation}
+
+Parameters of the Parabola:
+\begin{equation}
+\vec{V}_2 = \myvec{1 & 0 \\ 0 & 0}, \, \vec{u}_2 = \myvec{0 \\ -\frac{1}{2}}, \, f_2 = 0
+\end{equation}
+
+\begin{equation}
+\vec{P} = \myvec{0 \\ 1}, \, \vec{Q}= \myvec{2 \\ 4}
+\end{equation}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Solution}
+\textbf{Step 1:} Find one equation for $\vec{c}$\\
+Points P and Q lie on the circle so,
+\begin{equation}
+\vec{P}^\top \vec{V}_1 \vec{P} - 2 \vec{c}^\top \vec{P} + f_1 = 0,
+\end{equation}
+
+\begin{equation}
+\vec{Q}^\top \vec{V}_1 \vec{Q} - 2 \vec{c}^\top \vec{Q} + f_1 = 0,
+\end{equation}
+
+Substracting (0.4)-(0.5),
+
+\begin{equation}
+(\vec{P}^\top \vec{V}_1 \vec{P} - \vec{Q}^\top \vec{V}_1 \vec{Q}) 
+- 2 \vec{c}^\top (\vec{P} - \vec{Q}) = 0,
+\end{equation}
+
+\begin{equation}
+2 \vec{c}^\top (\vec{P} - \vec{Q}) = \vec{P}^\top \vec{V}_1 \vec{P} - \vec{Q}^\top \vec{V}_1 \vec{Q}.
+\end{equation}
+
+\begin{equation}
+-2 \vec{c}^\top \myvec{2 \\ 3} = 
+\myvec{0 & 1} 
+\myvec{1 & 0 \\ 0 & 1} 
+\myvec{0 \\ 1} - 
+\myvec{2 & 4} 
+\myvec{1 & 0 \\ 0 & 1} 
+\myvec{2 \\ 4}.
+\end{equation}
+
+\begin{equation}
+\myvec{4 \ 6}\vec{c} = 19
+\end{equation} 
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Solution}
+
+\textbf{Step 2:} Find the equation of tangent through (2,4) at Parabola
+\begin{equation}
+(\vec{V}_2 \vec{Q} + \vec{u}_2)^\top \vec{x} + \vec{u}_2^\top \vec{Q} + f_2 = 0,
+\end{equation}
+
+\begin{equation}
+\biggl(
+\myvec{1 & 0 \\ 0 & 0}
+\myvec{2 \\ 4}
++
+\myvec{0 \\ -\tfrac{1}{2}}
+\biggr)^\top \vec{x}
++
+\myvec{0 \\ -\tfrac{1}{2}}^\top
+\myvec{2 \\ 4}
++ 0 = 0,
+\end{equation}
+
+\begin{equation}
+\myvec{2 \ -\tfrac{1}{2}} \vec{x} = 2.
+\end{equation}
+
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Solution}
+\textbf{Step 3:} Find the equation of normal to circle at (2,4)\\
+Let the equation of normal to circle at (2,4) be:
+\begin{equation}
+\vec{n}^\top\vec{x} = 1
+\end{equation}
+
+The normal is perpendicular to the previously calculated tangent in (0.12)
+\begin{equation}
+\vec{n}^\top \myvec{2 \\ -\frac{1}{2}} = 0
+\end{equation}
+\quad It passes through (2,4)
+\begin{equation}
+\vec{n}^\top \myvec{2 \\ 4} = 1
+\end{equation}
+
+Row Reduction Steps:
+\begin{equation}
+\myaugvec{2}{
+2 & -\frac{1}{2} & 0 \\
+2 & 4 & 1
+}
+\end{equation}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Solution}
+Perform the row operation \( R_2 \to R_2 - R_1\):
+\begin{equation}
+\myaugvec{2}{
+2 & -\frac{1}{2} & 0 \\
+0 & \frac{9}{2} & 1
+}
+\end{equation}
+Perform the row operation \( R_1 \to R_1 + \frac{R_2}{9}\):
+\begin{equation}
+\myaugvec{2}{
+2 & 0 & \frac{1}{9} \\
+0 & \frac{9}{2} & 1
+}
+\end{equation}
+\begin{equation}
+\vec{n}=\frac{1}{18}\myvec{1 \\ 4}
+\end{equation}
+
+Equation of normal is :
+\begin{equation}
+\myvec{1 \ 4}\vec{x} = 18
+\end{equation}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+\textbf{Step 4:} Find $\vec{c}$\\
+
+Centre lies on the normal (2.20)
+\begin{equation}
+\myvec{1 & 4}\vec{c} = 18
+\end{equation}
+from equation (2.9)
+\begin{equation}
+\myvec{4 & 6}\vec{c} = 19
+\end{equation}
+Row reduction steps:
+\begin{equation}
+\myaugvec{2}{
+1 & 4 & 18 \\
+4 & 6 & 19
+}
+\end{equation}
+Perform the row operation \( R_2 \to R_2 - 4R_2\):
+\begin{equation}
+\myaugvec{2}{
+1 & 4 & 18 \\
+0 & -10 & -53
+}
+\end{equation}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+Perform the row operation \( R_1 \to R_1 +\frac{2}{5}R_2\):
+\begin{equation}
+\myaugvec{2}{
+1 & 0 & -\frac{16}{5} \\
+0 & -10 & -53
+}
+\end{equation}
+
+\begin{equation}
+\vec{c} = \myvec{ -\frac{16}{5} \\ \frac{53}{10} }
+\end{equation}
+
+\textbf{Final Answer:}\\
+The centre of the circle is $\myvec{ -\frac{16}{5} \\ \frac{53}{10} }$.
+
+\end{frame}
+
+
+\section{Graph}
+\begin{frame}
+    \frametitle{Graph}
+    \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.65\linewidth]{FIG/fig1.png}
+    \caption{Vector Representation}
+    \label{fig:FIG/fig1.png}
+\end{figure}
+\end{frame}
+\section{ C Code}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+#include "matfun.h"
+#include <math.h>
+
+// Solve 2x2 system Ax = b using simple method
+int solve_2x2(double A[4], double b[2], double x[2]) {
+    // A = [a11, a12, a21, a22]  (row-major)
+    double det = A[0]*A[3] - A[1]*A[2];
+    
+    if (fabs(det) < 1e-10) return 0;  // No solution
+    
+    x[0] = (b[0]*A[3] - b[1]*A[1]) / det;
+    x[1] = (A[0]*b[1] - A[2]*b[0]) / det;
+    
+    return 1;  // Success
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+// Calculate distance between two points
+double distance(double x1, double y1, double x2, double y2) {
+    double dx = x1 - x2;
+    double dy = y1 - y2;
+    return sqrt(dx*dx + dy*dy);
+}
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+// Solve the circle-parabola problem
+int solve_problem(double center[2], double *radius) {
+    // System: 4cx + 6cy = 19, cx + 4cy = 18
+    double A[4] = {4.0, 6.0, 1.0, 4.0};
+    double b[2] = {19.0, 18.0};
+    
+    if (!solve_2x2(A, b, center)) return 0;
+    
+    // Calculate radius from center to (0,1)
+    *radius = distance(center[0], center[1], 0.0, 1.0);
+    
+    return 1;
+}
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python + C Code }
+\begin{lstlisting}[language=Python]
+import ctypes
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load C library
+lib = ctypes.CDLL('./libmatfun.so')
+
+# Set up function signatures
+lib.solve_problem.argtypes = [ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_double)]
+lib.solve_problem.restype = ctypes.c_int
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python + C Code}
+    \begin{lstlisting}
+# Main execution
+if __name__ == "__main__":
+    # Call C function to solve the problem
+    center = (ctypes.c_double * 2)()
+    radius = ctypes.c_double()
+    
+    result = lib.solve_problem(center, ctypes.byref(radius))
+    
+    if result:
+        cx, cy, r = center[0], center[1], radius.value
+        
+        print(f"Center: ({cx:.6f}, {cy:.6f})")
+        print(f"Radius: {r:.6f}")
+        
+        # Simple plotting
+        fig, ax = plt.subplots(figsize=(10, 8))
+  
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python + C Code }
+    \begin{lstlisting}
+        # Plot parabola y = x²
+        x_para = np.linspace(-8, 4, 500)
+        y_para = x_para**2
+        mask = (y_para <= 12)  # Limit y range
+        ax.plot(x_para[mask], y_para[mask], 'b-', linewidth=2, label='y = x²')
+        
+        # Plot circle
+        theta = np.linspace(0, 2*np.pi, 500)
+        x_circle = cx + r * np.cos(theta)
+        y_circle = cy + r * np.sin(theta)
+        ax.plot(x_circle, y_circle, 'r-', linewidth=2, label='Circle')
+        
+       ax.plot(0, 1, 'go', markersize=8, label='P(0,1)')
+        ax.plot(2, 4, 'mo', markersize=8, label='Q(2,4)')
+        ax.plot(cx, cy, 'ro', markersize=8, label=f'Center({cx:.1f},{cy:.1f})') 
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python + C Code }
+    \begin{lstlisting}
+        # Normal line
+        ax.plot([cx, 2], [cy, 4], 'k--', alpha=0.7, label='Normal')
+        
+        # Tangent line y = 4x - 4
+        x_tan = np.linspace(0.5, 3.5, 50)
+        y_tan = 4*x_tan - 4
+        ax.plot(x_tan, y_tan, 'g--', alpha=0.7, label='Tangent')
+        
+        # Set limits and format
+        ax.set_xlim(cx-r-1, cx+r+1)
+        ax.set_ylim(cy-r-1, cy+r+1)
+        ax.grid(True, alpha=0.3)
+        ax.set_xlabel('x')
+        ax.set_ylabel('y')
+        ax.set_title('Circle-Parabola Problem (C Library)')
+        ax.legend()
+        ax.set_aspect('equal')
+        
+        plt.show()
+    else:
+        print("Failed to solve problem")
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code }
+    \begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+
+def solve_circle_parabola_problem():
+    """Find the center of the circle passing through (0,1) and touching y = x² at (2,4)"""
+    
+    # Given points
+    P = np.array([0, 1])
+    Q = np.array([2, 4])
+    
+    # Set up system of equations
+    # Constraint 1: Equal distances from center to P and Q
+    # 4cx + 6cy = 19
+    # Constraint 2: Center-to-Q line is normal to parabola at Q  
+    # cx + 4cy = 18
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code }
+\begin{lstlisting}[language=Python]
+    A = np.array([[4, 6], [1, 4]])
+    b = np.array([19, 18])
+    
+    # Solve for center
+    center = np.linalg.solve(A, b)
+    radius = np.linalg.norm(P - center)
+    
+    return center, radius
+
+def plot_solution():
+    """Plot the parabola, circle, and key points with complete circle visible"""
+    center, radius = solve_circle_parabola_problem()
+    
+    fig, ax = plt.subplots(1, 1, figsize=(12, 10))
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+    # Calculate proper plot limits to show entire circle
+    x_min = center[0] - radius - 1
+    x_max = max(center[0] + radius + 1, 6)  # Ensure parabola portion is visible
+    y_min = center[1] - radius - 1
+    y_max = max(center[1] + radius + 1, 15)  # Show some parabola
+    
+    # Plot parabola y = x² (extended range)
+    x_parabola = np.linspace(x_min, x_max, 1000)
+    y_parabola = x_parabola**2
+    # Only plot parabola where y is in our range
+    mask = (y_parabola >= y_min) & (y_parabola <= y_max)
+    ax.plot(x_parabola[mask], y_parabola[mask], 'b-', linewidth=2, label='Parabola: y = x²')
+    
+    # Plot complete circle
+    theta = np.linspace(0, 2*np.pi, 1000)
+    x_circle = center[0] + radius * np.cos(theta)
+    y_circle = center[1] + radius * np.sin(theta)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+    ax.plot(x_circle, y_circle, 'r-', linewidth=2, label=f'Circle (r = {radius:.2f})')
+    
+    # Mark important points
+    ax.plot(0, 1, 'go', markersize=10, label='P(0,1) - Point on circle', zorder=5)
+    ax.plot(2, 4, 'mo', markersize=10, label='Q(2,4) - Tangent point', zorder=5)
+    ax.plot(center[0], center[1], 'ro', markersize=10, 
+            label=f'Center({center[0]:.1f}, {center[1]:.1f})', zorder=5)
+    
+    # Draw normal line from center to Q
+    ax.plot([center[0], 2], [center[1], 4], 'k--', linewidth=2, 
+            alpha=0.8, label='Normal to parabola')
+    
+    # Draw tangent line at Q (y = 4x - 4)
+    x_tangent = np.linspace(0.5, 3.5, 100)
+    y_tangent = 4 * x_tangent - 4
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+ax.plot(x_tangent, y_tangent, 'g--', linewidth=2, 
+            alpha=0.8, label='Tangent at Q: y = 4x - 4')
+    
+    # Set plot limits to show complete circle
+    ax.set_xlim(x_min, x_max)
+    ax.set_ylim(y_min, y_max)
+    
+    # Enhance plot appearance
+    ax.grid(True, alpha=0.4, linestyle='-', linewidth=0.5)
+    ax.set_xlabel('x', fontsize=14, fontweight='bold')
+    ax.set_ylabel('y', fontsize=14, fontweight='bold')
+    ax.set_title('Circle Passing Through (0,1) and Tangent to y=x² at (2,4)', 
+                fontsize=16, fontweight='bold', pad=20)
+    
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+    # Add axes lines through origin
+    ax.axhline(y=0, color='black', linewidth=0.8, alpha=0.3)
+    ax.axvline(x=0, color='black', linewidth=0.8, alpha=0.3)
+    
+    # Legend with better positioning
+    ax.legend(loc='upper left', fontsize=11, framealpha=0.9)
+    
+    # Make axes equal to avoid distortion
+    ax.set_aspect('equal', adjustable='box')
+    
+    # Add some annotations
+    ax.annotate('Complete Circle\nVisible', 
+                xy=(center[0], center[1]-radius+0.5), 
+                fontsize=10, ha='center', 
+                bbox=dict(boxstyle="round,pad=0.3", facecolor="yellow", alpha=0.7))
+    \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+    plt.tight_layout()
+    plt.show()
+    
+    return fig, ax
+
+if __name__ == "__main__":
+    center, radius = solve_circle_parabola_problem()
+    
+    print(f"Center: ({center[0]:.6f}, {center[1]:.6f})")
+    print(f"Center (exact): (-16/5, 53/10)")
+    print(f"Radius: {radius:.6f}")
+    
+    plot_solution()
+
+\end{lstlisting}
+\end{frame}
+\end{document}

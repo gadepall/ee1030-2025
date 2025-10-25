@@ -1,0 +1,486 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{multicol}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\numberwithin{equation}{section}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{orange},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  showstringspaces=false
+}
+
+
+\title{Problem 5.13.16}
+\author{Sarvesh Tamgade}
+
+\date{\today} 
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section{Question}
+\begin{frame}{Question}
+\textbf{Question}:
+Let \( k \) be an integer such that the triangle with vertices 
+\[
+\vec{A} = \myvec{ k \\ -3k }, \quad 
+\vec{B} = \myvec{ 5 \\ k }, \quad 
+\vec{C} = \myvec{ -k \\ 2 }
+\]
+has area 28 sq. units. Find the orthocenter of the triangle.
+
+\end{frame}
+
+\section{Solution}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+\begin{align}
+\text{Area} &= \frac{1}{2} \left| \vec{M} \right| = 28
+\end{align}
+
+\begin{align}
+\text{where} \quad
+\vec{M} &= \myvec{
+\vec{B} - \vec{A} & \vec{C} - \vec{A}
+}
+= \myvec{
+5-k & -2k \\
+4k & 2 + 3k
+}
+\end{align}
+
+\begin{align}
+\det(\vec{M}) &= (5-k)(2+3k) - (-2k)(4k) = 10 + 13k + 5k^2
+\end{align}
+
+\begin{align}
+10 + 13k + 5k^2 &= \pm 56
+\end{align}
+After solving,
+\begin{align}
+k &= 2
+\end{align}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+\begin{align}
+\text{For } k=2, \quad \vec{A} = \myvec{2 \\ -6}, \quad \vec{B} = \myvec{5 \\ 2}, \quad \vec{C} = \myvec{-2 \\ 2}
+\end{align}
+
+The equation of the altitude through \( \vec{A} \) is:
+\begin{align}
+\vec{n}^T \vec{x} = 1
+\end{align}
+
+This altitude passes through \( \vec{A} \), so
+\begin{align}
+\vec{n}^T \vec{A} = 1
+\end{align}
+\begin{align}
+\vec{n}^\top \myvec{2 \\ -6} = 1
+\end{align}
+
+and the normal vector \( \vec{n} \) of the altitude must be parallel to \( \vec{B} - \vec{C} \):
+\begin{align}
+\vec{n} = t \myvec{7 \\ 0}
+\end{align}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+Substitute to get:
+\begin{align}
+t \myvec{7 \\ 0}^\top \myvec{2 \\ -6} = 1 \implies 14 t = 1 \implies t = \frac{1}{14}
+\end{align}
+
+Hence,
+\begin{align}
+\vec{n} = \myvec{\frac{1}{2} \\ 0}
+\end{align}
+
+The equation of altitude through \( \vec{A} \) is:
+\begin{align}
+\myvec{\frac{1}{2} & 0} \vec{x} = 1
+\end{align}
+
+\vspace{1em}
+
+The equation of the altitude through \( \vec{B} \) is:
+\begin{align}
+\vec{n}^T \vec{x} = 1
+\end{align}
+This altitude passes through \( \vec{B} \), so
+\begin{align}
+\vec{n}^T \vec{B} = 1
+\end{align}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Solution}
+\begin{align}
+\vec{n}^\top \myvec{5 \\ 2} = 1
+\end{align}
+
+and the normal vector \( \vec{n} \) must be parallel to \( \vec{A} - \vec{C} \):
+\begin{align}
+\vec{n} = t \myvec{4 \\ -8}
+\end{align}
+
+Substitute to get:
+\begin{align}
+t \myvec{4 \\ -8}^\top \myvec{5 \\ 2} = 1 \implies t (20 - 16) = 1 \implies 4 t = 1 \implies t = \frac{1}{4}
+\end{align}
+
+Hence,
+\begin{align}
+\vec{n} = \myvec{1 \\ -2}
+\end{align}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+The equation of altitude through \( \vec{B} \) is:
+\begin{align}
+\myvec{1 & -2} \vec{x} = 1
+\end{align}
+
+Combining equations (2.13) and (2.20):
+\begin{align}
+\myvec{\frac{1}{2} & 0 \\ 1 & -2} \vec{x} = \myvec{1 \\ 1}
+\end{align}
+
+Writing the augmented matrix:
+\begin{align}
+\myaugvec{2}{
+\frac{1}{2} & 0 & 1 \\
+1 & -2  & 1
+}
+\end{align}
+
+Perform the row operation \( R_2 \to R_2 - 2 R_1 \):
+\begin{align}
+\myaugvec{2}{
+\frac{1}{2} & 0 & 1 \\
+0 & -2 & -1
+}
+\end{align}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+Therefore, the solution vector is:
+\begin{align}
+\vec{x} = \myvec{2 \\ \frac{1}{2}}
+\end{align}
+
+\textbf{Answer:} The orthocentre of the triangle is
+\[
+\boxed{
+\vec{x} = \myvec{2 \\ \frac{1}{2}}
+}
+\]
+\end{frame}
+
+
+\section{Graph}
+\begin{frame}
+    \frametitle{Graph}
+    \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.65\linewidth]{FIG/fig1.png}
+    \caption{Vector Representation}
+    \label{fig:FIG/fig1.png}
+\end{figure}
+\end{frame}
+\section{ C Code}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+#include "matfun.h"
+
+void foot_of_perpendicular(const double *P, const double *Q, const double *R, double *foot) {
+    double QR[2] = {R[0]-Q[0], R[1]-Q[1]};
+    double QP[2] = {P[0]-Q[0], P[1]-Q[1]};
+    double dot_QP_QR = QP[0]*QR[0] + QP[1]*QR[1];
+    double dot_QR_QR = QR[0]*QR[0] + QR[1]*QR[1];
+    double t = dot_QP_QR / dot_QR_QR;
+    foot[0] = Q[0] + t * QR[0];
+    foot[1] = Q[1] + t * QR[1];
+}
+
+void orthocenter(const double *A, const double *B, const double *C, double *O) {
+    double footA[2], footB[2];
+    foot_of_perpendicular(A, B, C, footA);
+    foot_of_perpendicular(B, A, C, footB);
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+    double a1 = footA[1] - A[1];
+    double b1 = A[0] - footA[0];
+    double c1 = a1 * A[0] + b1 * A[1];
+
+    double a2 = footB[1] - B[1];
+    double b2 = B[0] - footB[0];
+    double c2 = a2 * B[0] + b2 * B[1];
+
+    double det = a1 * b2 - a2 * b1;
+    if (det == 0) { // parallel lines
+        O[0] = O[1] = 0.0;
+        return;
+    }
+    O[0] = (c1 * b2 - c2 * b1) / det;
+    O[1] = (a1 * c2 - a2 * c1) / det;
+}
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python + C Code }
+\begin{lstlisting}[language=Python]
+import numpy as np
+import matplotlib.pyplot as plt
+import numpy.ctypeslib as npct
+from ctypes import CDLL
+
+lib = CDLL('./libmatfun.so')
+
+array1d = npct.ndpointer(dtype=np.float64, ndim=1, shape=(2,))
+
+lib.foot_of_perpendicular.restype = None
+lib.foot_of_perpendicular.argtypes = [array1d, array1d, array1d, array1d]
+lib.orthocenter.restype = None
+lib.orthocenter.argtypes = [array1d, array1d, array1d, array1d]
+
+A = np.array([2.0, -6.0])
+B = np.array([5.0, 2.0])
+C = np.array([-2.0, 2.0])
+
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python + C Code}
+    \begin{lstlisting}
+def foot_of_perpendicular(P, Q, R):
+    foot = np.zeros(2, dtype=np.float64)
+    lib.foot_of_perpendicular(P, Q, R, foot)
+    return foot
+
+def calc_orthocenter(A, B, C):
+    O = np.zeros(2, dtype=np.float64)
+    lib.orthocenter(A, B, C, O)
+    return O
+
+def plot_altitude(vertex, foot, label):
+    plt.plot([vertex[0], foot[0]], [vertex[1], foot[1]], linestyle='--', label=label)
+
+footA = foot_of_perpendicular(A, B, C)
+footB = foot_of_perpendicular(B, A, C)
+footC = foot_of_perpendicular(C, A, B)
+O = calc_orthocenter(A, B, C)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python + C Code }
+    \begin{lstlisting}
+# Print orthocenter
+print(f"Orthocenter: {O}")
+
+# Plot triangle
+triangle_x = [A[0], B[0], C[0], A[0]]
+triangle_y = [A[1], B[1], C[1], A[1]]
+plt.plot(triangle_x, triangle_y, 'bo-', label='Triangle')
+
+# Plot the altitudes
+plot_altitude(A, footA, 'Altitude from A')
+plot_altitude(B, footB, 'Altitude from B')
+plot_altitude(C, footC, 'Altitude from C')
+
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python + C Code }
+    \begin{lstlisting}
+
+# Plot orthocenter
+plt.plot(O[0], O[1], 'ro', label='Orthocenter')
+
+plt.axis('equal')
+plt.title('Triangle and Orthocenter with Altitudes')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code }
+\begin{lstlisting}[language=Python]
+import numpy as np
+import matplotlib.pyplot as plt
+
+A = np.array([2, -6])
+B = np.array([5, 2])
+C = np.array([-2, 2])
+
+def foot_of_perpendicular(P, Q, R):
+    """
+    Calculate foot of perpendicular from point P to line QR.
+    
+    Returns the point (x,y) on line QR closest to P.
+    """
+    QR = R - Q
+    QP = P - Q
+    t = np.dot(QP, QR) / np.dot(QR, QR)
+    foot = Q + t * QR
+    return foot
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+def plot_altitude(vertex, foot, label):
+    """
+    Plot altitude segment from vertex to foot point.
+    """
+    plt.plot([vertex[0], foot[0]], [vertex[1], foot[1]], linestyle='--', label=label)
+
+# Calculate feet of perpendiculars (altitudinal feet)
+footA = foot_of_perpendicular(A, B, C)  # from A to BC
+footB = foot_of_perpendicular(B, A, C)  # from B to AC
+footC = foot_of_perpendicular(C, A, B)  # from C to AB
+
+# Plot triangle
+triangle_x = [A[0], B[0], C[0], A[0]]
+triangle_y = [A[1], B[1], C[1], A[1]]
+plt.plot(triangle_x, triangle_y, 'bo-', label='Triangle')
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# Plot altitudes
+plot_altitude(A, footA, 'Altitude from A')
+plot_altitude(B, footB, 'Altitude from B')
+plot_altitude(C, footC, 'Altitude from C')
+
+# Compute orthocenter as intersection of two altitudes
+# Use line parameter form: for line segment vertex-foot
+def line_params(P, Q):
+    # Line vector:
+    v = Q - P
+    # Line coefficients: a*x + b*y = c form
+    a = v[1]
+    b = -v[0]
+    c = a*P[0] + b*P[1]
+    return a, b, c
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+a1, b1, c1 = line_params(A, footA)
+a2, b2, c2 = line_params(B, footB)
+A_mat = np.array([[a1, b1], [a2, b2]])
+b_vec = np.array([c1, c2])
+
+O = np.linalg.solve(A_mat, b_vec)
+
+# Plot orthocenter
+plt.plot(O[0], O[1], 'ro', label='Orthocenter')
+
+plt.axis('equal')
+plt.title('Triangle and Orthocenter with Altitudes')
+plt.legend()
+plt.savefig("fig1.png")
+plt.grid(True)
+plt.show()
+\end{lstlisting}
+\end{frame}
+
+
+\end{document}

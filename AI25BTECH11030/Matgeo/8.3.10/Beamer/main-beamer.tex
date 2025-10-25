@@ -1,0 +1,438 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{multicol}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\numberwithin{equation}{section}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{orange},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  showstringspaces=false
+}
+
+
+\title{Problem 8.3.10}
+\author{Sarvesh Tamgade}
+
+\date{\today} 
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section{Question}
+\begin{frame}{Question}
+\textbf{Question}:
+If the eccentricity of an ellipse is $\frac{5}{8}$ and the distance between its foci is $10$, then find the latus rectum of the ellipse.
+
+
+
+\end{frame}
+
+\section{Solution}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+Given:
+\begin{itemize}
+\item Eccentricity: $e = \frac{5}{8}$
+\item Distance between foci: $D = 10$
+\end{itemize}
+
+\textbf{Step 1: Express the foci for standard ellipse}
+
+From B.2.7.3, the foci for standard ellipse are at:
+
+\begin{align}
+\vec{F} = \pm\sqrt{\frac{f_0}{\lambda_2(1-e^2)}} \vec{e_1}
+\end{align}
+
+where $f_0$ is the scalar term in the conic equation and $\lambda_2$ is an eigenvalue of matrix $\vec{V}$.
+
+\textbf{Step 2: Distance between foci}
+
+The distance between foci is:
+
+\begin{align}
+D = 2\sqrt{\frac{f_0}{\lambda_2(1-e^2)}}
+\end{align}
+
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+\textbf{Step 3: Solve for $f_0$}
+
+From equation (2):
+
+\begin{align}
+\frac{D}{2} &= \sqrt{\frac{f_0}{\lambda_2(1-e^2)}}
+\end{align}
+
+Squaring both sides:
+
+\begin{align}
+\frac{D^2}{4} &= \frac{f_0}{\lambda_2(1-e^2)}
+\end{align}
+
+Therefore:
+
+\begin{align}
+f_0 &= \frac{D^2 \lambda_2(1-e^2)}{4}
+\end{align}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+G\textbf{Step 4: Eigenvalues for standard ellipse}
+
+For the standard ellipse, from the conic section theory:
+
+\begin{align}
+\lambda_1 &= \frac{||\vec{n}||^2}{1-e^2}
+\end{align}
+
+\begin{align}
+\lambda_2 &= ||\vec{n}||^2
+\end{align}
+
+For the standard form with $||\vec{n}||^2 = 1$:
+
+\begin{align}
+\lambda_1 &= \frac{1}{1-e^2}
+\end{align}
+
+\begin{align}
+\lambda_2 &= 1
+\end{align}
+
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Solution}
+\textbf{Step 5: Calculate $f_0$ with $\lambda_2 = 1$}
+
+Substituting $\lambda_2 = 1$ into equation (5):
+
+\begin{align}
+f_0 &= \frac{D^2(1-e^2)}{4}
+\end{align}
+
+Therefore:
+
+\begin{align}
+\sqrt{f_0} &= \frac{D\sqrt{1-e^2}}{2}
+\end{align}
+
+\textbf{Step 6: Matrix formulation for latus rectum}
+The length of latus rectum is given by :
+
+\begin{align}
+\ell = \frac{2\sqrt{f_0 \lambda_1}}{\lambda_2}
+\end{align}
+
+
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Solution}
+Substituting the values of $f_0$, $\lambda_1$ and $\lambda_2$ 
+\begin{align}
+\ell &= \frac{D(1-e^2)}{e}
+\end{align}
+
+\textbf{Step 7: Substitute the given values}
+
+Given $e = \frac{5}{8}$ and $D = 10$:
+
+\begin{align}
+1 - e^2 &= 1 - \left(\frac{5}{8}\right)^2 = 1 - \frac{25}{64} = \frac{39}{64}
+\end{align}
+
+Substituting into the latus rectum formula:
+
+\begin{align}
+\ell &= \frac{390 \times 8}{64 \times 5} = \frac{3120}{320} = \frac{39}{4}
+\end{align}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+\textbf{Final Answer:}
+The length of latus rectum is :
+
+\begin{align}
+\boxed{\ell = \frac{39}{4}}
+\end{align}
+\end{frame}
+
+
+
+\section{Graph}
+\begin{frame}
+    \frametitle{Graph}
+    \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.65\linewidth]{FIG/fig1.png}
+    \caption{Vector Representation}
+    \label{fig:FIG/fig1.png}
+\end{figure}
+\end{frame}
+\section{ C Code}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+#include <math.h>
+#include "matfun.h"
+
+double semi_major ( double e , double D ){
+    return D / ( 2.0 * e );
+}
+
+double semi_minor ( double e , double D ){
+    double a = semi_major ( e , D );
+    return a * sqrt ( 1.0 - e * e );
+}
+
+double focal_distance ( double e , double D ){
+    return semi_major ( e , D ) * e;
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+double latus_rectum ( double e , double D ){
+    return D * ( 1.0 - e * e ) / e;
+}
+
+void ellipse_points(double a , double b ,int    N ,double *x ,double *y){
+    for ( int i = 0 ; i < N ; ++i )
+    {
+        double t = 2.0 * M_PI * i / N;
+        x [ i ] = a * cos ( t );
+        y [ i ] = b * sin ( t );
+    }
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python + C Code }
+\begin{lstlisting}[language=Python]
+import ctypes as ct
+import numpy as np
+import matplotlib.pyplot as plt
+from   numpy.ctypeslib import ndpointer
+
+
+lib = ct.CDLL ( './libmatfun.so' )
+
+for f in ( 'semi_major' , 'semi_minor' ,
+           'focal_distance' , 'latus_rectum' ):
+    getattr ( lib , f ).argtypes = [ ct.c_double , ct.c_double ]
+    getattr ( lib , f ).restype  =  ct.c_double
+
+lib.ellipse_points.argtypes = [
+    ct.c_double , ct.c_double , ct.c_int ,
+    ndpointer ( ct.c_double , flags = 'C_CONTIGUOUS' ),
+    ndpointer ( ct.c_double , flags = 'C_CONTIGUOUS' )
+]
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python + C Code}
+    \begin{lstlisting}
+e , D = 5 / 8 , 10
+
+a = lib.semi_major     ( e , D )
+b = lib.semi_minor     ( e , D )
+c = lib.focal_distance ( e , D )
+l = lib.latus_rectum   ( e , D )
+
+print ( l )                           # prints 9.75
+
+
+N = 1000
+x = np.empty ( N )
+y = np.empty ( N )
+
+lib.ellipse_points ( a , b , N , x , y )
+
+fig , ax = plt.subplots ( figsize = ( 12 , 8 ) )
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python + C Code }
+    \begin{lstlisting}
+
+ax.plot    ( x , y , 'b-' , lw = 2 )
+ax.scatter ( [  c , -c ] , [ 0 , 0 ] , color = 'r' , s = 50 )
+ax.plot    ( [  c , -c ] , [ 0 , 0 ] , 'r--' , lw = 1 )
+
+ax.plot    ( [  c ,  c ] , [ -l / 2 ,  l / 2 ] , 'g' , lw = 3 )
+ax.plot    ( [ -c , -c ] , [ -l / 2 ,  l / 2 ] , 'g' , lw = 3 )
+
+ax.plot ( [ -a ,  a ] , [ 0 , 0 ] , 'k--' , alpha = .5 )
+ax.plot ( [  0 ,  0 ] , [ -b , b ] , 'k--' , alpha = .5 )
+
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python + C Code }
+    \begin{lstlisting}
+ax.text (  a + .3 , 0       , f'A ( {a} )' )
+ax.text ( -a - 1 , 0        , f"A' ( -{a} )" )
+ax.text ( .3 ,  b + .3      , f'B ( {b:.2f} )' )
+ax.text ( .3 , -b - .6      , f"B' ( -{b:.2f} )" )
+ax.text (  c + .2 ,  l / 2  , f'ℓ = {l:.2f}' )
+ax.text ( -c - 1 ,  l / 2   , f'ℓ = {l:.2f}' )
+
+ax.set_aspect ( 'equal' )
+ax.set_xlim   ( -10 , 10 )
+ax.set_ylim   ( -8  , 8  )
+ax.set_title  ( f'Ellipse  e = {e}   D = {D}' )
+ax.grid       ( alpha = .3 )
+
+plt.tight_layout ( )
+plt.show ( )
+
+
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code }
+\begin{lstlisting}[language=Python]
+import numpy as np
+import matplotlib.pyplot as plt
+
+e, D = 5 / 8, 10
+l = D * (1 - e ** 2) / e
+a = D / (2 * e)
+b = a * np.sqrt(1 - e ** 2)
+c = a * e
+print("The length of latus rectum is: ",l)
+t = np.linspace(0, 2 * np.pi, 1000)
+x, y = a * np.cos(t), b * np.sin(t)
+
+fig, ax = plt.subplots(figsize=(12, 8))
+ax.plot(x, y, 'b-', lw=2, label='Ellipse')
+
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+ax.scatter([c, -c], [0, 0], color='r', s=50, label='Foci $F_1, F_2$')
+ax.text(c + .2, 0.3, f'$F_1({c}, 0)$')
+ax.text(-c - .2, 0.3, f'$F_2({-c}, 0)$')
+
+ax.plot([-a, a], [0, 0], 'k--', alpha=.5)
+ax.plot([0, 0], [-b, b], 'k--', alpha=.5)
+
+ax.text(a + .3, 0, f'$A({a}, 0)$')
+ax.text(-a - .9, 0, f'$A\'(-{a}, 0)$')
+ax.text(0.3, b + .3, f'$B(0, {b:.2f})$')
+ax.text(0.3, -b - .5, f'$B\'(0, -{b:.2f})$')
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+
+ax.plot([c, c], [-l / 2, l / 2], 'g', lw=3, label='Latus rectum')
+ax.plot([-c, -c], [-l / 2, l / 2], 'g', lw=3)
+ax.text(c + .2, l / 2, f'$\\ell = {l:.2f}$')
+ax.text(-c - 1.0, l / 2, f'$\\ell = {l:.2f}$')
+
+ax.set_aspect('equal')
+ax.set_xlim(-10, 10)
+ax.set_ylim(-8, 8)
+ax.set_title(f'Ellipse $e={e}$,  $D={D}$\n$\\ell = {l} = 39/4$')
+ax.grid(alpha=.3)
+ax.legend()
+plt.tight_layout()
+plt.savefig("fig1.png")
+plt.show()
+
+\end{lstlisting}
+\end{frame}
+\end{document}

@@ -1,0 +1,555 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{multicol}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\numberwithin{equation}{section}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{orange},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  showstringspaces=false
+}
+
+
+\title{Problem 9.4.2}
+\author{Sarvesh Tamgade}
+
+\date{\today} 
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section{Question}
+\begin{frame}{Question}
+\textbf{Question}:
+Find the roots of the following quadratic equation graphically:
+ \begin{align}
+  x\brak{2x + 3} = x^2 + 1
+ \end{align}
+
+
+\end{frame}
+
+\section{Solution}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+First, we expand and rearrange the equation to standard form:
+\begin{align}
+x\brak{2x + 3} &= x^2 + 1\\
+2x^2 + 3x &= x^2 + 1\\
+2x^2 + 3x - x^2 - 1 &= 0\\
+x^2 + 3x - 1 &= 0
+\end{align}
+
+\textbf{Input Variables:  }\\
+The given quadratic can be written in the conic form:
+\begin{align}
+\vec{x}^T\vec{V}\vec{x} + 2\vec{u}^T\vec{x} + f = 0
+\end{align}
+
+where
+\begin{align}
+\vec{V} = \myvec{1 & 0 \\ 0 & 0}, \quad \vec{u} = \myvec{\frac{3}{2} \\ 0}, \quad f = -1
+\end{align}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+Since the roots of the quadratic correspond to intersections with the x-axis, we represent the line:
+\begin{align}
+L: \vec{x} = \vec{h} + \kappa\vec{m}
+\end{align}
+
+with
+\begin{align}
+\vec{h} = \myvec{0 \\ 0}, \quad \vec{m} = \myvec{1 \\ 0}
+\end{align}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Symbol} & \textbf{Value} \\
+\hline
+$\vec{V}$ & $\myvec{1 & 0 \\ 0 & 0}$ \\
+\hline
+$\vec{u}$ & $\myvec{\frac{3}{2} \\ 0}$ \\
+\hline
+$f$ & $-1$ \\
+\hline
+$\vec{h}$ & $\myvec{0 \\ 0}$ \\
+\hline
+$\vec{m}$ & $\myvec{1 \\ 0}$ \\
+\hline
+\end{tabular}
+\caption{Input Parameters}
+\label{tab:input}
+\end{table}
+
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Solution}
+The points of intersection of a line with a conic are given by:
+\begin{align}
+\kappa = \frac{1}{\vec{m}^T\vec{V}\vec{m}} \sbrak{-\vec{m}^T\brak{\vec{V}\vec{h} + \vec{u}} \pm \sqrt{\brak{\vec{m}^T\brak{\vec{V}\vec{h} + \vec{u}}}^2 - g\brak{\vec{h}}\brak{\vec{m}^T\vec{V}\vec{m}}}}
+\end{align}
+
+where
+\begin{align}
+g\brak{\vec{h}} = \vec{h}^T\vec{V}\vec{h} + 2\vec{u}^T\vec{h} + f
+\end{align}
+
+\textbf{Step 1:} Compute $\vec{m}^T\vec{V}\vec{m}$
+\begin{align}
+\vec{m}^T\vec{V}\vec{m} = \myvec{1 & 0}\myvec{1 & 0 \\ 0 & 0}\myvec{1 \\ 0} = 1
+\end{align}
+
+\textbf{Step 2:} Compute $\vec{V}\vec{h} + \vec{u}$
+\begin{align}
+\vec{V}\vec{h} + \vec{u} = \myvec{1 & 0 \\ 0 & 0}\myvec{0 \\ 0} + \myvec{\frac{3}{2} \\ 0} = \myvec{\frac{3}{2} \\ 0}
+\end{align}
+
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Solution}
+\textbf{Step 3:} Compute $\vec{m}^T\brak{\vec{V}\vec{h} + \vec{u}}$
+\begin{align}
+\vec{m}^T\brak{\vec{V}\vec{h} + \vec{u}} = \myvec{1 & 0}\myvec{\frac{3}{2} \\ 0} = \frac{3}{2}
+\end{align}
+
+\textbf{Step 4:} Compute $g\brak{\vec{h}}$
+\begin{align}
+g\brak{\vec{h}} = \vec{h}^T\vec{V}\vec{h} + 2\vec{u}^T\vec{h} + f = 0 + 0 + \brak{-1} = -1
+\end{align}
+
+\textbf{Step 5:} Substitute into formula for $\kappa$
+\begin{align}
+\kappa &= -\frac{3}{2} \pm \sqrt{\brak{\frac{3}{2}}^2 - \brak{-1}\brak{1}}\\
+&= -\frac{3}{2} \pm \sqrt{\frac{9}{4} + 1}\\
+&= \frac{-3 \pm \sqrt{13}}{2}
+\end{align}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+\textbf{Step 6:} Evaluate roots
+\begin{align}
+\kappa_1 &= \frac{-3 + \sqrt{13}}{2}\\
+\kappa_2 &= \frac{-3 - \sqrt{13}}{2}
+\end{align}
+
+\textbf{Step 7:} Find intersection points
+The intersection points are obtained as:
+\begin{align}
+\vec{x}_1 &= \vec{h} + \kappa_1\vec{m} = \myvec{0 \\ 0} + \frac{-3 + \sqrt{13}}{2}\myvec{1 \\ 0} = \myvec{\frac{-3 + \sqrt{13}}{2} \\ 0}\\
+\vec{x}_2 &= \vec{h} + \kappa_2\vec{m} = \myvec{0 \\ 0} + \frac{-3 - \sqrt{13}}{2}\myvec{1 \\ 0} = \myvec{\frac{-3 - \sqrt{13}}{2} \\ 0}
+\end{align}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+Thus, the quadratic $x^2 + 3x - 1 = 0$ intersects the x-axis at:
+\begin{align}
+x &= \frac{-3 - \sqrt{13}}{2} \approx -3.303\\
+x &= \frac{-3 + \sqrt{13}}{2} \approx 0.303
+\end{align}
+
+The roots of the original equation $x\brak{2x + 3} = x^2 + 1$ are:
+\begin{align}
+\boxed{x = \frac{-3 \pm \sqrt{13}}{2}}
+\end{align}
+\end{frame}
+
+
+\section{Graph}
+\begin{frame}
+    \frametitle{Graph}
+    \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.65\linewidth]{FIG/fig1.png}
+    \caption{Vector Representation}
+    \label{fig:FIG/fig1.png}
+\end{figure}
+\end{frame}
+\section{ C Code}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+#include <math.h>
+
+void intersect_line_conic(
+    const double V[4],   
+    const double u[2],     
+    double f,              
+    const double h[2],     
+    const double m[2],     
+    double kappa_out[2],   
+    double x1[2],
+    double x2[2],
+    int *status            
+) {
+    double Vm0 = V[0]*m[0] + V[1]*m[1];
+    double Vm1 = V[2]*m[0] + V[3]*m[1];
+    double mTVm = m[0]*Vm0 + m[1]*Vm1;
+    
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+ double Vh0 = V[0]*h[0] + V[1]*h[1];
+    double Vh1 = V[2]*h[0] + V[3]*h[1];
+    
+    double Vh_u0 = Vh0 + u[0];
+    double Vh_u1 = Vh1 + u[1];
+    
+    double mT_Vh_u = m[0]*Vh_u0 + m[1]*Vh_u1;
+    
+    double hTVh = h[0]*Vh0 + h[1]*Vh1;
+    double two_uTh = 2.0*(u[0]*h[0] + u[1]*h[1]);
+    double g = hTVh + two_uTh + f;
+    
+    double disc = mT_Vh_u*mT_Vh_u - g*mTVm;
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+   if (disc > 1e-12) {
+        double r = sqrt(disc);
+        kappa_out[0] = (-mT_Vh_u + r) / mTVm;
+        kappa_out[1] = (-mT_Vh_u - r) / mTVm;
+        
+        x1[0] = h[0] + kappa_out[0]*m[0]; x1[1] = h[1] + kappa_out[0]*m[1];
+        x2[0] = h[0] + kappa_out[1]*m[0]; x2[1] = h[1] + kappa_out[1]*m[1];
+        
+        *status = 2;
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+    } else if (fabs(disc) <= 1e-12) {
+        kappa_out[0] = kappa_out[1] = (-mT_Vh_u) / mTVm;
+        x1[0] = x2[0] = h[0] + kappa_out[0]*m[0];
+        x1[1] = x2[1] = h[1] + kappa_out[0]*m[1];
+        
+        *status = 1;
+    } else {
+        *status = 0;
+    }
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python + C Code }
+\begin{lstlisting}[language=Python]
+import ctypes as ct
+import numpy as np
+import matplotlib.pyplot as plt
+
+# --- load the shared library (same folder) ---
+lib = ct.CDLL("./libsimple_conic.so")
+
+lib.intersect_line_conic.argtypes = [
+    ct.POINTER(ct.c_double),  # V[4]
+    ct.POINTER(ct.c_double),  # u[2]
+    ct.c_double,              # f
+    ct.POINTER(ct.c_double),  # h[2]
+    ct.POINTER(ct.c_double),  # m[2]
+    ct.POINTER(ct.c_double),  # kappa[2] out
+    ct.POINTER(ct.c_double),  # x1[2] out
+    ct.POINTER(ct.c_double),  # x2[2] out
+    ct.POINTER(ct.c_int)      # status out
+]
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python + C Code}
+    \begin{lstlisting}
+lib.intersect_line_conic.restype = None
+
+# ---- helper: convert quadratic ax^2+bx+c into conic form ----
+def quadratic_to_conic(a, b, c):
+    V = np.array([a, 0.0, 0.0, 0.0], dtype=np.double)  # [[a,0],[0,0]]
+    u = np.array([b/2.0, 0.0], dtype=np.double)        # so 2u^T x = b x
+    f = np.double(c)
+    return V, u, f
+
+# ---- our quadratic: x^2 + 3x - 1 = 0 ----
+a, b, c = 1.0, 3.0, -1.0
+V, u, f = quadratic_to_conic(a, b, c)
+
+# Intersect with x-axis (y=0): line x = h + k m
+h = np.array([0.0, 0.0], dtype=np.double)
+m = np.array([1.0, 0.0], dtype=np.double)
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python + C Code }
+    \begin{lstlisting}
+# Outputs (allocated for C)
+kappa = np.zeros(2, dtype=np.double)
+x1 = np.zeros(2, dtype=np.double)
+x2 = np.zeros(2, dtype=np.double)
+status = ct.c_int(0)
+
+# ---- call the C function ----
+lib.intersect_line_conic(
+    V.ctypes.data_as(ct.POINTER(ct.c_double)),
+    u.ctypes.data_as(ct.POINTER(ct.c_double)),
+    ct.c_double(f),
+    h.ctypes.data_as(ct.POINTER(ct.c_double)),
+    m.ctypes.data_as(ct.POINTER(ct.c_double)),
+    kappa.ctypes.data_as(ct.POINTER(ct.c_double)),
+    x1.ctypes.data_as(ct.POINTER(ct.c_double)),
+    x2.ctypes.data_as(ct.POINTER(ct.c_double)),
+    ct.byref(status)
+)
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python + C Code }
+    \begin{lstlisting}
+
+# Collect results
+roots = []
+if status.value >= 1:
+    roots.append(float(x1[0]))
+    if status.value == 2:
+        roots.append(float(x2[0]))
+    roots.sort()
+
+print("status:", status.value)
+print("roots:", roots)  # expected [(-3-√13)/2, (-3+√13)/2] ≈ [-3.303, 0.303]
+
+# ---- plot parabola and roots ----
+xs = np.linspace(-5, 2, 600)  # adjusted range for our equation
+ys = a*xs*xs + b*xs + c
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python + C Code }
+    \begin{lstlisting}
+plt.figure()
+plt.plot(xs, ys, label=rf"$y={a:.0f}x^2{b:+.0f}x{c:+.0f}$")
+plt.axhline(0, linestyle="--", linewidth=1, label="x-axis")
+
+for r in roots:
+    plt.scatter([r], [0.0], s=60, zorder=3, label=f"root {r:.3f}")
+
+plt.xlabel("x"); plt.ylabel("y")
+plt.title("Roots via line–conic intersection (NumPy + C)")
+plt.grid(True)
+plt.legend()
+plt.savefig("parabola.png")
+plt.show()
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code }
+\begin{lstlisting}[language=Python]
+import numpy as np
+import matplotlib.pyplot as plt
+
+def quadratic_to_conic(a, b, c):
+    V = np.array([[a, 0.0],
+                  [0.0, 0.0]], dtype=float)
+    u = np.array([b/2.0, 0.0], dtype=float)  # so that 2 u^T x = b x
+    f = float(c)
+    return V, u, f
+
+def line_conic_intersection(V, u, f, h, m, eps=1e-12):
+    # m^T V m
+    Vm = V @ m
+    mTVm = float(m @ Vm)
+    
+    # Vh + u
+    Vh_u = V @ h + u
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+
+    mT_Vh_u = float(m @ Vh_u)
+    
+    # g(h) = h^T V h + 2 u^T h + f
+    g = float(h @ (V @ h) + 2.0 * (u @ h) + f)
+    
+    disc = mT_Vh_u**2 - g * mTVm
+    
+    if disc > eps:
+        r = np.sqrt(disc)
+        k1 = (-mT_Vh_u + r) / mTVm
+        k2 = (-mT_Vh_u - r) / mTVm
+        
+        X1 = h + k1 * m
+        X2 = h + k2 * m
+        
+        return 2, np.array([k1, k2], dtype=float), np.vstack([X1, X2])
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+    elif abs(disc) <= eps:
+        k = (-mT_Vh_u) / mTVm
+        X = h + k * m
+        
+        return 1, np.array([k, k], dtype=float), np.vstack([X, X])
+    else:
+        return 0, np.array([np.nan, np.nan]), np.array([[np.nan, np.nan],
+                                                         [np.nan, np.nan]])
+
+# ---------- Problem setup ----------
+# Given quadratic: x^2 + 3x - 1 = 0
+a, b, c = 1.0, 3.0, -1.0
+
+# Conic parameters (V, u, f)
+V, u, f = quadratic_to_conic(a, b, c)
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# x-axis as the line: y = 0 -> h = (0,0), m = (1,0)
+h = np.array([0.0, 0.0], dtype=float)
+m = np.array([1.0, 0.0], dtype=float)
+
+# ---------- Solve via line–conic intersection ----------
+status, kappa, X = line_conic_intersection(V, u, f, h, m)
+
+# Roots are the x-coordinates of intersection points with y=0
+roots = []
+if status >= 1:
+    roots = sorted([float(X[0, 0]), float(X[1, 0])]) if status == 2 else [float(X[0, 0])]
+
+print("Status (2:two real, 1:tangent, 0:none):", status)
+print("kappa values:", kappa)
+print("Intersection points (x,y):\\n", X)
+print("Roots (x-intercepts):", roots)
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# ---------- Plot ----------
+xs = np.linspace(-5, 2, 600)
+ys = a*xs**2 + b*xs + c
+
+plt.figure()
+plt.plot(xs, ys, label=rf"$y={a:.0f}x^2{b:+.0f}x{c:+.0f}$")
+plt.axhline(0, linestyle="--", linewidth=1, label="x-axis")
+
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+if status >= 1:
+    plt.scatter([X[0,0]], [0.0], s=60, zorder=3, label=f"root {X[0,0]:.3f}")
+    if status == 2:
+        plt.scatter([X[1,0]], [0.0], s=60, zorder=3, label=f"root {X[1,0]:.3f}")
+
+plt.xlabel("x"); plt.ylabel("y")
+plt.title("Roots via line–conic intersection (vectors & matrices)")
+plt.grid(True)
+plt.legend()
+plt.savefig("fig1.png")
+plt.show()
+\end{lstlisting}
+\end{frame}
+\end{document}

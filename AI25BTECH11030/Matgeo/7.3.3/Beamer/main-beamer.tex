@@ -1,0 +1,418 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{multicol}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\numberwithin{equation}{section}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{orange},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  showstringspaces=false
+}
+
+
+\title{Problem 5.13.16}
+\author{Sarvesh Tamgade}
+
+\date{\today} 
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section{Question}
+\begin{frame}{Question}
+\textbf{Question}:
+The equation of a circle with origin as centre and passing through the vertices of an equilateral triangle whose median is of length $3a$ is
+\begin{enumerate}
+\item $x^2 + y^2 = 9a^2$
+\item $x^2 + y^2 = 16a^2$
+\item $x^2 + y^2 = 4a^2$
+\item $x^2 + y^2 = a^2$
+\end{enumerate}
+
+
+
+\end{frame}
+
+\section{Solution}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+Let the vertices of the equilateral triangle be $\vec{A}$, $\vec{B}$, and $\vec{C}$.And the radius of circle be r.
+
+Since the circle is centered at the origin, and the radius is r:
+\begin{align}
+\vec{u} = -\myvec{0 \\ 0} = \myvec{0 \\ 0}
+\end{align}
+\begin{align}
+f=-r^2
+\end{align}
+
+Since the circle passes through $\vec{A}$:
+\begin{align}
+\norm{\vec{x}^\top\vec{x}} + 2\vec{u}^T\vec{x} + f &= 0\\
+\norm{\vec{x}^\top\vec{x}}+ 2\myvec{0 & 0}\vec{x} + f &= 0\\
+\norm{\vec{x}^\top\vec{x}} - r^2 &= 0\\
+\end{align}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+For an equilateral triangle inscribed in a circle, let us place the vertices as:
+\begin{align}
+\vec{A} &= \myvec{r \\ 0}\\
+\vec{B} &= \myvec{r\cos\theta \\ r\sin\theta}\\
+\vec{C} &= \myvec{r\cos\theta \\ -r\sin\theta}
+\end{align}
+
+The median from vertex $\vec{A}$ goes to the midpoint of $\vec{B}$ and $\vec{C}$:
+\begin{align}
+\text{Midpoint} &= \frac{\vec{B} + \vec{C}}{2} = \myvec{r\cos\theta \\ 0}
+\end{align}
+
+The median vector is:
+\begin{align}
+\vec{m} &= \myvec{r\cos\theta \\ 0} - \myvec{r \\ 0} = \myvec{r(\cos\theta - 1) \\ 0}
+\end{align}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+Given that the median length is $3a$:
+\begin{align}
+\norm{\vec{m}^\top\vec{m}} &= (3a)^2 = 9a^2\\
+r^2(\cos\theta - 1)^2 &= 9a^2
+\end{align}
+
+For an equilateral triangle, $\cos\theta = \cos\left(\frac{2\pi}{3}\right) = -\frac{1}{2}$:
+\begin{align}
+(\cos\theta - 1) &= -\frac{3}{2}\\
+r^2  \frac{9}{4} &= 9a^2\\
+r^2 &= 4a^2
+\end{align}
+
+
+
+Therefore, the equation of the circle is:
+\begin{align}
+\norm{\vec{x}^\top\vec{x}} + 2\myvec{0 & 0}\vec{x} - 4a^2 &= 0\\
+\norm{\vec{x}^\top\vec{x}} - 4a^2 &= 0
+\end{align}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Solution}
+\textbf{Answer:} The orthocentre of the triangle is
+Therefore, the equation of the circle is:
+\begin{align}
+x^2 + y^2 = 4a^2
+\end{align}
+
+The answer is (c).
+\end{frame}
+
+
+\section{Graph}
+\begin{frame}
+    \frametitle{Graph}
+    \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.65\linewidth]{FIG/fig1.png}
+    \caption{Vector Representation}
+    \label{fig:FIG/fig1.png}
+\end{figure}
+\end{frame}
+\section{ C Code}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+#include <math.h>
+#include "matfun.h"
+
+#define MEDIAN_COEFF 3.0
+
+double compute_cos_theta(void) {
+    return cos(2.0 * M_PI / 3.0);
+}
+
+double compute_coefficient_sq(void) {
+    double cos_theta = compute_cos_theta();
+    double diff = cos_theta - 1.0;
+    return diff * diff;
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+double compute_r_squared_coeff(void) {
+    double num = MEDIAN_COEFF * MEDIAN_COEFF;            
+    double denom = compute_coefficient_sq();             
+    return num / denom;                                  
+}
+
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python + C Code }
+\begin{lstlisting}[language=Python]
+import ctypes
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load the shared library (ensure libmatfun.so is in the same directory)
+matfun = ctypes.CDLL('./libmatfun.so')
+
+# Declare return types
+matfun.compute_cos_theta.restype        = ctypes.c_double
+matfun.compute_coefficient_sq.restype   = ctypes.c_double
+matfun.compute_r_squared_coeff.restype  = ctypes.c_double
+
+# 1. Compute required values via the .so functions
+cos_theta      = matfun.compute_cos_theta()        # cos(2π/3)
+coeff_sq       = matfun.compute_coefficient_sq()   // (cosθ - 1)^2
+r2_coeff       = matfun.compute_r_squared_coeff()  // r²/a² = 4
+
+
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python + C Code}
+    \begin{lstlisting}
+# 2. Print final answer
+print(f"Answer: (c) x² + y² = {int(r2_coeff)}a²")
+
+# 3. For plotting set a = 1
+a = 1.0
+r = np.sqrt(r2_coeff * a**2)
+
+# Compute triangle vertices
+theta = 2 * np.pi / 3
+A = np.array([r, 0.0])
+B = np.array([r * np.cos(theta),  r * np.sin(theta)])
+C = np.array([r * np.cos(theta), -r * np.sin(theta)])
+M = (B + C) / 2.0  # midpoint
+
+# 4. Plot
+plt.figure(figsize=(8,8))
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python + C Code }
+    \begin{lstlisting}
+    
+# Circle
+t = np.linspace(0, 2*np.pi, 200)
+plt.plot(r*np.cos(t), r*np.sin(t), 'b-', lw=2, label=f'Circle: x²+y²={int(r2_coeff)}a²')
+
+# Triangle
+plt.plot([A[0],B[0],C[0],A[0]], [A[1],B[1],C[1],A[1]],
+         'r-', lw=2, label='Equilateral Triangle')
+
+# Median
+plt.plot([A[0],M[0]], [A[1],M[1]], 'g--', lw=2, label='Median=3a')
+
+# Points and labels
+plt.plot(0,0,'ko');  plt.text(0.05,0.05, 'O(0,0)')
+plt.plot(A[0],A[1],'ro'); plt.text(A[0]+0.1,A[1]+0.1, 'A(2,0)')
+plt.plot(B[0],B[1],'ro'); plt.text(B[0]-0.4,B[1]+0.1, 'B(-1,√3)')
+
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python + C Code }
+    \begin{lstlisting}
+plt.plot(C[0],C[1],'ro'); plt.text(C[0]-0.4,C[1]-0.2, 'C(-1,-√3)')
+plt.plot(M[0],M[1],'go'); plt.text(M[0]+0.1,M[1]+0.1, 'M')
+
+
+plt.axis('equal')
+plt.xlim(-3,3); plt.ylim(-3,3)
+plt.grid(alpha=0.3)
+plt.xlabel('x'); plt.ylabel('y')
+plt.title('Circle + Equilateral Triangle (Median=3a)')
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code }
+\begin{lstlisting}[language=Python]
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Given data
+median_length_coefficient = 3  # coefficient of 'a' in median length
+
+# Matrix approach to find radius
+theta = 2 * np.pi / 3
+cos_theta = np.cos(theta)
+cos_theta_minus_1 = cos_theta - 1  # -3/2
+coefficient_squared = cos_theta_minus_1**2  # 9/4
+
+# Solve for r^2 coefficient: r^2 * (9/4) = 9a^2  =>  r^2 = 4a^2
+r_squared_coefficient = (median_length_coefficient**2) / coefficient_squared  # 4
+r = 2  # since a = 1 for plotting
+
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# Print final answer
+print(f"Answer: (c) x² + y² = {int(r_squared_coefficient)}a²")
+    return foot
+# Define triangle vertices on the circle
+A = np.array([r, 0])
+B = np.array([r * cos_theta, r * np.sin(theta)])
+C = np.array([r * cos_theta, -r * np.sin(theta)])
+midpoint_BC = (B + C) / 2
+
+# Plot setup
+plt.figure(figsize=(8, 8))
+
+# Draw circle
+theta_circle = np.linspace(0, 2*np.pi, 200)
+x_circle = r * np.cos(theta_circle)
+y_circle = r * np.sin(theta_circle)
+plt.plot(x_circle, y_circle, 'b-', linewidth=2, label=f'Circle: x² + y² = {int(r_squared_coefficient)}a²')
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+    
+# Draw circle
+theta_circle = np.linspace(0, 2*np.pi, 200)
+x_circle = r * np.cos(theta_circle)
+y_circle = r * np.sin(theta_circle)
+plt.plot(x_circle, y_circle, 'b-', linewidth=2, label=f'Circle: x² + y² = {int(r_squared_coefficient)}a²')
+# Draw triangle
+triangle_x = [A[0], B[0], C[0], A[0]]
+triangle_y = [A[1], B[1], C[1], A[1]]
+plt.plot(triangle_x, triangle_y, 'r-', linewidth=2, label='Equilateral Triangle')
+
+# Draw median from A to midpoint of BC
+plt.plot([A[0], midpoint_BC[0]], [A[1], midpoint_BC[1]], 'g--', linewidth=2, label='Median = 3a')
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# Mark and label points
+plt.plot(0, 0, 'ko')        ; plt.text(0.05, 0.05, 'O(0,0)', fontsize=12)
+plt.plot(A[0], A[1], 'ro')  ; plt.text(A[0]+0.1, A[1]+0.1, 'A(2,0)', fontsize=12)
+plt.plot(B[0], B[1], 'ro')  ; plt.text(B[0]-0.4, B[1]+0.1, 'B(-1,√3)', fontsize=12)
+plt.plot(C[0], C[1], 'ro')  ; plt.text(C[0]-0.4, C[1]-0.2, 'C(-1,-√3)', fontsize=12)
+plt.plot(midpoint_BC[0], midpoint_BC[1], 'go') ; plt.text(midpoint_BC[0]+0.1, midpoint_BC[1]+0.1, 'M', fontsize=12)
+
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# Formatting
+plt.axis('equal')
+plt.xlim(-3, 3)
+plt.ylim(-3, 3)
+plt.grid(True, alpha=0.3)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Circle with Equilateral Triangle (Median = 3a)')
+plt.legend()
+
+plt.tight_layout()
+plt.show()
+
+\end{lstlisting}
+\end{frame}
+
+\end{document}

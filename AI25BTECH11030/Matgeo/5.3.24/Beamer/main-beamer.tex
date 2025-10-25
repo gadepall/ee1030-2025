@@ -1,0 +1,343 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{multicol}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\numberwithin{equation}{section}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{orange},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  showstringspaces=false
+}
+
+
+\title{Problem 5.3.24}
+\author{Sarvesh Tamgade}
+
+\date{\today} 
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section{Question}
+\begin{frame}{Question}
+\textbf{Question}:
+Solve the following pair of linear equations:
+\begin{align}
+   3x - 5y = 4 
+\end{align}
+\begin{align}
+    2y + 7 = 9x
+\end{align}
+\end{frame}
+
+\section{Solution}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+The equation of a line:
+\begin{align}
+\vec{n^T} \vec{x} = c
+\end{align}
+
+Line \(L\):
+\begin{align}
+\myvec{3 & -5} \vec{x} = 4
+\end{align}
+
+Line \(K\):
+\begin{align}
+\myvec{9 & -2} \vec{x} = 7
+\end{align}
+
+Combining both the equations:
+\begin{align}
+\myvec{3 & -5 \\ 9 & -2} \vec{x} = \myvec{4 \\ 7}
+\end{align}
+
+Writing the augmented matrix:
+\begin{align}
+\myaugvec{2}{
+3 & -5 & 4 \\
+9 & -2 & 7
+}
+\end{align}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+Perform the row operation \( R_2 \to R_2 - 3 R_1 \):
+\begin{align}
+\myaugvec{2}{
+3 & -5 & 4 \\
+0 & 13 & -5
+}
+\end{align}
+
+Perform the row operation \( R_2 \to \frac{1}{13} R_2 \):
+\begin{align}
+\myaugvec{2}{
+3 & -5 & 4 \\
+0 & 1 & -\frac{5}{13}
+}
+\end{align}
+
+Back substitute using \( R_1 \to R_1 + 5 R_2 \):
+\begin{align}
+\myaugvec{2}{
+3 & 0 & \frac{27}{13} \\
+0 & 1 & -\frac{5}{13}
+}
+\end{align}
+
+Therefore, the solution vector is:
+\begin{align}
+\vec{x} = \myvec{\frac{9}{13} \\ -\frac{5}{13}}
+\end{align}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+\textbf{Final Answer:} Therefore, the solution vector is:
+\[
+\boxed{
+\vec{x} = \myvec{\frac{9}{13} \\ -\frac{5}{13}}
+}
+\]
+
+
+\end{frame}
+
+\section{Graph}
+\begin{frame}
+    \frametitle{Graph}
+    \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.65\linewidth]{FIG/fig1.png}
+    \caption{Vector Representation}
+    \label{fig:FIG/fig1.png}
+\end{figure}
+\end{frame}
+\section{ C Code}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+include "matfun.h"
+
+// Solve 2x2 system using Cramer's rule (appropriate for this fixed size)
+void solve_linear_system(double A[2][2], double B[2], double X[2]) {
+    double det = A[0][0]*A[1][1] - A[0][1]*A[1][0];
+    if (det == 0) {
+        // No unique solution
+        X[0] = X[1] = 0;
+        return;
+    }
+    X[0] = (B[0]*A[1][1] - B[1]*A[0][1]) / det;
+    X[1] = (A[0][0]*B[1] - A[1][0]*B[0]) / det;
+}
+
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python + C Code }
+\begin{lstlisting}[language=Python]
+import ctypes
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load shared library
+lib = ctypes.CDLL('./matfun.so')
+
+# Define C function argument and return types
+lib.solve_linear_system.argtypes = [
+    ctypes.POINTER(ctypes.c_double),
+    ctypes.POINTER(ctypes.c_double),
+    ctypes.POINTER(ctypes.c_double)
+]
+lib.solve_linear_system.restype = None
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python + C Code}
+    \begin{lstlisting}
+ # Define matrix A and vector B for the system
+A_c = (ctypes.c_double * 4)(3, -5, 9, -2)
+B_c = (ctypes.c_double * 2)(4, 7)
+X_c = (ctypes.c_double * 2)()
+
+# Call the C function to solve the system
+lib.solve_linear_system(A_c, B_c, X_c)
+
+# Print solution as a column vector
+print("Solution (column vector form):")
+print(f"[\n [{X_c[0]}],\n [{X_c[1]}]\n]")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python + C Code }
+    \begin{lstlisting}
+# Plot the lines corresponding to the equations
+a1, b1 = 3, -5
+c1 = 4
+a2, b2 = 9, -2
+c2 = 7
+
+x_vals = np.linspace(-10, 10, 400)
+y1 = (c1 - a1 * x_vals) / b1
+y2 = (c2 - a2 * x_vals) / b2
+
+plt.plot(x_vals, y1, label='3x - 5y = 4')
+plt.plot(x_vals, y2, label='9x - 2y = 7')
+
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python + C Code }
+    \begin{lstlisting}
+# Plot the solution point
+plt.scatter(X_c[0], X_c[1], color='red', label='Solution point', zorder=5)
+
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Graph of the Linear System ')
+plt.legend()
+plt.grid(True)
+plt.savefid("fig1.png")
+plt.show()
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python Code }
+\begin{lstlisting}[language=Python]
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Coefficient matrix and RHS from the image
+A = np.array([
+    [3, -5],
+    [9, -2]
+])
+b = np.array([4, 7])
+
+# Solve for vector x
+x = np.linalg.solve(A, b)
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# Print solution in matrix form
+print("Solution vector x:")
+print(np.array([[x[0]], [x[1]]]))
+
+# Plot both lines
+fig, ax = plt.subplots()
+
+# Line L: 3x - 5y = 4 => y = (3x - 4)/5
+x_vals = np.linspace(-2, 6, 100)
+y_L = (3*x_vals - 4)/5
+ax.plot(x_vals, y_L, label='3x - 5y = 4 (L)')
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# Line K: 9x - 2y = 7 => y = (9*x_vals - 7)/2
+y_K = (9*x_vals - 7)/2
+ax.plot(x_vals, y_K, label='9x - 2y = 7 (K)')
+
+# Mark intersection point
+ax.plot(x[0], x[1], 'ro', label='Intersection')
+
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.legend()
+ax.grid(True)
+ax.set_title('Graph of the two lines')
+
+plt.savefig('fig1.png')
+plt.show()
+\end{lstlisting}
+\end{frame}
+
+
+\end{document}

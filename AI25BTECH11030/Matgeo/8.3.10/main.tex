@@ -1,0 +1,190 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+%\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=4em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{8.3.10}
+\author{AI25BTECH11030 -Sarvesh Tamgade}
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} 
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+
+\textbf{Question}:
+If the eccentricity of an ellipse is $\frac{5}{8}$ and the distance between its foci is $10$, then find the latus rectum of the ellipse.
+
+
+\textbf{Solution}:  
+Given:
+\begin{itemize}
+\item Eccentricity: $e = \frac{5}{8}$
+\item Distance between foci: $D = 10$
+\end{itemize}
+
+\textbf{Step 1: Express the foci for standard ellipse}
+
+From B.2.7.3, the foci for standard ellipse are at:
+
+\begin{align}
+\vec{F} = \pm\sqrt{\frac{f_0}{\lambda_2(1-e^2)}} \vec{e_1}
+\end{align}
+
+where $f_0$ is the scalar term in the conic equation and $\lambda_2$ is an eigenvalue of matrix $\vec{V}$.
+
+\textbf{Step 2: Distance between foci}
+
+The distance between foci is:
+
+\begin{align}
+D = 2\sqrt{\frac{f_0}{\lambda_2(1-e^2)}}
+\end{align}
+
+\textbf{Step 3: Solve for $f_0$}
+
+From equation (2):
+
+\begin{align}
+\frac{D}{2} &= \sqrt{\frac{f_0}{\lambda_2(1-e^2)}}
+\end{align}
+
+Squaring both sides:
+
+\begin{align}
+\frac{D^2}{4} &= \frac{f_0}{\lambda_2(1-e^2)}
+\end{align}
+
+Therefore:
+
+\begin{align}
+f_0 &= \frac{D^2 \lambda_2(1-e^2)}{4}
+\end{align}
+
+\textbf{Step 4: Eigenvalues for standard ellipse}
+
+For the standard ellipse, from the conic section theory:
+
+\begin{align}
+\lambda_1 &= \frac{||\vec{n}||^2}{1-e^2}
+\end{align}
+
+\begin{align}
+\lambda_2 &= ||\vec{n}||^2
+\end{align}
+
+For the standard form with $||\vec{n}||^2 = 1$:
+
+\begin{align}
+\lambda_1 &= \frac{1}{1-e^2}
+\end{align}
+
+\begin{align}
+\lambda_2 &= 1
+\end{align}
+
+\textbf{Step 5: Calculate $f_0$ with $\lambda_2 = 1$}
+
+Substituting $\lambda_2 = 1$ into equation (5):
+
+\begin{align}
+f_0 &= \frac{D^2(1-e^2)}{4}
+\end{align}
+
+Therefore:
+
+\begin{align}
+\sqrt{f_0} &= \frac{D\sqrt{1-e^2}}{2}
+\end{align}
+
+\textbf{Step 6: Matrix formulation for latus rectum}
+The length of latus rectum is given by :
+
+\begin{align}
+\ell = \frac{2\sqrt{f_0 \lambda_1}}{\lambda_2}
+\end{align}
+
+Substituting the values of $f_0$, $\lambda_1$ and $\lambda_2$ 
+\begin{align}
+\ell &= \frac{D(1-e^2)}{e}
+\end{align}
+
+\textbf{Step 7: Substitute the given values}
+
+Given $e = \frac{5}{8}$ and $D = 10$:
+
+\begin{align}
+1 - e^2 &= 1 - \left(\frac{5}{8}\right)^2 = 1 - \frac{25}{64} = \frac{39}{64}
+\end{align}
+
+Substituting into the latus rectum formula:
+\begin{align}
+\ell &= \frac{390 \times 8}{64 \times 5} = \frac{3120}{320} = \frac{39}{4}
+\end{align}
+
+\textbf{Final Answer:}
+The length of latus rectum is :
+
+\begin{align}
+\boxed{\ell = \frac{39}{4}}
+\end{align}
+\newpage
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.65\linewidth]{FIG/fig1.png}
+    \caption{Vector Representation}
+    \label{fig:FIG/fig1.png}
+    \end{figure}
+
+\end{document}  

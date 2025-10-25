@@ -1,0 +1,216 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+%\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=4em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{5.13.16}
+\author{AI25BTECH11030 -Sarvesh Tamgade}
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} 
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+
+\textbf{Question}:Let \( k \) be an integer such that the triangle with vertices 
+\[
+\vec{A} = \myvec{ k \\ -3k }, \quad 
+\vec{B} = \myvec{ 5 \\ k }, \quad 
+\vec{C} = \myvec{ -k \\ 2 }
+\]
+has area 28 sq. units. Find the orthocenter of the triangle.
+
+
+\textbf{Solution}:  
+\begin{align}
+\text{Area} &= \frac{1}{2} \left| \vec{M} \right| = 28
+\end{align}
+
+\begin{align}
+\text{where} \quad
+\vec{M} = \myvec{
+\vec{B} - \vec{A} & \vec{C} - \vec{A}
+}
+= \myvec{
+5-k & -2k \\
+4k & 2 + 3k
+}
+\end{align}
+
+\begin{align}
+\det(\vec{M}) &= (5-k)(2+3k) - (-2k)(4k) = 10 + 13k + 5k^2
+\end{align}
+
+\begin{align}
+10 + 13k + 5k^2 &= \pm 56
+\end{align}
+
+After solving,
+\begin{align}
+k &= 2
+\end{align}
+
+\begin{align}
+\text{For } k=2, \quad \vec{A} = \myvec{2 \\ -6}, \quad \vec{B} = \myvec{5 \\ 2}, \quad \vec{C} = \myvec{-2 \\ 2}
+\end{align}
+
+The equation of the altitude through \( \vec{A} \) is:
+\begin{align}
+\vec{n}^T \vec{x} = 1
+\end{align}
+
+This altitude passes through \( \vec{A} \), so
+\begin{align}
+\vec{n}^T \vec{A} = 1
+\end{align}
+\begin{align}
+\vec{n}^\top \myvec{2 \\ -6} = 1
+\end{align}
+
+and the normal vector \( \vec{n} \) of the altitude must be parallel to \( \vec{B} - \vec{C} \):
+\begin{align}
+\vec{n} = t \myvec{7 \\ 0}
+\end{align}
+
+Substitute to get:
+\begin{align}
+t \myvec{7 \\ 0}^\top \myvec{2 \\ -6} = 1 \implies 14 t = 1 \implies t = \frac{1}{14}
+\end{align}
+
+Hence,
+\begin{align}
+\vec{n} = \myvec{\frac{1}{2} \\ 0}
+\end{align}
+
+The equation of altitude through \( \vec{A} \) is:
+\begin{align}
+\myvec{\frac{1}{2} & 0} \vec{x} = 1
+\end{align}
+
+\vspace{1em}
+
+The equation of the altitude through \( \vec{B} \) is:
+\begin{align}
+\vec{n}^T \vec{x} = 1
+\end{align}
+
+This altitude passes through \( \vec{B} \), so
+\begin{align}
+\vec{n}^T \vec{B} = 1
+\end{align}
+\begin{align}
+\vec{n}^\top \myvec{5 \\ 2} = 1
+\end{align}
+
+and the normal vector \( \vec{n} \) must be parallel to \( \vec{A} - \vec{C} \):
+\begin{align}
+\vec{n} = t \myvec{4 \\ -8}
+\end{align}
+
+Substitute to get:
+\begin{align}
+t \myvec{4 \\ -8}^\top \myvec{5 \\ 2} = 1 \implies t (20 - 16) = 1 \implies 4 t = 1 \implies t = \frac{1}{4}
+\end{align}
+
+Hence,
+\begin{align}
+\vec{n} = \myvec{1 \\ -2}
+\end{align}
+
+The equation of altitude through \( \vec{B} \) is:
+\begin{align}
+\myvec{1 & -2} \vec{x} = 1
+\end{align}
+
+Combining equations (0.13) and (0.20):
+\begin{align}
+\myvec{\frac{1}{2} & 0 \\ 1 & -2} \vec{x} = \myvec{1 \\ 1}
+\end{align}
+
+Writing the augmented matrix:
+\begin{align}
+\myaugvec{2}{
+\frac{1}{2} & 0 & 1 \\
+1 & -2  & 1
+}
+\end{align}
+
+Perform the row operation \( R_2 \to R_2 - 2 R_1 \):
+\begin{align}
+\myaugvec{2}{
+\frac{1}{2} & 0 & 1 \\
+0 & -2 & -1
+}
+\end{align}
+
+Therefore, the solution vector is:
+\begin{align}
+\vec{x} = \myvec{2 \\ \frac{1}{2}}
+\end{align}
+
+\textbf{Answer:} The orthocentre of the triangle is
+\[
+\boxed{
+\vec{x} = \myvec{2 \\ \frac{1}{2}}
+}
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.65\linewidth]{FIG/fig1.png}
+    \caption{Vector Representation}
+    \label{fig:FIG/fig1.png}
+    \end{figure}
+
+\end{document}  

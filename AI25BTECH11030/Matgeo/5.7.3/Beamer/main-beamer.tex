@@ -1,0 +1,338 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\lstset{literate={·}{{$\cdot$}}1 {λ}{{$\lambda$}}1 {→}{{$\to$}}1}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\numberwithin{equation}{section}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{orange},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  breaklines=true,
+  showstringspaces=false
+}
+
+
+\title{Problem 5.7.3}
+\author{Sarvesh Tamgade}
+
+\date{\today} 
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section{Question}
+\begin{frame}{Question}
+\textbf{Question}:
+For the matrix
+\[
+\myvec{
+1 & 1 & 1 \\
+1 & 2 & -2 \\
+2 & -1 & 3
+},
+\]
+show that
+\begin{align}
+A^3 - 6A^2 + 5A + 11I &= 0.
+\end{align}
+Find \(A^{-1}\). 
+\end{frame}
+
+\section{Solution}
+\begin{frame}[fragile]
+    \frametitle{Solution}
+\textbf{Solution:} \
+The characteristic equation is
+\begin{align}
+\left|\myvec{
+1-\lambda & 1 & 1 \\
+1 & 2-\lambda & -2 \\
+2 & -1 & 3-\lambda
+} \right| &= 0,
+\end{align}
+which expands to
+\begin{align}
+\lambda^3 - 6 \lambda^2 + 5 \lambda + 11 &= 0.
+\end{align}
+By Cayley-Hamilton theorem,
+\begin{align}
+A^3 - 6A^2 + 5A + 11I &= 0.
+\end{align}
+Rearranging,
+\begin{align}
+11I &= -A^3 + 6A^2 - 5A,
+\end{align}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+    \frametitle{Solution}
+
+and multiplying both sides by \(A^{-1}\),
+\begin{align}
+A^{-1} &= \frac{1}{11}(-A^2 + 6A - 5I) \\
+&= \frac{1}{11} \myvec{
+-3 & 4 & 4 \\
+7 & 0 & -3 \\
+5 & -3 & 0
+}.
+\end{align}
+
+\textbf{Final Answer:}
+\begin{align}
+A^{-1} &= \myvec{
+-\frac{3}{11} & \frac{4}{11} & \frac{4}{11} \\
+\frac{7}{11} & 0 & -\frac{3}{11} \\
+\frac{5}{11} & -\frac{3}{11} & 0
+}.
+\end{align}
+\end{frame}
+\section{ C Code}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+#include <stdio.h>
+#include "matfun.h"
+
+void matmult(double A[SIZE][SIZE], double B[SIZE][SIZE], double res[SIZE][SIZE]) {
+    for(int i=0; i<SIZE; i++) {
+        for(int j=0; j<SIZE; j++) {
+            res[i][j] = 0.0;
+            for(int k=0; k<SIZE; k++) {
+                res[i][j] += A[i][k] * B[k][j];
+            }
+        }
+    }
+}
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+void matscalarmult(double scalar, double A[SIZE][SIZE], double res[SIZE][SIZE]) {
+    for(int i=0; i<SIZE; i++) {
+        for(int j=0; j<SIZE; j++) {
+            res[i][j] = scalar * A[i][j];
+        }
+    }
+}
+
+void matadd(double A[SIZE][SIZE], double B[SIZE][SIZE], double res[SIZE][SIZE]) {
+    for(int i=0; i<SIZE; i++) {
+        for(int j=0; j<SIZE; j++) {
+            res[i][j] = A[i][j] + B[i][j];
+        }
+    }
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+void matsub(double A[SIZE][SIZE], double B[SIZE][SIZE], double res[SIZE][SIZE]) {
+    for(int i=0; i<SIZE; i++) {
+        for(int j=0; j<SIZE; j++) {
+            res[i][j] = A[i][j] - B[i][j];
+        }
+    }
+}
+
+void matidentity(double I[SIZE][SIZE]) {
+    for(int i=0; i<SIZE; i++) {
+        for(int j=0; j<SIZE; j++) {
+            I[i][j] = (i == j) ? 1.0 : 0.0;
+        }
+    }
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C Code }
+\begin{lstlisting}[language=C]
+void compute_inverse(double A[SIZE][SIZE], double A_inv[SIZE][SIZE]) {
+    double A2[SIZE][SIZE], negA2[SIZE][SIZE];
+    double sixA[SIZE][SIZE], neg5I[SIZE][SIZE];
+    double temp[SIZE][SIZE], I[SIZE][SIZE];
+
+    matmult(A, A, A2);
+    matscalarmult(-1, A2, negA2);
+    matscalarmult(6, A, sixA);
+
+    matidentity(I);
+    matscalarmult(-5, I, neg5I);
+
+    matadd(negA2, sixA, temp);
+    matadd(temp, neg5I, temp);
+
+    matscalarmult(1.0/11.0, temp, A_inv);
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python + C Code }
+\begin{lstlisting}[language=Python]
+import ctypes
+import numpy as np
+
+SIZE = 3
+
+lib = ctypes.CDLL('./libmatfun.so')
+
+Matrix3x3 = ctypes.c_double * (SIZE*SIZE)
+
+def np_to_c_matrix(np_mat):
+    flat = np_mat.flatten()
+    return Matrix3x3(*flat)
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python + C Code}
+    \begin{lstlisting}
+def c_matrix_to_np(c_mat):
+    return np.array(list(c_mat)).reshape((SIZE, SIZE))
+
+# Prototype for compute_inverse
+lib.compute_inverse.argtypes = [ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_double)]
+
+# Matrix A
+A_np = np.array([[1,1,1],
+                [1,2,-2],
+                [2,-1,3]], dtype=np.double)
+
+A_c = np_to_c_matrix(A_np)
+A_inv_c = Matrix3x3()
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python + C Code }
+    \begin{lstlisting}
+# Call the C function
+lib.compute_inverse(A_c, A_inv_c)
+
+A_inv_np = c_matrix_to_np(A_inv_c)
+
+print("Inverse matrix A^-1:")
+for row in A_inv_np:
+    print(" ".join(f"{x: .4f}" for x in row))
+
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python Code }
+\begin{lstlisting}[language=Python]
+import numpy as np
+
+# Define the given matrix A
+A = np.array([
+    [1, 1, 1],
+    [1, 2, -2],
+    [2, -1, 3]
+])
+I = np.eye(3)
+
+# Calculate powers as needed
+A2 = np.matmul(A, A)
+A3 = np.matmul(A2, A)
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+
+# Use Cayley-Hamilton theorem result to compute inverse
+# A^{-1} = 1/11 * ( -A^2 + 6A - 5I )
+A_inv = ( -A2 + 6*A - 5*I ) / 11
+
+# Print the inverse matrix
+print('Inverse of A:')
+for row in A_inv:
+    print([f'{elem:.4f}' for elem in row])
+
+\end{lstlisting}
+\end{frame}
+
+\end{document}
