@@ -1,0 +1,151 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{12.671}
+\author{EE25BTECH11033 - Kavin}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+\textbf{Question}:\\
+For real numbers $a, b, c$, let 
+$\vec{M} = \myvec{
+a & ac & 0 \\
+1 & c  & 0 \\
+b & bc & 1}.$
+Then, which of the following statements is {TRUE}?\hfill {(ST 2020)}
+\begin{enumerate}
+\item $\text{Rank}(\vec{M}) = 3$ for every $a,b,c \in \mathbb{R}$
+\item If $a+c=0$ then $\vec{M}$ is diagonalizable for every $b \in \mathbb{R}$
+\item $\vec{M}$ has a pair of orthogonal eigenvectors for every $a,b,c \in \mathbb{R}$
+\item If $b=0$ and $a+c=1$ then $M$ is {NOT} idempotent
+\end{enumerate}\\    
+\bigskip
+
+\textbf{Solution}:\\
+First, let's find the eigenvalues of $\vec{M}$ by solving the characteristic equation $\mydet{\vec{M} - \lambda \vec{I}} = 0$.
+\begin{align}  
+\begin{mydet}{ a-\lambda & ac & 0 \\ 1 & c-\lambda & 0 \\ b & bc & 1-\lambda }\end{mydet} = 0 
+\end{align}
+Expanding along the third column:
+\begin{align*}
+(1-\lambda) \begin{mydet}{ a-\lambda & ac \\ 1 & c-\lambda }\end{mydet} &= 0 \\
+(1-\lambda) [(a-\lambda)(c-\lambda) - ac] &= 0 \\
+(1-\lambda) [ac - a\lambda - c\lambda + \lambda^2 - ac] &= 0 \\
+(1-\lambda) [\lambda^2 - (a+c)\lambda] &= 0 \\
+(1-\lambda) \lambda (\lambda - (a+c)) &= 0
+\end{align*}
+The eigenvalues are $\lambda_1 = 1$, $\lambda_2 = 0$, and $\lambda_3 = a+c$.\\
+\bigskip
+
+\subsection*{1) Rank(\vec{M}) = 3 for every $a,b,c \in \mathbb{R}$}
+The rank of a square matrix is equal to its dimension if and only if its determinant is non-zero. Let's calculate the determinant of \vec{M}.
+\begin{align} 
+\mydet{\vec{M}} =  \begin{mydet}{ a & ac & 0 \\ 1 & c & 0 \\ b & bc & 1 }\end{mydet}
+\end{align}
+Expanding along the third column:
+\begin{align}
+    \mydet{\vec{M}} = 1 \cdot \begin{vmatrix} a & ac \\ 1 & c \end{vmatrix} = a(c) - ac(1) = ac - ac = 0
+\end{align}  
+Since the determinant of \vec{M} is always 0, its rank can never be 3. \\
+\textbf{Therefore, statement 1 is FALSE.}
+
+\subsection*{2) If $a + c = 0$ then \vec{M} is diagonalizable for every $b \in \mathbb{R}$}
+If $a+c=0$, the eigenvalues of \vec{M} are $\lambda = 1, 0, 0$.
+For the matrix to be diagonalizable, the algebraic multiplicity (AM) of each eigenvalue must equal its geometric multiplicity (GM). The eigenvalue $\lambda=0$ has an AM of 2. Its GM is given by $n - \text{rank}(\vec{M} - 0I) = 3 - \text{rank}(\vec{M})$. We need the GM to be 2, which means we need $\text{rank}(\vec{M})=1$.
+
+Let's check the rank of \vec{M} when $a+c=0$ (i.e., $c=-a$).
+\begin{align} 
+\vec{M} = \begin{myvec}{ a & -a^2 & 0 \\ 1 & -a & 0 \\ b & -ab & 1 }\end{myvec} 
+\end{align}
+Consider the 2x2 minor formed by rows 2 and 3, and columns 2 and 3:
+\begin{align} 
+\begin{mydet} {-a & 0 \\ -ab & 1 }\end{mydet} = -a 
+\end{align}
+If $a \neq 0$, this minor is non-zero, which means the rank of \vec{M} is at least 2. Since $\mydet{\vec{M}}=0$, the rank is exactly 2. If $\text{rank}(\vec{M})=2$, the GM of $\lambda=0$ is $3-2=1$. This does not equal the AM of 2. Thus, the matrix is not diagonalizable when $a \neq 0$. \\
+\textbf{Therefore, statement 2 is FALSE.}
+
+\subsection*{3) \vec{M} has a pair of orthogonal eigenvectors for every $a,b,c \in \mathbb{R}$}
+Let's find the eigenvectors for two distinct eigenvalues, $\lambda_1=1$ and $\lambda_2=0$.
+\paragraph{Eigenvector for $\lambda_1 = 1$:} We solve $(\vec{M}-I)v = 0$:
+\begin{align} \begin{myvec}{ a-1 & ac & 0 \\ 1 & c-1 & 0 \\ b & bc & 0 }\end{myvec} \begin{myvec}{ x \\ y \\ z }\end{myvec} = \begin{myvec}{ 0 \\ 0 \\ 0 }\end{myvec} 
+\end{align}
+The third column is all zeros, which implies that a vector of the form $v_1 = (0, 0, 1)^T$ is a valid eigenvector.
+
+\paragraph{Eigenvector for $\lambda_2 = 0$:} We solve $\vec{M}v=0$:
+\begin{align} 
+\begin{myvec}{ a & ac & 0 \\ 1 & c & 0 \\ b & bc & 1 }\end{myvec} \begin{myvec}{ x \\ y \\ z }\end{myvec} = \begin{myvec}{ 0 \\ 0 \\ 0 }\end{myvec} 
+\end{align}
+From the first two rows, we get $x+cy=0$. A possible non-trivial solution is $x=-c, y=1$. Substituting into the third row: $b(-c) + bc(1) + z = 0 \implies z=0$. So, an eigenvector is $v_2 = (-c, 1, 0)^T$.
+
+\paragraph{Orthogonality Check:}
+\begin{align} v_1 \cdot v_2 = (0, 0, 1) \cdot (-c, 1, 0) = 0 \cdot (-c) + 0 \cdot 1 + 1 \cdot 0 = 0 
+\end{align}
+Since their dot product is 0, the eigenvectors are orthogonal. This pair exists for any $a,b,c \in \mathbb{R}$. \\
+\textbf{Therefore, statement 3 is TRUE.}
+
+\subsection*{4) If $b = 0$ and $a + c = 1$ then $\vec{M}$ is NOT idempotent}
+An idempotent matrix is one for which $\vec{M}^2 = \vec{M}$. Applying the conditions $b=0$ and $a+c=1$:
+\begin{align} \vec{M} = \begin{myvec}{ a & ac & 0 \\ 1 & c & 0 \\ 0 & 0 & 1 }\end{myvec} \end{align}
+Now we compute $\vec{M}^2$:
+\begin{align} \vec{M}^2 = \begin{myvec}{ a & ac & 0 \\ 1 & c & 0 \\ 0 & 0 & 1 }\end{myvec} \begin{myvec}{ a & ac & 0 \\ 1 & c & 0 \\ 0 & 0 & 1 }\end{myvec} = \begin{myvec}{ a^2+ac & a^2c+ac^2 & 0 \\ a+c & ac+c^2 & 0 \\ 0 & 0 & 1 }\end{myvec} \end{align}
+Using the condition $a+c=1$:
+\begin{itemize}
+    \item $a^2+ac = a(a+c) = a(1) = a$
+    \item $a^2c+ac^2 = ac(a+c) = ac(1) = ac$
+    \item $a+c = 1$
+    \item $ac+c^2 = c(a+c) = c(1) = c$
+\end{itemize}
+Substituting these back into $\vec{M}^2$:
+\begin{align} \vec{M}^2 = \begin{myvec}{ a & ac & 0 \\ 1 & c & 0 \\ 0 & 0 & 1 }\end{myvec} = \vec{M} \end{align}
+Since $\vec{M}^2=\vec{M}$, the matrix is idempotent. The statement says it is NOT idempotent. \\
+\textbf{Therefore, statement 4 is FALSE.}
+
+
+\end{document}
+
+

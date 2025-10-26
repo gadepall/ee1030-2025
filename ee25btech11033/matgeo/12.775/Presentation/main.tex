@@ -1,0 +1,174 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\begin{document}
+
+\title 
+{12.775}
+\date{October 11,2025}
+
+
+\author 
+{Kavin B-EE25BTECH11033}
+
+
+
+
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Choose solution set $S$ corresponding to the systems of two equations
+    \begin{align*}
+    x - 2y + z &= 0 \\
+    x - z &= 0
+    \end{align*}
+    \begin{enumerate}
+        \item $S = \left\{ \alpha \myvec{ 1 \\ 1 \\ 1 } \middle| \alpha \in \mathbb{R} \right\}$
+        \item $S = \left\{ \alpha \myvec{ 1 \\ 1 \\ 1 } + \beta \myvec{ 1 \\ 0 \\ 1 } \middle| \alpha, \beta \in \mathbb{R} \right\}$
+        \item $S = \left\{ \alpha \myvec{ 1 \\ 1 \\ 1 } + \beta \myvec{ 2 \\ 1 \\ 2 } \middle| \alpha, \beta \in \mathbb{R} \right\}$
+        \item $S = \left\{ \alpha \myvec{ 1 \\ 0 \\ 1 } \middle| \alpha \in \mathbb{R} \right\}$
+    \end{enumerate}\\    
+\bigskip
+
+\end{frame}
+
+
+
+\begin{frame}{Theoretical Solution}
+We are given a homogeneous system of two linear equations with three variables ($x$, $y$, $z$). We need to find all vectors $\begin{myvec}{ x \\ y \\ z }\end{myvec}$ that satisfy both equations simultaneously.
+
+We can solve this system using substitution.
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+\begin{itemize}
+    \item \textbf{From the second equation:}
+    \begin{align}
+    x - z = 0 \implies x = z
+    \end{align}
+    
+    \item \textbf{Substitute $x = z$ into the first equation:}
+    \begin{align}
+        (z) - 2y + z &= 0 \\
+        2z - 2y &= 0 \\
+        2z &= 2y \\
+        z &= y
+    \end{align}
+    
+    \item \textbf{Combine the results:}
+    We have found that $x = z$ and $y = z$. Therefore, all three variables must be equal:
+    \begin{align}
+    x = y = z
+    \end{align}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+Since we have three variables ($x, y, z$) but only two independent equations, we have one free variable. We can express the solution set in terms of a single parameter, let's call it $\alpha \in \mathbb{R}$.
+
+\begin{itemize}
+    \item Let the free variable be $z = \alpha$.
+    \item Since $y = z$, then $y = \alpha$.
+    \item Since $x = z$, then $x = \alpha$.
+\end{itemize}
+
+The solution vectors are of the form:
+\begin{align}
+\begin{myvec}{ x \\ y \\ z }\end{myvec} = 
+\begin{myvec}{ \alpha \\ \alpha \\ \alpha }\end{myvec}
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+    We can factor out the parameter $\alpha$:
+\begin{align}
+\alpha \begin{myvec}{ 1 \\ 1 \\ 1 }\end{myvec}
+\end{align}
+The solution set $S$ is the set of all possible vectors of this form for any real number $\alpha$.
+
+Therefore, the solution set is:
+\begin{align}
+S = \left\{ \alpha \begin{myvec}{ 1 \\ 1 \\ 1 }\end{myvec} \mid \alpha \in \mathbb{R} \right\}
+\end{align}
+
+\end{frame}
+
+
+\begin{frame}{Plot}
+    \centering
+    \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{figs/fig.png}
+\end{frame}
+
+
+\end{document}
+

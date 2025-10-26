@@ -1,0 +1,177 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\begin{document}
+
+\title 
+{12.359}
+\date{October 4,2025}
+
+
+\author 
+{Kavin B-EE25BTECH11033}
+
+
+
+
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Which one of the following statements is NOT CORRECT?
+
+\begin{enumerate}
+\item A well-conditioned matrix has a condition number close to 1  
+\item An ill-conditioned matrix has a large condition number  
+\item The inverse of a well-conditioned matrix can be computed accurately  
+\item A non-invertible matrix has a condition number close to 1  
+\end{enumerate}\\    
+\bigskip
+\end{frame}
+
+
+
+\begin{frame}{Theoretical Solution}
+The \textbf{condition number} of an invertible matrix $\vec{A}$, denoted as $\kappa(\vec{A})$, is defined as:
+\begin{align}
+    \kappa(\vec{A}) = \norm{\vec{A}} \norm{\vec{A}^{-1}}
+\end{align}
+where,
+\begin{align*}
+    \norm{\vec{A}} = \text{norm of matrix $\vec{A}$}
+\end{align*}
+It measures how much the output of a linear system $\vec{A}\vec{x}=b$ can change for a small change in the input data.\\
+\bigskip
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+The most theoretically important and widely used condition number is the one defined with respect to the \textbf{matrix 2-norm} (also known as the spectral norm).
+
+The 2-norm of a matrix $\vec{A}$, $\norm{\vec{A}}_2$, is its largest singular value, $\sigma_{\text{max}}(\vec{A})$. The 2-norm of its inverse, $\norm{\vec{A^{-1}}}_2$, is the reciprocal of the smallest singular value of $\vec{A}$, $1/\sigma_{\text{min}}(\vec{A})$.
+
+Therefore, the \textbf{spectral condition number}, denoted $\kappa_2(\vec{A})$, is defined as the ratio of the largest to the smallest singular value of the matrix:
+\begin{align}
+\kappa_2(\vec{A}) = \frac{\sigma_{\text{max}}(\vec{A})}{\sigma_{\text{min}}(\vec{A})}
+\end{align}
+where:
+\begin{itemize}
+    \item $\sigma_{\text{max}}(\vec{A})$ is the largest singular value of $\vec{A}$.
+    \item $\sigma_{\text{min}}(\vec{A})$ is the smallest singular value of $\vec{A}$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+\textbf{For a symmetric positive definite matrix}, the singular values are the same as the eigenvalues. In this special case, the definition simplifies to the ratio of the largest to the smallest eigenvalue:
+\begin{align}
+\kappa_2(\vec{A}) = \frac{\lambda_{\text{max}}(\vec{A})}{\lambda_{\text{min}}(\vec{A})} \quad (\text{for symmetric positive definite } \vec{A})
+\end{align}
+What the Condition Number Measures:
+
+The condition number provides a measure of the sensitivity of the solution of a linear system of equations $\vec{A}\vec{x} = \vec{b}$ to errors or perturbations in the input data ($\vec{A}$ or $\vec{b}$).
+
+Specifically, it bounds the maximum possible relative error in the solution $x$ for a given relative error in the input vector $b$. aThe fundamental inequality is:
+\begin{align}
+\frac{\norm{\delta \vec{x}}}{\vec{x}} \le \kappa(\vec{A}) \frac{\norm{\vec{b}}}{\vec{b}}
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+Interpretation:
+\begin{itemize}
+    \item \textbf{If $\kappa(\vec{A})$ is small (close to 1)}, the matrix is \textbf{well-conditioned}. This means that small relative errors in $\vec{b}$ will only lead to small relative errors in the solution $\vec{x}$. The solution is stable and reliable.
+    \item \textbf{If $\kappa(\vec{A})$ is large}, the matrix is \textbf{ill-conditioned} or \textbf{poorly-conditioned}. This means that a tiny relative error in $\vec{b}$ can be magnified into a very large relative error in the solution $\vec{x}$. The solution is unstable and may be unreliable from a numerical perspective.
+\end{itemize}\\
+
+\bigskip
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+\begin{itemize}
+    \item[\textbf{1)}] \textbf{A well-conditioned matrix has a condition number close to 1:} This is \textbf{CORRECT}. The smallest possible condition number is 1 (for example, the identity matrix). A value close to 1 indicates that the matrix is numerically stable.\\
+
+    \item[\textbf{2)}] \textbf{An ill-conditioned matrix has a large condition number:} This is \textbf{CORRECT}. This is the definition of an ill-conditioned matrix. A large condition number means that small errors in the input can lead to very large errors in the solution.\\
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+\begin{itemize}
+    \item[\textbf{3)}] \textbf{The inverse of a well-conditioned matrix can be computed accurately:} This is \textbf{CORRECT}. Because a well-conditioned matrix is not sensitive to small perturbations, numerical algorithms used to compute its inverse will produce results with high accuracy.\\
+
+    \item[\textbf{4)}] \textbf{A non-invertible matrix has a condition number close to 1:} This is \textbf{NOT CORRECT}. A non-invertible (or singular) matrix does not have an inverse $\vec{A}^{-1}$. For the purposes of conditioning, its inverse is considered to have an infinite norm. Therefore, the condition number of a non-invertible matrix is defined to be \textbf{infinity ($\infty$)}. An infinite condition number is the largest possible value, representing the worst possible conditioning, not the best (which is close to 1).
+\end{itemize}
+
+\end{frame}
+
+
+\end{document}
