@@ -1,0 +1,172 @@
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+
+%\usepackage[a5paper, top=10mm, bottom=10mm, left=10mm, right=10mm]{geometry}
+
+%
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+\makeindex
+
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\usepackage{multicol}
+\usepackage{xparse}
+\usepackage{gvv}
+%\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                               
+\usepackage{lscape}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{float}
+\usepackage{ar}
+\usepackage[version=4]{mhchem}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}[theorem]{Rorollary}
+\newtheorem{example}{Example}[section]
+\newtheorem{definition}[problem]{Sefinition}
+\newcommand{\QEQP}{\begin{eqnarray}}
+\newcommand{\EEQP}{\end{eqnarray}}
+
+\theoremstyle{remark}
+
+
+\begin{document}
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
+\setlength{\abovedisplayshortskip}{0pt}
+\setlength{\belowdisplayshortskip}{0pt}
+\bibliographystyle{IEEEtran}
+\onecolumn
+
+\title{7.4.36}
+\author{Jnanesh Sathisha Karmar- EE25BTECH11029}
+\maketitle
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\noindent
+\textbf{Question:} The abscissa of two points \textbf{A} and \textbf{B} are roots of the equation $x^2 + 2ax - b^2 = 0$ and their ordinates are roots of the equation $x^2 + 2px - q^2 = 0$. Find the equation and the radius of the circle with $AB$ as diameter.
+
+\textbf{Solution}
+
+ Define the Problem in Vector Form
+
+The vector equation for a circle is given by:
+\begin{align*}
+    \norm{\vec{x}}^2 + 2\vec{u}^T \vec{x} + f = 0
+\end{align*}
+where $\vec{x} = \myvec{x \\ y}$, the center is $\vec{c} = -\vec{u}$, and $f = \Vert \vec{u} \Vert^2 - r^2$.
+Let the points be $\vec{x}_A = \myvec{x_1 \\ y_1}$ and $\vec{x}_B = \myvec{x_2 \\ y_2}$.
+
+ Determine the Vector $\vec{u}$
+
+Since $AB$ is the diameter, the center $\vec{c}$ is the midpoint of $\vec{x}_A$ and $\vec{x}_B$.
+\begin{align*}
+    \vec{c} = \frac{\vec{x}_A + \vec{x}_B}{2} = \frac{1}{2} \myvec{x_1 + x_2 \\ y_1 + y_2}
+\end{align*}
+Using Vieta's formulas for the given quadratic equations:
+\begin{itemize}
+    \item For $x^2 + 2ax - b^2 = 0$:
+        \begin{align*}
+            x_1 + x_2 &= -2a \\
+            x_1 x_2 &= -b^2
+        \end{align*}
+    \item For $y^2 + 2py - q^2 = 0$:
+        \begin{align*}
+            y_1 + y_2 &= -2p \\
+            y_1 y_2 &= -q^2
+        \end{align*}
+\end{itemize}
+Substituting the sum of roots into the center vector $\vec{c}$:
+\begin{align*}
+    \vec{c} = \frac{1}{2} \myvec{-2a \\ -2p} = \myvec{-a \\ -p}
+\end{align*}
+Therefore, the vector $\vec{u}$ is:
+\begin{align*}
+    \vec{u} = -\vec{c} = - \myvec{-a \\ -p} = \myvec{a \\ p}
+\end{align*}
+ Determine the Radius $r$ and Scalar $f$
+
+The squared diameter $d^2$ is $\norm{\vec{x}_A - \vec{x}_B}^2$.
+\begin{align*}
+    d^2 = (x_1 - x_2)^2 + (y_1 - y_2)^2
+\end{align*}
+We use the identity $(m-n)^2 = (m+n)^2 - 4mn$.
+\begin{align*}
+    (x_1 - x_2)^2 &= (x_1 + x_2)^2 - 4(x_1 x_2) \\
+    &= (-2a)^2 - 4(-b^2) \\
+    &= 4a^2 + 4b^2 = 4\brak{a^2 + b^2}
+\end{align*}
+\begin{align*}
+    (y_1 - y_2)^2 &= (y_1 + y_2)^2 - 4(y_1 y_2) \\
+    &= (-2p)^2 - 4(-q^2) \\
+    &= 4p^2 + 4q^2 = 4\brak{p^2 + q^2}
+\end{align*}
+The squared diameter is:
+\begin{align*}
+    d^2 = 4\brak{a^2 + b^2} + 4\brak{p^2 + q^2} = 4\brak{a^2 + b^2 + p^2 + q^2}
+\end{align*}
+The squared radius $r^2$ is $d^2/4$:
+\begin{align*}
+    r^2 = a^2 + b^2 + p^2 + q^2
+\end{align*}
+Now, we find the scalar $f = \norm{\vec{u}} - r^2$.
+\begin{align*}
+    \norm{\vec{u}} = \norm{ \myvec{a \\ p}}^2 = a^2 + p^2
+\end{align*}
+\begin{align*}
+    f &= \brak{a^2 + p^2} - \brak{a^2 + b^2 + p^2 + q^2} \\
+    &= a^2 + p^2 - a^2 - b^2 - p^2 - q^2 \\
+    &= -(b^2 + q^2)
+\end{align*}
+
+Final Equation and Radius
+Substitute $\vec{u}$ and $f$ into the circle's vector equation:
+\begin{align*}
+    \norm{\vec{x}}^2 + 2\vec{u}^T \vec{x} + f = 0 \\
+    \norm{\myvec{x \\ y}}^2 + 2 \myvec{ a & p } \myvec{x \\ y} - \brak{b^2 + q^2} = 0 \\
+    \brak{x^2 + y^2} + 2\brak{ax + py} - \brak{b^2 + q^2} = 0 \\
+    x^2 + y^2 + 2ax + 2py - b^2 - q^2 = 0
+\end{align*}
+\textbf{Equation of the circle:}
+\begin{align*}
+    x^2 + y^2 + 2ax + 2py - b^2 - q^2 = 0
+\end{align*}
+\textbf{Radius of the circle:}
+\begin{align*}
+    r = \sqrt{a^2 + b^2 + p^2 + q^2}
+\end{align*}
+\end{document}
