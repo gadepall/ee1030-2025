@@ -1,0 +1,157 @@
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+
+%\usepackage[a5paper, top=10mm, bottom=10mm, left=10mm, right=10mm]{geometry}
+
+%
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+\makeindex
+
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\usepackage{multicol}
+\usepackage{xparse}
+\usepackage{gvv}
+%\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                               
+\usepackage{lscape}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{float}
+\usepackage{ar}
+\usepackage[version=4]{mhchem}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}[theorem]{Rorollary}
+\newtheorem{example}{Example}[section]
+\newtheorem{definition}[problem]{Sefinition}
+\newcommand{\QEQP}{\begin{eqnarray}}
+\newcommand{\EEQP}{\end{eqnarray}}
+
+\theoremstyle{remark}
+
+
+\begin{document}
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
+\setlength{\abovedisplayshortskip}{0pt}
+\setlength{\belowdisplayshortskip}{0pt}
+\bibliographystyle{IEEEtran}
+\onecolumn
+
+\title{8.4.32}
+\author{Jnanesh Sathisha Karmar- EE25BTECH11029}
+\maketitle
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\noindent\textbf{Question:} The line passing through the extremity \textbf{A} of the major axis and extremity \textbf{B} of the minor axis of the ellipse $x^2 + 9y^2 = 9$ meets its auxiliary circle at the point \textbf{M}. Then the area of the triangle with the vertices at \textbf{A}, \textbf{M}, and the origin \textbf{O} is (2009) \\
+\begin{enumerate}
+\begin{multicols}{4}
+    \item $\frac{31}{10}$
+    \item $\frac{29}{10}$ 
+    \item $\frac{21}{10}$
+    \item  $\frac{27}{10}$
+\end{multicols}
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Solution}\\
+The solution is derived using a linear algebra approach by representing the geometric elements as vectors and matrices.
+
+The given equation of the ellipse is $x^2 + 9y^2 = 9$. We can express this in the standard matrix form for a conic, $\vec{x}^\top\vec{V}\vec{x} + f = 0$.
+Let the position vector $\vec{x}$ be defined as:
+\begin{align}
+    \vec{x} = \myvec{x \\ y}
+\end{align}
+    
+
+The equation can then be written as:
+\begin{align}
+     \vec{x}^\top \myvec{1 & 0 \\ 0 & 9} \vec{x} - 9 = 0
+\end{align}
+   
+Here, the matrix $\vec{V} = \myvec{1 & 0 \\ 0 & 9}$ and the scalar $f = -9$.
+
+To find the semi-axes, we normalize the equation to the form $\vec{x}^\top\vec{A}\vec{x} = 1$:
+\begin{align}
+    \frac{x^2}{9} + \frac{y^2}{1} = 1 \implies \vec{x}^\top \myvec{1/9 & 0 \\ 0 & 1} \vec{x} = 1
+\end{align}
+    
+The semi-axis lengths are the reciprocal of the square roots of the eigenvalues of the matrix $\vec{A} = \myvec{1/9 & 0 \\ 0 & 1}$.
+\begin{itemize}
+    \item The eigenvalues are $\lambda_1 = 1/9$ and $\lambda_2 = 1$.
+    \item The major semi-axis is $a = 1/\sqrt{\lambda_1} = 3$. The corresponding eigenvector is $\vec{v}_a = \myvec{1 \\ 0}$.
+    \item The minor semi-axis is $b = 1/\sqrt{\lambda_2} = 1$. The corresponding eigenvector is $\vec{v}_b = \myvec{0 \\ 1}$.
+\end{itemize}
+The vertices $\vec{A}$ and $\vec{B}$ are at the extremities of these axes.
+\begin{itemize}
+    \item Position vector of $\vec{A}:$ $\vec{a} = a \cdot \vec{v}_a = 3 \myvec{1 \\ 0} = \myvec{3 \\ 0}$. So, A = (3, 0).
+    \item Position vector of \textbf{B}: $\vec{b} = b \cdot \vec{v}_b = 1 \myvec{0 \\ 1} = \myvec{0 \\ 1}$. So, B = (0, 1).
+\end{itemize}
+
+The vector equation of the line passing through $\vec{A}$ and $\vec{B} $is:
+\begin{align}
+    \vec{x}\brak{t} = \vec{a} + t\brak{\vec{b} - \vec{a}} = \myvec{3 \\ 0} + t\brak{\myvec{0 \\ 1} - \myvec{3 \\ 0}} = \myvec{3 - 3t \\ t}
+\end{align}
+    
+
+The auxiliary circle has the equation $x^2 + y^2 = a^2$, which is $x^2 + y^2 = 9$. We find the intersection point \textbf{M} by substituting the parametric equations of the line into the circle's equation:
+\begin{align}
+ \brak{3 - 3t}^2 + t^2 = 9\\
+    9 - 18t + 9t^2 + t^2 = 9\\
+    10t^2 - 18t = 0 \implies 2t\brak{5t - 9} = 0
+\end{align}
+   
+
+The solutions are $t=0$ (which corresponds to point $\vec{A}$) and $t = 9/5$. The position vector of $\vec{M}$ is found using $t = 9/5$:
+\begin{align}
+     \vec{m} = \myvec{3 - 3\brak{9/5} \\ 9/5} = \myvec{15/5 - 27/5 \\ 9/5} = \myvec{-12/5 \\ 9/5}
+\end{align}
+   
+The area of a triangle with vertices at the origin \textbf{O}, \textbf{A}, and \textbf{M} is given by half the absolute value of the determinant of the matrix formed by the position vectors $\vec{a}$ and $\vec{m}$.
+\[
+    \text{Area} = \frac{1}{2} \left| \det\brak{\begin{bmatrix} \vec{a} & \vec{m} \end{bmatrix}} \right| = \frac{1}{2} \left| \det \myvec{3 & -12/5 \\ 0 & 9/5} \right|
+\]
+\[
+    \text{Area} = \frac{1}{2} \left| \brak{3 \cdot \frac{9}{5}} - \brak{0 \cdot \frac{-12}{5}} \right| = \frac{1}{2} \left| \frac{27}{5} \right| = \frac{27}{10}
+\]
+The area of the triangle OAM is $\frac{27}{10}$. This corresponds to option (d).
+\newpage
+    \centering
+    \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{figs/ellipse.png}  
+
+\end{document}
