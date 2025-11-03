@@ -1,0 +1,306 @@
+
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{tfrupee}
+\usepackage{array}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\lstset{literate={·}{{$\cdot$}}1 {λ}{{$\lambda$}}1 {→}{{$\to$}}1}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\title{12.859}
+\date{October 10, 2025}
+\author{Bhargav - EE25BTECH11013}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Question}
+\textbf{Question}: \\
+Let $\vec{O} = \{\vec{P} : \vec{P} \text{ is a } 3 \times 3 \text{ real matrix with } \vec{P}^T\vec{P} = \vec{I}_3, \det(\vec{P}) = 1\}$. Which of the following options is/are correct?
+
+\begin{enumerate}
+    \item[a)] There exists $\vec{P} \in \vec{O}$ with $\lambda = \frac{1}{2}$ as an eigenvalue.
+    \item[b)] There exists $\vec{P} \in \vec{O}$ with $\lambda = 2$ as an eigenvalue.
+    \item[c)] If $\lambda$ is the only real eigenvalue of $\vec{P} \in 
+    \vec{O}$, then $\lambda = 1$.
+    \item[d)] There exists $\vec{P} \in O$ with $\lambda = -1$ as an eigenvalue.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Solution}
+Let $\vec{v}$ be the eigenvector corresponding to the eigenvalue $\lambda$.
+\begin{align}
+\vec{P}\vec{v} = \lambda\vec{v} \label{eqq}
+\end{align}
+Orthogonal transformations preserve the length of vectors  ($\abs{\vec{P}} = 1$)
+\begin{align}
+\norm{\vec{P}\vec{v}}=\norm{\vec{v}} \label{eq1}
+\end{align}
+This can be proved in this way:
+\begin{align}
+\norm{\vec{P}\vec{v}}^2 = \brak{\vec{P}\vec{v}}^\top\brak{\vec{P}\vec{v}}=\vec{v}^\top\vec{P}^\top\vec{P}\vec{v}
+\end{align}
+Since $\vec{P}^\top \vec{P} = \vec{I}$
+\begin{align}
+\norm{\vec{P}\vec{v}}^2 = \vec{v}^\top\vec{v} = \norm{\vec{v}}^2
+\end{align}
+\begin{align}
+\implies \norm{\vec{P}\vec{v}} = \norm{\vec{v}}
+\end{align}
+From \eqref{eqq},
+\begin{align}
+\norm{\vec{P}\vec{v}} = \abs{\lambda}\norm{\vec{v}} \label{eq2}
+\end{align}
+
+
+\end{frame}
+
+\begin{frame}{Solution}
+Using the equations \eqref{eq1} and \eqref{eq2},
+\begin{align}
+\norm{\vec{P}\vec{v}} = \norm{\vec{v}} = \abs{\lambda}\norm{\vec{v}}
+\end{align}
+\begin{align}
+\implies \norm{\vec{v}} = \abs{\lambda}\norm{\vec{v}}
+\end{align}
+Thus, $\abs{\lambda} = 1$
+
+So, eigenvalue satisfies the condition that $\abs{\lambda}=1$\\
+
+
+Thus, options (c) and (d) are correct. \\ \\ \\
+\end{frame}
+
+\begin{frame}{Solution}
+This can be verified by examples.\\ 
+1. For $\lambda_1$ = 1 \\ \\
+$\vec{P} = \myvec{1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1}$ \\
+$\vec{P}^T\vec{P} = \vec{I}$ \\
+Eigenvalue of $\vec{P}$ is 1. \\ \\
+2. For $\lambda_2 = -1$ \\ \\
+$\vec{P} = \myvec{-1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & -1}$ \\
+$\vec{P}^T\vec{P} = \vec{I}$ \\
+Eigenvalue of $\vec{P}$ is -1. \\ \\
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+#include <stdio.h>
+
+void matmul_transpose(double A[3][3], double result[3][3]) {
+    // Compute result = A^T * A
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            result[i][j] = 0.0;
+            for (int k = 0; k < 3; k++) {
+                result[i][j] += A[k][i] * A[k][j];
+            }
+        }
+    }
+}
+
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Python + C Code}
+    \begin{lstlisting}
+import numpy as np
+import ctypes
+
+
+lib = ctypes.CDLL("./libcode.so")
+# Define function argument and return types
+lib.matmul_transpose.argtypes = [((ctypes.c_double * 3) * 3), ((ctypes.c_double * 3) * 3)]
+
+# Convert numpy array to C 2D array
+def to_c_matrix(A):
+    c_mat = ((ctypes.c_double * 3) * 3)()
+    for i in range(3):
+        for j in range(3):
+            c_mat[i][j] = A[i][j]
+    return c_mat
+
+# Convert C 2D array back to numpy
+def from_c_matrix(c_mat):
+    return np.array([[c_mat[i][j] for j in range(3)] for i in range(3)])
+
+
+
+
+
+
+    \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python + C Code}
+    \begin{lstlisting}
+
+# Function to verify example
+def verify_matrix(P, name):
+    print(f"\n--- {name} ---")
+    print("Matrix P:\n", P)
+
+    P_c = to_c_matrix(P)
+    result_c = ((ctypes.c_double * 3) * 3)()
+    lib.matmul_transpose(P_c, result_c)
+
+    PT_P = from_c_matrix(result_c)
+    print("\nP^T * P =\n", PT_P)
+    print("\nIs P orthogonal?", np.allclose(PT_P, np.eye(3)))
+
+    eigenvalues, _ = np.linalg.eig(P)
+    print("\nEigenvalues of P:", eigenvalues)
+
+
+    \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python + C Code}
+    \begin{lstlisting}
+
+# Example 1: λ = 1
+P1 = np.array([[1, 0, 0],
+               [0, 1, 0],
+               [0, 0, 1]], dtype=float)
+
+# Example 2: λ = -1
+P2 = np.array([[-1, 0, 0],
+               [0, 1, 0],
+               [0, 0, -1]], dtype=float)
+
+verify_matrix(P1, "Example 1 (λ = 1)")
+verify_matrix(P2, "Example 2 (λ = -1)")
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import numpy as np
+
+# Example 1: λ1 = 1
+P1 = np.array([
+    [1, 0, 0],
+    [0, 1, 0],
+    [0, 0, 1]
+])
+
+# Example 2: λ2 = -1
+P2 = np.array([
+    [-1, 0, 0],
+    [0, 1, 0],
+    [0, 0, -1]
+])
+
+
+
+
+
+
+    \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+# Function to verify orthogonality and eigenvalues
+def verify_matrix(P, name):
+    print(f"--- {name} ---")
+    print("Matrix P:\n", P)
+
+    # Check orthogonality
+    PT_P = np.dot(P.T, P)
+    print("\nP^T * P =\n", PT_P)
+
+    # Check if PT_P is identity
+    print("\nIs P^T * P = I ?", np.allclose(PT_P, np.eye(P.shape[0])))
+
+    # Eigenvalues of P
+    eigenvalues, _ = np.linalg.eig(P)
+    print("\nEigenvalues of P:", eigenvalues)
+    print()
+
+
+
+    \end{lstlisting}
+\end{frame}
+
+
+\end{document}
+
+
+

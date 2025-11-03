@@ -1,0 +1,166 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{extarrows}
+\usepackage{amsmath}
+\usepackage{extarrows}
+\usepackage{amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{amsmath} 
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\title %optional
+{12.358}
+
+
+\author 
+{Kartik Lahoti - EE25BTECH11032}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+The inverse of the $2\times 2 $ matrix.
+\begin{align*}
+    \myvec{1 & 2 \\ 5 & 7}
+\end{align*}
+\begin{multicols}
+\begin{enumerate}
+        \item $
+                \frac{1}{3}\myvec{-7 & 2 \\ 5 & -1}
+               $
+        \item $
+                \frac{1}{3}\myvec{7 & 2 \\ 5 & 1}
+               $
+        \item $
+                \frac{1}{3}\myvec{7 & -2 \\ -5 & 1}
+                $
+        \item $
+                \frac{1}{3}\myvec{-7 & -2 \\ -5 & -1}
+                $
+        
+\end{enumerate}
+\end{multicols}
+
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+Given the matrix,
+\begin{align}
+    \vec{A} = \myvec{1 & 2 \\ 5 & 7}
+\end{align}
+
+Let $\vec{A}^{-1}$ be the inverse of the matrix $\vec{A}$
+
+We know that,
+
+\begin{align}
+\vec{A}\vec{A}^{-1} = \vec{I}
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+The augmented matrix of $\augvec{1}{1}{\mathbf{A} & \mathbf{I}}$ is given by
+\begin{align}
+\augvec{2}{2}{1 & 2 & 1 & 0\\ 5 & 7 & 0 & 1}
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+\begin{align}
+\augvec{2}{2}{1 & 2 & 1 & 0\\ 5 & 7 & 0 & 1} \xleftrightarrow[]{R_2 \rightarrow R_2 - 5R_1} 
+\augvec{2}{2}{1 & 2 & 1 & 0\\ 0 & -3 & -5 & 1}
+\end{align}
+
+\begin{align}
+\augvec{2}{2}{1 & 2 & 1 & 0\\ 0 & -3 & -5 & 1} \xleftrightarrow[]{R_2 \rightarrow -\frac{1}{3} R_2} 
+\augvec{2}{2}{1 & 2 & 1 & 0\\ 0 & 1 & \frac{5}{3} & -\frac{1}{3}}
+\end{align}
+
+
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+
+\begin{align}
+\augvec{2}{2}{1 & 2 & 1 & 0\\ 0 & 1 & \frac{5}{3} & -\frac{1}{3}} \xleftrightarrow[]{R_1 \rightarrow R_1 - 2 R_2} 
+\augvec{2}{2}{1 & 0 & -\frac{7}{3} & \frac{2}{3}\\ 0 & 1 & \frac{5}{3} & -\frac{1}{3}}
+\end{align}
+
+Hence,
+\begin{align}
+\mathbf{A}^{-1} = \frac{1}{3}\myvec{-7 & 2 \\ 5 & -1}
+\end{align}
+
+Answer: Option $\brak{2}$
+\end{frame}
+
+
+\end{document}

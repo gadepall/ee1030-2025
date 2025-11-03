@@ -1,0 +1,108 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+
+
+
+\author{EE25BTECH11041-Naman Kumar }
+\graphicspath{./figs/}
+
+\begin{document}
+\begin{center}
+    \huge{5.4.35}\\
+    \large{EE25BTECH11041 - Naman Kumar}
+\end{center}
+Question:\\
+Find inverse with elementary transformations of matrix
+\begin{align}
+\begin{pmatrix}0&1&2\\-1&0&-3\\-2&3&0\end{pmatrix}
+\end{align} \\
+\solution \\
+For elementary transformation, matrix can be written in form
+\begin{align}
+    \sbrak{\begin{array}{ccc|ccc}
+        0  & 1 & 2 & 1 & 0 & 0\\
+        -1 & 0 &-3 & 0 & 1 & 0\\
+        -2 & 3 & 0 & 0 & 0 & 1
+    \end{array}} \label{1}
+\end{align}
+Here, it is in form
+\begin{align}
+    \sbrak{\vec{A}\vert \vec{I}}
+\end{align}
+With elementary transformation, we get
+\begin{align}
+    \sbrak{\vec{I}\vert \vec{A}^{-1}}
+\end{align}
+So now in $\eqref{1}$
+\begin{align}
+    \sbrak{\begin{array}{ccc|ccc}
+        0  & 1 & 2 & 1 & 0 & 0\\
+        -1 & 0 &-3 & 0 & 1 & 0\\
+        -2 & 3 & 0 & 0 & 0 & 1
+    \end{array}}\\ \xrightarrow[]{R_1\rightarrow R_1-R_2}
+    \sbrak{\begin{array}{ccc|ccc}
+        1  & 1 & 5 & 1 & -1 & 0\\
+        -1 & 0 &-3 & 0 & 1 & 0\\
+        -2 & 3 & 0 & 0 & 0 & 1
+    \end{array}}\\ \xrightarrow[]{R_2\rightarrow R_1+R_2}
+    \sbrak{\begin{array}{ccc|ccc}
+        1  & 1 & 5 & 1 & -1 & 0\\
+        0 & 1 &2 & 1 & 0 & 0\\
+        -2 & 3 & 0 & 0 & 0 & 1
+    \end{array}}\\ \xrightarrow[]{R_1\rightarrow R_1-R_2}
+    \sbrak{\begin{array}{ccc|ccc}
+        1  & 0 & 3 & 0 & -1 & 0\\
+        0 & 1 &2 & 1 & 0 & 0\\
+        -2 & 3 & 0 & 0 & 0 & 1
+    \end{array}}\\ \xrightarrow[]{R_3\rightarrow R_3+2R_1}
+    \sbrak{\begin{array}{ccc|ccc}
+        1  & 0 & 3 & 0 & -1 & 0\\
+        0 & 1 &2 & 1 & 0 & 0\\
+        0 & 3 & 6 & 0 & -2 & 1
+    \end{array}}\\ \xrightarrow[]{R_3\rightarrow R_3-3R_2}
+    \sbrak{\begin{array}{ccc|ccc}
+        1  & 0 & 3 & 0 & -1 & 0\\
+        0 & 1 &2 & 1 & 0 & 0\\
+        0 & 0 & 0 & -3 & -2 & 1
+    \end{array}}
+\end{align}
+At this point, we have obtained a row of all zeros on the left side of the augmented matrix. It's now impossible to continue the process to form the identity matrix.\\
+Because the RREF of the original matrix is not the identity matrix, the matrix is singular and its inverse does not exist.
+\end{document}

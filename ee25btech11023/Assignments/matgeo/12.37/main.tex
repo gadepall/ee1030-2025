@@ -1,0 +1,95 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+
+\title{12.37}
+\author{EE25BTECH11023 - Venkata Sai}
+% \maketitle
+% \newpage
+% \bigskip
+\maketitle 
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+\numberwithin{align}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question:}  \\
+Let $\mathcal{M}$ be the set of $3\times3 $ real symmetric positive definite matrices. Consider S =
+$\cbrak{\vec{A} \in \mathcal{M}: \vec{A}^{50} - \vec{A}^{48} = 0 }$. The number of elements in S equals \\
+\textbf{Solution:}  \\
+ If a matrix is symmetric then it is  diagonalizable. Hence
+ \begin{align}
+     \vec{A}&=\vec{P}\vec{D}\vec{P}^{-1} \\
+      \vec{A}^2&=\brak{\vec{P}\vec{D}\vec{P}^{-1}}^2 \\
+      &=\vec{P}\vec{D}\vec{P}^{-1}\vec{P}\vec{D}\vec{P}^{-1}\\
+      &=\vec{P}\vec{D}\vec{I}\vec{D}\vec{P}^{-1}\\
+      &=\vec{P}\vec{D}^2\vec{P}^{-1}
+ \end{align}
+ \begin{align}
+     \vec{A}^k&=\vec{P}\vec{D}^k\vec{P}^{-1}\\
+     \vec{A}^{50}&=\vec{P}\vec{D}^{50}\vec{P}^{-1}\\
+     \vec{A}^{48}&=\vec{P}\vec{D}^{48}\vec{P}^{-1}
+ \end{align}
+ Given 
+ \begin{align}
+   \vec{A}^{50} - \vec{A}^{48} = 0\\
+   \vec{P}\vec{D}^{50}\vec{P}^{-1}-\vec{P}\vec{D}^{48}\vec{P}^{-1}=0 \\
+   \vec{P}\brak{\vec{D}^{50}-\vec{D}^{48}}\vec{P}^{-1}=0 \\
+   \implies \brak{\vec{D}^{50}-\vec{D}^{48}}=0\\
+   \implies \brak{\vec{\lambda}^{50}-\vec{\lambda}^{48}}=0
+ \end{align}
+where $\lambda$ are the eigen values
+\begin{align}
+    \lambda^{48}\brak{\lambda^2-1}=0&\implies
+    \lambda^{48}=0\ \text{or}\ \lambda^{2}-1=0 \\
+     \lambda=0\ &\text{or}\ \lambda=\pm1
+\end{align}
+For a positive definite matrix, eigen values must be greater than 0. Hence
+\begin{align}
+    \lambda=1=\lambda_1=\lambda_2=\lambda_3 &\implies \vec{D}=\myvec{\lambda_1&0&0\\0&\lambda_2&0\\0&0&\lambda_3}=\myvec{1&0&0\\0&1&0\\0&0&1}=\vec{I}\\
+    \vec{A}&=\vec{P}\vec{I}\vec{P}^{-1}
+    =\vec{P}\vec{P}^{-1}=\vec{I}
+\end{align}
+Hence Number of elements in S is 1
+\end{document}  

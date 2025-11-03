@@ -1,0 +1,265 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+	breakable=true,
+	listing engine=minted,
+	listing only,
+	minted language=#2,
+	minted style=default,
+	minted options={%
+		linenos,
+		gobble=0,
+		breaklines=true,
+		breakafter=,,
+		fontsize=\small,
+		numbersep=8pt,
+		#1},
+	boxsep=0pt,
+	left skip=0pt,
+	right skip=0pt,
+	left=25pt,
+	right=0pt,
+	top=3pt,
+	bottom=3pt,
+	arc=5pt,
+	leftrule=0pt,
+	rightrule=0pt,
+	bottomrule=2pt,
+	toprule=2pt,
+	colback=bg,
+	colframe=orange!70,
+	enhanced,
+	overlay={%
+		\begin{tcbclipinterior}
+			\fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+	\end{tcbclipinterior}},
+	#3,
+}
+\lstset{
+	language=C,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{orange},
+	commentstyle=\color{green!60!black},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{5.13.62}
+\date{}
+%\subtitle{A short story}
+
+\author % (optional)
+{M Chanakya Srinivas- EE25BTECH11036}
+
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+
+
+%---------------------------
+
+\begin{frame}{Problem Statement}
+\textbf{Question:} \\[0.5em]
+How many \( 3 \times 3 \) matrices \( M \), with entries from the set \( \{0,1,2\} \), satisfy:
+\begin{align}
+\operatorname{tr}(M^\top M) = 5
+\end{align}
+\end{frame}
+
+%---------------------------
+
+\begin{frame}{Matrix Structure}
+Let the matrix \( M \in \mathbb{R}^{3 \times 3} \) be:
+\begin{align}
+M = \vec{(c_1 \quad c_2 \quad c_3)}
+\end{align}
+where each column vector is:
+\begin{align}
+\vec{c_j} = \myvec{c_{1j} \\ c_{2j} \\ c_{3j}}, \quad j = 1,2,3
+\end{align}
+Each \( c_{ij} \in \{0,1,2\} \), so total possible vectors:
+\begin{align}
+3^3 = 27
+\end{align}
+\end{frame}
+
+%---------------------------
+
+\begin{frame}{Computing \( M^\top M \)}
+The product:
+\begin{align}
+M^\top M = 
+\myvec{
+\vec{c_1}^\top \vec{c_1} & \vec{c_1}^\top \vec{c_2} & \vec{c_1}^\top \vec{c_3} \\
+\vec{c_2}^\top \vec{c_1} & \vec{c_2}^\top \vec{c_2} & \vec{c_2}^\top \vec{c_3} \\
+\vec{c_3}^\top \vec{c_1} & \vec{c_3}^\top \vec{c_2} & \vec{c_3}^\top \vec{c_3}
+}
+\end{align}
+
+Trace of the matrix is:
+\begin{align}
+\operatorname{tr}(M^\top M) &= \vec{c_1}^\top \vec{c_1} + \vec{c_2}^\top \vec{c_2} + \vec{c_3}^\top \vec{c_3} \\
+&= \|\vec{c_1}\|^2 + \|\vec{c_2}\|^2 + \|\vec{c_3}\|^2
+\end{align}
+\end{frame}
+
+%---------------------------
+
+\begin{frame}{Norm Constraint}
+Let:
+\begin{align}
+n_1 = \|\vec{c_1}\|^2, \quad n_2 = \|\vec{c_2}\|^2, \quad n_3 = \|\vec{c_3}\|^2
+\end{align}
+We want:
+\begin{align}
+n_1 + n_2 + n_3 = 5
+\end{align}
+\end{frame}
+
+%---------------------------
+
+\begin{frame}{Norm Counts for Vectors}
+Define \( N(n) \) as number of vectors \( \vec{v} \in \{0,1,2\}^3 \) with squared norm \( n \). Then:
+
+\begin{align}
+N(0) &= 1 \quad \text{(only } \myvec{0\\0\\0}) \\
+N(1) &= 3 \quad \text{(one entry 1, others 0)} \\
+N(2) &= 3 \quad \text{(one entry 2, others 0)} \\
+N(3) &= 6 \\
+N(4) &= 3 \\
+N(5) &= 6
+\end{align}
+\end{frame}
+
+%---------------------------
+
+\begin{frame}{Counting Valid Matrices}
+We count all ordered triples \( (\vec{c_1}, \vec{c_2}, \vec{c_3}) \) such that:
+\begin{align}
+n_1 + n_2 + n_3 = 5
+\end{align}
+
+Total count is:
+\begin{align}
+\text{Total} = \sum_{\substack{n_1 + n_2 + n_3 = 5 \\ 0 \leq n_i \leq 5}} N(n_1) \cdot N(n_2) \cdot N(n_3)
+\end{align}
+
+Evaluating this sum gives:
+\begin{align}
+\boxed{198}
+\end{align}
+\end{frame}
+
+%---------------------------
+
+\begin{frame}{Final Answer}
+\begin{align}
+\boxed{\text{Number of matrices } M = 198}
+\end{align}
+\end{frame}
+
+\begin{frame}[fragile]{C code}
+\begin{lstlisting}
+
+#include <stdint.h>
+int get_count(void) {
+    int count = 0;
+    // There are 9 entries; treat them as base-3 digits 0,1,2
+    for (int mask = 0; mask < 19683; ++mask) { // 3^9 = 19683
+        int tmp = mask;
+        int sumsq = 0;
+        for (int i = 0; i < 9; ++i) {
+            int digit = tmp % 3; // 0,1,2
+            tmp /= 3;
+            sumsq += digit*digit;
+            if (sumsq > 5) break; // small optimization
+        }
+        if (sumsq == 5) ++count;
+    }
+    return count;
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]{Python code through shared output}
+\begin{lstlisting}
+import ctypes
+import os
+
+# Adjust path if needed
+libpath = os.path.abspath("./libcount.so")
+lib = ctypes.CDLL(libpath)
+
+lib.get_count.restype = ctypes.c_int
+
+result = lib.get_count()
+print("Number of 3x3 matrices with trace(M^T M)=5:", result)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]{Only Python code}
+\begin{lstlisting}
+import numpy as np
+from itertools import product
+
+def count_matrices():
+    # Step 1: compute squared norm multiplicities for column vectors in {0,1,2}^3
+    cols = np.array(list(product((0,1,2), repeat=3)))
+    norms = np.sum(cols**2, axis=1)
+    unique, counts = np.unique(norms, return_counts=True)
+    N = dict(zip(unique, counts))  # N[n] = multiplicity of norm n
+    \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]{Only Python code}
+\begin{lstlisting}
+    # Step 2: sum over all triples of norms that add to 5
+    total = 0
+    for n1, c1 in N.items():
+        for n2, c2 in N.items():
+            for n3, c3 in N.items():
+                if n1 + n2 + n3 == 5:
+                    total += c1 * c2 * c3
+    return total, N
+
+if __name__ == "__main__":
+    total, N = count_matrices()
+    print("Single-column squared norm multiplicities N(n):")
+    for n in sorted(N):
+        print(f"  n={n}: {N[n]} ways")
+    print("\nTotal matrices =", total)
+\end{lstlisting}
+\end{frame}
+\end{document}

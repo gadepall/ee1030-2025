@@ -1,0 +1,131 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+
+\title{12.141}
+\author{EE25BTECH11023 - Venkata Sai}
+% \maketitle
+% \newpage
+% \bigskip
+\maketitle 
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+\numberwithin{align}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question:}  \\
+Let $\vec{A}$ be a 3$\times$3 matrix. Suppose that the eigenvalues of $\vec{A}$ are -1, 0, 1 with respective
+eigenvectors $(1, -1, 0)^\top , (1, 1, -2)^\top\ \text{and}\ (1, 1, 1)^\top$ . Then 6$\vec{A}$ equals 
+\begin{enumerate}
+\begin{multicols}{4}
+    \item \myvec{-1&5&2\\5&-1&2\\2&2&2}
+    \item \myvec{1&0&0\\0&-1&0\\0&0&0}
+    \item \myvec{1&5&3\\5&1&3\\3&3&3}
+\item \myvec{-3&9&0\\9&-3&0\\0&0&6}
+\end{multicols}
+\end{enumerate}
+\textbf{Solution:}  \\
+ For an invertible matrix $\vec{P}$
+ \begin{align}
+     \vec{A}=\vec{P}\vec{D}\vec{P}^{-1}
+ \end{align}
+ Given eigen values are
+ \begin{align}
+    \lambda_1=-1,\lambda_2=0,\lambda_3=1
+ \end{align}
+ Given eigen vectors are
+ \begin{align}
+\vec{x_1}=\myvec{1\\-1\\0},\vec{x_2}=\myvec{1\\1\\-2},\vec{x_3}=\myvec{1\\1\\1}
+ \end{align}
+ where
+ \begin{align}
+\vec{D}=\myvec{\lambda_1&0&0\\0&\lambda_2&0\\0&0&\lambda_3}=\myvec{-1&0&0\\0&0&0\\0&0&1}\\
+\vec{P}=\myvec{\vec{x_1} & \vec{x_2} & \vec{x_3}}=\myvec{1&1&1\\-1&1&1\\0&-2&1} 
+ \end{align}
+ \begin{align}
+  |\vec{P}|=1\brak{1+2}-1\brak{-1+0}+1\brak{2+0}=3+1+2=6 \neq 0
+ \end{align}
+ \begin{align}
+     \vec{P}\vec{P}^{-1}=\vec{I}
+ \end{align}
+ Augmented matrix of $\augvec{1}{1}{\vec{P} & \vec{I}}$ is given by
+ \begin{align}
+     \augvec{3}{3}{
+1 & 1 & 1  & 1 & 0 & 0 \\
+-1 & 1 & 1 & 0 & 1 & 0\\
+0 & -2 & 1 & 0 & 0 & 1}
+& \xrightarrow{R_2\rightarrow \frac{1}{2}\brak{R_1+R_2}}  \augvec{3}{3}{
+1 & 1 & 1  & 1 & 0 & 0 \\
+0 & 1 & 1 & \frac{1}{2} & \frac{1}{2} & 0\\
+0 & -2 & 1 & 0 & 0 & 1}   \\
+\augvec{3}{3}{
+1 & 1 & 1  & 1 & 0 & 0 \\
+0 & 1 & 1 & \frac{1}{2} & \frac{1}{2} & 0\\
+0 & -2 & 1 & 0 & 0 & 1} &\xrightarrow[R_1\rightarrow R_1-R_2]{R_3\rightarrow R_3+2R_2}\augvec{3}{3}{
+1 & 0 & 0  &  \frac{1}{2} & -\frac{1}{2} & 0 \\
+0 & 1 & 1 & \frac{1}{2} & \frac{1}{2} & 0\\
+0 & 0 & 3 & 1 & 1 & 1} \\
+\augvec{3}{3}{
+1 & 0 & 0  &  \frac{1}{2} & -\frac{1}{2} & 0 \\
+0 & 1 & 1 & \frac{1}{2} & \frac{1}{2} & 0\\
+0 & 0 & 3 & 1 & 1 & 1}  &\xrightarrow{R_2\rightarrow R_2-\frac{1}{3}R_3} \augvec{3}{3}{
+1 & 0 & 0  &  \frac{1}{2} & -\frac{1}{2} & 0 \\
+0 & 1 & 0 & \frac{1}{6} & \frac{1}{6} & -\frac{1}{3}\\
+0 & 0 & 1 & \frac{1}{3} & \frac{1}{3} & \frac{1}{3}} 
+ \end{align}
+ 
+ \begin{align}
+    \vec{P}^{-1}=\myvec{\frac{1}{2} & -\frac{1}{2} & 0 \\\frac{1}{6} & \frac{1}{6} & -\frac{1}{3}\\ \frac{1}{3} & \frac{1}{3} & \frac{1}{3}}
+ \end{align}
+ \begin{align}
+6\vec{A}=6\vec{P}\vec{D}\vec{P}^{-1}=\brak{\vec{P}\vec{D}}\brak{6\vec{P}^{-1}} 
+\end{align}
+\begin{align}
+6\vec{A}&=\brak{\myvec{1&1&1\\-1&1&1\\0&-2&1}\myvec{-1&0&0\\0&0&0\\0&0&1}}\brak{6\myvec{\frac{1}{2} & -\frac{1}{2} & 0 \\\frac{1}{6} & \frac{1}{6} & -\frac{1}{3}\\ \frac{1}{3} & \frac{1}{3} & \frac{1}{3}}}\\
+&=\brak{\myvec{1&1&1\\-1&1&1\\0&-2&1}\myvec{-1&0&0\\0&0&0\\0&0&1} }\myvec{3 & -3 & 0 \\1 & 1 & -2\\ 2 & 2 & 2}\\
+&=\myvec{-1 & 0 & 1 \\ 1& 0 & 1 \\0 & 0 & 1}\myvec{3 & -3 & 0 \\1 & 1 & -2\\ 2 & 2 & 2}
+=\myvec{-3+2& 3+2&0+2\\3+2&-3+2&0+2\\0+2&0+2&0+2} \\
+&=\myvec{-1&5&2\\5&-1&2\\2&2&2}
+\end{align}
+\end{document}  

@@ -3,10 +3,10 @@
 \documentclass[journal]{IEEEtran}
 \usepackage[a5paper, margin=10mm, onecolumn]{geometry}
 
-\usepackage{tfrupee} 
+\usepackage{tfrupee} % Include tfrupee package
 
-\setlength{\headheight}{1cm} 
-\setlength{\headsep}{0mm}      
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
 
 \usepackage{gvv-book}
 \usepackage{gvv}
@@ -30,7 +30,7 @@
 \usepackage[latin1]{inputenc}                                
 \usepackage{color}                                            
 \usepackage{array}                                            
-\usepackage{longtable}                                       
+\usepackage{longtable}                                        
 \usepackage{calc}                                             
 \usepackage{multirow}                                         
 \usepackage{hhline}                                           
@@ -43,8 +43,7 @@
 	
 	\title{2.9.4}
 	\author{EE25BTECH11052 - Shriyansh Kalpesh Chawda}
-
-
+	
 	{\let\newpage\relax\maketitle}
 	
 	\renewcommand{\thefigure}{\theenumi}
@@ -54,35 +53,46 @@
 	\numberwithin{equation}{enumi}
 	\numberwithin{figure}{enumi}
 	\renewcommand{\thetable}{\theenumi}
+	
 	\textbf{Question}:\\
-	\\
-	If  $\vec{a} = \hat{i} + \hat{j} + \hat{k}, \quad \vec{a} \cdot \vec{b} = 1, \quad \text{and} \quad \vec{a} \times \vec{b} = \hat{j} - \hat{k},$ then find $|\vec{b}|$.
-	\hfill (12, 2022)
-	\\
-	\solution\\
-	The problem can be solved using Lagrange's identity:
+	If $\mathbf{a} = \hat{i} + \hat{j} + \hat{k}$, $\mathbf{a} \cdot \mathbf{b} = 1$, and $\mathbf{a} \times \mathbf{b} = \hat{j} - \hat{k}$, then find $|\mathbf{b}|$. \hfill{(12, 2022)}
+	
+	\solution	
 	\begin{align}
-|\mathbf{a} \times \mathbf{b}|^2 + (\mathbf{a} \cdot \mathbf{b})^2 = |\mathbf{a}|^2 |\mathbf{b}|^2 
-\end{align}
-	Given:
-	\[
-	a=\myvec{1\\1\\1} ,
-	\vec{a} \times \vec{b} = \myvec{0 \\ 1 \\ -1}
-	\]
-Deriving the values needed to be substituted in the identity :
-\begin{align}
-|\mathbf{a}|^2 &= \mathbf{a}^T \mathbf{a} = \myvec{1 & 1 & 1}\myvec{1\\1\\1} = 3 \\ 
-(\mathbf{a} \cdot \mathbf{b})^2 &= (1)^2 = 1 \\
-|\mathbf{a} \times \mathbf{b}|^2 &= (\mathbf{a} \times \mathbf{b})^T (\mathbf{a} \times \mathbf{b}) = \myvec{0 & 1 & -1}\myvec{0\\1\\-1} = 2
-		\end{align}
-	Substituting values of the Components in the identity.
-	\begin{align}
-		|\mathbf{a} \times \mathbf{b}|^2 + (\mathbf{a} \cdot \mathbf{b})^2 = |\mathbf{a}|^2 |\mathbf{b}|^2 \\
-		2 + 1 = 3 \cdot |\mathbf{b}|^2 \\
-		3 = 3 |\mathbf{b}|^2 \\
-		|\mathbf{b}|^2 = 1 \\
-		|\mathbf{b}| = 1
+		\mathbf{a} = \myvec{1\\1\\1}, \quad \mathbf{a} \times \mathbf{b} = \myvec{0\\1\\-1}, \quad \mathbf{a}^\top\mathbf{b} = 1
 	\end{align}
-	The magnitude of vector \textbf{b} is \textbf{1}.	
+	\begin{align}
+		\mathbf{a}^\top(\mathbf{a} \times \mathbf{b}) = 0
+	\end{align}
+	
+	And the key identity:
+	\begin{align}
+		\begin{pmatrix}\mathbf{a}^\top \\ (\mathbf{a} \times \mathbf{b})^\top\end{pmatrix}\mathbf{b} = \myvec{1\\0}\\
+		\myvec{1 & 1 & 1\\0 & 1 & -1}\mathbf{b} = \myvec{1\\0}
+	\end{align}
+Forming augmented matrix and find its Reduced Row Echelon Form (RREF).
+	\begin{align}
+		\left[ \begin{array}{ccc|c} 1 & 1 & 1 & 1 \\ 0 & 1 & -1 & 0 \end{array} \right]
+		\xrightarrow{R_1 \rightarrow R_1 - R_2}
+		\left[ \begin{array}{ccc|c} 1 & 0 & 2 & 1 \\ 0 & 1 & -1 & 0 \end{array} \right]
+	\end{align}
+From the RREF, we get the equations:
+	\begin{align}
+		b_1 + 2b_3 &= 1\\
+		b_2 - b_3 &= 0 \implies b_2 = b_3
+	\end{align}
+Let $b_2 = \lambda$,
+	\begin{align}
+	b_1 = 1 - 2\lambda
+	\end{align}
+	Thus, the vector $\mathbf{b}$ is:
+	\begin{align}
+		\mathbf{b} = \myvec{1 - 2\lambda\\\lambda\\\lambda}
+	\end{align}
+	\begin{align}
+		|\mathbf{b}|^2 &= (1 - 2\lambda)^2 + \lambda^2 + \lambda^2\\
+		|\mathbf{b}| &= \sqrt{1 - 4\lambda + 6\lambda^2}
+	\end{align}
+
 	
 \end{document}

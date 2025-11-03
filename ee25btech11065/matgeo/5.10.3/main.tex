@@ -1,0 +1,133 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+\usepackage{tfrupee}
+
+\setlength{\headheight}{1cm}
+\setlength{\headsep}{0mm}
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+
+\def\inputGnumericTable{}
+\usepackage[latin1]{inputenc}
+\usepackage{color}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{calc}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{ifthen}
+\usepackage{lscape}
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{5.10.3}
+\author{EE25BTECH11065 - Yoshita J}
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt}
+
+\textbf{Question}:\\
+Balance the following chemical equation.
+\begin{align*}
+    Fe + H_2O \to Fe_3O_4 + H_2
+\end{align*}
+\bigskip
+
+\textbf{Solution:} \\
+Let the balanced version of the equation be
+\begin{align}
+    x_1 Fe + x_2 H_2O \to x_3 Fe_3O_4 + x_4 H_2
+\end{align}
+which results in the following equations based on the conservation of each element:
+\begin{align}
+    \text{For Fe: } &x_1 - 3x_3 = 0 \\
+    \text{For H: } &2x_2 - 2x_4 = 0 \implies x_2 - x_4 = 0 \\
+    \text{For O: } &x_2 - 4x_3 = 0
+\end{align}
+This can be expressed as a homogeneous system of linear equations:
+\begin{align}
+    x_1 + 0x_2 - 3x_3 + 0x_4 &= 0 \\
+    0x_1 + x_2 + 0x_3 - x_4 &= 0 \\
+    0x_1 + x_2 - 4x_3 + 0x_4 &= 0
+\end{align}
+This results in the matrix equation $A\mathbf{x} = \mathbf{0}$, where:
+\begin{align}
+    \myvec{
+        1 & 0 & -3 & 0 \\
+        0 & 1 & 0 & -1 \\
+        0 & 1 & -4 & 0
+    } \mathbf{x} = \mathbf{0},
+    \quad \mathbf{x} = \myvec{ x_1 \\ x_2 \\ x_3 \\ x_4 }
+\end{align}
+The coefficient matrix can be reduced as follows using Gaussian elimination to find the null space:
+\begin{align*}
+\myvec{
+1 & 0 & -3 & 0 \\
+0 & 1 & 0 & -1 \\
+0 & 1 & -4 & 0
+}
+\xrightarrow{R_3 \to R_3 - R_2}
+\myvec{
+1 & 0 & -3 & 0 \\
+0 & 1 & 0 & -1 \\
+0 & 0 & -4 & 1
+}
+\xrightarrow{R_3 \to -\frac{1}{4}R_3}
+\myvec{
+1 & 0 & -3 & 0 \\
+0 & 1 & 0 & -1 \\
+0 & 0 & 1 & -1/4
+}
+\end{align*}
+\begin{align*}
+\xrightarrow{R_1 \to R_1 + 3R_3}
+\myvec{
+1 & 0 & 0 & -3/4 \\
+0 & 1 & 0 & -1 \\
+0 & 0 & 1 & -1/4
+}
+\end{align*}
+From the reduced row echelon form, we get the solutions in terms of the free variable $x_4$:
+\begin{align}
+    x_1 = \frac{3}{4}x_4, \quad x_2 = x_4, \quad x_3 = \frac{1}{4}x_4
+\end{align}
+Thus,
+\begin{align}
+    \mathbf{x} = x_4 \myvec{ 3/4 \\ 1 \\ 1/4 \\ 1 }
+\end{align}
+By substituting $x_4 = 4$, the simplest integer solution is found. Hence,
+\begin{align}
+    \mathbf{x} = 4 \myvec{ 3/4 \\ 1 \\ 1/4 \\ 1 } = \myvec{ 3 \\ 4 \\ 1 \\ 4 }
+\end{align}
+This gives $x_1 = 3, x_2 = 4, x_3 = 1, \text{ and } x_4 = 4$.
+\bigskip
+Hence, the balanced equation finally becomes:
+\begin{align}
+    \boxed{3Fe + 4H_2O \to Fe_3O_4 + 4H_2}
+\end{align}
+\end{document}
+
+

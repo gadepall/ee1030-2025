@@ -1,0 +1,86 @@
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin:10mm, onecolumn]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title{10.6.1}
+\author{Puni Aditya - EE25BTECH11046}
+\maketitle
+
+\textbf{Question:}
+
+Draw a circle of radius 2.5cm. Take a point P outside the circle at a distance of 7cm from the center. Then construct a pair of tangents to the circle from point P.
+
+\textbf{Solution:}
+
+The tangent directions $\vec{m}$ from an external point $\vec{h}$ to the circle $g\brak{\vec{x}}=\vec{x}^\top\vec{x}-r^2=0$ satisfy $\vec{m}^\top\vec{\Sigma}\vec{m} = 0$, where
+\begin{align}
+    \vec{\Sigma} = \vec{h}\vec{h}^\top - g\brak{\vec{h}}\vec{I} \label{eq:sigma_def}
+\end{align}
+With the point $\vec{h}=d\vec{e_1}$, we have $g\brak{\vec{h}} = d^2-r^2$. From \eqref{eq:sigma_def},
+\begin{align}
+    \vec{\Sigma} &= \myvec{d^2 & 0 \\ 0 & 0} - \myvec{d^2-r^2 & 0 \\ 0 & d^2-r^2} \nonumber \\
+    &= \myvec{r^2 & 0 \\ 0 & -\brak{d^2-r^2}}
+\end{align}
+Since $\vec{\Sigma}$ is a diagonal matrix, its eigenvalues are the diagonal entries, 
+\begin{align}
+	\lambda_1 = r^2\text{ and }\lambda_2 = -\brak{d^2-r^2}
+\end{align}
+The matrix of orthonormal eigenvectors is 
+\begin{align}
+	\vec{P}=\vec{I}
+\end{align}
+
+The unit direction vectors of the tangents are given by the formula:
+\begin{align}
+    \vec{m} = \frac{1}{\sqrt{\lambda_1-\lambda_2}}\vec{P}\myvec{\sqrt{-\lambda_2} \\ \pm\sqrt{\lambda_1}} \label{eq:m_formula}
+\end{align}
+\begin{align}
+    \lambda_1-\lambda_2 &= r^2 - \brak{-\brak{d^2-r^2}} = d^2 \\
+    -\lambda_2 &= d^2-r^2
+\end{align}
+Substituting these into \eqref{eq:m_formula}:
+\begin{align}
+    \vec{m} &= \frac{1}{\sqrt{d^2}}\vec{I}\myvec{\sqrt{d^2-r^2} \\ \pm\sqrt{r^2}} = \frac{1}{d}\myvec{\sqrt{d^2-r^2} \\ \pm r}
+\end{align}
+The points of contact are $\vec{q} = \vec{h} + \kappa\vec{m}$. The parameter $\kappa$ is found by substituting the line equation into the circle equation:
+\begin{align}
+    g\brak{\vec{h}+\kappa\vec{m}} = \brak{\vec{h}+\kappa\vec{m}}^\top\brak{\vec{h}+\kappa\vec{m}} - r^2 = 0 \\
+    \kappa^2\brak{\vec{m}^\top\vec{m}} + 2\kappa\brak{\vec{h}^\top\vec{m}} + g\brak{\vec{h}} = 0
+\end{align}
+For a tangent, this quadratic in $\kappa$ has a single repeated root. Since $\vec{m}$ is a unit vector, 
+\begin{align}
+	\vec{m}^\top\vec{m}=1
+\end{align}
+The value of $\kappa$ for the point of contact is:
+\begin{align}
+    \kappa = \frac{-2\brak{\vec{h}^\top\vec{m}}}{2\brak{1}} = -\vec{h}^\top\vec{m}
+\end{align}
+We require $\kappa<0$ for the tangent to point from $\vec{h}$ to the circle, which implies $\vec{h}^\top\vec{m}>0$.
+\begin{align}
+    \vec{h}^\top\vec{m} = \brak{d\vec{e_1}}^\top\frac{1}{d}\myvec{\sqrt{d^2-r^2} \\ \pm r} = \sqrt{d^2-r^2} > 0
+\end{align}
+The condition is satisfied, and so $\kappa = -\sqrt{d^2-r^2}$.
+\begin{align}
+    \vec{q} &= d\vec{e_1} - \sqrt{d^2-r^2}\brak{\frac{1}{d}\myvec{\sqrt{d^2-r^2} \\ \pm r}} \\
+    &= \myvec{\frac{r^2}{d} \\ \mp \frac{r\sqrt{d^2-r^2}}{d}}
+\end{align}
+Substituting $r=2.5$ and $d=7$:
+\begin{align}
+    \vec{q} &= \myvec{\frac{\brak{2.5}^2}{7} \\ \pm\frac{2.5\sqrt{7^2 - \brak{2.5}^2}}{7}} \\
+    &= \myvec{\frac{6.25}{7} \\ \pm\frac{2.5\sqrt{42.75}}{7}} = \myvec{\frac{25}{28} \\ \pm\frac{2.5\sqrt{42.75}}{7}}
+\end{align}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\columnwidth]{figs/plot_c.jpg}
+    \caption*{Plot}
+    \label{fig:fig}
+\end{figure}
+
+\end{document}

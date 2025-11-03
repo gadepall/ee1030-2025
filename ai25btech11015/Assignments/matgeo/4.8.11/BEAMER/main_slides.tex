@@ -1,0 +1,109 @@
+
+\documentclass[12pt]{beamer}
+\usetheme{Madrid}
+\usecolortheme{seahorse}
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{siunitx}
+\sisetup{per-mode=symbol}
+\usepackage{gvv}
+
+\title{Matrix 4.8.11}
+\author{ai25btech11015 -- M Sai Rithik}
+\date{}
+
+\begin{document}
+\maketitle
+
+%-------------------------
+\begin{frame}{Question}
+Find the vector equation of the plane determined by the points
+\[
+A(3,-1,2),\quad B(5,2,4),\quad C(-1,-1,6),
+\]
+and hence find the distance of this plane from the origin.
+\end{frame}
+
+%-------------------------
+\begin{frame}{Step 1: Position vectors}
+\[
+\Vec{A} = \myvec{3\\-1\\2},\quad
+\Vec{B} = \myvec{5\\2\\4},\quad
+\Vec{C} = \myvec{-1\\-1\\6}.
+\]
+\end{frame}
+
+%-------------------------
+\begin{frame}{Step 2: Plane form}
+We write the plane in normalized form:
+\[
+\mathbf{N}^{\!\top} x = 1,
+\]
+where \(\mathbf{N} = \myvec{n_1\\n_2\\n_3}\).
+
+Since \(A,B,C\) lie on the plane:
+\[
+\mathbf{N}^{\!\top}\Vec{A} = 1,\;
+\mathbf{N}^{\!\top}\Vec{B} = 1,\;
+\mathbf{N}^{\!\top}\Vec{C} = 1.
+\]
+\end{frame}
+
+%-------------------------
+\begin{frame}{Step 3: Linear system}
+This gives the system
+\[
+\begin{bmatrix}
+3 & -1 & 2\\
+5 & 2 & 4\\
+-1 & -1 & 6
+\end{bmatrix}
+\myvec{n_1\\n_2\\n_3}
+=
+\myvec{1\\1\\1}.
+\]
+
+Or in augmented form:
+\[
+\left[
+\begin{array}{ccc|c}
+3 & -1 & 2 & 1\\
+5 & 2 & 4 & 1\\
+-1 & -1 & 6 & 1
+\end{array}
+\right].
+\]
+\end{frame}
+
+%-------------------------
+\begin{frame}{Step 4: Solution}
+Row reducing, we obtain
+\[
+\mathbf{N} = \myvec{\tfrac{1}{19}\\[6pt]-\tfrac{5}{57}\\[6pt]\tfrac{3}{19}}.
+\]
+
+Hence the plane equation is
+\[
+\frac{1}{19}x - \frac{5}{57}y + \frac{3}{19}z = 1.
+\]
+\end{frame}
+
+%-------------------------
+\begin{frame}{Step 5: Distance from origin}
+Distance of origin \((0,0,0)\) from the plane
+\[
+\mathbf{N}^{\!\top}x = 1
+\]
+is
+\[
+d = \frac{|\,1\,|}{\|\mathbf{N}\|}
+= \frac{1}{\sqrt{\left(\tfrac{1}{19}\right)^2 + \left(-\tfrac{5}{57}\right)^2 + \left(\tfrac{3}{19}\right)^2}}.
+\]
+
+\[
+d = \frac{57}{\sqrt{187}}.
+\]
+\end{frame}
+
+\end{document}

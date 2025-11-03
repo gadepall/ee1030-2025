@@ -1,0 +1,114 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[a5paper,10pt]{article}
+\usepackage[margin=10mm]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+
+
+
+\author{EE25BTECH11041-Naman Kumar }
+\graphicspath{./figs/}
+
+\begin{document}
+\begin{center}
+    \huge{10.5.8}\\
+    \large{EE25BTECH11041 - Naman Kumar}
+\end{center}
+Question:\\
+Draw two concentric circles of radii 3 cm and 5 cm. Taking a point on outer circle construct the pair of tangents to the other. Measure the length of a tangent and verify it by actual calculation.\\
+\solution \\
+General equation of conic
+\begin{align}
+    g(\vec{x})=\vec{x^T}\vec{V}\vec{x}+2\vec{u^T}\vec{x}+f 
+\end{align}
+Equation of circle,
+\begin{align}
+    \vec{x^T}\begin{pmatrix}1&0\\0&1\end{pmatrix}\vec{x}+2\begin{pmatrix}0\\0\end{pmatrix}^T\vec{x}-r^2=0,\label{1} r=\text{radius od circle}\\
+    r_1=3cm , r_2=5cm
+\end{align}
+A point lies on the tangent to the conic if it satisfies the following equation
+\begin{align}
+    \vec{m}^T\sbrak{\brak{\vec{V}\vec{h}+\vec{u}}\brak{\vec{V}\vec{h}+\vec{u}}^T-\vec{V}g(\vec{h})}\vec{m}=0 \label{2}
+\end{align}
+Assuming a point on outer circle as $\vec{A}(5,0)$\\
+putting $\vec{A}$ in $\eqref{1}$ for inner circle
+\begin{align}
+    \vec{A^T}\begin{pmatrix}1&0\\0&1\end{pmatrix}\vec{A}+2\begin{pmatrix}0\\0\end{pmatrix}^T\vec{A}-(r_1)^2\\
+    25-9=16\\
+    g(\vec{A})_1=16
+\end{align}
+Calculating $\brak{\vec{V}\vec{A}+\vec{u}}$
+\begin{align}
+    \begin{pmatrix}1&0\\0&1\end{pmatrix}\begin{pmatrix}5\\0\end{pmatrix}+\begin{pmatrix}0\\0\end{pmatrix}\\
+    \begin{pmatrix}5\\0\end{pmatrix}    
+\end{align}
+putting in $\eqref{2}$
+\begin{align}
+    \vec{m}^T\sbrak{\brak{\vec{V}\vec{A}+\vec{u}}\brak{\vec{V}\vec{A}+\vec{u}}^T-\vec{V}g(\vec{A})_1}\vec{m}=0\\
+    \vec{m}^T\sbrak{\begin{pmatrix}5\\0\end{pmatrix}\begin{pmatrix}5\\0\end{pmatrix}^T-\begin{pmatrix}1&0\\0&1\end{pmatrix}\times16}\vec{m}=0\\
+    \vec{m}^T\sbrak{\begin{pmatrix}9&0\\0&-16\end{pmatrix}}\vec{m}=0\\
+    \begin{pmatrix}1\\m\end{pmatrix}^T\begin{pmatrix}9&0\\0&-16\end{pmatrix}\begin{pmatrix}1\\m\end{pmatrix}=0\\
+    9-16m^2=0\\
+    m=\pm \frac{3}{4}\\
+    \vec{m}=\begin{pmatrix}1\\\pm \frac{3}{4}\end{pmatrix}
+\end{align}
+Using following formula to find point of contact of tangent
+\begin{align}
+    \vec{q}_{j}=\brak{\pm r \frac{\vec{n}_j}{\lVert \vec{n}_j \rVert} -\vec{u}}, j=1,2 \label{3} \\
+    \vec{q_1}=\brak{\pm 3 \frac{\begin{pmatrix}\frac{3}{4}\\1\end{pmatrix}}{\sqrt{\brak{\frac{3}{4}}^2+1}}} \\
+    \vec{q}_1=\pm \begin{pmatrix}\frac{9}{5}\\ \frac{12}{5}\end{pmatrix}\\
+    Similarly, \vec{q}_2=\pm\begin{pmatrix}\frac{9}{5}\\ \frac{-12}{5}\end{pmatrix}
+\end{align}
+To take the ones passing through $\vec{A}$ taking $\vec{q}_1$ and $\vec{q}_2$ as
+\begin{align}
+\vec{q}_1=\begin{pmatrix}\frac{9}{5}\\ \frac{12}{5}\end{pmatrix}\\
+\vec{q}_2=\begin{pmatrix}\frac{9}{5}\\ \frac{-12}{5}\end{pmatrix}    
+\end{align}
+Length of both tangent will be equal and will be
+\begin{align}
+    \lVert \vec{q_1}-\vec{A} \rVert\\
+    \lVert \begin{pmatrix}\frac{9}{5}\\ \frac{12}{5}\end{pmatrix} -\begin{pmatrix}5\\0\end{pmatrix}\rVert\\
+    \lVert \begin{pmatrix}\frac{-16}{5}\\ \frac{12}{5}\end{pmatrix}\rVert\\
+    =4
+\end{align}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\columnwidth]{figs/figure.png}
+    \caption{}
+    \label{fig:placeholder}
+\end{figure}
+\end{document}

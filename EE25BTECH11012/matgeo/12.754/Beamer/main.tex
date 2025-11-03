@@ -1,0 +1,489 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{multicol}
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{12.754}
+\date{October  2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{BEERAM MADHURI - EE25BTECH11012}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Let $\mathbf{Q} = \begin{pmatrix} 1 & -2 \\ 2 & 1 \end{pmatrix}$ be a $2\times2$ matrix. Which one of the following statements is \textbf{TRUE}?
+
+\begin{enumerate}
+    \item[a)] $\mathbf{Q}$ is equal to its transpose.
+    \item[b)] $\mathbf{Q}$ is equal to its inverse.
+    \item[c)] $\mathbf{Q}$ is full rank.
+    \item[d)] $\mathbf{Q}$ has linearly dependent columns.
+\end{enumerate}
+\end{frame}
+ 
+\begin{frame}{solution}
+    \frametitle{finding the properties of Q:}
+    given
+    \begin{align}
+    \vec{Q}=\begin{pmatrix}
+        1&-2\\2&1
+    \end{pmatrix}
+    \end{align}
+ \textbf{a)}
+    \begin{align}\vec{Q}^\top = \begin{pmatrix} 1 & 2 \\ -2 & 1 \end{pmatrix}\\
+    \vec{Q} \neq \vec{Q}^\top
+    \end{align}
+\end{frame}
+\begin{frame}
+    \textbf{b)}
+    \begin{align}
+    \vec{Q}= \begin{pmatrix} 1 & -2 \\ 2 & 1 \end{pmatrix}\\
+    \text{If } \vec{Q} = \vec{Q}^-1 \text{ then } \vec{Q}^2 = I\\
+    \vec{Q}^2 = \begin{pmatrix} 1 & 2 \\ -2 & 1 \end{pmatrix} \begin{pmatrix} 1 & 2 \\ -2 & 1 \end{pmatrix}\\
+    = \begin{pmatrix} -3 & 4 \\ -4 & -3 \end{pmatrix}
+    \neq \vec{I}
+    \end{align}
+    \end{frame}
+    \begin{frame}
+\text{c)} 
+\begin{align}
+\vec{Q}= \begin{pmatrix} 1 & -2 \\ 2 & 1 \end{pmatrix}
+\end{align}
+    Using Row reduction:-
+\begin{align}
+\begin{pmatrix} 1 & -2 \\ 2 & 1 \end{pmatrix}\xrightarrow{R_2-2(R_1)}
+\begin{pmatrix} 1 & -2 \\ 0 & -3
+\end{pmatrix}\\
+rank=2
+\end{align}
+$\therefore$ $\vec{Q}$ is a full rank Matrix.
+\end{frame}
+\begin{frame}
+\textbf{d)}
+Columns of $\vec{Q}$ are linearly dependent if
+\begin{align}
+\vec{c_1} = \lambda \vec{c_2} \quad (\lambda \neq 0)
+\end{align}
+where $\vec{c_1} =$ first column of $\vec{Q}$ \\
+$\vec{c_2} =$ second column of $\vec{Q}$.
+\begin{align}
+\vec{c_1} = \begin{pmatrix} 1 \\ 2 \end{pmatrix}, \vec{c_2} = \begin{pmatrix} -2 \\ 1 \end{pmatrix}\\
+\vec{c_1} \neq \lambda \vec{c_2} \text{ for any } \lambda \neq 0
+\end{align}
+$\therefore$ columns of $\vec{Q}$ are linearly independent.\\\\
+$\therefore$ Option C is correct.
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import numpy as np
+from numpy.linalg import inv, det, LinAlgError
+
+def solve_matrix_problem():
+    """
+    Analyzes the matrix Q and verifies the given statements.
+    """
+    # Define the 2x2 matrix Q as a NumPy array
+    Q = np.array([[1, -2],
+                  [2, 1]])
+
+    print(f"Given Matrix Q:\n{Q}\n")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+    # --- a) Check if Q is equal to its transpose ---
+    print("a) Checking if Q is equal to its transpose...")
+    # In NumPy, the .T attribute gets the transpose
+    Q_T = Q.T
+    print(f"Transpose Q^T:\n{Q_T}")
+    # np.array_equal safely checks if two arrays are element-wise equal
+    is_equal_to_transpose = np.array_equal(Q, Q_T)
+    print(f"Result: Statement (a) is {is_equal_to_transpose}.\n")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+    # --- b) Check if Q is equal to its inverse ---
+    print("b) Checking if Q is equal to its inverse...")
+    try:
+        # np.linalg.inv calculates the inverse
+        Q_inv = inv(Q)
+        print(f"Inverse Q^-1:\n{np.round(Q_inv, 2)}") # Round for cleaner display
+        is_equal_to_inverse = np.array_equal(Q, Q_inv)
+        print(f"Result: Statement (b) is {is_equal_to_inverse}.\n")
+    except LinAlgError:
+        # This block runs if the matrix has no inverse (is singular)
+        print("Inverse does not exist.")
+        print("Result: Statement (b) is False.\n")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+    # --- c) & d) Check rank and column dependency via the determinant ---
+    print("c/d) Checking for full rank and column dependency...")
+    # np.linalg.det calculates the determinant
+    q_det = det(Q)
+    print(f"Determinant of Q = {q_det:.2f}")
+
+    # A square matrix has full rank if its determinant is non-zero.
+    # Its columns are linearly dependent if the determinant is zero.
+    if abs(q_det) > 1e-9:  # Use tolerance for floating point comparison
+        print("Result: Statement (c) is True (Determinant is non-zero, so Q is of full rank).")
+        print("Result: Statement (d) is False (Columns are linearly independent).\n")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+else:
+        print("Result: Statement (c) is False (Determinant is zero, so Q is not of full rank).")
+        print("Result: Statement (d) is True (Columns are linearly dependent).\n")
+    print("Conclusion: The only TRUE statement is (c).")
+    
+if _name_ == "_main_":
+    solve_matrix_problem()
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+#include <stdio.h>
+#include <math.h> // Required for fabs() for floating-point comparisons
+
+// --- Function Prototypes ---
+void printMatrix(const char* name, double matrix[2][2]);
+double determinant(double matrix[2][2]);
+void transpose(double in[2][2], double out[2][2]);
+int inverse(double in[2][2], double out[2][2]); // Returns 1 on success, 0 on failure
+int areMatricesEqual(double A[2][2], double B[2][2]);
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+int main() {
+    // Define the 2x2 matrix Q
+    double Q[2][2] = {{1.0, -2.0}, {2.0, 1.0}};
+
+    printf("Given Matrix Q:\n");
+    printMatrix("Q", Q);
+    // a) Check if Q is equal to its transpose.
+    printf("a) Checking if Q == Q^T ...\n");
+    double Q_T[2][2];
+    transpose(Q, Q_T);
+    printMatrix("Transpose Q^T", Q_T);
+    printf("Result: Statement (a) is %s.\n\n", areMatricesEqual(Q, Q_T) ? "TRUE" : "FALSE");
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+    // b) Check if Q is equal to its inverse.
+    printf("b) Checking if Q == Q^-1 ...\n");
+    double Q_inv[2][2];
+    if (inverse(Q, Q_inv)) { // Check if inverse exists before using it
+        printMatrix("Inverse Q^-1", Q_inv);
+        printf("Result: Statement (b) is %s.\n\n", areMatricesEqual(Q, Q_inv) ? "TRUE" : "FALSE");
+    } else {
+        printf("Inverse does not exist.\n");
+        printf("Result: Statement (b) is FALSE.\n\n");
+    }
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+    // c) & d) Check for full rank and column dependency using the determinant.
+    printf("c/d) Checking rank and column dependency...\n");
+    double det = determinant(Q);
+    printf("Determinant of Q = %.2f\n", det);
+    // If determinant is non-zero, it has full rank and independent columns.
+    if (fabs(det) > 1e-9) {
+        printf("Result: Statement (c) is TRUE (Determinant is non-zero, so Q is of full rank).\n");
+        printf("Result: Statement (d) is FALSE (Columns are linearly independent).\n\n");
+    } 
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+else {
+        printf("Result: Statement (c) is FALSE (Determinant is zero, so Q is not of full rank).\n");
+        printf("Result: Statement (d) is TRUE (Columns are linearly dependent).\n\n");
+    }
+    printf("Conclusion: The only TRUE statement is (c).\n");
+
+    return 0;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+void printMatrix(const char* name, double matrix[2][2]) {
+    printf("%s = \n", name);
+    printf("  | %6.2f  %6.2f |\n", matrix[0][0], matrix[0][1]);
+    printf("  | %6.2f  %6.2f |\n", matrix[1][0], matrix[1][1]);
+}
+
+double determinant(double matrix[2][2]) {
+    return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+void transpose(double in[2][2], double out[2][2]) {
+    out[0][0] = in[0][0];
+    out[0][1] = in[1][0];
+    out[1][0] = in[0][1];
+    out[1][1] = in[1][1];
+}
+int inverse(double in[2][2], double out[2][2]) {
+    double det = determinant(in);
+
+    // A matrix is invertible if and only if its determinant is non-zero.
+    if (fabs(det) < 1e-9) {
+        return 0; // No inverse exists
+    }
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+    double inv_det = 1.0 / det;
+    out[0][0] =  in[1][1] * inv_det;
+    out[0][1] = -in[0][1] * inv_det;
+    out[1][0] = -in[1][0] * inv_det;
+    out[1][1] =  in[0][0] * inv_det;
+
+    return 1; // Success
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+int areMatricesEqual(double A[2][2], double B[2][2]) {
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            // Use a small tolerance for floating-point comparison
+            if (fabs(A[i][j] - B[i][j]) > 1e-9) {
+                return 0; // Not equal
+            }
+        }
+    }
+    return 1; // Equal
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}
+import ctypes
+import math
+
+# Define a 2x2 matrix type using ctypes (array of arrays)
+Matrix2x2 = (ctypes.c_double * 2) * 2
+
+def print_matrix(name, matrix):
+    print(f"{name} = ")
+    for i in range(2):
+        print(f"  | {matrix[i][0]:6.2f}  {matrix[i][1]:6.2f} |")
+def determinant(matrix):
+    return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}
+def transpose(in_matrix, out_matrix):
+    out_matrix[0][0] = in_matrix[0][0]
+    out_matrix[0][1] = in_matrix[1][0]
+    out_matrix[1][0] = in_matrix[0][1]
+    out_matrix[1][1] = in_matrix[1][1]
+
+def inverse(in_matrix, out_matrix):
+    det = determinant(in_matrix)
+    if abs(det) < 1e-9:
+        return False
+    inv_det = 1.0 / det
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}
+    out_matrix[0][0] =  in_matrix[1][1] * inv_det
+    out_matrix[0][1] = -in_matrix[0][1] * inv_det
+    out_matrix[1][0] = -in_matrix[1][0] * inv_det
+    out_matrix[1][1] =  in_matrix[0][0] * inv_det
+    return True
+def are_matrices_equal(A, B):
+    for i in range(2):
+        for j in range(2):
+            if abs(A[i][j] - B[i][j]) > 1e-9:
+                return False
+    return True
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}
+def main():
+    # Define matrix Q
+    Q = Matrix2x2()
+    Q[0][0], Q[0][1] = 1.0, -2.0
+    Q[1][0], Q[1][1] = 2.0,  1.0
+    print("Given Matrix Q:")
+    print_matrix("Q", Q)
+
+    # a) Check if Q == Q^T
+    print("a) Checking if Q == Q^T ...")
+    Q_T = Matrix2x2()
+    transpose(Q, Q_T)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}
+    print_matrix("Transpose Q^T", Q_T)
+    print(f"Result: Statement (a) is {'TRUE' if are_matrices_equal(Q, Q_T) else 'FALSE'}.\n")
+    # b) Check if Q == Q^-1
+    print("b) Checking if Q == Q^-1 ...")
+    Q_inv = Matrix2x2()
+    if inverse(Q, Q_inv):
+        print_matrix("Inverse Q^-1", Q_inv)
+        print(f"Result: Statement (b) is {'TRUE' if are_matrices_equal(Q, Q_inv) else 'FALSE'}.\n")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}
+    else:
+        print("Inverse does not exist.")
+        print("Result: Statement (b) is FALSE.\n")
+    # c) & d) Check full rank and column dependency using determinant
+    print("c/d) Checking rank and column dependency...")
+    det = determinant(Q)
+    print(f"Determinant of Q = {det:.2f}")
+    if abs(det) > 1e-9:
+        print("Result: Statement (c) is TRUE (Determinant is non-zero, so Q is of full rank).")
+        print("Result: Statement (d) is FALSE (Columns are linearly independent).\n")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}
+    else:
+        print("Result: Statement (c) is FALSE (Determinant is zero, so Q is not of full rank).")
+        print("Result: Statement (d) is TRUE (Columns are linearly dependent).\n")
+    print("Conclusion: The only TRUE statement is (c).")
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+\end{frame}
+\end{document}

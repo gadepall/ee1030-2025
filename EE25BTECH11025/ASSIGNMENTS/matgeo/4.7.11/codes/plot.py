@@ -1,19 +1,22 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from call import send_data
+
+data, findata = send_data()
 
 a = np.linspace(-10, 10, 100)
-b = (3*a)/2 - (5/2)
+b = ((data[0]*a)-data[2])/(-data[1])
 
 A = np.linspace(-10, 10, 100)
-B = (-3*A)/2 + (5/2)
+B = ((-data[3]*A)+data[5])/data[4]
 
-x = [10/6, 10/6]
-y = [15, -15]
+y = np.linspace(-10, 10, 100)
+x = ((findata[4]*y)-findata[5])/(-findata[3])
 
-X = [-15, 15]
-Y = [0, 0]
+X = np.linspace(-10, 10, 100)
+Y = ((findata[0]*X)-findata[2])/(-findata[1])
 
-plt.plot(a, b, 'r-')
+plt.plot(a, b, 'r-') 
 plt.plot(A, B, 'r-')
 plt.plot(x, y, 'k-')
 plt.plot(X, Y, 'k-')

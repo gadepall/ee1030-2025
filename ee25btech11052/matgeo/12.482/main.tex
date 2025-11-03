@@ -1,0 +1,115 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+\usepackage{tfrupee} % Include tfrupee package
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+%\usepackage{gvv-book}
+%\usepackage{gvv}
+\usepackage{multicol}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+
+% Define the \myvec command locally since the package was removed
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+
+\begin{document}
+	
+	\bibliographystyle{IEEEtran}
+	\vspace{3cm}
+	
+	\title{12.482}
+	\author{EE25BTECH11052 - Shriyansh Kalpesh Chawda}
+	% \maketitle
+	% \newpage
+	% \bigskip
+	{\let\newpage\relax\maketitle}
+	
+	\renewcommand{\thefigure}{\theenumi}
+	\renewcommand{\thetable}{\theenumi}
+	\setlength{\intextsep}{10pt} 
+	
+	%\numberwithin{equation}{enumi}
+	\numberwithin{figure}{enumi}
+	\renewcommand{\thetable}{\theenumi}
+	\textbf{Question}:\\
+	Consider the matrix $\mathbf{M} = \myvec{5 & 3\\3 & 5}$. The normalized eigen-vector corresponding to the smallest eigen-value of the matrix $\mathbf{M}$ is:
+	
+	\begin{multicols}{4}
+		\begin{enumerate}
+			\item $\begin{pmatrix} \frac{\sqrt{3}}{2} \\ \frac{1}{2} \end{pmatrix}$
+			\item $\begin{pmatrix} \frac{\sqrt{3}}{2} \\ -\frac{1}{2} \end{pmatrix}$
+			\item $\begin{pmatrix} \frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}} \end{pmatrix}$
+			\item $\begin{pmatrix} \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{pmatrix}$
+			\end{enumerate}
+	\end{multicols}
+	
+	\textbf{Solution}\\
+	Given matrix:
+	\begin{align}
+		\mathbf{M} = \myvec{5 & 3\\3 & 5}
+	\end{align}
+	The characteristic equation is:
+	\begin{align}
+		\det(\mathbf{M} - \lambda\mathbf{I}) &= 0\\
+		\det\myvec{5-\lambda & 3\\3 & 5-\lambda} &= 0\\
+		(5-\lambda)(5-\lambda) - (3)(3) &= 0\\
+		(5-\lambda)^2 - 9 &= 0\\
+		\lambda^2 - 10\lambda + 16 &= 0
+	\end{align}
+	Using the quadratic formula:
+	\begin{align}
+		\lambda &= \frac{10 \pm \sqrt{100 - 64}}{2} = \frac{10 \pm \sqrt{36}}{2} = \frac{10 \pm 6}{2}\\
+		\lambda_1 &= 8 \quad \text{(largest eigenvalue)}\\
+		\lambda_2 &= 2 \quad \text{(smallest eigenvalue)}
+	\end{align}
+	For $\lambda = 2$, solve $(\mathbf{M} - 2\mathbf{I})\mathbf{v} = \mathbf{0}$:
+	\begin{align}
+		\myvec{5-2 & 3\\3 & 5-2}\myvec{v_1\\v_2} &= \myvec{0\\0}\\
+		\myvec{3 & 3\\3 & 3}\myvec{v_1\\v_2} &= \myvec{0\\0}\\
+		3v_1 + 3v_2 &= 0\\
+		v_1 + v_2 &= 0 \implies v_1 = -v_2
+	\end{align}
+	Let $v_2 = t$, then $v_1 = -t$.\\
+	The general eigenvector is:
+	\begin{align}
+		\mathbf{v} &= t\myvec{-1\\1} = t\myvec{1\\-1} \cdot (-1)\\
+		\mathbf{v} &= \myvec{1\\-1}
+	\end{align}
+	The normalized eigenvector is:
+	\begin{align}
+		\hat{\mathbf{v}} &= \frac{\mathbf{v}}{\|\mathbf{v}\|}\\
+		\|\mathbf{v}\| &= \sqrt{\mathbf{v}^\top \mathbf{v}}= \sqrt{2}\\
+		\hat{\mathbf{v}} &= \frac{1}{\sqrt{2}}\myvec{1\\-1} = \myvec{\frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}}}
+	\end{align}
+	$$\boxed{\text{The correct answer is (c) } \myvec{\frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}}}}$$
+	
+	
+	
+\end{document}
+

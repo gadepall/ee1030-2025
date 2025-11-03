@@ -3,12 +3,10 @@ import math
 sys.path.insert(0, '/home/sai-sreevallabh/Matrix_Theory/Matgeo/codes/CoordGeo')
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
 import numpy.linalg as LA
 
 #local imports
 from line.funcs import *
-from triangle.funcs import *
 
 A = np.array([1,3])
 B = np.array([4,5])

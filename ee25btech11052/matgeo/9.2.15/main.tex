@@ -1,0 +1,106 @@
+
+\documentclass[article]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+
+\usepackage{tfrupee} 
+\setlength{\headheight}{1cm} 
+\setlength{\headsep}{0mm}       
+\usepackage{multicol}
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+	\title{9.2.15}
+	\author{EE25BTECH11052 - Shriyansh Kalpesh Chawda}
+	\maketitle
+\textbf{Question}\\
+Determine the area under the curve $y = \sqrt{a^2 - x^2}$ included above the  x axis.\\
+\textbf{Solution}\\
+General Equation of Conic in Matrix form is given by :
+\begin{equation}
+	\mathbf{x}^\top\mathbf{V}\mathbf{x} + 2\mathbf{u}^\top\mathbf{x} + f = 0
+	\label{eq:matrix_conic}
+\end{equation}
+First,The  curve $y = \sqrt{a^2 - x^2}$ can be Rearranged as : 
+\begin{align}
+y^2 = a^2 - x^2 \implies x^2 + y^2 - a^2 = 0
+\end{align}
+Using this, The specific conic parameters for this curve:
+\begin{equation}
+	\mathbf{V} = \myvec{1 & 0 \\ 0 & 1}, \quad \mathbf{u} = \myvec{0 \\ 0}, \quad f = -a^2
+\end{equation}
+Next, the area is bounded below by the x-axis (the line $y=0$). The parameters for this line are:
+\begin{equation}
+	\mathbf{h} = \myvec{0 \\ 0}, \quad \mathbf{m} = \myvec{1 \\ 0}
+\end{equation}
+Using the formula given in the  book to solve point of intersection of line with a given curve:
+
+\[
+\kappa = \frac{1}{\mathbf{m}^\top\mathbf{V}\mathbf{m}} \left( -\mathbf{m}^\top(\mathbf{V}\mathbf{h} + \mathbf{u}) \pm \sqrt{ (\mathbf{m}^\top(\mathbf{V}\mathbf{h} + \mathbf{u}))^2 - g(\mathbf{h})(\mathbf{m}^\top\mathbf{V}\mathbf{m}) } \right)
+\]
+where $g(\mathbf{h}) = \mathbf{h}^\top\mathbf{V}\mathbf{h} + 2\mathbf{u}^\top\mathbf{h} + f$. We calculate each component:
+\begin{align}
+&\mathbf{m}^\top\mathbf{V}\mathbf{m} = \myvec{1 & 0} \myvec{1 & 0 \\ 0 & 1} \myvec{1 \\ 0} = \myvec{1 & 0} \myvec{1 \\ 0} = 1\\
+	&\mathbf{m}^\top(\mathbf{V}\mathbf{h} + \mathbf{u}) = \myvec{1 & 0} \left( \myvec{1 & 0 \\ 0 & 1} \myvec{0 \\ 0} + \myvec{0 \\ 0} \right) = \myvec{1 & 0} \myvec{0 \\ 0} = 0\\
+	&g(\mathbf{h}) = \myvec{0 & 0}\myvec{1 & 0 \\ 0 & 1}\myvec{0 \\ 0} + 2\myvec{0 & 0}\myvec{0 \\ 0} - a^2 = 0 + 0 - a^2 = -a^2
+\end{align}
+Substituting these results back into the formula for $\kappa$:
+\[
+\kappa = \frac{1}{1} \left( -0 \pm \sqrt{ (0)^2 - (-a^2)(1) } \right) = \pm \sqrt{a^2} = \pm a
+\]
+The solutions are $\kappa_1 = a$ and $\kappa_2 = -a$, confirming the intersections at $x=\pm a$.
+
+Hence,The area can be given by :
+\begin{align}
+A = \int_{-a}^{a} \sqrt{a^2 - x^2} dx
+\end{align}
+
+
+This integral is solved using trigonometric substitution. Let $x = a \sin\theta$, so $dx = a \cos\theta \,d\theta$. The limits become $-\frac{\pi}{2}$ to $\frac{\pi}{2}$.
+\begin{align}
+	A &= \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \sqrt{a^2 - a^2\sin^2\theta} \cdot (a \cos\theta \,d\theta) \\
+	&= \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \sqrt{a^2\cos^2\theta} \cdot (a \cos\theta \,d\theta) \\
+	&= \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} (a \cos\theta) (a \cos\theta \,d\theta) \\
+	&= a^2 \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \cos^2\theta \,d\theta \\
+	&= a^2 \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \frac{1 + \cos(2\theta)}{2} \,d\theta \\
+	&= \frac{a^2}{2} \left[ \theta + \frac{1}{2}\sin(2\theta) \right]_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \\
+	&= \frac{a^2}{2} \left( \left[ \frac{\pi}{2} + \frac{1}{2}\sin(\pi) \right] - \left[ 0 + \frac{1}{2}\sin(-\frac{\pi}{2}) \right] \right) \\
+	&= \frac{a^2}{2} \left( \frac{\pi}{2} \right) = \frac{\pi a^2}{2}
+\end{align}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\linewidth]{figs/semicircle_plot_from_c}
+	\caption{}
+	\label{fig:semicircleplotfromc}
+\end{figure}
+
+\end{document}

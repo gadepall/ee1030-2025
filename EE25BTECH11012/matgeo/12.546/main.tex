@@ -1,0 +1,114 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{multicol}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{12.546}
+\author{EE25BTECH11012-BEERAM MADHURI}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+
+\textbf{Question}:\\
+Consider the following two statements
+
+P: $\begin{pmatrix} 0 & 5 \\ 0 & 7 \end{pmatrix}$ has infinitely many LU factorizations, where $\mathbf{L}$ is lower triangular with each diagonal entry 1 and $\mathbf{U}$ is upper triangular.
+
+Q: $\begin{pmatrix} 0 & 0 \\ 2 & 5 \end{pmatrix}$ has no LU factorization, where $\mathbf{L}$ is lower triangular with each diagonal entry 1 and $\mathbf{U}$ is upper triangular.
+
+Then which one of the following options is correct? \hfill (MA 2018)
+
+\begin{enumerate}
+    \item[a)] P is TRUE and Q is FALSE
+    \item[b)] Both P and Q are TRUE
+    \item[c)] P is FALSE and Q is TRUE
+    \item[d)] Both P and Q are FALSE
+\end{enumerate}
+
+\textbf{Solution:}\\
+\begin{table}[H]
+    \centering
+    \input{tables/tables}
+    \caption{Variables used}
+    \label{table 12.546}
+\end{table}
+Let 
+\begin{align}
+L = \begin{pmatrix} 1 & 0 \\ l_{21} & 1 \end{pmatrix}\\
+U = \begin{pmatrix} u_{11} & u_{12} \\ 0 & u_{22} \end{pmatrix}\\
+LU = \begin{pmatrix} u_{11} & u_{12} \\ l_{21}u_{11} & l_{21}u_{12} + u_{22} \end{pmatrix}
+\end{align}
+
+\textbf{Statement P:}
+\begin{align}
+LU = \begin{pmatrix} 0 & 5 \\ 0 & 7 \end{pmatrix} \\
+u_{11} = 0, u_{12} = 5\\
+l_{21}u_{12} + u_{22} = 7
+\end{align}
+has infinite solutions.
+
+$\therefore$ there are infinitely many pairs $(l_{21}, u_{22})$
+
+Statement P is true\\
+
+\textbf{Statement Q:}
+\begin{align}
+LU = \begin{pmatrix} 0 & 0 \\ 2 & 5 \end{pmatrix}\\
+u_{11} = 0\\
+l_21u_11=0\\
+\text{but} l_21u_11=2
+\end{align}
+$\therefore$ no pairs(L,U) exists.\\
+$\therefore$ Statement Q is true.\\
+Option b is correct.
+\end{document}

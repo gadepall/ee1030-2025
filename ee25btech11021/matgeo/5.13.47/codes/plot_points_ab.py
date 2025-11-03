@@ -1,0 +1,45 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Parameters
+a = b = c = 1.0  # main intersection point
+
+# Meshgrid for planes
+xx = np.linspace(0, 1.5, 30)
+yy = np.linspace(0, 1.5, 30)
+XX, YY = np.meshgrid(xx, yy)
+
+# Plane equations
+Z1 = XX + YY - 1       # X + Y - Z = 1
+Z2 = 1 - XX + YY       # X - Y + Z = 1
+Z3 = 1 + XX - YY       # -X + Y + Z = 1
+
+# Plot
+fig = plt.figure(figsize=(10,8))
+ax = fig.add_subplot(111, projection='3d')
+
+# Plot planes with low opacity
+ax.plot_surface(XX, YY, Z1, color="red", alpha=0.2)
+ax.plot_surface(XX, YY, Z2, color="green", alpha=0.2)
+ax.plot_surface(XX, YY, Z3, color="blue", alpha=0.2)
+
+# Add plane equations as text
+ax.text(1.3, 0.2, Z1[0,-1], "X + Y - Z = 1", color='red', fontsize=12)
+ax.text(1.3, 0.2, Z2[0,-1], "X - Y + Z = 1", color='green', fontsize=12)
+ax.text(1.3, 0.2, Z3[0,-1], "-X + Y + Z = 1", color='blue', fontsize=12)
+
+# Plot the single intersection point (1,1,1)
+ax.scatter(1,1,1, color='red', s=200, edgecolor='black', label='Point (1,1,1)')
+
+# Annotate the intersection point
+ax.text(1.02, 1.02, 1.02, "(1,1,1)", fontsize=12, color='red')
+
+# Axes labels
+ax.set_xlabel("X = x²/a²")
+ax.set_ylabel("Y = y²/b²")
+ax.set_zlabel("Z = z²/c²")
+ax.set_title("Planes with Single Intersection Point Highlighted")
+
+ax.legend()
+plt.show()
+

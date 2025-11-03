@@ -1,0 +1,18 @@
+\frametitle{Python + C Code}
+\begin{verbatim}
+    n1x, n1y, n1z = a1, b1, c1
+    n2x, n2y, n2z = a2, b2, c2
+
+    nx = ctypes.c_double()
+    ny = ctypes.c_double()
+    nz = ctypes.c_double()
+    plane_lib.cross_product(n1x, n1y, n1z, n2x, n2y, n2z,
+    ctypes.byref(nx), ctypes.byref(ny), ctypes.byref(nz))
+
+    rhs = plane_lib.dot_product(nx.value, ny.value,
+    nz.value, x0, y0, z0)
+
+    print(f"\nRequired plane equation:")
+    print(f"{nx.value:.2f}x + {ny.value:.2f}y +
+    {nz.value:.2f}z = {rhs:.2f}")
+    \end{verbatim}

@@ -1,0 +1,191 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+\usepackage{tfrupee} 
+\setlength{\headheight}{1cm} 
+\setlength{\headsep}{0mm}     
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+%\usepackage{wasysym}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{circuitikz}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=4em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+%\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{8.4.35}
+\author{EE25BTECH11032 - Kartik Lahoti}
+\maketitle
+
+\subsection*{Question: } 
+
+The ellipse $E_1\colon\frac{x^2}{9}+\frac{y^2}{4} = 1$ is inscribed in a rectangle \textbf{R} whose sides are parallel to coordinate axes. another ellipse $E_2$ passing through the point $\brak{0,4}$ circumscribes the rectangle \textbf{R}. The eccentricity of the ellipse $E_2$ is 
+
+\begin{enumerate}
+    \begin{multicols}{4}
+    \item $\frac{\sqrt{2}}{2}$
+    \item $\frac{\sqrt{3}}{2}$
+    \item $\frac{1}{2}$
+    \item $\frac{3}{4}$
+    \end{multicols}
+\end{enumerate}
+
+\textbf{Solution}:\\
+
+Given for $E_1\colon$
+
+\begin{table}[H]
+    \centering
+    \input{tables/table.tex}
+    \caption*{}
+    \label{tab:placeholder}
+\end{table}
+
+$E_1$ is inscribed in Rectangle
+
+$\therefore$ The coordinates of Vertices of Rectangles are intersection points of, 
+
+\begin{align}
+    \vec{e_1}^{\top}\vec{x} &= 3 \label{eq_1} \\ 
+    \vec{e_2}^{\top}\vec{x} &= 2 \label{eq_2} \\ 
+    \vec{e_1}^{\top}\vec{x} &= -3\\
+    \vec{e_2}^{\top}\vec{x} &= -2
+\end{align}
+
+Let $\vec{P}$ intersection of \ref{eq_1} and \ref{eq_2}, 
+\begin{align}
+    \vec{P} = \myvec{3\\2}
+\end{align}
+
+Let , 
+
+\begin{align}
+    \vec{Q} = \myvec{0\\4}
+\end{align}
+
+General Form of Conic equation is given as , 
+
+\begin{align}
+    g\brak{\vec{x}} = \vec{x}^{\top}\vec{V}\vec{x} + 2\vec{u}^{\top}\vec{x} + f = 0 
+\end{align}
+
+Since the rectangle in inscribed inside $E_2$ , $E_2$ is an ellipse centered at origin. 
+
+For a conic centered at Origin 
+\begin{align}
+    \vec{u} = \vec{0}    
+\end{align}
+
+\begin{align}
+    \therefore \vec{x}^{\top}\vec{V^{\prime}}\vec{x} = 1  \label{eq_3}
+\end{align}
+
+where, $\vec{V^{\prime}} = -\frac{1}{f}\vec{V}$
+
+Since $E_2$ has axes parallel to coordinate axes , $\vec{V^{\prime}}$ must be diagonal.
+
+\begin{align}
+    \vec{V^{\prime}} = \myvec{v_{11} & 0 \\ 0 & v_{22}}
+\end{align}
+
+Now, $E_2$ passes through $\vec{Q}$ and $\vec{P}$
+
+\begin{align}
+    \vec{Q}^{\top}\vec{V^{\prime}}\vec{Q} = 1 \\ 
+    \vec{P}^{\top}\vec{V^{\prime}}\vec{P} = 1 
+\end{align}
+
+we get following system of eqn , 
+\begin{align}
+    \myvec{9 & 4 }\myvec{v_{11} \\ v_{22}} = 1,\myvec{0 & 16 }\myvec{v_{11} \\ v_{22}} = 1    
+\end{align}
+
+\begin{align}
+    \augvec{2}{1}{9 & 4 & 1\\0 & 16 & 1}\xleftrightarrow[]{R_1\rightarrow \frac{R_1}{9}}\augvec{2}{1}{1 & \frac{4}{9} & \frac{1}{9}\\0 & 16 & 1}
+\end{align}
+
+\begin{align}
+    \augvec{2}{1}{1 & \frac{4}{9} & \frac{1}{9}\\0 & 16 & 1}\xleftrightarrow[]{R_2\rightarrow \frac{R_2}{16}}\augvec{2}{1}{1 & \frac{4}{9} & \frac{1}{9}\\0 & 1 & \frac{1}{16}}
+\end{align}
+
+\begin{align}
+    \augvec{2}{1}{1 & \frac{4}{9} & \frac{1}{9}\\0 & 1 & \frac{1}{16}}\xleftrightarrow[]{R_1\rightarrow R_1 - \frac{4}{9}R_2}\augvec{2}{1}{1 & 0 & \frac{1}{12}\\0 & 1 & \frac{1}{16}}
+\end{align}
+
+On solving , We get
+
+\begin{align}
+    \vec{V^{\prime}} = \myvec{\frac{1}{12} & 0 \\ 0 & \frac{1}{16}}
+\end{align}
+
+\begin{align}
+    \vec{V} = \norm{n}^2\vec{I} - e^2\vec{n}^{\top}\vec{n}
+\end{align}
+
+Here, $\vec{n} = \vec{e_2}$
+
+Substituting the values, we get
+
+\begin{align}
+    \vec{V} = \myvec{1 & 0 \\ 0 & 1-e^2}
+\end{align}
+
+Now, 
+\begin{align}
+    \vec{V^{\prime}} &= k\vec{V} \\ 
+    \myvec{\frac{1}{12} & 0 \\ 0 & \frac{1}{16}} &= \myvec{k & 0 \\ 0 & k\brak{1-e^2}}\\
+\end{align}
+\begin{align}
+    \implies 1-e^2 &= \frac{12}{16}\\
+    \implies e &= \frac{1}{2}
+\end{align}
+
+Hence Answer : Option $\brak{3}\,\frac{1}{2}$
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\columnwidth]{figs/graph1.png}
+    \caption*{}
+    \label{fig:placeholder}
+\end{figure}
+\end{document}
+
+

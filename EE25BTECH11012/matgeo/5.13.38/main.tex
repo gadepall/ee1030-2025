@@ -1,0 +1,155 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{multicol}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{5.13.38}
+\author{EE25BTECH11012-BEERAM MADHURI}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+
+\textbf{Question}:\\
+Let $\mathbf{X}$ and $\mathbf{Y}$ be two arbitrary, $3 \times 3$, non-zero, skew-symmetric matrices and $\mathbf{Z}$ be an arbitrary $3 \times 3$, non-zero, symmetric matrix. Then which of the following matrices is (are) skew symmetric?
+
+\begin{enumerate}
+\begin{multicols}{4}
+    \item $\mathbf{Y}^3 \mathbf{Z}^4 - \mathbf{Z}^4 \mathbf{Y}^3$
+    \item $\mathbf{X}^{44} + \mathbf{Y}^{44}$
+    \item $\mathbf{X}^4 \mathbf{Z}^3 - \mathbf{Z}^3 \mathbf{X}^4$
+    \item $\mathbf{X}^{23} + \mathbf{Y}^{23}$
+\end{multicols}
+\end{enumerate}
+
+\textbf{Solution:}\\
+Given,
+\begin{align}
+\begin{aligned}\vec{X}^\top &= -\vec{X} \quad (\text{Skew-Symmetric}) \\\vec{Y}^\top &= -\vec{Y} \quad (\text{Skew-Symmetric}) \\\vec{Z^\top} &= \vec{Z} \quad (\text{Symmetric})\end{aligned}
+\end{align}
+Checking all options:\\
+a) $\vec{Y^3 Z^4} - \vec{Z^4 Y^3}$\\
+Let 
+\begin{align}
+A = \vec{Y^3 Z^4} - \vec{Z^4 Y^3}\\
+A^\top &= (\vec{Y^3 Z^4} - \vec{Z^4 Y^3})^\top \\
+A^\top &= (\vec{Y^3 Z^4})^\top - (\vec{Z^4 Y^3})^\top \\
+A^\top &= (\vec{Z}^\top)^4 (\vec{Y}^\top)^3 - (\vec{Y}^\top)^3 (\vec{Z}^\top)^4 \\
+A^\top &= (\vec{Z}^\top)^4 (\vec{Y}^\top)^3 - (\vec{Y}^\top)^3 (\vec{Z}^\top)^4\end{align}
+
+Now, substitute the given properties ($\vec{Z}^\top= \vec{Z}$ and $\vec{Y}^\top = -\vec{Y}$):
+\begin{align}A^\top &= (\vec{Z})^4 (-\vec{Y})^3 - (-\vec{Y})^3 (\vec{Z})^4 \\
+\text{Since } (-\vec{Y})^3 &= (-1)^3 \vec{Y}^3 = -\vec{Y}^3, \text{ we get:} \\
+A^\top &= \vec{Z}^4 (-\vec{Y}^3) - (-\vec{Y}^3) \vec{Z}^4 \\
+A^\top &= -\vec{Z}^4 \vec{Y}^3 + \vec{Y}^3 \vec{Z}^4 \\
+A^\top &= \vec{Y}^3 \vec{Z}^4 - \vec{Z}^4 \vec{Y}^3\\
+=\vec{A}\end{align}
+Hence, $A$ is Symmetric Matrix.\\
+
+b) $\vec{X}^{44} + \vec{Y}^{44}$\\
+Let 
+\begin{align}
+B = \vec{X}^{44} + \vec{Y}^{44}\\
+B^\top = (\vec{X}^{44} + \vec{Y}^{44})^\top \\
+B^\top = (\vec{X}^{44})^\top + (\vec{Y}^{44})^\top \\
+B^\top = (\vec{X}^\top)^{44} + (\vec{Y}^\top)^{44}
+\end{align}
+
+Now, substitute the given properties ($\vec{X}^\top = -\vec{X}$ and $\vec{Y}^\top = -\vec{Y}$):
+\begin{align}
+B^\top = (-\vec{X})^{44} + (-\vec{Y})^{44}\\
+(-1)^{44} = 1 \\
+\therefore (-\vec{X})^{44} = \vec{X}^{44} and (-\vec{Y})^{44} = \vec{Y}^{44} \\
+B^\top = \vec{X}^{44} + \vec{Y}^{44}\\
+B^\top=B
+\end{align}
+Hence, $B$ is Symmetric Matrix.\\
+
+c)  $\vec{X}^4\vec{Z}^3 - \vec{Z}^3\vec{X}^4$\\Let
+\begin{align}
+C&=(\vec{X^4Z^3} - \vec{Z^3X^4})\\
+C^\top &= (\vec{X^4Z^3} - \vec{Z^3X^4})^\top \\
+C^\top &= (\vec{X^4Z^3})^\top - (\vec{Z^3X^4})^\top \\
+C^\top &= (\vec{Z}^3)^\top(\vec{X}^4)^\top - (\vec{X}^4)^\top(\vec{Z}^3)^\top \\
+C^\top &= (\vec{Z}^\top)^3(\vec{X}^\top)^4 - (\vec{X}^\top)^4(\vec{Z}^\top)^3
+\end{align}
+
+Now, substitute the given properties ($\vec{Z}^\top = \vec{Z}$ and $\vec{X}^\top = -\vec{X}$):
+\begin{align}
+C^\top&= (\vec{Z})^3(-\vec{X})^4 - (-\vec{X})^4(\vec{Z})^3 \\
+(-\vec{X})^4 &= \vec{X}^4 \\
+\vec{C}^\top &= \vec{Z}^3\vec{X}^4 - \vec{X}^4\vec{Z}^3 \\
+C^\top &= -(\vec{X}^4\vec{Z}^3 - \vec{Z}^3\vec{X}^4)\\
+=-C
+\end{align}
+Hence, $C$ is Skew Symmetric Matrix.\\
+
+d) $\vec{X^{23} + Y}^{23}$\\Let
+\begin{align}
+D&=\vec{X}^{23} + \vec{Y}^{23}\\
+D^\top &= (\vec{X}^{23} + \vec{Y}^{23})^\top \\
+D^\top &= (\vec{X}^{23})^\top + (\vec{Y}^{23})^\top \\
+D^\top &= (\vec{X}^\top)^{23} + (\vec{Y}^\top)^{23}
+\end{align}
+Now, substitute the given properties ($\vec{X}^\top = -\vec{X}$ and $\vec{Y}^\top = -\vec{Y}$):
+\begin{align}
+D^\top &= (-\vec{X})^{23} + (-\vec{Y})^{23} \\
+(-1)^{23} = -1\\
+(-\vec{X})^{23} = -\vec{X}^{23} \text{ and } (-\vec{Y})^{23} = -\vec{Y}^{23}\\
+D^\top &= -\vec{X}^{23} - \vec{Y}^{23} \\
+D^\top &= -(\vec{X}^{23} + \vec{Y}^{23})\\
+=-D
+\end{align}
+Hence, $D$ is Skew Symmetric Matrix.\\\\
+$\therefore$ Option 3. $\vec{X}^4\vec{Z}^3 - \vec{Z}^3\vec{X}^4$ and\\ 
+Option 4. $\vec{X^{23} + Y}^{23}$ are Skew Symmetric
+\end{document}

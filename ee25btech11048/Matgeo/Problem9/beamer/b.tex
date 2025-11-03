@@ -1,0 +1,163 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx}
+\def\UrlBreaks{\do/\do-}
+
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}{
+\leavevmode
+\hbox{
+\begin{beamercolorbox}[wd=\paperwidth,ht=2ex,dp=1ex,right]{author in head/foot}
+\insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+\end{beamercolorbox}}
+\vskip0pt
+}
+\setbeamertemplate{navigation symbols}{}
+
+\lstset{
+frame=single,
+breaklines=true,
+columns=fullflexible,
+basicstyle=\ttfamily\tiny
+}
+
+\numberwithin{equation}{section}
+
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\let\vec\mathbf
+
+\title{Matgeo Presentation - Problem 4.7.45}
+\author{Revanth Siva Kumar.D -- EE25BTECH11048}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{QUESTION}
+For any three vectors $\vec{a},\vec{b},\vec{c}$, prove or disprove
+\begin{align*}
+    (\vec{a}-\vec{b})\cdot \big((\vec{b}-\vec{c})\times(\vec{c}-\vec{a})\big) = 2\vec{a}\cdot(\vec{b}\times \vec{c}).
+\end{align*}\end{frame}
+
+\begin{frame}{Solution:}
+We write the scalar triple product in determinant form:
+\begin{align}
+(\vec{a}-\vec{b})\cdot \big((\vec{b}-\vec{c})\times(\vec{c}-\vec{a})\big)
+= \det\myvec{ (\vec{a}-\vec{b})^T \\ (\vec{b}-\vec{c})^T \\ (\vec{c}-\vec{a})^T }.
+\end{align}
+
+Now observe that
+\begin{align}
+(\vec{a}-\vec{b}) + (\vec{b}-\vec{c}) + (\vec{c}-\vec{a}) = \vec{0}.
+\end{align}
+Thus the three rows of the determinant are linearly dependent. From matrix theory, the determinant of a matrix with linearly dependent rows is zero. Hence
+\begin{align}
+(\vec{a}-\vec{b})\cdot \big((\vec{b}-\vec{c})\times(\vec{c}-\vec{a})\big) = 0.
+\end{align}
+\end{frame}
+\begin{frame}{Solution:}
+On the other hand, the right-hand side is
+\begin{align}
+2\vec{a}\cdot(\vec{b}\times\vec{c})
+= 2\det\myvec{\vec{a}^T \\ \vec{b}^T \\ \vec{c}^T},
+\end{align}
+which is not identically zero for arbitrary $\vec{a},\vec{b},\vec{c}$.
+\end{frame}
+\begin{frame}{Conclusion}The given statement is \textbf{false}. 
+
+The left-hand side  $(\vec{a}-\vec{b})\cdot \big((\vec{b}-\vec{c})\times(\vec{c}-\vec{a})\big)$is  always zero, 
+while the right-hand side $2\vec{a}\cdot(\vec{b}\times \vec{c})$ can be nonzero.
+\end{frame}
+\begin{frame}[fragile]{C Code}
+\begin{lstlisting}
+#include <stdio.h>
+
+// Cross product u × v
+void cross(double u[3], double v[3], double result[3]) {
+    result[0] = u[1]*v[2] - u[2]*v[1];
+    result[1] = u[2]*v[0] - u[0]*v[2];
+    result[2] = u[0]*v[1] - u[1]*v[0];
+}
+
+// Dot product u · v
+double dot(double u[3], double v[3]) {
+    return u[0]*v[0] + u[1]*v[1] + u[2]*v[2];
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]{C Code}
+\begin{lstlisting}
+// Compute lhs (always 0) and rhs
+void compute(double a[3], double b[3], double c[3], double* lhs, double* rhs) {
+    double cross_b_c[3];
+
+    // b × c
+    cross(b, c, cross_b_c);
+
+    // LHS always 0 due to linear dependence
+    *lhs = 0.0;
+
+    // RHS = 2a · (b × c)
+    *rhs = 2 * dot(a, cross_b_c);
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]{callc.py Python code}
+\begin{lstlisting}
+import ctypes
+
+# Load shared library
+lib = ctypes.CDLL("./points.so")
+
+# Argument and return types
+lib.compute.argtypes = [
+    ctypes.POINTER(ctypes.c_double),  # a
+    ctypes.POINTER(ctypes.c_double),  # b
+    ctypes.POINTER(ctypes.c_double),  # c
+    ctypes.POINTER(ctypes.c_double),  # lhs
+    ctypes.POINTER(ctypes.c_double)   # rhs
+]
+
+def compute(a, b, c):
+    a_arr = (ctypes.c_double*3)(*a)
+    b_arr = (ctypes.c_double*3)(*b)
+    c_arr = (ctypes.c_double*3)(*c)
+    lhs = ctypes.c_double()
+    rhs = ctypes.c_double()
+    lib.compute(a_arr, b_arr, c_arr, ctypes.byref(lhs), ctypes.byref(rhs))
+    return lhs.value, rhs.value
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]{callc.py Python code}
+\begin{lstlisting}
+if __name__ == "__main__":
+    # Input vectors
+    a = list(map(float, input("Enter vector a (3 values): ").split()))
+    b = list(map(float, input("Enter vector b (3 values): ").split()))
+    c = list(map(float, input("Enter vector c (3 values): ").split()))
+
+    lhs, rhs = compute(a, b, c)
+
+    print(f"LHS = {lhs:.4f}")
+    print(f"RHS = {rhs:.4f}")
+
+    if abs(lhs - rhs) < 1e-6:
+        print(" The equality holds (both sides are zero).")
+    else:
+        print(" The equality does NOT hold.")
+
+\end{lstlisting}
+\end{frame}
+\end{document}

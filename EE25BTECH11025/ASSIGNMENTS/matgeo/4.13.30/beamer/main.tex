@@ -134,63 +134,54 @@ Hence the locus of $\vec{s}$ is a line parallel to $Y$-axis.
     \frametitle{C Code}
     \begin{lstlisting}
 #include<stdio.h>
+#include<math.h>
+double arrP[2] = {1,0};
+double arrQ[2] = {-1,0};
+double arrR[2] = {2,0};
 
-int arrP[2] = {1,0};
-int arrQ[2] = {-1,0};
-int arrR[2] = {2,0};
+void give_data(double *points){
+    double normal[2];
+    for(int i = 0; i<2; i++){
+        normal[i] = arrQ[i]+arrR[i]-(2*arrP[i]);
+    }
+    \end{lstlisting}
+\end{frame}
 
-int get_pointP(int index){
-    return arrP[index];
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+  double k=0;
+    for(int i = 0; i<2; i++){
+        k+=(pow(arrQ[i],2)+pow(arrR[i],2)-(2*pow(arrP[i],2)))/2;
+
+    }
+    points[0] = arrP[0]; points[1] = arrP[1];
+    points[2] = arrQ[0]; points[3] = arrQ[1];
+    points[4] = arrR[0]; points[5] = arrR[1];
+    points[6] = normal[0]; points[7] = normal[1];
+    points[8] = k;
 }
-
-int get_pointQ(int index){
-    return arrQ[index];
-}
-
-int get_pointR(int index){
-    return arrR[index];
-}
+ 
     \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{Python Code 1}
     \begin{lstlisting}
-import ctypes
-import numpy as np
+import ctypes as ct
 
+lib = ct.CDLL("./problem.so")
 
-lib = ctypes.CDLL("./problem.so")
+lib.give_data.argtypes = [ct.POINTER(ct.c_double)]
 
-pointP = [0.00,0.00]
-pointQ = [0.00,0.00]
-pointR = [0.00,0.00]
+points = ct.c_double*9
 
-for i in range(0,2):
-    pointP[i] = lib.get_pointP(i)
-for i in range(0,2):
-    pointQ[i] = lib.get_pointQ(i)
-for i in range(0,2):
-    pointR[i] = lib.get_pointR(i)
-    \end{lstlisting}
-\end{frame}
+data = points()
 
-\begin{frame}[fragile]
-    \frametitle{Python Code 1}
-    \begin{lstlisting}
-normal = [0,0]
-print(pointP)
-print(pointQ)
-print(pointR)
+lib.give_data(data)
 
-for i in range(0,2):
-    normal[i] = pointQ[i] + pointR[i] - (2*pointP[i])
-z = np.array(['x','y'])
-z_t = z.T
-k = 0.00
-for i in range(0,2):
-    k += ((pointQ[i]**2)+(pointR[i]**2)-(2*(pointP[i]**2)))/2
-print(normal,z_t,'=',k,"\nHence the locus of S is a line.")
+def send_data():
+    return data
     \end{lstlisting}
 \end{frame}
 
@@ -199,24 +190,26 @@ print(normal,z_t,'=',k,"\nHence the locus of S is a line.")
     \begin{lstlisting}
 import matplotlib.pyplot as plt
 import numpy as np
+from call import send_data
 
-x = [-3/2, -3/2]
-y = [5, -5]
+data = send_data()
 
-X = [1, -1, 2]
-Y = [0, 0, 0]
+y = np.linspace(-5, 5, 100)
+x = ((data[7]*y)+data[8])/data[6]
+
+X = [data[0], data[2], data[4]]
+Y = [data[1], data[3], data[5]]
 
 plt.plot(x, y, '-r')
 plt.plot(X, Y, 'ko')
-
-plt.text(0.6, 0.1, "(1,0)", fontsize=10, color="black")
-plt.text(-1.1, 0.1, "(-1,0)", fontsize=10, color="black")
     \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{Python Code 2}
     \begin{lstlisting}
+plt.text(0.6, 0.1, "(1,0)", fontsize=10, color="black")
+plt.text(-1.1, 0.1, "(-1,0)", fontsize=10, color="black")
 plt.text(2.1, 0.1, "(2,0)", fontsize=10, color="black")
 plt.text(-1.51, 3.20, r"$x=\frac{3}{2}$", fontsize=13, color="black")
 
@@ -228,7 +221,7 @@ plt.ylabel("Y-axis")
 plt.grid(True)
 plt.axis("equal")
 plt.savefig("../figs/plot.png")
-plt.show()   \end{lstlisting}
+plt.show()  \end{lstlisting}
 \end{frame}
 
 \begin{frame}{Plot}

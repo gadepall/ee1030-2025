@@ -1,3 +1,4 @@
+
 \let\negmedspace\undefined
 \let\negthickspace\undefined
 \documentclass[journal]{IEEEtran}
@@ -77,66 +78,89 @@
    \vec{b} = \overrightarrow{RP}, \; 
    \vec{c} = \overrightarrow{PQ}$.  
 
-  If $|\vec{a}| = 12,\; |\vec{b}| = 4\sqrt{3},\; \vec{b}\cdot\vec{c} = 24$,  
+  If $|\vec{a}| = 12,\; |\vec{b}| = 4\sqrt{3},\; \vec{b}^T\vec{c} = 24$,  
   then which of the following is (are) true?  
 
   \begin{enumerate}[label=(\alph*), leftmargin=*]
     \item $\dfrac{|\vec{c}|^2}{2} - |\vec{a}| = 12$
     \item $\dfrac{|\vec{c}|^2}{2} + |\vec{a}| = 30$
     \item $|\vec{a} \times \vec{b} + \vec{c} \times \vec{a}| = 48\sqrt{3}$
-    \item $\vec{a}\cdot\vec{b} = -72$
+    \item $\vec{a}^T\vec{b} = -72$
     \end{enumerate}
 
 \textbf{solution}
-$
-\norm{\vec a} = 12,\quad \norm{\vec b} = 4\sqrt{3},\quad \vec b \cdot \vec c = 24,
-\vec a + \vec b + \vec c = \vec 0$
-Thus, $\vec c = -(\vec a + \vec b)$.
 
-Find:
-\begin{enumerate}
-    \item[(a)] $\norm{\vec c}^2$
-    \item[(b)] Check $\frac{\norm{\vec c}^2}{2} \pm \norm{\vec a}$
-    \item[(c)] $\norm{\vec a \times \vec b + \vec c \times \vec a}$
-    \item[(d)] $\vec a \cdot \vec b$
-\end{enumerate}
-\textbf{(d)} Compute $\vec a \cdot \vec b$:
-\begin{align}
-\vec b \cdot \vec c = -\vec a \cdot \vec b - \norm{\vec b}^2
-\quad \Rightarrow \quad 24 = -\vec a \cdot \vec b - 48,
-\end{align}
-\begin{align}
-\vec a \cdot \vec b = -72.
-\end{align}
+\[
+\vec a+\vec b+\vec c=\vec0\qquad\Rightarrow\qquad \vec c=-\vec a-\vec b
+\]
 
-\textbf{(a), (b)} Compute $\norm{\vec c}^2$:
-\begin{align}
-\norm{\vec c}^2 = \norm{\vec a + \vec b}^2 = 144 + 48 + 2(-72) = 48,
-\end{align}
-\begin{align}
-\frac{48}{2} - 12 = 12\ (\text{True}),\quad \frac{48}{2} + 12 = 36\ (\text{False}).
-\end{align}
+\paragraph{(i)}
+\[
+\vec b^{T}\vec c=24
+\]
+\[
+\vec b^{T}(-\vec a-\vec b)=24\;\Rightarrow\; -\vec b^{T}\vec a-|\vec b|^{2}=24
+\]
+\[
+|\vec b|^{2}=(4\sqrt3)^{2}=48
+\]
+\[
+\vec a^{T}\vec b=-\big(48+24\big)=-72
+\]
 
-\textbf{(c)} Compute $\norm{\vec a \times \vec b + \vec c \times \vec a}$:
-\begin{align}
-\vec a \times \vec b + \vec c \times \vec a = 2(\vec a \times \vec b),
-\end{align}
-\begin{align}
-\cos\theta = \frac{-72}{12 \cdot 4\sqrt{3}} = -\frac{\sqrt{3}}{2},\quad \sin\theta = \frac{1}{2},
-\norm{\cos\theta} = 2 \cdot 12 \cdot 4\sqrt{3} \cdot \frac{1}{2} = 48\sqrt{3}
-\end{align}
-\begin{enumerate}
-    \item $\vec a \cdot \vec b = -72$
-    \item $\norm{\vec c}^2 = 48$
-    \item $\frac{\norm{\vec c}^2}{2} - \norm{\vec a} = 12 (True)$
-    \item $\frac{\norm{\vec c}^2}{2} + \norm{\vec a} = 36 (False)$
-    \item $\norm{\vec a \times \vec b + \vec c}$ 
-\end{enumerate}
+\paragraph{(ii)}
+\[
+|\vec c|^{2}=(-\vec a-\vec b)^{T}(-\vec a-\vec b)=|\vec a|^{2}+|\vec b|^{2}+2\vec a^{T}\vec b
+\]
+\[
+|\vec a|^{2}=12^{2}=144,\quad |\vec b|^{2}=48,\quad \vec a^{T}\vec b=-72
+\]
+\[
+|\vec c|^{2}=144+48+2(-72)=48\qquad\frac{|\vec c|^{2}}{2}=24
+\]
+\[
+\frac{|\vec c|^{2}}{2}-|\vec a|=24-12=12\quad\Rightarrow (a)\ \text{true}
+\]
+\[
+\frac{|\vec c|^{2}}{2}+|\vec a|=24+12=36\quad\Rightarrow (b)\ \text{false}
+\]
+
+\paragraph{(iii)}
+\[
+\vec a\times\vec b+\vec c\times\vec a=\vec a\times\vec b+(-\vec a-\vec b)\times\vec a
+\]
+\[
+=\vec a\times\vec b-\vec a\times\vec a-\vec b\times\vec a= \vec a\times\vec b-\vec b\times\vec a
+\]
+\[
+=\vec a\times\vec b+\vec a\times\vec b=2(\vec a\times\vec b)
+\]
+\[
+|\vec a\times\vec b+\vec c\times\vec a|=2|\vec a\times\vec b|=2|\vec a||\vec b|\sin\theta
+\]
+\[
+\cos\theta=\dfrac{\vec a^{T}\vec b}{|\vec a||\vec b|}=\dfrac{-72}{12\cdot4\sqrt3}=-\dfrac{\sqrt3}{2}
+\]
+\[
+\sin\theta=\tfrac12
+\]
+\[
+|\vec a\times\vec b+\vec c\times\vec a|=48\sqrt3\quad\Rightarrow (c)\ \text{true}
+\]
+
+\[
+\boxed{\text{True}=\{(a),(c),(d)\},\qquad \text{False}=\{(b)\}}
+\]
+
+
+
+
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.9\textwidth]{figs/fig.2.10.25.png}
+    \includegraphics[width=0.9\textwidth]{fig2.10.25.png}
     \caption{}
     \label{fig:1.2.27.jpg}
 \end{figure}
 
 \end{document}
+`

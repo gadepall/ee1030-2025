@@ -1,0 +1,171 @@
+\documentclass{article}
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{setspace}
+\usepackage{gensymb}
+\usepackage[cmex10]{amsmath}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{txfonts}
+\usepackage{stfloats}
+\usepackage{bm}
+\usepackage{cite}
+\usepackage{cases}
+\usepackage{subfig}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{verbatim}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{color}    
+\usepackage{array}    
+\usepackage{longtable}
+\usepackage{calc}     
+\usepackage{multirow} 
+\usepackage{hhline}   
+\usepackage{ifthen}   
+\usepackage{lscape}     
+\usepackage{chngcntr}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{multicol}
+\usepackage[a4paper, left = 1.5cm, right = 1.5cm]{geometry}
+
+\begin{document}
+
+\begin{center}
+\large
+    \textbf{Samyak Gondane-AI25BTECH11029}
+\end{center}
+\date{}
+
+\section*{Question}
+The lines $ax + 2y + 1 = 0, bx - 3y + 1 = 0$ and $cx + 4y + 1 = 0$ are concurrent if $a, b, c$ are in G.P.
+
+\section*{Solution}
+
+Given three lines:
+\begin{align}
+L_1 &: ax + 2y = -1 \\
+L_2 &: bx - 3y = -1 \\
+L_3 &: cx + 4y = -1
+\end{align}
+
+representing as an augmented matrix:
+
+\begin{align}
+\myvec{
+a & 2 & -1 \\
+b & -3 & -1 \\
+c & 4 & -1
+}
+\end{align}
+
+
+
+Assume $a, b, c$ are in geometric progression:
+
+
+\begin{align}
+b^2 = ac \quad \Rightarrow \quad c = \frac{b^2}{a}
+\end{align}
+
+Substitute into the third row:
+
+\begin{align}
+\myvec{
+a & 2 & -1 \\
+b & -3 & -1 \\
+\frac{b^2}{a} & 4 & -1
+}
+\end{align}
+
+\subsection*{Normalize the First Row}
+
+\begin{align}
+R_1 \rightarrow \frac{1}{a} R_1 = 
+\myvec{
+1 & \frac{2}{a} & \frac{-1}{a} \\
+b & -3 & -1 \\
+\frac{b^2}{a} & 4 & -1
+}
+\end{align}
+
+\subsection*{Eliminate First Column in $R_2$ and $R_3$}
+
+\begin{align}
+R_2 \rightarrow R_2 - b \cdot R_1 = 
+\myvec{
+1 & \frac{2}{a} & \frac{-1}{a} \\
+0 & -3 - \frac{2b}{a} & -1 + \frac{b}{a} \\
+\frac{b^2}{a} & 4 & -1
+}
+\end{align}
+
+\begin{align}
+R_3 \rightarrow R_3 - \frac{b^2}{a} \cdot R_1 = 
+\myvec{
+1 & \frac{2}{a} & \frac{-1}{a} \\
+0 & -3 - \frac{2b}{a} & -1 + \frac{b}{a} \\
+0 & 4 - \frac{2b^2}{a^2} & -1 + \frac{b^2}{a^2}
+}
+\end{align}
+
+For the system to be consistent (i.e., lines concurrent), rows 2 and 3 must be linearly dependent. This means the second and third rows must be scalar multiples of each other.
+
+Let us compare the second and third rows:
+
+\begin{align}
+Row\ 2: \myvec{0 \quad A \quad B} \quad
+Row\ 3: \myvec{0 \quad C \quad D}
+\end{align}
+
+Where:
+
+\begin{align}
+A = -3 - \frac{2b}{a}, \quad B = -1 + \frac{b}{a}
+\end{align}
+
+\begin{align}
+C = 4 - \frac{2b^2}{a^2}, \quad D = -1 + \frac{b^2}{a^2}
+\end{align}
+
+For linear dependence:
+\begin{align}
+\frac{C}{A} = \frac{D}{B}
+\end{align}
+
+\begin{align}
+A \cdot D = B \cdot C
+\end{align}
+
+Substitute the expressions and simplify:
+\begin{align}
+(-3 - \frac{2b}{a})(-1 + \frac{b^2}{a^2}) = 
+(-1 + \frac{b}{a})(4 - \frac{2b^2}{a^2})
+\end{align}
+
+Expanding both sides and simplifying leads to:
+\begin{align}
+-7a^2 + 2ab + 5b^2 = 0
+\end{align}
+
+\subsection*{Final Condition for Concurrency}
+
+\begin{align}
+\boxed{-7a^2 + 2ab + 5b^2 = 0}
+\end{align}
+
+If the condition is satisfied, the matrix reduces to:
+\begin{align}\myvec{1 & \frac{2}{a} & \frac{-1}{a} \\ 0 & 1 & \frac{B}{A} \\ 0 & 0 & 0}\end{align}
+This confirms the system is consistent and the lines are concurrent.
+
+\end{document}

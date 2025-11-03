@@ -1,0 +1,209 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+
+\title
+{12.81}
+\date{September 27, 2025}
+\author 
+{AI25BTECH11003 - Bhavesh Gaikwad}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Let $\vec{M}$ be a $3\times3$ real symmetric matrix with eigenvalues -1, 1, 2 and the corresponding unit eigenvectors $\vec{u}, \vec{v},\vec{w}$, respectively. Let $\vec{x}$ and $\vec{y}$ be two vectors in $\mathbb{R}^3$ such that
+$$\vec{MX} = \vec{u} + 2(\vec{v} + \vec{w}) \text{ and } \vec{M}^2\vec{y} = \vec{u} - (\vec{v} + 2\vec{w})$$
+Considering the usual inner product in $\mathbb{R}^3$, the value of $|\vec{x} + \vec{y}|^2$, where $|\vec{x} + \vec{y}|$ is the
+length of the vector $\vec{x} + \vec{y}$, is
+
+\hfill{(ST 2022)}
+
+a) 1.25 $\qquad$ b) 0.25 $\qquad$ c) 0.75 $\qquad$ d) 1
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Theoretical Solution}
+\begin{equation}
+\text{Let }\vec{P} = \brak{\vec{u} \, \vec{v} \, \vec{w}} \text{ be the $3 \times 3$ orthogonal matrix of unit eigenvectors.}
+\end{equation}
+
+
+
+\begin{equation}
+\text{Let } \vec{D} = \myvec{-1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 2} \text{ be the diagonal matrix of eigenvalues.}
+\end{equation}
+
+
+Since $\vec{M}$ is symmetric with these eigenvectors and eigenvalues:\\
+Eigen-Decomposition:
+\begin{equation}
+\vec{M} = \vec{P}\vec{D}\vec{P}^\top
+\end{equation}
+
+
+Let
+\begin{align}
+\vec{x} &= \vec{P}\vec{\alpha}, \quad \vec{y} = \vec{P}\vec{\beta}
+\end{align}
+
+Given:
+\begin{equation}
+\vec{M}\vec{x} = \vec{u} + 2\brak{\vec{v} + \vec{w}}
+\end{equation}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Theoretical Solution}
+\begin{equation}
+\vec{u} + 2\brak{\vec{v} + \vec{w}} = \vec{P} \myvec{1 \\ 2 \\ 2}
+\end{equation}
+
+\begin{equation}
+\vec{M}\vec{x} = \vec{P}\vec{D}\vec{P}^\top \vec{P}\vec{\alpha} = \vec{P}\vec{D}\vec{\alpha}
+\end{equation}
+
+\begin{align}
+\vec{P}\vec{D}\vec{\alpha} &= \vec{P} \myvec{1 \\ 2 \\ 2} \implies \vec{D}\vec{\alpha} = \myvec{1 \\ 2 \\ 2} \\
+&\implies \myvec{-1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 2} \vec{\alpha}  = \myvec{1 \\ 2 \\ 2}
+\end{align}
+
+\begin{equation}
+\vec{\alpha} = \myvec{-1 \\ 2 \\ 1}
+\end{equation}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Theoretical Solution}
+\begin{equation}
+\therefore \; \vec{x} = \vec{P} \myvec{-1 \\ 2 \\ 1}
+\end{equation}
+
+
+Given:
+\begin{equation}
+\vec{M}^2\vec{y} = \vec{u} - \brak{\vec{v} + 2\vec{w}} = \vec{P} \myvec{1 \\ -1 \\ -2}
+\end{equation}
+
+\begin{equation}
+\vec{M}^2\vec{y} = \brak{\vec{P}\vec{D}\vec{P}^\top}\brak{\vec{P}\vec{D}\vec{P}^\top}\vec{P}\vec{\beta} = \vec{P}\vec{D}^2\vec{\beta}
+\end{equation}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Theoretical Solution}
+\begin{align}
+\vec{P}\vec{D}^2\vec{\beta} &= \vec{P} \myvec{1 \\ -1 \\ -2} \implies \vec{D}^2\vec{\beta} = \myvec{1 \\ -1 \\ -2} \\
+&\implies \myvec{1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 4} \vec{\beta} = \myvec{1 \\ -1 \\ -2}
+\end{align}
+
+
+\begin{equation}
+\vec{\beta} = \myvec{1 \\ -1 \\ -\frac{1}{2}}
+\end{equation}
+
+\begin{equation}
+\therefore \; \vec{y} = \vec{P} \myvec{1 \\ -1 \\ -\frac{1}{2}}
+\end{equation}
+
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Theoretical Solution}
+\begin{align}
+\vec{x} + \vec{y} &= \vec{P}\vec{\alpha} + \vec{P}\vec{\beta} = \vec{P}\brak{\vec{\alpha} + \vec{\beta}}
+\end{align}
+
+Since $\vec{P}$ is an orthogonal matrix and $\vec{u}, \, \vec{v}, \, \vec{w}$ are unit eigenvectors,
+\begin{align}
+\norm{\vec{x} + \vec{y}}^2 &= \norm{\vec{P}(\vec{\alpha} + \vec{\beta})}^2 = \left( \vec{\alpha} + \vec{\beta}\right)^\top (\vec{\alpha} + \vec{\beta})\\
+\norm{\vec{x} + \vec{y}}^2 &=  \vec{\alpha}^\top\vec{\alpha} + \vec{\alpha}^\top\vec{\beta} + \vec{\beta}^\top\vec{\alpha} + \vec{\beta}^\top\vec{\beta}\\
+\norm{\vec{x} + \vec{y}}^2 &= \norm{\vec{\alpha}}^2 + 2\vec{\alpha}^\top\vec{\beta} +
+\norm{\vec{\beta}}^2\\
+\norm{\vec{x} + \vec{y}}^2 &= 6 - 7 + \dfrac{9}{4}
+\end{align}
+
+\begin{align*}
+    \boxed{\norm{\vec{x} + \vec{y}}^2 = 1.25}
+\end{align*}
+
+\begin{equation}
+\boxed{\text{Thus, Option-A is correct.}}
+\end{equation}
+\end{frame}
+
+\end{document}

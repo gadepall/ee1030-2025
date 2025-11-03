@@ -1,0 +1,22 @@
+\frametitle{Python Script: plot lines plane.py}
+\begin{verbatim}
+t_values = np.linspace(-10, 10, 21)  # 21 points
+# Pick a point on the line: x0 = 0, y0 = -c/N[1]
+x0 = 0
+y0 = -c / N[1]
+points = np.array([ [x0 + t*d[0], y0 + t*d[1]] for t in t_values ])
+# --- Step 3: Plot ---
+plt.figure(figsize=(8,6))
+plt.scatter(points[:,0], points[:,1], color='red', label='Generated points')
+# Plot the exact line
+x_vals = np.linspace(points[:,0].min()-1, points[:,0].max()+1, 100)
+y_vals = -(N[0]*x_vals + c)/N[1]
+plt.plot(x_vals, y_vals, label='Required line', color='blue')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Line generated using matrix method')
+plt.grid(True)
+plt.legend() plt.axis('equal') plt.show()
+
+
+\end{verbatim}

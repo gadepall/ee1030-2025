@@ -1,0 +1,178 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal,12pt,onecolumn]{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\graphicspath{{./figs/}}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage{caption}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\usepackage{gvv}                                        
+%\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}     
+\usepackage{xparse}
+\usepackage{color}                                            
+\usepackage{array}
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{float}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{example}{Example}[section]
+\newtheorem{definition}[problem]{Definition}
+\newcommand{\BEQA}{\begin{eqnarray}}
+\newcommand{\EEQA}{\end{eqnarray}}
+\newcommand{\define}{\stackrel{\triangle}{=}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+
+\begin{document}
+
+\title{12.485}
+\author{ee25btech11056 - Suraj.N}
+\maketitle
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+
+\begin{document}
+
+\textbf{Question :} Let 
+
+\begin{align*}
+  \vec{M} = \myvec{0 & 1\\0 & 1}
+\end{align*}
+
+Which of the following is correct 
+\begin{enumerate}
+  \item Rank of $\vec{M}$ is 1 and $\vec{M}$ is diagonalizable
+  \item Rank of $\vec{M}$ is 2 and $\vec{M}$ is diagonalizable
+  \item 1 is the only eigenvalue and $\vec{M}$ is diagonalizable
+  \item 1 is the only eigenvalue and $\vec{M}$ is not diagonalizable
+\end{enumerate}
+
+\textbf{Solution :}
+
+\begin{table}[h!]
+  \centering
+  \input{tables/table.tex}
+  \caption*{Table : Matrix}
+  \label{12.485}
+\end{table}
+
+First convert $\vec{M}$ into echelon form by applying row reduction
+
+\begin{align}
+\myvec{0 & 1 \\ 0 & 1}
+\xleftrightarrow{\;R_2 \to R_2 - R_1}
+\myvec{0 & 1 \\ 0 & 0}
+\end{align}
+
+From the echelon form we see that there is one nonzero row, hence
+
+\begin{align}
+\text{rank}(\vec{M}) = 1
+\end{align}
+
+Next find the eigenvalues. Because $\vec{M}$ is upper triangular, its eigenvalues are the diagonal entries:
+
+\begin{align}
+  \lambda_1 &= 0 & \lambda_2 &= 1 
+\end{align}
+
+Now find eigenvectors by solving 
+\begin{align}
+  (\vec{M}-\lambda \vec{I})\vec{v} = \vec{0}
+\end{align}
+
+For $\lambda = 0$ solve 
+\begin{align}
+\vec{M}\vec{v}=\vec{0}\\
+\myvec{0 & 1 \\ 0 & 1}\vec{v} = \myvec{0\\0}\\
+\myvec{0 & 1\\0 & 1}\myvec{x\\y} = \myvec{0\\0}
+\end{align}
+
+\pagebreak
+
+This gives 
+
+\begin{align}
+y = 0
+\end{align}
+
+And x can be anything\\
+
+Thus an eigenvector for $\lambda=0$ is 
+\begin{align} 
+\vec{v}_1 = \myvec{1\\0}
+\end{align}
+
+For $\lambda = 1$ solve 
+
+\begin{align}
+(\vec{M}-\vec{I})\vec{v}=\vec{0}\\
+\myvec{-1 & 1 \\ 0 & 0}\vec{v} = \myvec{0\\0}\\
+\myvec{-1 & 1 \\ 0 & 0}\myvec{x\\y} = \myvec{0\\0}
+\end{align}
+This gives 
+\begin{align}
+-x + y = 0 \\
+y = x
+\end{align}
+Thus an eigenvector for $\lambda=1$ is
+\begin{align}
+\vec{v}_2 = \myvec{1\\1}
+\end{align}
+
+Since the eigenvalues $\lambda_1$ and $\lambda_2$ are distinct, the matrix $\vec{M}$ is diagonalizable.
+
+Form the matrix $\vec{P}$ with eigenvectors as columns and the diagonal matrix $\vec{D}$ of eigenvalues:
+\begin{align}
+\vec{P} = \myvec{1 & 1 \\ 0 & 1}\\
+\vec{D} = \myvec{0 & 0 \\ 0 & 1}
+\end{align}
+
+Compute $\vec{P}^{-1}$ 
+
+\begin{align}
+\myaugvec{2}{1 & 1 & 1 & 0\\0 & 1 & 0 & 1}
+\xleftrightarrow{\;R_1 \to R_1 - R_2}
+\myaugvec{2}{1 & 0 & 1 & -1\\0 & 1 & 0 & 1}
+\end{align}
+
+The right block gives
+\begin{align}
+\vec{P}^{-1} = \myvec{1 & -1 \\ 0 & 1}
+\end{align}
+
+Finally, the diagonalization:
+\begin{align}
+  \vec{M} &= \vec{P}\vec{D}\vec{P}^{-1} \\
+  \vec{M} &= \myvec{1 & 1 \\ 0 & 1}\myvec{0 & 0 \\ 0 & 1}\myvec{1 & -1 \\ 0 & 1}
+\end{align}
+
+\textbf{Conclusion :} The matrix $\vec{M}$ has $rank(\vec{M}) = 1$ and is \textbf{diagonizable}.\\
+Therefore the correct option is (1).
+
+\end{document}
+

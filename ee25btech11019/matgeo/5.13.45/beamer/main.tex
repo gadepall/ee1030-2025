@@ -1,0 +1,150 @@
+\documentclass{beamer}
+
+% Theme
+\usetheme{Madrid}
+\usecolortheme{default}
+
+% Packages
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{gvv}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{lscape}
+\usepackage{listings}
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true
+}
+
+
+
+% Redefine \vec to bold letters only (no arrow)
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+\title{5.13.45}
+\author{EE25BTECH11019 -- Darji Vivek M.}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+\begin{titlepage}
+
+\end{titlepage}
+\end{frame}
+
+\begin{frame}{Question}
+\textbf{Question:}\\[2pt]
+Let $x\in\mathbb R$
+\[
+\vec{P}=\myvec{1 & 1 & 1\\[2pt] 0 & 2 & 2\\[2pt] 0 & 0 & 3},\qquad
+\vec{Q}=\myvec{2 & x & x\\[2pt] 0 & 4 & 0\\[2pt] x & x & 5},\qquad
+\vec{R}=\vec{P}\vec{Q}\vec{P}^{-1}.
+\]
+Then which of the following options is/are correct?\\[4pt]
+\end{frame}
+
+\begin{frame}{Question}
+\textbf{Question:}\\[2pt]
+\begin{enumerate}
+\item $\det \vec{R}=\det\!\myvec{2 & x & x\\[2pt]0 & 4 & 0\\[2pt]x & x & 5}+8$ for all $x\in\mathbb R$.
+\item For $x=1$, there exists a unit vector $\alpha\vec{i}+\beta\vec{j}+\gamma\vec{k}$ such that $\vec{R}\myvec{\alpha\\[2pt]\beta\\[2pt]\gamma}=\myvec{0\\[2pt]0\\[2pt]0}$.
+\item There exists a real number $x$ such that $\vec{P}\vec{Q}=\vec{Q}\vec{P}$.
+\item For $x=0$, if $\vec{R}\myvec{1\\[2pt]a\\[2pt]b}=6\myvec{1\\[2pt]a\\[2pt]b}$, then $a+b=5$.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Solution}
+
+Given
+\[
+\vec{R} = \vec{P}\vec{Q}\vec{P}^{-1}
+\]
+\[
+\vec{P}=\myvec{1 & 1 & 1\\ 0 & 2 & 2\\ 0 & 0 & 3}, \quad
+\vec{Q}=\myvec{2 & x & x\\ 0 & 4 & 0\\ x & x & 5}
+\]
+
+\textbf{(a)}\\
+Since $\mydet{\vec{R}}=\mydet{\vec{Q}}$,  
+\[
+\mydet{\vec{Q}} =
+2\mydet{4 & 0\\ x & 5}
+- x\mydet{0 & 0\\ x & 5}
++ x\mydet{0 & 4\\ x & x}
+\]
+\[
+= 2(20) - x(0) + x(0 - 4x)
+\Rightarrow \mydet{\vec{Q}} = 40 - 4x^2
+\]
+\[
+\Rightarrow \mydet{\vec{R}} = 40 - 4x^2
+\]
+Hence, option (a) is \textbf{false}.
+\end{frame}
+
+\begin{frame}{Solution (contd.)}
+\textbf{(b)}\\[-2mm]
+For $x=1$,
+\[
+\mydet{\vec{R}} = 40 - 4(1)^2 = 36 \neq 0
+\]
+Since $\mydet{\vec{R}} \neq 0$, $\vec{R}$ is invertible,  
+so $\vec{R}\myvec{\alpha\\ \beta\\ \gamma} = \myvec{0\\ 0\\ 0}$  
+has only the trivial solution.  
+Hence, no unit vector exists $\Rightarrow$ (b) \textbf{false}.
+
+\textbf{(c)}\\[-2mm]
+\[
+\vec{P}\vec{Q}
+=\myvec{1 & 1 & 1\\ 0 & 2 & 2\\ 0 & 0 & 3}
+\myvec{2 & x & x\\ 0 & 4 & 0\\ x & x & 5}
+=\myvec{2+x & 2x+4 & x+5\\ 2x & 8+2x & 10\\ 3x & 3x & 15}
+\]
+\[
+\vec{Q}\vec{P}
+=\myvec{2 & x & x\\ 0 & 4 & 0\\ x & x & 5}
+\myvec{1 & 1 & 1\\ 0 & 2 & 2\\ 0 & 0 & 3}
+=\myvec{2 & 2+2x & 2+5x\\ 0 & 8 & 8\\ x & 3x & 3x+15}
+\]
+Comparing entries, no $x$ satisfies $\vec{P}\vec{Q}=\vec{Q}\vec{P}$.  
+Hence, (c) \textbf{false}.
+\end{frame}
+
+\begin{frame}{Solution (contd.)}
+\textbf{(d)}\\[-2mm]
+For $x=0$,
+\[
+\vec{Q}=\myvec{2 & 0 & 0\\ 0 & 4 & 0\\ 0 & 0 & 5}
+\Rightarrow \text{Eigenvalues of }\vec{R}=\{2,4,5\}
+\]
+If $\vec{R}\myvec{1\\ a\\ b}=6\myvec{1\\ a\\ b}$,  
+then $6$ must be an eigenvalue, which is not possible.  
+Hence, (d) \textbf{false}.
+
+\[
+\boxed{\text{All options are incorrect.}}
+\]
+\end{frame}
+
+\begin{frame}[fragile]{C code}
+\begin{lstlisting}
+https://github.com/vivekd03/ee1030-2025/blob/main/ee25btech11019/matgeo/5.13.45/codes/13.c
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]{Python}
+\begin{lstlisting}[language=Python]
+https://github.com/vivekd03/ee1030-2025/blob/main/ee25btech11019/matgeo/5.13.45/codes/13.py
+\end{lstlisting}
+\end{frame}
+
+\end{document}

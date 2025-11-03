@@ -1,0 +1,197 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern} 
+\usepackage{listings}
+\usepackage{xcolor} 
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\definecolor{myblue}{RGB}{48, 63, 159}
+\setbeamercolor{palette primary}{bg=myblue, fg=white}
+\setbeamercolor{structure}{fg=myblue}
+\setbeamercolor{frametitle}{bg=myblue, fg=white}
+\setbeamercolor{title}{bg=myblue, fg=white}
+\setbeamercolor{footlinecolor}{bg=myblue, fg=white}
+
+\defbeamertemplate*{title page}{mytemplate}{
+	\vfill
+	\begin{center}
+		\begin{beamercolorbox}[wd=0.8\paperwidth, center, rounded=true, shadow=true]{title}
+			\usebeamerfont{title}\inserttitle\par
+		\end{beamercolorbox}
+		\vspace{2cm} 
+		\usebeamerfont{author}\insertauthor
+		\vspace{1cm} 
+		\usebeamerfont{date}\insertdate
+	\end{center}
+	\vfill
+}
+
+\defbeamertemplate*{frametitle}{mytemplate}{
+	\begin{beamercolorbox}[wd=\paperwidth, ht=2.5ex, dp=1.5ex, left]{frametitle}
+		\hspace{1em}\usebeamerfont{frametitle}\insertframetitle
+	\end{beamercolorbox}
+}
+
+\setbeamertemplate{footline}{
+	\begin{beamercolorbox}[wd=\paperwidth, ht=2.25ex, dp=1ex]{footlinecolor}
+		\hspace{1em}\usebeamerfont{author in footline}\insertshortauthor
+		\hfill
+		\usebeamerfont{title in footline}\insertshorttitle
+		\hfill
+		\usebeamerfont{date in footline}\insertdate \hspace{1em} \insertframenumber/\inserttotalframenumber \hspace{0.5em}
+	\end{beamercolorbox}
+}
+
+\setbeamerfont{author in footline}{size=\tiny}
+\setbeamerfont{title in footline}{size=\tiny}
+\setbeamerfont{date in footline}{size=\tiny}
+
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+
+\title{12.66}
+\author{Shriyansh Chawda-EE25BTECH11052}
+
+\begin{document}
+	
+	\setbeamertemplate{footline}{} 
+	\frame{\titlepage}
+	
+	\begin{frame}{Question}
+		The matrix
+		\[
+		A = \frac{1}{\sqrt{3}}\myvec{1 & 1+i \\ 1-i & -1}
+		\]
+		is:
+		\begin{enumerate}
+			\item orthogonal
+			\item symmetric
+			\item anti-symmetric
+			\item unitary
+		\end{enumerate}
+		\hfill{(PH 2014)}
+	\end{frame}
+	
+	\begin{frame}{Solution - Given}
+		Given matrix:
+		\begin{equation}
+			A = \frac{1}{\sqrt{3}}\myvec{1 & 1+i \\ 1-i & -1}
+		\end{equation}
+	\end{frame}
+	
+	\begin{frame}{Solution - Check 1: Symmetric}
+		\textbf{Check 1: Symmetric ($A = A^\top$)}
+		
+		The transpose of $A$ is:
+		\begin{align}
+			A^\top &= \frac{1}{\sqrt{3}}\myvec{1 & 1-i \\ 1+i & -1}
+		\end{align}
+		
+		Since $A^\top \neq A$ (the off-diagonal elements are different: $1+i \neq 1-i$),
+		
+		\vspace{0.5em}
+		\textbf{$A$ is NOT symmetric.}
+	\end{frame}
+	
+	\begin{frame}{Solution - Check 2: Anti-symmetric}
+		\textbf{Check 2: Anti-symmetric ($A = -A^\top$)}
+		
+		For anti-symmetric:
+		\begin{align}
+			-A^\top &= -\frac{1}{\sqrt{3}}\myvec{1 & 1-i \\ 1+i & -1}\\
+			&= \frac{1}{\sqrt{3}}\myvec{-1 & -1+i \\ -1-i & 1}
+		\end{align}
+		
+		Since $A \neq -A^\top$,
+		
+		\vspace{0.5em}
+		\textbf{$A$ is NOT anti-symmetric.}
+	\end{frame}
+	
+	\begin{frame}{Solution - Check 3: Orthogonal (Part 1)}
+		\textbf{Check 3: Orthogonal ($AA^\top = I$)}
+		
+		Note: For real matrices, orthogonal means $AA^\top = I$. However, $A$ contains complex entries.
+		
+		\begin{align}
+			AA^\top &= \frac{1}{\sqrt{3}}\myvec{1 & 1+i \\ 1-i & -1} \cdot \frac{1}{\sqrt{3}}\myvec{1 & 1-i \\ 1+i & -1}\\
+			&= \frac{1}{3}\myvec{1 & 1+i \\ 1-i & -1}\myvec{1 & 1-i \\ 1+i & -1}
+		\end{align}
+	\end{frame}
+	
+	\begin{frame}{Solution - Check 3: Orthogonal (Part 2)}
+		Computing the $(1,1)$ entry:
+		\begin{align}
+			(AA^\top)_{11} &= \frac{1}{3}\left[1 \cdot 1 + (1+i)(1+i)\right]\\
+			&= \frac{1}{3}\left[1 + 1 + 2i + i^2\right]\\
+			&= \frac{1}{3}[1 + 2i] \neq 1
+		\end{align}
+		
+		Since this is complex (not real), $AA^\top \neq I$,
+		
+		\vspace{0.5em}
+		\textbf{$A$ is NOT orthogonal.}
+	\end{frame}
+	
+	\begin{frame}{Solution - Check 4: Unitary (Part 1)}
+		\textbf{Check 4: Unitary ($A\overline{A^\top} = I$)}
+		
+		For a unitary matrix, we need $A\overline{A^\top} = I$, where $\overline{A^\top}$ is the conjugate transpose.
+		
+		The conjugate transpose is:
+		\begin{align}
+			\overline{A^\top} &= \overline{\frac{1}{\sqrt{3}}\myvec{1 & 1-i \\ 1+i & -1}}\\
+			&= \frac{1}{\sqrt{3}}\myvec{1 & 1+i \\ 1-i & -1}
+		\end{align}
+		
+		Notice that $\overline{A^\top} = A$ (the matrix is Hermitian!)
+	\end{frame}
+	
+	\begin{frame}{Solution - Check 4: Unitary (Part 2)}
+		Let's verify unitarity:
+		\begin{align}
+			A\overline{A^\top} &= \frac{1}{3}\myvec{1 & 1+i \\ 1-i & -1}\myvec{1 & 1+i \\ 1-i & -1}
+		\end{align}
+		
+		Computing each entry:
+		\begin{align}
+			(A\overline{A^\top})_{11} &= \frac{1}{3}\left[1 \cdot 1 + (1+i)(1-i)\right]\\
+			&= \frac{1}{3}\left[1 + 1 - i^2\right]\\
+			&= \frac{1}{3}[1 + 1 + 1] = 1
+		\end{align}
+	\end{frame}
+	
+	\begin{frame}{Solution - Check 4: Unitary (Part 3)}
+		\textbf{Entry $(1,2)$:}
+		\begin{equation}
+			(A\overline{A^\top})_{12} = \frac{1}{3}\left[1 \cdot (1+i) + (1+i)(-1)\right] = 0
+		\end{equation}
+		
+		\textbf{Entry $(2,1)$:}
+		\begin{equation}
+			(A\overline{A^\top})_{21} = \frac{1}{3}\left[(1-i) \cdot 1 + (-1)(1-i)\right] = 0
+		\end{equation}
+		
+		\textbf{Entry $(2,2)$:}
+		\begin{align}
+			(A\overline{A^\top})_{22} &= \frac{1}{3}\left[(1-i)(1+i) + (-1)(-1)\right]\\
+			&= \frac{1}{3}[2 + 1] = 1
+		\end{align}
+	\end{frame}
+	
+	\begin{frame}{Solution - Final Answer}
+		Therefore:
+		\begin{equation}
+			A\overline{A^\top} = \myvec{1 & 0 \\ 0 & 1} = I
+		\end{equation}
+		
+		\vspace{1em}
+		\textbf{$A$ is UNITARY.}
+		
+		\vspace{2em}
+		\boxed{\text{Option 4: The matrix } A \text{ is unitary}}
+	\end{frame}
+	
+\end{document}

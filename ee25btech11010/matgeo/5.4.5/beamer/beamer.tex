@@ -1,0 +1,212 @@
+\documentclass{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\lstset{literate={·}{{$\cdot$}}1 {λ}{{$\lambda$}}1 {→}{{$\to$}}1}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\title{5.4.5}
+\subtitle{Finding Inverse}
+\author{EE25BTECH11010 - Arsh Dhoke}
+\date{}
+\begin{document}
+
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Question}
+
+Using elementary transformations, find the inverse of the following matrix: 
+
+\myvec{1 & 2 \\ 2 & 1}.
+
+\end{frame}
+
+\begin{frame}{Solution}
+
+We know
+\begin{align}
+\vec{A}^{-1}\vec{A} = \vec{I} 
+\end{align}
+where $\vec{I}$ is the identity matrix $\vec{I}_2$.
+\end{frame}
+
+\begin{frame}{Computing inverse}
+The augmented matrix for the given matrix will be
+\begin{align}
+\augvec{2}{4}{2 & 1 & 1 & 0 \\ 1 & 2 & 0 & 1}
+&\xleftrightarrow[R_2\to R_2-2R_1]{R_1\leftrightarrow R_2}
+\augvec{2}{4}{1 & 2 & 0 & 1 \\ 0 & -3 & 1 & -2} \\
+&\xleftrightarrow[R_1\to R_1-2R_2]{R_2\to -\frac{1}{3}R_2}
+\augvec{2}{4}{1 & 0 & \frac{2}{3} & -\frac{1}{3} \\ 0 & 1 & -\frac{1}{3} & \frac{2}{3}}
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution (final)}
+\begin{align}
+\therefore \quad 
+\vec{A}^{-1} &= \myvec{\frac{2}{3} & -\frac{1}{3} \\ -\frac{1}{3} & \frac{2}{3}} \\
+\vec{A}^{-1} &= \frac{1}{3}\myvec{2 & -1 \\ -1 & 2}
+\end{align}
+
+We can verify the computed inverse using python code by showing 
+$\vec{A}^{-1}\vec{A} = \vec{I}$.
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+\begin{lstlisting}
+#include <stdio.h>
+
+int inverse2x2(double A[2][2], double inv[2][2]) {
+    double a = A[0][0], b = A[0][1];
+    double c = A[1][0], d = A[1][1];
+    double det = a*d - b*c;
+
+    if (det == 0) {
+        printf("Matrix is singular, inverse doesn't exist.\n");
+        return 0;
+    }
+    inv[0][0] =  d / det;
+    inv[0][1] = -b / det;
+    inv[1][0] = -c / det;
+    inv[1][1] =  a / det;
+
+    return 1;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+\begin{lstlisting}
+import numpy as np
+
+#given matrix
+A = np.array([[1, 2],[2, 1]])
+
+#computed inverse
+A_inverse= np.array([[2/3, -1/3], [-1/3, 2/3]])
+
+#verification
+B = A@A_inverse
+print(B)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python+ C Code}
+\begin{lstlisting}
+import ctypes
+import numpy as np
+
+# Load the shared library
+lib = ctypes.CDLL("./code.so")   
+
+# Define the function signature
+lib.inverse2x2.argtypes = [
+    (ctypes.c_double * 2) * 2,  # input matrix A
+    (ctypes.c_double * 2) * 2   # output matrix inv
+]
+lib.inverse2x2.restype = ctypes.c_int
+
+# Prepare input matrix
+A = ((ctypes.c_double * 2) * 2)()
+A[0][0], A[0][1] = 1.0, 2.0
+A[1][0], A[1][1] = 2.0, 1.0
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python+ C Code}
+\begin{lstlisting}
+# Prepare output matrix
+inv = ((ctypes.c_double * 2) * 2)()
+
+# Call the C function
+status = lib.inverse2x2(A, inv)
+
+if status:
+    # Convert result to numpy array for convenience
+    result = np.array([[inv[0][0], inv[0][1]],
+                       [inv[1][0], inv[1][1]]])
+    print("Inverse matrix:")
+    print(result)
+else:
+    print("Matrix is singular — no inverse.")
+
+\end{lstlisting}
+\end{frame}
+\end{document}

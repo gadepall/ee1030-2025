@@ -1,0 +1,296 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  literate={λ}{{$\lambda$}}1
+}
+
+
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\begin{document}
+
+\title 
+{5.4.10}
+\date{October 3,2025}
+
+
+\author 
+{Bhoomika V - EE25BTECH11015}
+
+
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+\[
+\text{Find the area of the triangle } ABC \text{ whose vertices are }\\ \\
+\vec{A}(2,5),\; \vec{B}(4,7),\; \vec{C}(6,2).
+\]
+\end{frame}
+
+\begin{frame}{solution} 
+\[
+A = \begin{bmatrix}
+1 & -1 & 2 \\
+2 & 3 & 5 \\
+-2 & 0 & 1
+\end{bmatrix}.
+\]
+
+We form the augmented matrix $[A \mid I]$:
+
+\[
+\left[\begin{array}{ccc|ccc}
+1 & -1 & 2 & 1 & 0 & 0\\
+2 & 3 & 5 & 0 & 1 & 0\\
+-2 & 0 & 1 & 0 & 0 & 1
+\end{array}\right]
+\]
+\end{frame}
+
+\begin{frame}
+\[
+\overset{\substack{R_2 \to R_2 - 2R_1 \\ R_3 \to R_3 + 2R_1}}{\longrightarrow}
+\left[\begin{array}{ccc|ccc}
+1 & -1 & 2 & 1 & 0 & 0\\
+0 & 5 & 1 & -2 & 1 & 0\\
+0 & -2 & 5 & 2 & 0 & 1
+\end{array}\right]
+\]
+
+\[
+\overset{R_2 \to \tfrac{1}{5}R_2}{\longrightarrow}
+\left[\begin{array}{ccc|ccc}
+1 & -1 & 2 & 1 & 0 & 0\\
+0 & 1 & \tfrac{1}{5} & -\tfrac{2}{5} & \tfrac{1}{5} & 0\\
+0 & -2 & 5 & 2 & 0 & 1
+\end{array}\right]
+\]
+\end{frame}
+
+\begin{frame}
+\[
+\overset{\substack{R_1 \to R_1 + R_2 \\ R_3 \to R_3 + 2R_2}}{\longrightarrow}
+\left[\begin{array}{ccc|ccc}
+1 & 0 & \tfrac{11}{5} & \tfrac{3}{5} & \tfrac{1}{5} & 0\\
+0 & 1 & \tfrac{1}{5} & -\tfrac{2}{5} & \tfrac{1}{5} & 0\\
+0 & 0 & \tfrac{27}{5} & \tfrac{6}{5} & \tfrac{2}{5} & 1
+\end{array}\right]
+\]
+
+\[
+\overset{R_3 \to \tfrac{5}{27}R_3}{\longrightarrow}
+\left[\begin{array}{ccc|ccc}
+1 & 0 & \tfrac{11}{5} & \tfrac{3}{5} & \tfrac{1}{5} & 0\\
+0 & 1 & \tfrac{1}{5} & -\tfrac{2}{5} & \tfrac{1}{5} & 0\\
+0 & 0 & 1 & \tfrac{2}{9} & \tfrac{2}{27} & \tfrac{5}{27}
+\end{array}\right]
+\]
+\end{frame}
+
+\begin{frame}
+\[
+\overset{\substack{R_1 \to R_1 - \tfrac{11}{5}R_3 \\ R_2 \to R_2 - \tfrac{1}{5}R_3}}{\longrightarrow}
+\left[\begin{array}{ccc|ccc}
+1 & 0 & 0 & \tfrac{1}{9} & \tfrac{1}{27} & -\tfrac{11}{27}\\
+0 & 1 & 0 & -\tfrac{4}{9} & \tfrac{5}{27} & -\tfrac{1}{27}\\
+0 & 0 & 1 & \tfrac{2}{9} & \tfrac{2}{27} & \tfrac{5}{27}
+\end{array}\right]
+\]
+
+Thus the inverse is
+
+\[
+A^{-1} =
+\begin{bmatrix}
+\dfrac{1}{9} & \dfrac{1}{27} & -\dfrac{11}{27}\\[6pt]
+-\dfrac{4}{9} & \dfrac{5}{27} & -\dfrac{1}{27}\\[6pt]
+\dfrac{2}{9} & \dfrac{2}{27} & \dfrac{5}{27}
+\end{bmatrix}.
+\]
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle
+
+    \begin{lstlisting}
+ #include <stdio.h>
+
+// Compute determinant of 3x3 matrix
+float determinant(float A[3][3]) {
+    return A[0][0]*(A[1][1]*A[2][2] - A[1][2]*A[2][1])
+         - A[0][1]*(A[1][0]*A[2][2] - A[1][2]*A[2][0])
+         + A[0][2]*(A[1][0]*A[2][1] - A[1][1]*A[2][0]);
+}
+
+// Function to compute inverse of 3x3 matrix
+int matrix_inverse(float A[3][3], float inverse[3][3]) {
+    float det = determinant(A);
+    if (det == 0) return 0; // singular, no inverse
+
+    float adj[3][3];
+
+    // Cofactor matrix
+    adj[0][0] =  (A[1][1]*A[2][2] - A[1][2]*A[2][1]);
+    adj[0][1] = -(A[1][0]*A[2][2] - A[1][2]*A[2][0]);
+    adj[0][2] =  (A[1][0]*A[2][1] - A[1][1]*A[2][0]);
+
+     \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle
+
+    \begin{lstlisting}
+   adj[1][0] = -(A[0][1]*A[2][2] - A[0][2]*A[2][1]);
+    adj[1][1] =  (A[0][0]*A[2][2] - A[0][2]*A[2][0]);
+    adj[1][2] = -(A[0][0]*A[2][1] - A[0][1]*A[2][0]);
+
+    adj[2][0] =  (A[0][1]*A[1][2] - A[0][2]*A[1][1]);
+    adj[2][1] = -(A[0][0]*A[1][2] - A[0][2]*A[1][0]);
+    adj[2][2] =  (A[0][0]*A[1][1] - A[0][1]*A[1][0]);
+
+    // Transpose adjoint and divide by determinant → inverse
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            inverse[i][j] = adj[j][i] / det;
+        }
+    }
+    return 1;
+}
+     \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import ctypes
+import os
+import numpy as np
+
+# Load C library
+lib = ctypes.CDLL(os.path.abspath("./matrix_inverse.so"))
+
+# Define function signatures
+ArrayType = ctypes.c_float * 9  # 3x3 = 9 elements
+
+lib.matrix_inverse.argtypes = [ArrayType, ArrayType]
+lib.matrix_inverse.restype = ctypes.c_int
+
+def c_matrix_inverse(A):
+    A = np.array(A, dtype=np.float32).reshape(9)
+    A_c = ArrayType(*A)
+    inv_c = ArrayType()
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+ success = lib.matrix_inverse(A_c, inv_c)
+    if not success:
+        raise ValueError("Matrix is singular, no inverse exists.")
+
+    inv = np.array(list(inv_c), dtype=np.float32).reshape(3, 3)
+    return inv
+
+# --- Example ---
+A = [
+    [1, -1, 2],
+    [2,  3, 5],
+    [-2, 0, 1]
+]
+
+    \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+inv = c_matrix_inverse(A)
+
+print("Original matrix A:")
+print(np.array(A, dtype=np.float32))
+
+print("\nInverse of A (from C function):")
+print(inv)
+
+print("\nCheck with NumPy:")
+print(np.linalg.inv(np.array(A, dtype=np.float32)))
+    \end{lstlisting}
+\end{frame}
+
+\end{document}

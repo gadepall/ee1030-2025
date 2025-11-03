@@ -1,0 +1,179 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{mathtools}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\title{12.267}
+\date{2nd October, 2025}
+\author{Puni Aditya - EE25BTECH11046}
+
+\begin{document}
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Two matrices $\vec{A}$ and $\vec{B}$ are said to be similar if 
+\begin{align*}
+    \vec{B} = \vec{P}^{-1} \vec{A}\vec{P}
+\end{align*}
+for some invertible matrix $\vec{P}$. Which of the following statements is NOT TRUE?
+\begin{enumerate}
+    \item det $\vec{A}$ = det $\vec{B}$
+    \item Trace of $\vec{A}$ = Trace of $\vec{B}$
+    \item $\vec{A}$ and $\vec{B}$ have the same eigenvectors
+    \item $\vec{A}$ and $\vec{B}$ have the same eigenvalues
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+Let $\vec{A}$ and $\vec{B}$ be similar matrices, such that 
+\begin{align} 
+    \vec{B} = \vec{P}^{-1}\vec{A}\vec{P}
+\end{align}
+for an invertible matrix $\vec{P}$. \\
+For the determinant in 1),
+\begin{align}
+    \mydet{\vec{B}} &= \mydet{\vec{P}^{-1}\vec{A}\vec{P}} \\
+    &= \mydet{\vec{P}^{-1}}\mydet{\vec{A}}\mydet{\vec{P}} \\
+    &= \frac{1}{\mydet{\vec{P}}}\mydet{\vec{A}}\mydet{\vec{P}} = \mydet{\vec{A}}
+\end{align}
+The statement is true.
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+For the trace in 2), the cyclic property of trace states 
+\begin{align}
+    \text{Tr}\brak{\vec{X}\vec{Y}\vec{Z}} = \text{Tr}\brak{\vec{Z}\vec{X}\vec{Y}} \label{eq:46}
+\end{align}
+Using \eqref{eq:46}
+\begin{align}
+    \text{Tr}\brak{\vec{B}} &= \text{Tr}\brak{\vec{P}^{-1}\vec{A}\vec{P}} \\
+    &= \text{Tr}\brak{\vec{A}\vec{P}\vec{P}^{-1}} = \text{Tr}\brak{\vec{A}}
+\end{align}
+The statement is true.
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+For the eigenvalues in 4), we examine the characteristic polynomial.
+\begin{align}
+    \mydet{\vec{B} - \lambda\vec{I}} &= \mydet{\vec{P}^{-1}\vec{A}\vec{P} - \lambda\vec{I}} \\
+    &= \mydet{\vec{P}^{-1}\vec{A}\vec{P} - \lambda\vec{P}^{-1}\vec{I}\vec{P}} \\
+    &= \mydet{\vec{P}^{-1}\brak{\vec{A} - \lambda\vec{I}}\vec{P}} \\
+    &= \mydet{\vec{P}^{-1}}\mydet{\vec{A} - \lambda\vec{I}}\mydet{\vec{P}} \\
+    &= \mydet{\vec{A} - \lambda\vec{I}}
+\end{align}
+Since the characteristic polynomials are identical, the eigenvalues are the same. The statement is true.
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+For the eigenvectors in 3), let $\vec{v}$ be an eigenvector of $\vec{A}$ with eigenvalue $\lambda$, so that
+\begin{align}
+    \vec{A}\vec{v} = \lambda\vec{v}
+\end{align}
+\begin{align}
+    \vec{B}\brak{\vec{P}^{-1}\vec{v}} &= \brak{\vec{P}^{-1}\vec{A}\vec{P}}\brak{\vec{P}^{-1}\vec{v}} \\
+    &= \vec{P}^{-1}\vec{A}\brak{\vec{P}\vec{P}^{-1}}\vec{v} \\
+    &= \vec{P}^{-1}\vec{A}\vec{v} = \vec{P}^{-1}\brak{\lambda\vec{v}} \\
+    &= \lambda\brak{\vec{P}^{-1}\vec{v}}
+\end{align}
+This shows that if $\vec{v}$ is an eigenvector of $\vec{A}$, then $\vec{P}^{-1}\vec{v}$ is the eigenvector of $\vec{B}$. Since $\vec{v} \neq \vec{P}^{-1}\vec{v}$ in general, the statement is not true.
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+\textbf{Example:} Let
+\begin{align}
+    \vec{A} = \myvec{1 & 1 \\ 0 & 2}, \quad \vec{P} = \myvec{1 & 1 \\ 0 & 1} \implies \vec{P}^{-1} = \myvec{1 & -1 \\ 0 & 1}
+\end{align}
+The matrix $\vec{A}$ has an eigenvalue $\lambda=2$ with corresponding eigenvector 
+\begin{align}
+	\vec{v} = \myvec{1 \\ 1}
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+The similar matrix $\vec{B}$ is
+\begin{align}
+    \vec{B} = \vec{P}^{-1}\vec{A}\vec{P} = \myvec{1 & -1 \\ 0 & 1}\myvec{1 & 1 \\ 0 & 2}\myvec{1 & 1 \\ 0 & 1} = \myvec{1 & 0 \\ 0 & 2}
+\end{align}
+The corresponding eigenvector of $\vec{B}$ for the eigenvalue $\lambda=2$ is 
+\begin{align}
+	\vec{w} = \vec{P}^{-1}\vec{v}
+\end{align}
+\begin{align}
+    \vec{w} = \myvec{1 & -1 \\ 0 & 1}\myvec{1 \\ 1} = \myvec{0 \\ 1}
+\end{align}
+Clearly, $\vec{v} \neq \vec{w}$.
+\end{frame}
+
+\begin{frame}{Conclusion}
+The statement that is NOT TRUE is \textbf{3) $\vec{A}$ and $\vec{B}$ have the same eigenvectors}.
+\end{frame}
+
+\end{document}

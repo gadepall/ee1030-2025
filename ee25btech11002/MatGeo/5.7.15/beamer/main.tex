@@ -1,0 +1,129 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\setbeamertemplate{page number in head/foot}[totalframumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{5.7.15}
+\date{October 2,2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{EE25BTECH11002 - Achat Parth Kalpesh}
+
+
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Question}
+If 
+\begin{align}
+\vec{A} = \myvec{1 & 0 & 2 \\ 0 & 2 & 1 \\ 2 & 0 & 3}
+\end{align} 
+and $\vec{A}^3-6\vec{A}^2+7\vec{A}+k\vec{I}=0$ find $k$.
+\end{frame}
+
+\begin{frame}{Solution}
+The characteristic equation for the matrix $\vec{A}$
+\begin{align}
+        f(\lambda) = \abs{\vec{A} - \lambda \vec{I}}
+        \label{eq:0.2}
+\end{align}
+From \eqref{eq:0.2} the characteristic equation is
+\begin{align}
+\mydet{1 -\lambda & 0 & 2 \\ 0 & 2 -\lambda & 1 \\ 2 & 0 & 3-\lambda} &= 0
+\end{align}   
+\end{frame}
+
+\begin{frame}{Solution}
+which can be expanded to obtain
+\begin{align} 
+\lambda^3 - 6\lambda^2 + 7\lambda + 2 &= 0 
+ \end{align} 
+ Upon simplification, by using Cayley-Hamilton theorem,
+ \begin{align}
+     \vec{A}^3-6\vec{A}^2+7\vec{A}+2\vec{I}=0
+     \label{eq:0.5}
+ \end{align}
+ Thereby, on comparing \eqref{eq:0.5} with
+ \begin{align}
+     \vec{A}^3-6\vec{A}^2+7\vec{A}+k\vec{I}=0
+ \end{align}
+ \begin{align}
+     k=2
+ \end{align}
+\end{frame}
+\end{document}

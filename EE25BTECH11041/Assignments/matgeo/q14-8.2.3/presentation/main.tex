@@ -1,0 +1,277 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+	breakable=true,
+	listing engine=minted,
+	listing only,
+	minted language=#2,
+	minted style=default,
+	minted options={%
+		linenos,
+		gobble=0,
+		breaklines=true,
+		breakafter=,,
+		fontsize=\small,
+		numbersep=8pt,
+		#1},
+	boxsep=0pt,
+	left skip=0pt,
+	right skip=0pt,
+	left=25pt,
+	right=0pt,
+	top=3pt,
+	bottom=3pt,
+	arc=5pt,
+	leftrule=0pt,
+	rightrule=0pt,
+	bottomrule=2pt,
+	toprule=2pt,
+	colback=bg,
+	colframe=orange!70,
+	enhanced,
+	overlay={%
+		\begin{tcbclipinterior}
+			\fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+	\end{tcbclipinterior}},
+	#3,
+}
+\lstset{
+	language=C,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{orange},
+	commentstyle=\color{green!60!black},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	showstringspaces=false,
+}
+\begin{document}
+
+\title 
+{8.2.3}
+\date{1 Oct,2025}
+
+\author 
+{Naman Kumar-EE25BTECH11041}
+\graphicspath{./figs}
+
+
+\frame{\titlepage}
+\begin{frame}{Question)}
+\begin{align}
+y^2 = -8x \label{1} 
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Since it is a parabola we have
+\input{tables/table}
+General equation of conic
+\begin{align}
+    \vec{x^T}\vec{V}\vec{x}+2\vec{u^T}\vec{x}+f=0
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+For the equation $\eqref{1}$, we can write
+\begin{align}
+    \vec{x^T}\begin{pmatrix}0&0\\0&1\end{pmatrix}\vec{x}+2\begin{pmatrix}4\\0\end{pmatrix}^T\vec{x}=0
+\end{align}
+\input{tables/table2}
+\end{frame}
+\begin{frame}{Solution}
+using general equations we know for any conic
+\begin{align}
+    \vec{V}=\lVert\vec{n}\rVert^2\vec{I}-e^2\vec{n}\vec{n}^T \label{2} \\
+    \vec{u}=ce^2\vec{n}-\lVert\vec{n}\rVert^2\vec{F} \label{3} \\
+    f=\lVert\vec{n}\rVert^2\lVert\vec{F}\rVert^2-c^2e^2 \label{4}
+\end{align}
+Let
+\input{tables/table3}
+\end{frame}
+\begin{frame}{Solution}
+Firstly in $\eqref{2}$
+\begin{align}
+    \begin{pmatrix}0&0\\0&1\end{pmatrix}=\vec{n}^T\vec{n}\vec{I}-(1)^2\vec{n}\vec{n}^T\\
+    \begin{pmatrix}0&0\\0&1\end{pmatrix}=\begin{pmatrix}a^2+b^2&0\\0&a^2+b^2\end{pmatrix}-\begin{pmatrix}a^2&ab\\ab&b^2\end{pmatrix}\\
+    \vec{n}=\begin{pmatrix}1\\0\end{pmatrix}=\vec{e_1}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+In $\eqref{3}$
+\begin{align}
+    4\vec{e_1}=c(1)^2\vec{e_1}-(1)^2\begin{pmatrix}g\\h\end{pmatrix}\\
+    \begin{pmatrix}g\\h\end{pmatrix}=(c-4)\vec{e_1}=(c-4)\begin{pmatrix}1\\0\end{pmatrix}\\
+    \vec{F}=\begin{pmatrix}c-4\\0\end{pmatrix}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+In $\eqref{4}$
+\begin{align}
+    0=(1)^2\begin{pmatrix}c-4\\0\end{pmatrix}^T\begin{pmatrix}c-4\\0\end{pmatrix}-c^2(1)\\
+    c^2+16-8c-c^2=0\\
+    c=2\\
+    \vec{F}=-2\vec{e_1}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Directrix is
+\begin{align}
+    \vec{n^T}\vec{x}=c\\
+    \vec{e_1}^T\vec{x}=2
+\end{align}
+\end{frame}
+\begin{frame}{Figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\columnwidth]{figs/figure.png}
+        \caption{}
+        \label{fig:placeholder}
+    \end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Direct Python}
+\begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+
+y = np.linspace(-7,7,200)
+x = -y*y/8
+
+plt.axvline(x=2, color='blue', label="Directrix")
+plt.axvline(x=-2, color='orange', label="Latus Rectum")
+
+xp = np.array([0,2,-2])
+yp = np.array([0,0,0])
+plt.scatter(xp,yp)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Direct Python}
+\begin{lstlisting}
+plt.annotate('O', xy=(0, 0)) 
+plt.annotate('F', xy=(-2, 0), xytext=(-1.7,0.5)) 
+
+plt.plot(x,y, label="Parabola", color='red')
+plt.grid()
+plt.legend()
+plt.savefig("figure.png", dpi=300)
+plt.show()
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C code}
+\begin{lstlisting}
+// main.c
+#include <stdio.h>
+#include <math.h>
+
+int generate_points(double x[], double y[], int n) {
+    double xmin = -10.0;  // start of x range
+    double xmax = 0.0;    // parabola is defined for x <= 0
+    double step = (xmax - xmin) / (n/2); // half because we store ±y
+
+    int idx = 0;
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C code}
+\begin{lstlisting}
+    for (int i = 0; i <= n/2 && idx < n-1; i++) {
+        double xval = xmin + i * step;
+        double yval = sqrt(-8.0 * xval);
+
+        x[idx] = xval;
+        y[idx] = yval;
+        idx++;
+
+        x[idx] = xval;
+        y[idx] = -yval;
+        idx++;
+    }
+
+    return idx;
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with shared object}
+\begin{lstlisting}
+# main.py
+import ctypes
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load the shared object
+lib = ctypes.CDLL("./libparabola.so")
+
+# Define function prototype
+lib.generate_points.argtypes = [
+    np.ctypeslib.ndpointer(dtype=np.float64, ndim=1, flags="C_CONTIGUOUS"),
+    np.ctypeslib.ndpointer(dtype=np.float64, ndim=1, flags="C_CONTIGUOUS"),
+    ctypes.c_int
+]
+lib.generate_points.restype = ctypes.c_int
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with shared object}
+\begin{lstlisting}
+# Allocate arrays
+n = 4000
+x = np.zeros(n, dtype=np.float64)
+y = np.zeros(n, dtype=np.float64)
+
+# Call the C function
+count = lib.generate_points(x, y, n)
+
+# Slice to actual filled points
+x = x[:count]
+y = y[:count]
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with shared object}
+\begin{lstlisting}
+# Plot parabola
+plt.figure(figsize=(6,6))
+plt.scatter(x, y, s=5, c='b', label=r"$y^2=-8x$")
+plt.axhline(0, color='k', linewidth=0.8)
+plt.axvline(0, color='k', linewidth=0.8)
+plt.xlabel("x-axis")
+plt.ylabel("y-axis")
+plt.title("Parabola: $y^2 = -8x$")
+plt.legend()
+plt.grid(True)
+plt.axis("equal")
+plt.show()
+
+\end{lstlisting}
+\end{frame}
+
+\end{document}

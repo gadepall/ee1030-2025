@@ -1,0 +1,31 @@
+\frametitle{Python Code}
+    \begin{lstlisting}
+import matplotlib.pyplot as plt
+
+# Points
+A = (3, 1)
+B = (6, 4)
+C = (8, 6)
+
+# Plot points
+points = [A, B, C]
+labels = ['A(3,1)', 'B(6,4)', 'C(8,6)']
+colors = ['blue', 'orange', 'green']
+
+plt.figure(figsize=(6,6))
+for (x,y), label, color in zip(points, labels, colors):
+    plt.scatter(x, y, color=color, s=100)
+    plt.text(x+0.1, y+0.1, label, fontsize=12)
+
+# Draw line through A, B, C
+x_coords = [p[0] for p in points]
+y_coords = [p[1] for p in points]
+plt.plot(x_coords, y_coords, '--', color='gray')
+
+plt.axhline(0, color='black')
+plt.axvline(0, color='black')
+plt.grid(True, alpha=0.5, linestyle='--')
+plt.title("Checking Collinearity of A, B, C")
+plt.savefig("figs/fig1.png", dpi=150, bbox_inches='tight')
+plt.show()
+    \end{lstlisting}

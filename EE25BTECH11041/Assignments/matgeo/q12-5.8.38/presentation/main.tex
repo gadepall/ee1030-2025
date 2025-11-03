@@ -1,0 +1,260 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+	breakable=true,
+	listing engine=minted,
+	listing only,
+	minted language=#2,
+	minted style=default,
+	minted options={%
+		linenos,
+		gobble=0,
+		breaklines=true,
+		breakafter=,,
+		fontsize=\small,
+		numbersep=8pt,
+		#1},
+	boxsep=0pt,
+	left skip=0pt,
+	right skip=0pt,
+	left=25pt,
+	right=0pt,
+	top=3pt,
+	bottom=3pt,
+	arc=5pt,
+	leftrule=0pt,
+	rightrule=0pt,
+	bottomrule=2pt,
+	toprule=2pt,
+	colback=bg,
+	colframe=orange!70,
+	enhanced,
+	overlay={%
+		\begin{tcbclipinterior}
+			\fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+	\end{tcbclipinterior}},
+	#3,
+}
+\lstset{
+	language=C,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{orange},
+	commentstyle=\color{green!60!black},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	showstringspaces=false,
+}
+\begin{document}
+
+\title 
+{5.8.38}
+\date{26 September,2025}
+
+\author 
+{Naman Kumar-EE25BTECH11041}
+\graphicspath{./figs}
+
+
+\frame{\titlepage}
+\begin{frame}{Question)}
+Alwar tells his daughter,``Seven years ago, I was seven times as old as you were then. Also, three years from now, I shall be three times as old as you will be''\ Represent this situation algebraically and graphically.
+\end{frame}
+\begin{frame}{Solution}
+\input{table/table}
+from given statements, we can write
+\begin{align}
+    y-7=7\times(x-7)\And y+3=3\times(x+3)\\
+    7x-y=42\And3x-y=-6
+\end{align}
+This can be written as
+\begin{align}
+\begin{pmatrix}7&-1\\3&-1\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}42\\-6\end{pmatrix}\\
+\vec{A}\vec{x}=\vec{c}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Row reduced form of $\sbrak{\vec{A}\vert \vec{I}}$
+\begin{align}
+    \begin{amatrix}{2}7&-1&42\\3&-1&-6\end{amatrix}\xrightarrow[]{R_2-\frac{3}{7}R_1}\begin{amatrix}{2}7&-1&42\\0&-\frac{4}{7}&-24\end{amatrix}\\
+    \xrightarrow[]{\frac{-7}{4}R_2}\begin{amatrix}{2}7&-1&42\\0&1&42\end{amatrix}
+\end{align}
+Therefore
+\begin{align}
+    \begin{pmatrix}7&-1\\0&1\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}42\\42\end{pmatrix}\\
+    \begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}12\\42\end{pmatrix}
+\end{align}
+\end{frame}
+\begin{frame}{Figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\columnwidth]{figs/figure.png}
+    \caption{}
+    \label{fig:placeholder}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Direct Python}
+\begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+
+c=np.array([42,-6])
+a= np.array([[7,-1],[3,-1]])
+
+inv=np.linalg.inv(a)
+
+ans=np.dot(inv,c)
+
+print("x=", ans[0],"y=",ans[1])
+
+x=np.linspace(9,15,200)
+l1=7*x-42
+l2=3*x+6
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Direct python code}
+\begin{lstlisting}
+plt.plot(x,l1, label="line 1, 7x-y=42")
+plt.plot(x,l2,label="line 2, 3x-y=-6")
+plt.scatter(12,42, c='r', zorder=5)
+plt.text(12.3,41, "(x,y)")
+plt.xlabel("daughter")
+plt.ylabel("father")
+plt.legend()
+plt.grid()
+plt.savefig("figure.png", dpi=200)
+plt.show()
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C code}
+\begin{lstlisting}
+#include <stdio.h>
+
+typedef struct {
+    double A; // Alwar's age
+    double D; // Daughter's age
+} Solution;
+
+Solution solve_ages() {
+    Solution S;
+
+    // Coefficients:
+    // eqn1: 1*A -7*D = -42
+    // eqn2: 1*A -3*D = 6
+    double a1 = 1, b1 = -7, c1 = -42;
+    double a2 = 1, b2 = -3, c2 = 6;
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C code}
+\begin{lstlisting}
+    // Solve using Cramer's rule
+    double det  = a1*b2 - a2*b1;
+    double detA = c1*b2 - c2*b1;
+    double detD = a1*c2 - a2*c1;
+
+    S.A = detA / det;
+    S.D = detD / det;
+
+    return S;
+}\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C code}
+\begin{lstlisting}
+
+#ifdef TEST_C
+int main(){
+    Solution S = solve_ages();
+    printf("Alwar's age: %.2f\n", S.A);
+    printf("Daughter's age: %.2f\n", S.D);
+    return 0;
+}
+#endif
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with shared object}
+\begin{lstlisting}
+# main.py
+import ctypes
+from ctypes import Structure, c_double
+import numpy as np
+import matplotlib.pyplot as plt
+
+class Solution(Structure):
+    _fields_ = [("A", c_double), ("D", c_double)]
+
+# Load the shared object
+lib = ctypes.CDLL("./libsolver.so")
+lib.solve_ages.restype = Solution
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with shared object}
+\begin{lstlisting}
+# Call C function
+sol = lib.solve_ages()
+print(f"Alwar's present age: {sol.A}")
+print(f"Daughter's present age: {sol.D}")
+
+# Graphical representation
+D_vals = np.linspace(0, 30, 400)
+
+# From eqn (1): A = 7D - 42
+A1 = 7*D_vals - 42
+# From eqn (2): A = 3D + 6
+A2 = 3*D_vals + 6
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with shared object}
+\begin{lstlisting}
+plt.figure(figsize=(6,6))
+plt.plot(D_vals, A1, label="A - 7D = -42")
+plt.plot(D_vals, A2, label="A - 3D = 6")
+
+# Plot solution from C
+plt.scatter(sol.D, sol.A, c="red", zorder=5)
+plt.text(sol.D+0.5, sol.A, f"({int(sol.D)}, {int(sol.A)})", fontsize=10)
+
+plt.xlabel("Daughter's Present Age (D)")
+plt.ylabel("Alwar's Present Age (A)")
+plt.title("Graphical Solution of Age Problem")
+plt.grid(True)
+plt.legend()
+plt.show()
+\end{lstlisting}
+\end{frame}
+
+
+\end{document}

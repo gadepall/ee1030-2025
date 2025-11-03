@@ -1,0 +1,336 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+	breakable=true,
+	listing engine=minted,
+	listing only,
+	minted language=#2,
+	minted style=default,
+	minted options={%
+		linenos,
+		gobble=0,
+		breaklines=true,
+		breakafter=,,
+		fontsize=\small,
+		numbersep=8pt,
+		#1},
+	boxsep=0pt,
+	left skip=0pt,
+	right skip=0pt,
+	left=25pt,
+	right=0pt,
+	top=3pt,
+	bottom=3pt,
+	arc=5pt,
+	leftrule=0pt,
+	rightrule=0pt,
+	bottomrule=2pt,
+	toprule=2pt,
+	colback=bg,
+	colframe=orange!70,
+	enhanced,
+	overlay={%
+		\begin{tcbclipinterior}
+			\fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+	\end{tcbclipinterior}},
+	#3,
+}
+\lstset{
+	language=C,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{orange},
+	commentstyle=\color{green!60!black},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	showstringspaces=false,
+}
+\begin{document}
+
+\title 
+{4.13.45 }
+\date{25 September,2025}
+
+\author 
+{Naman Kumar-EE25BTECH11041}
+\graphicspath{./figs}
+
+
+\frame{\titlepage}
+\begin{frame}{Question a)}
+Two vertices of a triangle are $(5, -1)$ and $(2, -3)$. If the orthocentre of the triangle
+is the origin, find the coordinates of the third point.
+\end{frame}
+\begin{frame}{Solution}
+Given,
+\begin{align}
+\vec{O}=\begin{pmatrix}0\\0\end{pmatrix},\vec{A}=\begin{pmatrix}5\\-1\end{pmatrix},\vec{B}=\begin{pmatrix}2\\-3\end{pmatrix}
+\end{align}
+Where,
+\input{table/table.tex}
+\end{frame}
+\begin{frame}{Solution}
+From General Triangle Properties.
+\begin{align}
+    m_1^{T}A_1=0,m_2^{T}A_2=0\\
+    (\vec{A}-\vec{O})^{T}(\vec{C}-\vec{B})=0;\\
+    \vec{A}^{T}(\vec{C}-\vec{B})=0, \label{1}\text{Since $\vec{O}$ is origin}
+\end{align}
+and 
+\begin{align}
+    (\vec{B}-\vec{O})^{T}(\vec{C}-\vec{A})=0;\\
+    (\vec{B})^{T}(\vec{C}-\vec{A})=0,\label{2}\text{Since $\vec{O}$ is origin}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Modifying $\eqref{1}$ and $\eqref{2}$
+\begin{align}
+\vec{A}^T\vec{C}-\vec{A}^T\vec{B}=0,\vec{B}^T\vec{C}-\vec{B}^T\vec{A}=0\\
+\vec{A}^T\vec{C}=\vec{A}^T\vec{B} \label{3}\\ \vec{B}^T\vec{C}=\vec{B}^T\vec{A} \label{4}
+\end{align}
+This can be written as
+\begin{align}
+    \begin{pmatrix}\vec{A}^T \\ \vec{B}^T \end{pmatrix}\vec{C}=\begin{pmatrix}\vec{A}^T\vec{B}\\ \vec{B}^T\vec{A} \end{pmatrix}\\
+    \begin{pmatrix}5 & -1\\ 2 & -3\end{pmatrix}\vec{C}=\begin{pmatrix}\vec{A}^T\vec{B}\\ \vec{B}^T\vec{A} \end{pmatrix} \label{5}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+Let
+\begin{align}
+    \begin{amatrix}{2}5 & -1& \vec{A}^T\vec{B}\\ 2 & -3 &\vec{B}^T\vec{A} \end{amatrix} = \begin{amatrix}{2}5 & -1& 13\\ 2 & -3 &13 \end{amatrix}
+\end{align}
+By Gaussian Elimination
+\begin{align}
+    \begin{amatrix}{2}5 & -1& 13\\ 2 & -3 &13 \end{amatrix}\xrightarrow{R_2-\frac{2}{5}R_1}\begin{amatrix}{2}5 & -1& 13\\ 0 & \frac{-13}{5} &\frac{39}{5} \end{amatrix}\\
+    \xrightarrow{-\frac{5}{13}R_2}\begin{amatrix}{2}5 & -1& 13\\ 0 & 1 & -3 \end{amatrix}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+In equation $\eqref{5}$ 
+\begin{align}
+    \begin{pmatrix}5 & -1\\ 0 & 1\end{pmatrix}\begin{pmatrix}x\\ y\end{pmatrix}=\begin{pmatrix}13\\ -3\end{pmatrix}
+\end{align}
+Therefore, $\vec{C}$ is
+\begin{align}
+    \begin{pmatrix}x\\y\end{pmatrix} = \begin{pmatrix}2\\-3\end{pmatrix}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+But,Now
+\begin{align}
+    \vec{B}=\vec{C}
+\end{align}
+Which is not possible for a triangle,\\
+Slope of line $\vec{A}$ to $\vec{B}$ or $\vec{L}$ be $\vec{m}$
+\begin{align}
+\vec{m}=\vec{A}-\vec{B}\\
+\vec{m}=\begin{pmatrix}3\\2\end{pmatrix}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+We can see, that
+\begin{align}
+    \vec{m}^T\vec{A_2}=0,\vec{m_2}^T\vec{A_2}=0
+\end{align}
+Therefore, for this to be possible when
+\begin{align}
+    \vec{L} \parallel \vec{m_2}, \\ \vec{A}-\vec{C} \parallel \vec{A}-\vec{B}
+\end{align}
+
+Since both lines have a point in common $\vec{A}$, therefore they must be collinear.\\
+So, $\vec{A},\vec{B}$ and $\vec{C}$ is just a straight line
+\end{frame}
+\begin{frame}{Figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\columnwidth]{figs/Figure.png}
+    \caption{}
+    \label{fig:placeholder}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{direct python}
+\begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(6,6), dpi = 200)
+
+
+abX= np.array([5,2])
+abY= np.array([-1,-3])
+acX= np.array([5,2])
+acY=np.array([-1,-3])
+bcX=np.array([2,2])
+bcY=np.array([-3,-3])
+obx=np.array([0,2])
+oby=np.array([0,-3])
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{direct python}
+\begin{lstlisting}
+
+plt.plot(abX,abY, ':r',marker='o', label="Line AB")
+plt.plot(bcX,bcY, ':b',marker='o', label="Line BC")
+plt.plot(acX,acY, ':',marker='o', color='orange', label="Line AC")
+plt.plot(obx,oby, '-', color='pink', label="Line OB")
+
+
+plt.annotate("A",xy=(abX[0], abY[0]))
+plt.annotate("B",xy=(abX[1]+0.05, abY[1]-0.02))
+plt.annotate("C",xy=(abX[1]+0.05, abY[1]+0.1))
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{direct python}
+\begin{lstlisting}
+plt.title("Graph")
+plt.legend()
+plt.grid()
+plt.savefig("Figure.png", dpi=200)
+plt.show()
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C code}
+\begin{lstlisting}
+#include <stdio.h>
+
+typedef struct {
+    double x;
+    double y;
+} Point;
+
+// Function to find third vertex given two vertices and orthocenter
+Point third_vertex(double x1, double y1, double x2, double y2, double hx, double hy){
+    Point C;
+    double m_alt_A, m_alt_B;
+    double m_perp_BC, m_perp_AC;
+
+    // Slope of altitude from A passing through H
+    if(x1 != hx)
+        m_alt_A = (hy - y1)/(hx - x1);
+    else
+        m_alt_A = 1e9; // vertical slope
+
+    // Slope of altitude from B passing through H
+    if(x2 != hx)
+        m_alt_B = (hy - y2)/(hx - x2);
+    else
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C code}
+\begin{lstlisting}
+        m_alt_B = 1e9;
+    // Equation for perpendicular slope relation
+    if(m_alt_A != 1e9)
+        m_perp_BC = -1.0 / m_alt_A;
+    else
+        m_perp_BC = 0; // horizontal BC
+
+    if(m_alt_B != 1e9)
+        m_perp_AC = -1.0 / m_alt_B;
+    else
+        m_perp_AC = 0; // horizontal AC
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C code}
+\begin{lstlisting}
+    // Solve system: slope formula
+    // y3 - y2 = m_perp_BC * (x3 - x2)
+    // y3 - y1 = m_perp_AC * (x3 - x1)
+    double x3 = (m_perp_BC * x2 - m_perp_AC * x1 + y1 - y2) / (m_perp_BC - m_perp_AC);
+    double y3 = m_perp_BC * (x3 - x2) + y2;
+
+    C.x = x3;
+    C.y = y3;
+    return C;
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with shared object}
+\begin{lstlisting}
+import ctypes
+from ctypes import Structure, c_double
+import matplotlib.pyplot as plt
+
+# Define Point struct
+class Point(Structure):
+    _fields_ = [("x", c_double), ("y", c_double)]
+
+# Load shared object
+lib = ctypes.CDLL("./libtriangle.so")
+lib.third_vertex.restype = Point
+lib.third_vertex.argtypes = [c_double, c_double, c_double, c_double, c_double, c_double]
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with shared object}
+\begin{lstlisting}
+# Given vertices and orthocenter
+A_x, A_y = 5, -1
+B_x, B_y = 2, -3
+H_x, H_y = 0, 0
+
+# Call C function
+C = lib.third_vertex(A_x, A_y, B_x, B_y, H_x, H_y)
+print(f"Third vertex: ({C.x:.2f}, {C.y:.2f})")
+
+# Plot triangle
+x_coords = [A_x, B_x, C.x, A_x]
+y_coords = [A_y, B_y, C.y, A_y]
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Python code with shared object}
+\begin{lstlisting}
+plt.figure(figsize=(6,6))
+plt.plot(x_coords, y_coords, 'b-o', label='Triangle')
+plt.plot(H_x, H_y, 'r*', markersize=12, label='Orthocenter')
+plt.text(A_x, A_y, 'A', fontsize=12, ha='right')
+plt.text(B_x, B_y, 'B', fontsize=12, ha='right')
+plt.text(C.x, C.y, 'C', fontsize=12, ha='right')
+plt.text(H_x, H_y, 'H', fontsize=12, ha='right')
+plt.grid(True)
+plt.legend()
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+plt.title('Triangle with Orthocenter')
+plt.show()
+\end{lstlisting}
+\end{frame}
+
+\end{document}

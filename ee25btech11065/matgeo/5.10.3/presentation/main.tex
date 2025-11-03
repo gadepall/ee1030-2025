@@ -1,0 +1,237 @@
+
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+\begin{document}
+
+\title 
+{5.10.3}
+\date{September 28,2025}
+
+
+\author 
+{EE25BTECH11065-Yoshita J}
+
+
+
+
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Balance the following chemical equation.
+\begin{align*}
+    Fe + H_2O \to Fe_3O_4 + H_2
+\end{align*}
+\bigskip
+
+\end{frame}
+
+
+\begin{frame}{Theoretical Solution}
+Let the balanced version of the equation be
+\begin{align}
+    x_1 Fe + x_2 H_2O \to x_3 Fe_3O_4 + x_4 H_2
+\end{align}
+which results in the following equations based on the conservation of each element:
+\begin{align}
+    \text{For Fe: } &x_1 - 3x_3 = 0 \\
+    \text{For H: } &2x_2 - 2x_4 = 0 \implies x_2 - x_4 = 0 \\
+    \text{For O: } &x_2 - 4x_3 = 0
+\end{align}
+This can be expressed as a homogeneous system of linear equations:
+\begin{align}
+    x_1 + 0x_2 - 3x_3 + 0x_4 &= 0 \\
+    0x_1 + x_2 + 0x_3 - x_4 &= 0 \\
+    0x_1 + x_2 - 4x_3 + 0x_4 &= 0
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+This results in the matrix equation $A\mathbf{x} = \mathbf{0}$, where:
+\begin{align}
+    \myvec{
+        1 & 0 & -3 & 0 \\
+        0 & 1 & 0 & -1 \\
+        0 & 1 & -4 & 0
+    } \mathbf{x} = \mathbf{0},
+    \quad \mathbf{x} = \myvec{ x_1 \\ x_2 \\ x_3 \\ x_4 }
+\end{align}
+The coefficient matrix can be reduced as follows using Gaussian elimination to find the null space:
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+\begin{align}
+\myvec{
+1 & 0 & -3 & 0 \\
+0 & 1 & 0 & -1 \\
+0 & 1 & -4 & 0
+}
+\xrightarrow{R_3 \to R_3 - R_2}
+\\
+\myvec{
+1 & 0 & -3 & 0 \\
+0 & 1 & 0 & -1 \\
+0 & 0 & -4 & 1
+}
+\xrightarrow{R_3 \to -\frac{1}{4}R_3}
+\\
+\myvec{
+1 & 0 & -3 & 0 \\
+0 & 1 & 0 & -1 \\
+0 & 0 & 1 & -1/4
+}
+\xrightarrow{R_1 \to R_1 + 3R_3}
+\\
+\myvec{
+1 & 0 & 0 & -3/4 \\
+0 & 1 & 0 & -1 \\
+0 & 0 & 1 & -1/4
+}
+\end{align}
+\end{frame}
+
+
+\begin{frame}{Theoretical Solution}
+
+From the reduced row echelon form, we get the solutions in terms of the free variable $x_4$:
+\begin{align}
+    x_1 = \frac{3}{4}x_4, \quad x_2 = x_4, \quad x_3 = \frac{1}{4}x_4
+\end{align}
+\end{frame}
+
+
+\begin{frame}{Theoretical Solution}
+Thus,
+\begin{align}
+    \mathbf{x} = x_4 \myvec{ 3/4 \\ 1 \\ 1/4 \\ 1 }
+\end{align}
+By substituting $x_4 = 4$, the simplest integer solution is found. Hence,
+\begin{align}
+    \mathbf{x} = 4 \myvec{ 3/4 \\ 1 \\ 1/4 \\ 1 } = \myvec{ 3 \\ 4 \\ 1 \\ 4 }
+\end{align}
+This gives $x_1 = 3, x_2 = 4, x_3 = 1, \text{ and } x_4 = 4$.
+\bigskip
+Hence, the balanced equation finally becomes:
+\begin{align}
+    \boxed{3Fe + 4H_2O \to Fe_3O_4 + 4H_2}
+\end{align}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+
+    \begin{lstlisting}
+#include <stdio.h>
+
+void solve_and_print_balance() {
+    int x1, x2, x3, x4;
+    int found = 0;
+
+    printf("Searching for the smallest integer coefficients...\n\n");
+
+    for (x1 = 1; x1 <= 100 && !found; x1++) {
+        for (x2 = 1; x2 <= 100 && !found; x2++) {
+            for (x3 = 1; x3 <= 100 && !found; x3++) {
+                for (x4 = 1; x4 <= 100 && !found; x4++) {
+                    if ((x1 == 3 * x3) && (x2 == x4) && (x2 == 4 * x3)) {
+                        printf("Solution found!\n");
+                        printf("Coefficients are: x1=%d, x2=%d, 
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+x3=%d, x4=%d\n\n", x1, x2, x3, x4);
+                        printf("The balanced chemical equation is:\n");
+                        printf("%dFe + %dH2O -> %dFe3O4 + %dH2\n", x1, x2, x3, x4);
+                        found = 1;
+                    }
+                }
+            }
+        }
+    }
+
+    if (!found) {
+        printf("No solution was found within the search range.\n");
+    }
+}
+
+
+    \end{lstlisting}
+\end{frame}
+
+\end{document}

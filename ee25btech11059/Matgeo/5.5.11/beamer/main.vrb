@@ -1,0 +1,16 @@
+\frametitle{Python and C Code}
+
+\begin{lstlisting}
+# Create ctypes pointers
+A_ct = (ctypes.c_double * 3 * 3)(*A.flatten())
+A_inv_ct = (ctypes.c_double * 3 * 3)()
+
+# Call C function
+lib.invert_matrix(ctypes.byref(A_ct), ctypes.byref(A_inv_ct))
+
+# Convert result back to numpy
+A_inv_result = np.array(A_inv_ct).reshape((3, 3))
+print("Inverse matrix from C:\n", A_inv_result)
+
+\end{lstlisting}
+

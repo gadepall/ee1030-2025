@@ -1,0 +1,13 @@
+import sympy as sp
+
+# Define the matrix
+A = sp.Matrix([[1, 3],
+               [2, 7]])
+
+# Find the inverse using Sympy
+A_inv = A.inv()
+
+# Display the result neatly
+print("Inverse of the matrix:")
+sp.pprint(A_inv)
+

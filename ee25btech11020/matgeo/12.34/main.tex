@@ -1,0 +1,107 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal,12pt,onecolumn]{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\graphicspath{{./figs/}}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage{caption}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\usepackage{gvv}                                        
+%\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}     
+\usepackage{xparse}
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{float}
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{problem}{Problem}
+%\newtheorem{proposition}{Proposition}[section]
+%\newtheorem{lemma}{Lemma}[section]
+%\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{example}{Example}[section]
+%\newtheorem{definition}[problem]{Definition}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+  language=C,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue},
+  commentstyle=\color{green!50!black},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  stepnumber=1,
+  frame=single
+}
+
+\begin{document}
+
+\title{12.34}
+\author{EE25BTECH11020 - Darsh Pankaj Gajare}
+% \maketitle
+% \newpage
+% \bigskip
+%\begin{document}
+{\let\newpage\relax\maketitle}
+%\renewcommand{\thefigure}{\theenumi}
+%\renewcommand{\thetable}{\theenumi}
+Question:\\ Let $\vec{A}=10\vec{I}_3$ where $\vec{I}_3$ is the $3\times3$ identity matrix. Find the nullity of $5\vec{A}\brak{\vec{I}_3+\vec{A}+\vec{A}^2}$.
+\solution
+\begin{align}
+	\vec{A}^2=100\vec{I}_3
+\end{align}
+\begin{align}
+	\vec{M}=	5\vec{A}\brak{\vec{I}_3+\vec{A}+\vec{A}^2}=5\brak{10\vec{I}_3}\brak{\vec{I}_3+10\vec{A}+100\vec{A}}=5550\vec{I}_3
+\end{align}
+Solve $\vec{M}\vec{x}=0$
+\begin{align}
+	5550\vec{I}_3\vec{x}=0 \implies 5550\vec{x}=0
+\end{align}
+Since 5550 is a nonzero scalar, the only vector satisfying this is the zero vector:
+\begin{align}
+	\vec{x}=0
+\end{align}
+The nullspace contains only the zero vector, so its dimension is 0. Therefore
+\begin{align}
+	nullity\brak{5\vec{A}\brak{\vec{I}_3+\vec{A}+\vec{A}^2}}=0
+\end{align}
+\begin{lstlisting}[caption=nullity.c]
+#include <stdio.h>
+
+int find_nullity(double k) {
+    double scalar = 5 * k * (1 + k + k * k);
+    int n = 3;  // 3x3 matrix
+    int nullity = 0;
+
+    if (scalar == 0)
+        nullity = n;
+    else
+        nullity = 0;
+
+    return nullity;
+}
+\end{lstlisting}
+\end{document}
+

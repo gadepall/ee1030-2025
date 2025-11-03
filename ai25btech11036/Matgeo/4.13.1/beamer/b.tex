@@ -2,62 +2,32 @@
 \usepackage[utf8]{inputenc}
 \usetheme{Madrid}
 \usecolortheme{default}
-\usepackage{amsmath,amssymb,amsfonts,amsthm}
+
+% math & fonts
+\usepackage{amsmath,amssymb,amsthm}
 \usepackage{txfonts}
-\usepackage{tk\input{b}z-euclide}
-\usepackage{listings}
-\usepackage{adjustbox}
-\usepackage{array}
-\usepackage{tabularx}
-\usepackage{gvv}
 \usepackage{lmodern}
-\usepackage{circuitikz}
+
+% drawing / figures / listings
+\usepackage{tkz-euclide}
 \usepackage{tikz}
 \usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{adjustbox}
 
+% (optional) your local package; comment if not available
+\usepackage{gvv}
+
+% vector macro
+\newcommand{\myvec}[1]{\begin{bmatrix}#1\end{bmatrix}}
+
+% show total frame count in footer
 \setbeamertemplate{page number in head/foot}[totalframenumber]
 
-\usepackage{tcolorbox}
-\tcbuselibrary{minted,breakable,xparse,skins}
-
-
-
-\definecolor{bg}{gray}{0.95}
-\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
-  breakable=true,
-  listing engine=minted,
-  listing only,
-  minted language=#2,
-  minted style=default,
-  minted options={%
-    linenos,
-    gobble=0,
-    breaklines=true,
-    breakafter=,,
-    fontsize=\small,
-    numbersep=8pt,
-    #1},
-  boxsep=0pt,
-  left skip=0pt,
-  right skip=0pt,
-  left=25pt,
-  right=0pt,
-  top=3pt,
-  bottom=3pt,
-  arc=5pt,
-  leftrule=0pt,
-  rightrule=0pt,
-  bottomrule=2pt,
-  toprule=2pt,
-  colback=bg,
-  colframe=orange!70,
-  enhanced,
-  overlay={%
-    \begin{tcbclipinterior}
-    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
-    \end{tcbclipinterior}},
-  #3,
-}
+% listing defaults
 \lstset{
     language=C,
     basicstyle=\ttfamily\small,
@@ -70,29 +40,27 @@
     showstringspaces=false,
 }
 
-%\numberwithin{equation}{section}
-
-\title{Matgeo-q.4.4.32}
+\title{Matgeo-q.4.13.1}
 \author{AI25BTECH11036-SNEHAMRUDULA}
+\date{\today}
 
-\date{\today} 
 \begin{document}
 
 \begin{frame}
-\titlepage
+  \titlepage
 \end{frame}
 
-\section*{Outline}
-\begin{frame}{question}
-   \begin{question}
-Consider the lines given by
-\begin{align*}
+\section{Question}
+\begin{frame}{Question}
+Consider the lines
+\[
+\begin{aligned}
 L_1 &: x + 3y - 5 = 0, \\
 L_2 &: 3x - ky - 1 = 0, \\
 L_3 &: 5x + 2y - 12 = 0.
-\end{align*}
-Match the Statements/Expressions in Column I with the Statements/Expressions in Column II.
-
+\end{aligned}
+\]
+Match the statements in Column I with Column II (choices refer to values of \(k\) or relations).
 \begin{center}
 \begin{tabular}{p{0.45\linewidth} p{0.45\linewidth}}
 \textbf{Column I} & \textbf{Column II} \\
@@ -111,69 +79,88 @@ Match the Statements/Expressions in Column I with the Statements/Expressions in 
 \end{enumerate}
 \end{tabular}
 \end{center}
-\end{question}
 \end{frame}
-\begin{frame}{solution}
-\[
-\left(\vec{n}^{\,T}\right)\vec{x} = 1
-\]
-The general form of a line is $\vec{n}^\top \vec{x} = p$, where $\vec{n}$ is the normal vector.
-For the given lines:
-\begin{align*}
-L_1 &: \vec{n}_1 = \begin{pmatrix} 1 \\ 3 \end{pmatrix}, \quad p_1 = 5, \\
-L_2 &: \vec{n}_2 = \begin{pmatrix} 3 \\ -k \end{pmatrix}, \quad p_2 = 1, \\
-L_3 &: \vec{n}_3 = \begin{pmatrix} 5 \\ 2 \end{pmatrix}, \quad p_3 = 12.
-\end{align*}
-    \item \textbf{Concurrent:} The lines are concurrent if the matrix
-    $\begin{pmatrix} 1 & 3 & -5 \\ 3 & -k & -1 \\ 5 & 2 & -12 \end{pmatrix}$
-    has determinant zero.
+
+\section{Solution}
+The three line equations can be written in matrix form as
+\begin{align}
+    \myvec{
+    1 & 3 \\
+    3 & -k \\
+    5 & 2
+    }\vec{x}
+    =
+    \myvec{5\\1\\12}.                                   \label{eq:mainmatrix}
+\end{align}
+
+\textbf{(A) Concurrency}
+The lines are concurrent when all three equations admit a common solution.  
+This happens if
+\begin{align}
+    \rank\myvec{1 & 3 \\ 3 & -k \\ 5 & 2}
+    =
+    \rank\myvec{1 & 3 & 5 \\ 3 & -k & 1 \\ 5 & 2 & 12}
+    = 2.                                               \label{eq:concurrency}
+\end{align}
+Expanding the augmented determinant condition gives
+\begin{align}
+    k &= 5.                                            \label{eq:kconcurrent}
+\end{align}
+
+\textbf{(B) Parallelism}
+Two lines are parallel when their normals are proportional.  
+Equivalently, $\rank$ of the normals is $1$:
+\begin{align}
+    \rank\myvec{\vec{n}_2 & \vec{n}_3} = 1.            \label{eq:parallelrank}
+\end{align}
+This gives
+\begin{align}
+    k &= -\tfrac{6}{5}.                                \label{eq:kparallel}
+\end{align}
+
+\textbf{(C) Triangle condition}
+Three lines form a triangle if they intersect pairwise but are not concurrent.  
+That is,
+\begin{align}
+    \rank\myvec{\vec{n}_1 & \vec{n}_2} 
+    = \rank\myvec{\vec{n}_2 & \vec{n}_3} 
+    = \rank\myvec{\vec{n}_3 & \vec{n}_1} = 2, \quad
+    k \neq 5,\; k \neq -\tfrac{6}{5}.                  \label{eq:trianglecond}
+\end{align}
+So among the given options,
+\begin{align}
+    k = 9 \quad \text{or} \quad k = \tfrac{5}{6}.      \label{eq:ktriangle}
+\end{align}
+
+\textbf{(D) Do not form a triangle}
+This occurs if either concurrent or parallel, i.e.
+\begin{align}
+    k = 5 \quad \text{or} \quad k = -\tfrac{6}{5}.     \label{eq:notriangle}
+\end{align}
+\begin{align}
+    (A)&\to (d): k=5, \\
+    (B)&\to (b): k=-\tfrac{6}{5}, \\
+    (C)&\to (a)\;\text{or}\;(c): k=9 \;\text{or}\;\tfrac{5}{6}, \\
+    (D)&\to (d)\;\text{or}\;(b): k=5 \;\text{or}\; -\tfrac{6}{5}.
+\end{align}
+
+\begin{frame}{Graphical Representation}
+\begin{center}
+% placeholder figure drawn with TikZ
+\begin{tikzpicture}[scale=0.7]
+  % Axes
+  \draw[->] (-1,0)--(5,0) node[right]{$x$};
+  \draw[->] (0,-1)--(0,4) node[above]{$y$};
+
+  % Lines
+  \draw[red, thick] (-1,2) -- (5,0.0) node[right] {$L_1$};
+  \draw[blue, thick] (-1,-1) -- (4,5) node[right] {$L_2$};
+  \draw[green!70!black, thick] (-1,4.25) -- (4,1) node[right] {$L_3$};
+
+  % Intersection point
+  \fill (2,1) circle (2pt) node[below right] {$(2,1)$};
+\end{tikzpicture}
+\end{center}
 \end{frame}
-\begin{frame}{solution}
- Computing the determinant:
-    \begin{align*}
-    &1((-k)(-12) - (-1)(2)) - 3(3(-12) - (-1)(5)) + (-5)(3(2) - (-k)(5)) \\
-    &= 1(12k + 2) - 3(-36 + 5) - 5(6 + 5k) \\
-    &= 12k + 2 + 93 - 30 - 25k \\
-    &= -13k + 65.
-    \end{align*}
-    Setting it equal to zero: $-13k + 65 = 0 \Rightarrow k = 5$.
 
-    So concurrent if $k = 5$. Hence (A) matches with (s).
-
-    \item \textbf{Parallel:} Two lines are parallel if their normal vectors are scalar multiples.
-
-    Checking pairs:
-
-    \begin{itemize}
-        \item $\vec{n}_1$ and $\vec{n}_2$: $\frac{3}{1} = \frac{-k}{3} \Rightarrow k = -9$.
-
-        \item $\vec{n}_2$ and $\vec{n}_3$: $\frac{3}{5} = \frac{-k}{2} \Rightarrow k = \frac{-6}{5}$.
-
-        \item $\vec{n}_1$ and $\vec{n}_3$: $\frac{1}{5} = \frac{3}{2}$, which is false ⇒ not parallel.
-    \end{itemize}
-
-    So parallel if $k = \frac{-6}{5}$. Hence (B) matches with (q).
-
-\end{frame}
-\begin{frame}{solution}
-
-\item \textbf{Form a triangle:} The lines form a triangle if they are neither concurrent nor parallel.
-
-    So $k \neq 5$ and $k \neq \frac{-6}{5}$.
-
-    A typical example is $k = 9$. Hence (C) matches with (p).
-
-    \item \textbf{Do not form a triangle:} The lines do not form a triangle if they are either concurrent or two of them are parallel.
-
-    Hence possible when $k = 5$ or $k = \frac{-6}{5}$.
-
-    Here the option is $k = 5$. Hence (D) matches with (s).
-    \end{frame}
-    \begin{frame}{Graphical Representation}
-   \begin{figure}[h!]
-\centering
-\includegraphics[width=0.6\linewidth]{fig4.13.1.png}
-\end{figure}
-\end{frame}
 \end{document}
-

@@ -11,8 +11,6 @@ line2_y = plot_data["line2_y"]
 x_sol, y_sol = plot_data["solution_point"]
 a, b = plot_data["a"], plot_data["b"]
 
-print(f"Plotting solution for a={a:.0f}, b={b:.0f}: Point is ({x_sol:.0f}, {y_sol:.0f})")
-
 fig, ax = plt.subplots(figsize=(8, 8))
 
 # Use the unpacked lists directly
@@ -28,8 +26,6 @@ ax.set_xlabel('X-axis')
 ax.set_ylabel('Y-axis')
 
 ax.grid(True)
-ax.axhline(0, color='k', linewidth=0.5)
-ax.axvline(0, color='k', linewidth=0.5)
 ax.axis('equal')
 ax.legend()
 plt.show()

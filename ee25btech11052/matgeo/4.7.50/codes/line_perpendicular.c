@@ -1,8 +1,5 @@
 #include <math.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 void get_perpendicular_line(double px, double py, double pz,
                            double nx, double ny, double nz,
@@ -27,7 +24,3 @@ void get_point_on_line(double ax, double ay, double az,
     *y = ay + t * dy;
     *z = az + t * dz;
 }
-
-#ifdef __cplusplus
-}
-#endif

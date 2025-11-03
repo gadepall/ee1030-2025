@@ -1,0 +1,319 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\lstset{literate={·}{{$\cdot$}}1 {λ}{{$\lambda$}}1 {→}{{$\to$}}1}
+\usepackage{graphicx}
+\usepackage{multicol}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{12.144}
+\date{September 16,2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{Harsha-EE25BTECH11026}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+
+\begin{frame}{Question}
+Let $\vec{A}=\myvec{3&&0&&0\\0&&6&&2\\0&&2&&6}$ and let $\lambda_1 \geq \lambda_2 \geq \lambda_3$ be the eigen values of $\vec{A}$.\\
+\\
+$\brak{a}$ The triple $\brak{\lambda_1,\lambda_2,\lambda_3}$ equals
+\begin{enumerate}
+
+    \item $\brak{9,4,2}$
+    \item $\brak{8,4,3}$
+    \item $\brak{9,3,3}$
+    \item $\brak{7,5,3}$
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Question}
+$\brak{b}$ The Matrix $\vec{P}$ such that
+\begin{align*}
+    \vec{P}^{-1}\vec{A}\vec{P}=\myvec{\lambda_1&&0&&0\\0&&\lambda_2&&0\\0&&0&&\lambda_3}
+\end{align*}
+is
+
+\begin{enumerate}
+\begin{multicols}{2}
+    \item $\myvec{\frac{1}{\sqrt{3}}&&0&&\frac{-2}{\sqrt{6}}\\\frac{1}{\sqrt{3}}&&\frac{1}{\sqrt{2}}&&\frac{1}{\sqrt{6}}\\\frac{1}{\sqrt{3}}&&\frac{-1}{\sqrt{2}}&&\frac{1}{\sqrt{6}}}$
+    \item $\myvec{\frac{1}{\sqrt{3}}&&\frac{-2}{\sqrt{6}}&&0\\\frac{1}{\sqrt{3}}&&\frac{1}{\sqrt{6}}&&\frac{1}{\sqrt{2}}\\\frac{1}{\sqrt{3}}&&\frac{1}{\sqrt{6}}&&\frac{-1}{\sqrt{2}}}$
+    \item $\myvec{0&&0&&1\\\frac{1}{\sqrt{2}}&&\frac{1}{\sqrt{2}}&&0\\\frac{1}{\sqrt{2}}&&\frac{-1}{\sqrt{2}}&&0}$
+    \item $\myvec{0&&1&&0\\\frac{1}{\sqrt{2}}&&0&&\frac{1}{\sqrt{2}}\\\frac{1}{\sqrt{2}}&&0&&\frac{-1}{\sqrt{2}}}$
+\end{multicols}
+\end{enumerate}
+\end{frame}
+\begin{frame}{Theoretical solution}
+$\brak{a}$ The eigen values of $\vec{A}$ is obtained using characteristic polynomial, which is given by,
+\begin{align}
+    det|\vec{A}-\lambda\vec{I}|=0
+\end{align}
+\begin{align}
+    \therefore \mydet{3-\lambda&0&0\\0&6-\lambda&2\\0&2&6-\lambda}=0
+\end{align}
+\begin{align}
+    \therefore \brak{3-\lambda}\brak{\brak{6-\lambda}^2-4}=0
+\end{align}
+\begin{align}
+    \implies  \brak{\lambda-3}\brak{\lambda-4}\brak{\lambda-8}=0
+\end{align}
+\begin{align}
+    \therefore \brak{\lambda_1,\lambda_2,\lambda_3}=\brak{8,4,3}
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+$\brak{b}$ The given relation can be computed as ,
+\begin{align}
+    \vec{A}=\vec{P}\vec{D}\vec{P}^{-1} \label{eq:3}
+\end{align}
+where $\vec{D}$ is the diagonal matrix of eigenvalues of $\vec{A}$.\\
+\\
+From~\eqref{eq:3}, we can infer that it is the Eigen-value decomposition of matrix $\vec{A}$.\\
+\\
+Therefore, $\vec{P}$ is the ortho-normalized matrix of collection of eigen vectors of $\vec{A}$.
+\begin{align}
+    \vec{P}=\myvec{\vec{v_1}&&\vec{v_2}&&\vec{v_3}}
+\end{align}
+where $\vec{v_1},\vec{v_2} \,and\, \vec{v_3}$ are the normalized eigen vectors of $\vec{A}$.
+\end{frame}
+
+\begin{frame}{Definition}
+Eigenvectors $\vec{v}$ for any square matrix $\vec{A}$ is defined as 
+\begin{align}
+    \vec{A}\vec{v}=\lambda\vec{v}
+\end{align}
+where $\lambda$ is a scalar and is called the eigen value of $\vec{A}$.
+\begin{align}
+    \therefore \brak{\vec{A}-\lambda\vec{I}}\vec{v}=\vec{0}
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+For $\lambda=3$,
+\begin{align}
+    \brak{\myvec{3&&0&&0\\0&&6&&2\\0&&2&&6}-3\myvec{1&&0&&0\\0&&1&&0\\0&&0&&1}}\vec{v}=0
+\end{align}
+Let $\vec{v}=\myvec{\alpha\\\beta\\\gamma}$.
+\begin{align}
+    \therefore \myvec{0&&0&&0\\0&&3&&2\\0&&2&&3}\myvec{\alpha\\\beta\\\gamma}=\myvec{0\\0\\0} 
+\end{align}
+\begin{align}
+    \therefore 3\beta+2\gamma=0 \quad and \quad 2\beta+3\gamma=0
+\end{align}
+\begin{align}
+    \therefore \beta=\gamma=0
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+\begin{align}
+    \vec{e_1}=\alpha \myvec{1\\0\\0}
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+For $\lambda=4$,
+\begin{align}
+    \brak{\myvec{3&&0&&0\\0&&6&&2\\0&&2&&6}-4\myvec{1&&0&&0\\0&&1&&0\\0&&0&&1}}\vec{v}=0
+\end{align}
+Let $\vec{v}=\myvec{\alpha\\\beta\\\gamma}$.
+\begin{align}
+    \therefore \myvec{-1&&0&&0\\0&&2&&2\\0&&2&&2}\myvec{\alpha\\\beta\\\gamma}=\myvec{0\\0\\0} 
+\end{align}
+\begin{align}
+    \therefore 2\beta+2\gamma=0 \quad and \quad \alpha=0
+\end{align}
+\begin{align}
+    \therefore \beta=-\gamma
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+\begin{align}
+    \vec{e_2}=\beta\myvec{0\\1\\-1}
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical solution}
+For $\lambda=8$,
+\begin{align}
+    \brak{\myvec{3&&0&&0\\0&&6&&2\\0&&2&&6}-8\myvec{1&&0&&0\\0&&1&&0\\0&&0&&1}}\vec{v}=0
+\end{align}
+Let $\vec{v}=\myvec{\alpha\\\beta\\\gamma}$.
+\begin{align}
+    \therefore \myvec{-5&&0&&0\\0&&-2&&2\\0&&2&&-2}\myvec{\alpha\\\beta\\\gamma}=\myvec{0\\0\\0} 
+\end{align}
+\begin{align}
+    \therefore 2\beta-2\gamma=0 \quad and \quad \alpha=0
+\end{align}
+\begin{align}
+    \therefore \beta=\gamma
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+
+\begin{align}
+    \vec{e_3}=\gamma \myvec{0\\1\\1}
+\end{align}
+\end{frame}
+
+\begin{frame}{Theoretical solution}
+As we require unit eigen-vectors,
+
+\begin{align}
+    \implies \vec{v_1}=\myvec{1\\0\\0} \qquad \vec{v_2}=\myvec{0\\\frac{1}{\sqrt{2}}\\\frac{1}{\sqrt{2}}} \qquad \vec{v_3}=\myvec{0\\\frac{1}{\sqrt{2}}\\\frac{-1}{\sqrt{2}}}
+\end{align}
+\begin{align}
+    \therefore \vec{P}=\myvec{1&&0&&0\\0&&\frac{1}{\sqrt{2}}&&\frac{1}{\sqrt{2}}\\0&&\frac{1}{\sqrt{2}}&&\frac{-1}{\sqrt{2}}}
+\end{align}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code -Finding eigen values and eigen vectors of Matrix}
+
+    \begin{lstlisting}[language=C]
+#include <stdio.h>
+#include <math.h>
+
+void solve_eigen(double *eigenvalues, double *eigenvectors) {
+    eigenvalues[0] = 3.0;
+    eigenvalues[1] = 8.0;
+    eigenvalues[2] = 4.0;
+
+    eigenvectors[0] = 1.0; eigenvectors[1] = 0.0; eigenvectors[2] = 0.0;
+
+    eigenvectors[3] = 0.0; eigenvectors[4] = 1.0/sqrt(2.0); eigenvectors[5] = 1.0/sqrt(2.0);
+
+    eigenvectors[6] = 0.0; eigenvectors[7] = 1.0/sqrt(2.0); eigenvectors[8] = -1.0/sqrt(2.0);
+}
+
+
+    \end{lstlisting}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+    \frametitle{Python+C code}
+
+    \begin{lstlisting}[language=Python]
+import ctypes
+import numpy as np
+
+lib = ctypes.CDLL("./libeigen_solver.so")
+
+# Prepare result arrays
+eigenvalues = (ctypes.c_double * 3)()
+eigenvectors = (ctypes.c_double * 9)()
+
+# Call function
+lib.solve_eigen(eigenvalues, eigenvectors)
+
+eigvals = np.array(eigenvalues)
+eigvecs = np.array(eigenvectors).reshape(3,3, order="F")  
+
+print("Eigenvalues:", np.round(eigvals,0))
+print("Eigenvectors:\n", np.round(eigvecs,3))
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python code}
+    \begin{lstlisting}[language=Python]
+import numpy as np
+import sympy as sp
+
+A = np.array([[3,0,0],[0,6,2],[0,2,6]])
+eigvals, P = np.linalg.eigh(A)
+B=sp.Matrix(np.round(P, 3))
+print("P=")
+sp.pprint(B)
+
+print(np.flip(eigvals))
+    \end{lstlisting}   
+\end{frame}
+
+\end{document}

@@ -1,0 +1,296 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+	breakable=true,
+	listing engine=minted,
+	listing only,
+	minted language=#2,
+	minted style=default,
+	minted options={%
+		linenos,
+		gobble=0,
+		breaklines=true,
+		breakafter=,,
+		fontsize=\small,
+		numbersep=8pt,
+		#1},
+	boxsep=0pt,
+	left skip=0pt,
+	right skip=0pt,
+	left=25pt,
+	right=0pt,
+	top=3pt,
+	bottom=3pt,
+	arc=5pt,
+	leftrule=0pt,
+	rightrule=0pt,
+	bottomrule=2pt,
+	toprule=2pt,
+	colback=bg,
+	colframe=orange!70,
+	enhanced,
+	overlay={%
+		\begin{tcbclipinterior}
+			\fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+	\end{tcbclipinterior}},
+	#3,
+}
+\lstset{
+	language=C,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{orange},
+	commentstyle=\color{green!60!black},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	breaklines=true,
+	showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{5.4.31}
+\date{}
+%\subtitle{A short story}
+
+\author % (optional)
+{M Chanakya Srinivas- EE25BTECH11036}
+
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+
+\begin{frame}{Question 5.4.31}
+\textbf{Question:} Using elementary row transformations, find the inverse of
+\[
+A = \myvec{1 & 2 \\ 4 & 2}.
+\]
+
+\end{frame}
+ 
+\begin{frame}{Method}
+The inverse of a non-singular matrix \(A\) can be found using the augmented form
+\[
+\augvec{n}{n}{A \; I} \;\xrightarrow{\text{row operations}}\; \augvec{n}{n}{I \; A^{-1}}.
+\]
+This is known as the \textbf{Gauss--Jordan elimination method}.
+\end{frame}
+
+\begin{frame}{Step-by-Step Solution}
+\begin{align}
+\augvec{2}{2}{1 & 2 & 1 & 0 \\ 4 & 2 & 0 & 1} 
+& \quad \text{Initial augmented matrix} \label{eq:init} \\[6pt]
+R_2 &\leftarrow R_2 - 4R_1: \nonumber\\
+\augvec{2}{2}{1 & 2 & 1 & 0 \\ 0 & -6 & -4 & 1} 
+& \label{eq:step1} \\[6pt]
+R_2 &\leftarrow -\frac{1}{6}R_2: \nonumber\\
+\augvec{2}{2}{1 & 2 & 1 & 0 \\ 0 & 1 & \frac{2}{3} & -\frac{1}{6}}
+& \label{eq:step2} \\[6pt]
+R_1 &\leftarrow R_1 - 2R_2: \nonumber\\
+\augvec{2}{2}{1 & 0 & -\frac{1}{3} & \frac{1}{3} \\ 0 & 1 & \frac{2}{3} & -\frac{1}{6}}
+& \label{eq:step3}
+\end{align}
+\end{frame}
+
+\begin{frame}{Inverse of \(A\)}
+From the final augmented matrix, the left block is \(I\), so the right block is
+\[
+A^{-1} = \myvec{-\frac{1}{3} & \frac{1}{3} \\[1mm] \frac{2}{3} & -\frac{1}{6}}.
+\]
+
+\end{frame}
+\begin{frame}[fragile]{C Code}
+\begin{lstlisting}
+#include <stdio.h>
+
+// Function to compute inverse of a 2x2 matrix
+// Input: double A[2][2]
+// Output: double Inv[2][2]
+// Returns: 0 if successful, -1 if singular
+int inverse2x2(const double A[2][2], double Inv[2][2]) {
+    double det = A[0][0]*A[1][1] - A[0][1]*A[1][0];
+
+    if (det == 0.0) {
+        return -1; // singular matrix
+    }
+
+    double invDet = 1.0 / det;
+ \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]{C Code}
+\begin{lstlisting}
+
+    Inv[0][0] =  A[1][1] * invDet;
+    Inv[0][1] = -A[0][1] * invDet;
+    Inv[1][0] = -A[1][0] * invDet;
+    Inv[1][1] =  A[0][0] * invDet;
+
+    return 0;
+}
+
+// For testing purpose (can be removed when used as .so)
+#ifdef TEST_MAIN
+ \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]{C Code}
+\begin{lstlisting}
+
+int main() {
+    double A[2][2] = { {1, 2}, {4, 2} };
+    double Inv[2][2];
+
+    if (inverse2x2(A, Inv) == 0) {
+        printf("Inverse matrix:\n");
+        printf("%lf %lf\n", Inv[0][0], Inv[0][1]);
+        printf("%lf %lf\n", Inv[1][0], Inv[1][1]);
+    } else {
+        printf("Matrix is singular!\n");
+    }
+
+    return 0;
+}
+#endif
+
+ \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]{Python code through shared output}
+\begin{lstlisting}
+import ctypes
+import numpy as np
+
+# Load the shared library
+lib = ctypes.CDLL("./libmatrix.so")
+
+# Define function signature: int inverse2x2(const double A[2][2], double Inv[2][2])
+lib.inverse2x2.argtypes = [
+    (ctypes.c_double * 2) * 2,   # input matrix
+    (ctypes.c_double * 2) * 2    # output matrix
+]
+lib.inverse2x2.restype = ctypes.c_int
+ \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]{Python code through shared output}
+\begin{lstlisting}
+def inverse2x2(A):
+    """
+    Call the C function to compute inverse of 2x2 matrix.
+    A: numpy array (2x2)
+    Returns: numpy array (2x2) or None if singular
+    """
+    A_c = ((ctypes.c_double * 2) * 2)()
+    Inv_c = ((ctypes.c_double * 2) * 2)()
+
+    # Fill input matrix
+    for i in range(2):
+        for j in range(2):
+            A_c[i][j] = A[i, j]
+
+    # Call C function
+    status = lib.inverse2x2(A_c, Inv_c)
+    if status != 0:
+        return None  # singular
+ \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]{Python code through shared output}
+\begin{lstlisting}
+    # Convert back to numpy
+    Inv = np.zeros((2, 2))
+    for i in range(2):
+        for j in range(2):
+            Inv[i, j] = Inv_c[i][j]
+    return Inv
+
+# ---- Example Usage without plotting ----
+m_values = np.linspace(0.1, 5, 50)
+determinants = []
+inverse_norms = []
+
+for m in m_values:
+    A = np.array([[1, m], [4, 2]], dtype=float)  # parametric family of matrices
+    det = np.linalg.det(A)
+    Inv = inverse2x2(A)
+ \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]{Python code through shared output}
+\begin{lstlisting}
+    determinants.append(det)
+    if Inv is not None:
+        inverse_norms.append(np.linalg.norm(Inv))
+    else:
+        inverse_norms.append(np.nan)
+
+# Print results
+for i, m in enumerate(m_values):
+    print(f"m = {m:.2f}, det(A) = {determinants[i]:.4f}, ||A^-1|| = {inverse_norms[i]}")
+
+ \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{only Python code }
+\begin{lstlisting}
+
+
+import numpy as np
+
+# ---- Example Usage ----
+m_values = np.linspace(0.1, 5, 50)
+determinants = []
+inverse_norms = []
+
+for m in m_values:
+    A = np.array([[1, m], [4, 2]], dtype=float)  # parametric 2x2 matrix
+    det = np.linalg.det(A)
+
+ \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{only Python code }
+\begin{lstlisting}
+
+    try:
+        Inv = np.linalg.inv(A)
+        norm_inv = np.linalg.norm(Inv)
+    except np.linalg.LinAlgError:
+        Inv = None
+        norm_inv = np.nan
+
+    determinants.append(det)
+    inverse_norms.append(norm_inv)
+
+# Print results
+for i, m in enumerate(m_values):
+    print(f"m = {m:.2f}, det(A) = {determinants[i]:.4f}, ||A^-1|| = {inverse_norms[i]:.4f}")
+
+ \end{lstlisting}
+\end{frame}
+\end{document}

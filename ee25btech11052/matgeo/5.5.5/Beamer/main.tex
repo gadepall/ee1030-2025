@@ -1,0 +1,148 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern} 
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern} 
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{xcolor} 
+\usepackage{graphicx}
+\definecolor{myblue}{RGB}{48, 63, 159}
+\setbeamercolor{palette primary}{bg=myblue, fg=white}
+\setbeamercolor{structure}{fg=myblue}
+\setbeamercolor{frametitle}{bg=myblue, fg=white}
+\setbeamercolor{title}{bg=myblue, fg=white}
+\setbeamercolor{footlinecolor}{bg=myblue, fg=white}
+
+
+\defbeamertemplate*{title page}{mytemplate}{
+	\vfill
+	\begin{center}
+		
+		\begin{beamercolorbox}[wd=0.8\paperwidth, center, rounded=true, shadow=true]{title}
+			\usebeamerfont{title}\inserttitle\par
+		\end{beamercolorbox}
+		\vspace{2cm} 
+		
+		\usebeamerfont{author}\insertauthor
+		\vspace{1cm} 
+		\usebeamerfont{date}\insertdate
+	\end{center}
+	\vfill
+}
+
+
+\defbeamertemplate*{frametitle}{mytemplate}{
+	\begin{beamercolorbox}[wd=\paperwidth, ht=2.5ex, dp=1.5ex, left]{frametitle}
+		\hspace{1em}\usebeamerfont{frametitle}\insertframetitle
+	\end{beamercolorbox}
+}
+
+
+\setbeamertemplate{footline}{
+	\begin{beamercolorbox}[wd=\paperwidth, ht=2.25ex, dp=1ex]{footlinecolor}
+		\hspace{1em}\usebeamerfont{author in footline}\insertshortauthor
+		\hfill
+		\usebeamerfont{title in footline}\insertshorttitle
+		\hfill
+		\usebeamerfont{date in footline}\insertdate \hspace{1em} \insertframenumber/\inserttotalframenumber \hspace{0.5em}
+	\end{beamercolorbox}
+}
+
+
+\setbeamerfont{author in footline}{size=\tiny}
+\setbeamerfont{title in footline}{size=\tiny}
+\setbeamerfont{date in footline}{size=\tiny}
+
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+
+
+
+
+
+
+
+\begin{document}
+\title{5.5.5}
+\author{Shriyansh Chawda-EE25BTECH11052}
+\setbeamertemplate{footline}{} 
+\frame{\titlepage}
+
+\begin{frame}{Question} 
+If $A = \myvec{1 & -1 & 0 \\ 2 & 3 & 4 \\ 0 & 1 & 2}$ and $B = \myvec{2 & 2 & -4 \\ -4 & 2 & -4 \\ 2 & -1 & 5}$, then which of the following is true?
+	\begin{enumerate}[a.]
+	\begin{multicols}{4}
+		\item $A^{-1} = B$
+		\item $A^{-1} = 6B$
+		\item $B^{-1} = B$
+		\item $\mathbf{B^{-1} = \tfrac{1}{6}A}$
+	\end{multicols}
+\end{enumerate}
+\hfill{(12, 2021)}\\
+\end{frame}
+	
+\begin{frame}{Solution}
+Given the matrices:
+\begin{align}
+	A = \myvec{ 1 & -1 & 0 \\ 2 & 3 & 4 \\ 0 & 1 & 2 } \quad B = \myvec{ 2 & 2 & -4 \\ -4 & 2 & -4 \\ 2 & -1 & 5 }
+\end{align}
+We will find the inverse of A using Gauss-Jordan elimination method.\\
+The augmented matrix $[A | I]$ is given by:
+\begin{align}
+	[A | I] &= \left[ \begin{array}{ccc|ccc} 1 & -1 & 0 & 1 & 0 & 0 \\ 2 & 3 & 4 & 0 & 1 & 0 \\ 0 & 1 & 2 & 0 & 0 & 1 \end{array} \right]
+\end{align}
+Performing elementary Row Operations\\
+$R_2 \to R_2 - 2R_1$:
+\begin{align}
+	&\left[ \begin{array}{ccc|ccc} 1 & -1 & 0 & 1 & 0 & 0 \\ 0 & 5 & 4 & -2 & 1 & 0 \\ 0 & 1 & 2 & 0 & 0 & 1 \end{array} \right]
+\end{align}
+\end{frame}
+
+\begin{frame}{Solution}
+	Swap rows $R_2 \leftrightarrow R_3$
+\begin{align}
+	&\left[ \begin{array}{ccc|ccc} 1 & -1 & 0 & 1 & 0 & 0 \\ 0 & 1 & 2 & 0 & 0 & 1 \\ 0 & 5 & 4 & -2 & 1 & 0 \end{array} \right]
+\end{align}
+$R_1 \to R_1 + R_2$ and $R_3 \to R_3 - 5R_2$
+\begin{align}
+	&\left[ \begin{array}{ccc|ccc} 1 & 0 & 2 & 1 & 0 & 1 \\ 0 & 1 & 2 & 0 & 0 & 1 \\ 0 & 0 & -6 & -2 & 1 & -5 \end{array} \right]
+\end{align}
+$R_3 \to -\frac{1}{6}R_3$:
+\begin{align}
+	&\left[ \begin{array}{ccc|ccc} 1 & 0 & 2 & 1 & 0 & 1 \\ 0 & 1 & 2 & 0 & 0 & 1 \\ 0 & 0 & 1 & \frac{1}{3} & -\frac{1}{6} & \frac{5}{6} \end{array} \right]
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+$R_1 \to R_1 - 2R_3$ and $R_2 \to R_2 - 2R_3$:
+\begin{align}
+	[I | A^{-1}] &= \left[ \begin{array}{ccc|ccc} 1 & 0 & 0 & \frac{1}{3} & \frac{1}{3} & -\frac{2}{3} \\ 0 & 1 & 0 & -\frac{2}{3} & \frac{1}{3} & -\frac{2}{3} \\ 0 & 0 & 1 & \frac{1}{3} & -\frac{1}{6} & \frac{5}{6} \end{array} \right]
+\end{align}
+Hence,the Inverse Matrix {$A^{-1}$} is given by 
+\begin{align}
+	A^{-1} &= \myvec{ \frac{1}{3} & \frac{1}{3} & -\frac{2}{3} \\[1ex] -\frac{2}{3} & \frac{1}{3} & -\frac{2}{3} \\[1ex] \frac{1}{3} & -\frac{1}{6} & \frac{5}{6} }
+\end{align}
+By factoring out a scalar,The relation with B is given by:
+\begin{align}
+	A^{-1} = \frac{1}{6} \myvec{ 2 & 2 & -4 \\ -4 & 2 & -4 \\ 2 & -1 & 5}
+	\implies A^{-1} = \frac{1}{6}B 
+\end{align}
+Now Pre-multiplying both side by A:
+
+
+\end{frame}
+\begin{frame}{Solution}
+\begin{align}
+	A A^{-1} &= A \brak{\frac{1}{6}B} \\
+	I &= \frac{1}{6}AB \\
+	6I &= AB 
+\end{align}
+Now Post-multiplying both sides by $B^{-1}$:
+\begin{align}
+	6I B^{-1} &= A B B^{-1} \\
+	6B^{-1} &= A \\
+	\mathbf{B^{-1}} &= \mathbf{\frac{1}{6}A}
+\end{align}
+\end{frame}
+\end{document}

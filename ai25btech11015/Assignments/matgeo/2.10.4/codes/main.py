@@ -1,18 +1,15 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-import ctypes
 
-# #Run the C code to generate var.dat
-# dll = ctypes.CDLL("./get_coordinates.so")
-# dll.get_coordinates()
+"""
+Find the area of the triangle whose vertices are
+A(1,−1,2),B(2,0,−1),C(3,−1,2).
+"""
 
-# Read arrays from var.dat
-with open("var.dat", "r") as f:
-	lines = f.readlines()
-	A = np.array([int(x) for x in lines[0].split()])
-	B = np.array([int(x) for x in lines[1].split()])
-	C = np.array([int(x) for x in lines[2].split()])
+A = np.array([1, -1, 2])
+B = np.array([2, 0, -1])
+C = np.array([3, -1, 2])
 
 AB = B - A
 AC = C - A

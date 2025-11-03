@@ -119,25 +119,21 @@ The point which lies on the line is only option (3).
 \begin{frame}[fragile]
     \frametitle{C Code}
     \begin{lstlisting}
-#include <stdio.h>
-
-#define size 2
-
-double n[size], v1[size], v2[size], v3[size], v4[size], v5[size];
-
-void insert_vector(int index, double vec[size]){
-    double *target;
-    switch (index){
-        case 0: target = n; break;
-        case 1: target = v1; break;
-        case 2: target = v2; break;
-        case 3: target = v3; break;
-        case 4: target = v4; break;
-        case 5: target = v5; break;
-    }
-    for (int i=0; i<size; i++){
-        target[i] = vec[i];
-    }
+#include<stdio.h>
+#include<math.h>
+void give_data(double *points){
+    points[0] = 1; //Ax
+    points[1] = -2; //Ay
+    points[2] = 0; //Bx
+    points[3] = 2; //By
+    points[4] = 2; //Cx
+    points[5] = 0; //Cy
+    points[6] = 4; //Dx
+    points[7] = 0; //Dy
+    points[8] = sqrt(2); //EX
+    points[9] = 4*sqrt(2); //Ey
+    points[10] = 1; //Fx
+    points[11] = 1; //Fy
 }
     \end{lstlisting}
 \end{frame}
@@ -145,47 +141,107 @@ void insert_vector(int index, double vec[size]){
 \begin{frame}[fragile]
     \frametitle{C Code}
     \begin{lstlisting}
-double* get_vector(int index){
-    switch (index){
-        case 0: return n;
-        case 1: return v1;
-        case 2: return v2;
-        case 3: return v3;
-        case 4: return v4;
-        case 5: return v5;
-        default: return NULL;
+double dotpro(double A[], double B[]){
+    double sum = 0;
+    for(int i = 0; i<2; i++){
+        sum += (A[i]*B[i]);
     }
+    return sum;
 }
+int main(){
+    double n[2] = {1, -2};
+    double A[2] = {0, 2};
+    double B[2] = {2, 0};
+    double C[2] = {4, 0};
+    double D[2] = {sqrt(2), 4*sqrt(2)};
+    double E[2] = {1, 1};
+    int k = 0;
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+for(int i = 1; i<=5; i++){
+        switch (i){case 1: k = dotpro(n, A); if(k==4){printf("Option (%d) lies on the given line.", i);}
+            else{printf("Option (%d) does not lie on the given line", i);}
+            break;
+            case 2: k = dotpro(n, B); if(k==4){printf("Option (%d) lies on the given line.", i);}
+            else{printf("Option (%d) does not lie on the given line", i);}
+            break;
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{C Code}
+    \begin{lstlisting}
+            case 3: k = dotpro(n, C); if(k==4){printf("Option (%d) lies on the given line.", i);}
+            else{printf("Option (%d) does not lie on the given line", i);}
+            break;
+            case 4: k = dotpro(n, D); if(k==4){printf("Option (%d) lies on the given line.", i);}
+            else{printf("Option (%d) does not lie on the given line", i);}
+            break;
+            case 5: k = dotpro(n, E); if(k==4){printf("Option (%d) lies on the given line.", i);}
+            else{printf("Option (%d) does not lie on the given line", i);}
+            break;}}}
     \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{Python Code 1}
+    \begin{lstlisting}
+import ctypes as ct
+
+lib = ct.CDLL("./problem.so")
+
+lib.give_data.argtypes = [ct.POINTER(ct.c_double)]
+
+points = ct.c_double*12
+
+data = points()
+
+lib.give_data(data)
+
+def send_data():
+    return data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9]
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code 2}
     \begin{lstlisting}
 import matplotlib.pyplot as plt
 import numpy as np
 import math
-
+from call import send_data
+Ax, Ay, Bx, By, Cx, Cy, Dx, Dy, Ex, Ey = send_data()
 x = np.linspace(-6, 10, 100)   
 y = x/2 - 2
-X = [0, 2, 4, 1, math.sqrt(2) ]
-Y = [2, 0, 0, 1, 4*math.sqrt(2)]
-
+X = [Ax, Bx, Cx, Ex, Dy]
+Y = [Ay, By, Cy, Ey, Dy]
 plt.plot(x, y, 'r-', label="x-2y=4")
 plt.plot(X, Y, 'ko')  
 
-plt.text(8.17, 1.76, "x-2y=4", fontsize=12, color='black')
-
-for i in range(len(X)-1):
-    plt.text(X[i]+0.1, Y[i]+0.1, f"({X[i]},{Y[i]})", fontsize=10, color='black')
     \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-    \frametitle{Python Code 1}
+    \frametitle{Python Code 2}
     \begin{lstlisting}
-plt.axvline(x=0, color='k', linewidth=1.5)
+plt.text(8.17, 1.76, "x-2y=4", fontsize=12, color='black')
 
+for i in range(len(X)-1):
+    plt.text(X[i]+0.1, Y[i]+0.1, f"({X[i]:.1f},{Y[i]:.1f})", fontsize=10, color='black')
+
+plt.text(X[4]+0.1, Y[4]+0.1, f"({X[4]:.1f},{Y[4]:.1f})", fontsize=10, color='black')
+
+plt.axvline(x=0, color='k', linewidth=1.5)
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code 2}
+    \begin{lstlisting}
 plt.axhline(y=0, color='k', linewidth=1.5)
 plt.title("Plot of the given line and points")
 plt.xlabel("X-axis")
@@ -194,63 +250,6 @@ plt.axis('equal')
 plt.grid(True)
 plt.savefig("../figs/plot.png")
 plt.show()
-    \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{Python Code 2}
-    \begin{lstlisting}
-import ctypes
-import numpy as np
-import math
-
-lib = ctypes.CDLL("./problem.so")
-
-lib.insert_vector.argtypes = (ctypes.c_int, ctypes.POINTER(ctypes.c_double))
-lib.insert_vector.restype = None
-
-lib.get_vector.argtypes = (ctypes.c_int,)
-lib.get_vector.restype = ctypes.POINTER(ctypes.c_double)
-
-    \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{Python Code 2}
-    \begin{lstlisting}
-    vectors = [
-    [1, -2],
-    [0, 2],
-    [2, 0],
-    [4, 0],
-    [math.sqrt(2), 4*math.sqrt(2)],
-    [1, 1],
-]
-for i, vec in enumerate(vectors):
-    arr = (ctypes.c_double * 2)(*vec)
-    lib.insert_vector(i, arr)
-
-def get_vector(i):
-    ptr = lib.get_vector(i)
-    return np.ctypeslib.as_array(ptr, shape=(2, ))
-
-all_vectors = [get_vector(i) for i in range(0, 6)]
-    \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{Python Code 2}
-    \begin{lstlisting}
-n = get_vector(0)
-
-for i in range(1, 6):
-    v = get_vector(i)
-    v_T = v.T
-    res = n@v_T
-    if(res==4):
-        print(f"option ({i}) lies on the given line.")
-    else:
-        print(f"option ({i}) does not lie on the given line.") 
     \end{lstlisting}
 \end{frame}
 

@@ -1,0 +1,106 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+
+\title{12.557}
+\author{EE25BTECH11023 - Venkata Sai}
+% \maketitle
+% \newpage
+% \bigskip
+\maketitle 
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+\numberwithin{align}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+\vspace{-1em}
+\textbf{Question:}  \\
+Let $\vec{A}=\myvec{5&-3\\6&-4}$.Then the trace of $\vec{A}^{1000}$ equals\\
+\textbf{Solution:}  \\
+  Given
+  \begin{align}
+      \vec{A}=\myvec{5&-3\\6&-4} \\
+  \end{align}
+  To find eigen values 
+  \begin{align}
+      |\vec{A}-\lambda\vec{I}|=0
+      \end{align}
+      \begin{align}
+            \mydet{\myvec{5&-3\\6&-4}-\lambda\myvec{1&0\\0&1}}=0\\
+            \mydet{\myvec{5&-3\\6&-4}-\myvec{\lambda&0\\0&\lambda}}=0\\
+            \mydet{\myvec{5-\lambda&-3\\6&-4-\lambda}}=0 \\
+            \brak{5-\lambda}\brak{-4-\lambda}+3\brak{6}=0\\
+            \lambda^2+4\lambda-5\lambda-20+18=0 \\
+            \lambda^2-\lambda-2=0 \\
+            \brak{\lambda-2}\brak{\lambda+1}=0 \\
+            \lambda_1=2\ \brak{\text{and}}\ \lambda_2=-1
+  \end{align}
+For a given matrix $\vec{A}$
+\begin{align}
+     \vec{A}&=\vec{P}\vec{D}\vec{P}^{-1} \\
+      \vec{A}^2&=\brak{\vec{P}\vec{D}\vec{P}^{-1}}^2 \\
+      &=\vec{P}\vec{D}\vec{P}^{-1}\vec{P}\vec{D}\vec{P}^{-1}\\
+      &=\vec{P}\vec{D}\vec{I}\vec{D}\vec{P}^{-1}\\
+      &=\vec{P}\vec{D}^2\vec{P}^{-1}
+ \end{align}
+ where 
+ \begin{align}
+\vec{D}=\myvec{\lambda_1&0\\0&\lambda_2}=\myvec{2&0\\0&-1}\\
+ \end{align}
+ \begin{align}
+     \vec{A}^k&=\vec{P}\vec{D}^k\vec{P}^{-1}\\
+\text{trace}\brak{\vec{A}^k}&=\text{trace}\brak{\vec{P}\vec{D}^k\vec{P}^{-1}} \\
+&=\text{trace}\brak{\brak{\vec{P}\vec{D}^k}\vec{P}^{-1}} 
+     \end{align}
+     Since trace$\brak{\vec{AB}}$=trace$\brak{\vec{BA}}$
+     \begin{align}
+\text{trace}\brak{\vec{A}^k}&=\text{trace}\brak{\brak{\vec{P}\vec{D}^k}\vec{P}^{-1}}  \\
+&=\text{trace}\brak{\vec{P}^{-1}\brak{\vec{P}\vec{D}^k}}  \\
+\text{trace}\brak{\vec{A}^k}&=\text{trace}\brak{\vec{I}\vec{D}^k}=\text{trace}\brak{\vec{D}^k}
+     \end{align}
+     \begin{align}
+     \text{trace}\brak{\vec{A}^{1000}}&=\text{trace}\brak{\vec{D}^{1000}} \\
+&=\text{trace}\myvec{2^{1000}&0\\0&\brak{-1}^{1000}} \\
+&=2^{1000}+1
+ \end{align}
+ \end{document}

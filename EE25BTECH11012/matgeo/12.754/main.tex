@@ -1,0 +1,110 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{multicol}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{12.754}
+\author{EE25BTECH11012-BEERAM MADHURI}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+
+\textbf{Question}:\\
+Let $\mathbf{Q} = \begin{pmatrix} 1 & -2 \\ 2 & 1 \end{pmatrix}$ be a $2\times2$ matrix. Which one of the following statements is \textbf{TRUE}?
+
+\begin{enumerate}
+    \item[a)] $\mathbf{Q}$ is equal to its transpose.
+    \item[b)] $\mathbf{Q}$ is equal to its inverse.
+    \item[c)] $\mathbf{Q}$ is full rank.
+    \item[d)] $\mathbf{Q}$ has linearly dependent columns.
+\end{enumerate}
+
+\textbf{Solution:}\\
+    \textbf{a)}
+    \begin{align}\vec{Q}^\top = \begin{pmatrix} 1 & 2 \\ -2 & 1 \end{pmatrix}\\
+    \vec{Q} \neq \vec{Q}^\top
+    \end{align}
+    \textbf{b)}
+    \begin{align}
+    Q= \begin{pmatrix} 1 & -2 \\ 2 & 1 \end{pmatrix}\\
+    \text{If } \vec{Q} = \vec{Q}^-1 \text{ then } \vec{Q}^2 = I\\
+    \vec{Q}^2 = \begin{pmatrix} 1 & 2 \\ -2 & 1 \end{pmatrix} \begin{pmatrix} 1 & 2 \\ -2 & 1 \end{pmatrix}\\
+    = \begin{pmatrix} -3 & 4 \\ -4 & -3 \end{pmatrix}
+    \neq \vec{I}
+    \end{align}
+\text{c)} 
+\begin{align}
+\vec{Q}= \begin{pmatrix} 1 & -2 \\ 2 & 1 \end{pmatrix}
+\end{align}
+    Using Row reduction:-
+\begin{align}
+\begin{pmatrix} 1 & -2 \\ 2 & 1 \end{pmatrix}\xrightarrow{R_2-2(R_1)}
+\begin{pmatrix} 1 & -2 \\ 0 & -3
+\end{pmatrix}\\
+rank=2
+\end{align}
+$\therefore$ $\vec{Q}$ is a full rank Matrix.\\\\
+\textbf{d)}
+Columns of $\vec{Q}$ are linearly dependent if
+\begin{align}
+\vec{c_1} = \lambda \vec{c_2} \quad (\lambda \neq 0)
+\end{align}
+where $\vec{c_1} =$ first column of $\vec{Q}$ \\
+$\vec{c_2} =$ second column of $\vec{Q}$.
+\begin{align}
+\vec{c_1} = \begin{pmatrix} 1 \\ 2 \end{pmatrix}, \vec{c_2} = \begin{pmatrix} -2 \\ 1 \end{pmatrix}\\
+\vec{c_1} \neq \lambda \vec{c_2} \text{ for any } \lambda \neq 0
+\end{align}
+$\therefore$ columns of $\vec{Q}$ are linearly independent.\\\\
+$\therefore$ Option C is correct.
+\end{document}

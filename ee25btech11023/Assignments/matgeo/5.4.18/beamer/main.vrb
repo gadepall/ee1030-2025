@@ -1,20 +1,19 @@
 \frametitle{Python Code for Solving}
 \begin{lstlisting}[language=Python]
 import ctypes
-import sympy
+import numpy as np
 
 lib = ctypes.CDLL('./code.so')
-
-double_array_7 = ctypes.c_double * 7
+double_array_4 = ctypes.c_double * 4
 lib.get_system_coeffs.argtypes = [ctypes.POINTER(ctypes.c_double)]
+out_data_c = double_array_4()
 
-out_data_c = double_array_7()
 lib.get_system_coeffs(out_data_c)
-coeffs = list(int(v) for v in out_data_c)
-M = sympy.Matrix([
-        [coeffs[0],  coeffs[1]],
-        [ coeffs[2],  coeffs[3]],
-            ])
-K=M.inv()
-print(k)
+coeffs = list(out_data_c)
+M = np.linalg.inv([
+    [coeffs[0], coeffs[1]],
+    [coeffs[2], coeffs[3]],
+])
+
+print(M)
 \end{lstlisting}

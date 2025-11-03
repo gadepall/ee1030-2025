@@ -1,0 +1,38 @@
+
+
+import ctypes as ct
+from pathlib import Path
+import numpy as np  # only if you use the helpers below
+
+# load the shared library (adjust the path/name if needed)
+lib = ct.CDLL(str(Path("./libch.so").resolve()))
+# Windows: lib = ct.WinDLL(str(Path("./chlib.dll").resolve()))
+# macOS:   ct.CDLL(str(Path("./libch.dylib").resolve()))
+
+# function signatures
+lib.m2_mul.argtypes          = [ct.POINTER(ct.c_double), ct.POINTER(ct.c_double), ct.POINTER(ct.c_double)]
+lib.m2_sub_sI.argtypes       = [ct.POINTER(ct.c_double), ct.c_double, ct.POINTER(ct.c_double)]
+lib.verify_ch_for_A.argtypes = [ct.c_double]
+lib.verify_ch_for_A.restype  = ct.c_int
+lib.verify_ch_generic.argtypes = [ct.POINTER(ct.c_double), ct.c_double]
+lib.verify_ch_generic.restype  = ct.c_int
+
+# (optional) tiny helpers if you want to pass 2x2 matrices easily
+def as_c_mat(M):
+    M = np.array(M, dtype=np.float64).reshape(2,2)
+    return (ct.c_double * 4)(*M.ravel())
+
+def matmul(A, B):
+    C = (ct.c_double * 4)()
+    lib.m2_mul(as_c_mat(A), as_c_mat(B), C)
+    return np.frombuffer(C, dtype=np.float64).reshape(2,2)
+
+def sub_sI(A, s):
+    C = (ct.c_double * 4)()
+    lib.m2_sub_sI(as_c_mat(A), s, C)
+    return np.frombuffer(C, dtype=np.float64).reshape(2,2)
+
+# quick check
+if __name__ == "__main__":
+    ok = lib.verify_ch_for_A(1e-12)
+    print("verify_ch_for_A:", "OK" if ok==1 else "FAIL")

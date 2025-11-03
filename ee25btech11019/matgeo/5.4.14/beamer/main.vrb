@@ -1,0 +1,23 @@
+\frametitle{Python: Plotting Lines}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\scriptsize, keywordstyle=\color{blue}]
+
+# ====== Call the C Function ======
+lib.inverse(
+    A.ctypes.data_as(ctypes.POINTER((ctypes.c_double * 2) * 2)),
+    inv.ctypes.data_as(ctypes.POINTER((ctypes.c_double * 2) * 2))
+)
+
+# ====== Convert and Display Results ======
+A_sym = sp.Matrix(A)
+A_inv_sym = A_sym.inv()           # Sympy inverse (for verification)
+A_inv_c = sp.Matrix(inv)          # Inverse from C code
+
+print("Matrix A:")
+sp.pprint(A_sym)
+
+print("\nInverse computed in C:")
+sp.pprint(A_inv_c)
+
+print("\nInverse computed in Sympy:")
+sp.pprint(A_inv_sym)
+\end{lstlisting}

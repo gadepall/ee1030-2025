@@ -1,19 +1,10 @@
-import ctypes
-import numpy as np
+import ctypes as ct
 
-# Load the shared object file
-lib = ctypes.CDLL('./problem.so')
+def give_data():
+    lib = ct.CDLL("./problem.so")
+    entry = ct.c_double*4
+    lib.make_data.argtypes = [ct.POINTER(ct.c_double)]
+    data = entry()
+    lib.make_data(data)
 
-# Set argument types for solve_lambda
-lib.solve_lambda.argtypes = [ctypes.POINTER(ctypes.c_double)]
-
-# Set return type
-lib.solve_lambda.restype = ctypes.c_double
-
-b = np.array([1.0, 2.0, 3.0], dtype=np.double)
-
-b_ptr = b.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
-
-lambda_val = lib.solve_lambda(b_ptr)
-print(f"Solved lambda: {lambda_val}")
-
+    return data[1], data[3], data[0], data[0], data[1], data[2]

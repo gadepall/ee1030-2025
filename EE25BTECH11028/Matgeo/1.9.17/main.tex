@@ -1,0 +1,160 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{1.9.17}
+\author{EE25btech11028 - J.Navya sri}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+
+
+\textbf{Question:} \\
+Write the coordinates of a point \(\mathbf{P}\) on the \(x\)-axis which is equidistant from points \(\mathbf{A}(-2,0)\) and \(\mathbf{B}(6,0)\).
+
+\vspace{0.5cm}
+\textbf{Solution:} Let
+\begin{equation}
+\mathbf{A} = \begin{pmatrix} a \\ 0 \end{pmatrix}, \quad
+\mathbf{B} = \begin{pmatrix} b \\ 0 \end{pmatrix}, \quad
+\mathbf{P} = \begin{pmatrix} p \\ 0 \end{pmatrix}
+\end{equation}
+
+Since \(\mathbf{P}\) is equidistant from \(\mathbf{A}\) and \(\mathbf{B}\), their distances satisfy:
+\begin{equation}
+\|\mathbf{P} - \mathbf{A}\| = \|\mathbf{P} - \mathbf{B}\|
+\end{equation}
+
+Square both sides:
+\begin{equation}
+\|\mathbf{P} - \mathbf{A}\|^2 = \|\mathbf{P} - \mathbf{B}\|^2
+\end{equation}
+
+Using the norm squared definition:
+\begin{equation}
+(\mathbf{P} - \mathbf{A})^\top (\mathbf{P} - \mathbf{A}) = (\mathbf{P} - \mathbf{B})^\top (\mathbf{P} - \mathbf{B})
+\end{equation}
+
+Expand both sides:
+\begin{equation}
+\mathbf{P}^\top \mathbf{P} - 2 \mathbf{A}^\top \mathbf{P} + \mathbf{A}^\top \mathbf{A} = \mathbf{P}^\top \mathbf{P} - 2 \mathbf{B}^\top \mathbf{P} + \mathbf{B}^\top \mathbf{B}
+\end{equation}
+
+Cancel \(\mathbf{P}^\top \mathbf{P}\) from both sides:
+\begin{equation}
+- 2 \mathbf{A}^\top \mathbf{P} + \mathbf{A}^\top \mathbf{A} = - 2 \mathbf{B}^\top \mathbf{P} + \mathbf{B}^\top \mathbf{B}
+\end{equation}
+
+Rearranged:
+\begin{equation}
+2 (\mathbf{B} - \mathbf{A})^\top \mathbf{P} = \mathbf{B}^\top \mathbf{B} - \mathbf{A}^\top \mathbf{A}
+\end{equation}
+
+Substitute the vectors:
+\begin{equation}
+2 (b - a) p = b^2 - a^2
+\end{equation}
+
+Rewrite right side as difference of squares:
+\begin{equation}
+2 (b - a) p = (b - a)(b + a)
+\end{equation}
+
+Since \(b \neq a\), divide both sides by \((b - a)\):
+\begin{equation}
+2 p = b + a
+\end{equation}
+
+Solve for \(p\):
+\begin{equation}
+p = \frac{a + b}{2}
+\end{equation}
+
+Now substitute \(a = -2\), \(b = 6\):
+\begin{equation}
+p = \frac{-2 + 6}{2} = \frac{4}{2} = 2
+\end{equation}
+
+Hence, the coordinates of \(\mathbf{P}\) are:
+\begin{equation}
+\boxed{
+\mathbf{P} = \begin{pmatrix} 2 \\ 0 \end{pmatrix}
+}
+\end{equation}
+
+
+\vspace{0.5cm}
+
+\documentclass{}
+\usepackage{}
+
+
+\textbf{Graphical Representation:}
+
+\begin{center}
+    \begin{tikzpicture}[scale=1.0]
+        % axes
+        \draw[->] (-4,0) -- (8,0) node[right] {\(x\)};
+        \draw[->] (0,-1) -- (0,2) node[above] {\(y\)};
+        
+        % points
+        \filldraw[red] (-2,0) circle (2pt) node[below] {\(A(-2,0)\)};
+        \filldraw[blue] (6,0) circle (2pt) node[below] {\(B(6,0)\)};
+        \filldraw[green!70!black] (2,0) circle (2pt) node[below] {\(P(2,0)\)};
+        
+        % dotted line
+        \draw[dashed] (-2,0) -- (6,0);
+        
+        % annotation
+        \node at (4,1.0) {\(P\) is equidistant from \(A\) and \(B\)};
+    \end{tikzpicture}
+    
+    % Add "Fig. 0" text below the figure
+    \vspace{0.5cm} % space between figure and text
+    \textbf{Fig. 0}
+\end{center}
+
+\end{document}
+
+

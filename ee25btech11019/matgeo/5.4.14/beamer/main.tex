@@ -1,0 +1,173 @@
+\documentclass{beamer}
+
+% Theme
+\usetheme{Madrid}
+\usecolortheme{default}
+
+% Packages
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{lscape}
+\usepackage{listings}
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true
+}
+
+% Custom macros
+\newcommand{\myvec}[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand{\brak}[1]{\left( #1 \right)}
+\newcommand{\augvec}[3]{%
+  \left(\!\begin{array}{@{}*{#1}{r}|*{#2}{r}@{}}#3\end{array}\!\right)
+}
+
+
+
+
+% Redefine \vec to bold letters only (no arrow)
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+\title{5.4.14}
+\author{EE25BTECH11019 -- Darji Vivek M.}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+\begin{titlepage}
+
+\end{titlepage}
+\end{frame}
+
+\begin{frame}{Question}
+Using elementary transformations, find the inverse of the following matrix. 
+\begin{align*}
+    \myvec{2&&3\\5&&7}
+\end{align*}
+\end{frame}
+
+\begin{frame}{Theoretical Solution}
+To find the inverse of a matrix using the Gauss–Jordan method:
+
+\begin{equation}
+\resizebox{1\textwidth}{!}{$
+\augvec{2}{2}{2 & 3 & 1 & 0\\ 5 & 7 & 0 & 1}
+\xrightarrow{R_1 \gets R_1/2,\ R_2 \gets R_2 - 5 R_1}
+\augvec{2}{2}{1 & \tfrac{3}{2} & \tfrac{1}{2} & 0\\ 0 & -\tfrac{1}{2} & -\tfrac{5}{2} & 1}
+\xrightarrow{R_2 \gets -2 R_2,\ R_1 \gets R_1 - \tfrac{3}{2} R_2}
+\augvec{2}{2}{1 & 0 & -7 & 3\\ 0 & 1 & 5 & -2}
+$}
+\tag{1}
+\end{equation}
+
+Thus, the inverse is:
+
+\begin{equation}
+A^{-1} =
+\myvec{-7 & 3\\ 5 & -2}.
+\tag{2}
+\end{equation}
+\end{frame}
+
+\begin{frame}[fragile]{C Code: parallel\_funcs.c}
+\begin{lstlisting}
+#include <stdio.h>
+#define N 2   // matrix size (you can generalize)
+void inverse(double A[N][N], double inv[N][N]) {
+    // Step 1: Create augmented matrix [A|I]
+    double aug[N][2*N];
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            aug[i][j] = A[i][j];          // copy A
+            aug[i][j+N] = (i == j) ? 1 : 0; // identity
+        }
+    }
+    // Step 2: Gauss-Jordan elimination
+    for (int i = 0; i < N; i++) {
+        // Make pivot = 1
+        double pivot = aug[i][i];
+        for (int j = 0; j < 2*N; j++) {
+            aug[i][j] /= pivot;
+        }
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]{C Code: parallel\_funcs.c}
+\begin{lstlisting}
+        // Eliminate other rows
+        for (int k = 0; k < N; k++) {
+            if (k != i) {
+                double factor = aug[k][i];
+                for (int j = 0; j < 2*N; j++) {
+                    aug[k][j] -= factor * aug[i][j];
+                }
+            }
+        }
+    }
+    // Step 3: Extract inverse from augmented matrix
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            inv[i][j] = aug[i][j+N];
+        }
+    }
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]{Python: Plotting Lines}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\scriptsize, keywordstyle=\color{blue}]
+import ctypes
+import numpy as np
+import sympy as sp
+
+# ====== Load Shared Library (.so) ======
+lib = ctypes.CDLL("./libinverse.so")
+
+# Define argument types for C function
+lib.inverse.argtypes = [
+    ctypes.POINTER((ctypes.c_double * 2) * 2),  # Input matrix A
+    ctypes.POINTER((ctypes.c_double * 2) * 2)   # Output inverse matrix
+]
+
+# ====== Define the Matrix ======
+A = np.array([[2, -6],
+              [1, -2]], dtype=np.double)
+
+inv = np.zeros((2, 2), dtype=np.double)
+
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]{Python: Plotting Lines}
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\scriptsize, keywordstyle=\color{blue}]
+
+# ====== Call the C Function ======
+lib.inverse(
+    A.ctypes.data_as(ctypes.POINTER((ctypes.c_double * 2) * 2)),
+    inv.ctypes.data_as(ctypes.POINTER((ctypes.c_double * 2) * 2))
+)
+
+# ====== Convert and Display Results ======
+A_sym = sp.Matrix(A)
+A_inv_sym = A_sym.inv()           # Sympy inverse (for verification)
+A_inv_c = sp.Matrix(inv)          # Inverse from C code
+
+print("Matrix A:")
+sp.pprint(A_sym)
+
+print("\nInverse computed in C:")
+sp.pprint(A_inv_c)
+
+print("\nInverse computed in Sympy:")
+sp.pprint(A_inv_sym)
+\end{lstlisting}
+\end{frame}
+\end{document}

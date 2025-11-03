@@ -1,55 +1,27 @@
-import sys 
-import math
-sys.path.insert(0, '/home/ganachari-vishwmabhar/Downloads/codes/CoordGeo')
-import numpy as np
-import numpy.linalg as LA
 import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
+from call import get_data
 
-#local imports
-from line.funcs import *
-from triangle.funcs import *
+P, A, B = get_data()
 
-#if using termux
-#import subprocess
-#import shlex
+print(f"Intersection Point:({P[0]:.2f},{P[1]:.2f})")
 
-def problem(A, B, k):
-    return (1*A + k*B) / (k + 1)
+x = [A[0], B[0]]
+y = [A[1], B[1]]
+px = P[0]
+py = P[1]
 
-A = np.array([5, -6]).reshape(-1, 1)
-B = np.array([-1, -4]).reshape(-1, 1)
+plt.plot(x, y, color = 'black')
+plt.plot(x, y, 'ko')
+plt.plot(px, py, 'ko')
 
-k=5
+plt.text(x[0]+0.1, y[0]+0.1, f"({x[0]:.2f},{y[0]:.2f})", fontsize = 10, color='black')
+plt.text(x[1]+0.1, y[1]+0.1, f"({x[1]:.2f},{y[1]:.2f})", fontsize = 10, color='black')
+plt.text(px+0.1, py+0.1, f"({px:.2f},{py:.2f})", fontsize = 10, color='black')
 
-P = problem(A, B, k).reshape(-1,1)
-
-x_AB = line_gen_num(A,B,20)
-plt.plot(x_AB[0,:],x_AB[1,:], 'g--', label="Line Segment AB")
-
-plot_coords = np.block([[A, B, P]])
-plt.scatter(plot_coords[0,:], plot_coords[1,:], color='blue')
-
-vert_labels = [
-    f'A({A[0,0]}, {A[1,0]})',
-    f'B({B[0,0]}, {B[1,0]})',
-    f'P({P[0,0]}, {P[1,0]:.2f})'
-]
-
-for i, txt in enumerate(vert_labels):
-    plt.annotate(txt,
-            (plot_coords[0,i], plot_coords[1,i]),
-            textcoords="offset points",
-            xytext=(0,10),
-            ha='center')
-
-plt.xlabel('$x$')
-plt.ylabel('$y$')
-plt.title("Line Segment AB Divided by Y-axis")
-plt.legend(loc='best')
-plt.grid()
-plt.axis('equal')
-
-plt.savefig("../figs/plot_p.png")
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+plt.axis("equal")
+plt.grid(True)
+plt.savefig("../figs/plot.png")
 plt.show()
 

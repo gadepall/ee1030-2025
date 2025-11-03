@@ -1,0 +1,12 @@
+import numpy as np
+
+# Define matrix A
+A = np.array([[1, -1],
+              [-1, 1]], dtype=float)
+
+# Compute A^2
+A2 = A @ A   # or np.dot(A, A)
+
+print("A =\n", A)
+print("\nA^2 =\n", A2)
+

@@ -1,0 +1,158 @@
+
+
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+\usepackage[a4paper,margin=10mm, onecolumn]{geometry}
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\def\inputGnumericTable{}
+\usepackage[latin1]{inputenc}
+\usepackage{color}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{calc}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{ifthen}
+\usepackage{lscape}
+\usepackage{circuitikz}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20,
+    text width=4em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{sum} = [draw, fill=blue!10, circle, minimum size=1cm, node distance=1.5cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\begin{document}
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+\title{2.10.2}
+\author{AI25BTECH11013-Gautham}
+\maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+\textbf{Question}:\\
+Let $\Vec{A}$, $\Vec{B}$, and $\Vec{C}$ be vectors of lengths 3, 4, and 5 respectively such that 
+$\Vec{A} \perp \Vec{B} + \Vec{C}$,
+$\Vec{B} \perp \Vec{C} + \Vec{A}$, and
+$\Vec{C} \perp \Vec{A} + \Vec{B}$. Find the length of the vector $\Vec{A} + \Vec{B} + \Vec{C}$.\\
+\solution \\
+
+Let the Gram matrix $G$ for the vectors $\Vec{A}, \Vec{B}, \Vec{C}$ be:
+\begin{align}
+G = \myvec{
+\Vec{A}^T \Vec{A} & \Vec{A}^T \Vec{B} & \Vec{A}^T \Vec{C} \\
+\Vec{B}^T \Vec{A} & \Vec{B}^T \Vec{B} & \Vec{B}^T \Vec{C} \\
+\Vec{C}^T \Vec{A} & \Vec{C}^T \Vec{B} & \Vec{C}^T \Vec{C}
+}
+= \myvec{
+9 & a & b \\
+a & 16 & c \\
+b & c & 25
+}
+\end{align}
+where $a = \Vec{A}^T \Vec{B}$, $b = \Vec{A}^T \Vec{C}$, and $c = \Vec{B}^T \Vec{C}$.
+
+Given the orthogonality conditions:
+\begin{align}
+\Vec{A} \perp \Vec{B} + \Vec{C} &\implies \Vec{A}^T (\Vec{B} + \Vec{C}) = 0 \implies a + b = 0, \\
+\Vec{B} \perp \Vec{C} + \Vec{A} &\implies \Vec{B}^T (\Vec{C} + \Vec{A}) = 0 \implies c + a = 0, \\
+\Vec{C} \perp \Vec{A} + \Vec{B} &\implies \Vec{C}^T (\Vec{A} + \Vec{B}) = 0 \implies b + c = 0.
+\end{align}
+This system can be written as:
+\begin{align}
+a + b = 0 \\
+c + a = 0 \\
+b + c = 0.
+\end{align}
+In matrix form:
+\begin{align}
+\myvec{
+1 & 1 & 0 \\
+1 & 0 & 1 \\
+0 & 1 & 1
+}
+\myvec{
+a \\ b \\ c
+}
+= \myvec{
+0 \\ 0 \\ 0
+}
+\end{align}
+
+Convert the coefficient matrix to upper triangular form by row operations:
+\begin{align}
+\myvec{
+1 & 1 & 0 \\
+1 & 0 & 1 \\
+0 & 1 & 1
+}
+\overset{R_2 \to R_2 - R_1}{\longrightarrow}
+\myvec{
+1 & 1 & 0 \\
+0 & -1 & 1 \\
+0 & 1 & 1
+}
+\overset{R_3 \to R_3 + R_2}{\longrightarrow}
+\myvec{
+1 & 1 & 0 \\
+0 & -1 & 1 \\
+0 & 0 & 2
+}
+\end{align}
+
+From the last row:
+\begin{align}
+2c = 0 \implies c = 0
+\end{align}
+From the second row:
+\begin{align}
+- b + c = 0 \implies b = 0
+\end{align}
+From the first row:
+\begin{align}
+a + b = 0 \implies a = 0
+\end{align}
+
+Thus, the Gram matrix is:
+\begin{align}
+G = \myvec{
+9 & 0 & 0 \\
+0 & 16 & 0 \\
+0 & 0 & 25
+}
+\end{align}
+Let $\Vec{u}=\myvec{1 \\ 1 \\ 1}$\\
+Now, the squared length of $\Vec{A} + \Vec{B} + \Vec{C}$ is:
+\begin{align}
+||\Vec{A} + \Vec{B} + \Vec{C}||^2 = \Vec{u}^T \Vec{G} \Vec{u}\\
+||\Vec{A} + \Vec{B} + \Vec{C}||^2 = 50
+\end{align}
+Therefore,
+\begin{align}
+||\Vec{A} + \Vec{B} + \Vec{C}|| = \sqrt{50} = 5 \sqrt{2}
+\end{align}
+\end{document}

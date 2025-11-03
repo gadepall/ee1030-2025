@@ -68,6 +68,7 @@ for i, txt in enumerate(vert_labels):
         ax.text(coords[0,i], coords[1,i] , coords[2,i],txt , ha='center', va = 'bottom')
     else :
         ax.text(coords[0,i], coords[1,i] , coords[2,i],f'{txt}\n({coords[0,i]:.1f}, {coords[1,i]:.1f}, {coords[2,i]:.1f})',ha='center', va = 'bottom')
+        
 ax.scatter(coords[0,2], coords[1,2], coords[2,2], color="b", label="O : ORIGIN")
 ax.legend(loc = "best")
 ax.set_xlabel('$x$')

@@ -1,0 +1,147 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} 
+\usepackage{tfrupee} 
+
+\setlength{\headheight}{1cm} 
+\setlength{\headsep}{0mm}     
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{12.393}
+\author{AI25BTECH11003 - Bhavesh Gaikwad}
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} 
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+
+\textbf{Question}: 
+Values of a, b, c which render the matrix $$\vec{Q} = \myvec{\frac{1}{\sqrt{3}} & \frac{1}{\sqrt{2}} & a \\ 
+\frac{1}{\sqrt{3}} & 0 & b \\
+\frac{1}{\sqrt{3}} & \frac{-1}{\sqrt{2}} & c}$$
+
+orthonormal are, respectively,
+
+\hfill{(AE 2013)}
+\begin{itemize}
+    \item[a)]$\frac{1}{\sqrt{2}}$, $\frac{1}{\sqrt{2}}$, 0
+
+    \item[b)]$\frac{1}{\sqrt{6}}$, $\frac{-2}{\sqrt{6}}$, $\frac{1}{\sqrt{6}}$
+
+    \item[c)]$\frac{1}{\sqrt{3}}$, $\frac{1}{\sqrt{3}}$, $\frac{1}{\sqrt{3}}$
+
+    \item[d)]$\frac{-1}{\sqrt{6}}$, $\frac{2}{\sqrt{6}}$, $\frac{-1}{\sqrt{6}}$
+\end{itemize}
+\bigskip
+ 
+\textbf{Solution:}\\
+Given: $\vec{Q}$ is an orthogonal matrix.\\
+$\qquad$ $\vec{Q} = \dfrac{1}{\sqrt{6}}\myvec{\sqrt{2} & \sqrt{3} & \sqrt{6}a \\ \sqrt{2} & 0 & \sqrt{6}b \\ \sqrt{2} & -\sqrt{3} & \sqrt{6}c}$\\\\
+
+Condition for orthogonality,
+\begin{equation}
+    \vec{A}^\top\vec{A} = \vec{I}
+\end{equation}
+
+Substituting $\vec{Q}$ in Equation 0.1,
+\begin{align}
+\vec{Q}^\top\vec{Q} = \dfrac{1}{6} \myvec{6 & 0 & 2\sqrt{3}(a+b+c) \\ 0 & 6 & 3\sqrt{2}(a-c) \\ 2\sqrt{3}(a+b+c) & 3\sqrt{2}(a-c) & 6(a^2 + b^2 + c^2)} 
+\end{align}
+
+\begin{equation}
+    \dfrac{1}{6} \myvec{6 & 0 & 2\sqrt{3}(a+b+c) \\ 0 & 6 & 3\sqrt{2}(a-c) \\ 2\sqrt{3}(a+b+c) & 3\sqrt{2}(a-c) & 6(a^2 + b^2 + c^2)} = \myvec{1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1}
+\end{equation}
+
+\newpage
+
+On Comparing we get,\\
+Let $\vec{P} = \myvec{a \\ b \\c}$
+\begin{align}
+\vec{P}^\top\myvec{1 \\ 1 \\ 1} &= 0\\
+\vec{P}^\top\myvec{1 \\ 0 \\ -1} &= 0\\
+\vec{P}^\top\vec{P} = \norm{\vec{P}}^2 &=  1
+\end{align}
+
+From Equation 0.4 and 0.5,
+\begin{equation}
+    \myvec{1 & 1 & 1 \\ 1 & 0 & -1}\vec{P} = \myvec{0 \\ 0}
+\end{equation}
+
+Row Transformation-1: $R_2 \rightarrow R_2 - R_1$
+\begin{equation}
+    \myvec{1 & 1 & 1 \\ 0 & -1 & -2}\vec{P} = \myvec{0 \\ 0}
+\end{equation}
+
+Row Transformation-2: $R_1 \rightarrow R_1 + R_2$
+\begin{equation}
+    \myvec{1 & 0 & -1 \\ 0 & -1 & -2}\vec{P} = \myvec{0 \\ 0}
+\end{equation}
+
+From this,
+\begin{equation}
+    a = c \; \& \; b = -2a
+\end{equation}
+
+\begin{equation}
+  \therefore \;  \vec{P} = a\myvec{1 \\ -2 \\ 1}
+\end{equation}
+
+From Equations 0.6 and 0.11
+\begin{align}
+   a^2 \myvec{1 & -2 & 1} \myvec{1 \\ -2 \\ 1} &= 1 \\ 
+   a^2[1 + 4 + 1] = 6a^2 &= 1\\
+   \boxed{a = \pm \dfrac{1}{\sqrt{6}}}
+\end{align}
+
+\newpage
+Substituting value of a in Equation 0.11
+\begin{align}
+    \therefore \; \vec{P} = \myvec{\frac{1}{\sqrt{6}} \\ \frac{-2}{\sqrt{6}} \\ \frac{1}{\sqrt{6}}} 
+     \qquad OR \qquad
+    \vec{P} = \myvec{\frac{-1}{\sqrt{6}} \\ \frac{2}{\sqrt{6}} \\ \frac{-1}{\sqrt{6}}}
+    \end{align}
+
+\begin{align*}
+    \boxed{\text{Thus, Option B and D are correct.}}
+\end{align*}
+
+\end{document}  

@@ -1,0 +1,142 @@
+\documentclass[12pt]{article}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{array}
+\usepackage{titlesec}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{amsmath}     % For math equations
+\usepackage{amssymb}     % For advanced math symbols
+\usepackage{amsfonts} % For math fonts
+\usepackage{gvv}
+\usepackage{esint}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\titleformat{\section}{\bfseries\large}{\thesection.}{1em}{}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{caption}
+
+
+\begin{document}
+
+\section*{Problem 12.110}
+
+Consider the four systems of algebraic equations (listed in Group I). 
+The systems (Q), (R), and (S) are obtained from (P) by restricting the accuracy 
+of data or coefficients or both, respectively, to two decimal places. (GG 2014)
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Group I} & \textbf{Group II} \\
+\hline
+(P)\; $x+1.0000y=2.0000$ & (1)\; Instability \\
+\;\;\;\;\; $x+1.0001y=2.0001$ & (2)\; Inconsistency \\
+(Q)\; $x+1.0000y=2.00$ & (3)\; Non-uniqueness \\
+\;\;\;\;\; $x+1.0001y=2.00$ & (4)\; Exact \\
+(R)\; $x+1.00y=2.0000$ & \\
+\;\;\;\;\; $x+1.00y=2.0001$ & \\
+(S)\; $x+1.00y=2.00$ & \\
+\;\;\;\;\; $x+1.00y=2.00$ & \\
+\hline
+\end{tabular}
+\end{table}
+
+\section*{Input Variables}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+System & Coefficient Matrix $A$ & Data Vector $\vec{b}$ \\
+\hline
+P & $\myvec{1 & 1.0000 \\ 1 & 1.0001}$ & $\myvec{2.0000 \\ 2.0001}$ \\
+Q & $\myvec{1 & 1.0000 \\ 1 & 1.0001}$ & $\myvec{2.00 \\ 2.00}$ \\
+R & $\myvec{1 & 1.00 \\ 1 & 1.00}$ & $\myvec{2.0000 \\ 2.0001}$ \\
+S & $\myvec{1 & 1.00 \\ 1 & 1.00}$ & $\myvec{2.00 \\ 2.00}$ \\
+\hline
+\end{tabular}
+\end{table}
+
+\section*{Rank Criteria}
+
+Let $n$ be the number of unknowns in the system 
+($n=2$ here, since we have $x,y$).  
+For a system $A\vec{x}=\vec{b}$, the solution type is decided by ranks:
+
+\[
+\begin{aligned}
+&\operatorname{rank}(A)=\operatorname{rank}([A|\vec{b}])=n 
+&&\Rightarrow \text{Unique solution}, \\[6pt]
+&\operatorname{rank}(A)=\operatorname{rank}([A|\vec{b}])<n 
+&&\Rightarrow \text{Infinitely many solutions}, \\[6pt]
+&\operatorname{rank}(A)<\operatorname{rank}([A|\vec{b}]) 
+&&\Rightarrow \text{No solution (Inconsistent)}.
+\end{aligned}
+\]
+
+\section*{Solution}
+
+We analyze each case using rank and row-reduction of the augmented matrix 
+$\myvec{A & \vec{b}}$.
+
+\subsection*{Case P}
+\begin{align}
+\myvec{1 & 1.0000 & 2.0000 \\ 1 & 1.0001 & 2.0001}
+&\xrightarrow{R_2 - R_1}
+\myvec{1 & 1.0000 & 2.0000 \\ 0 & 0.0001 & 0.0001} \\
+&\xrightarrow{\tfrac{1}{0.0001}R_2}
+\myvec{1 & 1.0000 & 2.0000 \\ 0 & 1 & 1} \\
+&\xrightarrow{R_1 - R_2}
+\myvec{1 & 0 & 1 \\ 0 & 1 & 1}
+\end{align}
+$\Rightarrow \; \text{rank}(A)=\text{rank}([A|\vec{b}])=2 \;=\; n$.  
+Hence, Exact solution.
+
+\subsection*{Case Q}
+\begin{align}
+\myvec{1 & 1.0000 & 2.00 \\ 1 & 1.0001 & 2.00}
+&\xrightarrow{R_2 - R_1}
+\myvec{1 & 1.0000 & 2.00 \\ 0 & 0.0001 & 0} \\
+&\xrightarrow{\tfrac{1}{0.0001}R_2}
+\myvec{1 & 1.0000 & 2.00 \\ 0 & 1 & 0} \\
+&\xrightarrow{R_1 - R_2}
+\myvec{1 & 0 & 2 \\ 0 & 1 & 0}
+\end{align}
+$\Rightarrow \; \vec{x}=\myvec{2 \\ 0}$.  
+Compared with Case P solution $\myvec{1 \\ 1}$, a small change in $\vec{b}$ gave a very different solution.  
+Hence, Instability.
+
+\subsection*{Case R}
+\begin{align}
+\myvec{1 & 1.00 & 2.0000 \\ 1 & 1.00 & 2.0001}
+&\xrightarrow{R_2 - R_1}
+\myvec{1 & 1.00 & 2.0000 \\ 0 & 0 & 0.0001}
+\end{align}
+$\Rightarrow \; \text{rank}(A)=1, \;\text{rank}([A|\vec{b}])=2$.  
+Thus, Inconsistency.
+
+\subsection*{Case S}
+\begin{align}
+\myvec{1 & 1.00 & 2.00 \\ 1 & 1.00 & 2.00}
+&\xrightarrow{R_2 - R_1}
+\myvec{1 & 1.00 & 2.00 \\ 0 & 0 & 0}
+\end{align}
+$\Rightarrow \; \text{rank}(A)=1, \;\text{rank}([A|\vec{b}])=1 < n=2$.  
+Thus, Non-uniqueness.
+
+\section*{Final Answer}
+\begin{align}
+\boxed{P-4,\; Q-1,\; R-2,\; S-3}
+\end{align}
+
+\end{document}

@@ -1,0 +1,500 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{multicol}
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{12.234}
+\date{October  2025}
+%\subtitle{A short story}
+
+\author % (optional)
+{BEERAM MADHURI - EE25BTECH11012}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question-12.234}
+Consider the set of vectors in three-dimensional real vector space $\mathbb{R}^3$,
+\[S = \{(1, 1, 1), (1, -1, 1), (1, 1, -1)\}.\]
+
+Which one of the following statements is true?
+
+\begin{enumerate}
+\item[a)] $S$ is not a linearly independent set.
+\item[b)] $S$ is a basis for $\mathbb{R}^3$.
+\item[c)] The vectors in $S$ are orthogonal.
+\item[d)] An orthogonal set of vectors cannot be generated from $S$.
+\end{enumerate}
+\end{frame}
+ 
+\begin{frame}{given data}
+let the vectors in S be:
+\begin{table}[h!]
+    \centering
+    \input{tables/tables}
+    \caption{Variables used}
+    \label{table 12.234}
+\end{table}
+\end{frame}
+
+\begin{frame}{solution}
+    \frametitle{finding the properties of S:}
+Let $A$ be the matrix with its columns as vectors of $S$
+
+\begin{align}
+A = \begin{pmatrix}1 & 1 & 1 \\1 & -1 & 1 \\1 & 1 & -1\end{pmatrix}
+\end{align}
+\textbf{Option a:}\\
+The column vectors of a matrix $A$ are \textbf{linearly independent} if and only if the equation
+\begin{align}
+A\vec{x} = \vec{0}\\
+\text{has only the trivial solution}\\
+(\vec{x} = \vec{0})
+\end{align}
+\end{frame}
+\begin{frame}
+We can find the solution by guassian elimination of $A$.
+\begin{align}
+\text{Perform row operations to get it into row echelon form:}\\\\
+\begin{pmatrix}1 & 1 & 1 \\1 & -1 & 1 \\1 & 1 & -1\end{pmatrix}\xrightarrow[
+R_2 \to R_2 - R_1]{R_3 \to R_3 - R_1}
+    \begin{pmatrix} 1 & 1 & 1 \\ 0 & -2 & 0 \\ 0 & 0 & -2 \end{pmatrix}\\\\
+\begin{pmatrix} 1 & 1 & 1 \\ 0 & -2 & 0 \\ 0 & 0 & -2 \end{pmatrix}\xrightarrow[
+R_2 \to R_2 / -2]{R_3 \to R_3 / -2}
+    \begin{pmatrix} 1 & 1 & 1 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix}\\\\
+ \begin{pmatrix} 1 & 1 & 1 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix}\xrightarrow{
+    R_1 \to R_1 - R_3}
+    \begin{pmatrix} 1 & 1 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix}\xrightarrow{  R_1 \to R_1 - R_2}
+    \begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix}
+    \end{align}
+\end{frame}
+\begin{frame}
+The reduced row echelon form of $A$ is the Identity matrix $I$.\\\\
+$\therefore$ The only possible solution is the trivialsolution:
+$\vec{x}=0$\\
+$\therefore$ Vectors are linearly independent\\\\
+\textbf{Option b:}\\
+Since there are 3 linearly independent vectors in $\mathbb{R}^3$ \\they form a basis for $\mathbb{R}^3$
+\end{frame}
+\begin{frame}
+\textbf{Option c:}\\
+    Let the vector be $\vec{v_1, v_2, v_3}$.
+    \begin{align}
+    \vec{v_1^\top v_2} &\neq 0 \\
+    \vec{v_1^\top v_3 }&\neq 0 \\
+    \vec{v_2^\top v_3 }&\neq 0
+    \end{align}
+    $\therefore$ These vectors are not orthogonal
+\end{frame}
+\begin{frame}
+\textbf{Option d:}\\
+\text{Applying Gram-Schmidt process:} \\
+\text{let the orthogonal vectors be $\vec{u_1, u_2, u_3}$ generated from $\vec{v_1, v_2, v_3}$}
+\begin{align}\vec{u_1} = \vec{v_1} = \begin{pmatrix} 1 \\ 1\\1 \end{pmatrix}\\
+\vec{u_2} &= \vec{v_2} - (\vec{u_1^\top v_2}) \hat{\vec{u}}_1 \\
+\vec{u_2} &= \vec{v_2} - \left(\frac{\vec{v_2}^\top \vec{u_1}}{\vec{u_1}^\top \vec{u_1}} \right) \vec{u_1}\\ &= \begin{pmatrix} 2/3 \\ -4/3 \\ 2/3 \end{pmatrix} 
+\end{align}
+\end{frame}
+\begin{frame}
+\begin{align}
+\vec{u_3}= \vec{v_3} - (\hat{\vec{u}}_2^\top \vec{v_3}) \hat{\vec{u}}_2 \\&= \vec{v_3} - \left( \frac{\vec{u_2}^\top \vec{v_3}}{\vec{u_2}^\top \vec{u_2}} \right) \vec{u_2} \\&= \begin{pmatrix} 1 \\ 0 \\ -1 \end{pmatrix}\\
+\vec{u_1}^\top \vec{u_2} &= 0 \\\vec{u_2}^\top \vec{u_3} &= 0 \\\vec{u_1}^\top \vec{u_3} &= 0
+\end{align}
+$\therefore$ an orthogonal set of vectors can be generated from S.\\
+$\therefore$ Options b and d are correct.
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import numpy as np
+
+# Define the vectors
+v1 = np.array([1, 1, 1])
+v2 = np.array([1, -1, 1])
+v3 = np.array([1, 1, -1])
+
+# Form the matrix with given vectors as columns
+A = np.column_stack((v1, v2, v3))
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+# 1. Check Linear Independence using determinant
+det_A = np.linalg.det(A)
+if abs(det_A) > 1e-9:
+    print("S is a linearly independent set.")
+else:
+    print("S is not a linearly independent set.")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+# 2. Check if S is a basis for R³
+if A.shape == (3,3) and abs(det_A) > 1e-9:
+    print("S is a basis for R³.")
+else:
+    print("S is not a basis for R³.")
+
+# 3. Check if vectors are orthogonal
+def is_orthogonal(u, v):
+    return np.dot(u, v) == 0
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+print("Dot products:")
+print("v1·v2 =", np.dot(v1, v2))
+print("v1·v3 =", np.dot(v1, v3))
+print("v2·v3 =", np.dot(v2, v3))
+if is_orthogonal(v1, v2) and is_orthogonal(v1, v3) and is_orthogonal(v2, v3):
+    print("The vectors in S are orthogonal.")
+else:
+    print("The vectors in S are not orthogonal.")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+# 4. Generate an orthogonal set using Gram-Schmidt process
+def gram_schmidt(vectors):
+    ortho = []
+    for v in vectors:
+        for u in ortho:
+            v = v - np.dot(v, u) / np.dot(u, u) * u
+        ortho.append(v)
+    return ortho
+orthogonal_set = gram_schmidt([v1, v2, v3])
+print("\nOrthogonal set generated using Gram-Schmidt:")
+for vec in orthogonal_set:
+    print(vec)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+#include <stdio.h>
+#include <math.h>
+
+// Function to calculate determinant of 3x3 matrix
+float determinant(float a[3][3]) {
+    float det;
+    det = a[0][0]*(a[1][1]*a[2][2] - a[1][2]*a[2][1])
+        - a[0][1]*(a[1][0]*a[2][2] - a[1][2]*a[2][0])
+        + a[0][2]*(a[1][0]*a[2][1] - a[1][1]*a[2][0]);
+    return det;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+// Function to compute dot product of two 3D vectors
+float dot_product(float a[3], float b[3]) {
+    return a[0]*b[0] + a[1]*b[1] + a[2]*b[2];
+}
+int main() {
+    float v1[3] = {1, 1, 1};
+    float v2[3] = {1, -1, 1};
+    float v3[3] = {1, 1, -1};
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+    // Form matrix with vectors as columns
+    float A[3][3] = {
+        {v1[0], v2[0], v3[0]},
+        {v1[1], v2[1], v3[1]},
+        {v1[2], v2[2], v3[2]}
+    };
+    // 1. Check linear independence using determinant
+    float det = determinant(A);
+    printf("Determinant = %.2f\n", det);
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+    if (fabs(det) > 1e-6)
+        printf("S is a linearly independent set.\n");
+    else
+        printf("S is NOT a linearly independent set.\n");
+    // 2. Check if it is a basis for R^3
+    if (fabs(det) > 1e-6)
+        printf("S is a basis for R^3.\n");
+    else
+        printf("S is NOT a basis for R^3.\n");
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+    // 3. Check orthogonality
+    float d12 = dot_product(v1, v2);
+    float d13 = dot_product(v1, v3);
+    float d23 = dot_product(v2, v3);
+
+    printf("\nDot products:\n");
+    printf("v1·v2 = %.2f\n", d12);
+    printf("v1·v3 = %.2f\n", d13);
+    printf("v2·v3 = %.2f\n", d23);
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+    if (fabs(d12) < 1e-6 && fabs(d13) < 1e-6 && fabs(d23) < 1e-6)
+        printf("Vectors are orthogonal.\n");
+    else
+        printf("Vectors are NOT orthogonal.\n");
+    // 4. Based on results, print the correct option
+    printf("\nCorrect statement:\n");
+    if (fabs(det) > 1e-6 && !(fabs(d12) < 1e-6 && fabs(d13) < 1e-6 && fabs(d23) < 1e-6))
+        printf("Option (b): S is a basis for R^3.\n");
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{C Code}
+\begin{lstlisting}
+    else if (fabs(det) < 1e-6)
+        printf("Option (a): S is not a linearly independent set.\n");
+    else if (fabs(d12) < 1e-6 && fabs(d13) < 1e-6 && fabs(d23) < 1e-6)
+        printf("Option (c): The vectors in S are orthogonal.\n");
+    else
+        printf("Option (d): An orthogonal set cannot be generated from S.\n");
+    return 0;}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}
+import ctypes
+import math
+# Define C-like types
+c_float = ctypes.c_float
+c_float_p = ctypes.POINTER(c_float)
+# Define C-like array types
+# float[3] is analogous to C float v[3]
+FloatArray3 = c_float * 3
+# float[3][3] is analogous to C float A[3][3]
+FloatMatrix3x3 = (c_float * 3) * 3
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}
+# Function to calculate determinant of 3x3 matrix
+# Takes a 3x3 array/matrix of c_float
+def determinant(a):
+    """Calculates the determinant of a 3x3 matrix represented by a ctypes array."""
+    # Access elements using a[row][col]
+    det = a[0][0] * (a[1][1] * a[2][2] - a[1][2] * a[2][1]) \
+        - a[0][1] * (a[1][0] * a[2][2] - a[1][2] * a[2][0]) \
+        + a[0][2] * (a[1][0] * a[2][1] - a[1][1] * a[2][0])
+    return det.value if isinstance(det, c_float) else det
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}
+# Function to compute dot product of two 3D vectors
+# Takes two 3-element arrays/vectors of c_float
+def dot_product(a, b):
+    """Computes the dot product of two 3D vectors represented by ctypes arrays."""
+    # Access elements using a[index]
+    result = a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
+    return result.value if isinstance(result, c_float) else result
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}
+# Main execution block
+def main():
+    # Define vectors using the C-like FloatArray3 type
+    v1 = FloatArray3(1.0, 1.0, 1.0)
+    v2 = FloatArray3(1.0, -1.0, 1.0)
+    v3 = FloatArray3(1.0, 1.0, -1.0)
+    # Define the tolerance (epsilon) used for floating-point comparisons
+    TOLERANCE = 1e-6
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}  
+    # Form matrix A with vectors as columns using the C-like FloatMatrix3x3 type
+    A = FloatMatrix3x3(
+        FloatArray3(v1[0], v2[0], v3[0]), # Row 0: x-components
+        FloatArray3(v1[1], v2[1], v3[1]), # Row 1: y-components
+        FloatArray3(v1[2], v2[2], v3[2])  # Row 2: z-components
+    )
+
+    print("--- Linear Algebra Calculations with ctypes ---")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}  
+    # 1. Check linear independence using determinant
+    det = determinant(A)
+    print(f"Determinant = {det:.2f}")
+
+    if abs(det) > TOLERANCE:
+        print("S is a linearly independent set.")
+    else:
+        print("S is NOT a linearly independent set.")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}
+    # 2. Check if it is a basis for R^3
+    if abs(det) > TOLERANCE:
+        print("S is a basis for R^3.")
+    else:
+        print("S is NOT a basis for R^3.")
+    # 3. Check orthogonality
+    d12 = dot_product(v1, v2)
+    d13 = dot_product(v1, v3)
+    d23 = dot_product(v2, v3)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}
+    print("\nDot products:")
+    print(f"v1·v2 = {d12:.2f}")
+    print(f"v1·v3 = {d13:.2f}")
+    print(f"v2·v3 = {d23:.2f}")
+    is_orthogonal = abs(d12) < TOLERANCE and abs(d13) < TOLERANCE and abs(d23) < TOLERANCE
+    if is_orthogonal:
+        print("Vectors are orthogonal.")
+    else:
+        print("Vectors are NOT orthogonal.")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}
+    # 4. Based on results, print the correct option
+    print("\nCorrect statement:")
+    if abs(det) > TOLERANCE and not is_orthogonal:
+        print("Option (b): S is a basis for R^3.")
+    elif abs(det) < TOLERANCE:
+        print("Option (a): S is not a linearly independent set.")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python and C Code}
+\begin{lstlisting}
+    elif is_orthogonal:
+        print("Option (c): The vectors in S are orthogonal.")
+    else:
+        # This else block should theoretically not be reached if the previous logic is exhaustive
+        print("Option (d): An orthogonal set cannot be generated from S.")
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+\end{frame}
+
+\end{document}

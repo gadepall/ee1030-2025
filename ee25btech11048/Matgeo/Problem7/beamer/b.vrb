@@ -1,0 +1,36 @@
+\frametitle{Python Plot Code - plot.py}
+\begin{lstlisting}[language=Python]
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+
+figs_folder = os.path.join("..", "figs")
+os.makedirs(figs_folder, exist_ok=True)
+
+A = np.array([[5,-1,4],[2,3,5],[5,-2,6]], dtype=float)
+b = np.array([5,2,-1], dtype=float)
+solution = np.linalg.solve(A,b)
+x,y,z = solution
+print("Solution from NumPy:",solution)
+
+x_vals = np.linspace(-10,10,100)
+y_vals = np.linspace(-10,10,100)
+X,Y = np.meshgrid(x_vals,y_vals)
+
+Z1 = (5 - 5*X + Y)/4
+Z2 = (2 - 2*X - 3*Y)/5
+Z3 = (-1 - 5*X + 2*Y)/6
+
+fig = plt.figure(figsize=(10,8))
+ax = fig.add_subplot(111,projection="3d")
+ax.plot_surface(X,Y,Z1,alpha=0.5,color="red")
+ax.plot_surface(X,Y,Z2,alpha=0.5,color="green")
+ax.plot_surface(X,Y,Z3,alpha=0.5,color="blue")
+ax.scatter(x,y,z,color="black",s=50)
+ax.text(x+0.5,y+0.5,z+0.5,f"P({x:.2f},{y:.2f},{z:.2f})",fontsize=10)
+ax.set_xlabel("X Axis"); ax.set_ylabel("Y Axis"); ax.set_zlabel("Z Axis")
+ax.set_title("Intersection of Three Planes and Solution Point P")
+plt.tight_layout()
+fig.savefig(os.path.join(figs_folder,"solution.png"))
+plt.show()
+\end{lstlisting}
