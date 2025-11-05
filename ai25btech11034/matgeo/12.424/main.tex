@@ -1,0 +1,123 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+
+\title
+{12.424}
+\author 
+{AI25BTECH11034 - Sujal Chauhan }
+
+
+
+\begin{document}
+
+\frame{\titlepage}
+\begin{frame}{Question}
+Let $\Vec{T} : \mathbb{R}^4 \to \mathbb{R}^4$ be a linear map defined by
+\[
+\Vec{T}(x, y, z, w) = (x + z,\ 2x + y + 3z,\ 2y + 2z,\ w).
+\]
+Then the rank of $\Vec{T}$ is equal to \rule{2cm}{0.15mm}.
+
+
+\end{frame}
+\begin{frame}{Solution}
+    Let $\Vec{T}$ be the transforming matrix.  
+    Now, take any general point $\Vec{x}$ in $\mathbb{R}^4$. We have
+    \begin{align}
+        \Vec{T}\myvec{x\\y\\z\\w} 
+        &= \myvec{x + z\\ 2x + y + 3z\\ 2y + 2z\\ w} \\[6pt]
+        &= x\myvec{1\\2\\0\\0} 
+         + y\myvec{0\\1\\2\\0} 
+         + z\myvec{1\\3\\2\\0} 
+         + w\myvec{0\\0\\0\\1}
+    \end{align}
+\end{frame}
+\begin{frame}{Solution}
+    Therefore, the matrix representation of $\Vec{T}$ is
+    \begin{align}
+        \Vec{T} 
+        &= \myvec{
+        1 & 0 & 1 & 0\\
+        2 & 1 & 3 & 0\\
+        0 & 2 & 2 & 0\\
+        0 & 0 & 0 & 1}
+    \end{align}
+
+    
+    \begin{align}
+        \boxed{\text{rank}(\Vec{T}) = 3.}
+    \end{align}
+\end{frame}
+
+\end{document}
