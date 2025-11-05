@@ -328,7 +328,7 @@ void pgm(const char *file,float **A,int r,int c)
 int main()
 { 
   int r,c;
-  float **A = read("/Users/unnathi/Documents/ee1030-2025/ai25btech11012/SoftwareAssignment/figs/globe.pgm",&r,&c);
+  float **A = read("/Users/unnathi/Documents/ee1030-2025/ai25btech11012/SoftwareAssignment/figs/einstein.pgm",&r,&c);
   if(!A)
    {return 1;}
 
@@ -344,7 +344,7 @@ int main()
    int K = k[i];
    float **Ak = rank(U,S,V,r,c,K);
    char name[64];
-   sprintf(name,"globereconstructedk_%d",K);
+   sprintf(name,"einsteinreconstructedk_%d",K);
    pgm(name,Ak,r,c);
    float e = error(A,Ak,r,c);
    printf("k = %d Forbenius error = %.4f\n",K,e);
