@@ -1,0 +1,96 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{advdate}
+\usepackage{graphicx}
+\graphicspath{{../Figs/}}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+\let\solution\relax
+\usepackage{gvv}
+\lstset{
+%language=C,
+frame=single, 
+breaklines=true,
+columns=fullflexible
+}
+
+\numberwithin{equation}{section}
+\begin{document}
+
+\title{12.195}
+\author{AI25BTECH11002 - Ayush Sunil Labhade}
+{\let\newpage\relax\maketitle}
+
+\textbf{Question :} Let \(T:R^4 to R^4\) be the linear map satisfying
+\[
+T(e_1)=e_2,\qquad T(e_2)=e_3,\qquad T(e_3)=0,\qquad T(e_4)=e_3,
+\]
+where \(\{e_1,e_2,e_3,e_4\}\) is the standard basis of \(\R^4\). Then determine which of the following statements are true:
+\begin{enumerate}[label=(\alph*)]
+  \item \(T\) is idempotent.
+  \item \(T\) is invertible.
+  \item \(\operatorname{rank} T = 3\).
+  \item \(T\) is nilpotent.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Solution:} \newline
+The matrix of \(T\) has its \(j\)th column equal to the coordinates of \(T(e_j)\). Hence
+	$[T]_{\{e_i\}}$
+\begin{align}
+\myvec{
+0 & 0 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 1 \\
+0 & 0 & 0 & 0
+}
+\end{align}
+
+\medskip
+Compute \(T^2\):
+\begin{align}
+\myvec{
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+}
+\end{align}
+So \(T^2\) is not the zero. \newline
+Now compute \(T^3\):
+\begin{align}
+\myvec{
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+}
+\end{align}
+$\since T^3$ is a null matrix \newline
+$\therefore$ T is a nilpotent matrix.\newline
+\medskip
+
+
+\end{document}
+

@@ -16,7 +16,8 @@ A = np.array([-2,-10,3]).reshape(-1,1)
 B = np.array([1,-1,3]).reshape(-1,1)
 C = np.array([3,5,3]).reshape(-1,1)
 
-
+#rank of matrix
+R=LA.matrix_rank(np.hstack((A,B,C)))
 
 fig = plt.figure(figsize=(8, 6))
 ax = fig.add_subplot(111, projection='3d')
@@ -29,8 +30,8 @@ x_AB = line_gen(A,B)
 x_BC = line_gen(B,C)
 
 #Plotting all lines
-ax.plot(x_AB[0,:],x_AB[1,:], x_AB[2,:],color='pink',label='$OA$')
-ax.plot(x_BC[0,:],x_BC[1,:], x_BC[2,:],color='y',label='$OB$')
+ax.plot(x_AB[0,:],x_AB[1,:], x_AB[2,:],color='pink',label='$AB$')
+ax.plot(x_BC[0,:],x_BC[1,:], x_BC[2,:],color='y',label='$BC$')
 
 # Scatter plot
 ax.scatter(*A, color='r', s=100, label='A(-2, -10, 3)')

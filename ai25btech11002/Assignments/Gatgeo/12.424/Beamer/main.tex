@@ -1,0 +1,94 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{advdate}
+\usepackage{graphicx}
+\graphicspath{{../Figs/}}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+\usetheme{Boadilla}
+\usecolortheme{lily}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{author in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{navigation symbols}{}
+\let\solution\relax
+\usepackage{gvv}
+\lstset{
+%language=C,
+frame=single, 
+breaklines=true,
+columns=fullflexible
+}
+
+\numberwithin{equation}{section}
+
+
+\begin{document}
+
+\title{12.424}
+\author{AI25BTECH11002 - Ayush Sunil Labhade}
+{\let\newpage\relax\maketitle}
+
+\textbf{Question:}\\
+Let \(T:\mathbb{R}^4\to\mathbb{R}^4\) be the linear map defined by
+\[
+T(x,y,z,w)=(\,x+z,\;2x+y+3z,\;2y+2z,\;w\,).
+\]
+
+\bigskip
+
+\textbf{Solution:}\\
+
+Write the input vector in coordinates:
+\begin{align}
+\vec{v} = \myvec{x\\[4pt] y\\[4pt] z\\[4pt] w}
+\end{align}
+
+Each component of \(T(x,y,z,w)\) is a linear combination of \(x,y,z,w\). So , we can match the coefficients:
+
+\begin{align}
+T_1(x,y,z,w) &= 1\cdot x + 0\cdot y + 1\cdot z + 0\cdot w, \\[6pt]
+T_2(x,y,z,w) &= 2\cdot x + 1\cdot y + 3\cdot z + 0\cdot w, \\[6pt]
+T_3(x,y,z,w) &= 0\cdot x + 2\cdot y + 2\cdot z + 0\cdot w, \\[6pt]
+T_4(x,y,z,w) &= 0\cdot x + 0\cdot y + 0\cdot z + 1\cdot w.
+\end{align}
+
+Therefore the matrix \(T\) is the matrix whose rows are the coefficient vectors:
+
+\begin{align}
+[T] \;=\;
+	\myvec{
+1 & 0 & 1 & 0 \\[4pt]
+2 & 1 & 3 & 0 \\[4pt]
+0 & 2 & 2 & 0 \\[4pt]
+0 & 0 & 0 & 1
+	}
+\end{align}
+
+On row reducing we get,
+\begin{align}
+\myvec{
+1 & 0 & 1 & 0 \\[4pt]
+0 & 1 & 1 & 0 \\[4pt]
+0 & 0 & 0 & 1 \\[4pt]
+0 & 0 & 0 & 0
+}, \qquad
+\operatorname{rank}([T]) = 3, \\[6pt]
+\end{align}
+
+\end{document}
+
