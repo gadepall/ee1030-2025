@@ -1,0 +1,35 @@
+\begin{tabular}{|l|p{6cm}|p{6cm}|}
+\hline
+\textbf{Algorithm} & \textbf{Advantages} & \textbf{Disadvantages} \\
+\hline
+Power Iteration & \textbullet\ Simple to implement & \textbullet\ Slow convergence for close singular values \\
++ Deflation & \textbullet\ Memory efficient: $O(mn + k(m+n))$ & \textbullet\ Approximate solution \\
+(Implemented) & \textbullet\ Computes only top-$k$ components & \textbullet\ Accumulation of deflation errors \\
+ & \textbullet\ Works well for dominant singular values & \textbullet\ Random initialization affects results \\
+ & \textbullet\ No external libraries required & \textbullet\ Fixed iteration count (50) may be suboptimal \\
+\hline
+Jacobi SVD & \textbullet\ High numerical accuracy & \textbullet\ Slow for large matrices: $O(m^2n)$ \\
+ & \textbullet\ Stable and reliable & \textbullet\ Not suitable for sparse matrices \\
+ & \textbullet\ Parallelizable & \textbullet\ Computes full SVD (inefficient for top-$k$) \\
+\hline
+Divide \& Conquer & \textbullet\ Faster than classical methods & \textbullet\ Complex implementation \\
+SVD & \textbullet\ High accuracy & \textbullet\ High memory usage \\
+ & \textbullet\ Efficient for medium-sized matrices & \textbullet\ Not optimal for very large matrices \\
+ & \textbullet\ Standard in LAPACK & \textbullet\ Computes full SVD \\
+\hline
+Golub-Reinsch & \textbullet\ Robust and well-tested & \textbullet\ $O(mn^2)$ complexity \\
+(LAPACK) & \textbullet\ Industry standard & \textbullet\ Requires external libraries \\
+ & \textbullet\ High precision & \textbullet\ Computes all singular values \\
+ & \textbullet\ Handles edge cases well & \textbullet\ Overkill for top-$k$ approximation \\
+\hline
+Randomized SVD & \textbullet\ Very fast: $O(mn \log k)$ & \textbullet\ Probabilistic accuracy \\
+ & \textbullet\ Excellent for large matrices & \textbullet\ Requires tuning of oversampling \\
+ & \textbullet\ Scalable to big data & \textbullet\ May fail for difficult spectra \\
+ & \textbullet\ State-of-the-art for top-$k$ & \textbullet\ More complex than power iteration \\
+\hline
+Lanczos & \textbullet\ Fast convergence & \textbullet\ Numerical instability (loss of orthogonality) \\
+Algorithm & \textbullet\ Memory efficient & \textbullet\ Requires reorthogonalization \\
+ & \textbullet\ Ideal for sparse matrices & \textbullet\ More complex implementation \\
+ & \textbullet\ Computes extreme eigenvalues quickly & \textbullet\ Sensitive to rounding errors \\
+\hline
+\end{tabular}

@@ -1,0 +1,225 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal,12pt,onecolumn]{IEEEtran}
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\graphicspath{{./figs/}}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage{caption}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{gvv}
+\usepackage[latin1]{inputenc}
+\usepackage{xparse}
+\usepackage{color}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{calc}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{hhline}
+\usepackage{ifthen}
+\usepackage{lscape}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{float}
+
+\begin{document}
+
+\title{Course Project$\brak{Software}$: Image Compression Using Truncated SVD}
+\author{EE25BTECH11020 - Darsh Pankaj Gajare}
+{\let\newpage\relax\maketitle}
+\section{Summary of Strang's Video}
+The concept of Singular Value Decompositions states that any matrix $\vec{A}$ as $\vec{U}\vec{\Sigma}\vec{V}^\top$, where $\vec{U}$ and $\vec{V}$ are orthonormal matrices and $\vec{\Sigma}$ is a diagonal matrix.
+A vector $\vec{v_1}$ in rowspace corresponding to vector $\vec{u_1}$ in column space can be written as 
+\begin{align}
+	\sigma\vec{u_1}=\vec{A}\vec{v_1}
+\end{align}
+Similarly for $\vec{v_2,v_3...}$ and $\vec{u_2,u_3...}$ this can be written. These row vectors and column vectors should be orthonormal to each other.
+\begin{align}
+	\vec{A}\myvec{\vec{v_1}&\vec{v_2}&...&\vec{v_r}}=\myvec{\vec{u_1}&\vec{u_2}&...&\vec{v_r}}\myvec{\sigma_1&\sigma_2&...&\sigma_r}_{diag}
+\end{align}
+\begin{align}
+	\vec{A}\vec{V}=\vec{U}\vec{\Sigma}
+\end{align}
+As $\vec{V}$ is orthogonal,
+\begin{align}
+	\vec{A}=\vec{A} as \vec{U}\vec{\Sigma}\vec{V}^\top
+\end{align}
+Computing $\vec{A}^\top\vec{A}$ we get,
+\begin{align}
+	\vec{A}^\top\vec{A}=\vec{V}\vec{\Sigma}^\top\vec{\Sigma}\vec{V}^\top
+\end{align}
+\begin{align}
+	\vec{A}^\top\vec{A}=\vec{V}\myvec{\sigma_1^2&\sigma_2^2&...&\sigma_r^2}_{diag}\vec{V}^\top
+\end{align}
+Here $\vec{V}$ are eigenvectors of $\vec{A}^\top\vec{A}$ and$\vec{V}\myvec{\sigma_1^2&\sigma_2^2&...&\sigma_r^2}_{diag}$ are the eigen values of $\vec{A}^\top\vec{A}$\\
+For $\vec{U}$
+\begin{align}
+	\vec{A}\vec{A}^\top=\vec{U}\vec{\Sigma}\vec{\Sigma}^\top\vec{U}^\top
+\end{align}
+Here $\vec{U}$ are the eigenvectors of $\vec{A}\vec{A}^\top$\\
+Interpretation:\\
+$\vec{V}$ : Basis for input $\brak{row}$ space\\
+$\vec{U}$ : Basis for output $\brak{column}$ space\\
+$\vec{\Sigma}$ : Scaling Transformation
+\section{Explanation of the implemented algorithm}
+\subsection{Power Iteration with Deflation for SVD}
+
+The code implements Singular Value Decomposition (SVD) using power iteration combined with deflation to compute the top $k$ singular values and vectors of a matrix $\vec{A} \in \mathbb{R}^{m \times n}$.
+
+\subsection{Algorithm Overview}
+
+For each rank $r = 1, 2, \ldots, k$, the algorithm performs:
+
+\textbf{Power Iteration:} Starting with a random vector $\vec{v}^{(0)}$, iteratively compute:
+\begin{align}
+\vec{u}^{(t)} &= \vec{A} \vec{v}^{(t-1)} \\
+\vec{v}^{(t)} &= \vec{A}^T \vec{u}^{(t)} \\
+\vec{v}^{(t)} &= \frac{\vec{v}^{(t)}}{\|\vec{v}^{(t)}\|}
+\end{align}
+
+After convergence (50 iterations), compute the singular triplet:
+\begin{align}
+\vec{u}_r &= \vec{A} \vec{v}_r \\
+\sigma_r &= \|\vec{u}_r\| \\
+\vec{u}_r &= \frac{\vec{u}_r}{\sigma_r}
+\end{align}
+
+\textbf{Deflation:} Remove the rank-1 component from $\vec{A}$:
+\begin{align}
+\vec{A} \leftarrow \vec{A} - \sigma_r \vec{u}_r \vec{v}_r^T
+\end{align}
+
+\subsection{Reconstruction}
+
+The image is reconstructed using the rank-$k$ approximation:
+\begin{align}
+\vec{Y} = \sum_{r=1}^{k} \sigma_r \vec{u}_r \vec{v}_r^T
+\end{align}
+
+\section{Comparison between different algorithms}
+\begin{table}[H]
+	\centering
+	\caption{Comparison of different SVD algorithms}
+	\input{tables/algorithms}
+\end{table}
+This method was chosen because it directly targets the top-$k$ singular values through iterative refinement, avoiding the $O(mn^2)$ complexity of full SVD algorithms. For image compression, where only the dominant spectral components contribute significantly to visual quality, makes Power Iteration with Deflation an efficient choice.
+\section{Reconstructed images}
+\begin{figure}[H]
+	\centering
+	\caption{Original}
+	\includegraphics{"inputcases/einstein.jpg"}
+\end{figure}
+\subsection{Einstein Image}
+
+\begin{figure}[H]
+\centering
+\begin{tabular}{ccccc}
+\includegraphics[width=0.18\textwidth]{Converted/einstein_k5.jpg} &
+\includegraphics[width=0.18\textwidth]{Converted/einstein_k20.jpg} &
+\includegraphics[width=0.18\textwidth]{Converted/einstein_k50.jpg} &
+\includegraphics[width=0.18\textwidth]{Converted/einstein_k100.jpg} &
+\includegraphics[width=0.18\textwidth]{Converted/einstein_k150.jpg} \\
+$k=5$, 0.05s & $k=20$, 0.17s & $k=50$, 0.42s & $k=100$, 0.83s & $k=150$, 1.25s \\
+\end{tabular}
+\caption{Einstein image reconstruction with varying rank $k$ and execution time}
+\label{fig:einstein}
+\end{figure}
+\subsection{Globe Image}
+\begin{figure}[H]
+    \centering
+    \caption{Original}
+	\includegraphics[scale=0.15]{inputcases/globe.jpg}
+\end{figure}
+\begin{figure}[H]
+\centering
+\begin{tabular}{ccccc}
+\includegraphics[width=0.18\textwidth]{Converted/globe_k5.jpg} &
+\includegraphics[width=0.18\textwidth]{Converted/globe_k20.jpg} &
+\includegraphics[width=0.18\textwidth]{Converted/globe_k50.jpg} &
+\includegraphics[width=0.18\textwidth]{Converted/globe_k100.jpg} &
+\includegraphics[width=0.18\textwidth]{Converted/globe_k200.jpg} \\
+$k=5$, 0.95s & $k=20$, 3.83s & $k=50$, 9.30s & $k=100$, 19.13s & $k=200$, 37.59s \\
+\end{tabular}
+\caption{Globe image reconstruction with varying rank $k$ and execution time}
+\label{fig:globe}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Original}
+	\includegraphics[scale=0.1]{inputcases/greyscale.png}
+\end{figure}
+
+\subsection{Gray Image}
+
+\begin{figure}[H]
+\centering
+\begin{tabular}{cccc}
+	\includegraphics[width=0.23\textwidth]{Converted/grey_k5.jpg} &
+\includegraphics[width=0.23\textwidth]{Converted/grey_k20.jpg} &
+\includegraphics[width=0.23\textwidth]{Converted/grey_k50.jpg} &
+\includegraphics[width=0.23\textwidth]{Converted/grey_k100.jpg} \\
+$k=5$, 1.38s & $k=20$, 5.48s & $k=50$, 13.72s & $k=100$, 26.10s \\
+\end{tabular}
+\caption{Gray image reconstruction with varying rank $k$ and execution time}
+\label{fig:gray}
+\end{figure}
+\section{Error analysis}
+
+\subsection{Einstein Image}
+\begin{table}[H]
+\centering
+\caption{Reconstruction errors for Einstein image}
+	\input{tables/e_error.tex}
+\label{tab:einstein_error}
+\end{table}
+
+\subsection{Globe Image}
+\begin{table}[H]
+\centering
+\caption{Reconstruction errors for Globe image}
+	\input{tables/gl_error}
+\label{tab:globe_error}
+\end{table}
+
+\subsection{Gray Image}
+\begin{table}[H]
+\centering
+\caption{Reconstruction errors for Gray image}
+	\input{tables/gr_error}
+\label{tab:gray_error}
+\end{table}
+
+\section{Discussion and Reflections}
+
+
+
+The code is easy to debug and understand. Results show it works well: Einstein image gets 0.04\% error at $k=150$, which is pretty good quality.
+
+\subsection{What Could Be Better}
+
+The main problem is it's slow when singular values are similar. Using 50 iteration for all images is too good for some while its not enough for larger ones. Also, errors add up as we compute more ranks - Globe has 1.13\% error even at $k=200$.
+
+\subsection{Other Methods I Considered}
+
+\textbf{Golub-Kahan Bidiagonalization:} This is the standard method used in libraries like LAPACK. It's more accurate and stable. But it is harder to implement.
+\textbf{Jacobi} This method is very easy to implement but does not give good results as Power iteration.
+
+\subsection{Conclusion}
+Time increases with k and error drops quickly as we add more ranks
+\end{document}
+
+
