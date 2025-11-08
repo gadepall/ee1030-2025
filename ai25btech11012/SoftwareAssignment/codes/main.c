@@ -4,7 +4,7 @@
 #include<math.h>
 
 #define MAX 500
-#define EPS 1e-8
+
 
 float **matrix(int r,int c)
 {
@@ -125,7 +125,7 @@ void normal(float *v,int n)
  norm = sqrtf(norm);
  for(int i= 0;i<n;i++)
  { 
-	 v[i] /= (norm + EPS);
+	 v[i] /= (norm);
   }
 }
 
@@ -178,7 +178,7 @@ void eigen(float **A,int n,float **evec,float *evals)
    float *v = calloc(n,sizeof(float));
    for(int i =0;i<n;i++)
    {
-    v[i] = ((float)rand()/(float)RAND_MAX);
+    v[i] = rand()/(float)RAND_MAX;
    }
    normal(v,n);
    
@@ -243,8 +243,14 @@ void svd(float **A,int r,int c,float **U,float *S,float **V)
   for(int i=0;i<r;i++)
   {
   for(int j =0;j<c;j++)
-  {
-    U[i][j] = (S[j]> 1e-8f)?AV[i][j]/S[j]:0.0f;
+   { if(S[j]>1e-8)
+	   {
+	    U[i][j] = AV[i][j]/S[j];
+	   }
+     else
+     {
+      U[i][j] = 0.0f;}
+    
   }
   }
   free_matrix(AT,c);
@@ -344,7 +350,7 @@ int main()
    int K = k[i];
    float **Ak = rank(U,S,V,r,c,K);
    char name[64];
-   sprintf(name,"einsteinreconstructedk_%d",K);
+   sprintf(name,"einsteinreconstructedk_%d.pgm",K);
    pgm(name,Ak,r,c);
    float e = error(A,Ak,r,c);
    printf("k = %d Forbenius error = %.4f\n",K,e);
