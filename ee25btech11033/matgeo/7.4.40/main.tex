@@ -1,0 +1,131 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{7.4.40}
+\author{EE25BTECH11033 - Kavin}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+\textbf{Question}:\\
+Let a circle be given by $2x\brak{x-a}+y\brak{2y-b}=0$, $\brak{a\neq0, b\neq0}$. Find the condition on $a$ and $b$ if two chords,  each bisected by the $X$ axis, can be drawn to the circle from $\brak{a, \frac{b}{2}}$.\\    
+\bigskip
+
+\textbf{Solution}:\\
+The equation of the circle is ,
+\begin{align}
+    2x\brak{x-a}+y\brak{2y-b}=0
+\end{align}
+\begin{align}
+    \implies2x^2 - 2ax + 2y^2 - by = 0
+\end{align}
+\begin{align}
+    \implies x^2 + y^2 - ax - \frac{b}{2}y = 0
+\end{align}\\
+\bigskip
+The chords are drawn from the point $\vec{P}(a, \frac{b}{2})$ , which lies on the circle since\\
+\begin{align}
+a^2 + \brak{\frac{b}{2}}^2 - a(a) - \frac{b}{2}\brak{\frac{b}{2}} = a^2 + \frac{b^2}{4} - a^2 - \frac{b^2}{4} = 0
+\end{align}
+
+
+Let a chord start at $\vec{P}(a, \frac{b}{2})$ and end at another point on the circle, $\vec{Q}(x_q, y_q)$. The midpoint of this chord is $\vec{M} = \brak{\frac{a+x_q}{2}, \frac{b/2+y_q}{2}}.\\
+
+Since this chord is bisected by the X-axis,
+\begin{align}
+\frac{b/2+y_q}{2} = 0 \implies \frac{b}{2} + y_q = 0 \implies y_q = -\frac{b}{2}
+\end{align}
+Since $\vec{Q}(x_q, -\frac{b}{2})$ must also lie on the circle,
+\begin{align}
+    x_q^2 + \brak{-\frac{b}{2}}^2 - a(x_q) - \frac{b}{2}\brak{-\frac{b}{2}} &= 0 \\
+    x_q^2 + \frac{b^2}{4} - ax_q + \frac{b^2}{4} &= 0 \\
+    x_q^2 - ax_q + \frac{b^2}{2} &= 0
+\end{align}\\
+
+The problem requires that two such chords can be drawn. This implies that the quadrateic equation for $x_q$ must have two distinct real roots.\\
+
+Any monic quadratic equation of the form $\lambda^2 - S\lambda + P = 0$ can be interpreted as the \textbf{characteristic equation} of a $2 \times 2$ matrix $\vec{A}$, where $S$ is the trace and $P$ is the determinant of the matrix.
+\begin{align}
+\mydet{\vec{A} - \lambda \vec{I}} = \lambda^2 - \text{tr}(\vec{A})\lambda + \mydet{\vec{A}} = 0
+\end{align}
+The roots of this equation are the \textbf{eigenvalues} of the matrix $\vec{A}$.
+
+Here,
+\begin{itemize}
+    \item  $\lambda = x_q$
+    \item  $\text{tr}(\vec{A}) = a$
+    \item  $\mydet{\vec{A}} = \frac{b^2}{2}$
+\end{itemize}
+A fundamental property of a $2 \times 2$ matrix is that it has \textbf{two distinct real eigenvalues} if and only if the discriminant of its characteristic equation is positive. This condition, in terms of its trace and determinant, is:
+\begin{align}
+(\text{tr}(\vec{A}))^2 - 4\mydet{\vec{A}} > 0
+\end{align}
+With $\text{tr}(\vec{A}) = a$ and $\mydet{\vec{A}} = \frac{b^2}{2}$, the condition becomes:
+\begin{align}
+    a^2 - 4\brak{\frac{b^2}{2}} &> 0
+\end{align}
+\begin{align}
+    a^2 - 2b^2 &> 0 
+\end{align}
+\begin{align}
+    a^2 &> 2b^2
+\end{align}
+This is the required condition on $a$ and $b$. \\
+\bigskip
+
+For $a = 2$ and $b = 1$,
+\newpage
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\columnwidth]{figs/fig.png}
+\end{center}
+
+\label{fig:Fig1}
+\end{figure}
+\end{document}
+
+

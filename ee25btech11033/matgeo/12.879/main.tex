@@ -1,0 +1,133 @@
+
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{12.879}
+\author{EE25BTECH11033 - Kavin}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+\textbf{Question}:\\
+Consider the vectors
+$\vec{a} = \myvec{1 \\ 1}, \vec{b} = \myvec{0 \\ 3\sqrt{2}}$.
+For real-valued scalar variable $x$, the value of
+$\min_{x} \norm{\vec{a}x - \vec{b}}$
+is \underline{\hspace{1cm}}.\\    
+\bigskip
+
+\textbf{Solution}:\\
+We are trying to find a scalar x that minimizes $\norm{\vec{a}x - \vec{b}}$.This is a least-squares problem.\\
+
+Let us consider,
+\begin{align}
+\vec{a}x = \vec{b}
+\end{align}
+Deifne the residual vector as,
+\begin{align}
+\vec{r} =\vec{a}x -  \vec{b} 
+\end{align}
+The least--squares problem is to minimize the value:
+\begin{align}
+\vec{r}^{\top} \vec{r} = (\vec{a}x -  \vec{b})^{\top}(\vec{a}x -  \vec{b})
+\end{align}
+
+\begin{align}
+\vec{r}^{\top} \vec{r}= (\vec{a}^{\top}x -  \vec{b}^{\top})(\vec{a}x -  \vec{b})
+\end{align}
+
+\begin{align}
+\vec{r}^{\top} \vec{r}= \vec{a}^{\top}\vec{a}x^2 - \vec{a}^{\top}\vec{b} x - \vec{b}^{\top}\vec{a}x + \vec{b}^{\top}\vec{b}
+\end{align}
+
+Now, to minimize \(\vec{r}^{\top}\vec{r}\), define
+\begin{align}
+f(x) = \vec{a}^{\top}\vec{a}x^2 - 2\vec{a}^{\top}\vec{b} x + \vec{b}^{\top}\vec{b}
+\end{align}
+
+Taking gradient with respect to \(x\):
+\begin{align}
+\nabla_x f(x) = 2\vec{a}^{\top}\vec{a}x - 2\vec{a}^{\top}\vec{b}
+\end{align}
+
+Setting \(\nabla_x f(x) = 0\):
+\begin{align}
+\vec{a}^{\top}\vec{a}x = \vec{a}^{\top}\vec{b}
+\end{align}
+
+\begin{align}
+    \implies \myvec{1 & 1}\myvec{1 \\ 1} x = \myvec{1 & 1}\myvec{0 \\ 3\sqrt{2}}
+\end{align}
+\begin{align}
+    \implies 2x=3\sqrt{2}
+\end{align}
+\begin{align}
+    \implies x=\frac{3\sqrt{2}}{2}
+\end{align}
+Therefore the vector $\vec{r}$ is,
+\begin{align}
+    \vec{r} = \myvec{1 \\ 1} \frac{3\sqrt{2}}{2} - \myvec{0 \\ 3\sqrt{2}}
+\end{align}
+\begin{align}
+    \vec{r} = \myvec{\frac{3\sqrt{2}}{2} \\ -\frac{3\sqrt{2}}{2}}
+\end{align}
+\begin{align}
+    \norm{\vec{r}} = \sqrt{\vec{r}^{\top}\vec{r}} = \sqrt{\myvec{\frac{3\sqrt{2}}{2} & -\frac{3\sqrt{2}}{2}}\myvec{\frac{3\sqrt{2}}{2} \\ -\frac{3\sqrt{2}}{2}}} = \sqrt{9}
+\end{align}
+\begin{align}
+    \norm{\vec{r}} = 3
+\end{align}
+Therefore the value $\min_{x} \norm{\vec{a}x - \vec{b}}$ is $3$.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.7\columnwidth]{figs/fig.png}
+\end{center}
+\label{fig:Fig1}
+\end{figure} 
+\end{document}
+
+

@@ -1,0 +1,115 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{12.255}
+\author{EE25BTECH11033 - Kavin}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+\textbf{Question}:\\
+The least squares generalized inverse of an overdetermined problem is expressed as  
+
+
+\begin{multicols}{2}
+\begin{enumerate}
+	\item \ $\brak{\vec{G}^\top \vec{G}}^{-1} \vec{G}^\top$  
+	\item \ $\brak{\vec{G}^\top \vec{G}}^{-1}$  
+	\item \ $\vec{G}^\top \brak{\vec{G} \vec{G}^\top}^{-1} $ 
+	\item \ $\brak{\vec{G} \vec{G}^\top}^{-1}$  
+\end{enumerate}
+\end{multicols}\\    
+\bigskip
+
+\textbf{Solution}:\\
+Let us consider the overdetermined system of equations,
+\begin{align}
+\vec{G}\vec{x} = \vec{b}
+\end{align}
+Define the residual vector as,
+\begin{align}
+\vec{r} = \vec{b} - \vec{G}\vec{x}
+\end{align}
+The least--squares problem is to minimize the squared error:
+\begin{align}
+\vec{r}^{\top} \vec{r} = (\vec{b} - \vec{G}\vec{x})^{\top}(\vec{b} - \vec{G}\vec{x})
+\end{align}
+
+\begin{align}
+\vec{r}^{\top} \vec{r}= (\vec{b} ^{\top} - \vec{x}^{\top}\vec{G}^{\top})(\vec{b} - \vec{G}\vec{x})
+\end{align}
+
+\begin{align}
+\vec{r}^{\top} \vec{r}= \vec{x}^{\top}\vec{G}^{\top}\vec{G}\vec{x} - \vec{x}^{\top}\vec{G}^{\top}\vec{b} - \vec{b} ^{\top}\vec{G}\vec{x} + \vec{b} ^{\top}\vec{b} 
+\end{align}
+
+Now, to minimize \(\vec{r}^{\top}\vec{r}\), define
+\begin{align}
+f(x) = \vec{x}^{\top}\vec{G}^{\top}\vec{G}\vec{x} - 2\vec{x}^{\top}\vec{G}^{\top}\vec{b} + \vec{b} ^{\top}\vec{b} 
+\end{align}
+
+Taking gradient with respect to \(\vec{x}\):
+\begin{align}
+\nabla_x f(x) = 2\vec{G}^{\top}\vec{G}\vec{x} - 2\vec{G}^{\top}\vec{b} 
+\end{align}
+
+Setting \(\nabla_x f(x) = 0\):
+\begin{align}
+\vec{G}^{\top}\vec{G}\vec{x} = \vec{G}^{\top}\vec{b} 
+\end{align}
+
+Therefore, the least squares solution is
+\begin{align}
+\vec{x} = \boxed{(\vec{G}^{\top}\vec{G})^{-1}\vec{G}^{\top}\vec{b} }
+\end{align}\\
+Therefore, $\brak{\vec{G}^{\top}\vec{G}}^{-1}\vec{G}^{\top}$ is the least squares generalized inverse of an overdetermined problem.
+
+
+\end{document}
+
+
+
