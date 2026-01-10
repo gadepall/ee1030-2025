@@ -1,0 +1,167 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+
+\title
+{12.8}
+\author 
+{AI25BTECH11034 - Sujal Chauhan }
+
+
+
+\begin{document}
+
+\frame{\titlepage}
+\begin{frame}{Question}
+    Given the wavelets, $a = \{3,\ -2\}$ and $b = \{1,\ -2\}$,\\
+The cross-correlation, $\phi_{ab}$, is given by
+
+\begin{itemize}
+  \item[(a)] $\{-6,\ 7,\ -2\}$
+  \item[(b)] $\{-6,\ 10,\ -12\}$
+  \item[(c)] $\{-4,\ -11,\ -6\}$
+  \item[(d)] $\{-6,\ 11,\ -4\}$
+\end{itemize}
+\end{frame}
+\begin{frame}{Theory}
+Let
+\[
+a=(a_0,a_1,\dots,a_{M-1}),\qquad b=(b_0,b_1,\dots,b_{N-1}).
+\]
+
+ We usually list
+\(\ell=L_{\min},\dots,L_{\max}\) with \(L_{\min}=-(N-1),\,L_{\max}=M-1\).
+
+\bigskip
+% Form the Toeplitz matrix \(T(b)\) whose rows are shifted (zero-padded) copies of \(b\).
+% Then the vector of correlation values is
+\end{frame}
+\begin{frame}{Theory}
+    
+
+\[
+\myvec{\phi_{ab}[L_{\min}]\\[2pt]\phi_{ab}[L_{\min}+1]\\[2pt]\vdots\\[2pt]\phi_{ab}[L_{\max}]}
+\;=\;T(b)\,\myvec{a_0\\[2pt]a_1\\[2pt]\vdots\\[2pt]a_{M-1}}.
+\]
+
+
+\end{frame}
+
+
+\begin{frame}{Solution}
+Given
+\[
+a=\myvec{3\\[2pt]-2},\qquad b=\myvec{1\\[2pt]-2},
+\]
+we compute the cross-correlation
+\(\phi_{ab}[\ell]=\sum_n a_n\,b_{n+\ell}\) for \(\ell=-1,0,1\).
+
+
+\[
+\Vec{T}=
+\myvec{
+
+
+-2 & 0\\[4pt]
+1 & -2\\[4pt]
+0 & 1
+},
+\qquad
+a=\myvec{3\\[2pt]-2}.
+\]
+\end{frame}
+\begin{frame}{Solution}
+Multiply to get the vector of correlations (ordered by \(\ell=-1,0,1\)):
+\begin{align*}
+\phi_{ab}
+&= \Vec{T}a
+=
+\myvec{-6\\[4pt]7\\[4pt]-2}
+\end{align*}
+
+
+so the correlation sequence  is
+\[
+\{\,-6,\;7,\;-2\,\}.
+\]
+
+which is option \(\boxed{\text{(a)}}\).
+\end{frame}
+
+
+
+
+
+
+
+\end{document}

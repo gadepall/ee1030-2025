@@ -1,0 +1,229 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+\title{12.632}
+\author{AI25BTECH11034 - Sujal Chauhan}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Problem}
+12.632\\
+For given $3\times3$ matrix $\Vec{A}$ eigonvalues are 1,2,3 then value of $trace(\Vec{A}^{-1})$ is.
+
+\end{frame}
+\begin{frame}{Theory}
+
+
+\section*{Theorem: Eigenvalues and Eigenvectors of the Inverse Matrix}
+
+Let \(A\) be an invertible \(n \times n\) matrix with eigenvalue \(\lambda\) and corresponding eigenvector \(\mathbf{v}\), i.e.,
+\[
+A \mathbf{v} = \lambda \mathbf{v}
+\]
+where \(\lambda \neq 0\) and \(\mathbf{v} \neq \mathbf{0}.\)
+
+\subsection*{Claim}
+
+\begin{itemize}
+    \item The eigenvectors of \(A^{-1}\) are the same as those of \(A\).
+    \item The eigenvalues of \(A^{-1}\) are the reciprocals of the eigenvalues of \(A\), i.e., \(\frac{1}{\lambda}\).
+\end{itemize}
+
+\subsection*{Proof}
+
+Starting from the eigenvalue equation:
+\[
+A \mathbf{v} = \lambda \mathbf{v}
+\]
+\end{frame}
+\begin{frame}{Theory}
+    
+Since \(A\) is invertible and \(\lambda \neq 0\), multiply both sides by \(A^{-1}\):
+\[
+A^{-1} A \mathbf{v} = A^{-1} \lambda \mathbf{v}
+\]
+\[
+\mathbf{v} = \lambda A^{-1} \mathbf{v}
+\]
+
+Rearranging:
+\[
+A^{-1} \mathbf{v} = \frac{1}{\lambda} \mathbf{v}
+\]
+
+This shows that \(\mathbf{v}\) is an eigenvector of \(A^{-1}\) with eigenvalue \(\frac{1}{\lambda}\).
+
+\subsection*{Conclusion}
+
+The eigenvalues of \(A^{-1}\) are the reciprocals of the eigenvalues of \(A\), and both matrices share the same eigenvectors.
+\end{frame}
+
+\begin{frame}{Theory}
+    
+
+\section*{Proof: Sum of Eigenvalues Equals Trace Using Diagonalization}
+
+Let \(A\) be an \(n \times n\) diagonalizable matrix. Then there exists an invertible matrix \(P\) and a diagonal matrix \(D\) such that
+\[
+A = P D P^{-1}
+\]
+where
+\[
+D = \mathrm{diag}(\lambda_1, \lambda_2, \ldots, \lambda_n)
+\]
+and \(\lambda_1, \lambda_2, \ldots, \lambda_n\) are the eigenvalues of \(A\).
+
+\bigskip
+
+Taking the trace on both sides, we have
+\[
+\mathrm{tr}(A) = \mathrm{tr}(P D P^{-1}).
+\]
+\end{frame}
+\begin{frame}[Theory]
+Using the cyclic property of trace, which states that \(\mathrm{tr}(XYZ) = \mathrm{tr}(ZXY) = \mathrm{tr}(YZX)\) for any matrices \(X, Y, Z\) where the product is defined, we get
+\[
+\mathrm{tr}(P D P^{-1}) = \mathrm{tr}(D P^{-1} P) = \mathrm{tr}(D I) = \mathrm{tr}(D).
+\]
+
+Since \(D\) is diagonal, its trace is the sum of its diagonal entries, i.e., the sum of eigenvalues of \(A\):
+\[
+\mathrm{tr}(D) = \lambda_1 + \lambda_2 + \cdots + \lambda_n.
+\]
+
+Therefore,
+\[
+\boxed{
+\mathrm{tr}(A) = \sum_{i=1}^n \lambda_i.
+}
+\]
+
+This completes the proof.
+
+
+
+\end{frame}
+\begin{frame}{Theory}
+  
+\section*{Proof: Cyclic Property of Trace}
+
+Let \(A, B, C\) be \(n \times n\) matrices. The trace of the product \(ABC\) is defined as the sum of the diagonal elements:
+\[
+\mathrm{tr}(ABC) = \sum_{i=1}^n (ABC)_{ii}.
+\]
+
+\bigskip
+
+Recall that matrix multiplication components are given by
+\[
+(ABC)_{ii} = \sum_{j=1}^n (AB)_{ij} C_{ji} = \sum_{j=1}^n \sum_{k=1}^n A_{ik} B_{kj} C_{ji}.
+\]
+\end{frame}
+\begin{frame}{Theory}
+Thus,
+\[
+\mathrm{tr}(ABC) = \sum_{i=1}^n \sum_{j=1}^n \sum_{k=1}^n A_{ik} B_{kj} C_{ji}.
+\]
+
+\bigskip
+
+By changing the order of summation and renaming indices, we can write:
+\[
+\mathrm{tr}(BCA) = \sum_{j=1}^n \sum_{k=1}^n \sum_{i=1}^n B_{kj} C_{ji} A_{ik} = \sum_{i=1}^n \sum_{j=1}^n \sum_{k=1}^n A_{ik} B_{kj} C_{ji} = \mathrm{tr}(ABC).
+\]
+
+Similarly,
+\[
+\mathrm{tr}(CAB) = \sum_{k=1}^n \sum_{i=1}^n \sum_{j=1}^n C_{ji} A_{ik} B_{kj} = \sum_{i=1}^n \sum_{j=1}^n \sum_{k=1}^n A_{ik} B_{kj} C_{ji} = \mathrm{tr}(ABC).
+\]
+
+\bigskip
+\end{frame}
+\begin{frame}{Theory}
+Hence, we have shown that
+\[
+\mathrm{tr}(ABC) = \mathrm{tr}(BCA) = \mathrm{tr}(CAB).
+\]
+
+This proves the cyclic property of trace for three matrices. The property extends similarly to any product of matrices where multiplication is defined.
+
+
+
+\end{frame}
+
+\begin{frame}{Solution}
+    Now using properties mentioned above :
+    eigon values of $\Vec{A}^{-1}$ are $\frac{1}{1},\frac{1}{2},\frac{1}{3}$
+    
+\end{frame}    
+\begin{frame}{Solution}
+   \begin{align}
+       trace(\Vec{A}^{-1})= \frac{1}{1}+\frac{1}{2}+\frac{1}{3}=\frac{11}{6}
+   \end{align} 
+\end{frame}
+
+\end{document}

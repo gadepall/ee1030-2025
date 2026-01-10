@@ -97,17 +97,14 @@ Consider two parallel lines in 3D:
 \end{align}
 where $\vec{a}_1, \vec{a}_2$ are points on the respective lines and $\vec{b}$ is the common direction vector.  
 
-The vector $\vec{a}_2 - \vec{a}_1$ lies in the plane spanned by $\{\vec{a}_2 - \vec{a}_1, \vec{b}\}$.  
-To find the shortest distance between the lines, we first determine a vector $\vec{n}$ that is orthogonal to both:
-\begin{align}
-    \vec{n}^T \myvec{ \vec{a}_2 - \vec{a}_1 & \vec{b} } = \vec{0}.
-\end{align}
 
-Solving this system yields an orthogonal vector $\vec{n}$.  
-Then, the shortest distance $d$ between the two parallel lines is the orthogonal projection of $(\vec{a}_2 - \vec{a}_1)$ onto the direction of $\vec{n}$:
+Shortest distance between them can be given by :
 \begin{align}
-    d &= \frac{(\vec{a}_2 - \vec{a}_1)^T \vec{n} }{\|\vec{n}\|}.
+    d^2 
+    &= (\vec{a_2} - \vec{a_1})^\top (\vec{a_2} - \vec{a_1})
+    - \left( \frac{ (\vec{a_2} - \vec{a_1})^\top \vec{b} }{ \lVert \vec{b} \rVert } \right)^2
 \end{align}
+Now we can calculate d.
 \end{frame}
 
 \begin{frame}{Solution:}
@@ -116,54 +113,70 @@ Then, the shortest distance $d$ between the two parallel lines is the orthogonal
 
 The direction vector of the given parallel lines is
 \begin{align}
-    \vec{b} = \myvec{2 \\ -3 \\ 6}.
+    \vec{b} = \myvec{2 \\ -3 \\ 6}.
 \end{align}
 
 The first line is given by
 \begin{align}
-    \vec{r}_1 = \myvec{2 \\ 3 \\ 2} + \mu \myvec{2 \\ -3 \\ 6}, \quad \mu \in \mathbb{R}.
+    \vec{r}_1 = \myvec{2 \\ 3 \\ 2} + \mu \myvec{2 \\ -3 \\ 6}, \quad \mu \in \mathbb{R}.
 \end{align}
 
 The second line is
 \begin{align}
-    \vec{r}_2 = \myvec{-2 \\ 3 \\ 0} + \lambda \myvec{2 \\ -3 \\ 6}, \quad \lambda \in \mathbb{R}.
+    \vec{r}_2 = \myvec{-2 \\ 3 \\ 0} + \lambda \myvec{2 \\ -3 \\ 6}, \quad \lambda \in \mathbb{R}.
 \end{align}
 \end{frame}
 \begin{frame}
-Now, the difference between the two given points on the lines is
+Now, we compute the difference between the position vectors $\vec{a}_1$ and $\vec{a}_2$:
 \begin{align}
-    \vec{a}_2 - \vec{a}_1 
-    = \myvec{-2 \\ 3 \\ 0} - \myvec{2 \\ 3 \\ 2} 
-    = \myvec{4 \\ 0 \\ 2}.
+    \vec{a}_2 - \vec{a}_1 
+    = \myvec{-2 \\ 3 \\ 0} - \myvec{2 \\ 3 \\ 2} 
+    = \myvec{-4 \\ 0 \\ -2}.
 \end{align}
 
-To find the shortest distance, we first compute a vector $\vec{n}$ orthogonal to both $\vec{b}$ and $\vec{a}_2 - \vec{a}_1$.  
-This requires solving
+Next, we calculate the required components for the distance formula.
+The squared magnitude of $(\vec{a}_2 - \vec{a}_1)$ is:
 \begin{align}
-    \vec{n}^T 
-    \myvec{
-        2 & 4 \\
-       -3 & 0 \\
-        6 & 2
-    } = \vec{0}.
-\end{align}
-
-On solving, we obtain
-\begin{align}
-    \vec{n} = k \myvec{-3 \\ 2 \\ 2}, \quad k \in \mathbb{R}.
+    (\vec{a}_2 - \vec{a}_1)^\top (\vec{a}_2 - \vec{a}_1) &= \lVert \vec{a}_2 - \vec{a}_1 \rVert^2 \\
+    &= (-4)^2 + (0)^2 + (-2)^2 \\
+    &= 16 + 0 + 4 = 20.
 \end{align}
 \end{frame}
 \begin{frame}
-Finally, the shortest distance between the two parallel lines is
+
 \begin{align}
-    d &= \frac{\big| (\vec{a}_2 - \vec{a}_1)^T \vec{n} \big|}{\|\vec{n}\|} \\[6pt]
-      &= \frac{\big| \myvec{4 & 0 & 2} \myvec{-3 \\ 2 \\ 2} \big|}{\sqrt{(-3)^2 + 2^2 + 2^2}} \\[6pt]
-      &= \frac{|\, -12 + 0 + 4 \,|}{\sqrt{17}} \\[6pt]
-      &= \frac{8}{\sqrt{17}}.
+    (\vec{a}_2 - \vec{a}_1)^\top \vec{b} &= \myvec{-4 & 0 & -2} \myvec{2 \\ -3 \\ 6} \\
+    &= (-4)(2) + (0)(-3) + (-2)(6) \\
+    &= -8 + 0 - 12 = -20.
+\end{align}
+
+The magnitude of the direction vector $\vec{b}$ is:
+\begin{align}
+    \lVert \vec{b} \rVert &= \sqrt{2^2 + (-3)^2 + 6^2} \\
+    &= \sqrt{4 + 9 + 36} = \sqrt{49} = 7.
+\end{align}
+\end{frame}
+\begin{frame}
+Substituting these values into the formula for the squared distance:
+\begin{align}
+    d^2 
+    &= (\vec{a_2} - \vec{a_1})^\top (\vec{a_2} - \vec{a_1})
+    - \left( \frac{ (\vec{a_2} - \vec{a_1})^\top \vec{b} }{ \lVert \vec{b} \rVert } \right)^2 \\[6pt]
+    &= 20 - \left( \frac{-20}{7} \right)^2 \\[6pt]
+    &= 20 - \frac{400}{49} \\[6pt]
+    &= \frac{20 \times 49 - 400}{49} \\[6pt]
+    &= \frac{980 - 400}{49} \\[6pt]
+    &= \frac{580}{49}.
+\end{align}
+\end{frame}
+\begin{frame}
+Finally, the shortest distance $d$ is the square root of this value:
+\begin{align}
+    d = \sqrt{\frac{580}{49}} = \frac{\sqrt{580}}{7} = \frac{\sqrt{4 \times 145}}{7} = \frac{2\sqrt{145}}{7}.
 \end{align}
 Thus, the distance between the two parallel lines is
 \[
-\boxed{\tfrac{8}{\sqrt{17}}}.
+\boxed{d = \frac{2\sqrt{145}}{7}}.
 \]
 \end{frame}
 \begin{frame}{Graph}
