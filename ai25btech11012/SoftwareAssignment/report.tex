@@ -1,0 +1,259 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}  
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+
+
+\title{Image Compression using Truncated SVD}
+\author{AI25BTECH11012 - GARIGE UNNATHI}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+
+\vspace{-1cm}
+\textbf{Summary of Strang's video :}\\
+
+In the video Gilbert Strang explains how the Singular Value Decomposition(SVD) can be used to factorise any matrix $\vec{A}$ as :
+\begin{align*}
+    \vec{A} = \vec{U}\Sigma\vec{V}^T
+\end{align*}
+Where $\vec{U}$ and $\vec{V}$ are orthogonal matrices and $\Sigma$ is a diagonal matrix of singular values in descending order.\\
+We find these matrices by :
+\begin{align*}
+   \vec{A}^T\vec{A} = \vec{V}\sigma^T\sigma\vec{V}^T\\
+   \vec{A}\vec{A}^T = \vec{U}\sigma\sigma^T\vec{U}^T
+\end{align*}
+By finding the eigen values and eigen vectors of $\vec{A}^T\vec{A}$ and $\vec{A}\vec{A}^T$  we can find $\Sigma$ , $\vec{V}$ and $\vec{U}$ cause both $\vec{A}^T\vec{A}$ and $\vec{A}\vec{A}^T$ are positive semi definite matrices. The square roots of the eigen values gives the singular values .\\
+
+
+The key idea that we are using in this project is the fact for any  matrix $\vec{A}$ SVD breaks up the original matrix into combinations of rank 1 matrices scaled by singular values
+\begin{align*}
+    \vec{A} = \sum_{i=1}^{r} \sigma_i u_i v_i^T
+\end{align*}
+
+We are using this property in compression of an image which can be expressed as a huge matrix having each pixcel as an entry . The idea here is to find a lower and simpler matrix $\vec{A}_k$ where rank of $\vec{A}_k$ is k and :
+
+\begin{align*}
+    \vec{A}_k = \sum_{i=1}^{k} \sigma_i u_i v_i^T
+\end{align*}
+\newpage
+
+\textbf{Algorithm used:}\\
+
+As mentioned above I tried to impliment the SVD theorem by finding $\vec{A}^T\vec{A}$ and $\vec{A}\vec{A}^T$. The eigenvalues of the matrix $\vec{A}^T\vec{A}$ or $\vec{A}\vec{A}^T$ correspond to squared singular value $\sigma^2$ and the eigen values of the matrices $\vec{A}^T\vec{A}$ and $\vec{A}\vec{A}^T$ correspond to columns and rows in $\vec{V}$ and $\vec{U}$ respectively .\\
+
+To find the eigen vectors and eigen values for the matrix $\vec{A}^T\vec{A}$ and $\vec{A}\vec{A}^T$ we are using power iteration method .
+\vspace{1em}
+
+\textbf{Power iteration method :}\\
+\\
+For a symmetric matrix $\vec{A}$ , power iteration method finds the dominant or the largest eigen pair ($\lambda_i,v_i$) . It works by repeatedly multipying a random vector by $\vec{A}$ and normalising the result until this resultant vector converges . This resultant vector is in turn the eigen vector cooresponding to the largest eigen value . \\
+\newline
+ Proof for the above statement :\\
+ For any symmetric matrix , all the eigen values are real and all the eigen vectors are orthogonal therefore there exists n linearly independent eigen vectors which form the basis of a vector space .\\
+From this we can say that if we taka any vector $\vec{v_0}$ , we can express this vector as the combination of the eigen vectors .
+\begin{align*}
+    \vec{v_0} = c_1x_1 + c_2x_2 + ... + c_nx_n
+\end{align*}
+When we multiply this vector repeatedly
+\begin{align*}
+    \vec{A}^k\vec{v_0} =\vec{A}^k(c_1x_1 + c_2x_2 + ... + c_nx_n) 
+\end{align*}
+
+The term with the largest eigen value grows faster and the vector aligns with that eigen vector.\\
+
+We find the corresponding eigen value by using the formula :
+\begin{align*}
+    \lambda = \vec{v}^T\vec{A}\vec{v}
+\end{align*}
+
+For finding the other eigen values we repeat the some but after removing the infuence of the eigen vector which is already found from our original vector $\vec{A}$ .This is acheived by the equation :
+\begin{align*}
+    \vec{A} = \vec{A} - \lambda_1\vec{v}_1\vec{v}_1^T
+\end{align*}
+
+Thus by using this process we can find the eigen values and eigen vectors of  $\vec{A}^T\vec{A}$ and $\vec{A}\vec{A}^T$ which will help us find the matrices $\vec{U}$,$\vec{V}$ and $\Sigma$
+
+\newpage
+
+\textbf{Comparision with other Algorithms :}
+\vspace{1em} \newline
+In this project, the Singular Value Decomposition (SVD) of an image matrix was implemented from scratch using the Power Iteration method for eigenvalue computation. \\The Power Iteration - based approach offers several advantages, particularly in enhancing the understanding of the underlying mathematical concepts, enabling implementation from first principles, and allowing clear visualization of how singular values influence image reconstruction and compression quality.
+\vspace{1em} \newline
+\begin{table}[h!]    
+      \centering
+      \input{/Users/unnathi/Documents/ee1030-2025/ai25btech11012/SoftwareAssignment/tables/table1.tex}
+      \caption{}
+      \label{}
+    \end{table}
+
+
+The main goal of the project was not only to compute the SVD, but also to understand and demonstrate the mathematical process of matrix factorization  - especially how eigenvalues and singular values relate to each other.\\
+
+The Power Iteration method was chosen because:
+\begin{itemize}
+    \item Simplicity
+    \item Helps visualize how singular values affect  content in images.
+    \item Computational Efficiency 
+
+\end{itemize}
+
+\newpage
+
+\textbf{Reconstructed Images}\\
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.3\textwidth]{/Users/unnathi/Documents/ee1030-2025/ai25btech11012/SoftwareAssignment/figs/einstein/einstein.jpg}
+    \caption{Original Einstein image }
+    \label{fig:original_image}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{/Users/unnathi/Documents/ee1030-2025/ai25btech11012/SoftwareAssignment/figs/einstein/re-einstein.png}
+    \caption{ }
+    \label{fig:original_image}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.3\textwidth]{/Users/unnathi/Documents/ee1030-2025/ai25btech11012/SoftwareAssignment/figs/greyscale/greyscale.png }
+    \caption{Original Greyscale image }
+    \label{fig:original_image}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{/Users/unnathi/Documents/ee1030-2025/ai25btech11012/SoftwareAssignment/figs/greyscale/re-grescale.png}
+    \caption{ }
+    \label{fig:original_image}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.3\textwidth]{/Users/unnathi/Documents/ee1030-2025/ai25btech11012/SoftwareAssignment/figs/globe/globe.jpg}
+    \caption{Original Globe image }
+    \label{fig:original_image}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{/Users/unnathi/Documents/ee1030-2025/ai25btech11012/SoftwareAssignment/figs/globe/re-globe.png}
+    \caption{ }
+    \label{fig:original_image}
+\end{figure}
+
+\newpage 
+\textbf{Error Analysis :}
+
+In this project the quality of the reconstructed image $A_k$ is evaluated by comapring it to the original image matrix A .\\
+The Forbius norm is used to measure this error which is the overall difference between the matrices .
+\begin{align*}
+    Error = || \vec{A} - \vec{A}_k ||
+\end{align*}
+Here are the tables that give us the Forbius error of each image at differnt k values :
+\vspace{1em} \newline
+\begin{table}[h!]    
+      \centering
+      \input{/Users/unnathi/Documents/ee1030-2025/ai25btech11012/SoftwareAssignment/tables/table2.tex}
+      \caption{Einstein}
+      \label{}
+    \end{table}
+
+
+\begin{table}[h!]    
+      \centering
+      \input{/Users/unnathi/Documents/ee1030-2025/ai25btech11012/SoftwareAssignment/tables/table3.tex}
+      \caption{Greyscale}
+      \label{}
+    \end{table}
+
+
+\begin{table}[h!]    
+      \centering
+      \input{/Users/unnathi/Documents/ee1030-2025/ai25btech11012/SoftwareAssignment/tables/table4.tex}
+      \caption{Globe}
+      \label{}
+    \end{table}
+
+
+\newpage
+
+\textbf{Conclusion :}
+
+
+Developing the SVD using the Power Iteration method provided a deeper understanding of the mathematical foundation behind matrix decomposition and image compression. \\
+
+The Power Iteration - based SVD method used in this project was chosen for its simplicity and conceptual clarity, but it comes with several trade-offs :
+\begin{itemize}
+    \item Its accuracy is lower compared to optimized methods
+    \item computationally slower for large matrices
+\end{itemize}
+\vspace{2em}
+Through this project I successfully achieved the project's objectives :
+\begin{itemize}
+    \item to compute the singular value decomposition manually
+    \item reconstruct images at various compression levels
+    \item analyze the effect of truncation on reconstruction accuracy
+\end{itemize}
+
+\end{document}
+
+
+
+
+
