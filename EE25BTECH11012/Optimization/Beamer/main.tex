@@ -1,0 +1,187 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{multicol}
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title %optional
+{2.0.12}
+%\subtitle{A short story}
+
+\author % (optional)
+{BEERAM MADHURI - EE25BTECH11012}
+
+\begin{document}
+
+
+\frame{\titlepage}
+\begin{frame}{Question}
+A product is made by mixing three raw materials 1, 2, 3 in varying proportions, where material 1 must account for not more than 50\% of the total. If $x, y$ and $z$ are the amounts of raw materials 1, 2, 3, respectively, this constraint can be modeled as \hfill(2007 PI)
+
+\begin{enumerate}[label=\alph*)]
+    \item $x \le 0.5$
+    \item $x \le 0.5(x + y + z)$
+    \item $0.5x \le x + y + z$
+    \item $x \ge 0.5(y + z)$
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{solution}
+Given,\\
+Raw Materials: 1,2,3\\
+Amount: x,y,z\\
+let,\\
+Total amount of Product: T\\
+\begin{align}
+    T = x+y+z
+\end{align}
+\end{frame}
+\begin{frame}
+given constraint: Material one (x) must not account for more than 50\% of the total.\\
+\begin{align} 
+    x \le 0.5(T)\\
+    x \le 0.5(x+y+z)\\
+    x\le y+z
+\end{align}
+
+Correct Option: b
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Python Code}
+    \begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+y = np.linspace(0, 10, 20)
+z = np.linspace(0, 10, 20)
+Y, Z = np.meshgrid(y, z)
+
+# The boundary condition: x = y + z (which is x = 0.5(x + y + z))
+X_boundary = Y + Z
+
+# Setup the figure
+fig = plt.figure(figsize=(10, 8))
+ax = fig.add_subplot(111, projection='3d')
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+# 1. Plot the Boundary Plane
+surf = ax.plot_surface(X_boundary, Y, Z, alpha=0.5, cmap='viridis', edgecolor='none')
+
+# 2. Visualize the Feasible Region (Constraint)
+# We generate random points and keep only those where x <= y + z
+x_pts = np.random.uniform(0, 20, 5000)
+y_pts = np.random.uniform(0, 10, 5000)
+z_pts = np.random.uniform(0, 10, 5000)
+
+# Filter points that satisfy the constraint: x <= 0.5(x + y + z)
+mask = x_pts <= (y_pts + z_pts)
+x = np.linspace(0, 20, 30)
+y = np.linspace(0, 10, 30)
+z = np.linspace(0, 10, 30)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Python Code}
+\begin{lstlisting}
+X, Y, Z = np.meshgrid(x, y, z)
+
+mask = X <= (Y + Z)
+ax.scatter(X[mask], Y[mask], Z[mask],
+           color='green', s=2, alpha=0.2)
+
+# Labels and Title
+ax.set_xlabel('Amount of X (Material 1)')
+ax.set_ylabel('Amount of Y (Material 2)')
+ax.set_zlabel('Amount of Z (Material 3)')
+ax.set_title('Constraint Region: x $\leq$ 0.5(x + y + z)')
+
+plt.show()
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Plot}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\columnwidth]{Figures/plot.png}
+\caption{Boundary Condition}
+\label{fig:placeholder}
+\end{figure}
+\end{frame}
+
+\end{document}

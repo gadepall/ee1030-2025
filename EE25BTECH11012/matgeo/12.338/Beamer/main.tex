@@ -117,7 +117,11 @@ for distinct eigenvalues $\lambda_i$, $\lambda_j$ corresponding eigenvectors are
 \lambda_j \vec{x_j}^\top \vec{x_i} = \lambda_i \vec{x_j}^\top \vec{x_i}\\
 (\lambda_j - \lambda_i) \vec{x_j}^\top \vec{x_i} = 0
 \end{align}
-$\therefore$ \text{eigenvectors are orthogonal}\\
+\begin{align}
+\lambda_i \neq \lambda_j \\
+\vec{x_j}^\top\vec{x_i}=0
+\end{align}
+$\therefore$ \text{eigenvectors are orthogonal}
 \end{frame}
 \begin{frame}
 $\therefore$ \text{We can construct an orthogonal matrix with these eigenvectors}\\
@@ -126,39 +130,113 @@ Q = [\vec{x_1} \ \vec{x_2} \ \vec{x_3} \ \dots \ \vec{x_n}] \\
 Q^\top Q = I\\
 A = Q MQ^\top
 \end{align}
-\text{Where $\vec{M}$ is diagonal matrix}\\
-$\therefore$ $\vec{A}$ is always diagonalizable.\\\\
+\text{Where $\vec{M}$ is diagonal matrix with it's entries as  eigen values of matrix A}\\
+\text{The eigenvalues are placed in the same order as their corresponding eigenvectors $\mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_n$ }
+\end{frame}
+\begin{frame}
+\begin{align}
+M = 
+\begin{pmatrix}
+\lambda_{1} & 0 & \cdots & 0 \\
+0 & \lambda_{2} & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \lambda_{n}
+\end{pmatrix}
+\end{align}
+where $\lambda_1$, $\lambda_2$, $\cdots$ $\lambda_n$ are eigen values of $\vec{A}$\\
+$\therefore$ $\vec{A}$ is always diagonalizable.
 \end{frame}
 \begin{frame}
 Checking for invertibility of Matrix  $\vec{A}$:
 \begin{align}
-\vec{A} = Q M Q^\top \\|A| = |Q| |M| |Q^\top|
+\vec{A} = Q M Q^\top \\|\vec{A}| = |Q| |M| |Q^\top|\\
 |\vec{A}| = M_1 M_2 \cdots M_n
 \end{align}
 where $M_1, M_2, \cdots M_n$ are diagonal entries of Matrix M.\\
-A is invertible only when 
+$\vec{A}$ is invertible only when 
 \begin{align}
-\det(A) \neq 0 
+\det(\vec{A}) \neq 0 
 \end{align}
-that is $M_1, M_2, M_3 \cdots M_n \neq 0$ \\
-that is none of its eigenvalues are zero \\
 \end{frame}
 \begin{frame}
+that is $M_1, M_2, M_3 \cdots M_n \neq 0$ \\
+that is none of its eigenvalues are zero \\
+
 if $\lambda_i = 0$ \\
 then $A$ is non-invertible \\
 
 $\therefore$ a real symmetric matrix may or may not be invertible.\\
-$\therefore$ Option c is correct.\\\\
-Example of a real symmetric matrix $\vec{A}$:
+$\therefore$ Option c is correct.
+\end{frame}
+\begin{frame}
+Examples of a real symmetric matrix $\vec{A}$:\\
+1.
 \begin{align}
     \vec{A}=\begin{pmatrix}
         1 & 1\\1& 1
     \end{pmatrix}\\
     \vec{A}=\vec{A^\top}
 \end{align}
-$\vec{A}$ is symmetric and diagonalizable but not invertible as det(\vec{A}) $=0$
+$\vec{A}$ is real symmetric and diagonalizable but not invertible as $det(\vec{A})=0$\\
+Eigen values of $\vec{A}$ are 0 and 2.
+Eigen vectors of $\vec{A}$ are:
+\begin{align}
+    q1=\begin{pmatrix}
+        1/\sqrt2\\-1/\sqrt2
+    \end{pmatrix}\\
+    q2=\begin{pmatrix}
+        1/\sqrt2\\1/\sqrt2
+    \end{pmatrix}
+\end{align}
 \end{frame}
-
+\begin{frame}
+\begin{align}
+    \vec{A}=\vec{QMQ^\top}\\
+    where, \vec{Q}=\begin{pmatrix}
+        1/\sqrt2 & 1/\sqrt2\\-1/\sqrt2 &1/\sqrt2
+    \end{pmatrix}\\
+    \vec{M}=\begin{pmatrix}
+        0&0\\0&2
+    \end{pmatrix}
+\end{align}
+\end{frame}
+\begin{frame}
+2.
+\begin{align}
+    \vec{A}=\begin{pmatrix}
+        2 & 1\\1& 2
+    \end{pmatrix}\\
+    \vec{A}=\vec{A^\top}
+\end{align}
+$\vec{A}$ is real symmetric, diagonizable and invertible matrix\\
+Eigen values of $\vec{A}$ are 3 and 1.
+Eigen vectors of $\vec{A}$ are:
+\begin{align}
+    q1=\begin{pmatrix}
+        1/\sqrt2\\1/\sqrt2
+    \end{pmatrix}\\
+    q2=\begin{pmatrix}
+        1/\sqrt2\\-1/\sqrt2
+    \end{pmatrix}
+\end{align}
+\end{frame}
+\begin{frame}
+\begin{align}
+    \vec{A}=\vec{QMQ^\top}\\
+    where, \vec{Q}=\begin{pmatrix}
+        1/\sqrt2 & 1/\sqrt2\\1/\sqrt2 &-1/\sqrt2
+    \end{pmatrix}\\
+    \vec{M}=\begin{pmatrix}
+        3&0\\0&1
+    \end{pmatrix}
+\end{align}
+det$\vec{A}$$\neq$0
+\begin{align}
+    \vec{A}^-1=\begin{pmatrix}
+        2/3 & -1/3\\-1/3 &2/3
+    \end{pmatrix}
+    \end{align}
+\end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Python Code}
